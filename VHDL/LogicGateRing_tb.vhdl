@@ -184,13 +184,6 @@ architecture behavioral of LogicGateRing_tb is
 
 -- START USER TEST BENCH DECLARATIONS
 
--- The user test bench declaraionts, if any, must be
--- placed AFTER the line starts with the first line of text 
--- that -- START USER TEST BENCH DECLARATIONS and ends
--- with --END .
--- This text is preserved when the IBM1410SMS applciation
--- regenerates a test bench
-
    -- Your test bench declarations go here
 
 -- END USER TEST BENCH DECLARATIONS
@@ -280,21 +273,13 @@ architecture behavioral of LogicGateRing_tb is
 
 -- START USER TEST BENCH PROCESS
 
--- The user test bench code MUST be placed between the
--- line that starts with the first line of text that
--- begins with "-- START" and ends with "-- END"
--- This text is preserved when the IBM1410SMS applciation
--- regenerates a test bench
-
--- 
--- TestBenchFPGAClock.vhdl
---
--- Process to simulate the FPGA clock for a VHDL test bench
---
+PS_2ND_CLOCK_PULSE_3 <= NOT PS_1ST_CLOCK_PULSE_PRIME;
+MS_LAST_LOGIC_GATE_1 <= NOT PS_LAST_LOGIC_GATE_1;
+PS_LOGIC_GATE_E_OR_V <= PS_LOGIC_GATE_E_1;
 
 fpga_clk_process: process
 
-   constant clk_period : time := 20 ns;
+   constant clk_period : time := 10 ns;
 
    begin
       fpga_clk <= '0';
@@ -313,71 +298,64 @@ fpga_clk_process: process
 -- Stand in for the oscillator and assocaited logic
 --
 
-secondClockPulse: process
-   constant oscillator_period: time := 666 ns;
-   begin
-      PS_LOGIC_RING_ON_ADVANCE_1 <= '1';
-      PS_LOGIC_RING_OFF_ADVANCE_1 <= '1';
-      wait for oscillator_period / 2;
-      PS_LOGIC_RING_ON_ADVANCE_1 <= '0';
-      PS_LOGIC_RING_OFF_ADVANCE_1 <= '0';
-      wait for oscillator_period / 2;
-   end process;
+
 
 uut_process: process
    begin
 
    -- Your test bench code
+   
+   --   Master reset
+
+   report "Begin Logic Gate Ring Test" severity note;
 
    wait for 1 us;
    MS_PROGRAM_RESET_3 <= '0';
    wait for 1 us;
    MS_PROGRAM_RESET_3 <= '1';
-
+   
+   --   Run the logic gates through their ordinary paces.
+      
+   wait until PS_LOGIC_GATE_E_1 = '1' AND PS_2ND_CLOCK_PULSE_3 = '1';
+   wait for 30 ns;
+   assert PS_EARLY_LAST_GATE_I_O = '1' report "EARLY LAST GATE IS 0" severity failure;
+   
    wait until PS_LOGIC_GATE_F_1 = '1';
    PS_LAST_LOGIC_GATE_1 <= '1';
-   PS_LOGIC_GATE_Z <= '1';  
-   MS_LOGIC_GATE_Z <= '0';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '0';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '1';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '0';
+   wait for 10 ns;   
+   assert MS_ANY_LAST_GATE = '0' report "MS ANY LAST GATE IS 1" severity failure;
+   assert PS_ANY_LAST_GATE = '1' report "PS ANY LAST GATE IS 0" severity failure;
+   wait for 10 ns;
+   assert MS_LOGIC_GATE_Z = '0'  report "MS LOGIC GATE Z IS 1"  severity failure;
+   assert PS_LOGIC_GATE_Z = '1'  report "PS LOGIC GATE Z IS 0"  severity failure;
+      
+   wait until PS_2ND_CLOCK_PULSE_3 = '1';
+   wait for 30 ns;
+   assert PS_EARLY_LAST_GATE_I_O = '0' report "EARLY LAST GATE IS 1" severity failure;
+   
+   wait until PS_LOGIC_GATE_F_1 = '0';
    PS_LAST_LOGIC_GATE_1 <= '0';
-   PS_LOGIC_GATE_Z <= '0';  
-   MS_LOGIC_GATE_Z <= '1';
-
+   
+   report "Waiting for H" severity note;
    wait until PS_LOGIC_GATE_H = '1';
    PS_LAST_LOGIC_GATE_1 <= '1';
-   PS_LOGIC_GATE_Z <= '1';  
-   MS_LOGIC_GATE_Z <= '0';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '0';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '1';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '0';
+   wait until PS_LOGIC_GATE_H = '0';
    PS_LAST_LOGIC_GATE_1 <= '0';
-   PS_LOGIC_GATE_Z <= '0';  
-   MS_LOGIC_GATE_Z <= '1';
-
+  
    wait until PS_LOGIC_GATE_J = '1';
    PS_LAST_LOGIC_GATE_1 <= '1';
-   PS_LOGIC_GATE_Z <= '1';  
-   MS_LOGIC_GATE_Z <= '0';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '0';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '1';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '0';
+   wait until PS_LOGIC_GATE_J = '0';
    PS_LAST_LOGIC_GATE_1 <= '0';
-   PS_LOGIC_GATE_Z <= '0';  
-   MS_LOGIC_GATE_Z <= '1';
-
+   
    wait until PS_LOGIC_GATE_K = '1';
    PS_LAST_LOGIC_GATE_1 <= '1';
-   PS_LOGIC_GATE_Z <= '1';  
-   MS_LOGIC_GATE_Z <= '0';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '0';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '1';
-   wait until PS_LOGIC_RING_ON_ADVANCE_1 = '0';
+   wait until PS_LOGIC_GATE_K = '0';
    PS_LAST_LOGIC_GATE_1 <= '0';
-   PS_LOGIC_GATE_Z <= '0';  
-   MS_LOGIC_GATE_Z <= '1';
-
+   
+   wait until PS_LOGIC_GATE_A_1 = '1';
+   
+   report "END LOGIC GATE RING TEST" severity note;
+   
    wait;
 
    end process;
