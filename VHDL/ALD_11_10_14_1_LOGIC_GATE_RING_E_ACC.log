@@ -1,0 +1,73 @@
+Generating HDL for page 11.10.14.1 LOGIC GATE RING E-ACC at 6/7/2020 2:11:10 PM
+Old test bench file ALD_11_10_14_1_LOGIC_GATE_RING_E_ACC_tb.vhdl 50 lines preserved.
+Ignoring Logic Block 1I with symbol R
+Processing extension from block at 4B (Database ID=188615) to 4C (Database ID=188616)
+Copied connection to extension input pin E to master block at 4B
+Copied connection to extension input pin A to master block at 4B
+Copied connection to extension input pin P to master block at 4B
+Copied connection from extension output pin B to master block at 4B
+Copied mapped pin B from extension 4C to master block at 4B
+Copied mapped pin H from extension 4C to master block at 4B
+Copied mapped pin K from extension 4C to master block at 4B
+Copied mapped pin P from extension 4C to master block at 4B
+Copied mapped pin T from extension 4C to master block at 4B
+Moved connection from extension 4C pin B to be from master at 4B
+Processing extension from block at 1D (Database ID=188619) to 1E (Database ID=188620)
+Copied connection from extension output pin A to master block at 1D
+Copied connection from extension output pin A to master block at 1D
+Copied connection from extension output pin A to master block at 1D
+Copied connection from extension output pin A to master block at 1D
+Copied connection from extension output pin A to master block at 1D
+Copied connection from extension output pin A to master block at 1D
+Copied connection from extension output pin A to master block at 1D
+Copied connection from extension output pin A to master block at 1D
+Removed 18 outputs from Gate at 1D to ignored block(s)
+Removed 4 outputs from Gate at 1F to ignored block(s)
+Removed 5 outputs from Gate at 1G to ignored block(s)
+Removed 2 outputs from Gate at 1H to ignored block(s)
+Added LAMP signal LAMP_15A1E06
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of OUT_3B_D
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of 
+	and inputs of OUT_2A_D
+	and logic function of Lamp
+Generating Statement for block at 4B with output pin(s) of OUT_4B_F, OUT_4B_B
+	and inputs of PS_LOGIC_GATE_D,PS_LOGIC_RING_ON_ADVANCE_1,MS_LOGIC_GATE_D,PS_LOGIC_RING_OFF_ADVANCE_1,MS_PROGRAM_RESET_3
+	and logic function of Trigger
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D, OUT_3B_D, OUT_3B_D, OUT_3B_D
+	and inputs of OUT_4B_F
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C, OUT_3C_C, OUT_3C_C
+	and inputs of OUT_4B_B
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_A
+	and inputs of OUT_3B_D
+	and logic function of Special
+Generating Statement for block at 1F with output pin(s) of OUT_1F_F
+	and inputs of OUT_3B_D
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of OUT_1G_D
+	and inputs of OUT_3C_C
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of OUT_1H_F
+	and inputs of OUT_3C_C
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_LOGIC_GATE_E
+	from gate output OUT_3B_D
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_E
+	from gate output OUT_3C_C
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_E_1
+	from gate output OUT_1D_A
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_E_2
+	from gate output OUT_1F_F
+Generating output sheet edge signal assignment to 
+	signal MS_LOGIC_GATE_E_1
+	from gate output OUT_1G_D
+Generating output sheet edge signal assignment to 
+	signal MY_LOGIC_GATE_E
+	from gate output OUT_1H_F

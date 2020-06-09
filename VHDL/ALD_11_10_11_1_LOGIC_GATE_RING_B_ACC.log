@@ -1,0 +1,49 @@
+Generating HDL for page 11.10.11.1 LOGIC GATE RING B-ACC at 6/7/2020 2:11:02 PM
+Old test bench file ALD_11_10_11_1_LOGIC_GATE_RING_B_ACC_tb.vhdl 50 lines preserved.
+Processing extension from block at 4B (Database ID=188191) to 4C (Database ID=188192)
+Copied connection to extension input pin E to master block at 4B
+Copied connection to extension input pin A to master block at 4B
+Copied connection to extension input pin P to master block at 4B
+Copied connection from extension output pin B to master block at 4B
+Copied mapped pin B from extension 4C to master block at 4B
+Copied mapped pin H from extension 4C to master block at 4B
+Copied mapped pin K from extension 4C to master block at 4B
+Copied mapped pin P from extension 4C to master block at 4B
+Copied mapped pin T from extension 4C to master block at 4B
+Moved connection from extension 4C pin B to be from master at 4B
+Removed 8 outputs from Gate at 1B to ignored block(s)
+Removed 21 outputs from Gate at 1E to ignored block(s)
+Added LAMP signal LAMP_15A1B06
+Generating Statement for block at 2A with output pin(s) of OUT_2A_E
+	and inputs of OUT_3B_D
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of 
+	and inputs of OUT_2A_E
+	and logic function of Lamp
+Generating Statement for block at 4B with output pin(s) of OUT_4B_F, OUT_4B_B
+	and inputs of PS_LOGIC_GATE_A,PS_LOGIC_RING_ON_ADVANCE_1,MS_LOGIC_GATE_A,PS_LOGIC_RING_OFF_ADVANCE_1,MS_PROGRAM_RESET_3
+	and logic function of Trigger
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D, OUT_3B_D, OUT_3B_D
+	and inputs of OUT_4B_F
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C
+	and inputs of OUT_3B_D
+	and logic function of Special
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C, OUT_3C_C
+	and inputs of OUT_4B_B
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of OUT_1E_H
+	and inputs of OUT_3C_C
+	and logic function of Special
+Generating output sheet edge signal assignment to 
+	signal MS_LOGIC_GATE_B
+	from gate output OUT_3B_D
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_B_1
+	from gate output OUT_1B_C
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_B
+	from gate output OUT_3C_C
+Generating output sheet edge signal assignment to 
+	signal MS_LOGIC_GATE_B_1
+	from gate output OUT_1E_H

@@ -1,0 +1,107 @@
+Generating HDL for group named LogicGateRingat 5/30/2020 7:42:26 PM containing pages: 
+	11.10.10.1, 11.10.11.1, 11.10.12.1, 11.10.13.1, 11.10.14.1
+	11.10.15.1, 11.10.16.1, 11.10.17.1, 11.10.18.1, 11.10.19.1
+Old test bench file LogicGateRing_tb.vhdl 115 lines preserved.
+Building lists of signals on 10 pages...
+Found 15 signals on page 11.10.10.1
+Found 9 signals on page 11.10.11.1
+Found 9 signals on page 11.10.12.1
+Found 11 signals on page 11.10.13.1
+Found 11 signals on page 11.10.14.1
+Found 10 signals on page 11.10.15.1
+Found 8 signals on page 11.10.16.1
+Found 8 signals on page 11.10.17.1
+Found 8 signals on page 11.10.18.1
+Found 8 signals on page 11.10.19.1
+Found 30 unique input signals and 37 unique output signals, (48 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LOGIC RING ON ADVANCE 1 originates outside the group.
+INFO:  Signal +S LOGIC RING OFF ADVANCE 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE Z originates outside the group.
+INFO:  Signal -S LOGIC GATE Z originates outside the group.
+INFO:  Signal -S PROGRAM RESET 3 originates outside the group.
+INFO:  Signal +S E CYCLE REQUIRED originates outside the group.
+INFO:  Signal +S E CH UNOVLP IN PROCESS originates outside the group.
+INFO:  Signal +S F CYCLE REQUIRED originates outside the group.
+INFO:  Signal +S F CH UNOVLP IN PROCESS originates outside the group.
+INFO:  Signal +S COMP DISABLE CYCLE originates outside the group.
+INFO:  Signal -S LOGIC GATE A originates inside the group.
+INFO:  Signal +S LOGIC GATE A originates inside the group.
+INFO:  Signal -S LOGIC GATE B originates inside the group.
+INFO:  Signal +S LOGIC GATE B originates inside the group.
+INFO:  Signal +S LOGIC GATE C originates inside the group.
+INFO:  Signal -S LOGIC GATE C originates inside the group.
+INFO:  Signal -S LOGIC GATE C 1 originates inside the group.
+INFO:  Signal -S LOGIC GATE D originates inside the group.
+INFO:  Signal +S LOGIC GATE D originates inside the group.
+INFO:  Signal -S LOGIC GATE E originates inside the group.
+INFO:  Signal +S LOGIC GATE E originates inside the group.
+INFO:  Signal -S LOGIC GATE F originates inside the group.
+INFO:  Signal +S LOGIC GATE F originates inside the group.
+INFO:  Signal +S LAST LOGIC GATE 1 originates outside the group.
+INFO:  Signal -S LOGIC GATE G originates inside the group.
+INFO:  Signal +S LOGIC GATE G originates inside the group.
+INFO:  Signal -S LOGIC GATE H originates inside the group.
+INFO:  Signal +S LOGIC GATE H originates inside the group.
+INFO:  Signal -S LOGIC GATE J originates inside the group.
+INFO:  Signal +S LOGIC GATE J originates inside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S LOGIC GATE A is used only inside the group.
+INFO:  Signal +S LOGIC GATE A 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE A is used only inside the group.
+INFO:  Signal +S LOGIC GATE A CONTROL is used outside the group.
+INFO:  Signal -S LOGIC GATE A 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE B 1 is used outside the group.
+INFO:  Signal -S LOGIC GATE B is used only inside the group.
+INFO:  Signal +S LOGIC GATE B is used only inside the group.
+INFO:  Signal -S LOGIC GATE B 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE C is used only inside the group.
+INFO:  Signal -S LOGIC GATE C is used only inside the group.
+INFO:  Signal -S LOGIC GATE C 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE C 1 is used outside the group.
+INFO:  Signal -S LOGIC GATE D is used only inside the group.
+INFO:  Signal +S LOGIC GATE D is used only inside the group.
+INFO:  Signal -S LOGIC GATE D 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE C + D is used outside the group.
+INFO:  Signal +S LOGIC GATE D 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE E 1 is used outside the group.
+INFO:  Signal -S LOGIC GATE E is used only inside the group.
+INFO:  Signal +S LOGIC GATE E is used only inside the group.
+INFO:  Signal +S LOGIC GATE E 2 is used outside the group.
+INFO:  Signal -S LOGIC GATE E 1 is used outside the group.
+INFO:  Signal -Y LOGIC GATE E is used outside the group.
+INFO:  Signal +S LOGIC GATE F 1 is used outside the group.
+INFO:  Signal -S LOGIC GATE F is used only inside the group.
+INFO:  Signal -Y LOGIC GATE F 1 is used outside the group.
+INFO:  Signal -S LOGIC GATE F 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE F is used only inside the group.
+INFO:  Signal -S LOGIC GATE G is used outside the group.
+INFO:  Signal +S LOGIC GATE G is used outside the group.
+INFO:  Signal -S LOGIC GATE H is used outside the group.
+INFO:  Signal +S LOGIC GATE H is used outside the group.
+INFO:  Signal -S LOGIC GATE J is used outside the group.
+INFO:  Signal +S LOGIC GATE J is used outside the group.
+INFO:  Signal -S LOGIC GATE K is used outside the group.
+INFO:  Signal +S LOGIC GATE K is used outside the group.
+Removing 12 output signals that do not have destinations outside the group...
+Removing 19 input signals that originate inside the group...
+Signal -S LOGIC GATE C 1 is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE G is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE G is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE H is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE H is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE J is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE J is output from the group, but also used as an input inside the group.
+Generating list of internal signals/wires ...
+12 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL for page 11.10.10.1 (LOGIC GATE RING A-ACC)
+Generating HDL for page 11.10.11.1 (LOGIC GATE RING B-ACC)
+Generating HDL for page 11.10.12.1 (LOGIC GATE RING C-ACC)
+Generating HDL for page 11.10.13.1 (LOGIC GATE RING D-ACC)
+Generating HDL for page 11.10.14.1 (LOGIC GATE RING E-ACC)
+Generating HDL for page 11.10.15.1 (LOGIC GATE RING F)
+Generating HDL for page 11.10.16.1 (LOGIC GATE RING G-ACC)
+Generating HDL for page 11.10.17.1 (LOGIC GATE RING H-ACC)
+Generating HDL for page 11.10.18.1 (LOGIC GATE RING J-ACC)
+Generating HDL for page 11.10.19.1 (LOGIC GATE RING K-ACC)

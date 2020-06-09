@@ -1,0 +1,41 @@
+Generating HDL for group named LogicClockat 6/7/2020 3:51:06 PM containing pages: 
+	11.10.01.1, 11.10.02.1
+Old test bench file LogicClock_tb.vhdl 50 lines preserved.
+Building lists of signals on 2 pages...
+Found 4 signals on page 11.10.01.1
+Found 19 signals on page 11.10.02.1
+Found 12 unique input signals and 11 unique output signals, (21 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +P SPECIAL +12V POWER FOR OSC originates outside the group.
+INFO:  Signal +S OSCILLATOR originates inside the group.
+INFO:  Signal +S OSCILLATOR DELAYED originates inside the group.
+INFO:  Signal +S 1401 STOP AND WAIT originates outside the group.
+INFO:  Signal +S 1401 COND TEST OP CODE originates outside the group.
+INFO:  Signal +S I RING 9 TIME originates outside the group.
+INFO:  Signal +S B CH WM BIT 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE E 1 originates outside the group.
+INFO:  Signal +S STOP LATCH originates outside the group.
+INFO:  Signal -S F CH IN PROCESS originates outside the group.
+INFO:  Signal -S E CH IN PROCESS originates outside the group.
+INFO:  Signal -S MASTER ERROR originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S OSCILLATOR is used outside the group.
+INFO:  Signal +P SPECIAL +12V FOR REL DRIVERS is used outside the group.
+INFO:  Signal +S OSCILLATOR DELAYED is used only inside the group.
+INFO:  Signal +S 1ST CLOCK PULSE 1 is used outside the group.
+INFO:  Signal +S 1ST CLOCK PULSE PRIME is used outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 1 is used outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 2 is used outside the group.
+INFO:  Signal +S STOPPED.NOT IN PROCESS is used outside the group.
+INFO:  Signal +S CLOCK STOPPED *AUTS* is used outside the group.
+INFO:  Signal +S CLOCK STOPPED is used outside the group.
+INFO:  Signal -S CLOCK STOPPED is used outside the group.
+Removing 1 output signals that do not have destinations outside the group...
+Removing 2 input signals that originate inside the group...
+Signal +S OSCILLATOR is output from the group, but also used as an input inside the group.
+Page 11.10.02.1 generates Lamp Output LAMP_15A1K24
+Generating list of internal signals/wires ...
+1 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 11.10.01.1 (LOGIC CLOCK-ACC)
+Generating HDL associated with page 11.10.02.1 (1*LOGIC GATE RING CLK PULSES-ACC)

@@ -1,0 +1,39 @@
+Generating HDL for page 11.10.01.1 LOGIC CLOCK-ACC at 6/7/2020 5:07:30 PM
+Old test bench file ALD_11_10_01_1_LOGIC_CLOCK_ACC_tb.vhdl 50 lines preserved.
+Ignoring Logic Block 3D with symbol L
+Ignoring Logic Block 1H with symbol L
+Removed 2 outputs from Gate at 4E to ignored block(s)
+Removed 3 outputs from Gate at 2E to ignored block(s)
+Removed 1 outputs from Gate at 2G to ignored block(s)
+Generating Statement for block at 5E with output pin(s) of OUT_5E_A
+	and inputs of PP_SPECIAL_OR_12V_POWER_FOR_OSC
+	and logic function of Special
+	INFO: Oscillator at 5E frequency: 1500 KHz, Clock Period is 10 ns
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D, OUT_4E_D
+	and inputs of OUT_5E_A
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_B
+	and inputs of PP_SPECIAL_OR_12V_POWER_FOR_OSC
+	and logic function of EQUAL
+Generating Statement for block at 5G with output pin(s) of OUT_5G_F
+	and inputs of OUT_4E_D
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_B
+	and inputs of OUT_5G_F
+	and logic function of DELAY
+	INFO: ShiftRegister at 4G Delay: 330 ns, Clock Period is 10 ns
+Generating Statement for block at 3G with output pin(s) of OUT_3G_A
+	and inputs of OUT_4G_B
+	and logic function of EQUAL
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_3G_A
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_OSCILLATOR
+	from gate output OUT_4E_D
+Generating output sheet edge signal assignment to 
+	signal PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	from gate output OUT_2E_B
+Generating output sheet edge signal assignment to 
+	signal PS_OSCILLATOR_DELAYED
+	from gate output OUT_2G_C
