@@ -1,0 +1,84 @@
+Generating HDL for page 11.10.06.1 SPECIAL LAST GATES-ACC at 6/9/2020 10:46:21 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_06_1_SPECIAL_LAST_GATES_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 1B
+Found combinatorial loop (need D FF) at output of gate at 3H
+Found combinatorial loop (need D FF) at output of gate at 4I
+Found combinatorial loop (need D FF) at output of gate at 3I
+Removed 1 outputs from Gate at 1D to ignored block(s)
+Removed 12 outputs from Gate at 3H to ignored block(s)
+Removed 1 outputs from Gate at 2I to ignored block(s)
+Removed 3 outputs from Dot Function at 1B to ignored block(s)
+Removed 3 outputs from Dot Function at 1E to ignored block(s)
+DEBUG: Test bench declares template: 13 lines.
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PS_2ND_CLOCK_PULSE_3,PS_LOGIC_GATE_E_OR_V
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_K_Latch
+	and inputs of OUT_DOT_1B,OUT_4C_C
+	and logic function of NAND
+Generating Statement for block at 1B with *latched* output pin(s) of OUT_1B_F_Latch
+	and inputs of OUT_2B_K
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of OUT_5D_C,PS_2ND_CLOCK_PULSE_3
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_D
+	and inputs of OUT_4A_G
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_LOGIC_GATE_E_OR_V
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C
+	and inputs of OUT_DOT_1E
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_B
+	and inputs of MS_LOGIC_GATE_W
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of OUT_1E_R
+	and inputs of MS_LOGIC_GATE_W
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of OUT_1F_F
+	and inputs of MS_LAST_LOGIC_GATE_1
+	and logic function of NOT
+Generating Statement for block at 3H with *latched* output pin(s) of OUT_3H_H_Latch, OUT_3H_H_Latch, OUT_3H_H_Latch
+	and inputs of OUT_DOT_3E,MS_LAST_LOGIC_GATE_1
+	and logic function of Special
+Generating Statement for block at 4I with *latched* output pin(s) of OUT_4I_E_Latch
+	and inputs of OUT_3H_H,MS_LOGIC_GATE_A_1,MS_LOGIC_GATE_R
+	and logic function of NAND
+Generating Statement for block at 3I with *latched* output pin(s) of OUT_3I_F_Latch
+	and inputs of OUT_4I_E
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_C
+	and inputs of OUT_3H_H
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B, OUT_DOT_1B
+	and inputs of OUT_1B_F,OUT_1C_D
+	and logic function of OR
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E, OUT_DOT_1E
+	and inputs of OUT_1E_R,OUT_1F_F
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_3E_B,OUT_3I_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ANY_LAST_GATE
+	from gate output OUT_1D_C
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_Z
+	from gate output OUT_3H_H
+Generating output sheet edge signal assignment to 
+	signal MS_LOGIC_GATE_Z
+	from gate output OUT_2I_C
+Generating output sheet edge signal assignment to 
+	signal PS_EARLY_LAST_GATE_I_O
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_ANY_LAST_GATE
+	from gate output OUT_DOT_1E
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 1B
+Generating D Flip Flop for block at 3H
+Generating D Flip Flop for block at 4I
+Generating D Flip Flop for block at 3I
