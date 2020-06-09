@@ -2,7 +2,8 @@
 
 -- The user test bench code MUST be placed between the
 -- line that starts with the first line of text that
--- begins with "-- START" and ends with "-- END"
+-- begins with "-- START USERS TEST BENCH PROCESS" 
+-- and ends with "-- END"
 -- This text is preserved when the IBM1410SMS applciation
 -- regenerates a test bench
 
