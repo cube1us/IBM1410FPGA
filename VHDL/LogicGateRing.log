@@ -1,7 +1,8 @@
-Generating HDL for group named LogicGateRingat 5/30/2020 7:42:26 PM containing pages: 
+Generating HDL for group named LogicGateRingat 6/9/2020 10:32:49 AM containing pages: 
 	11.10.10.1, 11.10.11.1, 11.10.12.1, 11.10.13.1, 11.10.14.1
 	11.10.15.1, 11.10.16.1, 11.10.17.1, 11.10.18.1, 11.10.19.1
-Old test bench file LogicGateRing_tb.vhdl 115 lines preserved.
+Old test bench file LogicGateRing_tb.vhdl 115 lines preserved and 0 declaration lines preserved
+DEBUG: Test bench declares template: 13 lines.
 Building lists of signals on 10 pages...
 Found 15 signals on page 11.10.10.1
 Found 9 signals on page 11.10.11.1
@@ -92,16 +93,26 @@ Signal -S LOGIC GATE H is output from the group, but also used as an input insid
 Signal +S LOGIC GATE H is output from the group, but also used as an input inside the group.
 Signal -S LOGIC GATE J is output from the group, but also used as an input inside the group.
 Signal +S LOGIC GATE J is output from the group, but also used as an input inside the group.
+Page 11.10.10.1 generates Lamp Output LAMP_15A1A06
+Page 11.10.11.1 generates Lamp Output LAMP_15A1B06
+Page 11.10.12.1 generates Lamp Output LAMP_15A1C06
+Page 11.10.13.1 generates Lamp Output LAMP_15A1D06
+Page 11.10.14.1 generates Lamp Output LAMP_15A1E06
+Page 11.10.15.1 generates Lamp Output LAMP_15A1F06
+Page 11.10.16.1 generates Lamp Output LAMP_15A1G06
+Page 11.10.17.1 generates Lamp Output LAMP_15A1H06
+Page 11.10.18.1 generates Lamp Output LAMP_15A1J06
+Page 11.10.19.1 generates Lamp Output LAMP_15A1K06
 Generating list of internal signals/wires ...
 12 internal signals/wires found.
 Generating HDL prefixes...
-Generating HDL for page 11.10.10.1 (LOGIC GATE RING A-ACC)
-Generating HDL for page 11.10.11.1 (LOGIC GATE RING B-ACC)
-Generating HDL for page 11.10.12.1 (LOGIC GATE RING C-ACC)
-Generating HDL for page 11.10.13.1 (LOGIC GATE RING D-ACC)
-Generating HDL for page 11.10.14.1 (LOGIC GATE RING E-ACC)
-Generating HDL for page 11.10.15.1 (LOGIC GATE RING F)
-Generating HDL for page 11.10.16.1 (LOGIC GATE RING G-ACC)
-Generating HDL for page 11.10.17.1 (LOGIC GATE RING H-ACC)
-Generating HDL for page 11.10.18.1 (LOGIC GATE RING J-ACC)
-Generating HDL for page 11.10.19.1 (LOGIC GATE RING K-ACC)
+Generating HDL associated with page 11.10.10.1 (LOGIC GATE RING A-ACC)
+Generating HDL associated with page 11.10.11.1 (LOGIC GATE RING B-ACC)
+Generating HDL associated with page 11.10.12.1 (LOGIC GATE RING C-ACC)
+Generating HDL associated with page 11.10.13.1 (LOGIC GATE RING D-ACC)
+Generating HDL associated with page 11.10.14.1 (LOGIC GATE RING E-ACC)
+Generating HDL associated with page 11.10.15.1 (LOGIC GATE RING F)
+Generating HDL associated with page 11.10.16.1 (LOGIC GATE RING G-ACC)
+Generating HDL associated with page 11.10.17.1 (LOGIC GATE RING H-ACC)
+Generating HDL associated with page 11.10.18.1 (LOGIC GATE RING J-ACC)
+Generating HDL associated with page 11.10.19.1 (LOGIC GATE RING K-ACC)

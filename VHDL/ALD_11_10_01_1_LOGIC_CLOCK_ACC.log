@@ -1,5 +1,5 @@
-Generating HDL for page 11.10.01.1 LOGIC CLOCK-ACC at 6/7/2020 5:07:30 PM
-Old test bench file ALD_11_10_01_1_LOGIC_CLOCK_ACC_tb.vhdl 50 lines preserved.
+Generating HDL for page 11.10.01.1 LOGIC CLOCK-ACC at 6/9/2020 9:39:03 AM
+Old test bench file ALD_11_10_01_1_LOGIC_CLOCK_ACC_tb.vhdl 46 lines preserved and 5 declaration lines preserved
 Ignoring Logic Block 3D with symbol L
 Ignoring Logic Block 1H with symbol L
 Removed 2 outputs from Gate at 4E to ignored block(s)

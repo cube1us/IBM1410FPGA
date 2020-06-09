@@ -1,6 +1,6 @@
-Generating HDL for group named LogicClockat 6/7/2020 3:51:06 PM containing pages: 
+Generating HDL for group named LogicClockat 6/9/2020 10:30:39 AM containing pages: 
 	11.10.01.1, 11.10.02.1
-Old test bench file LogicClock_tb.vhdl 50 lines preserved.
+Old test bench file LogicClock_tb.vhdl 121 lines preserved and 29 declaration lines preserved
 Building lists of signals on 2 pages...
 Found 4 signals on page 11.10.01.1
 Found 19 signals on page 11.10.02.1
