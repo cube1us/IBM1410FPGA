@@ -389,7 +389,33 @@ uut_process: process
    
    --   Examine simulator "scope" to verify PS INSN RO is not 1 during
    --   B through E logic ring states.   
-         
+   
+   --   Test Compute Disable / unoverlapped I/O
+   
+   wait until PS_LOGIC_GATE_E_1 = '1';
+   PS_COMP_DISABLE_CYCLE <= '1';
+   PS_E_CH_UNOVLP_IN_PROCESS <= '1';
+   wait until PS_LOGIC_GATE_G = '1';
+   PS_LAST_LOGIC_GATE_1 <= '1';
+   wait until PS_LOGIC_GATE_G = '0';
+   PS_LAST_LOGIC_GATE_1 <= '0';
+   --   At this point, the ring should hold after "G"
+   wait for 5 us;
+   PS_E_CYCLE_REQUIRED <= '1';
+   wait for 3 us;
+   --   At this point, the ring should start up again at "A"
+   PS_E_CYCLE_REQUIRED <= '0';
+   wait until PS_LOGIC_GATE_G = '1';
+   PS_LAST_LOGIC_GATE_1 <= '1';
+   wait until PS_LOGIC_GATE_G = '0';
+   PS_LAST_LOGIC_GATE_1 <= '0';
+   --   At this point the ring should hold again after "G"
+   --   As compute disable is still present
+   wait for 5 us;
+   PS_COMP_DISABLE_CYCLE <= '0';
+   PS_E_CH_UNOVLP_IN_PROCESS <= '0';
+   --   At this point the ring should finish.
+     
    report "END LOGIC GATE RING TEST" severity note;
    
    wait;
