@@ -322,12 +322,20 @@ uut_process: process
    
    wait until PS_LOGIC_GATE_F_1 = '1';
    PS_LAST_LOGIC_GATE_1 <= '1';
-   wait for 10 ns;   
+   wait for 3 ns;
    assert MS_ANY_LAST_GATE = '0' report "MS ANY LAST GATE IS 1" severity failure;
    assert PS_ANY_LAST_GATE = '1' report "PS ANY LAST GATE IS 0" severity failure;
    wait for 10 ns;
    assert MS_LOGIC_GATE_Z = '0'  report "MS LOGIC GATE Z IS 1"  severity failure;
    assert PS_LOGIC_GATE_Z = '1'  report "PS LOGIC GATE Z IS 0"  severity failure;
+   
+   --   +S INDEX GATE ONLY ACTIVE FOR H, J and K logic states
+   
+   assert PS_INDEX_GATE = '0' report "PS INDEX GATE NOT 0 (0a)" severity failure;
+   PS_X_CYCLE <= '1';
+   wait for 10 ns;
+   assert PS_INDEX_GATE = '0' report "PS INDEX GATE NOT 0 (0b)" severity failure;
+   PS_X_CYCLE <= '0';
       
    wait until PS_2ND_CLOCK_PULSE_3 = '1';
    wait for 30 ns;
@@ -339,21 +347,49 @@ uut_process: process
    report "Waiting for H" severity note;
    wait until PS_LOGIC_GATE_H = '1';
    PS_LAST_LOGIC_GATE_1 <= '1';
+   assert PS_INDEX_GATE = '0' report "PS INDEX GATE NOT 0 (1)" severity failure;
+   PS_X_CYCLE <= '1';
+   wait for 10 ns;
+   assert PS_INDEX_GATE = '1' report "PS INDEX GATE NOT 1 (1)" severity failure;
+   PS_X_CYCLE <= '0';
+   
    wait until PS_LOGIC_GATE_H = '0';
    PS_LAST_LOGIC_GATE_1 <= '0';
   
    wait until PS_LOGIC_GATE_J = '1';
    PS_LAST_LOGIC_GATE_1 <= '1';
+   assert PS_INDEX_GATE = '0' report "PS INDEX GATE NOT 0 (2)" severity failure;
+   PS_X_CYCLE <= '1';
+   wait for 10 ns;
+   assert PS_INDEX_GATE = '1' report "PS INDEX GATE NOT 1 (2)" severity failure;
+   PS_X_CYCLE <= '0';   
    wait until PS_LOGIC_GATE_J = '0';
    PS_LAST_LOGIC_GATE_1 <= '0';
    
    wait until PS_LOGIC_GATE_K = '1';
    PS_LAST_LOGIC_GATE_1 <= '1';
+   assert PS_INDEX_GATE = '0' report "PS INDEX GATE NOT 0 (3)" severity failure;
+   PS_X_CYCLE <= '1';
+   wait for 10 ns;
+   assert PS_INDEX_GATE = '1' report "PS INDEX GATE NOT 1 (3)" severity failure;
+   PS_X_CYCLE <= '0';      
    wait until PS_LOGIC_GATE_K = '0';
    PS_LAST_LOGIC_GATE_1 <= '0';
+
+   -- Test instruction readout gate
    
    wait until PS_LOGIC_GATE_A_1 = '1';
+   assert PS_INSN_RO_GATE = '0' report "INSN RO NOT 0 (4)" severity failure;   
+   PS_I_CYCLE <= '1';
+   wait for 10 ns;
+   assert PS_INSN_RO_GATE = '0' report "INSN RO NOT 0 (5)" severity failure;
+   PS_A_CH_NOT_WM_BIT <= '1';
+   wait for 10 ns;
+   assert PS_INSN_RO_GATE = '1' report "INSN RO NOT 1 (6)" severity failure;
    
+   --   Examine simulator "scope" to verify PS INSN RO is not 1 during
+   --   B through E logic ring states.   
+         
    report "END LOGIC GATE RING TEST" severity note;
    
    wait;
