@@ -1,0 +1,34 @@
+Generating HDL for page 11.20.11.1 1ST AND 2ND ADDRESS CTRLS at 6/11/2020 1:06:59 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_11_1_1ST_AND_2ND_ADDRESS_CTRLS_tb.vhdl, generating default test bench code.
+Removed 5 outputs from Gate at 2C to ignored block(s)
+Removed 2 outputs from Gate at 2E to ignored block(s)
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of MS_I_RING_1_TIME,MS_I_RING_2_TIME,MS_I_RING_3_TIME
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_DOT_4C
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_K
+	and inputs of MS_I_RING_4_TIME,MS_I_RING_5_TIME
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of MS_I_RING_6_TIME,MS_I_RING_7_TIME,MS_I_RING_8_TIME
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_K
+	and inputs of OUT_DOT_4E
+	and logic function of EQUAL
+Generating Statement for block at 4F with output pin(s) of OUT_4F_P
+	and inputs of MS_I_RING_9_TIME,MS_I_RING_10_TIME
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_G,OUT_4D_K
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4E_G,OUT_4F_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_1ST_ADDRESS
+	from gate output OUT_2C_C
+Generating output sheet edge signal assignment to 
+	signal PS_2ND_ADDRESS
+	from gate output OUT_2E_K

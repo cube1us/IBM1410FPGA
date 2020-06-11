@@ -1,0 +1,46 @@
+Generating HDL for page 11.20.09.1 I RING MIX at 6/11/2020 1:06:50 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_09_1_I_RING_MIX_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5F
+Found combinatorial loop (need D FF) at output of gate at 4F
+Removed 8 outputs from Gate at 1D to ignored block(s)
+Generating Statement for block at 2A with output pin(s) of OUT_2A_G
+	and inputs of MS_I_RING_2_TIME,MS_I_RING_7_TIME
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of MS_I_RING_7_TIME,MS_I_RING_2_TIME,MS_I_RING_5_TIME
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_G
+	and inputs of MS_I_RING_10_TIME,MS_I_RING_6_TIME,MS_I_RING_1_TIME
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_G, OUT_3D_G
+	and inputs of OUT_4F_C,PS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_R
+	and inputs of OUT_3D_G,MS_I_RING_1_TIME
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_H
+	and inputs of OUT_2D_R
+	and logic function of EQUAL
+Generating Statement for block at 5F with *latched* output pin(s) of OUT_5F_C_Latch
+	and inputs of OUT_4F_C,MS_I_RING_4_TIME,MS_I_RING_RESET_1
+	and logic function of NAND
+Generating Statement for block at 4F with *latched* output pin(s) of OUT_4F_C_Latch, OUT_4F_C_Latch
+	and inputs of OUT_5F_C,MS_I_RING_1_TIME
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2B_G,OUT_2C_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_2_OR_7_TIME
+	from gate output OUT_2A_G
+Generating output sheet edge signal assignment to 
+	signal MS_I_RING_3_AND_1401_MODE
+	from gate output OUT_3D_G
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_1_OR_1401_AND_3_TIME
+	from gate output OUT_1D_H
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_1_OR_2_OR_5_OR_6_OR_10_TIME
+	from gate output OUT_DOT_2B
+Generating D Flip Flop for block at 5F
+Generating D Flip Flop for block at 4F

@@ -1,0 +1,16 @@
+Generating HDL for page 11.10.36.1 2ND CLOCK PULSE 3-ACC at 6/10/2020 7:37:59 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_36_1_2ND_CLOCK_PULSE_3_ACC_tb.vhdl, generating default test bench code.
+Removed 3 outputs from Gate at 3B to ignored block(s)
+Removed 8 outputs from Gate at 3C to ignored block(s)
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of PS_1ST_CLOCK_PULSE_PRIME
+	and logic function of Special
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of PS_1ST_CLOCK_PULSE_PRIME
+	and logic function of Special
+Generating output sheet edge signal assignment to 
+	signal PS_2ND_CLOCK_PULSE_3
+	from gate output OUT_3B_C
+Generating output sheet edge signal assignment to 
+	signal PS_2ND_CLOCK_PULSE_3_JRJ
+	from gate output OUT_3C_C

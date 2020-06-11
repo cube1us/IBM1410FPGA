@@ -1,0 +1,26 @@
+Generating HDL for page 11.20.10.1 I RING MIX at 6/11/2020 1:06:56 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_10_1_I_RING_MIX_tb.vhdl, generating default test bench code.
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of MS_I_RING_1_TIME_1,MS_I_RING_2_TIME
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_K
+	and inputs of MS_I_RING_3_TIME,MS_I_RING_4_TIME
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of MS_I_RING_6_TIME,MS_I_RING_7_TIME
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of MS_I_RING_8_TIME,MS_I_RING_9_TIME
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A
+	and inputs of OUT_3A_G,OUT_3B_K
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3D_C,OUT_3E_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_1_OR_2_OR_3_OR_4_TIME
+	from gate output OUT_DOT_3A
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_6_OR_7_OR_8_OR_9_TIME
+	from gate output OUT_DOT_3D

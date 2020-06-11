@@ -1,0 +1,49 @@
+Generating HDL for page 11.10.32.1 LOGIC GATE MIX-ACC at 6/10/2020 7:37:14 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_32_1_LOGIC_GATE_MIX_ACC_tb.vhdl, generating default test bench code.
+Ignoring Logic Block 1A with symbol R
+Removed 2 outputs from Gate at 2A to ignored block(s)
+Removed 11 outputs from Gate at 1B to ignored block(s)
+Removed 6 outputs from Dot Function at 1D to ignored block(s)
+Removed 6 outputs from Dot Function at 1F to ignored block(s)
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B
+	and inputs of OUT_1B_H
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_1B_H, OUT_1B_H
+	and inputs of MS_LOGIC_GATE_A_1,OUT_1C_B
+	and logic function of Special
+Generating Statement for block at 1C with output pin(s) of OUT_1C_B
+	and inputs of MS_LOGIC_GATE_R
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_F
+	and inputs of MS_LOGIC_GATE_B_1
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_R
+	and inputs of MS_LOGIC_GATE_C_1
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_F
+	and inputs of MS_LOGIC_GATE_D_1
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_R
+	and inputs of MS_LOGIC_GATE_E_1
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_B
+	and inputs of MS_LOGIC_GATE_F_1
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_3D_F,OUT_3E_R
+	and logic function of OR
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_3F_F,OUT_3G_R,OUT_3H_B
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MY_READ_CALL
+	from gate output OUT_2A_B
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_A_OR_R
+	from gate output OUT_1B_H
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_B_OR_C
+	from gate output OUT_DOT_1D
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_D_OR_E_OR_F
+	from gate output OUT_DOT_1F

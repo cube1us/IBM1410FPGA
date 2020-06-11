@@ -1,0 +1,140 @@
+Generating HDL for group named IRINGat 6/11/2020 1:49:54 PM containing pages: 
+	11.20.01.1, 11.20.02.1, 11.20.03.1, 11.20.04.1, 11.20.05.1
+	11.20.06.1, 11.20.07.1, 11.20.08.1, 11.20.09.1, 11.20.10.1
+	11.20.11.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\IRING_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 11 pages...
+Found 13 signals on page 11.20.01.1
+Found 10 signals on page 11.20.02.1
+Found 9 signals on page 11.20.03.1
+Found 9 signals on page 11.20.04.1
+Found 9 signals on page 11.20.05.1
+Found 9 signals on page 11.20.06.1
+Found 9 signals on page 11.20.07.1
+Found 19 signals on page 11.20.08.1
+Found 13 signals on page 11.20.09.1
+Found 10 signals on page 11.20.10.1
+Found 12 signals on page 11.20.11.1
+Found 31 unique input signals and 48 unique output signals, (54 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S I RING CTRL originates outside the group.
+INFO:  Signal -S I RING CTRL originates outside the group.
+INFO:  Signal -S PROGRAM RESET 1 originates outside the group.
+INFO:  Signal -S I RING ADV originates outside the group.
+INFO:  Signal +S I RING RESET originates outside the group.
+INFO:  Signal -S I RING OP TIME originates inside the group.
+INFO:  Signal +S I RING OP TIME originates inside the group.
+INFO:  Signal +S I RING OFF ADVANCE 1 originates inside the group.
+INFO:  Signal +S I RING ON ADVANCE 1 originates inside the group.
+INFO:  Signal -S I RING RESET 1 originates inside the group.
+INFO:  Signal -S I RING 2 TIME originates inside the group.
+INFO:  Signal +S I RING 2 TIME originates inside the group.
+INFO:  Signal -S I RING 4 TIME originates inside the group.
+INFO:  Signal +S I RING 4 TIME originates inside the group.
+INFO:  Signal +S I RING OFF ADVANCE 2 originates inside the group.
+INFO:  Signal +S I RING ON ADVANCE 2 originates inside the group.
+INFO:  Signal -S I RING RESET 2 originates inside the group.
+INFO:  Signal -S I RING 6 TIME originates inside the group.
+INFO:  Signal +S I RING 6 TIME originates inside the group.
+INFO:  Signal -S I RING 8 TIME originates inside the group.
+INFO:  Signal +S I RING 8 TIME originates inside the group.
+INFO:  Signal -S I RING 10 TIME originates inside the group.
+INFO:  Signal +S I RING 10 TIME originates inside the group.
+INFO:  Signal -S I RING 1 TIME originates inside the group.
+INFO:  Signal -S I RING 3 TIME originates inside the group.
+INFO:  Signal -S I RING 5 TIME originates inside the group.
+INFO:  Signal -S I RING 7 TIME originates inside the group.
+INFO:  Signal -S I RING 9 TIME originates inside the group.
+INFO:  Signal -S I RING 3 AND 1401 MODE originates inside the group.
+INFO:  Signal +S 1401 MODE 1 originates outside the group.
+INFO:  Signal -S I RING 1 TIME 1 originates inside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S I RING OP TIME is used outside the group.
+INFO:  Signal +S I RING OP TIME is used outside the group.
+INFO:  Signal +S I RING OFF ADVANCE 1 is used only inside the group.
+INFO:  Signal +S I RING OFF ADVANCE 2 is used only inside the group.
+INFO:  Signal +S I RING ON ADVANCE 1 is used only inside the group.
+INFO:  Signal -S I RING RESET 1 is used only inside the group.
+INFO:  Signal -S I RING RESET 2 is used only inside the group.
+INFO:  Signal +S I RING ON ADVANCE 2 is used only inside the group.
+INFO:  Signal -S I RING 1 TIME is used outside the group.
+INFO:  Signal -S I RING 1 TIME 1 is used only inside the group.
+INFO:  Signal +S I RING 1 TIME is used outside the group.
+INFO:  Signal -S I RING 2 TIME is used only inside the group.
+INFO:  Signal +S I RING 2 TIME is used outside the group.
+INFO:  Signal -S I RING 3 TIME is used outside the group.
+INFO:  Signal +S I RING 3 TIME is used outside the group.
+INFO:  Signal -S I RING 4 TIME is used outside the group.
+INFO:  Signal +S I RING 4 TIME is used outside the group.
+INFO:  Signal -S I RING 5 TIME is used outside the group.
+INFO:  Signal +S I RING 5 TIME is used outside the group.
+INFO:  Signal -S I RING 6 TIME is used outside the group.
+INFO:  Signal +S I RING 6 TIME is used outside the group.
+INFO:  Signal -S I RING 7 TIME is used only inside the group.
+INFO:  Signal +S I RING 7 TIME is used outside the group.
+INFO:  Signal -S I RING 8 TIME is used only inside the group.
+INFO:  Signal +S I RING 8 TIME is used outside the group.
+INFO:  Signal +S I RING 9 TIME is used outside the group.
+INFO:  Signal -S I RING 9 TIME is used only inside the group.
+INFO:  Signal -S I RING 10 TIME is used only inside the group.
+INFO:  Signal +S I RING 10 TIME is used outside the group.
+INFO:  Signal -S I RING 11 TIME is used outside the group.
+INFO:  Signal +S I RING 11 TIME is used outside the group.
+INFO:  Signal +S I RING 12 TIME is used outside the group.
+INFO:  Signal +S I RING 12 TIME *1311* is used outside the group.
+INFO:  Signal +S I RING 3 OR 8 TIME is used outside the group.
+INFO:  Signal +S I RING 4 OR 9 TIME is used outside the group.
+INFO:  Signal +S I RING 5 OR 10 TIME is used outside the group.
+INFO:  Signal +S I RING 1 OR 6 TIME is used outside the group.
+INFO:  Signal +S I RING 1+5+6+10+1401.3+8 is used outside the group.
+INFO:  Signal +S I RING 7+1401 6+8 is used outside the group.
+INFO:  Signal +S I RING 6+1401 AND 8 TIME is used outside the group.
+INFO:  Signal -S I RING 3 AND 1401 MODE is used only inside the group.
+INFO:  Signal +S I RING 2 OR 7 TIME is used outside the group.
+INFO:  Signal +S I RING 1+2+5+6+10 TIME is used outside the group.
+INFO:  Signal +S I RING 1+1401 AND 3 TIME is used outside the group.
+INFO:  Signal +S I RING 1+2+3+4 TIME is used outside the group.
+INFO:  Signal +S I RING 6+7+8+9 TIME is used outside the group.
+INFO:  Signal +S 1ST ADDRESS is used outside the group.
+INFO:  Signal +S 2ND ADDRESS is used outside the group.
+Removing 13 output signals that do not have destinations outside the group...
+Removing 25 input signals that originate inside the group...
+Signal -S I RING OP TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING OP TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 2 TIME is output from the group, but also used as an input inside the group.
+Signal -S I RING 4 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 4 TIME is output from the group, but also used as an input inside the group.
+Signal -S I RING 6 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 6 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 8 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 10 TIME is output from the group, but also used as an input inside the group.
+Signal -S I RING 1 TIME is output from the group, but also used as an input inside the group.
+Signal -S I RING 3 TIME is output from the group, but also used as an input inside the group.
+Signal -S I RING 5 TIME is output from the group, but also used as an input inside the group.
+Page 11.20.01.1 generates Lamp Output LAMP_15A1A01
+Page 11.20.02.1 generates Lamp Output LAMP_15A1B01
+Page 11.20.02.1 generates Lamp Output LAMP_15A1C01
+Page 11.20.03.1 generates Lamp Output LAMP_15A1D01
+Page 11.20.03.1 generates Lamp Output LAMP_15A1E01
+Page 11.20.04.1 generates Lamp Output LAMP_15A1F01
+Page 11.20.04.1 generates Lamp Output LAMP_15A1B02
+Page 11.20.05.1 generates Lamp Output LAMP_15A1C02
+Page 11.20.05.1 generates Lamp Output LAMP_15A1D02
+Page 11.20.06.1 generates Lamp Output LAMP_15A1E02
+Page 11.20.06.1 generates Lamp Output LAMP_15A1F02
+Page 11.20.07.1 generates Lamp Output LAMP_15A1G02
+Page 11.20.07.1 generates Lamp Output LAMP_15A1H02
+Generating list of internal signals/wires ...
+13 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 11.20.01.1 (I RING OP TIME)
+Generating HDL associated with page 11.20.02.1 (I RING 1 AND 2 TIME)
+Generating HDL associated with page 11.20.03.1 (I RING 3 AND 4 TIME)
+Generating HDL associated with page 11.20.04.1 (I RING 5 AND 6 TIME-ACC)
+Generating HDL associated with page 11.20.05.1 (I RING 7 AND 8 TIME)
+Generating HDL associated with page 11.20.06.1 (I RING 9 AND 10 TIME-ACC)
+Generating HDL associated with page 11.20.07.1 (I RING 11 AND 12 TIME)
+Generating HDL associated with page 11.20.08.1 (I RING MIX)
+Generating HDL associated with page 11.20.09.1 (I RING MIX)
+Generating HDL associated with page 11.20.10.1 (I RING MIX)
+Generating HDL associated with page 11.20.11.1 (1ST AND 2ND ADDRESS CTRLS)

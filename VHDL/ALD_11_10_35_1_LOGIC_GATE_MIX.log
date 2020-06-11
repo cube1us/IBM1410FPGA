@@ -1,0 +1,34 @@
+Generating HDL for page 11.10.35.1 LOGIC GATE MIX at 6/10/2020 7:37:45 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_35_1_LOGIC_GATE_MIX_tb.vhdl, generating default test bench code.
+Ignoring Logic Block 2B with symbol R
+Ignoring Logic Block 2D with symbol R
+Ignoring Logic Block 2F with symbol R
+Ignoring Logic Block 2H with symbol R
+Removed 4 outputs from Gate at 3A to ignored block(s)
+Removed 4 outputs from Gate at 3C to ignored block(s)
+Removed 4 outputs from Gate at 3E to ignored block(s)
+Removed 4 outputs from Gate at 3G to ignored block(s)
+Generating Statement for block at 3A with output pin(s) of OUT_3A_F
+	and inputs of PS_LOGIC_GATE_B_OR_S
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_R
+	and inputs of PS_LOGIC_GATE_C_OR_T
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_B
+	and inputs of PS_LOGIC_GATE_E_OR_V
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_R
+	and inputs of PS_LOGIC_GATE_F_OR_W
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MY_LOGIC_GATE_B_OR_S
+	from gate output OUT_3A_F
+Generating output sheet edge signal assignment to 
+	signal MY_LOGIC_GATE_C_OR_T
+	from gate output OUT_3C_R
+Generating output sheet edge signal assignment to 
+	signal MY_LOGIC_GATE_E_OR_V
+	from gate output OUT_3E_B
+Generating output sheet edge signal assignment to 
+	signal MY_LOGIC_GATE_F_OR_W
+	from gate output OUT_3G_R

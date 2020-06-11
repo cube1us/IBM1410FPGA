@@ -1,0 +1,73 @@
+Generating HDL for page 11.10.20.1 LOGIC GATE RING EXTENSION R-ACC at 6/10/2020 2:20:20 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_20_1_LOGIC_GATE_RING_EXTENSION_R_ACC_tb.vhdl, generating default test bench code.
+DOT Function at 3C has one output from a Trigger, one output from Non-Trigger
+   Trigger block pin B located at 3C, Non-trigger is located at 3E Output is to 2C
+   Using Trigger faux pin T as input side of pin B
+Processing extension from block at 3B (Database ID=189136) to 3C (Database ID=189138)
+Copied connection to extension input pin E to master block at 3B
+Copied connection to extension input pin A to master block at 3B
+Copied connection to extension input pin P to master block at 3B
+Copied connection to extension input pin T to master block at 3B
+Copied connection from extension output pin B to master block at 3B
+Copied mapped pin B from extension 3C to master block at 3B
+Copied mapped pin H from extension 3C to master block at 3B
+Copied mapped pin K from extension 3C to master block at 3B
+Copied mapped pin P from extension 3C to master block at 3B
+Copied mapped pin T from extension 3C to master block at 3B
+Moved connection from extension 3C pin B to be from master at 3B
+Removed 5 outputs from Gate at 2B to ignored block(s)
+Removed 1 outputs from Gate at 2C to ignored block(s)
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F, OUT_3B_B
+	and inputs of PS_LOGIC_GATE_Z,PS_LOGIC_RING_ON_ADVANCE_2,MS_LOGIC_GATE_Z,PS_LOGIC_RING_OFF_ADVANCE_2,MS_PROGRAM_RESET_3,OUT_3E_B
+	and logic function of Trigger
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D, OUT_2B_D
+	and inputs of OUT_3B_F
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_3B_B
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of OUT_2B_D
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_B
+	and inputs of OUT_DOT_4E
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of PS_E_CYCLE_REQUIRED,PS_E_CH_OVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_F
+	and inputs of OUT_5F_C
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_R
+	and inputs of OUT_DOT_5H
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_DOT_4E
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_D
+	and inputs of PS_F_CYCLE_REQUIRED
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_F
+	and inputs of PS_LOGIC_GATE_A_CONTROL
+	and logic function of NOT
+Generating Statement for block at 5I with output pin(s) of OUT_5I_B
+	and inputs of PS_F_CH_OVLP_IN_PROCESS
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E, OUT_DOT_4E
+	and inputs of OUT_4E_D,OUT_4F_F,OUT_4G_R
+	and logic function of OR
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_2G_C,OUT_2H_F
+	and logic function of OR
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of OUT_5H_D,OUT_5I_B
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_LOGIC_GATE_R
+	from gate output OUT_2B_D
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_R
+	from gate output OUT_2C_C
+Generating output sheet edge signal assignment to 
+	signal MS_LOGIC_GATE_A_DOT_R_CHECK
+	from gate output OUT_DOT_1G

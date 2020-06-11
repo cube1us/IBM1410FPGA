@@ -1,0 +1,62 @@
+Generating HDL for page 11.30.02.1 SPECIAL LOGIC GATES-ACC
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 2D
+Found combinatorial loop (need D FF) at output of gate at 4I
+Found combinatorial loop (need D FF) at output of gate at 3I
+Removed 5 outputs from Gate at 2I to ignored block(s)
+Removed 5 outputs from Dot Function at 2B to ignored block(s)
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of MS_PROGRAM_RESET_5
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_G
+	and inputs of MS_E_CYCLE_REQUIRED,MS_F_CYCLE_REQUIRED
+	and logic function of NAND
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_E_Latch
+	and inputs of OUT_4D_C,MS_LOGIC_GATE_B_1,OUT_DOT_2B
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of OUT_5C_G,PS_2ND_CLOCK_PULSE_3,PS_LOGIC_GATE_Z
+	and logic function of NAND
+Generating Statement for block at 2D with *latched* output pin(s) of OUT_2D_B_Latch
+	and inputs of OUT_3C_E
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_R
+	and inputs of MS_F_CYCLE_REQUIRED
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of MS_E_CYCLE_REQUIRED,PS_2ND_CLOCK_PULSE_3,PS_LOGIC_GATE_Z
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_R
+	and inputs of OUT_DOT_3F
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_DOT_2B
+	and logic function of EQUAL
+Generating Statement for block at 4I with *latched* output pin(s) of OUT_4I_C_Latch, OUT_4I_C_Latch
+	and inputs of OUT_3I_C,MS_PROGRAM_RESET_3,MS_LAST_LOGIC_GATE_1
+	and logic function of NAND
+Generating Statement for block at 3I with *latched* output pin(s) of OUT_3I_C_Latch
+	and inputs of OUT_4I_C,MS_LOGIC_GATE_B_1
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_K
+	and inputs of OUT_4I_C
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B, OUT_DOT_2B, OUT_DOT_2B
+	and inputs of OUT_2B_C,OUT_2D_B,OUT_2F_R
+	and logic function of OR
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F
+	and inputs of OUT_3E_R,OUT_3F_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_SPECIAL_A_1
+	from gate output OUT_1F_C
+Generating output sheet edge signal assignment to 
+	signal PS_B_TO_LAST_LOGIC_GATE
+	from gate output OUT_2I_K
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_SPECIAL_A
+	from gate output OUT_DOT_2B
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 2D
+Generating D Flip Flop for block at 4I
+Generating D Flip Flop for block at 3I

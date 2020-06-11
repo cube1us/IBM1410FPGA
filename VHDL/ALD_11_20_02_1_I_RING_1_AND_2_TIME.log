@@ -1,0 +1,75 @@
+Generating HDL for page 11.20.02.1 I RING 1 AND 2 TIME at 6/11/2020 1:06:11 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_02_1_I_RING_1_AND_2_TIME_tb.vhdl, generating default test bench code.
+Processing extension from block at 5B (Database ID=190648) to 5C (Database ID=190649)
+Copied connection to extension input pin L to master block at 5B
+Copied connection to extension input pin P to master block at 5B
+Copied connection from extension output pin C to master block at 5B
+Copied mapped pin C from extension 5C to master block at 5B
+Copied mapped pin P from extension 5C to master block at 5B
+Copied mapped pin Q from extension 5C to master block at 5B
+Moved connection from extension 5C pin C to be from master at 5B
+Processing extension from block at 5G (Database ID=190656) to 5H (Database ID=190657)
+Copied connection to extension input pin E to master block at 5G
+Copied connection to extension input pin A to master block at 5G
+Copied connection to extension input pin P to master block at 5G
+Copied connection from extension output pin B to master block at 5G
+Copied mapped pin B from extension 5H to master block at 5G
+Copied mapped pin H from extension 5H to master block at 5G
+Copied mapped pin K from extension 5H to master block at 5G
+Copied mapped pin P from extension 5H to master block at 5G
+Copied mapped pin T from extension 5H to master block at 5G
+Moved connection from extension 5H pin B to be from master at 5G
+Removed 4 outputs from Gate at 2A to ignored block(s)
+Removed 6 outputs from Gate at 3C to ignored block(s)
+Removed 3 outputs from Gate at 3G to ignored block(s)
+Removed 5 outputs from Gate at 3H to ignored block(s)
+Added LAMP signal LAMP_15A1B01
+Added LAMP signal LAMP_15A1C01
+Generating Statement for block at 2A with output pin(s) of OUT_2A_Q
+	and inputs of OUT_3B_D
+	and logic function of EQUAL
+Generating Statement for block at 5B with output pin(s) of OUT_5B_D, OUT_5B_C
+	and inputs of PS_I_RING_OP_TIME,PS_I_RING_OFF_ADVANCE_1,MS_I_RING_OP_TIME,MS_I_RING_RESET_1
+	and logic function of Trigger
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D, OUT_3B_D, OUT_3B_D, OUT_3B_D
+	and inputs of OUT_5B_D
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A, OUT_3C_A
+	and inputs of OUT_5B_C
+	and logic function of Special
+Generating Statement for block at 2D with output pin(s) of OUT_2D_E
+	and inputs of OUT_3B_D
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of 
+	and inputs of OUT_2D_E
+	and logic function of Lamp
+Generating Statement for block at 2F with output pin(s) of OUT_2F_B
+	and inputs of OUT_3G_D
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of 
+	and inputs of OUT_2F_B
+	and logic function of Lamp
+Generating Statement for block at 5G with output pin(s) of OUT_5G_F, OUT_5G_B
+	and inputs of OUT_3C_A,PS_I_RING_ON_ADVANCE_1,OUT_3B_D,PS_I_RING_OFF_ADVANCE_1,MS_I_RING_RESET_1
+	and logic function of Trigger
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D, OUT_3G_D
+	and inputs of OUT_5G_F
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of OUT_5G_B
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_I_RING_1_TIME
+	from gate output OUT_2A_Q
+Generating output sheet edge signal assignment to 
+	signal MS_I_RING_1_TIME_1
+	from gate output OUT_3B_D
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_1_TIME
+	from gate output OUT_3C_A
+Generating output sheet edge signal assignment to 
+	signal MS_I_RING_2_TIME
+	from gate output OUT_3G_D
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_2_TIME
+	from gate output OUT_3H_C

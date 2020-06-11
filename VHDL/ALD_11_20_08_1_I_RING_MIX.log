@@ -1,0 +1,84 @@
+Generating HDL for page 11.20.08.1 I RING MIX at 6/11/2020 1:06:45 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_08_1_I_RING_MIX_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5H
+Found combinatorial loop (need D FF) at output of gate at 4H
+Removed 2 outputs from Gate at 3B to ignored block(s)
+Removed 1 outputs from Gate at 3C to ignored block(s)
+Removed 9 outputs from Gate at 2D to ignored block(s)
+Removed 3 outputs from Gate at 2E to ignored block(s)
+Removed 3 outputs from Gate at 2G to ignored block(s)
+Removed 6 outputs from Gate at 2I to ignored block(s)
+Generating Statement for block at 3B with output pin(s) of OUT_3B_K
+	and inputs of MS_I_RING_3_TIME,MS_I_RING_8_TIME
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of MS_I_RING_4_TIME,MS_I_RING_9_TIME
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_P
+	and inputs of MS_I_RING_5_TIME,MS_I_RING_10_TIME
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_G
+	and inputs of OUT_3D_P
+	and logic function of EQUAL
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of MS_I_RING_1_TIME,MS_I_RING_6_TIME
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of OUT_3E_C
+	and logic function of EQUAL
+Generating Statement for block at 3F with output pin(s) of OUT_3F_G
+	and inputs of MS_I_RING_5_TIME,MS_I_RING_10_TIME
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of MS_I_RING_1_TIME,MS_I_RING_6_TIME
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_B
+	and inputs of OUT_DOT_3G
+	and logic function of EQUAL
+Generating Statement for block at 5H with *latched* output pin(s) of OUT_5H_D_Latch
+	and inputs of OUT_4H_G,MS_I_RING_9_TIME,MS_I_RING_RESET_1
+	and logic function of NAND
+Generating Statement for block at 4H with *latched* output pin(s) of OUT_4H_G_Latch, OUT_4H_G_Latch
+	and inputs of OUT_5H_D,MS_I_RING_6_TIME
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_P
+	and inputs of MS_I_RING_3_AND_1401_MODE,OUT_5I_C
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_K
+	and inputs of MS_I_RING_7_TIME,OUT_5I_C
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_C, OUT_5I_C, OUT_5I_C
+	and inputs of PS_1401_MODE_1,OUT_4H_G
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_G
+	and inputs of OUT_5I_C,MS_I_RING_6_TIME
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_A
+	and inputs of OUT_3I_G
+	and logic function of EQUAL
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G
+	and inputs of OUT_3F_G,OUT_3G_G,OUT_3H_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_3_OR_8_TIME
+	from gate output OUT_3B_K
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_4_OR_9_TIME
+	from gate output OUT_3C_C
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_5_OR_10_TIME
+	from gate output OUT_2D_G
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_1_OR_6_TIME
+	from gate output OUT_2E_C
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_1_OR_5_OR_6_OR_10_OR_1401_DOT_3_OR_8
+	from gate output OUT_2G_B
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_7_OR_1401_6_OR_8
+	from gate output OUT_2H_K
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_6_OR_1401_AND_8_TIME
+	from gate output OUT_2I_A
+Generating D Flip Flop for block at 5H
+Generating D Flip Flop for block at 4H

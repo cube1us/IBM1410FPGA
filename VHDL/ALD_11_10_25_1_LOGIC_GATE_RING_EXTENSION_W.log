@@ -1,0 +1,30 @@
+Generating HDL for page 11.10.25.1 LOGIC GATE RING EXTENSION W at 6/10/2020 2:21:36 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_25_1_LOGIC_GATE_RING_EXTENSION_W_tb.vhdl, generating default test bench code.
+Processing extension from block at 4C (Database ID=189382) to 4D (Database ID=189383)
+Copied connection to extension input pin E to master block at 4C
+Copied connection to extension input pin A to master block at 4C
+Copied connection to extension input pin P to master block at 4C
+Copied connection from extension output pin B to master block at 4C
+Copied mapped pin B from extension 4D to master block at 4C
+Copied mapped pin H from extension 4D to master block at 4C
+Copied mapped pin K from extension 4D to master block at 4C
+Copied mapped pin P from extension 4D to master block at 4C
+Copied mapped pin T from extension 4D to master block at 4C
+Moved connection from extension 4D pin B to be from master at 4C
+Removed 5 outputs from Gate at 3C to ignored block(s)
+Removed 2 outputs from Gate at 3D to ignored block(s)
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F, OUT_4C_B
+	and inputs of PS_LOGIC_GATE_V,PS_LOGIC_RING_ON_ADVANCE_2,MS_LOGIC_GATE_V,PS_LOGIC_RING_OFF_ADVANCE_2,MS_PROGRAM_RESET_5
+	and logic function of Trigger
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of OUT_4C_F
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_4C_B
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_LOGIC_GATE_W
+	from gate output OUT_3C_D
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_W
+	from gate output OUT_3D_C
