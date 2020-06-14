@@ -53,7 +53,7 @@ begin
 	Q <= QTemp;
 	QBar <= not QTemp;
 
-	DFlipFlop: process(C,D)
+	DFlipFlop_process: process(C,D)
 	begin
 	if rising_edge(C) then
 		QTemp <= D;
