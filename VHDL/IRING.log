@@ -1,8 +1,8 @@
-Generating HDL for group named IRINGat 6/11/2020 1:49:54 PM containing pages: 
+Generating HDL for group named IRINGat 6/14/2020 3:31:03 PM containing pages: 
 	11.20.01.1, 11.20.02.1, 11.20.03.1, 11.20.04.1, 11.20.05.1
 	11.20.06.1, 11.20.07.1, 11.20.08.1, 11.20.09.1, 11.20.10.1
 	11.20.11.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\IRING_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file IRING_tb.vhdl 127 lines preserved and 11 declaration lines preserved
 Building lists of signals on 11 pages...
 Found 13 signals on page 11.20.01.1
 Found 10 signals on page 11.20.02.1
@@ -124,8 +124,55 @@ Page 11.20.06.1 generates Lamp Output LAMP_15A1E02
 Page 11.20.06.1 generates Lamp Output LAMP_15A1F02
 Page 11.20.07.1 generates Lamp Output LAMP_15A1G02
 Page 11.20.07.1 generates Lamp Output LAMP_15A1H02
+DEBUG: Tentative bus -S I RING HDL BUS identified based on signal -S I RING OP TIME
+DEBUG: Tentative bus +S I RING HDL BUS identified based on signal +S I RING OP TIME
+DEBUG: Added signal -S I RING 1 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 1 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 2 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal -S I RING 3 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 3 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal -S I RING 4 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 4 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal -S I RING 5 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 5 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal -S I RING 6 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 6 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 7 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 8 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 9 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 10 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal -S I RING 11 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 11 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 12 TIME to bus +S I RING HDL BUS
+DEBUG: Added internal signal -S I RING 2 TIME to bus -S I RING HDL BUS
+DEBUG: Added internal signal -S I RING 7 TIME to bus -S I RING HDL BUS
+DEBUG: Added internal signal -S I RING 8 TIME to bus -S I RING HDL BUS
+DEBUG: Added internal signal -S I RING 9 TIME to bus -S I RING HDL BUS
+DEBUG: Added internal signal -S I RING 10 TIME to bus -S I RING HDL BUS
+INFO: Bus -S I RING HDL BUS identified 
+INFO: Bus +S I RING HDL BUS identified 
+Output signal -S I RING OP TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING OP TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 1 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 1 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 2 TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 3 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 3 TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 4 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 4 TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 5 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 5 TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 6 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 6 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 7 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 8 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 9 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 10 TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 11 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 11 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 12 TIME replaced by bus +S I RING HDL BUS
 Generating list of internal signals/wires ...
-13 internal signals/wires found.
+8 internal signals/wires found.
 Generating HDL prefixes...
 Generating HDL associated with page 11.20.01.1 (I RING OP TIME)
 Generating HDL associated with page 11.20.02.1 (I RING 1 AND 2 TIME)
