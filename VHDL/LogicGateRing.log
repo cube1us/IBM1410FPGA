@@ -1,12 +1,12 @@
-Generating HDL for group named LogicGateRingat 6/17/2020 3:30:34 PM containing pages: 
+Generating HDL for group named LogicGateRingat 6/18/2020 1:00:09 PM containing pages: 
 	11.10.01.1, 11.10.02.1, 11.10.05.1, 11.10.06.1, 11.10.07.1
 	11.10.10.1, 11.10.11.1, 11.10.12.1, 11.10.13.1, 11.10.14.1
 	11.10.15.1, 11.10.16.1, 11.10.17.1, 11.10.18.1, 11.10.19.1
 	11.10.20.1, 11.10.21.1, 11.10.22.1, 11.10.23.1, 11.10.24.1
 	11.10.25.1, 11.10.32.1, 11.10.33.1, 11.10.34.1, 11.10.35.1
-	11.10.36.1
+	11.10.36.1, 11.30.01.1, 11.30.02.1, 11.30.03.1
 Old test bench file LogicGateRing_tb.vhdl 182 lines preserved and 5 declaration lines preserved
-Building lists of signals on 26 pages...
+Building lists of signals on 29 pages...
 Found 4 signals on page 11.10.01.1
 Found 19 signals on page 11.10.02.1
 Found 5 signals on page 11.10.05.1
@@ -33,7 +33,10 @@ Found 7 signals on page 11.10.33.1
 Found 18 signals on page 11.10.34.1
 Found 8 signals on page 11.10.35.1
 Found 3 signals on page 11.10.36.1
-Found 76 unique input signals and 92 unique output signals, (115 total unique signals)
+Found 9 signals on page 11.30.01.1
+Found 11 signals on page 11.30.02.1
+Found 5 signals on page 11.30.03.1
+Found 82 unique input signals and 101 unique output signals, (127 total unique signals)
 Determining sources for all input signals...
 INFO:  Signal +P SPECIAL +12V POWER FOR OSC originates outside the group.
 INFO:  Signal +S OSCILLATOR originates inside the group.
@@ -111,6 +114,12 @@ INFO:  Signal +S LOGIC GATE B OR S originates inside the group.
 INFO:  Signal +S LOGIC GATE C OR T originates inside the group.
 INFO:  Signal +S LOGIC GATE F OR W originates inside the group.
 INFO:  Signal +S 1ST CLOCK PULSE PRIME originates inside the group.
+INFO:  Signal +S 1ST CLOCK PULSE 1 originates inside the group.
+INFO:  Signal -S LOGIC GATE EARLY S originates inside the group.
+INFO:  Signal -S E CYCLE REQUIRED originates outside the group.
+INFO:  Signal -S F CYCLE REQUIRED originates outside the group.
+INFO:  Signal -S 1ST CLOCK PULSE CLAMPED A originates inside the group.
+INFO:  Signal -S PROGRAM RESET 1 originates outside the group.
 Determining destinations for all output signals...
 INFO:  Signal +S OSCILLATOR is used outside the group.
 INFO:  Signal +P SPECIAL +12V FOR REL DRIVERS is used outside the group.
@@ -204,8 +213,17 @@ INFO:  Signal -Y LOGIC GATE E OR V is used outside the group.
 INFO:  Signal -Y LOGIC GATE F OR W is used outside the group.
 INFO:  Signal +S 2ND CLOCK PULSE 3 is used outside the group.
 INFO:  Signal +S 2ND CLOCK PULSE 3 JRJ is used outside the group.
-Removing 26 output signals that do not have destinations outside the group...
-Removing 53 input signals that originate inside the group...
+INFO:  Signal +S LOGIC GATE EARLY B is used outside the group.
+INFO:  Signal -S 1ST CLOCK PULSE CLAMPED A is used only inside the group.
+INFO:  Signal +S LOGIC GATE EARLY F is used outside the group.
+INFO:  Signal +S LOGIC GATE EARLY B OR S is used outside the group.
+INFO:  Signal +S LOGIC GATE SPECIAL A is used outside the group.
+INFO:  Signal +S LOGIC GATE SPECIAL A 1 is used outside the group.
+INFO:  Signal +S B TO LAST LOGIC GATE is used outside the group.
+INFO:  Signal +S LOGIC GATE EARLY S is used outside the group.
+INFO:  Signal -S LOGIC GATE EARLY S is used only inside the group.
+Removing 28 output signals that do not have destinations outside the group...
+Removing 56 input signals that originate inside the group...
 Signal +S OSCILLATOR is output from the group, but also used as an input inside the group.
 Signal +S LOGIC GATE E 1 is output from the group, but also used as an input inside the group.
 Signal +S 2ND CLOCK PULSE 3 is output from the group, but also used as an input inside the group.
@@ -233,6 +251,7 @@ Signal -S LOGIC GATE F 1 is output from the group, but also used as an input ins
 Signal +S LOGIC GATE B OR S is output from the group, but also used as an input inside the group.
 Signal +S LOGIC GATE C OR T is output from the group, but also used as an input inside the group.
 Signal +S LOGIC GATE F OR W is output from the group, but also used as an input inside the group.
+Signal +S 1ST CLOCK PULSE 1 is output from the group, but also used as an input inside the group.
 Input Signal +S I RING 9 TIME replaced by Bus signal +S I RING HDL BUS
 Page 11.10.02.1 generates Lamp Output LAMP_15A1K24
 Page 11.10.10.1 generates Lamp Output LAMP_15A1A06
@@ -267,7 +286,7 @@ Output signal LAMP_15A1H06 replaced by bus LAMPS LOGIC GATE RING
 Output signal LAMP_15A1J06 replaced by bus LAMPS LOGIC GATE RING
 Output signal LAMP_15A1K06 replaced by bus LAMPS LOGIC GATE RING
 Generating list of internal signals/wires ...
-26 internal signals/wires found.
+28 internal signals/wires found.
 Generating HDL prefixes...
 Generating HDL associated with page 11.10.01.1 (LOGIC CLOCK-ACC)
 Generating HDL associated with page 11.10.02.1 (1*LOGIC GATE RING CLK PULSES-ACC)
@@ -295,3 +314,6 @@ Generating HDL associated with page 11.10.33.1 (LOGIC GATE MIX)
 Generating HDL associated with page 11.10.34.1 (LOGIC GATE MIX)
 Generating HDL associated with page 11.10.35.1 (LOGIC GATE MIX)
 Generating HDL associated with page 11.10.36.1 (2ND CLOCK PULSE 3-ACC)
+Generating HDL associated with page 11.30.01.1 (SPECIAL LOGIC GATES-ACC)
+Generating HDL associated with page 11.30.02.1 (SPECIAL LOGIC GATES-ACC)
+Generating HDL associated with page 11.30.03.1 (SPECIAL LOGIC GATES)
