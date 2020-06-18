@@ -1,0 +1,116 @@
+Generating HDL for group named CycleLatchesat 6/18/2020 2:08:36 PM containing pages: 
+	12.12.01.1, 12.12.02.1, 12.12.04.1, 12.12.05.1, 12.12.06.1
+	12.12.07.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\CycleLatches_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 6 pages...
+Found 8 signals on page 12.12.01.1
+Found 10 signals on page 12.12.02.1
+Found 10 signals on page 12.12.04.1
+Found 12 signals on page 12.12.05.1
+Found 11 signals on page 12.12.06.1
+Found 14 signals on page 12.12.07.1
+Found 26 unique input signals and 26 unique output signals, (48 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LOGIC GATE B 1 originates outside the group.
+INFO:  Signal -S PROGRAM RES OR S LOGIC GATE originates inside the group.
+INFO:  Signal +S A CYCLE CTRL originates outside the group.
+INFO:  Signal -S B CYCLE originates inside the group.
+INFO:  Signal -S A CYCLE CTRL originates outside the group.
+INFO:  Signal +S B CYCLE CTRL originates outside the group.
+INFO:  Signal -S B CYCLE CTRL originates outside the group.
+INFO:  Signal -S E CYCLE CTRL originates outside the group.
+INFO:  Signal -S F CYCLE CTRL originates outside the group.
+INFO:  Signal -S CONTROL REG DISABLE originates outside the group.
+INFO:  Signal +S I CYCLE CTRL originates outside the group.
+INFO:  Signal -S I CYCLE CTRL originates outside the group.
+INFO:  Signal -S LOGIC GATE S originates outside the group.
+INFO:  Signal -S CONSOLE SET START CND originates outside the group.
+INFO:  Signal -S CONS RESET START CONDITION originates outside the group.
+INFO:  Signal -S PROGRAM RESET 1 originates outside the group.
+INFO:  Signal +S X CYCLE CTRL originates outside the group.
+INFO:  Signal -S X CYCLE CTRL originates outside the group.
+INFO:  Signal -S A CYCLE originates inside the group.
+INFO:  Signal +S C CYCLE CTRL originates outside the group.
+INFO:  Signal -S C CYCLE CTRL originates outside the group.
+INFO:  Signal -S C CYCLE originates inside the group.
+INFO:  Signal -S F CYCLE originates outside the group.
+INFO:  Signal -S E CYCLE originates outside the group.
+INFO:  Signal +S D CYCLE CTRL originates outside the group.
+INFO:  Signal -S D CYCLE CTRL originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S A CYCLE is used outside the group.
+INFO:  Signal -S A CYCLE is used outside the group.
+INFO:  Signal +S A OR B CYCLE is used outside the group.
+INFO:  Signal -S B CYCLE is used only inside the group.
+INFO:  Signal +S B CYCLE is used outside the group.
+INFO:  Signal +S B CYCLE 1 is used outside the group.
+INFO:  Signal +S B+E+F CYCLE CTRL is used outside the group.
+INFO:  Signal +S I CYCLE is used outside the group.
+INFO:  Signal -S I CYCLE.NOT CR DISABLE is used outside the group.
+INFO:  Signal +S I CYCLE 1 is used outside the group.
+INFO:  Signal +S I CYCLE.NOT CR DISABLE is used outside the group.
+INFO:  Signal -S I CYCLE is used outside the group.
+INFO:  Signal +S X CYCLE is used outside the group.
+INFO:  Signal -S PROGRAM RES OR S LOGIC GATE is used only inside the group.
+INFO:  Signal -S X CYCLE.NOT CR DISABLE is used outside the group.
+INFO:  Signal -S X CYCLE is used outside the group.
+INFO:  Signal -S C CYCLE.NOT CR DISABLE is used outside the group.
+INFO:  Signal +S C CYCLE is used outside the group.
+INFO:  Signal +S C CYCLE 1 is used outside the group.
+INFO:  Signal -S C CYCLE is used only inside the group.
+INFO:  Signal +S A OR C CYCLE is used outside the group.
+INFO:  Signal -S D CYCLE.NOT CR DISABLE is used outside the group.
+INFO:  Signal +S D CYCLE is used outside the group.
+INFO:  Signal +S C OR D CYCLE is used outside the group.
+INFO:  Signal +S B+E+F CYCLE is used outside the group.
+INFO:  Signal +S B OR D CYCLE is used outside the group.
+Removing 3 output signals that do not have destinations outside the group...
+Removing 4 input signals that originate inside the group...
+Signal -S A CYCLE is output from the group, but also used as an input inside the group.
+Page 12.12.01.1 generates Lamp Output LAMP_11C8A15
+Page 12.12.01.1 generates Lamp Output LAMP_15A1A10
+Page 12.12.02.1 generates Lamp Output LAMP_11C8B15
+Page 12.12.02.1 generates Lamp Output LAMP_15A1B10
+Page 12.12.04.1 generates Lamp Output LAMP_11C8J15
+Page 12.12.04.1 generates Lamp Output LAMP_15A1H10
+Page 12.12.05.1 generates Lamp Output LAMP_11C8K15
+Page 12.12.05.1 generates Lamp Output LAMP_15A1J10
+Page 12.12.06.1 generates Lamp Output LAMP_11C8C15
+Page 12.12.06.1 generates Lamp Output LAMP_15A1C10
+Page 12.12.07.1 generates Lamp Output LAMP_11C8D15
+Page 12.12.07.1 generates Lamp Output LAMP_15A1D10
+DEBUG: Tentative bus LAMPS CYCLE CE identified based on signal LAMP_11C8A15
+DEBUG: Tentative bus LAMPS CYCLE CONSOLE identified based on signal LAMP_15A1A10
+DEBUG: Added signal LAMP_11C8B15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1B10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8J15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1H10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8K15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1J10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8C15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1C10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8D15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1D10 to bus LAMPS CYCLE CONSOLE
+INFO: Bus LAMPS CYCLE CE identified 
+INFO: Bus LAMPS CYCLE CONSOLE identified 
+Output signal LAMP_11C8A15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1A10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8B15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1B10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8J15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1H10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8K15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1J10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8C15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1C10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8D15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1D10 replaced by bus LAMPS CYCLE CONSOLE
+Generating list of internal signals/wires ...
+3 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.12.01.1 (A CYCLE LATCH)
+Generating HDL associated with page 12.12.02.1 (B CYCLE LATCH)
+Generating HDL associated with page 12.12.04.1 (I CYCLE LATCH)
+Generating HDL associated with page 12.12.05.1 (X CYCLE LATCH-ACC)
+Generating HDL associated with page 12.12.06.1 (C CYCLE LATCH-ACC)
+Generating HDL associated with page 12.12.07.1 (D CYCLE LATCH)
