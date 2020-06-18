@@ -1,0 +1,36 @@
+Generating HDL for page 11.30.03.1 SPECIAL LOGIC GATES at 6/18/2020 8:20:30 AM
+Old test bench file ALD_11_30_03_1_SPECIAL_LOGIC_GATES_tb.vhdl 51 lines preserved and 12 declaration lines preserved
+DOT Function at 3C has one output from a Trigger, one output from Non-Trigger
+   Trigger block pin B located at 3C, Non-trigger is located at 3A Output is to 2C
+   Using Trigger faux pin T as input side of pin B
+Processing extension from block at 3C (Database ID=192331) to 3D (Database ID=192333)
+Copied connection to extension input pin K to master block at 3C
+Copied connection to extension input pin H to master block at 3C
+Copied connection from extension output pin F to master block at 3C
+Copied mapped pin A from extension 3D to master block at 3C
+Copied mapped pin E from extension 3D to master block at 3C
+Copied mapped pin F from extension 3D to master block at 3C
+Copied mapped pin X from extension 3D to master block at 3C
+Moved connection from extension 3D pin F to be from master at 3C
+Removed 1 outputs from Gate at 2C to ignored block(s)
+Generating Statement for block at 4A with output pin(s) of OUT_4A_K
+	and inputs of OUT_2D_D,MS_LOGIC_GATE_R
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of OUT_4A_K
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_B, OUT_3C_F
+	and inputs of OUT_2C_C,MS_1ST_CLOCK_PULSE_CLAMPED_A,MS_PROGRAM_RESET_1,OUT_3A_G,OUT_2D_D,MS_1ST_CLOCK_PULSE_CLAMPED_A
+	and logic function of Trigger
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C, OUT_2C_C
+	and inputs of OUT_3C_B
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D, OUT_2D_D, OUT_2D_D
+	and inputs of OUT_3C_F
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_EARLY_S
+	from gate output OUT_2C_C
+Generating output sheet edge signal assignment to 
+	signal MS_LOGIC_GATE_EARLY_S
+	from gate output OUT_2D_D

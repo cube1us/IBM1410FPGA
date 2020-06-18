@@ -1,0 +1,84 @@
+Generating HDL for page 11.30.01.1 SPECIAL LOGIC GATES-ACC at 6/17/2020 4:32:11 PM
+Old test bench file ALD_11_30_01_1_SPECIAL_LOGIC_GATES_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
+DOT Function at 2B has one output from a Trigger, one output from Non-Trigger
+   Trigger block pin E located at 2B, Non-trigger is located at 2A Output is to 1B
+   Using Trigger faux pin W as input side of pin E
+DOT Function at 2E has one output from a Trigger, one output from Non-Trigger
+   Trigger block pin D located at 2E, Non-trigger is located at 2D Output is to 1E
+   Using Trigger faux pin V as input side of pin D
+Found combinatorial loop (need D FF) at output of gate at 2C
+Found combinatorial loop (need D FF) at output of gate at 1C
+Ignoring Logic Block 4D with symbol L
+Processing extension from block at 2B (Database ID=192115) to 2C (Database ID=192118)
+Copied connection to extension input pin A to master block at 2B
+Copied connection from extension output pin H to master block at 2B
+Copied mapped pin F from extension 2C to master block at 2B
+Copied mapped pin H from extension 2C to master block at 2B
+Moved connection from extension 2C pin H to be from master at 2B
+Processing extension from block at 2E (Database ID=192124) to 2F (Database ID=192126)
+Copied connection to extension input pin L to master block at 2E
+Copied connection from extension output pin C to master block at 2E
+Copied mapped pin C from extension 2F to master block at 2E
+Copied mapped pin P from extension 2F to master block at 2E
+Copied mapped pin Q from extension 2F to master block at 2E
+Copied mapped pin U from extension 2F to master block at 2E
+Moved connection from extension 2F pin C to be from master at 2E
+Removed 6 outputs from Gate at 1B to ignored block(s)
+Removed 1 outputs from Gate at 5C to ignored block(s)
+Removed 7 outputs from Gate at 1E to ignored block(s)
+Removed 2 outputs from Dot Function at 2G to ignored block(s)
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of OUT_1C_C,MS_LOGIC_GATE_A_1
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_P
+	and inputs of OUT_3A_G
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_E, OUT_2B_H
+	and inputs of OUT_1B_D,OUT_5C_F,MS_PROGRAM_RESET_3,OUT_2A_P,OUT_1C_C
+	and logic function of Trigger
+Generating Statement for block at 1B with output pin(s) of OUT_1B_D, OUT_1B_D
+	and inputs of OUT_2B_E
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_F, OUT_5C_F, OUT_5C_F, OUT_5C_F, OUT_5C_F
+	and inputs of PS_1ST_CLOCK_PULSE_1
+	and logic function of NOT
+Generating Statement for block at 1C with *latched* output pin(s) of OUT_1C_C_Latch, OUT_1C_C_Latch, OUT_1C_C_Latch
+	and inputs of OUT_2B_H
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_1F_D,MS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_P
+	and inputs of OUT_3D_C
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D, OUT_2E_C
+	and inputs of OUT_5C_F,OUT_1E_H,MS_PROGRAM_RESET_3,OUT_2D_P,OUT_1F_D
+	and logic function of Trigger
+Generating Statement for block at 1E with output pin(s) of OUT_1E_H, OUT_1E_H
+	and inputs of OUT_2E_D
+	and logic function of Special
+Generating Statement for block at 1F with output pin(s) of OUT_1F_D, OUT_1F_D
+	and inputs of OUT_2E_C
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_R
+	and inputs of OUT_1C_C
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of MS_LOGIC_GATE_EARLY_S
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_2G_R,OUT_2H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_EARLY_B
+	from gate output OUT_1B_D
+Generating output sheet edge signal assignment to 
+	signal MS_1ST_CLOCK_PULSE_CLAMPED_A
+	from gate output OUT_5C_F
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_EARLY_F
+	from gate output OUT_1E_H
+Generating output sheet edge signal assignment to 
+	signal PS_LOGIC_GATE_EARLY_B_OR_S
+	from gate output OUT_DOT_2G
+Generating D Flip Flop for block at 1C
