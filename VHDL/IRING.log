@@ -1,9 +1,9 @@
-Generating HDL for group named IRINGat 6/17/2020 3:41:53 PM containing pages: 
+Generating HDL for group named IRINGat 6/18/2020 12:55:49 PM containing pages: 
 	11.20.01.1, 11.20.02.1, 11.20.03.1, 11.20.04.1, 11.20.05.1
 	11.20.06.1, 11.20.07.1, 11.20.08.1, 11.20.09.1, 11.20.10.1
-	11.20.11.1, 11.30.01.1, 11.30.02.1, 11.30.03.1
-Old test bench file IRING_tb.vhdl 127 lines preserved and 11 declaration lines preserved
-Building lists of signals on 14 pages...
+	11.20.11.1
+Old test bench file IRING_tb.vhdl 116 lines preserved and 11 declaration lines preserved
+Building lists of signals on 11 pages...
 Found 13 signals on page 11.20.01.1
 Found 10 signals on page 11.20.02.1
 Found 9 signals on page 11.20.03.1
@@ -15,10 +15,7 @@ Found 19 signals on page 11.20.08.1
 Found 13 signals on page 11.20.09.1
 Found 10 signals on page 11.20.10.1
 Found 12 signals on page 11.20.11.1
-Found 9 signals on page 11.30.01.1
-Found 11 signals on page 11.30.02.1
-Found 5 signals on page 11.30.03.1
-Found 45 unique input signals and 57 unique output signals, (75 total unique signals)
+Found 31 unique input signals and 48 unique output signals, (54 total unique signals)
 Determining sources for all input signals...
 INFO:  Signal +S I RING CTRL originates outside the group.
 INFO:  Signal -S I RING CTRL originates outside the group.
@@ -51,20 +48,6 @@ INFO:  Signal -S I RING 9 TIME originates inside the group.
 INFO:  Signal -S I RING 3 AND 1401 MODE originates inside the group.
 INFO:  Signal +S 1401 MODE 1 originates outside the group.
 INFO:  Signal -S I RING 1 TIME 1 originates inside the group.
-INFO:  Signal +S 1ST CLOCK PULSE 1 originates outside the group.
-INFO:  Signal -S LOGIC GATE A 1 originates outside the group.
-INFO:  Signal -S LOGIC GATE E 1 originates outside the group.
-INFO:  Signal -S PROGRAM RESET 3 originates outside the group.
-INFO:  Signal -S LOGIC GATE EARLY S originates inside the group.
-INFO:  Signal +S LOGIC GATE Z originates outside the group.
-INFO:  Signal -S LOGIC GATE B 1 originates outside the group.
-INFO:  Signal +S 2ND CLOCK PULSE 3 originates outside the group.
-INFO:  Signal -S PROGRAM RESET 5 originates outside the group.
-INFO:  Signal -S E CYCLE REQUIRED originates outside the group.
-INFO:  Signal -S F CYCLE REQUIRED originates outside the group.
-INFO:  Signal -S LAST LOGIC GATE 1 originates outside the group.
-INFO:  Signal -S LOGIC GATE R originates outside the group.
-INFO:  Signal -S 1ST CLOCK PULSE CLAMPED A originates inside the group.
 Determining destinations for all output signals...
 INFO:  Signal -S I RING OP TIME is used outside the group.
 INFO:  Signal +S I RING OP TIME is used outside the group.
@@ -114,17 +97,8 @@ INFO:  Signal +S I RING 1+2+3+4 TIME is used outside the group.
 INFO:  Signal +S I RING 6+7+8+9 TIME is used outside the group.
 INFO:  Signal +S 1ST ADDRESS is used outside the group.
 INFO:  Signal +S 2ND ADDRESS is used outside the group.
-INFO:  Signal +S LOGIC GATE EARLY B is used outside the group.
-INFO:  Signal -S 1ST CLOCK PULSE CLAMPED A is used only inside the group.
-INFO:  Signal +S LOGIC GATE EARLY F is used outside the group.
-INFO:  Signal +S LOGIC GATE EARLY B OR S is used outside the group.
-INFO:  Signal +S LOGIC GATE SPECIAL A is used outside the group.
-INFO:  Signal +S LOGIC GATE SPECIAL A 1 is used outside the group.
-INFO:  Signal +S B TO LAST LOGIC GATE is used outside the group.
-INFO:  Signal +S LOGIC GATE EARLY S is used outside the group.
-INFO:  Signal -S LOGIC GATE EARLY S is used only inside the group.
-Removing 15 output signals that do not have destinations outside the group...
-Removing 27 input signals that originate inside the group...
+Removing 13 output signals that do not have destinations outside the group...
+Removing 25 input signals that originate inside the group...
 Signal -S I RING OP TIME is output from the group, but also used as an input inside the group.
 Signal +S I RING OP TIME is output from the group, but also used as an input inside the group.
 Signal +S I RING 2 TIME is output from the group, but also used as an input inside the group.
@@ -225,7 +199,7 @@ Output signal LAMP_15A1F02 replaced by bus LAMPS IRING
 Output signal LAMP_15A1G02 replaced by bus LAMPS IRING
 Output signal LAMP_15A1H02 replaced by bus LAMPS IRING
 Generating list of internal signals/wires ...
-10 internal signals/wires found.
+8 internal signals/wires found.
 Generating HDL prefixes...
 Generating HDL associated with page 11.20.01.1 (I RING OP TIME)
 Generating HDL associated with page 11.20.02.1 (I RING 1 AND 2 TIME)
@@ -238,6 +212,3 @@ Generating HDL associated with page 11.20.08.1 (I RING MIX)
 Generating HDL associated with page 11.20.09.1 (I RING MIX)
 Generating HDL associated with page 11.20.10.1 (I RING MIX)
 Generating HDL associated with page 11.20.11.1 (1ST AND 2ND ADDRESS CTRLS)
-Generating HDL associated with page 11.30.01.1 (SPECIAL LOGIC GATES-ACC)
-Generating HDL associated with page 11.30.02.1 (SPECIAL LOGIC GATES-ACC)
-Generating HDL associated with page 11.30.03.1 (SPECIAL LOGIC GATES)
