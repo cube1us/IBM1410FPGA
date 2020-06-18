@@ -1,4 +1,4 @@
-Generating HDL for group named LogicGateRingat 6/10/2020 7:43:03 PM containing pages: 
+Generating HDL for group named LogicGateRingat 6/17/2020 3:30:34 PM containing pages: 
 	11.10.01.1, 11.10.02.1, 11.10.05.1, 11.10.06.1, 11.10.07.1
 	11.10.10.1, 11.10.11.1, 11.10.12.1, 11.10.13.1, 11.10.14.1
 	11.10.15.1, 11.10.16.1, 11.10.17.1, 11.10.18.1, 11.10.19.1
@@ -233,6 +233,7 @@ Signal -S LOGIC GATE F 1 is output from the group, but also used as an input ins
 Signal +S LOGIC GATE B OR S is output from the group, but also used as an input inside the group.
 Signal +S LOGIC GATE C OR T is output from the group, but also used as an input inside the group.
 Signal +S LOGIC GATE F OR W is output from the group, but also used as an input inside the group.
+Input Signal +S I RING 9 TIME replaced by Bus signal +S I RING HDL BUS
 Page 11.10.02.1 generates Lamp Output LAMP_15A1K24
 Page 11.10.10.1 generates Lamp Output LAMP_15A1A06
 Page 11.10.11.1 generates Lamp Output LAMP_15A1B06
@@ -244,6 +245,27 @@ Page 11.10.16.1 generates Lamp Output LAMP_15A1G06
 Page 11.10.17.1 generates Lamp Output LAMP_15A1H06
 Page 11.10.18.1 generates Lamp Output LAMP_15A1J06
 Page 11.10.19.1 generates Lamp Output LAMP_15A1K06
+DEBUG: Tentative bus LAMPS LOGIC GATE RING identified based on signal LAMP_15A1A06
+DEBUG: Added signal LAMP_15A1B06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1C06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1D06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1E06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1F06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1G06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1H06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1J06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1K06 to bus LAMPS LOGIC GATE RING
+INFO: Bus LAMPS LOGIC GATE RING identified 
+Output signal LAMP_15A1A06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1B06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1C06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1D06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1E06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1F06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1G06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1H06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1J06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1K06 replaced by bus LAMPS LOGIC GATE RING
 Generating list of internal signals/wires ...
 26 internal signals/wires found.
 Generating HDL prefixes...

@@ -1,4 +1,4 @@
-Generating HDL for group named LogicClockat 6/9/2020 10:30:39 AM containing pages: 
+Generating HDL for group named LogicClockat 6/16/2020 1:16:42 PM containing pages: 
 	11.10.01.1, 11.10.02.1
 Old test bench file LogicClock_tb.vhdl 121 lines preserved and 29 declaration lines preserved
 Building lists of signals on 2 pages...
@@ -33,6 +33,7 @@ INFO:  Signal -S CLOCK STOPPED is used outside the group.
 Removing 1 output signals that do not have destinations outside the group...
 Removing 2 input signals that originate inside the group...
 Signal +S OSCILLATOR is output from the group, but also used as an input inside the group.
+Input Signal +S I RING 9 TIME replaced by Bus signal +S I RING HDL BUS
 Page 11.10.02.1 generates Lamp Output LAMP_15A1K24
 Generating list of internal signals/wires ...
 1 internal signals/wires found.
