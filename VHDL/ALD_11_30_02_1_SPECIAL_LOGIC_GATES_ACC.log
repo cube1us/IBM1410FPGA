@@ -1,4 +1,4 @@
-Generating HDL for page 11.30.02.1 SPECIAL LOGIC GATES-ACC at 6/17/2020 4:27:54 PM
+Generating HDL for page 11.30.02.1 SPECIAL LOGIC GATES-ACC at 6/18/2020 12:43:19 PM
 Old test bench file ALD_11_30_02_1_SPECIAL_LOGIC_GATES_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 Found combinatorial loop (need D FF) at output of gate at 3C
 Found combinatorial loop (need D FF) at output of gate at 2D

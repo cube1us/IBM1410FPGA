@@ -1,4 +1,4 @@
-Generating HDL for page 11.30.03.1 SPECIAL LOGIC GATES at 6/18/2020 8:20:30 AM
+Generating HDL for page 11.30.03.1 SPECIAL LOGIC GATES at 6/18/2020 12:43:21 PM
 Old test bench file ALD_11_30_03_1_SPECIAL_LOGIC_GATES_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 DOT Function at 3C has one output from a Trigger, one output from Non-Trigger
    Trigger block pin B located at 3C, Non-trigger is located at 3A Output is to 2C

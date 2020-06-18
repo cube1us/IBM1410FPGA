@@ -1,4 +1,4 @@
-Generating HDL for page 11.30.01.1 SPECIAL LOGIC GATES-ACC at 6/17/2020 4:32:11 PM
+Generating HDL for page 11.30.01.1 SPECIAL LOGIC GATES-ACC at 6/18/2020 12:43:16 PM
 Old test bench file ALD_11_30_01_1_SPECIAL_LOGIC_GATES_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 DOT Function at 2B has one output from a Trigger, one output from Non-Trigger
    Trigger block pin E located at 2B, Non-trigger is located at 2A Output is to 1B
