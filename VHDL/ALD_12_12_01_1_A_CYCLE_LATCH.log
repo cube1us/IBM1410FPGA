@@ -1,0 +1,56 @@
+Generating HDL for page 12.12.01.1 A CYCLE LATCH at 6/18/2020 1:51:02 PM
+Old test bench file ALD_12_12_01_1_A_CYCLE_LATCH_tb.vhdl 51 lines preserved and 12 declaration lines preserved
+Found combinatorial loop (need D FF) at output of gate at 5E
+Found combinatorial loop (need D FF) at output of gate at 4E
+Removed 15 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1G to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8A15
+Added LAMP signal LAMP_15A1A10
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A
+	and inputs of OUT_5E_D
+	and logic function of Special
+Generating Statement for block at 5E with *latched* output pin(s) of OUT_5E_D_Latch, OUT_5E_D_Latch
+	and inputs of OUT_4E_C,MS_PROGRAM_RES_OR_S_LOGIC_GATE,OUT_5G_G
+	and logic function of NAND
+Generating Statement for block at 4E with *latched* output pin(s) of OUT_4E_C_Latch, OUT_4E_C_Latch
+	and inputs of OUT_5E_D,OUT_5F_K
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_K
+	and inputs of PS_LOGIC_GATE_B_1,PS_A_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_F, OUT_3F_F, OUT_3F_F, OUT_3F_F
+	and inputs of OUT_4E_C
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_G
+	and inputs of PS_LOGIC_GATE_B_1,MS_A_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of MS_B_CYCLE,OUT_3F_F
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_L
+	and inputs of OUT_2G_C
+	and logic function of EQUAL
+Generating Statement for block at 2H with output pin(s) of OUT_2H_K
+	and inputs of OUT_3F_F
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of 
+	and inputs of OUT_2H_K
+	and logic function of Lamp
+Generating Statement for block at 2I with output pin(s) of OUT_2I_K
+	and inputs of OUT_3F_F
+	and logic function of NOT
+Generating Statement for block at 1I with output pin(s) of 
+	and inputs of OUT_2I_K
+	and logic function of Lamp
+Generating output sheet edge signal assignment to 
+	signal PS_A_CYCLE
+	from gate output OUT_3B_A
+Generating output sheet edge signal assignment to 
+	signal MS_A_CYCLE
+	from gate output OUT_3F_F
+Generating output sheet edge signal assignment to 
+	signal PS_A_OR_B_CYCLE
+	from gate output OUT_1G_L
+Generating D Flip Flop for block at 5E
+Generating D Flip Flop for block at 4E

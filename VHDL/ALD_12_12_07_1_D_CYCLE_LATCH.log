@@ -1,0 +1,67 @@
+Generating HDL for page 12.12.07.1 D CYCLE LATCH at 6/18/2020 1:52:34 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_07_1_D_CYCLE_LATCH_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5E
+Found combinatorial loop (need D FF) at output of gate at 4E
+Removed 10 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8D15
+Added LAMP signal LAMP_15A1D10
+Generating Statement for block at 1A with output pin(s) of OUT_1A_K
+	and inputs of MS_CONTROL_REG_DISABLE,OUT_2B_H
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_H, OUT_2B_H
+	and inputs of OUT_5E_C
+	and logic function of Special
+Generating Statement for block at 1D with output pin(s) of OUT_1D_G
+	and inputs of MS_C_CYCLE,OUT_3F_R
+	and logic function of NAND
+Generating Statement for block at 5E with *latched* output pin(s) of OUT_5E_C_Latch, OUT_5E_C_Latch
+	and inputs of MS_PROGRAM_RES_OR_S_LOGIC_GATE,OUT_5G_P,OUT_4E_F
+	and logic function of NAND
+Generating Statement for block at 4E with *latched* output pin(s) of OUT_4E_F_Latch, OUT_4E_F_Latch
+	and inputs of OUT_5E_C,OUT_5F_NoPin
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D
+	and inputs of MS_F_CYCLE,MS_E_CYCLE,MS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PS_LOGIC_GATE_B_1,PS_D_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_R, OUT_3F_R, OUT_3F_R, OUT_3F_R
+	and inputs of OUT_4E_F
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_P
+	and inputs of PS_LOGIC_GATE_B_1,MS_D_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_G
+	and inputs of OUT_3F_R,MS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_3F_R
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of 
+	and inputs of OUT_2H_C
+	and logic function of Lamp
+Generating Statement for block at 2I with output pin(s) of OUT_2I_C
+	and inputs of OUT_3F_R
+	and logic function of NOT
+Generating Statement for block at 1I with output pin(s) of 
+	and inputs of OUT_2I_C
+	and logic function of Lamp
+Generating output sheet edge signal assignment to 
+	signal MS_D_CYCLE_DOT_NOT_CR_DISABLE
+	from gate output OUT_1A_K
+Generating output sheet edge signal assignment to 
+	signal PS_D_CYCLE
+	from gate output OUT_2B_H
+Generating output sheet edge signal assignment to 
+	signal PS_C_OR_D_CYCLE
+	from gate output OUT_1D_G
+Generating output sheet edge signal assignment to 
+	signal PS_B_OR_E_OR_F_CYCLE
+	from gate output OUT_1E_D
+Generating output sheet edge signal assignment to 
+	signal PS_B_OR_D_CYCLE
+	from gate output OUT_2G_G
+Generating D Flip Flop for block at 5E
+Generating D Flip Flop for block at 4E
