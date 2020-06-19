@@ -1,0 +1,75 @@
+Generating HDL for page 12.12.30.1 CYCLE LENGTH CONTROLS-ACC at 6/18/2020 8:35:33 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_30_1_CYCLE_LENGTH_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Generating Statement for block at 4A with output pin(s) of OUT_4A_P
+	and inputs of PS_COMPARE_OP_CODE,PS_B_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of OUT_4A_P,MS_STOP_AT_F_TLU,MS_B_CYCLE_DOT_NO_SCAN
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_P
+	and inputs of PS_B_CYCLE_1,PS_1401_STORE_A_AR_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of MS_MPLY_OP_CODE,PS_D_CYCLE,MS_FILE_OP
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_G
+	and inputs of PS_STOP_AT_F_ON_B_CY_OP_CODES,PS_B_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_P
+	and inputs of OUT_2C_G
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_C_CYCLE_1,MS_STORE_ADDR_REGS_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of MS_1401_COND_TEST_DOT_I9
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_4C_NoPin,OUT_5D_NoPin
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of MS_STORAGE_SCAN_LOAD,PS_I_CYCLE,MS_1401_MODE_DOT_I_RING_5_OR_10_DOT_I_CY
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_E
+	and inputs of OUT_DOT_4E,MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,OUT_4F_C
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C, OUT_4F_C
+	and inputs of PS_B_CYCLE_1,PS_STOP_AT_F_ON_B_CY_OPS
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_R
+	and inputs of MV_STORAGE_SCAN_REGEN_MODE
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_P
+	and inputs of MS_C_OR_D_CYCLE_INSN_READ_OUT,MS_INTERRUPT_DOT_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_P, OUT_4H_P
+	and inputs of OUT_5G_R,PS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E
+	and inputs of OUT_4B_P,OUT_4H_P,MS_MPLY_DOT_3_DOT_D
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_B
+	and inputs of MS_WORD_MARK_OP_DOT_B_CYCLE
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_F
+	and inputs of MS_WORD_MARK_OP_DOT_A_CYCLE
+	and logic function of NOT
+WARNING: Input connection from edge connection named +S STOP AT F *ARITH to a DOT function on page 12.12.30.1 coordinate 1C is also used as input to other page(s):
+    16.42.04.1 
+WARNING: Input connection from edge connection named +S STOP AT F JRJ to a DOT function on page 12.12.30.1 coordinate 1C is also used as input to other page(s):
+    12.12.32.1 
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_2A_D,OUT_1C_P,OUT_2D_C,OUT_2E_E,OUT_2G_P,OUT_2H_E,OUT_3I_B,OUT_2I_F,PS_STOP_AT_F_STAR_ARITH,PS_STOP_AT_F_JRJ
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4D_C,OUT_4E_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_STOP_AT_F_DOT_B_CYCLE
+	from gate output OUT_4F_C
+Generating output sheet edge signal assignment to 
+	signal MS_STORAGE_SCAN_RGEN
+	from gate output OUT_4H_P
+Generating output sheet edge signal assignment to 
+	signal PS_STOP_AT_F
+	from gate output OUT_DOT_1C

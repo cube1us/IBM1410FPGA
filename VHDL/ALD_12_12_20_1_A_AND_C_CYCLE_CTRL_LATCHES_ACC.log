@@ -1,0 +1,62 @@
+Generating HDL for page 12.12.20.1 A AND C CYCLE CTRL LATCHES-ACC at 6/18/2020 8:34:52 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_20_1_A_AND_C_CYCLE_CTRL_LATCHES_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 4B
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 4G
+Found combinatorial loop (need D FF) at output of gate at 3G
+Removed 5 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2H to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of OUT_4B_F
+	and logic function of NOT
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_F_Latch, OUT_4B_F_Latch
+	and inputs of MS_PROGRAM_RESET_1,MS_LOGIC_GATE_D_1,OUT_3B_NoPin
+	and logic function of NAND
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_NoPin_Latch, OUT_3B_NoPin_Latch
+	and inputs of OUT_4B_F,OUT_4C_C
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_E
+	and inputs of OUT_3B_NoPin
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_SET_A_CYCLE_CTRL,PS_NEXT_TO_LAST_LOGIC_GATE
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D
+	and inputs of OUT_4G_F
+	and logic function of NOT
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_F_Latch, OUT_4G_F_Latch
+	and inputs of MS_PROGRAM_RESET_1,MS_LOGIC_GATE_D_1,OUT_3G_NoPin
+	and logic function of NAND
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_NoPin_Latch, OUT_3G_NoPin_Latch
+	and inputs of OUT_4G_F,OUT_4H_C
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of PS_NEXT_TO_LAST_LOGIC_GATE,PS_SET_C_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E, OUT_2H_E
+	and inputs of OUT_3G_NoPin
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_K
+	and inputs of OUT_2H_E,MS_D_CYCLE_CTRL
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_A_CYCLE_CTRL
+	from gate output OUT_2A_D
+Generating output sheet edge signal assignment to 
+	signal MS_A_CYCLE_CTRL
+	from gate output OUT_2B_E
+Generating output sheet edge signal assignment to 
+	signal PS_C_CYCLE_CTRL
+	from gate output OUT_2F_D
+Generating output sheet edge signal assignment to 
+	signal MS_C_CYCLE_CTRL
+	from gate output OUT_2H_E
+Generating output sheet edge signal assignment to 
+	signal PS_C_OR_D_CYCLE_CTRL
+	from gate output OUT_2I_K
+Generating D Flip Flop for block at 4B
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 4G
+Generating D Flip Flop for block at 3G

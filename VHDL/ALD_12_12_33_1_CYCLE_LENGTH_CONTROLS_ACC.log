@@ -1,0 +1,59 @@
+Generating HDL for page 12.12.33.1 CYCLE LENGTH CONTROLS-ACC at 6/18/2020 8:40:01 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_33_1_CYCLE_LENGTH_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+WARNING: Diagram block at coordinate 5I has 4 different output pins: A,B,D,E
+Ignoring Logic Block 3H with symbol CAP
+Ignoring Logic Block 2I with symbol CAP
+Removed 1 outputs from Gate at 4H to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3I to ignored block(s) or identical signal names
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D, OUT_4C_D
+	and inputs of PS_A_RING_4_TIME,PS_X_CYCLE,PS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_E, OUT_4E_E
+	and inputs of PS_1401_MODE_1,PS_I_RING_5_OR_10_TIME,PS_I_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of OUT_4H_X
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C, OUT_2G_C
+	and inputs of OUT_3G_D,MS_ADDRESS_SET_ROUTINE,PS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_C
+	and inputs of OUT_4C_D,OUT_4E_E,OUT_2G_C
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_X
+	and inputs of OUT_DOT_5I
+	and logic function of Resistor
+	ERROR:  GenerateHDL does not (yet) know how to generate the listed block with logic function Resistor and HDLName of 
+Generating Statement for block at 1H with output pin(s) of OUT_1H_K
+	and inputs of OUT_2G_C
+	and logic function of EQUAL
+Generating Statement for block at 5I with output pin(s) of OUT_5I_A, OUT_5I_B, OUT_5I_D, OUT_5I_E
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+	Error: More than one output name, but gate is not marked as logic function Special or Trigger.
+Generating Statement for block at 3I with output pin(s) of OUT_3I_X
+	and inputs of OUT_DOT_4I
+	and logic function of Resistor
+	ERROR:  GenerateHDL does not (yet) know how to generate the listed block with logic function Resistor and HDLName of 
+Generating Statement for block at 5I with output pin(s) of OUT_DOT_5I
+	and inputs of OUT_5I_A,OUT_5I_B
+	and logic function of OR
+Generating Statement for block at 4I with output pin(s) of OUT_DOT_4I
+	and inputs of OUT_5I_D,OUT_5I_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_1401_MODE_DOT_A_RING_4_DOT_X_CYCLE
+	from gate output OUT_4C_D
+Generating output sheet edge signal assignment to 
+	signal MS_1401_MODE_DOT_I_RING_5_OR_10_DOT_I_CY
+	from gate output OUT_4E_E
+Generating output sheet edge signal assignment to 
+	signal PS_STOP_AT_K
+	from gate output OUT_1G_C
+Generating output sheet edge signal assignment to 
+	signal MS_STORAGE_SCAN_LOAD
+	from gate output OUT_1H_K
+Generating output sheet edge signal assignment to 
+	signal MV_STORAGE_SCAN_REGEN_MODE
+	from gate output OUT_3I_X
