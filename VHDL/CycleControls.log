@@ -1,0 +1,142 @@
+Generating HDL for group named CycleControlsat 6/20/2020 11:04:19 AM containing pages: 
+	12.12.20.1, 12.12.21.1, 12.12.23.1, 12.12.30.1, 12.12.31.1
+	12.12.32.1, 12.12.33.1
+Old test bench file CycleControls_tb.vhdl 51 lines preserved and 12 declaration lines preserved
+Building lists of signals on 7 pages...
+Found 11 signals on page 12.12.20.1
+Found 17 signals on page 12.12.21.1
+Found 22 signals on page 12.12.23.1
+Found 29 signals on page 12.12.30.1
+Found 12 signals on page 12.12.31.1
+Found 18 signals on page 12.12.32.1
+Found 14 signals on page 12.12.33.1
+Found 77 unique input signals and 35 unique output signals, (104 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S LOGIC GATE D 1 originates outside the group.
+INFO:  Signal +S SET A CYCLE CTRL originates outside the group.
+INFO:  Signal -S PROGRAM RESET 1 originates outside the group.
+INFO:  Signal +S NEXT TO LAST LOGIC GATE originates inside the group.
+INFO:  Signal +S SET C CYCLE CTRL originates outside the group.
+INFO:  Signal -S D CYCLE CTRL originates inside the group.
+INFO:  Signal +S LOGIC GATE A 1 originates outside the group.
+INFO:  Signal -S 1401 I-O SET BRANCH CNDS originates outside the group.
+INFO:  Signal +S SET B CYCLE CTRL originates outside the group.
+INFO:  Signal +S SET D CYCLE CTRL originates outside the group.
+INFO:  Signal -S DISPLAY ROUTINE originates outside the group.
+INFO:  Signal -S ALTER ROUTINE originates outside the group.
+INFO:  Signal +S CONSOLE STROBE originates outside the group.
+INFO:  Signal +S LOGIC GATE Z originates outside the group.
+INFO:  Signal +S LAST EXECUTE CYCLE originates outside the group.
+INFO:  Signal +S NEXT TO AND LAST LOGIC GATE originates inside the group.
+INFO:  Signal -S ANY CHECK TEST originates outside the group.
+INFO:  Signal -S CONS RESET START CONDITION originates outside the group.
+INFO:  Signal +S SET I CYCLE CTRL originates outside the group.
+INFO:  Signal +S NOT INTR START originates outside the group.
+INFO:  Signal +S STORAGE SCAN ROUTINE originates outside the group.
+INFO:  Signal +S CONS PRINTER STROBE originates outside the group.
+INFO:  Signal -S CONSOLE SET START CND originates outside the group.
+INFO:  Signal +S I-O LAST EX CYCLE originates outside the group.
+INFO:  Signal +S PROCESS ROUTINE originates outside the group.
+INFO:  Signal +S SET X CYCLE CTRL originates outside the group.
+INFO:  Signal +S B CYCLE 1 originates outside the group.
+INFO:  Signal +S I CYCLE originates outside the group.
+INFO:  Signal +S C CYCLE 1 originates outside the group.
+INFO:  Signal +S D CYCLE originates outside the group.
+INFO:  Signal +S COMPARE OP CODE originates outside the group.
+INFO:  Signal -S STOP AT F TLU originates outside the group.
+INFO:  Signal -S B CYCLE .NO SCAN originates outside the group.
+INFO:  Signal +S 1401 STORE A AR OP CODE originates outside the group.
+INFO:  Signal -S MPLY OP CODE originates outside the group.
+INFO:  Signal -S FILE OP originates outside the group.
+INFO:  Signal +S STOP AT F *ARITH originates outside the group.
+INFO:  Signal -S STORE ADDR REGS OP CODE originates outside the group.
+INFO:  Signal -S 1401 COND TEST.I9 originates outside the group.
+INFO:  Signal +S STOP AT F JRJ originates inside the group.
+INFO:  Signal -S STORAGE SCAN LOAD originates inside the group.
+INFO:  Signal -S 1401 MODE.I RING 5+10.I CY originates inside the group.
+INFO:  Signal -S STD A CYCLE OPS.A CYCLE originates outside the group.
+INFO:  Signal +S STOP AT F ON B CY OPS originates outside the group.
+INFO:  Signal -S C+D CYCLE INSN READ OUT originates outside the group.
+INFO:  Signal -V STORAGE SCAN REGEN MODE originates inside the group.
+INFO:  Signal -S INTERRUPT.B CYCLE originates outside the group.
+INFO:  Signal -S MPLY.3.D originates outside the group.
+INFO:  Signal -S WORD MARK OP.A CYCLE originates outside the group.
+INFO:  Signal -S WORD MARK OP.B CYCLE originates outside the group.
+INFO:  Signal +S STOP AT F ON B CY OP CODES originates outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 3 JRJ originates outside the group.
+INFO:  Signal -S STOP AT F.LOGIC GATE D originates outside the group.
+INFO:  Signal -S STOP AT H.LOGIC GATE F originates outside the group.
+INFO:  Signal -S STOP AT G.LOGIC GATE E originates outside the group.
+INFO:  Signal -S STOP AT J.LOGIC GATE G originates outside the group.
+INFO:  Signal -S STOP AT K.LOGIC GATE H originates outside the group.
+INFO:  Signal -S COMPUTER RESET 1 originates outside the group.
+INFO:  Signal +S A CYCLE originates outside the group.
+INFO:  Signal +S X CYCLE originates outside the group.
+INFO:  Signal +S C CYCLE originates outside the group.
+INFO:  Signal -S OUTPUT CYCLE originates outside the group.
+INFO:  Signal +S STOP AT H ON B CYCLE OPS originates outside the group.
+INFO:  Signal -S FILE OP.D CYCLE originates outside the group.
+INFO:  Signal +S 1ST SCAN originates outside the group.
+INFO:  Signal -S 1401 MODE.A RING 4.X CYCLE originates inside the group.
+INFO:  Signal -S INPUT CYCLE originates outside the group.
+INFO:  Signal +S STOP AT J ON B CY OP CODES originates outside the group.
+INFO:  Signal -S STOP AT J TLU originates outside the group.
+INFO:  Signal +S STORE ADDR REGS OP CODE originates outside the group.
+INFO:  Signal +S 1401 STORE AR OP CODES originates outside the group.
+INFO:  Signal +S I RING 5 OR 10 TIME originates outside the group.
+INFO:  Signal +S A RING 4 TIME originates outside the group.
+INFO:  Signal +S 1401 MODE 1 originates outside the group.
+INFO:  Signal -S ADDRESS SET ROUTINE originates outside the group.
+INFO:  Signal -V 36 VOLTS originates outside the group.
+INFO:  Signal GROUND originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S A CYCLE CTRL is used outside the group.
+INFO:  Signal -S A CYCLE CTRL is used outside the group.
+INFO:  Signal +S C CYCLE CTRL is used outside the group.
+INFO:  Signal -S C CYCLE CTRL is used outside the group.
+INFO:  Signal +S C OR D CYCLE CTRL is used outside the group.
+INFO:  Signal +S B CYCLE CTRL is used outside the group.
+INFO:  Signal -S B CYCLE CTRL is used outside the group.
+INFO:  Signal +S D CYCLE CTRL is used outside the group.
+INFO:  Signal -S D CYCLE CTRL is used outside the group.
+INFO:  Signal -S DISPLAY OR ALTER is used outside the group.
+INFO:  Signal +S DISPLAY OR ALTER is used outside the group.
+INFO:  Signal -S DISPLAY+ALTER SET 2ND SCAN is used outside the group.
+INFO:  Signal +S I CYCLE CTRL is used outside the group.
+INFO:  Signal -S I CYCLE CTRL is used outside the group.
+INFO:  Signal +S X CYCLE CTRL is used outside the group.
+INFO:  Signal -S X CYCLE CTRL is used outside the group.
+INFO:  Signal -S I-O LAST EX.Z is used outside the group.
+INFO:  Signal -S LAST EX.NEXT TO LAST is used outside the group.
+INFO:  Signal +S STOP AT F is used outside the group.
+INFO:  Signal -S STOP AT F.B CYCLE is used outside the group.
+INFO:  Signal -S STORAGE SCAN RGEN is used outside the group.
+INFO:  Signal +S LAST LOGIC GATE 1 is used outside the group.
+INFO:  Signal -S LAST LOGIC GATE 1 is used outside the group.
+INFO:  Signal +S NEXT TO LAST LOGIC GATE is used outside the group.
+INFO:  Signal +S NEXT TO AND LAST LOGIC GATE is used only inside the group.
+INFO:  Signal +S LAST LOGIC GATE 2 is used outside the group.
+INFO:  Signal +S STOP AT F JRJ is used only inside the group.
+INFO:  Signal -S STOP AT H.B CY.1ST SCAN is used outside the group.
+INFO:  Signal +S STOP AT H is used outside the group.
+INFO:  Signal +S STOP AT J is used outside the group.
+INFO:  Signal -S STORAGE SCAN LOAD is used outside the group.
+INFO:  Signal -S 1401 MODE.I RING 5+10.I CY is used only inside the group.
+INFO:  Signal -V STORAGE SCAN REGEN MODE is used only inside the group.
+INFO:  Signal -S 1401 MODE.A RING 4.X CYCLE is used only inside the group.
+INFO:  Signal +S STOP AT K is used outside the group.
+Removing 5 output signals that do not have destinations outside the group...
+Removing 8 input signals that originate inside the group...
+Signal +S NEXT TO LAST LOGIC GATE is output from the group, but also used as an input inside the group.
+Signal -S D CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal -S STORAGE SCAN LOAD is output from the group, but also used as an input inside the group.
+Generating list of internal signals/wires ...
+5 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.12.20.1 (A AND C CYCLE CTRL LATCHES-ACC)
+Generating HDL associated with page 12.12.21.1 (B AND D CYCLE CTRL LATCHES)
+Generating HDL associated with page 12.12.23.1 (I AND X CYCLE CTRL LATCHES-ACC)
+Generating HDL associated with page 12.12.30.1 (CYCLE LENGTH CONTROLS-ACC)
+Generating HDL associated with page 12.12.31.1 (CYCLE LENGTH CONTROLS-ACC)
+Generating HDL associated with page 12.12.32.1 (CYCLE LENGTH CONTROLS-ACC)
+Generating HDL associated with page 12.12.33.1 (CYCLE LENGTH CONTROLS-ACC)
