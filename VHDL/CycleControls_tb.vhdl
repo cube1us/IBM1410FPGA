@@ -241,6 +241,48 @@ architecture behavioral of CycleControls_tb is
 
    -- Your test bench declarations go here
 
+--  Procedure to proceed through NEXT to last logic gate sequence
+   
+procedure NLLG (signal MS_STOP_AT_J_DOT_LOGIC_GATE_G : inout STD_LOGIC;
+            signal PS_2ND_CLOCK_PULSE_3_JRJ: inout STD_LOGIC) is
+      begin
+      MS_STOP_AT_J_DOT_LOGIC_GATE_G <= '0';
+      wait for 30ns;
+      PS_2ND_CLOCK_PULSE_3_JRJ <= '1';
+      wait for 300 ns;
+      PS_2ND_CLOCK_PULSE_3_JRJ <= '0';
+      wait for 30 ns;
+      MS_STOP_AT_J_DOT_LOGIC_GATE_G <= '1';
+      assert PS_NEXT_TO_LAST_LOGIC_GATE = '1' report "NLLG Process: Next to Last Logic Gate Not 1" severity failure; 
+      end procedure;
+   
+-- Procedure to proceed through LAST logic gate sequnce
+
+procedure LLG (signal PS_2ND_CLOCK_PULSE_3_JRJ: inout STD_LOGIC) is
+    begin
+    wait for 270 ns;
+    PS_2ND_CLOCK_PULSE_3_JRJ <= '1';
+    wait for 330 ns;
+    PS_2ND_CLOCK_PULSE_3_JRJ <= '0';
+    wait for 30 ns;
+    assert PS_LAST_LOGIC_GATE_1 = '1' report "LLG Process: Last Logic Gate Not 1" severity failure;
+    assert PS_NEXT_TO_LAST_LOGIC_GATE = '0' report "LLG Process: Next to Last Logic Gate Not 0" severity failure; 
+    end procedure;
+   
+--  Procedure to proceed though ending the LAST logic gate sequence
+
+procedure ENDLLG (signal PS_2ND_CLOCK_PULSE_3_JRJ: inout STD_LOGIC) is
+    begin
+    wait for 270 ns;
+    PS_2ND_CLOCK_PULSE_3_JRJ <= '1';
+    wait for 330 ns;
+    PS_2ND_CLOCK_PULSE_3_JRJ <= '0';
+    wait for 30 ns;
+    assert PS_LAST_LOGIC_GATE_1 = '0' report "ENDLLG Process: Last Logic Gate Not 0" severity failure;
+    assert PS_NEXT_TO_LAST_LOGIC_GATE = '0' report "ENDLLG Process: Next to Last Logic Gate Not 0" severity failure; 
+    end procedure;
+    
+
 -- END USER TEST BENCH DECLARATIONS
 
 	begin
@@ -382,11 +424,466 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+    
+
 uut_process: process
    begin
 
    -- Your test bench code
+   
 
+   -- Reset tests
+
+   SWITCH_ROT_STOR_SCAN <= "001000";  -- Storage scan OFF
+   
+   wait for 1 us;
+   MS_PROGRAM_RESET_1 <= '0';
+   MS_COMPUTER_RESET_1 <= '0';
+   wait for 3 us;
+   MS_PROGRAM_RESET_1 <= '1';
+   MS_COMPUTER_RESET_1 <= '1';
+   wait for 1 us;
+   
+   --   Simple combinatorial tests
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set at beginning" severity failure;
+   wait for 30 ns;
+   PS_COMPARE_OP_CODE <= '1';
+   wait for 30 ns;
+   PS_B_CYCLE_1 <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (1)" severity failure;   
+   PS_COMPARE_OP_CODE <= '0';
+   PS_B_CYCLE_1 <= '0';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (2)" severity failure;
+   MS_STOP_AT_F_TLU <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (2)" severity failure;
+   MS_STOP_AT_F_TLU <= '1';
+   wait for 30 ns;   
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (3)" severity failure;
+   MS_B_CYCLE_DOT_NO_SCAN <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (3)" severity failure;
+   MS_B_CYCLE_DOT_NO_SCAN <= '1';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (4)" severity failure;
+   PS_STOP_AT_F_ON_B_CY_OP_CODES <= '1';
+   wait for 30 ns;
+   PS_B_CYCLE_1 <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (4)" severity failure;
+   PS_STOP_AT_F_ON_B_CY_OP_CODES <= '0';
+   PS_B_CYCLE_1 <= '0';   
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (5)" severity failure;
+   PS_D_CYCLE <= '1';  -- -S MPLY OP CODE and -S FILE OP both already at '1'
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (5)" severity failure;
+   PS_D_CYCLE <= '0';   
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (6)" severity failure;
+   PS_C_CYCLE_1 <= '1';  -- -S STORE ADDR REGS OP CODE already at '1'
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (6)" severity failure;
+   PS_C_CYCLE_1 <= '0';   
+   wait for 30 ns;
+      
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (7)" severity failure;
+   --  -S STORAGE SCAN LOAD Already '1'
+   --  -S 1401 COND TESTS.I9 is also already '1'
+   --  -S 1401 MODE.IRING 5+10.I CY already '1'
+   PS_I_CYCLE <= '1';   
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (7)" severity failure;
+   PS_I_CYCLE <= '0';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (8)" severity failure;
+   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= '0';   
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (8)" severity failure;
+   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= '1';   
+   wait for 30 ns;
+
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (9)" severity failure;
+   assert MS_STOP_AT_F_DOT_B_CYCLE = '1' report "-S STOP AT F.B CYCLE SET EARLY" severity failure;   
+   PS_STOP_AT_F_ON_B_CY_OPS <= '1';
+   wait for 30 ns;
+   PS_B_CYCLE_1 <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (9)" severity failure;
+   assert MS_STOP_AT_F_DOT_B_CYCLE = '0' report "-S STOP AT F.B CYCLE NOT SET" severity failure;
+   PS_STOP_AT_F_ON_B_CY_OPS <= '0';
+   PS_B_CYCLE_1 <= '0';   
+   wait for 30 ns;
+
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (10)" severity failure;
+   MS_OUTPUT_CYCLE <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (10)" severity failure;
+   MS_OUTPUT_CYCLE <= '1';   
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (11)" severity failure;
+   MS_INPUT_CYCLE <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (11)" severity failure;
+   MS_INPUT_CYCLE <= '1';   
+   wait for 30 ns;
+
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (12)" severity failure;
+   PS_STOP_AT_F_STAR_ARITH <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (12)" severity failure;
+   PS_STOP_AT_F_STAR_ARITH <= '0';
+   wait for 30 ns;
+
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (13)" severity failure;
+   MS_WORD_MARK_OP_DOT_B_CYCLE <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (13)" severity failure;
+   MS_WORD_MARK_OP_DOT_B_CYCLE <= '1';
+   wait for 30 ns;
+
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (14)" severity failure;
+   MS_C_OR_D_CYCLE_INSN_READ_OUT <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (14)" severity failure;
+   MS_C_OR_D_CYCLE_INSN_READ_OUT <= '1';
+   wait for 30 ns;
+
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (15)" severity failure;
+   MS_INTERRUPT_DOT_B_CYCLE <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (15)" severity failure;
+   MS_INTERRUPT_DOT_B_CYCLE <= '1';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (16)" severity failure;
+   PS_1401_STORE_A_AR_OP_CODE <= '1';
+   wait for 30 ns;
+   PS_B_CYCLE_1 <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (16)" severity failure;
+   PS_1401_STORE_A_AR_OP_CODE <= '0';
+   wait for 30 ns;
+   PS_B_CYCLE_1 <= '0';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (17)" severity failure;
+   SWITCH_ROT_STOR_SCAN <= "010000";  -- STOR SCAN REGEN 
+   wait for 30 ns;
+   PS_STORAGE_SCAN_ROUTINE <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (17)" severity failure;
+   SWITCH_ROT_STOR_SCAN <= "001000";  -- STOR SCAN OFF
+   PS_STORAGE_SCAN_ROUTINE <= '0';
+   wait for 30 ns;
+
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (18)" severity failure;
+   MS_MPLY_DOT_3_DOT_D <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (18)" severity failure;
+   MS_MPLY_DOT_3_DOT_D <= '1';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (19)" severity failure;
+   MS_WORD_MARK_OP_DOT_B_CYCLE <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (19)" severity failure;
+   MS_WORD_MARK_OP_DOT_B_CYCLE <= '1';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_F = '0' report "+S STOP AT F set (20)" severity failure;
+   MS_WORD_MARK_OP_DOT_A_CYCLE <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (20)" severity failure;
+   MS_WORD_MARK_OP_DOT_A_CYCLE <= '1';
+   wait for 30 ns;
+
+   assert PS_A_CYCLE_CTRL = '0' report "A Cycle Ctrl not 0 after Reset" severity failure;
+   assert PS_C_CYCLE_CTRL = '0' report "C Cycle Ctrl not 0 after Reset" severity failure;
+   assert PS_B_CYCLE_CTRL = '0' report "B Cycle Ctrl not 0 after Reset" severity failure;
+   assert PS_D_CYCLE_CTRL = '0' report "D Cycle Ctrl not 0 after Reset" severity failure;
+   assert PS_I_CYCLE_CTRL = '1' report "I Cycle Ctrl not 1 after Reset" severity failure;
+   assert PS_X_CYCLE_CTRL = '0' report "X Cycle Ctrl not 0 after Reset" severity failure;
+   
+   assert PS_LAST_LOGIC_GATE_1 = '0' report "Last Logic Gate 1 not 0 after Computer Reset" severity failure;
+   assert PS_LAST_LOGIC_GATE_2 = '0' report "Last Logic Gate 2 not 0 after Computer Reset" severity failure;
+   assert PS_NEXT_TO_LAST_LOGIC_GATE = '0' report "Next to Last Logic Gate not 0 after Computer Reset" severity failure;
+   
+   assert PS_STOP_AT_F = '0' report "Stop at F not 0 at start" severity failure;
+   assert PS_STOP_AT_H = '0' report "Stop at H not 0 at start" severity failure;
+   assert PS_STOP_AT_J = '0' report "Stop at J not 0 at start" severity failure;
+   assert PS_STOP_AT_K = '0' report "Stop at K not 0 at start" severity failure;
+      
+   assert MS_STORAGE_SCAN_RGEN = '1' report "-S Storage Scan Regen not 1 at start" severity failure;   
+   assert MS_STORAGE_SCAN_LOAD = '1' report "-S Storage Scan Load not 1 at start" severity failure;
+   
+   --   Trip next to last logic gate
+   
+   MS_STOP_AT_F_DOT_LOGIC_GATE_D <= '0';
+   wait for 30 ns;
+   assert PS_NEXT_TO_LAST_LOGIC_GATE = '0' report "Next to Last Logic Gate set early (1)" severity failure;
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '1';
+   wait for 300 ns;
+   assert PS_NEXT_TO_LAST_LOGIC_GATE = '0' report "Next to Last Logic Gate set early (2)" severity failure;
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '0';   
+   wait for 30 ns;
+   assert PS_NEXT_TO_LAST_LOGIC_GATE = '1' report "Next to Last Logic Gate Did Not Set" severity failure;
+   MS_STOP_AT_F_DOT_LOGIC_GATE_D <= '1';
+   wait for 30 ns;   
+   wait for 240 ns;
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '1';
+   wait for 300 ns;
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '0';
+   wait for 30ns;
+   assert PS_NEXT_TO_LAST_LOGIC_GATE = '0' report "Next to Last Logic Gate Did not Reset" severity failure;
+   assert PS_LAST_LOGIC_GATE_2 = '1' report "Last Logic Gate Did not Set" severity failure;
+   
+   wait for 270 ns;
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   
+   --   A Cycle Test
+   
+   wait for 270 ns;
+   assert PS_A_CYCLE_CTRL = '0' report "A Cycle Ctrl Test: A Cycle Ctrl Already set" severity failure;
+   MS_LOGIC_GATE_D_1 <= '0';
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   PS_SET_A_CYCLE_CTRL <= '1';
+   wait for 30 ns;
+   assert PS_A_CYCLE_CTRL = '0' report "A Cycle Ctrl Test: A Cycle Ctrl Set during LGD" severity failure;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   assert PS_A_CYCLE_CTRL = '1' report "A Cycle Ctrl Test: A Cycle Ctrl Did Not set" severity failure;
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   --   A Cycle would actually happen here, taking several microseconds
+   wait for 660 ns;
+   PS_SET_A_CYCLE_CTRL <= '0';
+   wait for 100 ns;
+   assert PS_A_CYCLE_CTRL = '1' report "A Cycle Ctrl Test: A Cycle Ctrl Reset Prematurely with +S SET A CYCLE CTRL" severity failure;
+   wait for 100 ns;  
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   assert PS_A_CYCLE_CTRL = '1' report "A Cycle Ctrl Test: A Cycle Ctrl Reset Prematurely with Next to Last Logic Gate" severity failure;
+   wait for 100 ns;
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 100 ns;         
+   assert PS_A_CYCLE_CTRL = '0' report "A Cycle Ctrl Test: A Cycle Ctrl did not reset during LGD" severity failure;
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+
+   --   C Cycle Test (Verify using waveforms)
+   wait for 270 ns;
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   PS_SET_C_CYCLE_CTRL <= '1';   
+   MS_LOGIC_GATE_D_1 <= '1';    -- Now it should set
+   wait for 30 ns;
+   assert PS_C_CYCLE_CTRL = '1' report "C Cycle Control did not set after LGD" severity failure;
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   wait for 660 ns;
+   PS_SET_C_CYCLE_CTRL <= '0';
+   wait for 100 ns;
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets   
+   wait for 30 ns;
+   assert PS_C_CYCLE_CTRL = '0' report "C Cycle Ctrl did not reset during LGD" severity failure;
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   
+   --   B Cycle Test (Verify using waveforms)
+   wait for 270 ns;
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   PS_SET_B_CYCLE_CTRL <= '1';   
+   MS_LOGIC_GATE_D_1 <= '1';    -- Now it should set
+   wait for 30 ns;
+   assert PS_B_CYCLE_CTRL = '1' report "B Cycle Control did not set after LGD" severity failure;
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   wait for 660 ns;
+   PS_SET_B_CYCLE_CTRL <= '0';
+   wait for 100 ns;
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets   
+   wait for 30 ns;
+   assert PS_B_CYCLE_CTRL = '0' report "B Bycle Ctrl did not reset during LGD (1)" severity failure;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 100 ns;
+   MS_1401_I_O_SET_BRANCH_CNDS <= '0';
+   wait for 30 ns;
+   assert PS_B_CYCLE_CTRL = '1' report "B Bycle Ctrl did not set for -S 1401 IO SET BRANCH CNDS" severity failure;
+   wait for 100 ns;
+   MS_1401_I_O_SET_BRANCH_CNDS <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets
+   wait for 30 ns;
+   assert PS_B_CYCLE_CTRL = '0' report "B Bycle Ctrl did not reset during LGD (2)" severity failure;   
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);   
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   
+   --   D Cycle Test (Verify using waveforms)
+   wait for 270 ns;
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   PS_SET_D_CYCLE_CTRL <= '1';   
+   MS_LOGIC_GATE_D_1 <= '1';    -- Now it should set
+   wait for 30 ns;
+   assert PS_D_CYCLE_CTRL = '1' report "D Cycle Control did not set after LGD" severity failure;
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   wait for 660 ns;
+   PS_SET_D_CYCLE_CTRL <= '0';
+   wait for 100 ns;
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets   
+   wait for 30 ns;
+   assert PS_D_CYCLE_CTRL = '0' report "D Cycle Ctrl did not reset during LGD (1)" severity failure;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 100 ns;
+   MS_DISPLAY_ROUTINE <= '0';
+   wait for 100 ns;
+   PS_LOGIC_GATE_A_1 <= '1';
+   wait for 100 ns;
+   PS_CONSOLE_STROBE <= '1';
+   wait for 100 ns;
+   assert PS_D_CYCLE_CTRL = '1' report "D Bycle Ctrl did not set for Console Display" severity failure;
+   wait for 100 ns;
+   MS_DISPLAY_ROUTINE <= '1';
+   wait for 100 ns;
+   PS_LOGIC_GATE_A_1 <= '0';
+   wait for 100 ns;
+   PS_CONSOLE_STROBE <= '1';
+   wait for 100 ns;
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets
+   wait for 30 ns;
+   assert PS_D_CYCLE_CTRL = '0' report "D Bycle Ctrl did not reset during LGD (2)" severity failure;   
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);   
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   
+   --   I Cycle Control Tests
+
+   wait for 270 ns;
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   PS_SET_I_CYCLE_CTRL <= '1';
+   PS_NOT_INTR_START <= '1';
+   MS_LOGIC_GATE_D_1 <= '1';    -- Now it should set  (NLLG is set at this point)
+   wait for 30 ns;
+   assert PS_I_CYCLE_CTRL = '1' report "I Cycle Control did not set after LGD" severity failure;
+   wait for 30 ns;
+   PS_SET_I_CYCLE_CTRL <= '0';
+   PS_NOT_INTR_START <= '0';
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;      
+   assert PS_I_CYCLE_CTRL = '0' report "I Cycle Control did not reset at LGD" severity failure;
+   wait for 100 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 100 ns;
+   
+   MS_CONSOLE_SET_START_CND <= '0';
+   wait for 30 ns;
+   assert PS_I_CYCLE_CTRL = '1' report "I Cycle Control did not set after Console Set Start Cnd" severity failure;
+   wait for 30 ns;
+   MS_CONSOLE_SET_START_CND <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 100 ns;
+   
+   PS_STORAGE_SCAN_ROUTINE <= '1';
+   PS_CONS_PRINTER_STROBE <= '1'; 
+   wait for 30 ns;   
+   assert PS_I_CYCLE_CTRL = '1' report "I Cycle Control did not set with STORAGE SCAN and PRINTER STROBE" severity failure;
+   wait for 30 ns;
+   PS_STORAGE_SCAN_ROUTINE <= '0';
+   PS_CONS_PRINTER_STROBE <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 100 ns;
+   
+   MS_ANY_CHECK_TEST <= '0';
+   wait for 30 ns;
+   assert PS_I_CYCLE_CTRL = '1' report "I Cycle Control did not set after Any Check Test" severity failure;
+   wait for 30 ns;
+   MS_ANY_CHECK_TEST <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 100 ns;
+
+   PS_LAST_EXECUTE_CYCLE <= '1';
+   PS_PROCESS_ROUTINE <= '1';
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   wait for 30 ns;   
+   assert PS_I_CYCLE_CTRL = '1' report "I Cycle Control did not on Last Execute Cycle" severity failure;
+   wait for 30 ns;   
+   PS_LAST_EXECUTE_CYCLE <= '0';
+   PS_PROCESS_ROUTINE <= '0';
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);   
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 100 ns;
+   
+   PS_LOGIC_GATE_Z <= '1';
+   PS_I_O_LAST_EX_CYCLE <= '1';
+   PS_PROCESS_ROUTINE <= '1';
+   wait for 30 ns;
+   assert PS_I_CYCLE_CTRL = '1' report "I Cycle Control did not set on LGZ*IO LAST EX*PROCESS ROUTINE" severity failure;
+   assert MS_I_O_LAST_EX_DOT_Z = '0' report "-S IO LAST EX dit not set properly" severity failure;
+   wait for 100 ns;
+   PS_LOGIC_GATE_Z <= '0';
+   PS_I_O_LAST_EX_CYCLE <= '0';
+   PS_PROCESS_ROUTINE <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 100 ns;
+
+   --   Z Cycle Control Test (Verify using waveforms)
+   
+   wait for 270 ns;
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   PS_SET_X_CYCLE_CTRL <= '1';   
+   MS_LOGIC_GATE_D_1 <= '1';    -- Now it should set
+   wait for 30 ns;
+   assert PS_X_CYCLE_CTRL = '1' report "X Cycle Control did not set after LGD" severity failure;
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   wait for 660 ns;
+   PS_SET_X_CYCLE_CTRL <= '0';
+   wait for 100 ns;
+   MS_LOGIC_GATE_D_1 <= '0';    -- Logic Gate D Resets   
+   wait for 30 ns;
+   assert PS_X_CYCLE_CTRL = '0' report "X Cycle Ctrl did not reset during LGD" severity failure;
+   NLLG(MS_STOP_AT_J_DOT_LOGIC_GATE_G, PS_2ND_CLOCK_PULSE_3_JRJ);
+   LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+   ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
+
+   
+  
+   
+   
+   
+   
+   
    wait;
    end process;
 
