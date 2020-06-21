@@ -1,7 +1,7 @@
-Generating HDL for group named CycleControlsat 6/20/2020 11:04:19 AM containing pages: 
+Generating HDL for group named CycleControlsat 6/21/2020 12:25:02 PM containing pages: 
 	12.12.20.1, 12.12.21.1, 12.12.23.1, 12.12.30.1, 12.12.31.1
 	12.12.32.1, 12.12.33.1
-Old test bench file CycleControls_tb.vhdl 51 lines preserved and 12 declaration lines preserved
+Old test bench file CycleControls_tb.vhdl 600 lines preserved and 54 declaration lines preserved
 Building lists of signals on 7 pages...
 Found 11 signals on page 12.12.20.1
 Found 17 signals on page 12.12.21.1
@@ -56,7 +56,7 @@ INFO:  Signal -S STORAGE SCAN LOAD originates inside the group.
 INFO:  Signal -S 1401 MODE.I RING 5+10.I CY originates inside the group.
 INFO:  Signal -S STD A CYCLE OPS.A CYCLE originates outside the group.
 INFO:  Signal +S STOP AT F ON B CY OPS originates outside the group.
-INFO:  Signal -S C+D CYCLE INSN READ OUT originates outside the group.
+INFO:  Signal -S C+D CYCLE.INSN READ OUT originates outside the group.
 INFO:  Signal -V STORAGE SCAN REGEN MODE originates inside the group.
 INFO:  Signal -S INTERRUPT.B CYCLE originates outside the group.
 INFO:  Signal -S MPLY.3.D originates outside the group.
