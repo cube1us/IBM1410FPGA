@@ -444,7 +444,7 @@ uut_process: process
    MS_COMPUTER_RESET_1 <= '1';
    wait for 1 us;
    
-   --   Simple combinatorial tests
+   --   Simple combinatorial tests - 12.12.30.1 
    
    assert PS_STOP_AT_F = '0' report "+S STOP AT F set at beginning" severity failure;
    wait for 30 ns;
@@ -607,7 +607,108 @@ uut_process: process
    assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (20)" severity failure;
    MS_WORD_MARK_OP_DOT_A_CYCLE <= '1';
    wait for 30 ns;
+   
+   -- Page 12.12.32.1 Combinatorial
+   
+   assert PS_STOP_AT_H = '0' report "+S STOP AT H set (1)" severity failure;
+   assert MS_STOP_AT_H_DOT_B_CY_DOT_1ST_SCAN = '1' report "-S STOP AT H.B CY.1ST SCAN not set (1)" severity failure;   
+   PS_STOP_AT_H_ON_B_CYCLE_OPS <= '1';
+   PS_B_CYCLE_1 <= '1';
+   PS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_H = '1' report "+S STOP AT H not set (1)" severity failure;
+   assert MS_STOP_AT_H_DOT_B_CY_DOT_1ST_SCAN = '0' report "-S STOP AT H.B CY.1ST SCAN set (1)" severity failure;
+   PS_STOP_AT_H_ON_B_CYCLE_OPS <= '0';
+   PS_B_CYCLE_1 <= '0';
+   PS_1ST_SCAN <= '0';   
+   wait for 30 ns;
+  
+   assert PS_STOP_AT_H = '0' report "+S STOP AT H set (2)" severity failure;
+   MS_FILE_OP_DOT_D_CYCLE <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_H = '1' report "+S STOP AT H not set (2)" severity failure;
+   MS_FILE_OP_DOT_D_CYCLE <= '1';
+   wait for 30 ns;
 
+   assert PS_STOP_AT_H = '0' report "+S STOP AT H set (3)" severity failure;
+   assert PS_STOP_AT_K = '0' report "+S STOP AT K set (3A)" severity failure;
+   PS_A_RING_4_TIME <= '1';
+   PS_X_CYCLE <= '1';
+   PS_1401_MODE_1 <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_K = '1' report "+S STOP AT K not set (3A)" severity failure;
+   assert PS_STOP_AT_H = '0' report "+S STOP AT H set (3B)" severity failure;
+   -- +S X CYCLE already set above
+   PS_A_RING_4_TIME <= '0';
+   PS_1401_MODE_1 <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_H = '1' report "+S STOP AT H not set (3)" severity failure;
+   PS_X_CYCLE <= '0';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_J = '0' report "+S STOP AT J set (1)" severity failure;
+   PS_STOP_AT_J_ON_B_CY_OP_CODES <= '1';
+   PS_B_CYCLE_1 <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_J = '1' report "+S STOP AT J not set (1)" severity failure;
+   PS_STOP_AT_J_ON_B_CY_OP_CODES <= '0';
+   PS_B_CYCLE_1 <= '0';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_J = '0' report "+S STOP AT J set (2)" severity failure;
+   PS_STORE_ADDR_REGS_OP_CODE <= '1';
+   PS_C_CYCLE <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_J = '1' report "+S STOP AT J not set (2)" severity failure;
+   PS_STORE_ADDR_REGS_OP_CODE <= '0';
+   PS_C_CYCLE <= '0';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_J = '0' report "+S STOP AT J set (3)" severity failure;
+   MS_STOP_AT_J_TLU <= '0';
+   wait for 30 ns;
+   assert PS_STOP_AT_J = '1' report "+S STOP AT J not set (3)" severity failure;
+   MS_STOP_AT_J_TLU <= '1';
+   wait for 30 ns;
+
+   assert PS_STOP_AT_J = '0' report "+S STOP AT J set (4)" severity failure;
+   PS_1401_STORE_AR_OP_CODES <= '1';
+   PS_A_CYCLE <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_J = '1' report "+S STOP AT J not set (4)" severity failure;
+   PS_1401_STORE_AR_OP_CODES <= '0';
+   PS_A_CYCLE <= '0';
+   wait for 30 ns;
+   
+   --   Combinatorial page 12.12.33.1
+   
+   -- -S 1401 MODE.A RING 4.X CYCLE internal only (and already tested above)
+   
+   assert PS_STOP_AT_K = '0' report "+S STOP AT K set (1)" severity failure;
+   PS_1401_MODE_1 <= '1';
+   PS_I_RING_5_OR_10_TIME <= '1';
+   PS_I_CYCLE <= '1';
+   wait for 30 ns;
+   assert PS_STOP_AT_K = '1' report "+S STOP AT K not set (1)" severity failure;
+   PS_1401_MODE_1 <= '0';
+   PS_I_RING_5_OR_10_TIME <= '0';
+   PS_I_CYCLE <= '0';
+   wait for 30 ns;
+   
+   assert PS_STOP_AT_K = '0' report "+S STOP AT K set (2)" severity failure;
+   assert MS_STORAGE_SCAN_LOAD = '1' report "-S STORAGE SCAN LOAD not 1 (2)" severity failure;
+   -- -S ADDRESS SET ROUTINE already '1'
+   PS_STORAGE_SCAN_ROUTINE <= '1';
+   SWITCH_ROT_STOR_SCAN <= "000010";  -- STORAGE SCAN SET TO LOAD 
+   wait for 30 ns;
+   assert PS_STOP_AT_K = '1' report "+S STOP AT K not set (2)" severity failure;
+   assert MS_STORAGE_SCAN_LOAD = '0' report "-S STORAGE SCAN LOAD not 0 (2)" severity failure;
+   PS_STORAGE_SCAN_ROUTINE <= '0';
+   SWITCH_ROT_STOR_SCAN <= "001000";  -- STORAGE SCAN SET TO OFF    
+   wait for 30 ns;
+   
+   --   Begin the sequential tests
+   
    assert PS_A_CYCLE_CTRL = '0' report "A Cycle Ctrl not 0 after Reset" severity failure;
    assert PS_C_CYCLE_CTRL = '0' report "C Cycle Ctrl not 0 after Reset" severity failure;
    assert PS_B_CYCLE_CTRL = '0' report "B Cycle Ctrl not 0 after Reset" severity failure;
@@ -627,7 +728,7 @@ uut_process: process
    assert MS_STORAGE_SCAN_RGEN = '1' report "-S Storage Scan Regen not 1 at start" severity failure;   
    assert MS_STORAGE_SCAN_LOAD = '1' report "-S Storage Scan Load not 1 at start" severity failure;
    
-   --   Trip next to last logic gate
+   --   Trip next to last logic gate (12.12.31.1)
    
    MS_STOP_AT_F_DOT_LOGIC_GATE_D <= '0';
    wait for 30 ns;
@@ -877,13 +978,6 @@ uut_process: process
    LLG(PS_2ND_CLOCK_PULSE_3_JRJ);
    ENDLLG(PS_2ND_CLOCK_PULSE_3_JRJ);
 
-   
-  
-   
-   
-   
-   
-   
    wait;
    end process;
 
