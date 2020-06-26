@@ -553,10 +553,10 @@ uut_process: process
    wait for 30 ns;
 
    assert PS_STOP_AT_F = '0' report "+S STOP AT F set (14)" severity failure;
-   MS_C_OR_D_CYCLE_INSN_READ_OUT <= '0';
+   MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT <= '0';
    wait for 30 ns;
    assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (14)" severity failure;
-   MS_C_OR_D_CYCLE_INSN_READ_OUT <= '1';
+   MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT <= '1';
    wait for 30 ns;
 
    assert PS_STOP_AT_F = '0' report "+S STOP AT F set (15)" severity failure;
