@@ -1,11 +1,11 @@
-Generating HDL for group named LogicGateRingat 6/18/2020 1:00:09 PM containing pages: 
+Generating HDL for group named LogicGateRingat 6/26/2020 2:47:39 PM containing pages: 
 	11.10.01.1, 11.10.02.1, 11.10.05.1, 11.10.06.1, 11.10.07.1
 	11.10.10.1, 11.10.11.1, 11.10.12.1, 11.10.13.1, 11.10.14.1
 	11.10.15.1, 11.10.16.1, 11.10.17.1, 11.10.18.1, 11.10.19.1
 	11.10.20.1, 11.10.21.1, 11.10.22.1, 11.10.23.1, 11.10.24.1
 	11.10.25.1, 11.10.32.1, 11.10.33.1, 11.10.34.1, 11.10.35.1
 	11.10.36.1, 11.30.01.1, 11.30.02.1, 11.30.03.1
-Old test bench file LogicGateRing_tb.vhdl 182 lines preserved and 5 declaration lines preserved
+Old test bench file LogicGateRing_tb.vhdl 184 lines preserved and 5 declaration lines preserved
 Building lists of signals on 29 pages...
 Found 4 signals on page 11.10.01.1
 Found 19 signals on page 11.10.02.1
@@ -253,6 +253,7 @@ Signal +S LOGIC GATE C OR T is output from the group, but also used as an input 
 Signal +S LOGIC GATE F OR W is output from the group, but also used as an input inside the group.
 Signal +S 1ST CLOCK PULSE 1 is output from the group, but also used as an input inside the group.
 Input Signal +S I RING 9 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S A CH NOT WM BIT replaced by Bus signal +S A CH NOT BUS
 Page 11.10.02.1 generates Lamp Output LAMP_15A1K24
 Page 11.10.10.1 generates Lamp Output LAMP_15A1A06
 Page 11.10.11.1 generates Lamp Output LAMP_15A1B06

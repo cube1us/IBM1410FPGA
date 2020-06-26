@@ -1,7 +1,7 @@
-Generating HDL for group named CycleLatchesat 6/18/2020 2:08:36 PM containing pages: 
+Generating HDL for group named CycleLatchesat 6/26/2020 2:54:15 PM containing pages: 
 	12.12.01.1, 12.12.02.1, 12.12.04.1, 12.12.05.1, 12.12.06.1
 	12.12.07.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\CycleLatches_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file CycleLatches_tb.vhdl 194 lines preserved and 12 declaration lines preserved
 Building lists of signals on 6 pages...
 Found 8 signals on page 12.12.01.1
 Found 10 signals on page 12.12.02.1

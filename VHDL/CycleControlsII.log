@@ -1,7 +1,7 @@
-Generating HDL for group named CycleControlsIIat 6/22/2020 12:27:52 PM containing pages: 
+Generating HDL for group named CycleControlsIIat 6/26/2020 3:05:30 PM containing pages: 
 	12.12.40.1, 12.12.41.1, 12.12.42.1, 12.12.43.1, 12.12.44.1
 	12.12.45.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\CycleControlsII_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file CycleControlsII_tb.vhdl 666 lines preserved and 39 declaration lines preserved
 Building lists of signals on 6 pages...
 Found 11 signals on page 12.12.40.1
 Found 24 signals on page 12.12.41.1
@@ -111,9 +111,18 @@ INFO:  Signal -S EDIT SET B CYCLE CTRL G is used outside the group.
 INFO:  Signal +S SET X CYCLE CTRL is used outside the group.
 Removing 1 output signals that do not have destinations outside the group...
 Removing 1 input signals that originate inside the group...
+Input Signal +S OP MOD REG NOT B BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG A BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG NOT 8 BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG NOT A BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S A CH NOT WM BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S OP MOD REG 8 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG B BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S B CH NOT WM BIT replaced by Bus signal +S B CH NOT BUS
 Input Signal +S I RING 5 TIME replaced by Bus signal +S I RING HDL BUS
 Input Signal +S I RING 10 TIME replaced by Bus signal +S I RING HDL BUS
 Input Signal +S I RING OP TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S A CH WM BIT replaced by Bus signal +S A CH BUS
 Generating list of internal signals/wires ...
 1 internal signals/wires found.
 Generating HDL prefixes...
