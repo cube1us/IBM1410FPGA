@@ -1,0 +1,94 @@
+Generating HDL for page 12.12.43.1 D CYCLE CONTROL-ACC at 6/22/2020 12:54:54 PM
+Found combinatorial loop (need D FF) at output of gate at 2E
+Found combinatorial loop (need D FF) at output of gate at 1E
+Removed 1 outputs from Gate at 3E to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_P
+	and inputs of PS_I_RING_1_OR_1401_AND_3_TIME,PS_B_CH_WM_BIT_2
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_C
+	and inputs of OUT_DOT_4A,OUT_DOT_4C,OUT_3C_E
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of PS_I_CYCLE,PS_ARITH_TYPE_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_P
+	and inputs of MS_FILE_OP_DOT_LAST_INSN_RO_CYCLE,MS_FILE_OP_DOT_D_CY_DOT_U_OR_Y
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_I_RING_6_OR_1401_AND_8_TIME,PS_B_CH_WM_BIT_2
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of PS_I_RING_10_TIME,PS_A_RING_6_TIME,MS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_K
+	and inputs of OUT_3D_C,OUT_3E_K
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_P
+	and inputs of PS_I_CYCLE,PS_MPLY_OR_DIV_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of PS_I_RING_10_TIME,PS_1401_MODE_1,PS_A_RING_4_TIME
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C, OUT_1D_C
+	and inputs of OUT_1E_C
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P
+	and inputs of PS_ALTER_ROUTINE,PS_2ND_SCAN
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_K, OUT_3E_K
+	and inputs of OUT_4E_P
+	and logic function of EQUAL
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_G_Latch
+	and inputs of OUT_1E_C,MS_LOGIC_GATE_A_1
+	and logic function of NAND
+Generating Statement for block at 1E with *latched* output pin(s) of OUT_1E_C_Latch, OUT_1E_C_Latch
+	and inputs of OUT_2E_G,OUT_DOT_2F
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_K
+	and inputs of PS_LOGIC_GATE_K,MS_ANY_LAST_GATE
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_R
+	and inputs of PS_2ND_CLOCK_PULSE_3_JRJ
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of PS_OP_MOD_REG_NOT_8_BIT,PS_OP_MOD_REG_NOT_A_BIT,PS_OP_MOD_REG_NOT_B_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_E
+	and inputs of OUT_4G_D,PS_LAST_INSN_RO_CYCLE_2,PS_TABLE_SEARCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_C
+	and inputs of OUT_1D_C,OUT_3G_E,MS_CYCLE_CHECK_ERROR
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_4A_P,OUT_4B_G
+	and logic function of OR
+WARNING: Input connection from edge connection named +S SET D CYCLE CTRL *ARITH to a DOT function on page 12.12.43.1 coordinate 1A is also used as input to other page(s):
+    16.42.02.1 
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_1A_C,OUT_1B_P,PS_SET_D_CYCLE_CTRL_STAR_ARITH,OUT_1C_K
+	and logic function of OR
+Generating Statement for block at 2F with output pin(s) of OUT_DOT_2F
+	and inputs of OUT_3F_K,OUT_2F_R
+	and logic function of OR
+WARNING: Input connection from edge connection named +S INSTRUCTION CHECK GATE*1311 to a DOT function on page 12.12.43.1 coordinate 1G is also used as input to other page(s):
+    13.74.05.1 
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_1G_C,PS_INSTRUCTION_CHECK_GATE_STAR_1311
+	and logic function of OR
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_C,OUT_4D_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_NO_LAST_GATE
+	from gate output OUT_1D_C
+Generating output sheet edge signal assignment to 
+	signal MS_ALT_ROUTINE_DOT_2ND_SCAN
+	from gate output OUT_3E_K
+Generating output sheet edge signal assignment to 
+	signal PS_SET_D_CYCLE_CTRL
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal PS_INSTRUCTION_CHECK_GATE
+	from gate output OUT_DOT_1G
+Generating D Flip Flop for block at 2E
+Generating D Flip Flop for block at 1E

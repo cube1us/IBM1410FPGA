@@ -1,0 +1,13 @@
+Generating HDL for page 12.12.45.1 X CYCLE CTRL at 6/22/2020 11:28:45 AM
+Generating Statement for block at 5D with output pin(s) of OUT_5D_K
+	and inputs of PS_1401_MODE_1,PS_A_RING_4_TIME
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_NoPin
+	and inputs of OUT_5D_K,PS_X_CYCLE,PS_A_RING_2_OR_3_OR_4_OR_5_TIME
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D
+	and inputs of OUT_3E_NoPin,MS_SET_X_CYCLE_CTRL_A
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_SET_X_CYCLE_CTRL
+	from gate output OUT_1E_D

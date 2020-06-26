@@ -1,0 +1,64 @@
+Generating HDL for page 12.12.41.1 A CYCLE CONTROL-ACC at 6/22/2020 11:23:08 AM
+Removed 1 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3H to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 4B to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C
+	and inputs of PS_LAST_INSN_RO_CYCLE_1,PS_A_CY_FIRST_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_B
+	and inputs of MS_DATA_MOVE_LAST_EX_CYCLE
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_DATA_MOVE_OP_CODE,PS_B_CYCLE_1,PS_DATA_MOVE_TAKE_A_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of OUT_4A_C,OUT_DOT_4B,OUT_4C_E
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_E, OUT_4C_E
+	and inputs of PS_B_CH_NOT_WM_BIT,PS_A_CH_NOT_WM_BIT,PS_EDIT_USE_A_CH_NU
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C, OUT_4E_C
+	and inputs of PS_EDIT_USE_A_CH_NU,PS_A_CH_NOT_WM_BIT,PS_MOVE_ZERO_SUP_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_G
+	and inputs of OUT_4E_C,MS_TLU_SET_A_CYCLE_CTRL_B,MS_CMP_MODE_SET_A_CYCLE_CTRL_A
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_D
+	and inputs of OUT_3H_L,OUT_4I_E
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_D
+	and inputs of PS_C_CYCLE_1,PS_BODY_LATCH,PS_1401_STORE_AR_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_L, OUT_3H_L
+	and inputs of OUT_4H_D
+	and logic function of EQUAL
+Generating Statement for block at 4I with output pin(s) of OUT_4I_E, OUT_4I_E
+	and inputs of PS_1401_STORE_AR_OP_CODES,PS_A_CYCLE,PS_A_RING_2_OR_3_TIME
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B, OUT_DOT_4B
+	and inputs of OUT_5B_B,OUT_4B_D
+	and logic function of OR
+WARNING: Input connection from edge connection named +S SET A CYCLE CTRL*ARITH* to a DOT function on page 12.12.41.1 coordinate 2B is also used as input to other page(s):
+    16.42.01.1 
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2B_G,OUT_2F_G,OUT_2G_D,PS_SET_A_CYCLE_CTRL_STAR_ARITH_STAR
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_EDIT_SET_A_CYCLE_CTRL
+	from gate output OUT_4C_E
+Generating output sheet edge signal assignment to 
+	signal MS_SET_A_CYCLE_CTRL_ON_Z_OP
+	from gate output OUT_4E_C
+Generating output sheet edge signal assignment to 
+	signal MS_STORE_AR_SET_A_CYCLE_CTRL_A
+	from gate output OUT_3H_L
+Generating output sheet edge signal assignment to 
+	signal MS_STORE_AR_SET_A_CYCLE_CTRL_B
+	from gate output OUT_4I_E
+Generating output sheet edge signal assignment to 
+	signal MS_DATA_MOVE_A_CYCLE_CTRL_SET
+	from gate output OUT_DOT_4B
+Generating output sheet edge signal assignment to 
+	signal PS_SET_A_CYCLE_CTRL
+	from gate output OUT_DOT_2B

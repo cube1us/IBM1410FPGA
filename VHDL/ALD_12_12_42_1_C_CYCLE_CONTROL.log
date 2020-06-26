@@ -1,0 +1,62 @@
+Generating HDL for page 12.12.42.1 C CYCLE CONTROL at 6/22/2020 11:24:27 AM
+Removed 3 outputs from Gate at 2I to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_E
+	and inputs of PS_I_RING_1_OR_1401_AND_3_TIME,PS_D_CYCLE,PS_MPLY_OR_DIV_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_R
+	and inputs of PS_I_RING_1_OR_1401_AND_3_TIME,PS_B_CH_WM_BIT_2
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of OUT_4A_E,OUT_DOT_4B,OUT_4D_D
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of PS_I_CYCLE,PS_TABLE_SEARCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of PS_I_RING_5_TIME,PS_A_RING_6_TIME,MS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of PS_LAST_INSN_RO_CYCLE_1,PS_STORE_ADDR_REGS_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_P, OUT_4F_P
+	and inputs of PS_STORE_ADDR_REGS_OP_CODE,PS_A_RING_2_OR_3_OR_4_OR_5_TIME
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of PS_I_RING_5_TIME,PS_1401_MODE_1,PS_A_RING_4_TIME
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_G
+	and inputs of OUT_4E_C,OUT_4F_P,MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_AW_DOT_1
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C, OUT_4H_C
+	and inputs of PS_LAST_INSN_RO_CYCLE_1,PS_1401_STORE_AR_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E
+	and inputs of OUT_4G_D,OUT_4H_C,OUT_4I_C
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_C, OUT_4I_C
+	and inputs of PS_1401_STORE_AR_OP_CODES,PS_C_CYCLE_1,PS_UNITS_LATCH
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_B
+	and inputs of OUT_4I_C
+	and logic function of EQUAL
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2B_G,OUT_2G_G,OUT_2H_E
+	and logic function of OR
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B, OUT_DOT_4B
+	and inputs of OUT_4B_R,OUT_4C_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_G_OP_SET_C_CYCLE_CTRL_B
+	from gate output OUT_4F_P
+Generating output sheet edge signal assignment to 
+	signal MS_STORE_AR_SET_C_CYCLE_CTRL_A
+	from gate output OUT_4H_C
+Generating output sheet edge signal assignment to 
+	signal MS_STORE_AR_SET_C_CYCLE_CTRL_B
+	from gate output OUT_2I_B
+Generating output sheet edge signal assignment to 
+	signal PS_SET_C_CYCLE_CTRL
+	from gate output OUT_DOT_2B
+Generating output sheet edge signal assignment to 
+	signal MS_LAST_I_CYCLE_B
+	from gate output OUT_DOT_4B
