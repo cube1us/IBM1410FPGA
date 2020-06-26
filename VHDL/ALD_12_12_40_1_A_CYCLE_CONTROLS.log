@@ -1,4 +1,5 @@
-Generating HDL for page 12.12.40.1 A CYCLE CONTROLS at 6/22/2020 11:23:01 AM
+Generating HDL for page 12.12.40.1 A CYCLE CONTROLS at 6/26/2020 2:06:51 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_40_1_A_CYCLE_CONTROLS_tb.vhdl, generating default test bench code.
 Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
 	and inputs of PS_OP_MOD_REG_NOT_8_BIT,PS_A_CH_NOT_WM_BIT,PS_OP_MOD_REG_NOT_B_BIT
 	and logic function of NAND

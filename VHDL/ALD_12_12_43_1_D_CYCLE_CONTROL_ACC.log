@@ -1,4 +1,4 @@
-Generating HDL for page 12.12.43.1 D CYCLE CONTROL-ACC at 6/22/2020 12:54:54 PM
+Generating HDL for page 12.12.43.1 D CYCLE CONTROL-ACC at 6/26/2020 2:08:13 PM
 Found combinatorial loop (need D FF) at output of gate at 2E
 Found combinatorial loop (need D FF) at output of gate at 1E
 Removed 1 outputs from Gate at 3E to ignored block(s) or identical signal names

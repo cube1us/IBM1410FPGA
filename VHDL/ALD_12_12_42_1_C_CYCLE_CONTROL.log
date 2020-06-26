@@ -1,4 +1,4 @@
-Generating HDL for page 12.12.42.1 C CYCLE CONTROL at 6/22/2020 11:24:27 AM
+Generating HDL for page 12.12.42.1 C CYCLE CONTROL at 6/26/2020 2:08:06 PM
 Removed 3 outputs from Gate at 2I to ignored block(s) or identical signal names
 Generating Statement for block at 4A with output pin(s) of OUT_4A_E
 	and inputs of PS_I_RING_1_OR_1401_AND_3_TIME,PS_D_CYCLE,PS_MPLY_OR_DIV_OP_CODES
