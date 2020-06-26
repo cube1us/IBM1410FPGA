@@ -1,8 +1,8 @@
-Generating HDL for page 11.20.09.1 I RING MIX at 6/11/2020 1:06:50 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_09_1_I_RING_MIX_tb.vhdl, generating default test bench code.
+Generating HDL for page 11.20.09.1 I RING MIX at 6/26/2020 1:05:48 PM
+Old test bench file ALD_11_20_09_1_I_RING_MIX_tb.vhdl 51 lines preserved and 6 declaration lines preserved
 Found combinatorial loop (need D FF) at output of gate at 5F
 Found combinatorial loop (need D FF) at output of gate at 4F
-Removed 8 outputs from Gate at 1D to ignored block(s)
+Removed 8 outputs from Gate at 1D to ignored block(s) or identical signal names
 Generating Statement for block at 2A with output pin(s) of OUT_2A_G
 	and inputs of MS_I_RING_2_TIME,MS_I_RING_7_TIME
 	and logic function of NAND

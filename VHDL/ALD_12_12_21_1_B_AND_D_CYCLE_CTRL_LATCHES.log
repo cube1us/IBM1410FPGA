@@ -1,5 +1,5 @@
-Generating HDL for page 12.12.21.1 B AND D CYCLE CTRL LATCHES at 6/18/2020 8:35:04 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_21_1_B_AND_D_CYCLE_CTRL_LATCHES_tb.vhdl, generating default test bench code.
+Generating HDL for page 12.12.21.1 B AND D CYCLE CTRL LATCHES at 6/26/2020 1:31:22 PM
+Old test bench file ALD_12_12_21_1_B_AND_D_CYCLE_CTRL_LATCHES_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 Found combinatorial loop (need D FF) at output of gate at 4B
 Found combinatorial loop (need D FF) at output of gate at 3B
 Found combinatorial loop (need D FF) at output of gate at 4F

@@ -1,14 +1,13 @@
-Generating HDL for page 11.10.05.1 LOGIC GATE RING ADVAN PULSES-ACC at 6/9/2020 10:46:08 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_05_1_LOGIC_GATE_RING_ADVAN_PULSES_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 11.10.05.1 LOGIC GATE RING ADVAN PULSES-ACC at 6/26/2020 12:24:21 PM
+Old test bench file ALD_11_10_05_1_LOGIC_GATE_RING_ADVAN_PULSES_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 Ignoring Logic Block 2B with symbol L
 Ignoring Logic Block 2D with symbol L
 Ignoring Logic Block 2F with symbol L
 Ignoring Logic Block 2H with symbol L
-Removed 10 outputs from Gate at 4A to ignored block(s)
-Removed 10 outputs from Gate at 4C to ignored block(s)
-Removed 6 outputs from Gate at 4E to ignored block(s)
-Removed 6 outputs from Gate at 4G to ignored block(s)
-DEBUG: Test bench declares template: 13 lines.
+Removed 10 outputs from Gate at 4A to ignored block(s) or identical signal names
+Removed 10 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 4G to ignored block(s) or identical signal names
 Generating Statement for block at 4A with output pin(s) of OUT_4A_D
 	and inputs of PS_2ND_CLOCK_PULSE_1
 	and logic function of NOT

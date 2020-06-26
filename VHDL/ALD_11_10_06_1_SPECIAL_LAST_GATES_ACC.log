@@ -1,16 +1,15 @@
-Generating HDL for page 11.10.06.1 SPECIAL LAST GATES-ACC at 6/9/2020 10:46:21 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_06_1_SPECIAL_LAST_GATES_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 11.10.06.1 SPECIAL LAST GATES-ACC at 6/26/2020 12:26:05 PM
+Old test bench file ALD_11_10_06_1_SPECIAL_LAST_GATES_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 Found combinatorial loop (need D FF) at output of gate at 2B
 Found combinatorial loop (need D FF) at output of gate at 1B
 Found combinatorial loop (need D FF) at output of gate at 3H
 Found combinatorial loop (need D FF) at output of gate at 4I
 Found combinatorial loop (need D FF) at output of gate at 3I
-Removed 1 outputs from Gate at 1D to ignored block(s)
-Removed 12 outputs from Gate at 3H to ignored block(s)
-Removed 1 outputs from Gate at 2I to ignored block(s)
-Removed 3 outputs from Dot Function at 1B to ignored block(s)
-Removed 3 outputs from Dot Function at 1E to ignored block(s)
-DEBUG: Test bench declares template: 13 lines.
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 12 outputs from Gate at 3H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2I to ignored block(s) or identical signal names
+Removed 3 outputs from Dot Function at 1B to ignored block(s) or identical signal names
+Removed 3 outputs from Dot Function at 1E to ignored block(s) or identical signal names
 Generating Statement for block at 4A with output pin(s) of OUT_4A_G
 	and inputs of PS_2ND_CLOCK_PULSE_3,PS_LOGIC_GATE_E_OR_V
 	and logic function of NAND

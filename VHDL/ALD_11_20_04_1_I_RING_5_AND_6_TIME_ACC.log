@@ -1,12 +1,11 @@
-Generating HDL for page 11.20.04.1 I RING 5 AND 6 TIME-ACC at 6/11/2020 1:06:25 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_04_1_I_RING_5_AND_6_TIME_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 11.20.04.1 I RING 5 AND 6 TIME-ACC at 6/26/2020 1:00:38 PM
+Old test bench file ALD_11_20_04_1_I_RING_5_AND_6_TIME_ACC_tb.vhdl 51 lines preserved and 6 declaration lines preserved
 Processing extension from block at 5B (Database ID=191128) to 5C (Database ID=191129)
 Copied connection to extension input pin E to master block at 5B
 Copied connection to extension input pin A to master block at 5B
 Copied connection to extension input pin P to master block at 5B
 Copied connection from extension output pin B to master block at 5B
 Copied mapped pin B from extension 5C to master block at 5B
-Copied mapped pin H from extension 5C to master block at 5B
 Copied mapped pin K from extension 5C to master block at 5B
 Copied mapped pin P from extension 5C to master block at 5B
 Copied mapped pin T from extension 5C to master block at 5B
@@ -26,15 +25,14 @@ Copied connection to extension input pin A to master block at 5F
 Copied connection to extension input pin P to master block at 5F
 Copied connection from extension output pin B to master block at 5F
 Copied mapped pin B from extension 5G to master block at 5F
-Copied mapped pin H from extension 5G to master block at 5F
 Copied mapped pin K from extension 5G to master block at 5F
 Copied mapped pin P from extension 5G to master block at 5F
 Copied mapped pin T from extension 5G to master block at 5F
 Moved connection from extension 5G pin B to be from master at 5F
-Removed 4 outputs from Gate at 3B to ignored block(s)
-Removed 14 outputs from Gate at 2C to ignored block(s)
-Removed 7 outputs from Gate at 2F to ignored block(s)
-Removed 15 outputs from Gate at 2G to ignored block(s)
+Removed 4 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 14 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 7 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 15 outputs from Gate at 2G to ignored block(s) or identical signal names
 Added LAMP signal LAMP_15A1F01
 Added LAMP signal LAMP_15A1B02
 Generating Statement for block at 2A with output pin(s) of OUT_2A_C

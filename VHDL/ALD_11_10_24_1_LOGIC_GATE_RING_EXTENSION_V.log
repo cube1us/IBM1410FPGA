@@ -1,17 +1,16 @@
-Generating HDL for page 11.10.24.1 LOGIC GATE RING EXTENSION V at 6/10/2020 2:21:33 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_24_1_LOGIC_GATE_RING_EXTENSION_V_tb.vhdl, generating default test bench code.
+Generating HDL for page 11.10.24.1 LOGIC GATE RING EXTENSION V at 6/26/2020 12:38:15 PM
+Old test bench file ALD_11_10_24_1_LOGIC_GATE_RING_EXTENSION_V_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 Processing extension from block at 4C (Database ID=189308) to 4D (Database ID=189309)
 Copied connection to extension input pin E to master block at 4C
 Copied connection to extension input pin A to master block at 4C
 Copied connection to extension input pin P to master block at 4C
 Copied connection from extension output pin B to master block at 4C
 Copied mapped pin B from extension 4D to master block at 4C
-Copied mapped pin H from extension 4D to master block at 4C
 Copied mapped pin K from extension 4D to master block at 4C
 Copied mapped pin P from extension 4D to master block at 4C
 Copied mapped pin T from extension 4D to master block at 4C
 Moved connection from extension 4D pin B to be from master at 4C
-Removed 3 outputs from Gate at 3C to ignored block(s)
+Removed 3 outputs from Gate at 3C to ignored block(s) or identical signal names
 Generating Statement for block at 4C with output pin(s) of OUT_4C_F, OUT_4C_B
 	and inputs of PS_LOGIC_GATE_U,PS_LOGIC_RING_ON_ADVANCE_2,MS_LOGIC_GATE_U,PS_LOGIC_RING_OFF_ADVANCE_2,MS_PROGRAM_RESET_5
 	and logic function of Trigger

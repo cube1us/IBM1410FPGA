@@ -1,5 +1,5 @@
-Generating HDL for page 12.12.04.1 I CYCLE LATCH at 6/18/2020 1:51:51 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_04_1_I_CYCLE_LATCH_tb.vhdl, generating default test bench code.
+Generating HDL for page 12.12.04.1 I CYCLE LATCH at 6/26/2020 1:28:34 PM
+Old test bench file ALD_12_12_04_1_I_CYCLE_LATCH_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 Found combinatorial loop (need D FF) at output of gate at 5E
 Found combinatorial loop (need D FF) at output of gate at 4E
 Processing extension from block at 1F (Database ID=197162) to 1G (Database ID=197163)

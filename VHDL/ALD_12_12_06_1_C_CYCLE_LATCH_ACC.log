@@ -1,5 +1,5 @@
-Generating HDL for page 12.12.06.1 C CYCLE LATCH-ACC at 6/18/2020 1:52:20 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_06_1_C_CYCLE_LATCH_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 12.12.06.1 C CYCLE LATCH-ACC at 6/26/2020 1:29:39 PM
+Old test bench file ALD_12_12_06_1_C_CYCLE_LATCH_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 Found combinatorial loop (need D FF) at output of gate at 5D
 Found combinatorial loop (need D FF) at output of gate at 4D
 Removed 6 outputs from Gate at 2B to ignored block(s) or identical signal names

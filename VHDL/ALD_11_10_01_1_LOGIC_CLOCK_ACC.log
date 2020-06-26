@@ -1,10 +1,10 @@
-Generating HDL for page 11.10.01.1 LOGIC CLOCK-ACC at 6/9/2020 9:39:03 AM
+Generating HDL for page 11.10.01.1 LOGIC CLOCK-ACC at 6/26/2020 12:21:49 PM
 Old test bench file ALD_11_10_01_1_LOGIC_CLOCK_ACC_tb.vhdl 46 lines preserved and 5 declaration lines preserved
 Ignoring Logic Block 3D with symbol L
 Ignoring Logic Block 1H with symbol L
-Removed 2 outputs from Gate at 4E to ignored block(s)
-Removed 3 outputs from Gate at 2E to ignored block(s)
-Removed 1 outputs from Gate at 2G to ignored block(s)
+Removed 2 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2G to ignored block(s) or identical signal names
 Generating Statement for block at 5E with output pin(s) of OUT_5E_A
 	and inputs of PP_SPECIAL_OR_12V_POWER_FOR_OSC
 	and logic function of Special

@@ -1,13 +1,13 @@
-Generating HDL for page 11.20.08.1 I RING MIX at 6/11/2020 1:06:45 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_08_1_I_RING_MIX_tb.vhdl, generating default test bench code.
+Generating HDL for page 11.20.08.1 I RING MIX at 6/26/2020 1:04:40 PM
+Old test bench file ALD_11_20_08_1_I_RING_MIX_tb.vhdl 51 lines preserved and 6 declaration lines preserved
 Found combinatorial loop (need D FF) at output of gate at 5H
 Found combinatorial loop (need D FF) at output of gate at 4H
-Removed 2 outputs from Gate at 3B to ignored block(s)
-Removed 1 outputs from Gate at 3C to ignored block(s)
-Removed 9 outputs from Gate at 2D to ignored block(s)
-Removed 3 outputs from Gate at 2E to ignored block(s)
-Removed 3 outputs from Gate at 2G to ignored block(s)
-Removed 6 outputs from Gate at 2I to ignored block(s)
+Removed 2 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 9 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 2I to ignored block(s) or identical signal names
 Generating Statement for block at 3B with output pin(s) of OUT_3B_K
 	and inputs of MS_I_RING_3_TIME,MS_I_RING_8_TIME
 	and logic function of NAND

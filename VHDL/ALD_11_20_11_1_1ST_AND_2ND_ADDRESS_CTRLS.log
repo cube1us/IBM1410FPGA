@@ -1,7 +1,7 @@
-Generating HDL for page 11.20.11.1 1ST AND 2ND ADDRESS CTRLS at 6/11/2020 1:06:59 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_11_1_1ST_AND_2ND_ADDRESS_CTRLS_tb.vhdl, generating default test bench code.
-Removed 5 outputs from Gate at 2C to ignored block(s)
-Removed 2 outputs from Gate at 2E to ignored block(s)
+Generating HDL for page 11.20.11.1 1ST AND 2ND ADDRESS CTRLS at 6/26/2020 1:07:17 PM
+Old test bench file ALD_11_20_11_1_1ST_AND_2ND_ADDRESS_CTRLS_tb.vhdl 51 lines preserved and 6 declaration lines preserved
+Removed 5 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2E to ignored block(s) or identical signal names
 Generating Statement for block at 4C with output pin(s) of OUT_4C_G
 	and inputs of MS_I_RING_1_TIME,MS_I_RING_2_TIME,MS_I_RING_3_TIME
 	and logic function of NAND

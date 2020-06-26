@@ -1,8 +1,7 @@
-Generating HDL for page 11.10.07.1 ADDRESS REG CONTROLS-ACC at 6/9/2020 10:46:37 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_07_1_ADDRESS_REG_CONTROLS_ACC_tb.vhdl, generating default test bench code.
-Removed 3 outputs from Gate at 1A to ignored block(s)
-Removed 4 outputs from Gate at 1E to ignored block(s)
-DEBUG: Test bench declares template: 13 lines.
+Generating HDL for page 11.10.07.1 ADDRESS REG CONTROLS-ACC at 6/26/2020 12:25:13 PM
+Old test bench file ALD_11_10_07_1_ADDRESS_REG_CONTROLS_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
+Removed 3 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1E to ignored block(s) or identical signal names
 Generating Statement for block at 2A with output pin(s) of OUT_2A_D
 	and inputs of PS_X_CYCLE
 	and logic function of NOT

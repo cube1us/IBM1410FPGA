@@ -1,12 +1,11 @@
-Generating HDL for page 11.20.07.1 I RING 11 AND 12 TIME at 6/11/2020 1:06:40 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_07_1_I_RING_11_AND_12_TIME_tb.vhdl, generating default test bench code.
+Generating HDL for page 11.20.07.1 I RING 11 AND 12 TIME at 6/26/2020 1:03:07 PM
+Old test bench file ALD_11_20_07_1_I_RING_11_AND_12_TIME_tb.vhdl 51 lines preserved and 6 declaration lines preserved
 Processing extension from block at 5B (Database ID=191641) to 5C (Database ID=191642)
 Copied connection to extension input pin E to master block at 5B
 Copied connection to extension input pin A to master block at 5B
 Copied connection to extension input pin P to master block at 5B
 Copied connection from extension output pin B to master block at 5B
 Copied mapped pin B from extension 5C to master block at 5B
-Copied mapped pin H from extension 5C to master block at 5B
 Copied mapped pin K from extension 5C to master block at 5B
 Copied mapped pin P from extension 5C to master block at 5B
 Copied mapped pin T from extension 5C to master block at 5B
@@ -17,14 +16,13 @@ Copied connection to extension input pin A to master block at 5F
 Copied connection to extension input pin P to master block at 5F
 Copied connection from extension output pin B to master block at 5F
 Copied mapped pin B from extension 5G to master block at 5F
-Copied mapped pin H from extension 5G to master block at 5F
 Copied mapped pin K from extension 5G to master block at 5F
 Copied mapped pin P from extension 5G to master block at 5F
 Copied mapped pin T from extension 5G to master block at 5F
 Moved connection from extension 5G pin B to be from master at 5F
 WARNING: During sheet edge merge, Logic block at 3G pin C outputs to two different signal names: +S I RING 12 TIME *1311* vs. +S I RING 12 TIME
-Removed 6 outputs from Gate at 3C to ignored block(s)
-Removed 4 outputs from Gate at 3G to ignored block(s)
+Removed 6 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3G to ignored block(s) or identical signal names
 Added LAMP signal LAMP_15A1G02
 Added LAMP signal LAMP_15A1H02
 Generating Statement for block at 2A with output pin(s) of OUT_2A_C

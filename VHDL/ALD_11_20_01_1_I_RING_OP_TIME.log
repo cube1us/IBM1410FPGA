@@ -1,4 +1,4 @@
-Generating HDL for page 11.20.01.1 I RING OP TIME at 6/11/2020 1:05:34 PM
+Generating HDL for page 11.20.01.1 I RING OP TIME at 6/26/2020 12:57:54 PM
 Old test bench file ALD_11_20_01_1_I_RING_OP_TIME_tb.vhdl 51 lines preserved and 6 declaration lines preserved
 Ignoring Logic Block 3D with symbol L
 Ignoring Logic Block 3E with symbol L
@@ -11,15 +11,16 @@ Copied connection from extension output pin E to master block at 5B
 Copied mapped pin A from extension 5C to master block at 5B
 Copied mapped pin B from extension 5C to master block at 5B
 Copied mapped pin E from extension 5C to master block at 5B
+Copied mapped pin W from extension 5C to master block at 5B
 Moved connection from extension 5C pin E to be from master at 5B
-Removed 10 outputs from Gate at 3B to ignored block(s)
-Removed 11 outputs from Gate at 3C to ignored block(s)
-Removed 3 outputs from Gate at 5D to ignored block(s)
-Removed 3 outputs from Gate at 5E to ignored block(s)
-Removed 3 outputs from Gate at 5F to ignored block(s)
-Removed 3 outputs from Gate at 5G to ignored block(s)
-Removed 4 outputs from Gate at 3G to ignored block(s)
-Removed 2 outputs from Gate at 3H to ignored block(s)
+Removed 10 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 11 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 5D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 5E to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 5F to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 5G to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3H to ignored block(s) or identical signal names
 Added LAMP signal LAMP_15A1A01
 Generating Statement for block at 2A with output pin(s) of OUT_2A_K
 	and inputs of OUT_3B_H

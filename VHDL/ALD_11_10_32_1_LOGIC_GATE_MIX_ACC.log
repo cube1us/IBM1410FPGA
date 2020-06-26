@@ -1,10 +1,10 @@
-Generating HDL for page 11.10.32.1 LOGIC GATE MIX-ACC at 6/10/2020 7:37:14 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_32_1_LOGIC_GATE_MIX_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 11.10.32.1 LOGIC GATE MIX-ACC at 6/26/2020 12:48:22 PM
+Old test bench file ALD_11_10_32_1_LOGIC_GATE_MIX_ACC_tb.vhdl 51 lines preserved and 6 declaration lines preserved
 Ignoring Logic Block 1A with symbol R
-Removed 2 outputs from Gate at 2A to ignored block(s)
-Removed 11 outputs from Gate at 1B to ignored block(s)
-Removed 6 outputs from Dot Function at 1D to ignored block(s)
-Removed 6 outputs from Dot Function at 1F to ignored block(s)
+Removed 2 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 11 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 6 outputs from Dot Function at 1D to ignored block(s) or identical signal names
+Removed 6 outputs from Dot Function at 1F to ignored block(s) or identical signal names
 Generating Statement for block at 2A with output pin(s) of OUT_2A_B
 	and inputs of OUT_1B_H
 	and logic function of NOT

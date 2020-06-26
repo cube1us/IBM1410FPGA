@@ -1,5 +1,5 @@
-Generating HDL for page 12.12.31.1 CYCLE LENGTH CONTROLS-ACC at 6/18/2020 8:38:28 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_31_1_CYCLE_LENGTH_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 12.12.31.1 CYCLE LENGTH CONTROLS-ACC at 6/26/2020 1:33:33 PM
+Old test bench file ALD_12_12_31_1_CYCLE_LENGTH_CONTROLS_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 DOT Function at 4C has one output from a Trigger, one output from Non-Trigger
    Trigger block pin E located at 4D, Non-trigger is located at 3B Output is to 3C
    Using Trigger faux pin W as input side of pin E

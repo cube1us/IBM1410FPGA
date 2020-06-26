@@ -1,4 +1,4 @@
-Generating HDL for page 11.30.01.1 SPECIAL LOGIC GATES-ACC at 6/18/2020 12:43:16 PM
+Generating HDL for page 11.30.01.1 SPECIAL LOGIC GATES-ACC at 6/26/2020 1:24:07 PM
 Old test bench file ALD_11_30_01_1_SPECIAL_LOGIC_GATES_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 DOT Function at 2B has one output from a Trigger, one output from Non-Trigger
    Trigger block pin E located at 2B, Non-trigger is located at 2A Output is to 1B
@@ -23,10 +23,10 @@ Copied mapped pin P from extension 2F to master block at 2E
 Copied mapped pin Q from extension 2F to master block at 2E
 Copied mapped pin U from extension 2F to master block at 2E
 Moved connection from extension 2F pin C to be from master at 2E
-Removed 6 outputs from Gate at 1B to ignored block(s)
-Removed 1 outputs from Gate at 5C to ignored block(s)
-Removed 7 outputs from Gate at 1E to ignored block(s)
-Removed 2 outputs from Dot Function at 2G to ignored block(s)
+Removed 6 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5C to ignored block(s) or identical signal names
+Removed 7 outputs from Gate at 1E to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 2G to ignored block(s) or identical signal names
 Generating Statement for block at 3A with output pin(s) of OUT_3A_G
 	and inputs of OUT_1C_C,MS_LOGIC_GATE_A_1
 	and logic function of NAND

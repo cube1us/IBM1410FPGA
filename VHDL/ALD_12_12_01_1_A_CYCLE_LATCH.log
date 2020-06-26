@@ -1,4 +1,4 @@
-Generating HDL for page 12.12.01.1 A CYCLE LATCH at 6/18/2020 1:51:02 PM
+Generating HDL for page 12.12.01.1 A CYCLE LATCH at 6/26/2020 1:27:16 PM
 Old test bench file ALD_12_12_01_1_A_CYCLE_LATCH_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 Found combinatorial loop (need D FF) at output of gate at 5E
 Found combinatorial loop (need D FF) at output of gate at 4E

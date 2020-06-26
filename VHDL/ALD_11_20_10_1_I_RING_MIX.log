@@ -1,5 +1,5 @@
-Generating HDL for page 11.20.10.1 I RING MIX at 6/11/2020 1:06:56 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_20_10_1_I_RING_MIX_tb.vhdl, generating default test bench code.
+Generating HDL for page 11.20.10.1 I RING MIX at 6/26/2020 1:06:25 PM
+Old test bench file ALD_11_20_10_1_I_RING_MIX_tb.vhdl 51 lines preserved and 6 declaration lines preserved
 Generating Statement for block at 3A with output pin(s) of OUT_3A_G
 	and inputs of MS_I_RING_1_TIME_1,MS_I_RING_2_TIME
 	and logic function of NAND

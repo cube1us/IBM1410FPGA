@@ -1,5 +1,5 @@
-Generating HDL for page 11.10.14.1 LOGIC GATE RING E-ACC at 6/7/2020 2:11:10 PM
-Old test bench file ALD_11_10_14_1_LOGIC_GATE_RING_E_ACC_tb.vhdl 50 lines preserved.
+Generating HDL for page 11.10.14.1 LOGIC GATE RING E-ACC at 6/26/2020 12:29:59 PM
+Old test bench file ALD_11_10_14_1_LOGIC_GATE_RING_E_ACC_tb.vhdl 50 lines preserved and 0 declaration lines preserved
 Ignoring Logic Block 1I with symbol R
 Processing extension from block at 4B (Database ID=188615) to 4C (Database ID=188616)
 Copied connection to extension input pin E to master block at 4B
@@ -7,7 +7,6 @@ Copied connection to extension input pin A to master block at 4B
 Copied connection to extension input pin P to master block at 4B
 Copied connection from extension output pin B to master block at 4B
 Copied mapped pin B from extension 4C to master block at 4B
-Copied mapped pin H from extension 4C to master block at 4B
 Copied mapped pin K from extension 4C to master block at 4B
 Copied mapped pin P from extension 4C to master block at 4B
 Copied mapped pin T from extension 4C to master block at 4B
@@ -21,10 +20,10 @@ Copied connection from extension output pin A to master block at 1D
 Copied connection from extension output pin A to master block at 1D
 Copied connection from extension output pin A to master block at 1D
 Copied connection from extension output pin A to master block at 1D
-Removed 18 outputs from Gate at 1D to ignored block(s)
-Removed 4 outputs from Gate at 1F to ignored block(s)
-Removed 5 outputs from Gate at 1G to ignored block(s)
-Removed 2 outputs from Gate at 1H to ignored block(s)
+Removed 18 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 1G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1H to ignored block(s) or identical signal names
 Added LAMP signal LAMP_15A1E06
 Generating Statement for block at 2A with output pin(s) of OUT_2A_D
 	and inputs of OUT_3B_D

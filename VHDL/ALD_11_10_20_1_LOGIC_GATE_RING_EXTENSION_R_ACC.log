@@ -1,5 +1,5 @@
-Generating HDL for page 11.10.20.1 LOGIC GATE RING EXTENSION R-ACC at 6/10/2020 2:20:20 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_20_1_LOGIC_GATE_RING_EXTENSION_R_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 11.10.20.1 LOGIC GATE RING EXTENSION R-ACC at 6/26/2020 12:35:02 PM
+Old test bench file ALD_11_10_20_1_LOGIC_GATE_RING_EXTENSION_R_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 DOT Function at 3C has one output from a Trigger, one output from Non-Trigger
    Trigger block pin B located at 3C, Non-trigger is located at 3E Output is to 2C
    Using Trigger faux pin T as input side of pin B
@@ -10,13 +10,12 @@ Copied connection to extension input pin P to master block at 3B
 Copied connection to extension input pin T to master block at 3B
 Copied connection from extension output pin B to master block at 3B
 Copied mapped pin B from extension 3C to master block at 3B
-Copied mapped pin H from extension 3C to master block at 3B
 Copied mapped pin K from extension 3C to master block at 3B
 Copied mapped pin P from extension 3C to master block at 3B
 Copied mapped pin T from extension 3C to master block at 3B
 Moved connection from extension 3C pin B to be from master at 3B
-Removed 5 outputs from Gate at 2B to ignored block(s)
-Removed 1 outputs from Gate at 2C to ignored block(s)
+Removed 5 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
 Generating Statement for block at 3B with output pin(s) of OUT_3B_F, OUT_3B_B
 	and inputs of PS_LOGIC_GATE_Z,PS_LOGIC_RING_ON_ADVANCE_2,MS_LOGIC_GATE_Z,PS_LOGIC_RING_OFF_ADVANCE_2,MS_PROGRAM_RESET_3,OUT_3E_B
 	and logic function of Trigger

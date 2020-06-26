@@ -1,4 +1,4 @@
-Generating HDL for page 12.12.30.1 CYCLE LENGTH CONTROLS-ACC at 6/21/2020 12:23:14 PM
+Generating HDL for page 12.12.30.1 CYCLE LENGTH CONTROLS-ACC at 6/26/2020 1:32:57 PM
 Old test bench file ALD_12_12_30_1_CYCLE_LENGTH_CONTROLS_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 Generating Statement for block at 4A with output pin(s) of OUT_4A_P
 	and inputs of PS_COMPARE_OP_CODE,PS_B_CYCLE_1

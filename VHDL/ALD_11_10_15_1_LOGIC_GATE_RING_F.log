@@ -1,5 +1,5 @@
-Generating HDL for page 11.10.15.1 LOGIC GATE RING F at 6/7/2020 2:11:12 PM
-Old test bench file ALD_11_10_15_1_LOGIC_GATE_RING_F_tb.vhdl 50 lines preserved.
+Generating HDL for page 11.10.15.1 LOGIC GATE RING F at 6/26/2020 12:31:28 PM
+Old test bench file ALD_11_10_15_1_LOGIC_GATE_RING_F_tb.vhdl 50 lines preserved and 0 declaration lines preserved
 Ignoring Logic Block 1E with symbol R
 Processing extension from block at 4B (Database ID=188796) to 4C (Database ID=188797)
 Copied connection to extension input pin E to master block at 4B
@@ -7,7 +7,6 @@ Copied connection to extension input pin A to master block at 4B
 Copied connection to extension input pin P to master block at 4B
 Copied connection from extension output pin B to master block at 4B
 Copied mapped pin B from extension 4C to master block at 4B
-Copied mapped pin H from extension 4C to master block at 4B
 Copied mapped pin K from extension 4C to master block at 4B
 Copied mapped pin P from extension 4C to master block at 4B
 Copied mapped pin T from extension 4C to master block at 4B
@@ -32,9 +31,9 @@ Copied connection from extension output pin C to master block at 1B
 Copied connection from extension output pin C to master block at 1B
 Copied connection from extension output pin C to master block at 1B
 Moved connection from extension 1C pin C to be from master at 1B
-Removed 24 outputs from Gate at 1B to ignored block(s)
-Removed 3 outputs from Gate at 2E to ignored block(s)
-Removed 2 outputs from Gate at 1G to ignored block(s)
+Removed 24 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1G to ignored block(s) or identical signal names
 Added LAMP signal LAMP_15A1F06
 Generating Statement for block at 2A with output pin(s) of OUT_2A_C
 	and inputs of OUT_3B_D

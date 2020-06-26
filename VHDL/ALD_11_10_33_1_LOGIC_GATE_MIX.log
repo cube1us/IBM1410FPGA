@@ -1,7 +1,7 @@
-Generating HDL for page 11.10.33.1 LOGIC GATE MIX at 6/10/2020 7:37:21 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_11_10_33_1_LOGIC_GATE_MIX_tb.vhdl, generating default test bench code.
-Removed 1 outputs from Dot Function at 1C to ignored block(s)
-Removed 1 outputs from Dot Function at 1E to ignored block(s)
+Generating HDL for page 11.10.33.1 LOGIC GATE MIX at 6/26/2020 12:49:31 PM
+Old test bench file ALD_11_10_33_1_LOGIC_GATE_MIX_tb.vhdl 51 lines preserved and 6 declaration lines preserved
+Removed 1 outputs from Dot Function at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1E to ignored block(s) or identical signal names
 Generating Statement for block at 3C with output pin(s) of OUT_3C_D
 	and inputs of MS_LOGIC_GATE_S
 	and logic function of NOT

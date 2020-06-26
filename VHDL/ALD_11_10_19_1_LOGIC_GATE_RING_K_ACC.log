@@ -1,5 +1,5 @@
-Generating HDL for page 11.10.19.1 LOGIC GATE RING K-ACC at 6/7/2020 2:11:20 PM
-Old test bench file ALD_11_10_19_1_LOGIC_GATE_RING_K_ACC_tb.vhdl 50 lines preserved.
+Generating HDL for page 11.10.19.1 LOGIC GATE RING K-ACC at 6/26/2020 12:34:31 PM
+Old test bench file ALD_11_10_19_1_LOGIC_GATE_RING_K_ACC_tb.vhdl 50 lines preserved and 0 declaration lines preserved
 DOT Function at 4C has one output from a Trigger, one output from Non-Trigger
    Trigger block pin B located at 4C, Non-trigger is located at 4E Output is to 3C
    Using Trigger faux pin T as input side of pin B
@@ -10,13 +10,12 @@ Copied connection to extension input pin P to master block at 4B
 Copied connection to extension input pin T to master block at 4B
 Copied connection from extension output pin B to master block at 4B
 Copied mapped pin B from extension 4C to master block at 4B
-Copied mapped pin H from extension 4C to master block at 4B
 Copied mapped pin K from extension 4C to master block at 4B
 Copied mapped pin P from extension 4C to master block at 4B
 Copied mapped pin T from extension 4C to master block at 4B
 Moved connection from extension 4C pin B to be from master at 4B
-Removed 1 outputs from Gate at 3B to ignored block(s)
-Removed 3 outputs from Gate at 3C to ignored block(s)
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3C to ignored block(s) or identical signal names
 Added LAMP signal LAMP_15A1K06
 Generating Statement for block at 2A with output pin(s) of OUT_2A_D
 	and inputs of OUT_3B_D

@@ -1,5 +1,5 @@
-Generating HDL for page 12.12.23.1 I AND X CYCLE CTRL LATCHES-ACC at 6/18/2020 8:35:20 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_23_1_I_AND_X_CYCLE_CTRL_LATCHES_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 12.12.23.1 I AND X CYCLE CTRL LATCHES-ACC at 6/26/2020 1:31:59 PM
+Old test bench file ALD_12_12_23_1_I_AND_X_CYCLE_CTRL_LATCHES_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
 Found combinatorial loop (need D FF) at output of gate at 4B
 Found combinatorial loop (need D FF) at output of gate at 3B
 Found combinatorial loop (need D FF) at output of gate at 4G

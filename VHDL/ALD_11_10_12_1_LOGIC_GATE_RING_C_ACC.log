@@ -1,12 +1,11 @@
-Generating HDL for page 11.10.12.1 LOGIC GATE RING C-ACC at 6/7/2020 2:11:05 PM
-Old test bench file ALD_11_10_12_1_LOGIC_GATE_RING_C_ACC_tb.vhdl 50 lines preserved.
+Generating HDL for page 11.10.12.1 LOGIC GATE RING C-ACC at 6/26/2020 12:28:11 PM
+Old test bench file ALD_11_10_12_1_LOGIC_GATE_RING_C_ACC_tb.vhdl 50 lines preserved and 0 declaration lines preserved
 Processing extension from block at 4B (Database ID=188375) to 4C (Database ID=188376)
 Copied connection to extension input pin E to master block at 4B
 Copied connection to extension input pin A to master block at 4B
 Copied connection to extension input pin P to master block at 4B
 Copied connection from extension output pin B to master block at 4B
 Copied mapped pin B from extension 4C to master block at 4B
-Copied mapped pin H from extension 4C to master block at 4B
 Copied mapped pin K from extension 4C to master block at 4B
 Copied mapped pin P from extension 4C to master block at 4B
 Copied mapped pin T from extension 4C to master block at 4B
@@ -29,8 +28,8 @@ Copied connection from extension output pin A to master block at 1D
 Copied connection from extension output pin A to master block at 1D
 Copied connection from extension output pin A to master block at 1D
 Copied connection from extension output pin A to master block at 1D
-Removed 29 outputs from Gate at 1D to ignored block(s)
-Removed 4 outputs from Gate at 1H to ignored block(s)
+Removed 29 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1H to ignored block(s) or identical signal names
 Added LAMP signal LAMP_15A1C06
 Generating Statement for block at 2A with output pin(s) of OUT_2A_B
 	and inputs of OUT_3B_D
