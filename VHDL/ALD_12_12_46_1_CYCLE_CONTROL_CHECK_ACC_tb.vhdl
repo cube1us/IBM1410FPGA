@@ -68,6 +68,15 @@ architecture behavioral of ALD_12_12_46_1_CYCLE_CONTROL_CHECK_ACC_tb is
 -- regenerates a test bench
 
    -- Your test bench declarations go here
+   
+ procedure check1(
+      checked: in STD_LOGIC;
+      val: in STD_LOGIC;
+      testname: in string;
+      test: in string) is
+      begin    
+      assert checked = val report testname & " (" & test & ") failed." severity failure;
+      end procedure;          
 
 -- END USER TEST BENCH DECLARATIONS
    
@@ -126,10 +135,232 @@ fpga_clk_process: process
 -- Place your test bench code in the uut_process
 
 uut_process: process
+
+   variable testName: string(1 to 18);
+   
    begin
 
    -- Your test bench code
+   
+   testName := "12.12.46.1        ";
+   
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"START");
+   MS_A_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"A1");
+   MS_B_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"A2");
+   PS_PROCESS_ROUTINE <= '1';  -- This stays set for the remainder fo this test
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"A3");
+   
+   MS_B_CYCLE_CTRL <= '1';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"A4");
+   MS_C_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"A5");
+   MS_C_CYCLE_CTRL <= '1';
+   MS_D_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"A6");
+   
 
+   MS_D_CYCLE_CTRL <= '1';
+   MS_A_CYCLE_CTRL <= '1';
+   MS_B_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"B1");
+   MS_C_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"B2");
+   MS_C_CYCLE_CTRL <= '1';
+   MS_D_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"A6");
+
+   MS_D_CYCLE_CTRL <= '1';
+   MS_B_CYCLE_CTRL <= '1';
+   MS_C_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"C1");
+   MS_D_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"C2");
+   MS_C_CYCLE_CTRL <= '1';
+   MS_D_CYCLE_CTRL <= '1';
+
+   
+   MS_E_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"D1");
+   MS_X_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"D2");
+   MS_X_CYCLE_CTRL <= '1';
+   MS_I_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"D3");
+   MS_I_CYCLE_CTRL <= '1';
+   MS_A_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"D4");
+   MS_A_CYCLE_CTRL <= '1';
+   MS_B_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"D5");
+   MS_B_CYCLE_CTRL <= '1';
+   MS_C_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"D6");
+   MS_C_CYCLE_CTRL <= '1';
+   MS_D_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"D7");
+   MS_D_CYCLE_CTRL <= '1';
+   MS_F_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"D8");
+   
+   MS_E_CH_UNOVLP_IN_PROCESS <= '1';
+   MS_F_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"E1");
+   MS_X_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"E2");
+   MS_X_CYCLE_CTRL <= '1';
+   MS_I_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"E3");
+   MS_I_CYCLE_CTRL <= '1';
+   MS_A_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"E4");
+   MS_A_CYCLE_CTRL <= '1';
+   MS_B_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"E5");
+   MS_B_CYCLE_CTRL <= '1';
+   MS_C_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"E6");
+   MS_C_CYCLE_CTRL <= '1';
+   MS_D_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"E7");
+   MS_D_CYCLE_CTRL <= '1';
+   
+   MS_F_CH_UNOVLP_IN_PROCESS <= '1';
+   wait for 30 ns;
+   --   If IN Process you must be ONE of A, B, C, D, I, X, ECH UN or F Ch UN
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"F1");
+   
+   MS_X_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"G1");
+   MS_I_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"G2");
+   MS_I_CYCLE_CTRL <= '1';
+   MS_A_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"G3");
+   MS_A_CYCLE_CTRL <= '1';
+   MS_B_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"G4");
+   MS_B_CYCLE_CTRL <= '1';
+   MS_C_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"G5");
+   MS_C_CYCLE_CTRL <= '1';
+   MS_D_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"G6");
+   MS_D_CYCLE_CTRL <= '1';
+   
+   MS_X_CYCLE_CTRL <= '1';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"G1");
+   MS_I_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"G2");
+   MS_A_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"G3");
+   MS_A_CYCLE_CTRL <= '1';
+   MS_B_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"G4");
+   MS_B_CYCLE_CTRL <= '1';
+   MS_C_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"G5");
+   MS_C_CYCLE_CTRL <= '1';
+   MS_D_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"G6");
+   MS_D_CYCLE_CTRL <= '1';
+   -- Leave I Cycle set
+      
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"H1");
+   PS_E_CYCLE_CTRL <= '1';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"H2");
+   PS_F_CYCLE_CTRL <= '1';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"H3");
+   PS_E_CYCLE_CTRL <= '0';
+   PS_F_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"H4");
+   MS_LOGIC_GATE_A_DOT_R_CHECK <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"H5");
+   MS_LOGIC_GATE_A_DOT_R_CHECK <= '1';
+   
+   -- Now reset I Cycle
+   MS_I_CYCLE_CTRL <= '1';
+   PS_1401_CARD_PRINT_IN_PROC <= '1';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"I1");
+   MS_X_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"I2");
+   MS_X_CYCLE_CTRL <= '1';
+   MS_I_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"I3");
+   MS_I_CYCLE_CTRL <= '1';
+   MS_A_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"I4");
+   MS_A_CYCLE_CTRL <= '1';
+   MS_B_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"I5");
+   MS_B_CYCLE_CTRL <= '1';
+   MS_C_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"I6");
+   MS_C_CYCLE_CTRL <= '1';
+   MS_D_CYCLE_CTRL <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"I7");
+   MS_D_CYCLE_CTRL <= '1';
+   MS_E_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   -- This succeeeds, probably because 1401 unit record I/O is on the E CH, unoverlapped
+   check1(MS_CYCLE_CHECK_ERROR,'1',testName,"I8");
+   MS_E_CH_UNOVLP_IN_PROCESS <= '1';
+   MS_F_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(MS_CYCLE_CHECK_ERROR,'0',testName,"I9");
+  
    wait;
    end process;
 
@@ -140,7 +371,7 @@ uut_process: process
 stop_simulation: process
    begin
    wait for 100 us;  -- Determines how long your simulation runs
-   assert false report "Simulation Ended" severity failure;
+   assert false report "Simulation Ended NORMALLY" severity failure;
    end process;
 
 -- END USER TEST BENCH PROCESS
