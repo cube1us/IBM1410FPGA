@@ -26,7 +26,7 @@ uut_process: process
 stop_simulation: process
    begin
    wait for 100 us;  -- Determines how long your simulation runs
-   assert false report "Simulation Ended" severity failure;
+   assert false report "Simulation Ended NORMALLY" severity failure;
    end process;
 
 -- END USER TEST BENCH PROCESS
