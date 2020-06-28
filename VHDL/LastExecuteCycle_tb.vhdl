@@ -93,8 +93,26 @@ architecture behavioral of LastExecuteCycle_tb is
 -- This text is preserved when the IBM1410SMS applciation
 -- regenerates a test bench
 
-   -- Your test bench declarations go here
+procedure check1(
+    checked: in STD_LOGIC;
+    val: in STD_LOGIC;
+    testname: in string;
+    test: in string) is
+    begin    
+    assert checked = val report testname & " (" & test & ") failed." severity failure;
+    end procedure;
 
+   constant HDL_C_BIT: integer := 7;
+   constant HDL_WM_BIT: integer := 6;
+   constant HDL_B_BIT: integer := 5;
+   constant HDL_A_BIT: integer := 4;
+   constant HDL_8_BIT: integer := 3;
+   constant HDL_4_BIT: integer := 2;
+   constant HDL_2_BIT: integer := 1;
+   constant HDL_1_BIT: integer := 0;
+     
+   -- Your test bench declarations go here
+   
 -- END USER TEST BENCH DECLARATIONS
    
 
@@ -165,8 +183,176 @@ fpga_clk_process: process
 -- Place your test bench code in the uut_process
 
 uut_process: process
+
+   variable testName: string(1 to 18);
+   variable subtest: integer;
+
    begin
 
+   testName := "12.12.50.1        ";
+
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"START");
+   -- Enable DATA MOVE LAST EXECUTE which is internal
+   PS_DATA_MOVE_OP_CODE <= '1';
+   PS_B_CYCLE_1 <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"0");
+
+   -- 1
+   
+   PS_A_CH_NOT_BUS(HDL_WM_BIT) <= '1';
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '1';
+   PS_OP_MOD_REG_NOT_BUS(HDL_A_BIT) <= '1';
+   PS_OP_MOD_REG_NOT_BUS(HDL_B_BIT) <= '1';
+   PS_OP_MOD_REG_BUS(HDL_8_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"1");
+   PS_A_CH_NOT_BUS(HDL_WM_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"1A");
+   PS_A_CH_NOT_BUS(HDL_WM_BIT) <= '1';
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"1B");
+   
+   -- 2
+   
+   PS_A_CH_NOT_BUS(HDL_WM_BIT) <= '1';  -- Reset A Ch WM
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '1';  -- Reset B Ch WM
+   PS_OP_MOD_REG_NOT_BUS(HDL_A_BIT) <= '1';
+   PS_OP_MOD_REG_NOT_BUS(HDL_B_BIT) <= '1';
+   PS_OP_MOD_REG_BUS(HDL_8_BIT) <= '1';
+   PS_OP_MOD_REG_BUS(HDL_A_BIT) <= '1';         
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"2");
+   PS_A_CH_RECORD_MARK <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"2A");
+
+   -- 3
+   
+   PS_A_CH_RECORD_MARK <= '0';
+   PS_OP_MOD_REG_BUS(HDL_A_BIT) <= '0';         
+   PS_OP_MOD_REG_BUS(HDL_B_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"3");
+   PS_A_CH_GROUP_MARK_DOT_WM <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"3A");
+   
+   -- 4
+   
+   PS_OP_MOD_REG_BUS(HDL_B_BIT) <= '0';
+   PS_A_CH_GROUP_MARK_DOT_WM <= '0';
+   PS_OP_MOD_REG_BUS(HDL_A_BIT) <= '1';
+   PS_OP_MOD_REG_NOT_BUS(HDL_8_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"4");
+   PS_A_CH_BUS(HDL_WM_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"4A");
+   
+   -- 5
+   
+   PS_OP_MOD_REG_BUS(HDL_A_BIT) <= '0';
+   PS_A_CH_BUS(HDL_WM_BIT) <= '0';
+   PS_OP_MOD_REG_NOT_BUS(HDL_8_BIT) <= '1';  -- Remains Set
+   PS_OP_MOD_REG_BUS(HDL_B_BIT) <= '1';   
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"5");
+   PS_B_CH_WM_BIT_2 <= '1'; -- Not currently in bus (separate output)
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"5A");
+   
+   PS_B_CH_WM_BIT_2 <= '0';
+   PS_OP_MOD_REG_NOT_BUS(HDL_8_BIT) <= '0';
+   PS_OP_MOD_REG_BUS(HDL_B_BIT) <= '0';   
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"5");
+   MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD <= '0';   
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"5A");   
+   
+   testName := "12.12.51.1        ";
+   
+   -- First AND tested by 12.12.50.1 
+   
+   -- 2
+   
+   PS_DATA_MOVE_OP_CODE <= '0';
+   PS_B_CYCLE_1 <= '0';
+   MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD <= '1';   
+   PS_B_CYCLE_1 <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"2");
+   PS_WORD_MARK_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"2A");
+
+   -- 3
+
+   PS_B_CYCLE_1 <= '0';
+   PS_WORD_MARK_OP_CODES <= '0';
+   PS_STORE_ADDR_REGS_OP_CODE <= '1';
+   PS_A_RING_6_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"3");
+   PS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"3A");
+   
+   -- 4
+   
+   PS_STORE_ADDR_REGS_OP_CODE <= '0';
+   PS_A_RING_6_TIME <= '0';
+   PS_1ST_SCAN <= '1';      -- Remains set
+   PS_A_RING_4_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"4");
+   PS_1401_STORE_AR_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"4A");
+   
+   -- Finish up (external signals)
+   
+   PS_1ST_SCAN <= '0';
+   PS_A_RING_4_TIME <= '0';
+   PS_1401_STORE_AR_OP_CODES <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"5");
+   
+   PS_LAST_EXECUTE_CYCLE_STAR_I_O <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"5A");
+   PS_LAST_EXECUTE_CYCLE_STAR_I_O <= '0';
+
+   PS_LAST_EXECUTE_CYCLE_STAR_EDIT <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"5B");
+   PS_LAST_EXECUTE_CYCLE_STAR_EDIT <= '0';
+   
+   PS_LAST_EXECUTE_CYCLE_STAR_BR_CND <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"5C");
+   PS_LAST_EXECUTE_CYCLE_STAR_BR_CND <= '0';
+   
+   PS_LAST_EXECUTE_CYCLE_STAR_ARITH <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"5D");
+   PS_LAST_EXECUTE_CYCLE_STAR_ARITH <= '0';
+   
+   PS_LAST_EXECUTE_CYCLE_STAR_TLU <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'1',testName,"5E");
+   PS_LAST_EXECUTE_CYCLE_STAR_TLU <= '0';
+   
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE,'0',testName,"5F");
+   
+
+   
+   
    -- Your test bench code
 
    wait;
