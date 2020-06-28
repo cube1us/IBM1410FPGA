@@ -12,6 +12,10 @@
 -- Place your test bench code in the uut_process
 
 uut_process: process
+
+   variable testName: string(1 to 18);
+   variable subtest: integer;
+
    begin
 
    -- Your test bench code
