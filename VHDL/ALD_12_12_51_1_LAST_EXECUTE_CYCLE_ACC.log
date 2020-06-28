@@ -1,0 +1,52 @@
+Generating HDL for page 12.12.51.1 LAST EXECUTE CYCLE-ACC at 6/28/2020 12:52:53 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_51_1_LAST_EXECUTE_CYCLE_ACC_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 1C to ignored block(s) or identical signal names
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D, OUT_4C_D
+	and inputs of PS_DATA_MOVE_OP_CODE,PS_B_CYCLE_1,PS_DATA_MOVE_LAST_EXECUTE
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_4C_D,MS_SET_DOLLAR_SIGN_STAR_EDIT,OUT_4D_G
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_B, OUT_1C_B
+	and inputs of OUT_DOT_2C
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G, OUT_4D_G
+	and inputs of PS_WORD_MARK_OP_CODES,PS_B_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E
+	and inputs of PS_STORE_ADDR_REGS_OP_CODE,PS_A_RING_6_TIME,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D
+	and inputs of OUT_4F_E,OUT_4G_C
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_1C_B
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of PS_1ST_SCAN,PS_A_RING_4_TIME,PS_1401_STORE_AR_OP_CODES
+	and logic function of NAND
+WARNING: Input connection from edge connection named +S LAST EXECUTE CYCLE *I-O to a DOT function on page 12.12.51.1 coordinate 2C is also used as input to other page(s):
+    13.65.07.1 
+WARNING: Input connection from edge connection named +S LAST EXECUTE CYCLE *ARITH to a DOT function on page 12.12.51.1 coordinate 2C is also used as input to other page(s):
+    16.42.02.1 
+WARNING: Input connection from edge connection named +S LAST EXECUTE CYCLE *TLU to a DOT function on page 12.12.51.1 coordinate 2C is also used as input to other page(s):
+    17.18.01.1 
+WARNING: Input connection from edge connection named +S LAST EXECUTE CYCLE * BR CND to a DOT function on page 12.12.51.1 coordinate 2C is also used as input to other page(s):
+    12.60.08.1 
+WARNING: Input connection from edge connection named +S LAST EXECUTE CYCLE *EDIT to a DOT function on page 12.12.51.1 coordinate 2C is also used as input to other page(s):
+    17.13.08.1 
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_2C_C,PS_LAST_EXECUTE_CYCLE_STAR_I_O,PS_LAST_EXECUTE_CYCLE_STAR_ARITH,PS_LAST_EXECUTE_CYCLE_STAR_TLU,PS_LAST_EXECUTE_CYCLE_STAR_BR_CND,PS_LAST_EXECUTE_CYCLE_STAR_EDIT,OUT_2F_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_DATA_MOVE_LAST_EX_CYCLE
+	from gate output OUT_4C_D
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_EXECUTE_CYCLE
+	from gate output OUT_1C_B
+Generating output sheet edge signal assignment to 
+	signal MS_WORD_MARK_OP_DOT_B_CYCLE
+	from gate output OUT_4D_G
+Generating output sheet edge signal assignment to 
+	signal MS_LAST_EXECUTE_CYCLE
+	from gate output OUT_1F_C

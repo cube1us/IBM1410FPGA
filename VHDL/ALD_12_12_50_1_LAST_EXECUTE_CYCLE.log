@@ -1,0 +1,38 @@
+Generating HDL for page 12.12.50.1 LAST EXECUTE CYCLE at 6/28/2020 12:52:39 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_50_1_LAST_EXECUTE_CYCLE_tb.vhdl, generating default test bench code.
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_A_CH_NOT_WM_BIT,PS_B_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_5A_NoPin,PS_OP_MOD_REG_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_K
+	and inputs of PS_OP_MOD_REG_NOT_A_BIT,PS_OP_MOD_REG_NOT_B_BIT
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_E
+	and inputs of PS_OP_MOD_REG_A_BIT,PS_OP_MOD_REG_8_BIT,PS_A_CH_RECORD_MARK
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_G
+	and inputs of OUT_3D_E,OUT_DOT_3C,OUT_3E_D
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of PS_OP_MOD_REG_B_BIT,PS_A_CH_GROUP_MARK_DOT_WM,PS_OP_MOD_REG_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of PS_OP_MOD_REG_A_BIT,PS_OP_MOD_REG_NOT_8_BIT,PS_A_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_G
+	and inputs of OUT_3H_C,MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,OUT_3I_D
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of PS_OP_MOD_REG_B_BIT,PS_OP_MOD_REG_NOT_8_BIT,PS_B_CH_WM_BIT_2
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3B_F,OUT_3C_K
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_1D_G,OUT_1H_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_DATA_MOVE_LAST_EXECUTE
+	from gate output OUT_DOT_1D
