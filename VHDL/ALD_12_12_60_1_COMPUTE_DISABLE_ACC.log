@@ -1,0 +1,108 @@
+Generating HDL for page 12.12.60.1 COMPUTE DISABLE-ACC at 6/29/2020 2:21:25 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_60_1_COMPUTE_DISABLE_ACC_tb.vhdl, generating default test bench code.
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C
+	and inputs of PS_E_CH_FORMS_CTRL_OP_CODE,PS_1401_MODE
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_G
+	and inputs of PS_M_OR_L_OP_CODES,PS_I_O_PERCENT_OR_LOZENGE
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_P
+	and inputs of PS_FORMS_OR_1403_PRT_BUFF_BUSY,PS_I_RING_3_TIME
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_E
+	and inputs of MS_F_CH_TAPE_CALL,MS_FORMS_STACK_GO_F_CH_STAR_1414_STAR,MS_FORMS_STACKER_GO
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_P
+	and inputs of PS_I_RING_10_TIME,OUT_2C_C
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_I_RING_5_TIME,PS_E_CH_IN_PROCESS,PS_BRANCH_ON_STATUS_CH_1
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of MS_1401_CARD_PRINT_IN_PROC,OUT_DOT_5E,OUT_DOT_4B
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of MS_E_CH_IN_PROCESS,MS_F_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_G
+	and inputs of MS_E_CH_OVLP_IN_PROCESS,MS_F_CH_OVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of OUT_5D_G,PS_SPECIAL_STOP_LATCH
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_E
+	and inputs of OUT_4C_C,OUT_4D_C,MS_E_CH_UNOVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_1401_MODE,PS_E_CH_BUSY_BUS
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_K
+	and inputs of PS_1401_MODE,PS_E_CH_BUSY_BUS
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_DOT_2B,MS_E_CH_TAPE_CALL,MS_UNIT_CONTROL_INST_RO_DELAY
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_P
+	and inputs of PS_FILE_OP,MS_E_CH_DIGIT_ADVANCE
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PS_I_RING_5_TIME,PS_E_CH_SELECT_TAPE_DATA,PS_PERCENT_TYPE_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_R
+	and inputs of MS_E_CYCLE_REQUIRED
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_F
+	and inputs of MS_E2_REG_FULL
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_R
+	and inputs of OUT_DOT_5G
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_D
+	and inputs of OUT_DOT_4F,MS_1401_UNIT_CTRL_DELAY,MS_1401_M_OR_L_TAPE_DELAY
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_E
+	and inputs of MS_E_CH_INT_END_OF_XFER_DELAYED,PS_E_CH_OUTPUT_MODE,PS_E_CH_OVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_B
+	and inputs of PS_E1_REG_FULL
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_B
+	and inputs of OUT_DOT_4H
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_K
+	and inputs of PS_E_CH_OVLP_IN_PROCESS,PS_E_CH_INPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of PS_E_CH_IN_PROCESS,PS_E_CH_2ND_ADDR_TRF,PS_Q_OR_V_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_C
+	and inputs of OUT_3I_D,MS_COMP_DSBLE_E_CH,MS_COMP_DISABLE_CYCLE_STAR_FILE_F_CH
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
+	and inputs of OUT_5E_C,OUT_5F_P
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H
+	and inputs of OUT_4H_B,OUT_4I_K
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of OUT_5G_F,OUT_5H_E
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
+	and inputs of OUT_4E_K,OUT_4F_C
+	and logic function of OR
+WARNING: Input connection from edge connection named +S COMP DISABLE CYCLE *1412-19 to a DOT function on page 12.12.60.1 coordinate 2G is also used as input to other page(s):
+    20.10.02.1 
+WARNING: Input connection from edge connection named +S COMP DISABLE CYCLE JRJ to a DOT function on page 12.12.60.1 coordinate 2G is also used as input to other page(s):
+    13.64.07.1 
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_3B_E,OUT_3C_E,OUT_3D_E,OUT_3E_D,OUT_3F_R,OUT_3G_R,OUT_2G_D,PS_COMP_DISABLE_CYCLE_STAR_1412_19,PS_COMP_DISABLE_CYCLE_JRJ,OUT_3H_B,OUT_2I_C
+	and logic function of OR
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2A_G,OUT_2B_P
+	and logic function of OR
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_4A_C,OUT_4B_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_COMP_DISABLE_CYCLE
+	from gate output OUT_DOT_2G

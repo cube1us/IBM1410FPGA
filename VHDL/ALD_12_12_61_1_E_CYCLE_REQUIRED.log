@@ -1,0 +1,14 @@
+Generating HDL for page 12.12.61.1 E CYCLE REQUIRED at 6/29/2020 2:09:14 PM
+Removed 1 outputs from Dot Function at 2B to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_R
+	and inputs of PS_E_CYCLE
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D
+	and inputs of PS_ANY_LAST_GATE
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_4B_R,OUT_4C_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_E_CYCLE_DOT_ANY_LAST_GATE
+	from gate output OUT_DOT_2B

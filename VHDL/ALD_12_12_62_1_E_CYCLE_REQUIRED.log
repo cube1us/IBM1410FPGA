@@ -1,0 +1,57 @@
+Generating HDL for page 12.12.62.1 E CYCLE REQUIRED at 6/29/2020 2:09:16 PM
+Removed 2 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2H to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_E_CH_OUTPUT_MODE,MS_E_CH_INT_END_OF_TRANSFER,PS_E_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_B
+	and inputs of MS_E1_REG_FULL
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_B
+	and inputs of MS_E_CYCLE_DOT_ANY_LAST_GATE
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_R
+	and inputs of OUT_DOT_4D
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_F
+	and inputs of MS_E_CYCLE_DOT_ANY_LAST_GATE
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_B
+	and inputs of OUT_DOT_4E
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of MS_E_CH_READY_C
+	and logic function of NOT
+Generating Statement for block at 2F with output pin(s) of OUT_2F_Q
+	and inputs of OUT_DOT_3F
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_E
+	and inputs of PS_E_CH_IN_PROCESS,PS_E_CH_INPUT_MODE,MS_E_CH_INT_END_OF_TRANSFER
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_F
+	and inputs of MS_E_CH_READY_A
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_R
+	and inputs of PS_E2_REG_FULL
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_R
+	and inputs of MS_E_CH_READY_B
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_DOT_3F
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4B_D,OUT_4C_B,OUT_4D_B
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4E_F,OUT_4G_E,OUT_4H_R
+	and logic function of OR
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F, OUT_DOT_3F
+	and inputs of OUT_3D_R,OUT_3E_B,OUT_3F_C,OUT_3G_F,OUT_3H_R
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_E_CYCLE_REQUIRED
+	from gate output OUT_2F_Q
+Generating output sheet edge signal assignment to 
+	signal MS_E_CYCLE_REQUIRED
+	from gate output OUT_2H_C

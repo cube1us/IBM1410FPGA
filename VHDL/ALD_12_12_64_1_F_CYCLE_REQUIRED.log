@@ -1,0 +1,44 @@
+Generating HDL for page 12.12.64.1 F CYCLE REQUIRED at 6/29/2020 2:09:24 PM
+Removed 1 outputs from Dot Function at 5C to ignored block(s) or identical signal names
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of PS_F_CH_OUTPUT_MODE,PS_F_CH_IN_PROCESS,MS_F_CH_INT_END_OF_TRANSFER
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_F
+	and inputs of PS_F_CYCLE
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_R
+	and inputs of MS_F2_REG_FULL
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_ANY_LAST_GATE
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_R
+	and inputs of MS_F1_REG_WORD_SEPARATOR
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_B
+	and inputs of MS_F1_REG_WORD_SEPARATOR
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E
+	and inputs of PS_F_CH_INPUT_MODE,PS_F_CH_IN_PROCESS,MS_F_CH_INT_END_OF_TRANSFER
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_R
+	and inputs of PS_F1_REG_FULL
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2B_C,OUT_2C_R,OUT_2D_R
+	and logic function of OR
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
+	and inputs of OUT_5C_F,OUT_5D_C
+	and logic function of OR
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_2G_B,OUT_2H_E,OUT_2I_R
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_OUTPUT_DOT_NOT_F2_REG_FULL
+	from gate output OUT_DOT_2B
+Generating output sheet edge signal assignment to 
+	signal MS_F_CYCLE_DOT_ANY_LAST_GATE
+	from gate output OUT_DOT_5C
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_INPUT_DOT_F2_REG_FULL
+	from gate output OUT_DOT_2G

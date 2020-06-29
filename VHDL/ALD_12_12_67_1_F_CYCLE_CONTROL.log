@@ -1,0 +1,134 @@
+Generating HDL for page 12.12.67.1 F CYCLE CONTROL at 6/29/2020 2:10:36 PM
+Found combinatorial loop (need D FF) at output of gate at 5A
+Found combinatorial loop (need D FF) at output of gate at 4A
+Ignoring Logic Block 1E with symbol R
+Found combinatorial loop (need D FF) at output of gate at 2H
+Found combinatorial loop (need D FF) at output of gate at 1H
+Removed 2 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 13 outputs from Gate at 1H to ignored block(s) or identical signal names
+Removed 5 outputs from Dot Function at 4A to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 2D to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 3I to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1F10
+Added LAMP signal LAMP_11C8F15
+Generating Statement for block at 5A with *latched* output pin(s) of OUT_5A_D_Latch, OUT_5A_D_Latch
+	and inputs of OUT_DOT_4A,MS_LOGIC_GATE_D_OR_U,MS_PROGRAM_RESET_2
+	and logic function of NAND
+Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_F_Latch
+	and inputs of OUT_5A_D
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_C
+	and inputs of PS_E_CYCLE,MS_F_CH_INT_END_OF_TRANSFER,PS_LOGIC_GATE_Z
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B
+	and inputs of OUT_DOT_5B
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_B
+	and inputs of PS_F_CYCLE_REQUIRED
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of OUT_DOT_4A
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_R
+	and inputs of PS_2ND_CLOCK_PULSE_2
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_K
+	and inputs of MS_F_CH_FILE_OP,PS_FILE_OP_DLY_EXTENSION
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_F
+	and inputs of OUT_DOT_2D
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_R
+	and inputs of PS_2ND_CLOCK_PULSE_2
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_F
+	and inputs of OUT_DOT_5E
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_B
+	and inputs of PS_E_CH_IN_PROCESS
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_R
+	and inputs of PS_F_CYCLE_REQUIRED
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_R
+	and inputs of OUT_DOT_4A
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D
+	and inputs of OUT_DOT_3I
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of 
+	and inputs of OUT_2F_D
+	and logic function of Lamp
+Generating Statement for block at 5G with output pin(s) of OUT_5G_G
+	and inputs of MS_F_CH_INT_END_OF_TRANSFER,PS_LOGIC_GATE_Z
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_R
+	and inputs of PS_LOGIC_GATE_B_OR_S
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_DOT_3I
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of 
+	and inputs of OUT_2G_C
+	and logic function of Lamp
+Generating Statement for block at 5H with output pin(s) of OUT_5H_F
+	and inputs of MS_E_CYCLE_REQUIRED
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_F
+	and inputs of PS_LOGIC_GATE_B_OR_S
+	and logic function of NOT
+Generating Statement for block at 2H with *latched* output pin(s) of OUT_2H_C_Latch
+	and inputs of OUT_1H_H
+	and logic function of NOT
+Generating Statement for block at 1H with *latched* output pin(s) of OUT_1H_H_Latch, OUT_1H_H_Latch
+	and inputs of OUT_DOT_3I,OUT_1I_F
+	and logic function of Special
+Generating Statement for block at 4I with output pin(s) of OUT_4I_C
+	and inputs of OUT_5A_D
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_R
+	and inputs of OUT_DOT_4I
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_F
+	and inputs of MS_PROGRAM_RESET_2
+	and logic function of NOT
+Generating Statement for block at 1I with output pin(s) of OUT_1I_F
+	and inputs of OUT_DOT_3G
+	and logic function of NOT
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A, OUT_DOT_4A, OUT_DOT_4A, OUT_DOT_4A
+	and inputs of OUT_4A_F,OUT_4B_B,OUT_4E_F
+	and logic function of OR
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
+	and inputs of OUT_5B_C,OUT_5C_B,OUT_5D_R
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2D_K,OUT_2E_B
+	and logic function of OR
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
+	and inputs of OUT_1D_F,OUT_5E_R,OUT_5F_R,OUT_5G_G,OUT_5H_F
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G
+	and inputs of OUT_3F_R,OUT_3G_R
+	and logic function of OR
+Generating Statement for block at 3I with output pin(s) of OUT_DOT_3I, OUT_DOT_3I, OUT_DOT_3I, OUT_DOT_3I
+	and inputs of OUT_2H_C,OUT_3I_R,OUT_2I_F
+	and logic function of OR
+Generating Statement for block at 4I with output pin(s) of OUT_DOT_4I
+	and inputs of OUT_4H_F,OUT_4I_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_F_CYCLE_CTRL
+	from gate output OUT_2C_D
+Generating output sheet edge signal assignment to 
+	signal PS_F_CYCLE
+	from gate output OUT_1H_H
+Generating output sheet edge signal assignment to 
+	signal PS_F_CYCLE_CTRL
+	from gate output OUT_DOT_4A
+Generating output sheet edge signal assignment to 
+	signal MS_F_CYCLE
+	from gate output OUT_DOT_3I
+Generating D Flip Flop for block at 5A
+Generating D Flip Flop for block at 4A
+Generating D Flip Flop for block at 2H
+Generating D Flip Flop for block at 1H

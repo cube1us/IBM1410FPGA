@@ -1,0 +1,145 @@
+Generating HDL for group named IOEFCyclesat 6/29/2020 2:11:22 PM containing pages: 
+	12.12.60.1, 12.12.61.1, 12.12.62.1, 12.12.63.1, 12.12.64.1
+	12.12.65.1, 12.12.66.1, 12.12.67.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\IOEFCycles_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 8 pages...
+Found 43 signals on page 12.12.60.1
+Found 3 signals on page 12.12.61.1
+Found 12 signals on page 12.12.62.1
+Found 12 signals on page 12.12.63.1
+Found 12 signals on page 12.12.64.1
+Found 13 signals on page 12.12.65.1
+Found 15 signals on page 12.12.66.1
+Found 16 signals on page 12.12.67.1
+Found 78 unique input signals and 22 unique output signals, (86 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S I RING 3 TIME originates outside the group.
+INFO:  Signal +S I RING 5 TIME originates outside the group.
+INFO:  Signal +S I RING 10 TIME originates outside the group.
+INFO:  Signal +S M OR L OP CODES originates outside the group.
+INFO:  Signal +S E CH FORMS CTRL OP CODE originates outside the group.
+INFO:  Signal +S 1401 MODE originates outside the group.
+INFO:  Signal +S I-O PERCENT OR LOZENGE originates outside the group.
+INFO:  Signal +S FORMS + 1403 PRT BUFF BUSY originates outside the group.
+INFO:  Signal -S FORMS-STACKER GO originates outside the group.
+INFO:  Signal -S F CH TAPE CALL originates outside the group.
+INFO:  Signal -S 1401 CARD PRINT IN PROC originates outside the group.
+INFO:  Signal -S FORMS STACK GO F CH*1414* originates outside the group.
+INFO:  Signal +S E CH IN PROCESS originates outside the group.
+INFO:  Signal +S BRANCH ON STATUS CH 1 originates outside the group.
+INFO:  Signal -S E CH IN PROCESS originates outside the group.
+INFO:  Signal -S F CH IN PROCESS originates outside the group.
+INFO:  Signal +S SPECIAL STOP LATCH originates outside the group.
+INFO:  Signal -S E CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal -S F CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal -S E CH UNOVLP IN PROCESS originates outside the group.
+INFO:  Signal -S E CH TAPE CALL originates outside the group.
+INFO:  Signal +S E CH BUSY BUS originates outside the group.
+INFO:  Signal -S UNIT CONTROL INST RO DELAY originates outside the group.
+INFO:  Signal -S E CYCLE REQUIRED originates inside the group.
+INFO:  Signal +S FILE OP originates outside the group.
+INFO:  Signal -S E CH DIGIT ADVANCE originates outside the group.
+INFO:  Signal +S E CH SELECT TAPE DATA originates outside the group.
+INFO:  Signal +S PERCENT TYPE OP CODES originates outside the group.
+INFO:  Signal -S 1401 UNIT CTRL DELAY originates outside the group.
+INFO:  Signal -S E2 REG FULL originates outside the group.
+INFO:  Signal -S 1401 M+L TAPE DELAY originates outside the group.
+INFO:  Signal +S COMP DISABLE CYCLE *1412-19 originates outside the group.
+INFO:  Signal +S COMP DISABLE CYCLE JRJ originates outside the group.
+INFO:  Signal -S E CH INT END OF XFER DELAYED originates outside the group.
+INFO:  Signal +S E CH OUTPUT MODE originates outside the group.
+INFO:  Signal +S E CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal +S E1 REG FULL originates outside the group.
+INFO:  Signal +S E CH INPUT MODE originates outside the group.
+INFO:  Signal -S COMP DISABLE CYCLE*FILE F CH originates outside the group.
+INFO:  Signal +S E CH 2ND ADDR TRF originates outside the group.
+INFO:  Signal +S Q+V SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S COMP DSBLE E CH originates outside the group.
+INFO:  Signal +S ANY LAST GATE originates outside the group.
+INFO:  Signal +S E CYCLE originates inside the group.
+INFO:  Signal -S E CYCLE.ANY LAST GATE originates inside the group.
+INFO:  Signal -S E CH INT END OF TRANSFER originates outside the group.
+INFO:  Signal -S E1 REG FULL originates outside the group.
+INFO:  Signal -S E CH READY C originates inside the group.
+INFO:  Signal -S E CH READY A originates inside the group.
+INFO:  Signal +S E2 REG FULL originates outside the group.
+INFO:  Signal -S E CH READY B originates inside the group.
+INFO:  Signal -S E1 REG WORD SEPARATOR originates outside the group.
+INFO:  Signal +S E CH EXT END OF TRANSFER originates outside the group.
+INFO:  Signal +S F CH OUTPUT MODE originates outside the group.
+INFO:  Signal -S F2 REG FULL originates outside the group.
+INFO:  Signal +S F CYCLE originates inside the group.
+INFO:  Signal +S F CH IN PROCESS originates outside the group.
+INFO:  Signal -S F CH INT END OF TRANSFER originates outside the group.
+INFO:  Signal -S F1 REG WORD SEPARATOR originates outside the group.
+INFO:  Signal +S F CH INPUT MODE originates outside the group.
+INFO:  Signal +S F1 REG FULL originates outside the group.
+INFO:  Signal -S F CH OUTPUT.NOT F2 REG FULL originates inside the group.
+INFO:  Signal -S F CYCLE.ANY LAST GATE originates inside the group.
+INFO:  Signal -S F CH INPUT.F2 REG FULL originates inside the group.
+INFO:  Signal +S F CH EXT END OF TRANSFER originates outside the group.
+INFO:  Signal -S F1 REG FULL originates outside the group.
+INFO:  Signal +S F2 REG FULL originates outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 2 originates outside the group.
+INFO:  Signal +S LOGIC GATE Z originates outside the group.
+INFO:  Signal +S LOGIC GATE B OR S originates outside the group.
+INFO:  Signal -S LOGIC GATE D OR U originates outside the group.
+INFO:  Signal +S E CYCLE REQUIRED originates inside the group.
+INFO:  Signal -S F CYCLE REQUIRED originates inside the group.
+INFO:  Signal -S F CYCLE CTRL originates inside the group.
+INFO:  Signal -S PROGRAM RESET 2 originates outside the group.
+INFO:  Signal +S F CYCLE REQUIRED originates inside the group.
+INFO:  Signal -S F CH FILE OP originates outside the group.
+INFO:  Signal +S FILE OP DLY EXTENSION originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S COMP DISABLE CYCLE is used outside the group.
+INFO:  Signal -S E CYCLE.ANY LAST GATE is used outside the group.
+INFO:  Signal +S E CYCLE REQUIRED is used outside the group.
+INFO:  Signal -S E CYCLE REQUIRED is used outside the group.
+INFO:  Signal -S E CH READY C is used only inside the group.
+INFO:  Signal -S E CH READY A is used only inside the group.
+INFO:  Signal -S E CH READY B is used only inside the group.
+INFO:  Signal -S F CH OUTPUT.NOT F2 REG FULL is used only inside the group.
+INFO:  Signal -S F CYCLE.ANY LAST GATE is used outside the group.
+INFO:  Signal -S F CH INPUT.F2 REG FULL is used only inside the group.
+INFO:  Signal +S F CYCLE REQUIRED is used outside the group.
+INFO:  Signal -S F CYCLE REQUIRED is used outside the group.
+INFO:  Signal -S E CYCLE CTRL is used outside the group.
+INFO:  Signal -S E CYCLE is used outside the group.
+INFO:  Signal +S E CYCLE CTRL is used outside the group.
+INFO:  Signal +S E CYCLE is used outside the group.
+INFO:  Signal +S OVERLAPPED CYCLE CTRL is used outside the group.
+INFO:  Signal +S E CYCLE CTRL*1311 is used outside the group.
+INFO:  Signal -S F CYCLE CTRL is used outside the group.
+INFO:  Signal -S F CYCLE is used outside the group.
+INFO:  Signal +S F CYCLE CTRL is used outside the group.
+INFO:  Signal +S F CYCLE is used outside the group.
+Removing 5 output signals that do not have destinations outside the group...
+Removing 14 input signals that originate inside the group...
+Signal -S E CYCLE REQUIRED is output from the group, but also used as an input inside the group.
+Signal +S E CYCLE is output from the group, but also used as an input inside the group.
+Signal -S E CYCLE.ANY LAST GATE is output from the group, but also used as an input inside the group.
+Signal +S F CYCLE is output from the group, but also used as an input inside the group.
+Signal -S F CYCLE.ANY LAST GATE is output from the group, but also used as an input inside the group.
+Signal +S E CYCLE REQUIRED is output from the group, but also used as an input inside the group.
+Signal -S F CYCLE REQUIRED is output from the group, but also used as an input inside the group.
+Signal -S F CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal +S F CYCLE REQUIRED is output from the group, but also used as an input inside the group.
+Input Signal +S I RING 3 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 5 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 10 TIME replaced by Bus signal +S I RING HDL BUS
+Page 12.12.66.1 generates Lamp Output LAMP_15A1E10
+Page 12.12.66.1 generates Lamp Output LAMP_11C8E15
+Page 12.12.67.1 generates Lamp Output LAMP_15A1F10
+Page 12.12.67.1 generates Lamp Output LAMP_11C8F15
+Generating list of internal signals/wires ...
+5 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.12.60.1 (COMPUTE DISABLE-ACC)
+Generating HDL associated with page 12.12.61.1 (E CYCLE REQUIRED)
+Generating HDL associated with page 12.12.62.1 (E CYCLE REQUIRED)
+Generating HDL associated with page 12.12.63.1 (E CYCLE REQUESTED)
+Generating HDL associated with page 12.12.64.1 (F CYCLE REQUIRED)
+Generating HDL associated with page 12.12.65.1 (F CYCLE REQUIRED)
+Generating HDL associated with page 12.12.66.1 (E CYCLE CONTROL)
+Generating HDL associated with page 12.12.67.1 (F CYCLE CONTROL)
