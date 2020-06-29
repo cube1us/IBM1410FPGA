@@ -234,10 +234,228 @@ fpga_clk_process: process
 
 uut_process: process
 
-   variable testName: string(1 to 18);
+   variable testName: string(1 to 10);
    variable subtest: integer;
 
    begin
+   
+   testName := "12.12.60.1";
+   
+   -- Part 1
+   
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"START");
+   PS_COMP_DISABLE_CYCLE_JRJ <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"1");
+   PS_COMP_DISABLE_CYCLE_JRJ <= '0';
+   MS_E_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"1A");
+   MS_E_CH_UNOVLP_IN_PROCESS <= '1';
+   MS_E_CYCLE_REQUIRED <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"1B");
+   MS_E_CYCLE_REQUIRED <= '1';
+   MS_FORMS_STACKER_GO <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"1C");
+   MS_FORMS_STACKER_GO <= '1';
+   MS_E_CH_TAPE_CALL <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"1D");
+   MS_E_CH_TAPE_CALL <= '1';
+   MS_UNIT_CONTROL_INST_RO_DELAY <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"1E");
+   MS_UNIT_CONTROL_INST_RO_DELAY <= '1';
+   PS_COMP_DISABLE_CYCLE_STAR_1412_19 <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"1F");
+   PS_COMP_DISABLE_CYCLE_STAR_1412_19 <= '0';
+   MS_1401_CARD_PRINT_IN_PROC <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"1G");
+   MS_1401_CARD_PRINT_IN_PROC <= '1';
+   MS_1401_UNIT_CTRL_DELAY <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"1H");
+   MS_1401_UNIT_CTRL_DELAY <= '1';
+   MS_1401_M_OR_L_TAPE_DELAY <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"1I");
+   MS_1401_M_OR_L_TAPE_DELAY <= '1';
+   
+   -- 2
+   
+   PS_E_CH_INPUT_MODE <= '1';
+   PS_E_CH_OVLP_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"2");
+   PS_E1_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"2A");
+   PS_E1_REG_FULL <= '0';
+   PS_E_CH_INPUT_MODE <= '0';
+   PS_E_CH_OVLP_IN_PROCESS <= '1';  -- Remains at 1
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"2B");
+   
+   -- 3
+   
+   
+   PS_E_CH_OVLP_IN_PROCESS <= '1';  -- Remains at 1
+   MS_E2_REG_FULL <= '1';  -- Even though it was already there (this is NOT)
+   PS_E_CH_OUTPUT_MODE <= '1';   
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"3");
+   MS_E_CH_INT_END_OF_XFER_DELAYED <= '0';   -- This signal NOT in ILD but on ALD   
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"3");
+   PS_E_CH_OUTPUT_MODE <= '0';
+   MS_E_CH_INT_END_OF_XFER_DELAYED <= '1';
+   
+   -- 4
+   
+   MS_E_CH_IN_PROCESS <= '0';
+   PS_I_RING_5_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"4");
+   PS_BRANCH_ON_STATUS_CH_1 <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"4A");
+   PS_BRANCH_ON_STATUS_CH_1 <= '0';
+   PS_I_RING_5_TIME <= '0';
+   
+   -- 5
+   
+   MS_E_CH_IN_PROCESS <= '1';
+   MS_F_CH_IN_PROCESS <= '1';
+   PS_M_OR_L_OP_CODES <= '1';
+   PS_I_O_PERCENT_OR_LOZENGE <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"5");
+   PS_I_RING_10_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"5A");      
+   MS_E_CH_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"5B");
+   MS_E_CH_IN_PROCESS <= '1';
+   MS_F_CH_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"5C");
+   MS_F_CH_IN_PROCESS <= '1';
+   PS_I_RING_10_TIME <= '0';
+   PS_M_OR_L_OP_CODES <= '0';
+   PS_I_O_PERCENT_OR_LOZENGE <= '0';
+   
+   -- 6
+   
+   PS_E_CH_IN_PROCESS <= '1';
+   PS_Q_OR_V_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"6");
+   PS_E_CH_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"6A");
+   PS_E_CH_IN_PROCESS <= '0';
+   PS_Q_OR_V_SYMBOL_OP_MODIFIER <= '0';
+   PS_E_CH_2ND_ADDR_TRF <= '0';
+   
+   -- 7
+   
+   PS_SPECIAL_STOP_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"7");
+   MS_E_CH_OVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"7A");
+   MS_E_CH_OVLP_IN_PROCESS <= '1';
+   MS_F_CH_OVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"7B");
+   PS_SPECIAL_STOP_LATCH <= '0';
+   MS_E_CH_OVLP_IN_PROCESS <= '1';
+   MS_F_CH_OVLP_IN_PROCESS <= '1';
+   
+   -- 8
+   
+   PS_E_CH_FORMS_CTRL_OP_CODE <= '1';
+   PS_FORMS_OR_1403_PRT_BUFF_BUSY <= '1';
+   PS_I_RING_3_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"8");
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"8A");
+   PS_E_CH_FORMS_CTRL_OP_CODE <= '0';
+   PS_FORMS_OR_1403_PRT_BUFF_BUSY <= '0';
+   PS_I_RING_3_TIME <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"8B");
+   
+   -- 9
+   
+   PS_1401_MODE <= '1';
+   PS_FILE_OP <= '1';
+   MS_E_CH_DIGIT_ADVANCE <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"9");
+   MS_E_CH_DIGIT_ADVANCE <= '1';  -- NOT
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"9A");
+   PS_E_CH_BUSY_BUS <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"9B");   
+   PS_1401_MODE <= '0';
+   PS_FILE_OP <= '0';
+   
+   -- 10
+
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"10");      
+   PS_E_CH_BUSY_BUS <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"10A");      
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"10B");      
+   PS_PERCENT_TYPE_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"10C");         
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"10D");
+   PS_I_RING_5_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"10E");
+   PS_E_CH_BUSY_BUS <= '0';
+   PS_1401_MODE <= '0';
+   PS_PERCENT_TYPE_OP_CODES <= '0';
+   PS_E_CH_SELECT_TAPE_DATA <= '0';
+   PS_I_RING_5_TIME <= '0';
+   
+   --  Tests for F CH signals not in the ILD
+   
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'0',testName,"11");
+   MS_FORMS_STACK_GO_F_CH_STAR_1414_STAR <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"11B");
+   MS_FORMS_STACK_GO_F_CH_STAR_1414_STAR <= '1';
+   MS_COMP_DSBLE_E_CH <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"11C");
+   MS_COMP_DSBLE_E_CH <= '1';
+   MS_COMP_DISABLE_CYCLE_STAR_FILE_F_CH <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"11D");
+   MS_COMP_DISABLE_CYCLE_STAR_FILE_F_CH <= '1';
+   MS_F_CH_TAPE_CALL <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE,'1',testName,"11E");
+   MS_F_CH_TAPE_CALL <= '1';
 
    -- Your test bench code
 
