@@ -354,13 +354,238 @@ fpga_clk_process: process
 
 uut_process: process
 
-   variable testName: string(1 to 18);
+   variable testName: string(1 to 10);
    variable subtest: integer;
 
    begin
 
    -- Your test bench code
+   
+   testName := "Prog Reset";
+   
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '0';
+   wait for 3 us;
+   MS_PROGRAM_RESET_2 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'0',testName,"START E");
+   check1(PS_F_CYCLE,'0',testName,"START F");
+   check1(MS_E_CYCLE_DOT_ANY_LAST_GATE,'1',testName,"START");
+          
+   -- Page 12.12.62.1
+   
+   testName := "12.12.62.1";
 
+   -- Part 1
+
+   check1(MS_E_CYCLE_DOT_ANY_LAST_GATE,'1',testName,"1S");   
+   check1(PS_E_CYCLE_REQUIRED,'0',testName,"1");   
+   check1(MS_E_CYCLE_REQUIRED,'1',testName,"1A");
+   PS_E_CH_OUTPUT_MODE <= '1';
+   MS_E1_REG_FULL <= '1'; -- NOT full
+   MS_E_CH_INT_END_OF_TRANSFER <= '1';  -- NOT Int EOT
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'0',testName,"1B");   
+   PS_E_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'1',testName,"1C");
+   check1(MS_E_CYCLE_REQUIRED,'0',testName,"1D");
+   PS_E_CH_OUTPUT_MODE <= '0';
+      
+   -- Part 2
+
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'0',testName,"2");   
+   check1(MS_E_CYCLE_REQUIRED,'1',testName,"2A");
+   check1(MS_E_CYCLE_DOT_ANY_LAST_GATE,'1',testName,"2S");
+   PS_E_CH_INPUT_MODE <= '1';
+   PS_E2_REG_FULL <= '1';
+   MS_E_CH_INT_END_OF_TRANSFER <= '1';  -- NOT Int EOT
+   PS_E_CH_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'0',testName,"2B");   
+   PS_E_CH_IN_PROCESS <= '1';   
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'1',testName,"2C");   
+   check1(MS_E_CYCLE_REQUIRED,'0',testName,"2D");
+   PS_E_CH_INPUT_MODE <= '0';
+   PS_E_CH_IN_PROCESS <= '0';
+   PS_E2_REG_FULL <= '0';
+   
+   --  The rest of this page, above, actually come from the next
+   --  page, below.
+   
+   testName := "12.12.63.1";
+   
+   -- A
+   
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'0',testName,"1");   
+   check1(MS_E_CYCLE_REQUIRED,'1',testName,"1A");
+   check1(MS_E_CYCLE_DOT_ANY_LAST_GATE,'1',testName,"1S");
+   PS_E_CH_OUTPUT_MODE <= '1';
+   PS_E_CH_IN_PROCESS <= '0';
+   MS_E2_REG_FULL <= '1';  -- NOT Full
+   MS_E_CH_INT_END_OF_TRANSFER <= '1';  -- NOT E CH Int EOT
+   MS_E1_REG_WORD_SEPARATOR <= '1';  -- NOT E1 WS
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'0',testName,"1B");   
+   check1(MS_E_CYCLE_REQUIRED,'1',testName,"1C");
+   PS_E_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'1',testName,"1D");   
+   check1(MS_E_CYCLE_REQUIRED,'0',testName,"1E");
+
+   -- B
+   
+   PS_E_CH_OUTPUT_MODE <= '0';
+   PS_E_CH_INPUT_MODE <= '1';   
+   PS_E1_REG_FULL <= '1';
+   MS_E_CH_INT_END_OF_TRANSFER <= '1';  -- NOT E CH Int EOT
+   MS_E1_REG_WORD_SEPARATOR <= '1';  -- NOT E1 WS
+   PS_E_CH_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'0',testName,"2A");   
+   check1(MS_E_CYCLE_REQUIRED,'1',testName,"2B");
+   PS_E_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'1',testName,"2C");   
+   check1(MS_E_CYCLE_REQUIRED,'0',testName,"2D");
+   
+   -- C
+   
+   PS_E_CH_INPUT_MODE <= '1';
+   PS_E1_REG_FULL <= '0'; -- E1 NOT Full
+   MS_E1_REG_FULL <= '1'; -- E1 NOT Full
+   MS_E2_REG_FULL <= '1'; -- E2 NOT Full
+   MS_E_CH_INT_END_OF_TRANSFER <= '1';  -- NOT E CH Int EOT
+   PS_E_CH_EXT_END_OF_TRANSFER <= '1';  -- IS E Ch External EOT   
+   PS_E_CH_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'0',testName,"3A");   
+   check1(MS_E_CYCLE_REQUIRED,'1',testName,"3B");
+   PS_E_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_REQUIRED,'1',testName,"3C");   
+   check1(MS_E_CYCLE_REQUIRED,'0',testName,"3D");
+  
+   -- NOW, test the 2nd Channel (F) -- which is NOT in the ILDs, and
+   -- which (unfortunately) also has slightly different logic, and
+   -- which combines 12.12.64 and 12.12.65 together, so we set the
+   -- test name to 65.
+   
+   testName := "12.12.65.1";
+   
+   --  Turn on the top half of the sheet
+   
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"1S");
+   check1(MS_F_CYCLE_REQUIRED,'1',testName,"1A");
+   MS_F_CH_INT_END_OF_TRANSFER <= '1'; -- g
+   PS_F_CH_EXT_END_OF_TRANSFER <= '1';
+   MS_F2_REG_FULL <= '1';
+   MS_F1_REG_FULL <= '1';
+   PS_F_CH_INPUT_MODE <= '1'; -- h   
+   PS_F_CH_IN_PROCESS <= '0'; -- e
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"1B");
+   check1(MS_F_CYCLE_REQUIRED,'1',testName,"1C");
+   PS_F_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'1',testName,"1D");
+   check1(MS_F_CYCLE_REQUIRED,'0',testName,"1E");
+
+   -- Turn off the top half of the sheet
+   
+   PS_F_CH_EXT_END_OF_TRANSFER <= '0';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"2A");
+
+   -- Activate the top gate of the bottom half (3F) of 12.12.65.1
+
+   MS_F_CH_INT_END_OF_TRANSFER <= '1'; -- g
+   PS_F_CH_IN_PROCESS <= '1'; -- e
+   PS_F_CH_OUTPUT_MODE <= '0';
+   MS_F1_REG_FULL <= '0'; -- b
+   PS_ANY_LAST_GATE <= '0';  -- Force output from 12.12.64.1 to '1'
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"2C");
+   
+   PS_F_CH_OUTPUT_MODE <= '1'; -- a
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'1',testName,"2E");
+   PS_F_CH_OUTPUT_MODE <= '0';  
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"2G");
+
+   -- The rest of the top gate of the bottom half has to wait
+   -- for 12.12.67.1
+   
+   --  So on to the second gate, 3G of 12.12.65.1
+   
+   MS_F_CH_INT_END_OF_TRANSFER <= '1'; -- g
+   PS_F_CH_IN_PROCESS <= '1'; -- e
+   PS_F_CH_INPUT_MODE <= '1';  -- h
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"3A");
+   PS_F2_REG_FULL <= '0';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"3C");
+   PS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'1',testName,"3E");
+   PS_F_CH_INPUT_MODE <= '0'; -- h   
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"3G");
+   
+   -- The rest of the second gate of the bottom half has to wait
+   -- for 12.12.67.1 as well
+  
+   -- Test the third gate, 3H, of the bottom half of 12.12.65.1
+   -- Which comes from 12.12.64.1
+   
+   PS_F_CH_IN_PROCESS <= '0';
+   PS_F_CH_INPUT_MODE <= '0';
+   MS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"4A");
+   PS_F1_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"4B");
+   PS_F_CH_INPUT_MODE <= '1';
+   MS_F_CH_INT_END_OF_TRANSFER <= '1';   
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"4C");
+   PS_F_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'1',testName,"4D");
+   PS_F_CH_IN_PROCESS <= '0';
+   PS_F_CH_INPUT_MODE <= '0';
+   PS_F1_REG_FULL <= '0';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"4A");
+
+   -- Test the fourth, bottom gate, 3I of the bottom half of 12.12.65.1
+   -- Which also comes from 12.12.64.1
+   
+   PS_F_CH_OUTPUT_MODE <= '0';
+   MS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"5A");
+   MS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"5B");
+   PS_F_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"5C");
+   PS_F_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'1',testName,"5D");
+   MS_F_CH_INT_END_OF_TRANSFER <= '0';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"5D");
+     
+  
+  
    wait;
    end process;
 
