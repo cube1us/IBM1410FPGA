@@ -584,7 +584,162 @@ uut_process: process
    wait for 30 ns;
    check1(PS_F_CYCLE_REQUIRED,'0',testName,"5D");
      
-  
+   -- Test E Cycle Control (again, with no ILD to guide us - oh goodie)
+   
+   testName := "12.12.66.1";
+   
+   -- Test Gate 4B
+   
+   check1(PS_E_CYCLE_CTRL,'0',testName,"1");
+   check1(PS_E_CYCLE_CTRL_STAR_1311,'0',testName,"1A");
+   check1(MS_E_CYCLE_CTRL,'1',testName,"1B");
+   check1(PS_E_CYCLE,'0',testName,"1C");   
+   check1(MS_E_CYCLE,'1',testName,"1D");
+   check1(LAMP_15A1E10,'0',testName,"1LampA");
+   check1(LAMP_15A1E10,'0',testName,"1LampB");   
+   MS_E_CH_INT_END_OF_TRANSFER <= '1';
+   PS_LOGIC_GATE_Z <= '1';
+   -- MS_F_CYCLE_REQUIRED <= '1';  -- NOT F cycle required
+   wait for 30 ns;  
+   check1(PS_E_CYCLE_CTRL,'0',testName,"1E");
+   -- Trip E Cycle Required
+   PS_E_CH_OUTPUT_MODE <= '1';
+   PS_E_CH_IN_PROCESS <= '1';
+   MS_E1_REG_FULL <= '1'; -- NOT full
+   MS_E_CH_INT_END_OF_TRANSFER <= '1';  -- NOT Int EOT
+   check1(MS_E_CYCLE_DOT_ANY_LAST_GATE,'1',testName,"1F");
+   check1(PS_E_CYCLE_REQUIRED,'1',testName,"1G");
+   wait for 30 ns;
+   check1(PS_E_CYCLE_CTRL,'0',testName,"1H");
+   check1(PS_E_CYCLE,'0',testName,"1I");
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;  
+   check1(PS_E_CYCLE_CTRL,'1',testName,"1J");
+   check1(PS_E_CYCLE_CTRL_STAR_1311,'1',testName,"1K");
+   check1(MS_E_CYCLE_CTRL,'0',testName,"1L");
+   check1(MS_E_CYCLE,'1',testName,"1M");   
+   --  Now, set the E cycle latch at LGB
+   PS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'1',testName,"1N");
+   --  Check that it stays set
+   PS_LOGIC_GATE_B_OR_S <= '0';
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'1',testName,"1O");
+   check1(MS_E_CYCLE,'0',testName,"1P");
+   
+   -- Reset E Cycle Required.  E Cycle Ctrl Latch should still be set
+   -- As should E Cycle Latch      
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;  
+   check1(PS_E_CYCLE_CTRL,'1',testName,"1Q");
+   check1(PS_E_CYCLE,'1',testName,"1R");
+   -- Reset E Cycle Ctrl Latch.. E Cycle Latch should stay set
+   MS_LOGIC_GATE_D_OR_U <= '0';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_CTRL,'0',testName,"1S");   
+   check1(PS_E_CYCLE,'1',testName,"1U");
+   MS_LOGIC_GATE_D_OR_U <= '1';
+   -- Check that it stays reset
+   wait for 30 ns;
+   check1(PS_E_CYCLE_CTRL,'0',testName,"1V");   
+   check1(PS_E_CYCLE,'1',testName,"1W");
+   check1(LAMP_15A1E10,'1',testName,"LAMP 1WA");
+   check1(LAMP_11C8E15,'1',testName,"LAMP 1WB");
+   -- Reset E Cycle Latch
+   PS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_CTRL,'0',testName,"1X");   
+   check1(PS_E_CYCLE,'0',testName,"1Y");
+   check1(MS_E_CYCLE,'1',testName,"1Z");
+   check1(LAMP_15A1E10,'0',testName,"LAMP 1ZA");
+   check1(LAMP_11C8E15,'0',testName,"LAMP 1ZB");
+
+   -- Test Gate 4E
+   
+   -- set E Cycle Ctrl Latch Again
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_CTRL,'1',testName,"2A");
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   -- and then the E Cycle Latch.  This keeps the input
+   -- at 4B high taking it out of the equation.
+   PS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'1',testName,"2B");
+   -- Now, reset E Cycle Ctrl
+   PS_LOGIC_GATE_B_OR_S <= '0';
+   MS_LOGIC_GATE_D_OR_U <= '0';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_CTRL,'0',testName,"2C");
+   check1(PS_E_CYCLE,'1',testName,"2D");
+   -- Set up all but 2nd clock pules and F Cycle required
+   MS_E_CH_INT_END_OF_TRANSFER <= '1';
+   PS_LOGIC_GATE_Z <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE_CTRL,'0',testName,"2E");
+   check1(MS_F_CYCLE_REQUIRED,'1',testName,"2F");
+   check1(PS_E_CYCLE,'1',testName,"2G");
+   -- Set MS F Cycle Required (active low)
+   PS_F1_REG_FULL <= '1';
+   PS_F_CH_INPUT_MODE <= '1';
+   PS_F_CH_IN_PROCESS <= '1';
+   MS_F_CH_INT_END_OF_TRANSFER <= '1';
+   MS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(MS_F_CYCLE_REQUIRED,'0',testName,"2H");
+   check1(PS_E_CYCLE_CTRL,'0',testName,"2I");
+   check1(MS_E_CYCLE,'0',testName,"2J");
+   -- With MS_F_CYCLE_REQUIRED at 0, 2ND Clock Pulse should not
+   -- trigger E Cycle Ctrl
+   PS_2ND_CLOCK_PULSE_2 <= '1';   
+   wait for 30 ns;
+   check1(MS_F_CYCLE_REQUIRED,'0',testName,"2K");
+   check1(PS_E_CYCLE_CTRL,'0',testName,"2L");
+   check1(MS_E_CYCLE,'0',testName,"2M");
+   -- Reset F Cycle Required   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   PS_F1_REG_FULL <= '0';
+   PS_F2_REG_FULL <= '0';
+   PS_F_CH_INPUT_MODE <= '0';
+   PS_F_CH_OUTPUT_MODE <= '0';
+   PS_F_CH_IN_PROCESS <= '0';
+   MS_F_CH_INT_END_OF_TRANSFER <= '1';
+   MS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(MS_F_CYCLE_REQUIRED,'1',testName,"2N");
+   check1(PS_E_CYCLE_CTRL,'0',testName,"2O");
+   check1(MS_E_CYCLE,'0',testName,"2P");
+   -- Now, 2nd Clock Pulse should change E Cycle Ctrl
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(MS_F_CYCLE_REQUIRED,'1',testName,"2N");
+   check1(PS_E_CYCLE_CTRL,'1',testName,"2O");
+   check1(MS_E_CYCLE,'0',testName,"2P");
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+    
+   -- Test the last gate on 12.12.61.1
+   
+   check1(PS_E_CYCLE,'1',testName,"3A");
+   check1(MS_E_CYCLE_DOT_ANY_LAST_GATE,'1',testName,"3B");
+   PS_ANY_LAST_GATE <= '1';
+   wait for 30 ns;
+   check1(MS_E_CYCLE_DOT_ANY_LAST_GATE,'0',testName,"3C");
+   -- Reset the E Cycle Ctrl
+   MS_LOGIC_GATE_D_OR_U <= '0';   
+   wait for 30 ns;
+   check1(PS_E_CYCLE_CTRL,'0',testName,"3D");
+   -- Then Reset the E Cycle
+   MS_LOGIC_GATE_D_OR_U <= '1';
+   PS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'0',testName,"3E");
+   check1(MS_E_CYCLE_DOT_ANY_LAST_GATE,'1',testName,"3F");
+   PS_ANY_LAST_GATE <= '0';
+   
+   
+   
+   
   
    wait;
    end process;
