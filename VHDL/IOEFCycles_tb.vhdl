@@ -736,11 +736,198 @@ uut_process: process
    check1(PS_E_CYCLE,'0',testName,"3E");
    check1(MS_E_CYCLE_DOT_ANY_LAST_GATE,'1',testName,"3F");
    PS_ANY_LAST_GATE <= '0';
+   PS_LOGIC_GATE_B_OR_S <= '0';
    
+   -- On to the next page
    
+   testName := "12.12.67.1";
    
+   -- Make sure of conditions
    
-  
+   wait for 30 ns;
+   -- We know E Cycle is Off, from above.
+   check1(PS_F_CYCLE,'0',testName,"Start");
+   check1(PS_F_CYCLE_CTRL,'0',testName,"SA");
+   check1(MS_F_CYCLE_CTRL,'1',testName,"SB");
+   check1(MS_F_CYCLE,'1',testName,"SC");
+   check1(PS_F_CYCLE_REQUIRED,'0',testName,"SD");
+   
+   -- Make sure we don't have an E Cycle required
+   MS_E2_REG_FULL <= '1';
+   PS_E2_REG_FULL <= '0';
+   PS_E_CH_OUTPUT_MODE <= '0';
+   PS_E_CH_INPUT_MODE <= '0';
+   PS_E_CH_IN_PROCESS <= '0';
+   MS_E1_REG_WORD_SEPARATOR <= '1';
+   PS_E1_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(MS_E_CYCLE_REQUIRED,'1',testName,"SE");
+   
+   -- Test 12.12.67.1 4E
+   
+   PS_E_CH_IN_PROCESS <= '0';
+   MS_F_CH_INT_END_OF_TRANSFER <= '1';
+   PS_LOGIC_GATE_Z <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE,'0',testName,"1");
+   check1(PS_F_CYCLE_CTRL,'0',testName,"1A");
+   -- Generate F Cycle Required
+   PS_F1_REG_FULL <= '1';
+   PS_F_CH_IN_PROCESS <= '1';
+   MS_F_CH_INT_END_OF_TRANSFER <= '1';
+   PS_F_CH_INPUT_MODE <= '1';
+   MS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_REQUIRED,'1',testName,"1B");   
+   check1(PS_F_CYCLE,'0',testName,"1C");
+   check1(PS_F_CYCLE_CTRL,'0',testName,"1D");
+   -- Now, 2nd Clock Pulse should trigger F Cycle Ctrl
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE_CTRL,'1',testName,"1E");
+   check1(MS_F_CYCLE_CTRL,'0',testName,"1F");
+   check1(PS_F_CYCLE,'0',testName,"1G");
+   check1(MS_F_CYCLE,'1',testName,"1H");
+   -- Drop 2nd clock pulse - nothing should change.
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CYCLE,'0',testName,"1I");
+   check1(PS_F_CYCLE_CTRL,'1',testName,"1J");
+   
+   -- Now set the F Cycle latch at LGB
+   PS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE,'1',testName,"1K");
+   check1(MS_F_CYCLE,'0',testName,"1L");
+   -- Reset F Cycle Ctrl.  F Cycle should stay set.
+   PS_LOGIC_GATE_B_OR_S <= '0';
+   MS_LOGIC_GATE_D_OR_U <= '0';
+   wait for 30 ns;
+   check1(PS_F_CYCLE,'1',testName,"1M");
+   check1(PS_F_CYCLE_CTRL,'0',testName,"1N");
+   MS_LOGIC_GATE_D_OR_U <= '1';
+     
+   -- Test Page 12.12.64.1 Middle Gates
+
+   check1(MS_F_CYCLE_DOT_ANY_LAST_GATE,'1',testName,"2");
+   PS_ANY_LAST_GATE <= '1';
+   wait for 30 ns;
+   check1(MS_F_CYCLE_DOT_ANY_LAST_GATE,'0',testName,"2A");
+   PS_ANY_LAST_GATE <= '0';
+
+   -- Test 12.12.67.1 4B
+   
+   -- Reset F Cycle
+   PS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE,'0',testName,"3");
+   check1(PS_F_CYCLE_CTRL,'0',testName,"3A");
+   PS_LOGIC_GATE_B_OR_S <= '0';
+   --  Take gate 4E out of the equation
+   MS_F_CH_FILE_OP <= '1';
+   PS_FILE_OP_DLY_EXTENSION <= '1';
+   PS_E_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE,'0',testName,"3B");
+   check1(PS_F_CYCLE_CTRL,'0',testName,"3C");
+   PS_LOGIC_GATE_Z <= '1';
+   MS_F_CH_INT_END_OF_TRANSFER <= '1';
+   wait for 30 ns;
+   check1(PS_F_CYCLE,'0',testName,"3D");
+   check1(PS_F_CYCLE_CTRL,'0',testName,"3E");      
+   
+   -- At this point, testing would require an E Cycle
+   
+   -- Trip E Cycle Required
+   PS_E_CH_OUTPUT_MODE <= '1';
+   PS_E_CH_IN_PROCESS <= '1';
+   MS_E2_REG_FULL <= '1';
+   MS_E_CH_INT_END_OF_TRANSFER <= '1';
+   MS_E1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;   
+   check1(PS_E_CYCLE_REQUIRED,'1',testName,"3F");
+   -- Then E Cycle Ctrl
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;  
+   check1(PS_E_CYCLE_CTRL,'1',testName,"3G");
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;  
+   check1(PS_E_CYCLE_CTRL,'1',testName,"3H");
+   MS_LOGIC_GATE_D_OR_U <= '1';
+   PS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'1',testName,"3I");    
+   PS_LOGIC_GATE_B_OR_S <= '0';  
+   
+   -- Now we need F Cycle Required
+   PS_F_CH_IN_PROCESS <= '0';
+   PS_F_CH_INPUT_MODE <= '0';
+   MS_F1_REG_WORD_SEPARATOR <= '1';
+   PS_F1_REG_FULL <= '1';
+   PS_F_CH_INPUT_MODE <= '1';
+   MS_F_CH_INT_END_OF_TRANSFER <= '1';   
+   PS_F_CH_IN_PROCESS <= '1';   
+   PS_LOGIC_GATE_Z <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'1',testName,"3J");
+   check1(PS_F_CYCLE,'0',testName,"3K");
+   check1(PS_F_CYCLE_CTRL,'0',testName,"3L");
+   check1(PS_F_CYCLE_REQUIRED,'1',testName,"3M");      
+   check1(PS_E_CYCLE_REQUIRED,'1',testName,"3N");
+
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'1',testName,"3O");
+   check1(PS_F_CYCLE,'0',testName,"3P");
+   check1(PS_F_CYCLE_CTRL,'0',testName,"3Q");
+   
+   -- Now trip F Cycle Ctrl
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;      
+   check1(PS_E_CYCLE,'1',testName,"3R");
+   check1(PS_F_CYCLE,'0',testName,"3S");
+   check1(PS_F_CYCLE_CTRL,'1',testName,"3T");
+   
+   -- Now we can check the last part of 12.12.66.1
+   
+   check1(PS_OVERLAPPED_CYCLE_CTRL,'1',testName,"3U");
+   
+   -- Let see what happens if we try to start an F cycle
+   -- I think it should work (E uses B and D, and F uses S and U, I think)
+   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;      
+   check1(PS_E_CYCLE,'1',testName,"3U");
+   check1(PS_F_CYCLE,'0',testName,"3V");
+   check1(PS_F_CYCLE_CTRL,'1',testName,"3W");
+   PS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'1',testName,"3X");
+   check1(PS_F_CYCLE,'1',testName,"3Y");
+   check1(PS_F_CYCLE_CTRL,'1',testName,"3Z");
+
+   -- Reset the cycle controls
+   
+   PS_LOGIC_GATE_B_OR_S <= '0';
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'1',testName,"4A");
+   check1(PS_F_CYCLE,'1',testName,"4B");
+   check1(PS_F_CYCLE_CTRL,'1',testName,"4C");
+   MS_LOGIC_GATE_D_OR_U <= '0';  
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'1',testName,"4D");
+   check1(PS_F_CYCLE,'1',testName,"4E");
+   check1(PS_F_CYCLE_CTRL,'0',testName,"4F");
+   
+   -- And then the cycles will reset
+   
+   PS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(PS_E_CYCLE,'0',testName,"4G");
+   check1(PS_F_CYCLE,'0',testName,"4H");
+   
+   -- Whew.  Not a "realistic" test - it doesn't follow the sequence
+   -- of the actual machine.  Just tries to touch all of the gates.
+   
    wait;
    end process;
 
