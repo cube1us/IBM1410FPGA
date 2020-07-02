@@ -1,0 +1,50 @@
+Generating HDL for page 12.13.01.1 I RING CONTROLS at 7/2/2020 4:30:51 PM
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 4F
+Found combinatorial loop (need D FF) at output of gate at 3F
+Removed 2 outputs from Gate at 1E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_G_Latch, OUT_3B_G_Latch
+	and inputs of MS_PROGRAM_RESET_1,OUT_2B_G,MS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_G_Latch
+	and inputs of OUT_3B_G,OUT_3C_E,OUT_3D_G
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of PS_I_RING_1_OR_6_TIME,PS_1401_MODE_1,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_G
+	and inputs of PS_PERCENT_TYPE_OP_CODES,PS_LOGIC_GATE_C_1,PS_I_RING_1_TIME
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_B
+	and inputs of OUT_4F_NoPin
+	and logic function of NOT
+Generating Statement for block at 4F with *latched* output pin(s) of OUT_4F_NoPin_Latch, OUT_4F_NoPin_Latch
+	and inputs of OUT_DOT_3F,MS_CONS_RESET_START_CONDITION,MS_LOGIC_GATE_D_1
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_P_Latch
+	and inputs of OUT_4F_NoPin,MS_PROGRAM_RESET_1,MS_LAST_EX_DOT_NEXT_TO_LAST
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_DOT_3F
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of MS_CONSOLE_SET_START_CND,MS_I_O_LAST_EX_DOT_Z,MS_SET_I_RING_INTERRUPT
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F, OUT_DOT_3F
+	and inputs of OUT_3F_P,OUT_3H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_SPL_ADV_CTRL_LAT
+	from gate output OUT_3B_G
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_CTRL
+	from gate output OUT_1E_B
+Generating output sheet edge signal assignment to 
+	signal MS_I_RING_CTRL
+	from gate output OUT_1F_C
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 4F
+Generating D Flip Flop for block at 3F

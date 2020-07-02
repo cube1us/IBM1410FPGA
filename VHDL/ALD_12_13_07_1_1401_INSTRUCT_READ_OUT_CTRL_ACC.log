@@ -1,0 +1,91 @@
+Generating HDL for page 12.13.07.1 1401 INSTRUCT READ OUT CTRL-ACC at 7/2/2020 4:34:11 PM
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C
+	and inputs of PS_B_CH_NOT_B_BIT,PS_B_CH_NOT_A_BIT,PS_B_CH_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_Q, OUT_4A_Q
+	and inputs of OUT_DOT_5A
+	and logic function of EQUAL
+Generating Statement for block at 5B with output pin(s) of OUT_5B_D
+	and inputs of PS_B_CH_NOT_4_BIT,PS_B_CH_NOT_2_BIT,PS_B_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_E
+	and inputs of PS_1401_POUND_SIGN_OP_CODE,PS_D_CYCLE,PS_I_RING_1_OR_1401_AND_3_TIME
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_R
+	and inputs of OUT_DOT_5A
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of PS_I_RING_6_OR_1401_AND_8_TIME,PS_1401_COND_TEST_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_E, OUT_4C_E, OUT_4C_E
+	and inputs of PS_CLEAR_OP_CODE,PS_I_RING_11_TIME,PS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of OUT_4C_E,OUT_4B_E,OUT_4D_C
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of OUT_DOT_3C
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_B
+	and inputs of OUT_2C_D
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C, OUT_4D_C
+	and inputs of PS_SET_WORD_MARK_OP_CODE,PS_I_RING_11_TIME,PS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_K
+	and inputs of OUT_DOT_1D,MS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_E
+	and inputs of OUT_4A_Q,OUT_4F_K,MS_1401_NO_OP_DOT_LIROC
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_I_RING_1_OR_1401_AND_3_TIME,PS_C_CYCLE_1,PS_C_CYCLE_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_G
+	and inputs of OUT_4C_E,OUT_4D_C
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_P
+	and inputs of MS_LOGIC_GATE_C_1,MS_LOGIC_GATE_D_1
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_K
+	and inputs of PS_B_CH_WM_BIT_2,PS_1401_I_CYCLE_NEXT
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_I_RING_6_OR_1401_AND_8_TIME,PS_MPLY_OR_DIV_OP_CODES,PS_D_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of OUT_4E_NoPin,OUT_4G_NoPin,OUT_4H_NoPin
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of PS_I_RING_1_OR_1401_AND_3_TIME,PS_ADD_TYPE_OP_CODES,PS_D_CYCLE
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_1B_R,OUT_1C_B
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D, OUT_DOT_1D
+	and inputs of OUT_1D_E,OUT_3E_G
+	and logic function of OR
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E
+	and inputs of OUT_3D_K,OUT_2E_P
+	and logic function of OR
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A, OUT_DOT_5A
+	and inputs of OUT_5A_C,OUT_5B_D,OUT_5C_C
+	and logic function of OR
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3C_C,OUT_3G_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_1401_UNCOND_BRANCH
+	from gate output OUT_4A_Q
+Generating output sheet edge signal assignment to 
+	signal MS_1401_CLEAR_DOT_I_RING_11
+	from gate output OUT_4C_E
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_COND
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_1401_LAST_I_CYCLE
+	from gate output OUT_DOT_1D
+Generating output sheet edge signal assignment to 
+	signal MS_1401_LAST_I_CYCLE
+	from gate output OUT_DOT_2E

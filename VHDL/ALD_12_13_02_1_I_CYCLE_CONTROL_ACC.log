@@ -1,0 +1,82 @@
+Generating HDL for page 12.13.02.1 I CYCLE CONTROL-ACC at 7/2/2020 4:31:02 PM
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of MS_LAST_INSN_RO_CYCLE,PS_I_CYCLE,MS_I_RING_OP_TIME
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_C
+	and inputs of OUT_DOT_2A,OUT_4B_D,OUT_DOT_4C
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D, OUT_4B_D
+	and inputs of PS_I_RING_OP_TIME,PS_B_CYCLE_1,PS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of PS_INDEX_REQUIRED,PS_I_RING_5_OR_10_TIME
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_3B_G,PS_B_CH_NOT_WM_BIT,PS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of PS_1401_MODE_1,PS_I_RING_OP_TIME
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_P
+	and inputs of MS_B_CH_Q_OP,PS_B_CH_WM_BIT_2
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_I_RING_OP_TIME,MS_1401_MODE_1,PS_B_CH_WM_BIT_2
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_D
+	and inputs of OUT_4D_NoPin,OUT_4E_NoPin,OUT_4F_NoPin
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_I_RING_5_OR_10_TIME,PS_B_CH_NOT_WM_BIT,PS_INDEX_NOT_REQUIRED
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
+	and inputs of PS_I_RING_5_TIME,PS_C_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_F
+	and inputs of PS_I_CYCLE
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_K
+	and inputs of PS_B_CH_NOT_WM_BIT,PS_ADDR_TYPE_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of PS_I_CYCLE,PS_I_RING_1_OR_2_OR_3_OR_4_TIME
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_E
+	and inputs of MS_INTERRUPT_DOT_B_CYCLE,MS_OP_MOD_TIME_DOT_NOT_1401,MS_ARS_NO_OP_DOT_I_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of PS_B_CH_NOT_WM_BIT,PS_I_RING_6_OR_7_OR_8_OR_9_TIME,PS_TWO_ADDRESS_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_D
+	and inputs of OUT_DOT_2H,MS_SET_I_CYCLE_CTRL_NO_OP,OUT_4I_G
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_G
+	and inputs of PS_I_RING_10_TIME,PS_D_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_R
+	and inputs of PS_I_CYCLE,PS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_P
+	and inputs of OUT_2I_R,OUT_DOT_2G
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_DOT_2A
+	and inputs of OUT_2A_D,OUT_2B_D
+	and logic function of OR
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_1A_C,OUT_1D_D,OUT_1G_E,OUT_1H_D,OUT_1I_P
+	and logic function of OR
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_4G_K,OUT_3G_P
+	and logic function of OR
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_5C_C,OUT_4C_P
+	and logic function of OR
+Generating Statement for block at 2H with output pin(s) of OUT_DOT_2H
+	and inputs of OUT_2F_F,OUT_4H_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_1401_B_CYCLE_I_RING_OP
+	from gate output OUT_4B_D
+Generating output sheet edge signal assignment to 
+	signal PS_SET_I_CYCLE_CTRL
+	from gate output OUT_DOT_1A

@@ -1,0 +1,37 @@
+Generating HDL for page 12.13.03.1 I RING ADVANCE AND RESET CTRL at 7/2/2020 4:31:09 PM
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_LOGIC_GATE_B_1,OUT_5C_D
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_5B_NoPin,MS_PROGRAM_RESET_1
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_L
+	and inputs of OUT_3B_F
+	and logic function of EQUAL
+Generating Statement for block at 5C with output pin(s) of OUT_5C_D
+	and inputs of MS_UNITS_CTRL_LATCH,MS_I_RING_CTRL,MS_INTR_BRANCH_DOT_B_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_P
+	and inputs of PS_ARS_NO_OP,MS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of OUT_5F_P,PS_LOGIC_GATE_B_1,PS_I_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of OUT_4G_NoPin,MS_SPL_ADV_CTRL_LAT
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_3G_D
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_B
+	and inputs of PS_2ND_CLOCK_PULSE_3_JRJ
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_2G_C,OUT_2H_B
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_I_RING_RESET
+	from gate output OUT_2B_L
+Generating output sheet edge signal assignment to 
+	signal MS_I_RING_ADV
+	from gate output OUT_DOT_2G

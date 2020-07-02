@@ -1,0 +1,16 @@
+Generating HDL for page 12.13.06.1 1ST AND 2ND ADDR RI CTRLS at 7/2/2020 4:34:09 PM
+Generating Statement for block at 2B with output pin(s) of OUT_2B_K
+	and inputs of MS_NOT_PERCENT_TYPE_OP_CODES,OUT_3E_K
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_G
+	and inputs of OUT_3E_K,MS_TWO_ADDRESS_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_K, OUT_3E_K
+	and inputs of PS_1401_MODE,MS_UNIT_CTRL_OP_CODE
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_RD_1ST_ADDR_TO_A_AND_C_AR
+	from gate output OUT_2B_K
+Generating output sheet edge signal assignment to 
+	signal PS_RD_2ND_ADDR_TO_B_AND_D_AR
+	from gate output OUT_2C_G

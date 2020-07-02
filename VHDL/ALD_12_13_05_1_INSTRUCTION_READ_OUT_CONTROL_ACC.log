@@ -1,0 +1,140 @@
+Generating HDL for page 12.13.05.1 INSTRUCTION READ OUT CONTROL-ACC at 7/2/2020 4:31:17 PM
+Processing extension from block at 1C (Database ID=210119) to 1D (Database ID=210120)
+Copied connection from extension output pin G to master block at 1C
+Copied connection from extension output pin G to master block at 1C
+Copied connection from extension output pin G to master block at 1C
+Copied connection from extension output pin G to master block at 1C
+Copied connection from extension output pin G to master block at 1C
+Copied connection from extension output pin G to master block at 1C
+Copied connection from extension output pin G to master block at 1C
+Copied connection from extension output pin G to master block at 1C
+Copied connection from extension output pin G to master block at 1C
+WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
+WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
+WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
+WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
+WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
+WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
+WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
+WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
+WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
+Removed 16 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1G to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 1I to ignored block(s) or identical signal names
+Error:  During signals check, More than one output connects to signal named +S LAST INSN RO CYCLE 2 logic block at 1C, connection database ID 210213
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of PS_I_RING_6_TIME,PS_NO_D_CY_AT_I_RING_6_OPS
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_F
+	and inputs of PS_B_CH_WM_BIT_2
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_2_CHAR_ONLY_OP_CODES,PS_I_RING_2_TIME
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_F
+	and inputs of OUT_4B_NoPin,OUT_4C_NoPin,OUT_4D_NoPin
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_DOT_3C
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G
+	and inputs of OUT_DOT_2E
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_I_RING_1_TIME,PS_NO_C_OR_D_CYCLE_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of OUT_DOT_2D
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_I_RING_7_TIME,PS_1_ADDR_PLUS_MOD_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
+	and inputs of PS_I_RING_11_TIME,PS_2_ADDR_NO_MOD_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_F
+	and inputs of OUT_4E_NoPin,OUT_4F_NoPin,OUT_4G_NoPin
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_I_RING_12_TIME,PS_2_ADDR_PLUS_MOD_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_R
+	and inputs of PS_I_CYCLE
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of OUT_1G_C
+	and inputs of OUT_DOT_2E
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of PS_I_RING_1_OR_1401_AND_3_TIME,PS_ARITH_TYPE_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_E
+	and inputs of MS_I_RING_OP_TIME,PS_1401_MODE_1,PS_I_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_G
+	and inputs of OUT_DOT_4H
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_NoPin
+	and inputs of PS_MPLY_OR_DIV_OP_CODES,PS_I_RING_6_OR_1401_AND_8_TIME
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_F
+	and inputs of OUT_5H_NoPin,OUT_5I_NoPin
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of OUT_DOT_4H
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_H
+	and inputs of OUT_DOT_2E
+	and logic function of EQUAL
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3C_F,OUT_3F_F,OUT_3H_G
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2B_F,OUT_2C_C,OUT_3G_R
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H, OUT_DOT_4H
+	and inputs of OUT_4H_E,OUT_4I_F
+	and logic function of OR
+WARNING: Input connection from edge connection named +S LAST INSN RO CYCLE COND to a DOT function on page 12.13.05.1 coordinate 2E is also used as input to other page(s):
+    12.13.07.1 
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E, OUT_DOT_2E, OUT_DOT_2E
+	and inputs of OUT_2D_D,PS_LAST_INSN_RO_CYCLE_COND
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_2
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_2
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_2
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_2
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_2
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_2
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_2
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_2
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_2
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal MS_LAST_INSN_RO_CYCLE
+	from gate output OUT_1G_C
+Generating output sheet edge signal assignment to 
+	signal PS_1401_I_CYCLE_NEXT
+	from gate output OUT_3I_D
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_INSN_RO_CYCLE_1
+	from gate output OUT_1I_H
