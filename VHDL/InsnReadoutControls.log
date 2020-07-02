@@ -1,0 +1,163 @@
+Generating HDL for group named InsnReadoutControlsat 7/2/2020 5:37:59 PM containing pages: 
+	12.13.01.1, 12.13.02.1, 12.13.03.1, 12.13.04.1, 12.13.05.1
+	12.13.06.1, 12.13.07.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\InsnReadoutControls_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 7 pages...
+Found 16 signals on page 12.13.01.1
+Found 28 signals on page 12.13.02.1
+Found 12 signals on page 12.13.03.1
+Found 24 signals on page 12.13.04.1
+Found 26 signals on page 12.13.05.1
+Found 6 signals on page 12.13.06.1
+Found 30 signals on page 12.13.07.1
+Found 88 unique input signals and 25 unique output signals, (104 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S LOGIC GATE D 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE C 1 originates outside the group.
+INFO:  Signal -S LOGIC GATE E 1 originates outside the group.
+INFO:  Signal +S I RING 1 TIME originates outside the group.
+INFO:  Signal +S I RING 1 OR 6 TIME originates outside the group.
+INFO:  Signal -S LAST EX.NEXT TO LAST originates outside the group.
+INFO:  Signal -S I-O LAST EX.Z originates outside the group.
+INFO:  Signal +S 1401 MODE 1 originates outside the group.
+INFO:  Signal +S PERCENT TYPE OP CODES originates outside the group.
+INFO:  Signal -S PROGRAM RESET 1 originates outside the group.
+INFO:  Signal -S CONS RESET START CONDITION originates outside the group.
+INFO:  Signal -S CONSOLE SET START CND originates outside the group.
+INFO:  Signal -S SET I RING INTERRUPT originates outside the group.
+INFO:  Signal -S I RING OP TIME originates outside the group.
+INFO:  Signal +S I RING OP TIME originates outside the group.
+INFO:  Signal +S I RING 5 TIME originates outside the group.
+INFO:  Signal +S I RING 10 TIME originates outside the group.
+INFO:  Signal +S I RING 5 OR 10 TIME originates outside the group.
+INFO:  Signal +S I RING 1+2+3+4 TIME originates outside the group.
+INFO:  Signal +S I RING 6+7+8+9 TIME originates outside the group.
+INFO:  Signal +S B CYCLE 1 originates outside the group.
+INFO:  Signal +S I CYCLE originates outside the group.
+INFO:  Signal +S C CYCLE 1 originates outside the group.
+INFO:  Signal +S D CYCLE originates outside the group.
+INFO:  Signal -S LAST INSN RO CYCLE originates inside the group.
+INFO:  Signal +S INDEX REQUIRED originates outside the group.
+INFO:  Signal -S B CH Q OP originates inside the group.
+INFO:  Signal -S 1401 MODE 1 originates outside the group.
+INFO:  Signal +S B CH WM BIT 2 originates outside the group.
+INFO:  Signal +S B CH NOT WM BIT originates outside the group.
+INFO:  Signal +S INDEX NOT REQUIRED originates outside the group.
+INFO:  Signal -S INTERRUPT.B CYCLE originates outside the group.
+INFO:  Signal +S ADDR TYPE OP CODES originates outside the group.
+INFO:  Signal -S OP MOD TIME.NOT 1401 originates inside the group.
+INFO:  Signal -S ARS NO OP.I CYCLE originates inside the group.
+INFO:  Signal +S TWO ADDRESS OP CODES originates outside the group.
+INFO:  Signal -S SET I CYCLE CTRL NO OP originates inside the group.
+INFO:  Signal +S STORAGE SCAN ROUTINE originates outside the group.
+INFO:  Signal +S LOGIC GATE B 1 originates outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 3 JRJ originates outside the group.
+INFO:  Signal +S I CYCLE CTRL originates outside the group.
+INFO:  Signal -S SPL ADV CTRL LAT originates inside the group.
+INFO:  Signal -S I RING CTRL originates inside the group.
+INFO:  Signal -S UNITS CTRL LATCH originates outside the group.
+INFO:  Signal -S INTR BRANCH.B CYCLE CTRL originates outside the group.
+INFO:  Signal +S ARS NO OP originates outside the group.
+INFO:  Signal +S LOGIC GATE E 2 originates outside the group.
+INFO:  Signal +S OP MOD TIME originates outside the group.
+INFO:  Signal +S B CH NOT 8 BIT originates outside the group.
+INFO:  Signal +S B CH B BIT originates outside the group.
+INFO:  Signal +S B CH NOT A BIT originates outside the group.
+INFO:  Signal +S B CH 8 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 2 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 4 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 1 BIT originates outside the group.
+INFO:  Signal +S B CH 4 BIT originates outside the group.
+INFO:  Signal +S B CH 1 BIT originates outside the group.
+INFO:  Signal +S I RING 2 TIME originates outside the group.
+INFO:  Signal +S I RING 6 TIME originates outside the group.
+INFO:  Signal +S I RING 7 TIME originates outside the group.
+INFO:  Signal +S I RING 11 TIME originates outside the group.
+INFO:  Signal +S I RING 12 TIME originates outside the group.
+INFO:  Signal +S I RING 6+1401 AND 8 TIME originates outside the group.
+INFO:  Signal +S I RING 1+1401 AND 3 TIME originates outside the group.
+INFO:  Signal +S NO D CY AT I RING 6 OPS originates outside the group.
+INFO:  Signal +S 2 CHAR ONLY OP CODES originates outside the group.
+INFO:  Signal +S NO C OR D CYCLE OP CODES originates outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE COND originates inside the group.
+INFO:  Signal +S 1 ADDR PLUS MOD OP CODES originates outside the group.
+INFO:  Signal +S 2 ADDR NO MOD OP CODES originates outside the group.
+INFO:  Signal +S 2 ADDR PLUS MOD OP CODES originates outside the group.
+INFO:  Signal +S ARITH TYPE OP CODES originates outside the group.
+INFO:  Signal +S MPLY OR DIV OP CODES originates outside the group.
+INFO:  Signal -S NOT PERCENT TYPE OP CODES originates outside the group.
+INFO:  Signal -S TWO ADDRESS OP CODES originates outside the group.
+INFO:  Signal +S 1401 MODE originates outside the group.
+INFO:  Signal -S UNIT CTRL OP CODE originates outside the group.
+INFO:  Signal -S LOGIC GATE C 1 originates outside the group.
+INFO:  Signal +S 1401 I CYCLE NEXT originates inside the group.
+INFO:  Signal +S B CH NOT B BIT originates outside the group.
+INFO:  Signal +S CLEAR OP CODE originates outside the group.
+INFO:  Signal +S 1401 POUND SIGN OP CODE originates outside the group.
+INFO:  Signal +S 1401 COND TEST OP CODE originates outside the group.
+INFO:  Signal -S 1401 NO OP.LIROC originates outside the group.
+INFO:  Signal +S SET WORD MARK OP CODE originates outside the group.
+INFO:  Signal -S STORAGE SCAN ROUTINE originates outside the group.
+INFO:  Signal +S C CYCLE OP CODES originates outside the group.
+INFO:  Signal +S ADD TYPE OP CODES originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S I RING CTRL is used outside the group.
+INFO:  Signal -S I RING CTRL is used outside the group.
+INFO:  Signal -S SPL ADV CTRL LAT is used only inside the group.
+INFO:  Signal +S SET I CYCLE CTRL is used outside the group.
+INFO:  Signal -S 1401 B CYCLE I RING OP is used outside the group.
+INFO:  Signal -S I RING ADV is used outside the group.
+INFO:  Signal +S I RING RESET is used outside the group.
+INFO:  Signal +S B CH Q is used outside the group.
+INFO:  Signal -S B CH Q OP is used only inside the group.
+INFO:  Signal -S OP MOD TIME.NOT 1401 is used only inside the group.
+INFO:  Signal -S ARS NO OP.I CYCLE is used only inside the group.
+INFO:  Signal -S SET I CYCLE CTRL NO OP is used only inside the group.
+INFO:  Signal +S SET OP REG is used outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE 1 is used outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE 2 is used outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE is used outside the group.
+INFO:  Signal -S LAST INSN RO CYCLE is used outside the group.
+INFO:  Signal +S 1401 I CYCLE NEXT is used only inside the group.
+INFO:  Signal +S RD 1ST ADDR TO A AND C AR is used outside the group.
+INFO:  Signal +S RD 2ND ADDR TO B AND D AR is used outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE COND is used only inside the group.
+INFO:  Signal -S 1401 UNCOND BRANCH is used outside the group.
+INFO:  Signal -S 1401 CLEAR.I RING 11 is used outside the group.
+INFO:  Signal +S 1401 LAST I CYCLE is used outside the group.
+INFO:  Signal -S 1401 LAST I CYCLE is used outside the group.
+Removing 7 output signals that do not have destinations outside the group...
+Removing 9 input signals that originate inside the group...
+Signal -S LAST INSN RO CYCLE is output from the group, but also used as an input inside the group.
+Signal -S I RING CTRL is output from the group, but also used as an input inside the group.
+Input Signal +S I RING 1 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal -S I RING OP TIME replaced by Bus signal -S I RING HDL BUS
+Input Signal +S I RING OP TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 5 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 10 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S B CH NOT WM BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH NOT 8 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH B BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT A BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 8 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT 2 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH NOT 4 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH NOT 1 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 4 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH 1 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S I RING 2 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 6 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 7 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 11 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 12 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S B CH NOT B BIT replaced by Bus signal +S B CH NOT BUS
+Generating list of internal signals/wires ...
+7 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.13.01.1 (I RING CONTROLS)
+Generating HDL associated with page 12.13.02.1 (I CYCLE CONTROL-ACC)
+Generating HDL associated with page 12.13.03.1 (I RING ADVANCE AND RESET CTRL)
+Generating HDL associated with page 12.13.04.1 (SET OP REG CTRLS)
+Generating HDL associated with page 12.13.05.1 (INSTRUCTION READ OUT CONTROL-ACC)
+Generating HDL associated with page 12.13.06.1 (1ST AND 2ND ADDR RI CTRLS)
+Generating HDL associated with page 12.13.07.1 (1401 INSTRUCT READ OUT CTRL-ACC)
