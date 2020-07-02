@@ -1,4 +1,4 @@
-Generating HDL for page 12.13.05.1 INSTRUCTION READ OUT CONTROL-ACC at 7/2/2020 4:31:17 PM
+Generating HDL for page 12.13.05.1 INSTRUCTION READ OUT CONTROL-ACC at 7/2/2020 5:32:16 PM
 Processing extension from block at 1C (Database ID=210119) to 1D (Database ID=210120)
 Copied connection from extension output pin G to master block at 1C
 Copied connection from extension output pin G to master block at 1C
@@ -10,18 +10,9 @@ Copied connection from extension output pin G to master block at 1C
 Copied connection from extension output pin G to master block at 1C
 Copied connection from extension output pin G to master block at 1C
 WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
-WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
-WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
-WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
-WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
-WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
-WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
-WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
-WARNING: During sheet edge merge, Logic block at 1C pin G outputs to two different signal names: +S LAST INSN RO CYCLE 2 vs. +S LAST INSN RO CYCLE
-Removed 16 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 24 outputs from Gate at 1C to ignored block(s) or identical signal names
 Removed 4 outputs from Gate at 1G to ignored block(s) or identical signal names
 Removed 6 outputs from Gate at 1I to ignored block(s) or identical signal names
-Error:  During signals check, More than one output connects to signal named +S LAST INSN RO CYCLE 2 logic block at 1C, connection database ID 210213
 Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
 	and inputs of PS_I_RING_6_TIME,PS_NO_D_CY_AT_I_RING_6_OPS
 	and logic function of NAND
@@ -37,7 +28,7 @@ Generating Statement for block at 3C with output pin(s) of OUT_3C_F
 Generating Statement for block at 2C with output pin(s) of OUT_2C_C
 	and inputs of OUT_DOT_3C
 	and logic function of NOT
-Generating Statement for block at 1C with output pin(s) of OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G, OUT_1C_G
+Generating Statement for block at 1C with output pin(s) of OUT_1C_G, OUT_1C_G
 	and inputs of OUT_DOT_2E
 	and logic function of EQUAL
 Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
@@ -94,37 +85,11 @@ Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
 Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H, OUT_DOT_4H
 	and inputs of OUT_4H_E,OUT_4I_F
 	and logic function of OR
-WARNING: Input connection from edge connection named +S LAST INSN RO CYCLE COND to a DOT function on page 12.13.05.1 coordinate 2E is also used as input to other page(s):
-    12.13.07.1 
 Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E, OUT_DOT_2E, OUT_DOT_2E
 	and inputs of OUT_2D_D,PS_LAST_INSN_RO_CYCLE_COND
 	and logic function of OR
 Generating output sheet edge signal assignment to 
 	signal PS_LAST_INSN_RO_CYCLE
-	from gate output OUT_1C_G
-Generating output sheet edge signal assignment to 
-	signal PS_LAST_INSN_RO_CYCLE_2
-	from gate output OUT_1C_G
-Generating output sheet edge signal assignment to 
-	signal PS_LAST_INSN_RO_CYCLE_2
-	from gate output OUT_1C_G
-Generating output sheet edge signal assignment to 
-	signal PS_LAST_INSN_RO_CYCLE_2
-	from gate output OUT_1C_G
-Generating output sheet edge signal assignment to 
-	signal PS_LAST_INSN_RO_CYCLE_2
-	from gate output OUT_1C_G
-Generating output sheet edge signal assignment to 
-	signal PS_LAST_INSN_RO_CYCLE_2
-	from gate output OUT_1C_G
-Generating output sheet edge signal assignment to 
-	signal PS_LAST_INSN_RO_CYCLE_2
-	from gate output OUT_1C_G
-Generating output sheet edge signal assignment to 
-	signal PS_LAST_INSN_RO_CYCLE_2
-	from gate output OUT_1C_G
-Generating output sheet edge signal assignment to 
-	signal PS_LAST_INSN_RO_CYCLE_2
 	from gate output OUT_1C_G
 Generating output sheet edge signal assignment to 
 	signal PS_LAST_INSN_RO_CYCLE_2
