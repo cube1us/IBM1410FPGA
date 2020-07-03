@@ -345,12 +345,109 @@ fpga_clk_process: process
 
 uut_process: process
 
-   variable testName: string(1 to 18);
+   variable testName: string(1 to 10);
    variable subtest: integer;
 
    begin
+   
+   testName := "12.13.01.1";
+   
+   --  reset
+   
+   wait for 30 ns;
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 1 us;
+   MS_PROGRAM_RESET_1 <= '1';
+   wait for 30 ns;   
+   check1(MS_I_RING_ADV,'1',testName,"SA");
+   check1(PS_I_RING_CTRL,'1',testName,"SB");  -- Gets set by a reset!
 
-   -- Your test bench code
+   -- Test Special Advance Control latch (via I Ring ADV)
+   
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '1';
+   
+   PS_I_RING_1_OR_6_TIME <= '1';
+   PS_1401_MODE_1 <= '1';
+   wait for 30 ns;
+   check1(MS_I_RING_ADV,'1',testName,"1A");
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   check1(MS_I_RING_ADV,'0',testName,"1B");
+   PS_I_RING_1_OR_6_TIME <= '0';
+   PS_1401_MODE_1 <= '0';
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   -- Should stay latched at this poitn
+   check1(MS_I_RING_ADV,'0',testName,"1C");
+   -- Reset the latch
+   MS_LOGIC_GATE_E_1 <= '0';
+   wait for 30 ns;
+   check1(MS_I_RING_ADV,'1',testName,"1D");
+   MS_LOGIC_GATE_E_1 <= '1';
+   PS_PERCENT_TYPE_OP_CODES <= '1';
+   PS_I_RING_HDL_BUS(1) <= '1';
+   wait for 30 ns;
+   check1(MS_I_RING_ADV,'1',testName,"1E");
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   check1(MS_I_RING_ADV,'0',testName,"1F");
+   PS_PERCENT_TYPE_OP_CODES <= '0';
+   PS_I_RING_HDL_BUS(1) <= '0';
+   PS_LOGIC_GATE_C_1 <= '0';
+   -- Should stay latched at this poitn
+   wait for 30 ns;
+   check1(MS_I_RING_ADV,'0',testName,"1G");
+   -- Reset the latch
+   MS_LOGIC_GATE_E_1 <= '0';
+   wait for 30 ns;
+   check1(MS_I_RING_ADV,'1',testName,"1H");
+   
+   -- Test I Ring Ctrl Latch -- It starts off SET
+   
+   check1(PS_I_RING_CTRL,'1',testName,"2A");
+   check1(MS_I_RING_CTRL,'0',testName,"2A-1");
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(PS_I_RING_CTRL,'0',testName,"2B");
+   check1(MS_I_RING_CTRL,'1',testName,"2B-1");   
+   MS_LOGIC_GATE_D_1 <= '1';
+   MS_CONSOLE_SET_START_CND <= '0';
+   wait for 30 ns;   
+   check1(PS_I_RING_CTRL,'1',testName,"2C");
+   MS_CONSOLE_SET_START_CND <= '1';
+   MS_CONS_RESET_START_CONDITION <= '0';
+   wait for 30 ns;
+   check1(PS_I_RING_CTRL,'0',testName,"2D");
+   MS_CONS_RESET_START_CONDITION <= '1';   
+   MS_LAST_EX_DOT_NEXT_TO_LAST <= '0';
+   wait for 30 ns;   
+   check1(PS_I_RING_CTRL,'1',testName,"2E");
+   MS_LAST_EX_DOT_NEXT_TO_LAST <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(PS_I_RING_CTRL,'0',testName,"2F");
+   MS_LOGIC_GATE_D_1 <= '1';
+   MS_SET_I_RING_INTERRUPT <=  '0';
+   wait for 30 ns;   
+   check1(PS_I_RING_CTRL,'1',testName,"2G");
+   MS_SET_I_RING_INTERRUPT <=  '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(PS_I_RING_CTRL,'0',testName,"2H");
+   MS_LOGIC_GATE_D_1 <= '1';
+   MS_I_O_LAST_EX_DOT_Z <= '0';
+   wait for 30 ns;   
+   check1(PS_I_RING_CTRL,'1',testName,"2I");
+   MS_I_O_LAST_EX_DOT_Z <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(PS_I_RING_CTRL,'0',testName,"2J");
+   MS_LOGIC_GATE_D_1 <= '1';
+   
+  
+   
+   
+         
 
    wait;
    end process;
