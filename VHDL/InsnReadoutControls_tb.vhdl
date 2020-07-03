@@ -377,7 +377,7 @@ uut_process: process
    PS_1401_MODE_1 <= '0';
    PS_LOGIC_GATE_C_1 <= '0';
    wait for 30 ns;
-   -- Should stay latched at this poitn
+   -- Should stay latched at this point
    check1(MS_I_RING_ADV,'0',testName,"1C");
    -- Reset the latch
    MS_LOGIC_GATE_E_1 <= '0';
@@ -444,7 +444,234 @@ uut_process: process
    check1(PS_I_RING_CTRL,'0',testName,"2J");
    MS_LOGIC_GATE_D_1 <= '1';
    
-  
+   testName := "12.13.02.1";
+   
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"SA");
+   check1(MS_1401_B_CYCLE_I_RING_OP,'1',testName,"SB");
+   
+   -- 1
+   
+   MS_LAST_INSN_RO_CYCLE <= '1';
+   MS_I_RING_HDL_BUS(0) <= '1'; -- OP time
+   PS_I_CYCLE <= '1';
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '1';
+   PS_1401_MODE_1 <= '1';
+   -- Inhibiting logic
+   PS_INDEX_REQUIRED <= '1';
+   PS_I_RING_5_OR_10_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"1A");
+   PS_I_RING_5_OR_10_TIME <= '0';
+   PS_INDEX_REQUIRED <= '0';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"1B");
+   MS_LAST_INSN_RO_CYCLE <= '0';
+   MS_I_RING_HDL_BUS(0) <= '0'; -- OP time
+   PS_I_CYCLE <= '0';
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"1C");
+   
+   -- 2
+      
+   PS_1401_MODE_1 <= '1';
+   PS_B_CYCLE_1 <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"2A");
+   PS_I_RING_HDL_BUS(0) <= '1';  -- OP TIME
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"2B");
+   PS_B_CYCLE_1 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"2C");
+   
+   -- 3
+   
+   PS_I_RING_HDL_BUS(0) <= '1'; -- OP Time (still)
+   PS_1401_MODE_1 <= '1';
+   -- MS B CH Q OP from 12.13.04.1 should be active, so PS should be 0
+   wait for 30 ns;
+   check1(PS_B_CH_Q,'0',testName,"3A");
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"3B");   
+   PS_B_CH_WM_BIT_2 <= '1';  -- Not enough bits to make bus for _2
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"3C");
+   PS_I_RING_HDL_BUS(0) <= '0';
+   PS_1401_MODE_1 <= '0';
+
+   -- 4
+   
+   PS_I_RING_HDL_BUS(0) <= '1';  -- Op time
+   PS_B_CH_WM_BIT_2 <= '1';  -- Not enough bits to make bus for _2
+   MS_1401_MODE_1 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"4A");
+   MS_1401_MODE_1 <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"4B");
+   MS_1401_MODE_1 <= '0';
+   PS_I_RING_HDL_BUS(0) <= '0';  -- Op time
+   PS_B_CH_WM_BIT_2 <= '0';  -- Not enough bits to make bus for _2
+   
+   -- 5
+   
+   PS_I_RING_HDL_BUS(5) <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"5A");
+   PS_C_CYCLE_1 <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"5B");
+   PS_I_RING_HDL_BUS(5) <= '0';
+   PS_C_CYCLE_1 <= '0';
+   
+   -- 6
+   
+   PS_I_RING_5_OR_10_TIME <= '1';
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"6A");
+   PS_INDEX_NOT_REQUIRED <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"6B");
+   PS_I_RING_5_OR_10_TIME <= '0';
+   PS_INDEX_NOT_REQUIRED <= '0';
+   
+   -- 7
+   
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '1';
+   PS_I_CYCLE <= '1';
+   PS_ADDR_TYPE_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"7A");
+   PS_I_RING_1_OR_2_OR_3_OR_4_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"7B");
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '0';
+   PS_ADDR_TYPE_OP_CODES <= '0';
+   PS_I_RING_1_OR_2_OR_3_OR_4_TIME <= '0';
+   
+   -- 8
+   
+   PS_I_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"8A");
+   PS_STORAGE_SCAN_ROUTINE <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"8B");
+   PS_STORAGE_SCAN_ROUTINE <= '0';
+   PS_I_CYCLE <= '0';
+   
+   -- 9
+   
+   -- MS_SET_I_CYCLE_CTRL_NO_OP comes from 12.13.04.1
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"9A");
+   check1(PS_I_RING_HDL_BUS(0),'0',testname,"9B");
+   PS_B_CH_BUS(HDL_B_BIT) <= '1';
+   PS_B_CH_NOT_BUS(HDL_A_BIT) <= '1';
+   PS_B_CH_NOT_BUS(HDL_8_BIT) <= '1';
+   PS_B_CH_BUS(HDL_4_BIT) <= '1';
+   PS_B_CH_NOT_BUS(HDL_2_BIT) <= '1';
+   PS_B_CH_BUS(HDL_1_BIT) <= '1';
+   PS_I_CYCLE <= '1';
+   PS_B_CH_WM_BIT_2 <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"9C");
+   PS_I_RING_HDL_BUS(0) <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"9D");
+   PS_B_CH_BUS <= "00000000";
+   PS_B_CH_NOT_BUS <= "00000000";
+   PS_I_CYCLE <= '0';
+   PS_B_CH_WM_BIT_2 <= '0';
+   
+   -- 10
+   
+   PS_TWO_ADDRESS_OP_CODES <= '1';
+   PS_I_RING_6_OR_7_OR_8_OR_9_TIME <= '1';
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"10A");
+   PS_I_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"10B");
+   PS_TWO_ADDRESS_OP_CODES <= '0';
+   PS_I_RING_6_OR_7_OR_8_OR_9_TIME <= '0';
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '0';
+   PS_I_CYCLE <= '0';
+   
+   -- 11
+   
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"11A");
+   PS_I_RING_HDL_BUS(10) <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"11B");
+   PS_I_RING_HDL_BUS(10) <= '0';
+   PS_D_CYCLE <= '0';
+   
+   -- 12
+   
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"12A");
+   MS_INTERRUPT_DOT_B_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"12B");
+   MS_INTERRUPT_DOT_B_CYCLE <= '1';
+
+   -- -S OP MOD TIME.NOT 1401 comes from 12.13.04.1
+   
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '1';
+   MS_1401_MODE_1 <= '1';  -- NOT 1401 mode
+   check1(PS_OP_MOD_TIME,'0',testName,"12C");
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"12D");
+   PS_OP_MOD_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"12E");
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '0';
+   PS_OP_MOD_TIME <= '0';
+   
+   -- -S ARS NO OP.I CYCLE also comes from 12.30.04.1
+   
+   PS_I_CYCLE <= '1';
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"12F");
+   PS_ARS_NO_OP <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_CYCLE_CTRL,'1',testname,"12G");
+   PS_I_CYCLE <= '0';
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '0';
+   PS_ARS_NO_OP <= '0';
+   
+   
+   
+      
+   
+   
+   testName := "12.13.04.1";
+   
+   PS_B_CH_BUS(HDL_B_BIT) <= '1';
+   PS_B_CH_NOT_BUS(HDL_A_BIT) <= '1';
+   PS_B_CH_BUS(HDL_8_BIT) <= '1';
+   PS_B_CH_NOT_BUS(HDL_4_BIT) <= '1';
+   PS_B_CH_NOT_BUS(HDL_2_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_B_CH_Q,'0',testName,"XA");
+   wait for 30 ns;
+   PS_B_CH_NOT_BUS(HDL_1_BIT) <= '1';
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    
          
