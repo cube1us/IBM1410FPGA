@@ -401,6 +401,7 @@ uut_process: process
    MS_LOGIC_GATE_E_1 <= '0';
    wait for 30 ns;
    check1(MS_I_RING_ADV,'1',testName,"1H");
+   MS_LOGIC_GATE_E_1 <= '1';
    
    -- Test I Ring Ctrl Latch -- It starts off SET
    
@@ -444,15 +445,17 @@ uut_process: process
    check1(PS_I_RING_CTRL,'0',testName,"2J");
    MS_LOGIC_GATE_D_1 <= '1';
    
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '0';
+   
    testName := "12.13.02.1";
    
    check1(PS_SET_I_CYCLE_CTRL,'0',testname,"SA");
    check1(MS_1401_B_CYCLE_I_RING_OP,'1',testName,"SB");
    
    -- 1
-   
-   MS_LAST_INSN_RO_CYCLE <= '1';
-   MS_I_RING_HDL_BUS(0) <= '1'; -- OP time
+      
+   check1(MS_LAST_INSN_RO_CYCLE,'1',testName,"1");   
+   MS_I_RING_HDL_BUS(0) <= '1'; -- NOT OP time
    PS_I_CYCLE <= '1';
    PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '1';
    PS_1401_MODE_1 <= '1';
@@ -465,7 +468,7 @@ uut_process: process
    PS_INDEX_REQUIRED <= '0';
    wait for 30 ns;
    check1(PS_SET_I_CYCLE_CTRL,'1',testname,"1B");
-   MS_LAST_INSN_RO_CYCLE <= '0';
+
    MS_I_RING_HDL_BUS(0) <= '0'; -- OP time
    PS_I_CYCLE <= '0';
    PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '0';
@@ -478,12 +481,15 @@ uut_process: process
    PS_B_CYCLE_1 <= '1';
    wait for 30 ns;
    check1(PS_SET_I_CYCLE_CTRL,'0',testname,"2A");
+   check1(MS_1401_B_CYCLE_I_RING_OP,'1',testName,"2B");
    PS_I_RING_HDL_BUS(0) <= '1';  -- OP TIME
    wait for 30 ns;
    check1(PS_SET_I_CYCLE_CTRL,'1',testname,"2B");
+   check1(MS_1401_B_CYCLE_I_RING_OP,'0',testName,"2C");   
    PS_B_CYCLE_1 <= '0';
    wait for 30 ns;
-   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"2C");
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"2D");
+   check1(MS_1401_B_CYCLE_I_RING_OP,'1',testName,"2E");   
    
    -- 3
    
@@ -492,7 +498,7 @@ uut_process: process
    -- MS B CH Q OP from 12.13.04.1 should be active, so PS should be 0
    wait for 30 ns;
    check1(PS_B_CH_Q,'0',testName,"3A");
-   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"3B");   
+   check1(PS_SET_I_CYCLE_CTRL,'0',testname,"3c");   
    PS_B_CH_WM_BIT_2 <= '1';  -- Not enough bits to make bus for _2
    wait for 30 ns;
    check1(PS_SET_I_CYCLE_CTRL,'1',testname,"3C");
@@ -581,7 +587,7 @@ uut_process: process
    wait for 30 ns;
    check1(PS_SET_I_CYCLE_CTRL,'1',testname,"9D");
    PS_B_CH_BUS <= "00000000";
-   PS_B_CH_NOT_BUS <= "00000000";
+   PS_B_CH_NOT_BUS <= "11111111";
    PS_I_CYCLE <= '0';
    PS_B_CH_WM_BIT_2 <= '0';
    
@@ -646,35 +652,277 @@ uut_process: process
    PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '0';
    PS_ARS_NO_OP <= '0';
    
+   testName := "12.13.03.1";
    
+   wait for 30 ns;
+   check1(PS_I_RING_RESET,'0',testname,"1A");
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 30 ns;
+   check1(PS_I_RING_RESET,'1',testname,"1B");
+   wait for 90 ns;
+   MS_PROGRAM_RESET_1 <= '1';
+   wait for 30 ns;
+   check1(PS_I_RING_RESET,'0',testname,"1C");
+        
+   PS_LOGIC_GATE_B_1 <= '1';
+   MS_UNITS_CTRL_LATCH <= '0';      
+   wait for 30 ns;
+   check1(PS_I_RING_RESET,'1',testname,"1D");
+   MS_UNITS_CTRL_LATCH <= '1';
+   MS_INTR_BRANCH_DOT_B_CYCLE_CTRL <= '0'; 
+   wait for 30 ns;
+   check1(PS_I_RING_RESET,'1',testname,"1E");
+   MS_INTR_BRANCH_DOT_B_CYCLE_CTRL <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';  -- reset I Ring Ctrl
+   wait for 30 ns;
+   check1(MS_I_RING_CTRL,'1',testName,"1F");
+   check1(PS_I_RING_RESET,'0',testname,"1G");
+   -- Now Set I Ring Ctrl
+   MS_LOGIC_GATE_D_1 <= '1';
+   MS_CONS_RESET_START_CONDITION <= '1';
+   MS_LAST_EX_DOT_NEXT_TO_LAST <= '0';   
+   wait for 30 ns;
+   check1(MS_I_RING_CTRL,'0',testName,"1H");
+   check1(PS_I_RING_RESET,'1',testname,"1I");
+   -- Reset I Ring Ctrl again
+   MS_LAST_EX_DOT_NEXT_TO_LAST <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_I_RING_CTRL,'1',testName,"1J");
+   check1(PS_I_RING_RESET,'0',testname,"1K");
+   MS_LOGIC_GATE_D_1 <= '1';
    
-      
+   -- Part 2
+   
+   wait for 30 ns;
+   check1(MS_I_RING_ADV,'1',testName,"2A");
+   
+   -- Turn on Special Advance Control Latch
+   MS_LOGIC_GATE_E_1 <= '1';
+   PS_I_RING_1_OR_6_TIME <= '1';
+   PS_1401_MODE_1 <= '1';
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+
+   check1(MS_I_RING_ADV,'1',testName,"2B");
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '1';
+   wait for 30 ns;   
+   check1(MS_I_RING_ADV,'0',testName,"2C");
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '0';
+   
+   -- Reset the special advance control latch
+
+   PS_I_RING_1_OR_6_TIME <= '0';
+   PS_1401_MODE_1 <= '0';
+   PS_LOGIC_GATE_C_1 <= '0';
+   MS_LOGIC_GATE_E_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_E_1 <= '1';
+
+   PS_I_CYCLE_CTRL <= '1';
+   PS_LOGIC_GATE_B_1 <= '1';
+   MS_1401_MODE_1 <= '1';   
+   PS_ARS_NO_OP <= '0';
+   check1(MS_I_RING_ADV,'1',testName,"2D");
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '1';
+   wait for 30 ns;   
+   check1(MS_I_RING_ADV,'0',testName,"2E");
+   PS_ARS_NO_OP <= '1';
+   wait for 30 ns;
+   check1(MS_I_RING_ADV,'1',testName,"2F");
+   MS_1401_MODE_1 <= '0';
+   wait for 30 ns;   
+   check1(MS_I_RING_ADV,'0',testName,"2G");
+   
+   PS_I_CYCLE_CTRL <= '0';
+   PS_LOGIC_GATE_B_1 <= '0';
+   MS_1401_MODE_1 <= '1';
+   PS_ARS_NO_OP <= '0';
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '0';
    
    
    testName := "12.13.04.1";
    
+   PS_LOGIC_GATE_E_2 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_OP_REG,'0',testName,"1A");
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_OP_REG,'1',testName,"1B");
+   MS_PROGRAM_RESET_1 <= '1';
+   wait for 30 ns;
+   
+   PS_B_CH_WM_BIT_2 <= '1';
+   PS_I_CYCLE <= '1';
+   PS_I_RING_HDL_BUS(0) <= '1';
+   wait for 30 ns;
+   check1(PS_SET_OP_REG,'0',testName,"1C");
+   PS_LOGIC_GATE_E_2 <= '1';
+   wait for 30 ns;
+   check1(PS_SET_OP_REG,'1',testName,"1D");
+   PS_B_CH_WM_BIT_2 <= '0';
+   PS_I_CYCLE <= '0';
+   PS_I_RING_HDL_BUS(0) <= '0';
+   
+   -- -S ARS NO OP.I CYCLE Tested earlier, above 
+   -- -S SET I CYCLE CTRL NO OP Tested earlier, above
+   -- -S OP MODE TIME.NOT 1401 tested earlier, above
+      
    PS_B_CH_BUS(HDL_B_BIT) <= '1';
    PS_B_CH_NOT_BUS(HDL_A_BIT) <= '1';
    PS_B_CH_BUS(HDL_8_BIT) <= '1';
    PS_B_CH_NOT_BUS(HDL_4_BIT) <= '1';
    PS_B_CH_NOT_BUS(HDL_2_BIT) <= '1';
+   PS_B_CH_NOT_BUS(HDL_1_BIT) <= '0';
    wait for 30 ns;
-   check1(PS_B_CH_Q,'0',testName,"XA");
+   check1(PS_B_CH_Q,'0',testName,"4A");
    wait for 30 ns;
    PS_B_CH_NOT_BUS(HDL_1_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_B_CH_Q,'1',testName,"4B");
+   
+   PS_B_CH_BUS <= "00000000";
+   PS_B_CH_NOT_BUS <= "11111111";
+   
+   testName := "12.13.05.1";
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"SA");
+   check1(PS_LAST_INSN_RO_CYCLE_1,'0',testName,"SB");
+   check1(PS_LAST_INSN_RO_CYCLE_2,'0',testName,"SC");
+   check1(MS_LAST_INSN_RO_CYCLE,'1',testName,"SD");
+   
+   -- 1
+   
+   PS_I_CYCLE <= '1';
+   PS_B_CH_WM_BIT_2 <= '1';
+   
+   PS_I_RING_HDL_BUS(6) <= '1';   
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"1A");
+   PS_NO_D_CY_AT_I_RING_6_OPS <= '1';
+   wait for 30 ns;   
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"1B");
+   check1(PS_LAST_INSN_RO_CYCLE_1,'1',testName,"1C");
+   check1(PS_LAST_INSN_RO_CYCLE_2,'1',testName,"1D");
+   check1(MS_LAST_INSN_RO_CYCLE,'0',testName,"1E");
+   PS_I_CYCLE <= '0';
+   wait for 30 ns;   
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"1F");
+   PS_I_CYCLE <= '1';
+   PS_B_CH_WM_BIT_2 <= '0';
+   wait for 30 ns;   
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"1F");
+   PS_I_RING_HDL_BUS(6) <= '0';   
+   PS_NO_D_CY_AT_I_RING_6_OPS <= '0';
+
+   PS_B_CH_WM_BIT_2 <= '1';
+   PS_I_CYCLE <= '1';
+ 
+   -- 2
+ 
+   PS_2_CHAR_ONLY_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"2A");
+   PS_I_RING_HDL_BUS(2) <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"2B");
+   PS_2_CHAR_ONLY_OP_CODES <= '0';
+   PS_I_RING_HDL_BUS(2) <= '0';
+   
+   -- 3
+   
+   PS_I_RING_HDL_BUS(1) <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"3A");
+   PS_NO_C_OR_D_CYCLE_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"3B");
+   PS_I_RING_HDL_BUS(1) <= '0';
+   PS_NO_C_OR_D_CYCLE_OP_CODES <= '0';
+ 
+   -- 4
+   
+   PS_I_RING_HDL_BUS(7) <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"4A");
+   PS_1_ADDR_PLUS_MOD_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"4B");
+   PS_I_RING_HDL_BUS(7) <= '0';
+   PS_1_ADDR_PLUS_MOD_OP_CODES <= '0';
+   
+   -- 5
+   
+   PS_I_RING_HDL_BUS(11) <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"5A");
+   PS_2_ADDR_NO_MOD_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"5B");
+   PS_I_RING_HDL_BUS(11) <= '0';
+   PS_2_ADDR_NO_MOD_OP_CODES <= '0';
+   
+   -- 6
+
+   PS_I_RING_HDL_BUS(12) <= '1';            
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"6A");
+   PS_2_ADDR_PLUS_MOD_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"6B");
+   PS_I_RING_HDL_BUS(12) <= '0';            
+   PS_2_ADDR_PLUS_MOD_OP_CODES <= '0';
+   
+   -- 7
+   
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '1';
+   PS_MPLY_OR_DIV_OP_CODES <= '1';
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '1';
+   PS_ARITH_TYPE_OP_CODES <= '1';
+   MS_I_RING_HDL_BUS(0) <= '1';
+   PS_1401_MODE_1 <= '1'; 
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"7A");
+   PS_MPLY_OR_DIV_OP_CODES <= '0';   
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"7B");
+   PS_ARITH_TYPE_OP_CODES <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"7C");
+   PS_1401_MODE_1 <= '0'; 
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"7D");
+   PS_1401_MODE_1 <= '1'; 
+   MS_I_RING_HDL_BUS(0) <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"7E");
+   MS_I_RING_HDL_BUS(0) <= '1';
+   PS_I_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"7F");
+   PS_I_CYCLE <= '1';
+   PS_ARITH_TYPE_OP_CODES <= '1';
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"7G");
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"7H");
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '1';
+   PS_MPLY_OR_DIV_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"7I");
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"7J");
+
+   PS_I_CYCLE <= '0';
+   PS_1401_MODE_1 <= '0'; 
+   PS_ARITH_TYPE_OP_CODES <= '0';
+
+
+
    
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-         
 
    wait;
    end process;
