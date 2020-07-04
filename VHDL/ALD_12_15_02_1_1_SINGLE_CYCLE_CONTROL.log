@@ -1,0 +1,82 @@
+Generating HDL for page 12.15.02.1 1* SINGLE CYCLE CONTROL at 7/4/2020 9:53:56 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_15_02_1_1_SINGLE_CYCLE_CONTROL_tb.vhdl, generating default test bench code.
+WARNING: Diagram block at coordinate 5B has 2 different output pins: N,T
+WARNING: Diagram block at coordinate 5F has 2 different output pins: N,T
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Ignoring Logic Block 3C with symbol CAP
+Ignoring Logic Block 3D with symbol CAP
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 2F
+Ignoring Logic Block 3G with symbol CAP
+Ignoring Logic Block 3H with symbol CAP
+Removed 1 outputs from Gate at 4B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4F to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4H to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 1D to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_N, OUT_5B_T
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 4B with output pin(s) of OUT_4B_X
+	and inputs of OUT_5B_N
+	and logic function of Resistor
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_G_Latch, OUT_3B_G_Latch
+	and inputs of OUT_4B_X,OUT_2B_NoPin
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_NoPin_Latch
+	and inputs of OUT_3B_G,OUT_4D_X
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_B
+	and inputs of MS_STOP_KEY_LATCH
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_X, OUT_4D_X
+	and inputs of OUT_5B_T
+	and logic function of Resistor
+Generating Statement for block at 2D with output pin(s) of OUT_2D_H
+	and inputs of OUT_3B_G,MS_ERROR_RESTART,OUT_3F_E
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_A
+	and inputs of OUT_DOT_2D
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_N, OUT_5F_T
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 4F with output pin(s) of OUT_4F_X
+	and inputs of OUT_5F_N
+	and logic function of Resistor
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_E_Latch, OUT_3F_E_Latch, OUT_3F_E_Latch
+	and inputs of OUT_4F_X,MS_COMPUTER_RESET_1,OUT_2F_P
+	and logic function of NAND
+Generating Statement for block at 2F with *latched* output pin(s) of OUT_2F_P_Latch
+	and inputs of OUT_3F_E,OUT_4H_X
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_DOT_1D
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_X
+	and inputs of OUT_5F_T
+	and logic function of Resistor
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2D_H,PS_START_AUTO_STARTMODE_STAR_AUTS_STAR
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D, OUT_DOT_1D
+	and inputs of OUT_2C_B,OUT_1D_A
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_START_KEY_LATCH_1
+	from gate output OUT_4D_X
+Generating output sheet edge signal assignment to 
+	signal MS_START_KEY_LATCH_2
+	from gate output OUT_3F_E
+Generating output sheet edge signal assignment to 
+	signal PS_START_KEY_2
+	from gate output OUT_1F_C
+Generating output sheet edge signal assignment to 
+	signal MS_START_KEY
+	from gate output OUT_DOT_1D
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 2F
