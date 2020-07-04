@@ -144,6 +144,40 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   wait for 30 ns;
+   SWITCH_MOM_CONS_START <= '1';
+   wait for 100 ns;
+   SWITCH_MOM_CONS_START <= '0';
+   wait for 300 ns;
+   
+   SWITCH_MOM_CE_START <= '1';
+   wait for 100 ns;
+   SWITCH_MOM_CE_START <= '0';
+   wait for 300 ns;
+   
+   MS_ERROR_RESTART <= '0';
+   wait for 100 ns;
+   MS_ERROR_RESTART <= '1';
+   wait for 300 ns;
+   
+   SWITCH_MOM_CONS_START <= '1';
+   MS_STOP_KEY_LATCH <= '0';
+   wait for 100 ns;
+   SWITCH_MOM_CONS_START <= '0';
+   wait for 100 ns;
+   MS_STOP_KEY_LATCH <= '1';
+   wait for 300 ns;
+   
+   SWITCH_MOM_CE_START <= '1';
+   wait for 100 ns;
+   MS_COMPUTER_RESET_1 <= '0';
+   wait for 100 ns;
+   SWITCH_MOM_CE_START <= '0';
+   wait for 100 ns;
+   MS_COMPUTER_RESET_1 <= '1';
+   wait for 300 ns;
+   
 
    wait;
    end process;
