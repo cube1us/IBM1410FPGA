@@ -204,12 +204,179 @@ fpga_clk_process: process
 
 uut_process: process
 
-   variable testName: string(1 to 18);
+   variable testName: string(1 to 10);
    variable subtest: integer;
 
    begin
 
    -- Your test bench code
+   
+   testName := "12.15.03.1";
+   
+   wait for 30ns;
+   MS_PROGRAM_RESET_3 <= '0';
+   MS_COMP_OR_POWER_ON_RESET <= '0';
+   wait for 1 us;
+   MS_PROGRAM_RESET_3 <= '1';
+   MS_COMP_OR_POWER_ON_RESET <= '1';
+   
+   wait for 30 ns;
+   check1(MS_CONSOLE_SET_START_CND,'1',testName,"SA");
+   check1(MS_START_KEY_PULSE,'1',testName,"SB");
+   check1(PS_RUN_OR_IE_MODE_STAR_AUTS_STAR,'0',testName,"SC");
+   check1(PS_PROCESS_ROUTINE,'0',testName,"SD");
+   check1(MS_PROCESS_ROUTINE,'1',testName,"SE");
+   check1(PS_STOP_KEY_LATCH,'1',testName,"SF");
+   check1(MS_STOP_KEY_LATCH,'0',testname,"SG");
+
+   -- Set the Start Pulse Latch
+   
+   PS_START_KEY_2 <= '0';
+   MS_START_KEY <= '1';
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   -- Verify visually that the Start Pulse Latch set (3A pin G)
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   -- Verify visually that the latch remains set.
+   
+   -- Set the Set Start Condition Latch
+   
+   check1(PS_PROCESS_ROUTINE,'0',testName,"1A");
+   MS_STORAGE_SCAN_MODE <= '1';
+   PS_CONS_CLOCK_1_POS <= '1';
+   MV_CONS_MODE_SW_RUN_MODE <= '1';
+   MV_CONS_MODE_SW_I_E_CYCLE_MODE <= '1';
+   
+   
+   PS_START_KEY_2 <= '1';
+      
+   -- Not Process Routine set by the initial reset
+   wait for 30 ns;
+   check1(MS_CONSOLE_SET_START_CND,'1',testName,"1B");
+   
+   MV_CONS_MODE_SW_RUN_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_RUN_OR_IE_MODE_STAR_AUTS_STAR,'1',testName,"1C");   
+   check1(MS_CONSOLE_SET_START_CND,'0',testName,"1D");
+   
+   -- Reset the input signal - the latch should stay set
+   MV_CONS_MODE_SW_RUN_MODE <= '1';
+   wait for 30 ns;
+   check1(MS_CONSOLE_SET_START_CND,'0',testName,"1D");
+   
+   -- Reset the latch
+   MS_PROGRAM_RESET_3 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_3 <= '1';
+   wait for 30 ns;
+   check1(MS_CONSOLE_SET_START_CND,'1',testName,"1E");
+   
+   -- Now set it using I/E Cycle
+   MV_CONS_MODE_SW_I_E_CYCLE_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_RUN_OR_IE_MODE_STAR_AUTS_STAR,'1',testName,"1F");   
+   check1(MS_CONSOLE_SET_START_CND,'0',testName,"1G");
+   
+   -- Reset it using Process Routine
+   
+   check1(PS_PROCESS_ROUTINE,'0',testName,"1H");
+   PS_CONS_CLOCK_1_POS <= '0';   
+   PS_CONS_CLOCK_3_POS_1 <= '1';
+   wait for 60 ns;  -- This looks to be a 3 gate latch, so it needed extra time
+   check1(PS_PROCESS_ROUTINE,'1',testName,"1I");
+   check1(MS_CONSOLE_SET_START_CND,'1',testName,"1J");
+   
+   -- Now reset process routine
+   
+   MS_CONS_RESET_START_CONDITION <= '0';
+   wait for 30 ns;
+   check1(PS_PROCESS_ROUTINE,'0',testName,"1K");
+   MS_CONS_RESET_START_CONDITION <= '1';
+   
+   -- Test Start Key Pulse
+   
+   MV_CONS_MODE_SW_I_E_CYCLE_MODE <= '1';
+   MV_CONS_MODE_SW_RUN_MODE <= '0';
+   PS_STORAGE_SCAN_ROUTINE <= '1';
+   MS_ADDRESS_SET_ROUTINE <= '1';
+   MS_CONSOLE_CYCLE_START <= '1';
+   PS_CONS_STOP_PRINT_COMPLETE <= '1';
+   PS_START_KEY_2 <= '1';
+   wait for 60 ns;
+   check1(MS_START_KEY_PULSE,'1',testName,"2A");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for 30 ns;
+   check1(MS_START_KEY_PULSE,'0',testName,"2B");
+      
+   -- Reset Start Pulse latch as well  (check visually)
+   
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   PS_START_KEY_2 <= '1';
+   MS_START_KEY <= '0';
+   wait for 30 ns;
+   -- Now the reset happens
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   check1(MS_START_KEY_PULSE,'1',testName,"2D");
+   
+   -- Test the Stop Key Latch
+   
+   MS_START_KEY_LATCH_2 <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'0',testName,"3A");
+   MS_START_KEY_LATCH_2 <= '1';
+   
+   MS_DISPLAY_END_OF_MEMORY <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'1',testName,"3B");
+   MS_DISPLAY_END_OF_MEMORY <= '1';
+   MS_START_KEY_LATCH_2 <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'0',testName,"3C");
+   MS_START_KEY_LATCH_2 <= '1';
+
+   MS_ONLY_PROGRAM_RESET <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'1',testName,"3D");
+   MS_ONLY_PROGRAM_RESET <= '1';
+   PS_RESET_STOP_KEY_LATCH_STAR_AUTS_STAR <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'0',testName,"3E");
+   PS_RESET_STOP_KEY_LATCH_STAR_AUTS_STAR <= '0';
+
+   MS_COMP_OR_POWER_ON_RESET <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'1',testName,"3F");
+   MS_COMP_OR_POWER_ON_RESET <= '1';
+   MS_START_KEY_LATCH_1 <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'0',testName,"3G");
+   MS_START_KEY_LATCH_1 <= '1';
+   
+   MV_CONSOLE_MODE_SW_STOP_POS <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'1',testName,"3H");
+   MV_CONSOLE_MODE_SW_STOP_POS <= '1';
+   MS_START_KEY_LATCH_1 <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'0',testName,"3I");
+   MS_START_KEY_LATCH_1 <= '1';
+      
+   SWITCH_MOM_CONS_STOP <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'1',testName,"3J");
+   SWITCH_MOM_CONS_STOP <= '0';
+   MS_START_KEY_LATCH_1 <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_KEY_LATCH,'0',testName,"3K");
+   MS_START_KEY_LATCH_1 <= '1';
+   
+   
+   
 
    wait;
    end process;
