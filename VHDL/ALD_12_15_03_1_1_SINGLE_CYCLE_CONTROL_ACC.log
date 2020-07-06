@@ -1,5 +1,6 @@
-Generating HDL for page 12.15.03.1 1* SINGLE CYCLE CONTROL-ACC at 7/4/2020 10:18:52 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_15_03_1_1_SINGLE_CYCLE_CONTROL_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 12.15.03.1 1* SINGLE CYCLE CONTROL-ACC at 7/6/2020 1:58:26 PM
+Old test bench file ALD_12_15_03_1_1_SINGLE_CYCLE_CONTROL_ACC_tb.vhdl 222 lines preserved and 32 declaration lines preserved
+NOTE: DOT Function at 4G is fed only by rotary switch(es) and/or resistors. Changing logic function to AND
 Found combinatorial loop (need D FF) at output of gate at 4A
 Found combinatorial loop (need D FF) at output of gate at 3A
 Found combinatorial loop (need D FF) at output of gate at 4C
@@ -137,7 +138,7 @@ Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G, OUT_DOT_1
 	and logic function of OR
 Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G
 	and inputs of OUT_4G_X,OUT_4I_X
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
 	and inputs of OUT_2G_C,PS_RESET_STOP_KEY_LATCH_STAR_AUTS_STAR
 	and logic function of OR
