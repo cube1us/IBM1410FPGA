@@ -1,0 +1,1217 @@
+Generating HDL for group named IntegrationTest1at 7/7/2020 2:26:24 PM containing pages: 
+	11.10.01.1, 11.10.02.1, 11.10.05.1, 11.10.06.1, 11.10.07.1
+	11.10.10.1, 11.10.11.1, 11.10.12.1, 11.10.13.1, 11.10.14.1
+	11.10.15.1, 11.10.16.1, 11.10.17.1, 11.10.18.1, 11.10.19.1
+	11.10.20.1, 11.10.21.1, 11.10.22.1, 11.10.23.1, 11.10.24.1
+	11.10.25.1, 11.10.32.1, 11.10.33.1, 11.10.34.1, 11.10.35.1
+	11.10.36.1, 11.20.01.1, 11.20.02.1, 11.20.03.1, 11.20.04.1
+	11.20.05.1, 11.20.06.1, 11.20.07.1, 11.20.08.1, 11.20.09.1
+	11.20.10.1, 11.20.11.1, 11.30.01.1, 11.30.02.1, 11.30.03.1
+	12.12.01.1, 12.12.02.1, 12.12.04.1, 12.12.05.1, 12.12.06.1
+	12.12.07.1, 12.12.20.1, 12.12.21.1, 12.12.23.1, 12.12.30.1
+	12.12.31.1, 12.12.32.1, 12.12.33.1, 12.12.40.1, 12.12.41.1
+	12.12.42.1, 12.12.43.1, 12.12.44.1, 12.12.45.1, 12.12.46.1
+	12.12.50.1, 12.12.51.1, 12.12.60.1, 12.12.61.1, 12.12.62.1
+	12.12.63.1, 12.12.64.1, 12.12.65.1, 12.12.66.1, 12.12.67.1
+	12.13.01.1, 12.13.02.1, 12.13.03.1, 12.13.04.1, 12.13.05.1
+	12.13.06.1, 12.13.07.1, 12.15.02.1, 12.15.03.1, 12.15.04.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\IntegrationTest1_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 80 pages...
+Found 4 signals on page 11.10.01.1
+Found 19 signals on page 11.10.02.1
+Found 5 signals on page 11.10.05.1
+Found 11 signals on page 11.10.06.1
+Found 10 signals on page 11.10.07.1
+Found 15 signals on page 11.10.10.1
+Found 9 signals on page 11.10.11.1
+Found 9 signals on page 11.10.12.1
+Found 11 signals on page 11.10.13.1
+Found 11 signals on page 11.10.14.1
+Found 10 signals on page 11.10.15.1
+Found 8 signals on page 11.10.16.1
+Found 8 signals on page 11.10.17.1
+Found 8 signals on page 11.10.18.1
+Found 8 signals on page 11.10.19.1
+Found 13 signals on page 11.10.20.1
+Found 7 signals on page 11.10.21.1
+Found 7 signals on page 11.10.22.1
+Found 7 signals on page 11.10.23.1
+Found 7 signals on page 11.10.24.1
+Found 7 signals on page 11.10.25.1
+Found 11 signals on page 11.10.32.1
+Found 7 signals on page 11.10.33.1
+Found 18 signals on page 11.10.34.1
+Found 8 signals on page 11.10.35.1
+Found 3 signals on page 11.10.36.1
+Found 13 signals on page 11.20.01.1
+Found 10 signals on page 11.20.02.1
+Found 9 signals on page 11.20.03.1
+Found 9 signals on page 11.20.04.1
+Found 9 signals on page 11.20.05.1
+Found 9 signals on page 11.20.06.1
+Found 9 signals on page 11.20.07.1
+Found 19 signals on page 11.20.08.1
+Found 13 signals on page 11.20.09.1
+Found 10 signals on page 11.20.10.1
+Found 12 signals on page 11.20.11.1
+Found 9 signals on page 11.30.01.1
+Found 11 signals on page 11.30.02.1
+Found 5 signals on page 11.30.03.1
+Found 8 signals on page 12.12.01.1
+Found 10 signals on page 12.12.02.1
+Found 10 signals on page 12.12.04.1
+Found 12 signals on page 12.12.05.1
+Found 11 signals on page 12.12.06.1
+Found 14 signals on page 12.12.07.1
+Found 11 signals on page 12.12.20.1
+Found 17 signals on page 12.12.21.1
+Found 22 signals on page 12.12.23.1
+Found 29 signals on page 12.12.30.1
+Found 12 signals on page 12.12.31.1
+Found 18 signals on page 12.12.32.1
+Found 14 signals on page 12.12.33.1
+Found 11 signals on page 12.12.40.1
+Found 24 signals on page 12.12.41.1
+Found 23 signals on page 12.12.42.1
+Found 31 signals on page 12.12.43.1
+Found 30 signals on page 12.12.44.1
+Found 6 signals on page 12.12.45.1
+Found 14 signals on page 12.12.46.1
+Found 14 signals on page 12.12.50.1
+Found 19 signals on page 12.12.51.1
+Found 43 signals on page 12.12.60.1
+Found 3 signals on page 12.12.61.1
+Found 12 signals on page 12.12.62.1
+Found 12 signals on page 12.12.63.1
+Found 12 signals on page 12.12.64.1
+Found 13 signals on page 12.12.65.1
+Found 15 signals on page 12.12.66.1
+Found 16 signals on page 12.12.67.1
+Found 16 signals on page 12.13.01.1
+Found 28 signals on page 12.13.02.1
+Found 12 signals on page 12.13.03.1
+Found 24 signals on page 12.13.04.1
+Found 26 signals on page 12.13.05.1
+Found 6 signals on page 12.13.06.1
+Found 30 signals on page 12.13.07.1
+Found 9 signals on page 12.15.02.1
+Found 31 signals on page 12.15.03.1
+Found 35 signals on page 12.15.04.1
+Found 434 unique input signals and 302 unique output signals, (536 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +P SPECIAL +12V POWER FOR OSC originates outside the group.
+INFO:  Signal +S OSCILLATOR originates inside the group.
+INFO:  Signal +S OSCILLATOR DELAYED originates inside the group.
+INFO:  Signal +S 1401 STOP AND WAIT originates outside the group.
+INFO:  Signal +S 1401 COND TEST OP CODE originates outside the group.
+INFO:  Signal +S I RING 9 TIME originates inside the group.
+INFO:  Signal +S B CH WM BIT 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE E 1 originates inside the group.
+INFO:  Signal +S STOP LATCH originates inside the group.
+INFO:  Signal -S F CH IN PROCESS originates outside the group.
+INFO:  Signal -S E CH IN PROCESS originates outside the group.
+INFO:  Signal -S MASTER ERROR originates outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 1 originates inside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 3 originates inside the group.
+INFO:  Signal +S LOGIC GATE E OR V originates inside the group.
+INFO:  Signal -S LOGIC GATE W originates inside the group.
+INFO:  Signal -S LAST LOGIC GATE 1 originates inside the group.
+INFO:  Signal -S LOGIC GATE A 1 originates inside the group.
+INFO:  Signal -S LOGIC GATE R originates inside the group.
+INFO:  Signal +S X CYCLE originates inside the group.
+INFO:  Signal -S LOGIC GATE H originates inside the group.
+INFO:  Signal -S LOGIC GATE K originates inside the group.
+INFO:  Signal -S LOGIC GATE J originates inside the group.
+INFO:  Signal +S I CYCLE originates inside the group.
+INFO:  Signal +S A CH NOT WM BIT originates outside the group.
+INFO:  Signal +S LOGIC RING ON ADVANCE 1 originates inside the group.
+INFO:  Signal +S LOGIC RING OFF ADVANCE 1 originates inside the group.
+INFO:  Signal +S LOGIC GATE Z originates inside the group.
+INFO:  Signal -S LOGIC GATE Z originates inside the group.
+INFO:  Signal -S PROGRAM RESET 3 originates outside the group.
+INFO:  Signal +S E CYCLE REQUIRED originates inside the group.
+INFO:  Signal +S E CH UNOVLP IN PROCESS originates outside the group.
+INFO:  Signal +S F CYCLE REQUIRED originates inside the group.
+INFO:  Signal +S F CH UNOVLP IN PROCESS originates outside the group.
+INFO:  Signal +S COMP DISABLE CYCLE originates inside the group.
+INFO:  Signal -S LOGIC GATE A originates inside the group.
+INFO:  Signal +S LOGIC GATE A originates inside the group.
+INFO:  Signal -S LOGIC GATE B originates inside the group.
+INFO:  Signal +S LOGIC GATE B originates inside the group.
+INFO:  Signal +S LOGIC GATE C originates inside the group.
+INFO:  Signal -S LOGIC GATE C originates inside the group.
+INFO:  Signal -S LOGIC GATE C 1 originates inside the group.
+INFO:  Signal -S LOGIC GATE D originates inside the group.
+INFO:  Signal +S LOGIC GATE D originates inside the group.
+INFO:  Signal -S LOGIC GATE E originates inside the group.
+INFO:  Signal +S LOGIC GATE E originates inside the group.
+INFO:  Signal -S LOGIC GATE F originates inside the group.
+INFO:  Signal +S LOGIC GATE F originates inside the group.
+INFO:  Signal +S LAST LOGIC GATE 1 originates inside the group.
+INFO:  Signal -S LOGIC GATE G originates inside the group.
+INFO:  Signal +S LOGIC GATE G originates inside the group.
+INFO:  Signal +S LOGIC GATE H originates inside the group.
+INFO:  Signal +S LOGIC GATE J originates inside the group.
+INFO:  Signal +S LOGIC RING ON ADVANCE 2 originates inside the group.
+INFO:  Signal +S LOGIC RING OFF ADVANCE 2 originates inside the group.
+INFO:  Signal +S LOGIC GATE A CONTROL originates inside the group.
+INFO:  Signal +S E CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal +S F CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal +S LOGIC GATE R originates inside the group.
+INFO:  Signal -S LOGIC GATE S originates inside the group.
+INFO:  Signal +S LOGIC GATE S originates inside the group.
+INFO:  Signal -S LOGIC GATE T originates inside the group.
+INFO:  Signal +S LOGIC GATE T originates inside the group.
+INFO:  Signal -S LOGIC GATE U originates inside the group.
+INFO:  Signal +S LOGIC GATE U originates inside the group.
+INFO:  Signal -S PROGRAM RESET 5 originates outside the group.
+INFO:  Signal -S LOGIC GATE V originates inside the group.
+INFO:  Signal +S LOGIC GATE V originates inside the group.
+INFO:  Signal -S LOGIC GATE D 1 originates inside the group.
+INFO:  Signal -S LOGIC GATE B 1 originates inside the group.
+INFO:  Signal -S LOGIC GATE E 1 originates inside the group.
+INFO:  Signal -S LOGIC GATE F 1 originates inside the group.
+INFO:  Signal +S LOGIC GATE B OR S originates inside the group.
+INFO:  Signal +S LOGIC GATE C OR T originates inside the group.
+INFO:  Signal +S LOGIC GATE F OR W originates inside the group.
+INFO:  Signal +S 1ST CLOCK PULSE PRIME originates inside the group.
+INFO:  Signal +S I RING CTRL originates inside the group.
+INFO:  Signal -S I RING CTRL originates inside the group.
+INFO:  Signal -S PROGRAM RESET 1 originates outside the group.
+INFO:  Signal -S I RING ADV originates inside the group.
+INFO:  Signal +S I RING RESET originates inside the group.
+INFO:  Signal -S I RING OP TIME originates inside the group.
+INFO:  Signal +S I RING OP TIME originates inside the group.
+INFO:  Signal +S I RING OFF ADVANCE 1 originates inside the group.
+INFO:  Signal +S I RING ON ADVANCE 1 originates inside the group.
+INFO:  Signal -S I RING RESET 1 originates inside the group.
+INFO:  Signal -S I RING 2 TIME originates inside the group.
+INFO:  Signal +S I RING 2 TIME originates inside the group.
+INFO:  Signal -S I RING 4 TIME originates inside the group.
+INFO:  Signal +S I RING 4 TIME originates inside the group.
+INFO:  Signal +S I RING OFF ADVANCE 2 originates inside the group.
+INFO:  Signal +S I RING ON ADVANCE 2 originates inside the group.
+INFO:  Signal -S I RING RESET 2 originates inside the group.
+INFO:  Signal -S I RING 6 TIME originates inside the group.
+INFO:  Signal +S I RING 6 TIME originates inside the group.
+INFO:  Signal -S I RING 8 TIME originates inside the group.
+INFO:  Signal +S I RING 8 TIME originates inside the group.
+INFO:  Signal -S I RING 10 TIME originates inside the group.
+INFO:  Signal +S I RING 10 TIME originates inside the group.
+INFO:  Signal -S I RING 1 TIME originates inside the group.
+INFO:  Signal -S I RING 3 TIME originates inside the group.
+INFO:  Signal -S I RING 5 TIME originates inside the group.
+INFO:  Signal -S I RING 7 TIME originates inside the group.
+INFO:  Signal -S I RING 9 TIME originates inside the group.
+INFO:  Signal -S I RING 3 AND 1401 MODE originates inside the group.
+INFO:  Signal +S 1401 MODE 1 originates outside the group.
+INFO:  Signal -S I RING 1 TIME 1 originates inside the group.
+INFO:  Signal +S 1ST CLOCK PULSE 1 originates inside the group.
+INFO:  Signal -S LOGIC GATE EARLY S originates inside the group.
+INFO:  Signal -S E CYCLE REQUIRED originates inside the group.
+INFO:  Signal -S F CYCLE REQUIRED originates inside the group.
+INFO:  Signal -S 1ST CLOCK PULSE CLAMPED A originates inside the group.
+INFO:  Signal +S LOGIC GATE B 1 originates inside the group.
+INFO:  Signal -S PROGRAM RES OR S LOGIC GATE originates inside the group.
+INFO:  Signal +S A CYCLE CTRL originates inside the group.
+INFO:  Signal -S B CYCLE originates inside the group.
+INFO:  Signal -S A CYCLE CTRL originates inside the group.
+INFO:  Signal +S B CYCLE CTRL originates inside the group.
+INFO:  Signal -S B CYCLE CTRL originates inside the group.
+INFO:  Signal -S E CYCLE CTRL originates inside the group.
+INFO:  Signal -S F CYCLE CTRL originates inside the group.
+INFO:  Signal -S CONTROL REG DISABLE originates outside the group.
+INFO:  Signal +S I CYCLE CTRL originates inside the group.
+INFO:  Signal -S I CYCLE CTRL originates inside the group.
+INFO:  Signal -S CONSOLE SET START CND originates inside the group.
+INFO:  Signal -S CONS RESET START CONDITION originates outside the group.
+INFO:  Signal +S X CYCLE CTRL originates inside the group.
+INFO:  Signal -S X CYCLE CTRL originates inside the group.
+INFO:  Signal -S A CYCLE originates inside the group.
+INFO:  Signal +S C CYCLE CTRL originates inside the group.
+INFO:  Signal -S C CYCLE CTRL originates inside the group.
+INFO:  Signal -S C CYCLE originates inside the group.
+INFO:  Signal -S F CYCLE originates inside the group.
+INFO:  Signal -S E CYCLE originates inside the group.
+INFO:  Signal +S D CYCLE CTRL originates inside the group.
+INFO:  Signal -S D CYCLE CTRL originates inside the group.
+INFO:  Signal +S SET A CYCLE CTRL originates inside the group.
+INFO:  Signal +S NEXT TO LAST LOGIC GATE originates inside the group.
+INFO:  Signal +S SET C CYCLE CTRL originates inside the group.
+INFO:  Signal +S LOGIC GATE A 1 originates inside the group.
+INFO:  Signal -S 1401 I-O SET BRANCH CNDS originates outside the group.
+INFO:  Signal +S SET B CYCLE CTRL originates inside the group.
+INFO:  Signal +S SET D CYCLE CTRL originates inside the group.
+INFO:  Signal -S DISPLAY ROUTINE originates outside the group.
+INFO:  Signal -S ALTER ROUTINE originates outside the group.
+INFO:  Signal +S CONSOLE STROBE originates outside the group.
+INFO:  Signal +S LAST EXECUTE CYCLE originates inside the group.
+INFO:  Signal +S NEXT TO AND LAST LOGIC GATE originates inside the group.
+INFO:  Signal -S ANY CHECK TEST originates outside the group.
+INFO:  Signal +S SET I CYCLE CTRL originates inside the group.
+INFO:  Signal +S NOT INTR START originates outside the group.
+INFO:  Signal +S STORAGE SCAN ROUTINE originates outside the group.
+INFO:  Signal +S CONS PRINTER STROBE originates outside the group.
+INFO:  Signal +S I-O LAST EX CYCLE originates outside the group.
+INFO:  Signal +S PROCESS ROUTINE originates inside the group.
+INFO:  Signal +S SET X CYCLE CTRL originates inside the group.
+INFO:  Signal +S B CYCLE 1 originates inside the group.
+INFO:  Signal +S C CYCLE 1 originates inside the group.
+INFO:  Signal +S D CYCLE originates inside the group.
+INFO:  Signal +S COMPARE OP CODE originates outside the group.
+INFO:  Signal -S STOP AT F TLU originates outside the group.
+INFO:  Signal -S B CYCLE .NO SCAN originates outside the group.
+INFO:  Signal +S 1401 STORE A AR OP CODE originates outside the group.
+INFO:  Signal -S MPLY OP CODE originates outside the group.
+INFO:  Signal -S FILE OP originates outside the group.
+INFO:  Signal +S STOP AT F *ARITH originates outside the group.
+INFO:  Signal -S STORE ADDR REGS OP CODE originates outside the group.
+INFO:  Signal -S 1401 COND TEST.I9 originates outside the group.
+INFO:  Signal +S STOP AT F JRJ originates inside the group.
+INFO:  Signal -S STORAGE SCAN LOAD originates inside the group.
+INFO:  Signal -S 1401 MODE.I RING 5+10.I CY originates inside the group.
+INFO:  Signal -S STD A CYCLE OPS.A CYCLE originates outside the group.
+INFO:  Signal +S STOP AT F ON B CY OPS originates outside the group.
+INFO:  Signal -S C+D CYCLE.INSN READ OUT originates outside the group.
+INFO:  Signal -V STORAGE SCAN REGEN MODE originates inside the group.
+INFO:  Signal -S INTERRUPT.B CYCLE originates outside the group.
+INFO:  Signal -S MPLY.3.D originates outside the group.
+INFO:  Signal -S WORD MARK OP.A CYCLE originates inside the group.
+INFO:  Signal -S WORD MARK OP.B CYCLE originates inside the group.
+INFO:  Signal +S STOP AT F ON B CY OP CODES originates outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 3 JRJ originates inside the group.
+INFO:  Signal -S STOP AT F.LOGIC GATE D originates outside the group.
+INFO:  Signal -S STOP AT H.LOGIC GATE F originates outside the group.
+INFO:  Signal -S STOP AT G.LOGIC GATE E originates outside the group.
+INFO:  Signal -S STOP AT J.LOGIC GATE G originates outside the group.
+INFO:  Signal -S STOP AT K.LOGIC GATE H originates outside the group.
+INFO:  Signal -S COMPUTER RESET 1 originates outside the group.
+INFO:  Signal +S A CYCLE originates inside the group.
+INFO:  Signal +S C CYCLE originates inside the group.
+INFO:  Signal -S OUTPUT CYCLE originates outside the group.
+INFO:  Signal +S STOP AT H ON B CYCLE OPS originates outside the group.
+INFO:  Signal -S FILE OP.D CYCLE originates outside the group.
+INFO:  Signal +S 1ST SCAN originates outside the group.
+INFO:  Signal -S 1401 MODE.A RING 4.X CYCLE originates inside the group.
+INFO:  Signal -S INPUT CYCLE originates outside the group.
+INFO:  Signal +S STOP AT J ON B CY OP CODES originates outside the group.
+INFO:  Signal -S STOP AT J TLU originates outside the group.
+INFO:  Signal +S STORE ADDR REGS OP CODE originates outside the group.
+INFO:  Signal +S 1401 STORE AR OP CODES originates outside the group.
+INFO:  Signal +S I RING 5 OR 10 TIME originates inside the group.
+INFO:  Signal +S A RING 4 TIME originates outside the group.
+INFO:  Signal -S ADDRESS SET ROUTINE originates outside the group.
+INFO:  Signal -V 36 VOLTS originates outside the group.
+INFO:  Signal GROUND originates outside the group.
+INFO:  Signal +S OP MOD REG NOT B BIT originates outside the group.
+INFO:  Signal +S OP MOD REG A BIT originates outside the group.
+INFO:  Signal +S A CH NOT RECORD MARK originates outside the group.
+INFO:  Signal +S OP MOD REG NOT 8 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG NOT A BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 8 BIT originates outside the group.
+INFO:  Signal +S A CH NOT GROUP MARK.WM originates outside the group.
+INFO:  Signal +S OP MOD REG B BIT originates outside the group.
+INFO:  Signal +S B CH NOT WM BIT originates outside the group.
+INFO:  Signal +S DATA MOVE TAKE A CYCLE originates inside the group.
+INFO:  Signal +S LAST INSN RO CYCLE 1 originates inside the group.
+INFO:  Signal +S A CY FIRST OP CODES originates outside the group.
+INFO:  Signal +S DATA MOVE OP CODE originates outside the group.
+INFO:  Signal -S DATA MOVE LAST EX CYCLE originates inside the group.
+INFO:  Signal +S SET A CYCLE CTRL*ARITH* originates outside the group.
+INFO:  Signal +S EDIT USE A CH NU originates outside the group.
+INFO:  Signal +S MOVE ZERO SUP OP CODE originates outside the group.
+INFO:  Signal -S TLU SET A CYCLE CTRL B originates outside the group.
+INFO:  Signal -S CMP MODE SET A CYCLE CTRL A originates outside the group.
+INFO:  Signal +S BODY LATCH originates outside the group.
+INFO:  Signal +S A RING 2 OR 3 TIME originates outside the group.
+INFO:  Signal +S I RING 5 TIME originates inside the group.
+INFO:  Signal +S I RING 1+1401 AND 3 TIME originates inside the group.
+INFO:  Signal +S MPLY OR DIV OP CODES originates outside the group.
+INFO:  Signal +S B CH WM BIT 2 originates outside the group.
+INFO:  Signal +S TABLE SEARCH OP CODE originates outside the group.
+INFO:  Signal +S A RING 6 TIME originates outside the group.
+INFO:  Signal -S 1401 MODE 1 originates outside the group.
+INFO:  Signal +S A RING 2+3+4+5 TIME originates outside the group.
+INFO:  Signal -S MPLY.U+Y.B.AW.1 originates outside the group.
+INFO:  Signal +S UNITS LATCH originates outside the group.
+INFO:  Signal -S ANY LAST GATE originates inside the group.
+INFO:  Signal +S LOGIC GATE K originates inside the group.
+INFO:  Signal +S I RING 6+1401 AND 8 TIME originates inside the group.
+INFO:  Signal +S SET D CYCLE CTRL *ARITH originates outside the group.
+INFO:  Signal -S FILE OP.LAST INSN RO CYCLE originates outside the group.
+INFO:  Signal +S ARITH TYPE OP CODES originates outside the group.
+INFO:  Signal -S FILE OP.D CY.U+Y originates outside the group.
+INFO:  Signal +S ALTER ROUTINE originates outside the group.
+INFO:  Signal +S 2ND SCAN originates outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE 2 originates inside the group.
+INFO:  Signal -S CYCLE CHECK ERROR originates inside the group.
+INFO:  Signal +S INSTRUCTION CHECK GATE*1311 originates outside the group.
+INFO:  Signal +S B CY FIRST OP CODES originates outside the group.
+INFO:  Signal -S START INTERRUPT originates outside the group.
+INFO:  Signal +S SET B CYCLE CTRL *ARITH* originates outside the group.
+INFO:  Signal +S SET B CYCLE CTRL * BR OPS originates outside the group.
+INFO:  Signal +S WORD MARK OP CODES originates outside the group.
+INFO:  Signal +S B CH Q originates inside the group.
+INFO:  Signal +S EDIT OP CODE originates outside the group.
+INFO:  Signal +S A CH WM BIT originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL E originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL F originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL B originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL C originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL D originates outside the group.
+INFO:  Signal -S TLU SET B CYCLE CTRL originates outside the group.
+INFO:  Signal -S EDIT SKID CYCLE originates outside the group.
+INFO:  Signal -S SET X CYCLE CTRL A originates outside the group.
+INFO:  Signal -S LOGIC GATE A.R CHECK originates inside the group.
+INFO:  Signal +S 1401 CARD PRINT IN PROC originates outside the group.
+INFO:  Signal -S F CH UNOVLP IN PROCESS originates outside the group.
+INFO:  Signal -S E CH UNOVLP IN PROCESS originates outside the group.
+INFO:  Signal +S E CYCLE CTRL originates inside the group.
+INFO:  Signal +S F CYCLE CTRL originates inside the group.
+INFO:  Signal +S A CH RECORD MARK originates outside the group.
+INFO:  Signal +S A CH GROUP MARK.WM originates outside the group.
+INFO:  Signal -S NOT B.NOT A.NOT 8 OP MOD originates outside the group.
+INFO:  Signal +S DATA MOVE LAST EXECUTE originates inside the group.
+INFO:  Signal -S SET DOLLAR SIGN * EDIT originates outside the group.
+INFO:  Signal +S LAST EXECUTE CYCLE *I-O originates outside the group.
+INFO:  Signal +S LAST EXECUTE CYCLE *ARITH originates outside the group.
+INFO:  Signal +S LAST EXECUTE CYCLE *TLU originates outside the group.
+INFO:  Signal +S LAST EXECUTE CYCLE * BR CND originates outside the group.
+INFO:  Signal +S LAST EXECUTE CYCLE *EDIT originates outside the group.
+INFO:  Signal +S I RING 3 TIME originates inside the group.
+INFO:  Signal +S M OR L OP CODES originates outside the group.
+INFO:  Signal +S E CH FORMS CTRL OP CODE originates outside the group.
+INFO:  Signal +S 1401 MODE originates outside the group.
+INFO:  Signal +S I-O PERCENT OR LOZENGE originates outside the group.
+INFO:  Signal +S FORMS + 1403 PRT BUFF BUSY originates outside the group.
+INFO:  Signal -S FORMS-STACKER GO originates outside the group.
+INFO:  Signal -S F CH TAPE CALL originates outside the group.
+INFO:  Signal -S 1401 CARD PRINT IN PROC originates outside the group.
+INFO:  Signal -S FORMS STACK GO F CH*1414* originates outside the group.
+INFO:  Signal +S E CH IN PROCESS originates outside the group.
+INFO:  Signal +S BRANCH ON STATUS CH 1 originates outside the group.
+INFO:  Signal +S SPECIAL STOP LATCH originates inside the group.
+INFO:  Signal -S E CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal -S F CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal -S E CH TAPE CALL originates outside the group.
+INFO:  Signal +S E CH BUSY BUS originates outside the group.
+INFO:  Signal -S UNIT CONTROL INST RO DELAY originates outside the group.
+INFO:  Signal +S FILE OP originates outside the group.
+INFO:  Signal -S E CH DIGIT ADVANCE originates outside the group.
+INFO:  Signal +S E CH SELECT TAPE DATA originates outside the group.
+INFO:  Signal +S PERCENT TYPE OP CODES originates outside the group.
+INFO:  Signal -S 1401 UNIT CTRL DELAY originates outside the group.
+INFO:  Signal -S E2 REG FULL originates outside the group.
+INFO:  Signal -S 1401 M+L TAPE DELAY originates outside the group.
+INFO:  Signal +S COMP DISABLE CYCLE *1412-19 originates outside the group.
+INFO:  Signal +S COMP DISABLE CYCLE JRJ originates outside the group.
+INFO:  Signal -S E CH INT END OF XFER DELAYED originates outside the group.
+INFO:  Signal +S E CH OUTPUT MODE originates outside the group.
+INFO:  Signal +S E1 REG FULL originates outside the group.
+INFO:  Signal +S E CH INPUT MODE originates outside the group.
+INFO:  Signal -S COMP DISABLE CYCLE*FILE F CH originates outside the group.
+INFO:  Signal +S E CH 2ND ADDR TRF originates outside the group.
+INFO:  Signal +S Q+V SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S COMP DSBLE E CH originates outside the group.
+INFO:  Signal +S ANY LAST GATE originates inside the group.
+INFO:  Signal +S E CYCLE originates inside the group.
+INFO:  Signal -S E CYCLE.ANY LAST GATE originates inside the group.
+INFO:  Signal -S E CH INT END OF TRANSFER originates outside the group.
+INFO:  Signal -S E1 REG FULL originates outside the group.
+INFO:  Signal -S E CH READY C originates inside the group.
+INFO:  Signal -S E CH READY A originates inside the group.
+INFO:  Signal +S E2 REG FULL originates outside the group.
+INFO:  Signal -S E CH READY B originates inside the group.
+INFO:  Signal -S E1 REG WORD SEPARATOR originates outside the group.
+INFO:  Signal +S E CH EXT END OF TRANSFER originates outside the group.
+INFO:  Signal +S F CH OUTPUT MODE originates outside the group.
+INFO:  Signal -S F2 REG FULL originates outside the group.
+INFO:  Signal +S F CYCLE originates inside the group.
+INFO:  Signal +S F CH IN PROCESS originates outside the group.
+INFO:  Signal -S F CH INT END OF TRANSFER originates outside the group.
+INFO:  Signal -S F1 REG WORD SEPARATOR originates outside the group.
+INFO:  Signal +S F CH INPUT MODE originates outside the group.
+INFO:  Signal +S F1 REG FULL originates outside the group.
+INFO:  Signal -S F CH OUTPUT.NOT F2 REG FULL originates inside the group.
+INFO:  Signal -S F CYCLE.ANY LAST GATE originates inside the group.
+INFO:  Signal -S F CH INPUT.F2 REG FULL originates inside the group.
+INFO:  Signal +S F CH EXT END OF TRANSFER originates outside the group.
+INFO:  Signal -S F1 REG FULL originates outside the group.
+INFO:  Signal +S F2 REG FULL originates outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 2 originates inside the group.
+INFO:  Signal -S LOGIC GATE D OR U originates inside the group.
+INFO:  Signal -S PROGRAM RESET 2 originates outside the group.
+INFO:  Signal -S F CH FILE OP originates outside the group.
+INFO:  Signal +S FILE OP DLY EXTENSION originates outside the group.
+INFO:  Signal +S LOGIC GATE C 1 originates inside the group.
+INFO:  Signal +S I RING 1 TIME originates inside the group.
+INFO:  Signal +S I RING 1 OR 6 TIME originates inside the group.
+INFO:  Signal -S LAST EX.NEXT TO LAST originates inside the group.
+INFO:  Signal -S I-O LAST EX.Z originates inside the group.
+INFO:  Signal -S SET I RING INTERRUPT originates outside the group.
+INFO:  Signal +S I RING 1+2+3+4 TIME originates inside the group.
+INFO:  Signal +S I RING 6+7+8+9 TIME originates inside the group.
+INFO:  Signal -S LAST INSN RO CYCLE originates inside the group.
+INFO:  Signal +S INDEX REQUIRED originates outside the group.
+INFO:  Signal -S B CH Q OP originates inside the group.
+INFO:  Signal +S INDEX NOT REQUIRED originates outside the group.
+INFO:  Signal +S ADDR TYPE OP CODES originates outside the group.
+INFO:  Signal -S OP MOD TIME.NOT 1401 originates inside the group.
+INFO:  Signal -S ARS NO OP.I CYCLE originates inside the group.
+INFO:  Signal +S TWO ADDRESS OP CODES originates outside the group.
+INFO:  Signal -S SET I CYCLE CTRL NO OP originates inside the group.
+INFO:  Signal -S SPL ADV CTRL LAT originates inside the group.
+INFO:  Signal -S UNITS CTRL LATCH originates outside the group.
+INFO:  Signal -S INTR BRANCH.B CYCLE CTRL originates outside the group.
+INFO:  Signal +S ARS NO OP originates outside the group.
+INFO:  Signal +S LOGIC GATE E 2 originates inside the group.
+INFO:  Signal +S OP MOD TIME originates outside the group.
+INFO:  Signal +S B CH NOT 8 BIT originates outside the group.
+INFO:  Signal +S B CH B BIT originates outside the group.
+INFO:  Signal +S B CH NOT A BIT originates outside the group.
+INFO:  Signal +S B CH 8 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 2 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 4 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 1 BIT originates outside the group.
+INFO:  Signal +S B CH 4 BIT originates outside the group.
+INFO:  Signal +S B CH 1 BIT originates outside the group.
+INFO:  Signal +S I RING 7 TIME originates inside the group.
+INFO:  Signal +S I RING 11 TIME originates inside the group.
+INFO:  Signal +S I RING 12 TIME originates inside the group.
+INFO:  Signal +S NO D CY AT I RING 6 OPS originates outside the group.
+INFO:  Signal +S 2 CHAR ONLY OP CODES originates outside the group.
+INFO:  Signal +S NO C OR D CYCLE OP CODES originates outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE COND originates inside the group.
+INFO:  Signal +S 1 ADDR PLUS MOD OP CODES originates outside the group.
+INFO:  Signal +S 2 ADDR NO MOD OP CODES originates outside the group.
+INFO:  Signal +S 2 ADDR PLUS MOD OP CODES originates outside the group.
+INFO:  Signal -S NOT PERCENT TYPE OP CODES originates outside the group.
+INFO:  Signal -S TWO ADDRESS OP CODES originates outside the group.
+INFO:  Signal -S UNIT CTRL OP CODE originates outside the group.
+INFO:  Signal +S 1401 I CYCLE NEXT originates inside the group.
+INFO:  Signal +S B CH NOT B BIT originates outside the group.
+INFO:  Signal +S CLEAR OP CODE originates outside the group.
+INFO:  Signal +S 1401 POUND SIGN OP CODE originates outside the group.
+INFO:  Signal -S 1401 NO OP.LIROC originates outside the group.
+INFO:  Signal +S SET WORD MARK OP CODE originates outside the group.
+INFO:  Signal -S STORAGE SCAN ROUTINE originates outside the group.
+INFO:  Signal +S C CYCLE OP CODES originates outside the group.
+INFO:  Signal +S ADD TYPE OP CODES originates outside the group.
+INFO:  Signal +S START AUTO STARTMODE*AUTS* originates outside the group.
+INFO:  Signal -S STOP KEY LATCH originates inside the group.
+INFO:  Signal -S ERROR RESTART originates outside the group.
+INFO:  Signal +S RESET STOP KEY LATCH*AUTS* originates outside the group.
+INFO:  Signal -S START KEY originates inside the group.
+INFO:  Signal -S START KEY LATCH 2 originates inside the group.
+INFO:  Signal +S START KEY 2 originates inside the group.
+INFO:  Signal -S START KEY LATCH 1 originates inside the group.
+INFO:  Signal -S STORAGE SCAN MODE originates outside the group.
+INFO:  Signal +S CONS CLOCK 1 POS originates outside the group.
+INFO:  Signal -V CONS MODE SW I-E CYCLE MODE originates outside the group.
+INFO:  Signal -V CONS MODE SW RUN MODE originates outside the group.
+INFO:  Signal +S CONS STOP PRINT COMPLETE originates outside the group.
+INFO:  Signal -S CONSOLE CYCLE START originates outside the group.
+INFO:  Signal -S ONLY PROGRAM RESET originates outside the group.
+INFO:  Signal -S COMP + POWER ON RESET originates outside the group.
+INFO:  Signal -S DISPLAY END OF MEMORY originates outside the group.
+INFO:  Signal +S CONS CLOCK 3 POS 1 originates outside the group.
+INFO:  Signal -V CONSOLE MODE SW STOP POS originates outside the group.
+INFO:  Signal +S LOGIC GATE A OR R originates inside the group.
+INFO:  Signal -S LAST EXECUTE CYCLE originates inside the group.
+INFO:  Signal -S START KEY PULSE originates inside the group.
+INFO:  Signal +S STOP KEY LATCH originates inside the group.
+INFO:  Signal -S COMP RST CLOCK START originates outside the group.
+INFO:  Signal +S ADDR SET KEYBOARD LOCK originates outside the group.
+INFO:  Signal -S CONSOLE STROBE originates outside the group.
+INFO:  Signal +S EARLY COMPUTER RESET originates outside the group.
+INFO:  Signal -V CONS CYCLE CTRL LOGIC STEP originates outside the group.
+INFO:  Signal +S DISPLAY ROUTINE 1 originates outside the group.
+INFO:  Signal -V CONS MODE SW DISPLAY MODE originates outside the group.
+INFO:  Signal -V CONS MODE SW ALTER MODE originates outside the group.
+INFO:  Signal -S STOP.BRANCH OP CODE originates outside the group.
+INFO:  Signal +S NO SCAN originates outside the group.
+INFO:  Signal -V CONS CYCLE CTRL STOR SCAN originates outside the group.
+INFO:  Signal -36 VOLTS originates outside the group.
+INFO:  Signal +S ADDRESS STOP originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S OSCILLATOR is used outside the group.
+INFO:  Signal +P SPECIAL +12V FOR REL DRIVERS is used outside the group.
+INFO:  Signal +S OSCILLATOR DELAYED is used only inside the group.
+INFO:  Signal +S 1ST CLOCK PULSE 1 is used outside the group.
+INFO:  Signal +S 1ST CLOCK PULSE PRIME is used only inside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 1 is used only inside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 2 is used outside the group.
+INFO:  Signal +S STOPPED.NOT IN PROCESS is used outside the group.
+INFO:  Signal +S CLOCK STOPPED *AUTS* is used outside the group.
+INFO:  Signal +S CLOCK STOPPED is used outside the group.
+INFO:  Signal -S CLOCK STOPPED is used outside the group.
+INFO:  Signal +S LOGIC RING ON ADVANCE 1 is used only inside the group.
+INFO:  Signal +S LOGIC RING OFF ADVANCE 1 is used only inside the group.
+INFO:  Signal +S LOGIC RING ON ADVANCE 2 is used only inside the group.
+INFO:  Signal +S LOGIC RING OFF ADVANCE 2 is used only inside the group.
+INFO:  Signal +S EARLY LAST GATE I-O is used outside the group.
+INFO:  Signal -S ANY LAST GATE is used outside the group.
+INFO:  Signal +S ANY LAST GATE is used outside the group.
+INFO:  Signal +S LOGIC GATE Z is used outside the group.
+INFO:  Signal -S LOGIC GATE Z is used only inside the group.
+INFO:  Signal +S INDEX GATE is used outside the group.
+INFO:  Signal +S INSN RO GATE is used outside the group.
+INFO:  Signal -S LOGIC GATE A is used only inside the group.
+INFO:  Signal +S LOGIC GATE A 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE A is used only inside the group.
+INFO:  Signal +S LOGIC GATE A CONTROL is used only inside the group.
+INFO:  Signal -S LOGIC GATE A 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE B 1 is used outside the group.
+INFO:  Signal -S LOGIC GATE B is used only inside the group.
+INFO:  Signal +S LOGIC GATE B is used only inside the group.
+INFO:  Signal -S LOGIC GATE B 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE C is used only inside the group.
+INFO:  Signal -S LOGIC GATE C is used only inside the group.
+INFO:  Signal -S LOGIC GATE C 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE C 1 is used outside the group.
+INFO:  Signal -S LOGIC GATE D is used only inside the group.
+INFO:  Signal +S LOGIC GATE D is used only inside the group.
+INFO:  Signal -S LOGIC GATE D 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE C + D is used outside the group.
+INFO:  Signal +S LOGIC GATE D 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE E 1 is used outside the group.
+INFO:  Signal -S LOGIC GATE E is used only inside the group.
+INFO:  Signal +S LOGIC GATE E is used only inside the group.
+INFO:  Signal +S LOGIC GATE E 2 is used outside the group.
+INFO:  Signal -S LOGIC GATE E 1 is used outside the group.
+INFO:  Signal -Y LOGIC GATE E is used outside the group.
+INFO:  Signal +S LOGIC GATE F 1 is used outside the group.
+INFO:  Signal -S LOGIC GATE F is used only inside the group.
+INFO:  Signal -Y LOGIC GATE F 1 is used outside the group.
+INFO:  Signal -S LOGIC GATE F 1 is used outside the group.
+INFO:  Signal +S LOGIC GATE F is used only inside the group.
+INFO:  Signal -S LOGIC GATE G is used outside the group.
+INFO:  Signal +S LOGIC GATE G is used outside the group.
+INFO:  Signal -S LOGIC GATE H is used only inside the group.
+INFO:  Signal +S LOGIC GATE H is used outside the group.
+INFO:  Signal -S LOGIC GATE J is used only inside the group.
+INFO:  Signal +S LOGIC GATE J is used outside the group.
+INFO:  Signal -S LOGIC GATE K is used outside the group.
+INFO:  Signal +S LOGIC GATE K is used outside the group.
+INFO:  Signal -S LOGIC GATE R is used outside the group.
+INFO:  Signal +S LOGIC GATE R is used outside the group.
+INFO:  Signal -S LOGIC GATE A.R CHECK is used only inside the group.
+INFO:  Signal -S LOGIC GATE S is used outside the group.
+INFO:  Signal +S LOGIC GATE S is used only inside the group.
+INFO:  Signal -S LOGIC GATE T is used outside the group.
+INFO:  Signal +S LOGIC GATE T is used only inside the group.
+INFO:  Signal -S LOGIC GATE U is used outside the group.
+INFO:  Signal +S LOGIC GATE U is used outside the group.
+INFO:  Signal -S LOGIC GATE V is used outside the group.
+INFO:  Signal +S LOGIC GATE V is used only inside the group.
+INFO:  Signal -S LOGIC GATE W is used outside the group.
+INFO:  Signal +S LOGIC GATE W is used outside the group.
+INFO:  Signal -Y READ CALL is used outside the group.
+INFO:  Signal +S LOGIC GATE A OR R is used outside the group.
+INFO:  Signal +S LOGIC GATE B OR C is used outside the group.
+INFO:  Signal +S LOGIC GATE D OR E OR F is used outside the group.
+INFO:  Signal +S LOGIC GATE S OR T is used outside the group.
+INFO:  Signal +S LOGIC GATE U OR V OR W is used outside the group.
+INFO:  Signal +S LOGIC GATE E OR V is used outside the group.
+INFO:  Signal +S LOGIC GATE B OR S is used only inside the group.
+INFO:  Signal -S LOGIC GATE B OR S is used outside the group.
+INFO:  Signal -S LOGIC GATE C OR T is used outside the group.
+INFO:  Signal +S LOGIC GATE C OR T is used outside the group.
+INFO:  Signal -Y LOGIC GATE D OR U is used outside the group.
+INFO:  Signal -S LOGIC GATE D OR U is used only inside the group.
+INFO:  Signal +S LOGIC GATE F OR W is used outside the group.
+INFO:  Signal -Y LOGIC GATE B OR S is used outside the group.
+INFO:  Signal -Y LOGIC GATE C OR T is used outside the group.
+INFO:  Signal -Y LOGIC GATE E OR V is used outside the group.
+INFO:  Signal -Y LOGIC GATE F OR W is used outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 3 is used outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 3 JRJ is used outside the group.
+INFO:  Signal -S I RING OP TIME is used outside the group.
+INFO:  Signal +S I RING OP TIME is used outside the group.
+INFO:  Signal +S I RING OFF ADVANCE 1 is used only inside the group.
+INFO:  Signal +S I RING OFF ADVANCE 2 is used only inside the group.
+INFO:  Signal +S I RING ON ADVANCE 1 is used only inside the group.
+INFO:  Signal -S I RING RESET 1 is used only inside the group.
+INFO:  Signal -S I RING RESET 2 is used only inside the group.
+INFO:  Signal +S I RING ON ADVANCE 2 is used only inside the group.
+INFO:  Signal -S I RING 1 TIME is used outside the group.
+INFO:  Signal -S I RING 1 TIME 1 is used only inside the group.
+INFO:  Signal +S I RING 1 TIME is used outside the group.
+INFO:  Signal -S I RING 2 TIME is used only inside the group.
+INFO:  Signal +S I RING 2 TIME is used outside the group.
+INFO:  Signal -S I RING 3 TIME is used outside the group.
+INFO:  Signal +S I RING 3 TIME is used outside the group.
+INFO:  Signal -S I RING 4 TIME is used outside the group.
+INFO:  Signal +S I RING 4 TIME is used outside the group.
+INFO:  Signal -S I RING 5 TIME is used outside the group.
+INFO:  Signal +S I RING 5 TIME is used outside the group.
+INFO:  Signal -S I RING 6 TIME is used outside the group.
+INFO:  Signal +S I RING 6 TIME is used outside the group.
+INFO:  Signal -S I RING 7 TIME is used only inside the group.
+INFO:  Signal +S I RING 7 TIME is used outside the group.
+INFO:  Signal -S I RING 8 TIME is used only inside the group.
+INFO:  Signal +S I RING 8 TIME is used outside the group.
+INFO:  Signal +S I RING 9 TIME is used outside the group.
+INFO:  Signal -S I RING 9 TIME is used only inside the group.
+INFO:  Signal -S I RING 10 TIME is used only inside the group.
+INFO:  Signal +S I RING 10 TIME is used outside the group.
+INFO:  Signal -S I RING 11 TIME is used outside the group.
+INFO:  Signal +S I RING 11 TIME is used outside the group.
+INFO:  Signal +S I RING 12 TIME is used outside the group.
+INFO:  Signal +S I RING 12 TIME *1311* is used outside the group.
+INFO:  Signal +S I RING 3 OR 8 TIME is used outside the group.
+INFO:  Signal +S I RING 4 OR 9 TIME is used outside the group.
+INFO:  Signal +S I RING 5 OR 10 TIME is used outside the group.
+INFO:  Signal +S I RING 1 OR 6 TIME is used outside the group.
+INFO:  Signal +S I RING 1+5+6+10+1401.3+8 is used outside the group.
+INFO:  Signal +S I RING 7+1401 6+8 is used outside the group.
+INFO:  Signal +S I RING 6+1401 AND 8 TIME is used outside the group.
+INFO:  Signal -S I RING 3 AND 1401 MODE is used only inside the group.
+INFO:  Signal +S I RING 2 OR 7 TIME is used outside the group.
+INFO:  Signal +S I RING 1+2+5+6+10 TIME is used outside the group.
+INFO:  Signal +S I RING 1+1401 AND 3 TIME is used outside the group.
+INFO:  Signal +S I RING 1+2+3+4 TIME is used only inside the group.
+INFO:  Signal +S I RING 6+7+8+9 TIME is used only inside the group.
+INFO:  Signal +S 1ST ADDRESS is used outside the group.
+INFO:  Signal +S 2ND ADDRESS is used outside the group.
+INFO:  Signal +S LOGIC GATE EARLY B is used outside the group.
+INFO:  Signal -S 1ST CLOCK PULSE CLAMPED A is used only inside the group.
+INFO:  Signal +S LOGIC GATE EARLY F is used outside the group.
+INFO:  Signal +S LOGIC GATE EARLY B OR S is used outside the group.
+INFO:  Signal +S LOGIC GATE SPECIAL A is used outside the group.
+INFO:  Signal +S LOGIC GATE SPECIAL A 1 is used outside the group.
+INFO:  Signal +S B TO LAST LOGIC GATE is used outside the group.
+INFO:  Signal +S LOGIC GATE EARLY S is used outside the group.
+INFO:  Signal -S LOGIC GATE EARLY S is used only inside the group.
+INFO:  Signal +S A CYCLE is used outside the group.
+INFO:  Signal -S A CYCLE is used outside the group.
+INFO:  Signal +S A OR B CYCLE is used outside the group.
+INFO:  Signal -S B CYCLE is used only inside the group.
+INFO:  Signal +S B CYCLE is used outside the group.
+INFO:  Signal +S B CYCLE 1 is used outside the group.
+INFO:  Signal +S B+E+F CYCLE CTRL is used outside the group.
+INFO:  Signal +S I CYCLE is used outside the group.
+INFO:  Signal -S I CYCLE.NOT CR DISABLE is used outside the group.
+INFO:  Signal +S I CYCLE 1 is used outside the group.
+INFO:  Signal +S I CYCLE.NOT CR DISABLE is used outside the group.
+INFO:  Signal -S I CYCLE is used outside the group.
+INFO:  Signal +S X CYCLE is used outside the group.
+INFO:  Signal -S PROGRAM RES OR S LOGIC GATE is used only inside the group.
+INFO:  Signal -S X CYCLE.NOT CR DISABLE is used outside the group.
+INFO:  Signal -S X CYCLE is used outside the group.
+INFO:  Signal -S C CYCLE.NOT CR DISABLE is used outside the group.
+INFO:  Signal +S C CYCLE is used outside the group.
+INFO:  Signal +S C CYCLE 1 is used outside the group.
+INFO:  Signal -S C CYCLE is used only inside the group.
+INFO:  Signal +S A OR C CYCLE is used outside the group.
+INFO:  Signal -S D CYCLE.NOT CR DISABLE is used outside the group.
+INFO:  Signal +S D CYCLE is used outside the group.
+INFO:  Signal +S C OR D CYCLE is used outside the group.
+INFO:  Signal +S B+E+F CYCLE is used outside the group.
+INFO:  Signal +S B OR D CYCLE is used outside the group.
+INFO:  Signal +S A CYCLE CTRL is used outside the group.
+INFO:  Signal -S A CYCLE CTRL is used outside the group.
+INFO:  Signal +S C CYCLE CTRL is used outside the group.
+INFO:  Signal -S C CYCLE CTRL is used only inside the group.
+INFO:  Signal +S C OR D CYCLE CTRL is used outside the group.
+INFO:  Signal +S B CYCLE CTRL is used outside the group.
+INFO:  Signal -S B CYCLE CTRL is used only inside the group.
+INFO:  Signal +S D CYCLE CTRL is used outside the group.
+INFO:  Signal -S D CYCLE CTRL is used only inside the group.
+INFO:  Signal -S DISPLAY OR ALTER is used outside the group.
+INFO:  Signal +S DISPLAY OR ALTER is used outside the group.
+INFO:  Signal -S DISPLAY+ALTER SET 2ND SCAN is used outside the group.
+INFO:  Signal +S I CYCLE CTRL is used outside the group.
+INFO:  Signal -S I CYCLE CTRL is used outside the group.
+INFO:  Signal +S X CYCLE CTRL is used outside the group.
+INFO:  Signal -S X CYCLE CTRL is used outside the group.
+INFO:  Signal -S I-O LAST EX.Z is used outside the group.
+INFO:  Signal -S LAST EX.NEXT TO LAST is used outside the group.
+INFO:  Signal +S STOP AT F is used outside the group.
+INFO:  Signal -S STOP AT F.B CYCLE is used outside the group.
+INFO:  Signal -S STORAGE SCAN RGEN is used outside the group.
+INFO:  Signal +S LAST LOGIC GATE 1 is used outside the group.
+INFO:  Signal -S LAST LOGIC GATE 1 is used outside the group.
+INFO:  Signal +S NEXT TO LAST LOGIC GATE is used outside the group.
+INFO:  Signal +S NEXT TO AND LAST LOGIC GATE is used only inside the group.
+INFO:  Signal +S LAST LOGIC GATE 2 is used outside the group.
+INFO:  Signal +S STOP AT F JRJ is used only inside the group.
+INFO:  Signal -S STOP AT H.B CY.1ST SCAN is used outside the group.
+INFO:  Signal +S STOP AT H is used outside the group.
+INFO:  Signal +S STOP AT J is used outside the group.
+INFO:  Signal -S STORAGE SCAN LOAD is used outside the group.
+INFO:  Signal -S 1401 MODE.I RING 5+10.I CY is used only inside the group.
+INFO:  Signal -V STORAGE SCAN REGEN MODE is used only inside the group.
+INFO:  Signal -S 1401 MODE.A RING 4.X CYCLE is used only inside the group.
+INFO:  Signal +S STOP AT K is used outside the group.
+INFO:  Signal +S DATA MOVE TAKE A CYCLE is used only inside the group.
+INFO:  Signal +S SET A CYCLE CTRL is used only inside the group.
+INFO:  Signal -S DATA MOVE A CYCLE CTRL SET is used outside the group.
+INFO:  Signal -S EDIT SET A CYCLE CTRL is used outside the group.
+INFO:  Signal -S SET A CYCLE CTRL ON Z OP is used outside the group.
+INFO:  Signal -S STORE AR SET A CYCLE CTRL A is used outside the group.
+INFO:  Signal -S STORE AR SET A CYCLE CTRL B is used outside the group.
+INFO:  Signal +S SET C CYCLE CTRL is used only inside the group.
+INFO:  Signal -S LAST I CYCLE B is used outside the group.
+INFO:  Signal -S G OP SET C CYCLE CTRL B is used outside the group.
+INFO:  Signal -S STORE AR SET C CYCLE CTRL A is used outside the group.
+INFO:  Signal -S STORE AR SET C CYCLE CTRL B is used outside the group.
+INFO:  Signal +S SET D CYCLE CTRL is used only inside the group.
+INFO:  Signal -S NO LAST GATE is used outside the group.
+INFO:  Signal -S ALT ROUTINE.2ND SCAN is used outside the group.
+INFO:  Signal +S INSTRUCTION CHECK GATE is used outside the group.
+INFO:  Signal +S SET B CYCLE CTRL is used only inside the group.
+INFO:  Signal -S WORD MARK OP.A CYCLE is used outside the group.
+INFO:  Signal -S 1401 Q OP TRANS is used outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL A is used outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL G is used outside the group.
+INFO:  Signal +S SET X CYCLE CTRL is used only inside the group.
+INFO:  Signal -S CYCLE CHECK ERROR is used only inside the group.
+INFO:  Signal +S DATA MOVE LAST EXECUTE is used only inside the group.
+INFO:  Signal +S LAST EXECUTE CYCLE is used only inside the group.
+INFO:  Signal -S WORD MARK OP.B CYCLE is used only inside the group.
+INFO:  Signal -S DATA MOVE LAST EX CYCLE is used only inside the group.
+INFO:  Signal -S LAST EXECUTE CYCLE is used only inside the group.
+INFO:  Signal +S COMP DISABLE CYCLE is used only inside the group.
+INFO:  Signal -S E CYCLE.ANY LAST GATE is used outside the group.
+INFO:  Signal +S E CYCLE REQUIRED is used only inside the group.
+INFO:  Signal -S E CYCLE REQUIRED is used only inside the group.
+INFO:  Signal -S E CH READY C is used only inside the group.
+INFO:  Signal -S E CH READY A is used only inside the group.
+INFO:  Signal -S E CH READY B is used only inside the group.
+INFO:  Signal -S F CH OUTPUT.NOT F2 REG FULL is used only inside the group.
+INFO:  Signal -S F CYCLE.ANY LAST GATE is used outside the group.
+INFO:  Signal -S F CH INPUT.F2 REG FULL is used only inside the group.
+INFO:  Signal +S F CYCLE REQUIRED is used only inside the group.
+INFO:  Signal -S F CYCLE REQUIRED is used outside the group.
+INFO:  Signal -S E CYCLE CTRL is used outside the group.
+INFO:  Signal -S E CYCLE is used only inside the group.
+INFO:  Signal +S E CYCLE CTRL is used outside the group.
+INFO:  Signal +S E CYCLE is used outside the group.
+INFO:  Signal +S OVERLAPPED CYCLE CTRL is used outside the group.
+INFO:  Signal +S E CYCLE CTRL*1311 is used outside the group.
+INFO:  Signal -S F CYCLE CTRL is used outside the group.
+INFO:  Signal -S F CYCLE is used outside the group.
+INFO:  Signal +S F CYCLE CTRL is used outside the group.
+INFO:  Signal +S F CYCLE is used outside the group.
+INFO:  Signal +S I RING CTRL is used outside the group.
+INFO:  Signal -S I RING CTRL is used outside the group.
+INFO:  Signal -S SPL ADV CTRL LAT is used only inside the group.
+INFO:  Signal +S SET I CYCLE CTRL is used only inside the group.
+INFO:  Signal -S 1401 B CYCLE I RING OP is used outside the group.
+INFO:  Signal -S I RING ADV is used only inside the group.
+INFO:  Signal +S I RING RESET is used only inside the group.
+INFO:  Signal +S B CH Q is used only inside the group.
+INFO:  Signal -S B CH Q OP is used only inside the group.
+INFO:  Signal -S OP MOD TIME.NOT 1401 is used only inside the group.
+INFO:  Signal -S ARS NO OP.I CYCLE is used only inside the group.
+INFO:  Signal -S SET I CYCLE CTRL NO OP is used only inside the group.
+INFO:  Signal +S SET OP REG is used outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE 1 is used outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE 2 is used outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE is used outside the group.
+INFO:  Signal -S LAST INSN RO CYCLE is used outside the group.
+INFO:  Signal +S 1401 I CYCLE NEXT is used only inside the group.
+INFO:  Signal +S RD 1ST ADDR TO A AND C AR is used outside the group.
+INFO:  Signal +S RD 2ND ADDR TO B AND D AR is used outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE COND is used only inside the group.
+INFO:  Signal -S 1401 UNCOND BRANCH is used outside the group.
+INFO:  Signal -S 1401 CLEAR.I RING 11 is used outside the group.
+INFO:  Signal +S 1401 LAST I CYCLE is used outside the group.
+INFO:  Signal -S 1401 LAST I CYCLE is used outside the group.
+INFO:  Signal -S START KEY is used outside the group.
+INFO:  Signal -S START KEY LATCH 1 is used only inside the group.
+INFO:  Signal +S START KEY 2 is used outside the group.
+INFO:  Signal -S START KEY LATCH 2 is used only inside the group.
+INFO:  Signal +S RUN+IE MODE *AUTS* is used outside the group.
+INFO:  Signal -S CONSOLE SET START CND is used outside the group.
+INFO:  Signal +S PROCESS ROUTINE is used outside the group.
+INFO:  Signal -S STOP KEY LATCH is used outside the group.
+INFO:  Signal -S START KEY PULSE is used outside the group.
+INFO:  Signal -S PROCESS ROUTINE is used outside the group.
+INFO:  Signal +S STOP KEY LATCH is used outside the group.
+INFO:  Signal +S STOP LATCH is used only inside the group.
+INFO:  Signal +S SPECIAL STOP LATCH is used only inside the group.
+INFO:  Signal -S DISP ROUTINE.D CY.2ND SCAN is used outside the group.
+INFO:  Signal -S 1401 I-O CK STOP SW is used outside the group.
+INFO:  Signal +S 1401 I-O CK STOP SW is used outside the group.
+INFO:  Signal -S ALTR ROUTINE.D CY.NO SCAN is used outside the group.
+Removing 94 output signals that do not have destinations outside the group...
+Removing 200 input signals that originate inside the group...
+Signal +S OSCILLATOR is output from the group, but also used as an input inside the group.
+Signal +S I RING 9 TIME is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE E 1 is output from the group, but also used as an input inside the group.
+Signal +S 2ND CLOCK PULSE 3 is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE E OR V is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE W is output from the group, but also used as an input inside the group.
+Signal -S LAST LOGIC GATE 1 is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE A 1 is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE R is output from the group, but also used as an input inside the group.
+Signal +S X CYCLE is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE K is output from the group, but also used as an input inside the group.
+Signal +S I CYCLE is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE Z is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE C 1 is output from the group, but also used as an input inside the group.
+Signal +S LAST LOGIC GATE 1 is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE G is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE G is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE H is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE J is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE R is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE S is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE T is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE U is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE U is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE V is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE D 1 is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE B 1 is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE E 1 is output from the group, but also used as an input inside the group.
+Signal -S LOGIC GATE F 1 is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE C OR T is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE F OR W is output from the group, but also used as an input inside the group.
+Signal +S I RING CTRL is output from the group, but also used as an input inside the group.
+Signal -S I RING CTRL is output from the group, but also used as an input inside the group.
+Signal -S I RING OP TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING OP TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 2 TIME is output from the group, but also used as an input inside the group.
+Signal -S I RING 4 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 4 TIME is output from the group, but also used as an input inside the group.
+Signal -S I RING 6 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 6 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 8 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 10 TIME is output from the group, but also used as an input inside the group.
+Signal -S I RING 1 TIME is output from the group, but also used as an input inside the group.
+Signal -S I RING 3 TIME is output from the group, but also used as an input inside the group.
+Signal -S I RING 5 TIME is output from the group, but also used as an input inside the group.
+Signal +S 1ST CLOCK PULSE 1 is output from the group, but also used as an input inside the group.
+Signal -S F CYCLE REQUIRED is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE B 1 is output from the group, but also used as an input inside the group.
+Signal +S A CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal -S A CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal +S B CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal -S E CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal -S F CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal +S I CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal -S I CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal -S CONSOLE SET START CND is output from the group, but also used as an input inside the group.
+Signal +S X CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal -S X CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal -S A CYCLE is output from the group, but also used as an input inside the group.
+Signal +S C CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal -S F CYCLE is output from the group, but also used as an input inside the group.
+Signal +S D CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal +S NEXT TO LAST LOGIC GATE is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE A 1 is output from the group, but also used as an input inside the group.
+Signal +S PROCESS ROUTINE is output from the group, but also used as an input inside the group.
+Signal +S B CYCLE 1 is output from the group, but also used as an input inside the group.
+Signal +S C CYCLE 1 is output from the group, but also used as an input inside the group.
+Signal +S D CYCLE is output from the group, but also used as an input inside the group.
+Signal -S STORAGE SCAN LOAD is output from the group, but also used as an input inside the group.
+Signal -S WORD MARK OP.A CYCLE is output from the group, but also used as an input inside the group.
+Signal +S 2ND CLOCK PULSE 3 JRJ is output from the group, but also used as an input inside the group.
+Signal +S A CYCLE is output from the group, but also used as an input inside the group.
+Signal +S C CYCLE is output from the group, but also used as an input inside the group.
+Signal +S I RING 5 OR 10 TIME is output from the group, but also used as an input inside the group.
+Signal +S LAST INSN RO CYCLE 1 is output from the group, but also used as an input inside the group.
+Signal +S I RING 5 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 1+1401 AND 3 TIME is output from the group, but also used as an input inside the group.
+Signal -S ANY LAST GATE is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE K is output from the group, but also used as an input inside the group.
+Signal +S I RING 6+1401 AND 8 TIME is output from the group, but also used as an input inside the group.
+Signal +S LAST INSN RO CYCLE 2 is output from the group, but also used as an input inside the group.
+Signal +S E CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal +S F CYCLE CTRL is output from the group, but also used as an input inside the group.
+Signal +S I RING 3 TIME is output from the group, but also used as an input inside the group.
+Signal +S ANY LAST GATE is output from the group, but also used as an input inside the group.
+Signal +S E CYCLE is output from the group, but also used as an input inside the group.
+Signal -S E CYCLE.ANY LAST GATE is output from the group, but also used as an input inside the group.
+Signal +S F CYCLE is output from the group, but also used as an input inside the group.
+Signal -S F CYCLE.ANY LAST GATE is output from the group, but also used as an input inside the group.
+Signal +S 2ND CLOCK PULSE 2 is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE C 1 is output from the group, but also used as an input inside the group.
+Signal +S I RING 1 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 1 OR 6 TIME is output from the group, but also used as an input inside the group.
+Signal -S LAST EX.NEXT TO LAST is output from the group, but also used as an input inside the group.
+Signal -S I-O LAST EX.Z is output from the group, but also used as an input inside the group.
+Signal -S LAST INSN RO CYCLE is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE E 2 is output from the group, but also used as an input inside the group.
+Signal +S I RING 7 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 11 TIME is output from the group, but also used as an input inside the group.
+Signal +S I RING 12 TIME is output from the group, but also used as an input inside the group.
+Signal -S STOP KEY LATCH is output from the group, but also used as an input inside the group.
+Signal -S START KEY is output from the group, but also used as an input inside the group.
+Signal +S START KEY 2 is output from the group, but also used as an input inside the group.
+Signal +S LOGIC GATE A OR R is output from the group, but also used as an input inside the group.
+Signal -S START KEY PULSE is output from the group, but also used as an input inside the group.
+Signal +S STOP KEY LATCH is output from the group, but also used as an input inside the group.
+Input Signal +S A CH NOT WM BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S OP MOD REG NOT B BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG A BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG NOT 8 BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG NOT A BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG 8 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG B BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S B CH NOT WM BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S A CH WM BIT replaced by Bus signal +S A CH BUS
+Input Signal +S B CH NOT 8 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH B BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT A BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 8 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT 2 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH NOT 4 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH NOT 1 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 4 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH 1 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT B BIT replaced by Bus signal +S B CH NOT BUS
+Page 11.10.02.1 generates Lamp Output LAMP_15A1K24
+Page 11.10.10.1 generates Lamp Output LAMP_15A1A06
+Page 11.10.11.1 generates Lamp Output LAMP_15A1B06
+Page 11.10.12.1 generates Lamp Output LAMP_15A1C06
+Page 11.10.13.1 generates Lamp Output LAMP_15A1D06
+Page 11.10.14.1 generates Lamp Output LAMP_15A1E06
+Page 11.10.15.1 generates Lamp Output LAMP_15A1F06
+Page 11.10.16.1 generates Lamp Output LAMP_15A1G06
+Page 11.10.17.1 generates Lamp Output LAMP_15A1H06
+Page 11.10.18.1 generates Lamp Output LAMP_15A1J06
+Page 11.10.19.1 generates Lamp Output LAMP_15A1K06
+Page 11.20.01.1 generates Lamp Output LAMP_15A1A01
+Page 11.20.02.1 generates Lamp Output LAMP_15A1B01
+Page 11.20.02.1 generates Lamp Output LAMP_15A1C01
+Page 11.20.03.1 generates Lamp Output LAMP_15A1D01
+Page 11.20.03.1 generates Lamp Output LAMP_15A1E01
+Page 11.20.04.1 generates Lamp Output LAMP_15A1F01
+Page 11.20.04.1 generates Lamp Output LAMP_15A1B02
+Page 11.20.05.1 generates Lamp Output LAMP_15A1C02
+Page 11.20.05.1 generates Lamp Output LAMP_15A1D02
+Page 11.20.06.1 generates Lamp Output LAMP_15A1E02
+Page 11.20.06.1 generates Lamp Output LAMP_15A1F02
+Page 11.20.07.1 generates Lamp Output LAMP_15A1G02
+Page 11.20.07.1 generates Lamp Output LAMP_15A1H02
+Page 12.12.01.1 generates Lamp Output LAMP_11C8A15
+Page 12.12.01.1 generates Lamp Output LAMP_15A1A10
+Page 12.12.02.1 generates Lamp Output LAMP_11C8B15
+Page 12.12.02.1 generates Lamp Output LAMP_15A1B10
+Page 12.12.04.1 generates Lamp Output LAMP_11C8J15
+Page 12.12.04.1 generates Lamp Output LAMP_15A1H10
+Page 12.12.05.1 generates Lamp Output LAMP_11C8K15
+Page 12.12.05.1 generates Lamp Output LAMP_15A1J10
+Page 12.12.06.1 generates Lamp Output LAMP_11C8C15
+Page 12.12.06.1 generates Lamp Output LAMP_15A1C10
+Page 12.12.07.1 generates Lamp Output LAMP_11C8D15
+Page 12.12.07.1 generates Lamp Output LAMP_15A1D10
+Page 12.12.66.1 generates Lamp Output LAMP_15A1E10
+Page 12.12.66.1 generates Lamp Output LAMP_11C8E15
+Page 12.12.67.1 generates Lamp Output LAMP_15A1F10
+Page 12.12.67.1 generates Lamp Output LAMP_11C8F15
+DEBUG: Tentative bus -S I RING HDL BUS identified based on signal -S I RING OP TIME
+DEBUG: Tentative bus +S I RING HDL BUS identified based on signal +S I RING OP TIME
+DEBUG: Added signal -S I RING 1 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 1 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 2 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal -S I RING 3 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 3 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal -S I RING 4 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 4 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal -S I RING 5 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 5 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal -S I RING 6 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 6 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 7 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 8 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 9 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 10 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal -S I RING 11 TIME to bus -S I RING HDL BUS
+DEBUG: Added signal +S I RING 11 TIME to bus +S I RING HDL BUS
+DEBUG: Added signal +S I RING 12 TIME to bus +S I RING HDL BUS
+DEBUG: Tentative bus LAMPS LOGIC GATE RING identified based on signal LAMP_15A1A06
+DEBUG: Added signal LAMP_15A1B06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1C06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1D06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1E06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1F06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1G06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1H06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1J06 to bus LAMPS LOGIC GATE RING
+DEBUG: Added signal LAMP_15A1K06 to bus LAMPS LOGIC GATE RING
+DEBUG: Tentative bus LAMPS IRING identified based on signal LAMP_15A1A01
+DEBUG: Added signal LAMP_15A1B01 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1C01 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1D01 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1E01 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1F01 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1B02 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1C02 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1D02 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1E02 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1F02 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1G02 to bus LAMPS IRING
+DEBUG: Added signal LAMP_15A1H02 to bus LAMPS IRING
+DEBUG: Tentative bus LAMPS CYCLE CE identified based on signal LAMP_11C8A15
+DEBUG: Tentative bus LAMPS CYCLE CONSOLE identified based on signal LAMP_15A1A10
+DEBUG: Added signal LAMP_11C8B15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1B10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8J15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1H10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8K15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1J10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8C15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1C10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8D15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1D10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_15A1E10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8E15 to bus LAMPS CYCLE CE
+DEBUG: Added signal LAMP_15A1F10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8F15 to bus LAMPS CYCLE CE
+DEBUG: Added internal signal -S I RING 2 TIME to bus -S I RING HDL BUS
+DEBUG: Added internal signal -S I RING 7 TIME to bus -S I RING HDL BUS
+DEBUG: Added internal signal -S I RING 8 TIME to bus -S I RING HDL BUS
+DEBUG: Added internal signal -S I RING 9 TIME to bus -S I RING HDL BUS
+DEBUG: Added internal signal -S I RING 10 TIME to bus -S I RING HDL BUS
+INFO: Bus -S I RING HDL BUS identified 
+INFO: Bus +S I RING HDL BUS identified 
+INFO: Bus LAMPS LOGIC GATE RING identified 
+INFO: Bus LAMPS IRING identified 
+INFO: Bus LAMPS CYCLE CE identified 
+INFO: Bus LAMPS CYCLE CONSOLE identified 
+Output signal -S I RING OP TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING OP TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 1 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 1 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 2 TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 3 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 3 TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 4 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 4 TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 5 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 5 TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 6 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 6 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 7 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 8 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 9 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 10 TIME replaced by bus +S I RING HDL BUS
+Output signal -S I RING 11 TIME replaced by bus -S I RING HDL BUS
+Output signal +S I RING 11 TIME replaced by bus +S I RING HDL BUS
+Output signal +S I RING 12 TIME replaced by bus +S I RING HDL BUS
+Output signal LAMP_15A1A06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1B06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1C06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1D06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1E06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1F06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1G06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1H06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1J06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1K06 replaced by bus LAMPS LOGIC GATE RING
+Output signal LAMP_15A1A01 replaced by bus LAMPS IRING
+Output signal LAMP_15A1B01 replaced by bus LAMPS IRING
+Output signal LAMP_15A1C01 replaced by bus LAMPS IRING
+Output signal LAMP_15A1D01 replaced by bus LAMPS IRING
+Output signal LAMP_15A1E01 replaced by bus LAMPS IRING
+Output signal LAMP_15A1F01 replaced by bus LAMPS IRING
+Output signal LAMP_15A1B02 replaced by bus LAMPS IRING
+Output signal LAMP_15A1C02 replaced by bus LAMPS IRING
+Output signal LAMP_15A1D02 replaced by bus LAMPS IRING
+Output signal LAMP_15A1E02 replaced by bus LAMPS IRING
+Output signal LAMP_15A1F02 replaced by bus LAMPS IRING
+Output signal LAMP_15A1G02 replaced by bus LAMPS IRING
+Output signal LAMP_15A1H02 replaced by bus LAMPS IRING
+Output signal LAMP_11C8A15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1A10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8B15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1B10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8J15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1H10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8K15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1J10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8C15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1C10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8D15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1D10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_15A1E10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8E15 replaced by bus LAMPS CYCLE CE
+Output signal LAMP_15A1F10 replaced by bus LAMPS CYCLE CONSOLE
+Output signal LAMP_11C8F15 replaced by bus LAMPS CYCLE CE
+Generating list of internal signals/wires ...
+89 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 11.10.01.1 (LOGIC CLOCK-ACC)
+Generating HDL associated with page 11.10.02.1 (1*LOGIC GATE RING CLK PULSES-ACC)
+Generating HDL associated with page 11.10.05.1 (LOGIC GATE RING ADVAN PULSES-ACC)
+Generating HDL associated with page 11.10.06.1 (SPECIAL LAST GATES-ACC)
+Generating HDL associated with page 11.10.07.1 (ADDRESS REG CONTROLS-ACC)
+Generating HDL associated with page 11.10.10.1 (LOGIC GATE RING A-ACC)
+Generating HDL associated with page 11.10.11.1 (LOGIC GATE RING B-ACC)
+Generating HDL associated with page 11.10.12.1 (LOGIC GATE RING C-ACC)
+Generating HDL associated with page 11.10.13.1 (LOGIC GATE RING D-ACC)
+Generating HDL associated with page 11.10.14.1 (LOGIC GATE RING E-ACC)
+Generating HDL associated with page 11.10.15.1 (LOGIC GATE RING F)
+Generating HDL associated with page 11.10.16.1 (LOGIC GATE RING G-ACC)
+Generating HDL associated with page 11.10.17.1 (LOGIC GATE RING H-ACC)
+Generating HDL associated with page 11.10.18.1 (LOGIC GATE RING J-ACC)
+Generating HDL associated with page 11.10.19.1 (LOGIC GATE RING K-ACC)
+Generating HDL associated with page 11.10.20.1 (LOGIC GATE RING EXTENSION R-ACC)
+Generating HDL associated with page 11.10.21.1 (LOGIC GATE RING EXTENSION S)
+Generating HDL associated with page 11.10.22.1 (LOGIC GATE RING EXTENSION T)
+Generating HDL associated with page 11.10.23.1 (LOGIC GATE RING EXTENSION U)
+Generating HDL associated with page 11.10.24.1 (LOGIC GATE RING EXTENSION V)
+Generating HDL associated with page 11.10.25.1 (LOGIC GATE RING EXTENSION W)
+Generating HDL associated with page 11.10.32.1 (LOGIC GATE MIX-ACC)
+Generating HDL associated with page 11.10.33.1 (LOGIC GATE MIX)
+Generating HDL associated with page 11.10.34.1 (LOGIC GATE MIX)
+Generating HDL associated with page 11.10.35.1 (LOGIC GATE MIX)
+Generating HDL associated with page 11.10.36.1 (2ND CLOCK PULSE 3-ACC)
+Generating HDL associated with page 11.20.01.1 (I RING OP TIME)
+Generating HDL associated with page 11.20.02.1 (I RING 1 AND 2 TIME)
+Generating HDL associated with page 11.20.03.1 (I RING 3 AND 4 TIME)
+Generating HDL associated with page 11.20.04.1 (I RING 5 AND 6 TIME-ACC)
+Generating HDL associated with page 11.20.05.1 (I RING 7 AND 8 TIME)
+Generating HDL associated with page 11.20.06.1 (I RING 9 AND 10 TIME-ACC)
+Generating HDL associated with page 11.20.07.1 (I RING 11 AND 12 TIME)
+Generating HDL associated with page 11.20.08.1 (I RING MIX)
+Generating HDL associated with page 11.20.09.1 (I RING MIX)
+Generating HDL associated with page 11.20.10.1 (I RING MIX)
+Generating HDL associated with page 11.20.11.1 (1ST AND 2ND ADDRESS CTRLS)
+Generating HDL associated with page 11.30.01.1 (SPECIAL LOGIC GATES-ACC)
+Generating HDL associated with page 11.30.02.1 (SPECIAL LOGIC GATES-ACC)
+Generating HDL associated with page 11.30.03.1 (SPECIAL LOGIC GATES)
+Generating HDL associated with page 12.12.01.1 (A CYCLE LATCH)
+Generating HDL associated with page 12.12.02.1 (B CYCLE LATCH)
+Generating HDL associated with page 12.12.04.1 (I CYCLE LATCH)
+Generating HDL associated with page 12.12.05.1 (X CYCLE LATCH-ACC)
+Generating HDL associated with page 12.12.06.1 (C CYCLE LATCH-ACC)
+Generating HDL associated with page 12.12.07.1 (D CYCLE LATCH)
+Generating HDL associated with page 12.12.20.1 (A AND C CYCLE CTRL LATCHES-ACC)
+Generating HDL associated with page 12.12.21.1 (B AND D CYCLE CTRL LATCHES)
+Generating HDL associated with page 12.12.23.1 (I AND X CYCLE CTRL LATCHES-ACC)
+Generating HDL associated with page 12.12.30.1 (CYCLE LENGTH CONTROLS-ACC)
+Generating HDL associated with page 12.12.31.1 (CYCLE LENGTH CONTROLS-ACC)
+Generating HDL associated with page 12.12.32.1 (CYCLE LENGTH CONTROLS-ACC)
+Generating HDL associated with page 12.12.33.1 (CYCLE LENGTH CONTROLS-ACC)
+Generating HDL associated with page 12.12.40.1 (A CYCLE CONTROLS)
+Generating HDL associated with page 12.12.41.1 (A CYCLE CONTROL-ACC)
+Generating HDL associated with page 12.12.42.1 (C CYCLE CONTROL)
+Generating HDL associated with page 12.12.43.1 (D CYCLE CONTROL-ACC)
+Generating HDL associated with page 12.12.44.1 (B CYCLE CTRL-ACC)
+Generating HDL associated with page 12.12.45.1 (X CYCLE CTRL)
+Generating HDL associated with page 12.12.46.1 (CYCLE CONTROL CHECK ACC)
+Generating HDL associated with page 12.12.50.1 (LAST EXECUTE CYCLE)
+Generating HDL associated with page 12.12.51.1 (LAST EXECUTE CYCLE-ACC)
+Generating HDL associated with page 12.12.60.1 (COMPUTE DISABLE-ACC)
+Generating HDL associated with page 12.12.61.1 (E CYCLE REQUIRED)
+Generating HDL associated with page 12.12.62.1 (E CYCLE REQUIRED)
+Generating HDL associated with page 12.12.63.1 (E CYCLE REQUESTED)
+Generating HDL associated with page 12.12.64.1 (F CYCLE REQUIRED)
+Generating HDL associated with page 12.12.65.1 (F CYCLE REQUIRED)
+Generating HDL associated with page 12.12.66.1 (E CYCLE CONTROL)
+Generating HDL associated with page 12.12.67.1 (F CYCLE CONTROL)
+Generating HDL associated with page 12.13.01.1 (I RING CONTROLS)
+Generating HDL associated with page 12.13.02.1 (I CYCLE CONTROL-ACC)
+Generating HDL associated with page 12.13.03.1 (I RING ADVANCE AND RESET CTRL)
+Generating HDL associated with page 12.13.04.1 (SET OP REG CTRLS)
+Generating HDL associated with page 12.13.05.1 (INSTRUCTION READ OUT CONTROL-ACC)
+Generating HDL associated with page 12.13.06.1 (1ST AND 2ND ADDR RI CTRLS)
+Generating HDL associated with page 12.13.07.1 (1401 INSTRUCT READ OUT CTRL-ACC)
+Generating HDL associated with page 12.15.02.1 (1* SINGLE CYCLE CONTROL)
+Generating HDL associated with page 12.15.03.1 (1* SINGLE CYCLE CONTROL-ACC)
+Generating HDL associated with page 12.15.04.1 (SINGLE CYCLE CONTROL-ACC)
