@@ -216,13 +216,261 @@ fpga_clk_process: process
 
 uut_process: process
 
-   variable testName: string(1 to 18);
+   variable testName: string(1 to 10);
    variable subtest: integer;
 
    begin
 
    -- Your test bench code
+   
+   testName := "12.15.04.1";
+   
+   -- Alter Routine . D Cycle . No Scan
+   
+   wait for 30 ns;
+   check1(MS_ALTR_ROUTINE_DOT_D_CY_DOT_NO_SCAN,'1',testName,"1A");
+   PS_NO_SCAN <= '1';
+   PS_ALTER_ROUTINE <= '1';
+   wait for 30 ns;
+   check1(MS_ALTR_ROUTINE_DOT_D_CY_DOT_NO_SCAN,'1',testName,"1B");
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_ALTR_ROUTINE_DOT_D_CY_DOT_NO_SCAN,'0',testName,"1C");
+   PS_NO_SCAN <= '0';
+   PS_ALTER_ROUTINE <= '0';
+   PS_D_CYCLE <= '0';
+   
+   -- 1401 I/O Check Stop Switch
+   
+   check1(MS_1401_I_O_CK_STOP_SW,'1',testName,"2A");
+   check1(PS_1401_I_O_CK_STOP_SW,'0',testName,"2B");
+   SWITCH_TOG_I_O_CHK_ST <= '1';
+   wait for 30 ns;
+   check1(MS_1401_I_O_CK_STOP_SW,'0',testName,"2C");
+   check1(PS_1401_I_O_CK_STOP_SW,'1',testName,"2D");
+   
+   -- DISP Routine . D cycle . 2ND Scan
+   
+   check1(MS_DISP_ROUTINE_DOT_D_CY_DOT_2ND_SCAN,'1',testName,"3A");
+   PS_2ND_SCAN <= '1';
+   PS_DISPLAY_ROUTINE_1 <= '1';
+   wait for 30 ns;
+   check1(MS_DISP_ROUTINE_DOT_D_CY_DOT_2ND_SCAN,'1',testName,"3B");
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_DISP_ROUTINE_DOT_D_CY_DOT_2ND_SCAN,'0',testName,"3C");
+   PS_2ND_SCAN <= '0';
+   PS_DISPLAY_ROUTINE_1 <= '0';
+   PS_D_CYCLE <= '0';
+      
+   -- Test the stop latch sets and resets
+   
+   MS_COMPUTER_RESET_1 <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"4A");
+   MS_COMPUTER_RESET_1 <= '1';
+   MS_START_KEY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"4B");
+   MS_START_KEY_PULSE <= '1';
 
+   MS_MASTER_ERROR <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"4C");
+   MS_MASTER_ERROR <= '1';
+   MS_CONSOLE_STROBE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"4D");
+   MS_CONSOLE_STROBE <= '1';
+   
+   PS_EARLY_COMPUTER_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"4E");
+   PS_LOGIC_GATE_A_OR_R <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"4F");
+   PS_EARLY_COMPUTER_RESET <= '0';
+   PS_LOGIC_GATE_A_OR_R <= '0';
+   MS_COMP_RST_CLOCK_START <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"4G");
+   MS_COMP_RST_CLOCK_START <= '1';
+   
+   MV_CONS_CYCLE_CTRL_LOGIC_STEP <= '0';
+   MV_CONS_MODE_SW_DISPLAY_MODE <= '1';
+   MV_CONS_MODE_SW_ALTER_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"4F");
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"4G");
+   MV_CONS_CYCLE_CTRL_LOGIC_STEP <= '1';
+   MV_CONS_MODE_SW_DISPLAY_MODE <= '1';
+   MV_CONS_MODE_SW_ALTER_MODE <= '1';
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   -- Make sure latch is still set on this one
+   check1(PS_STOP_LATCH,'1',testName,"4H");
+   PS_ADDR_SET_KEYBOARD_LOCK <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"4I");
+   PS_STORAGE_SCAN_ROUTINE <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"4J");
+   PS_STORAGE_SCAN_ROUTINE <= '0';
+
+   -- The next bunch go through an OR gate and I marked as "5" on
+   -- the ILD   
+   
+   MS_LAST_EXECUTE_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5A");
+   MV_CONS_MODE_SW_I_E_CYCLE_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5B");
+   PS_LOGIC_GATE_Z <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5C");
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5D");
+   MS_LAST_EXECUTE_CYCLE <= '1';
+   MV_CONS_MODE_SW_I_E_CYCLE_MODE <= '1';
+   MS_START_KEY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5E");
+   MS_START_KEY_PULSE <= '1';
+    
+   -- Leave LGZ and 2nd Clock Pulse set for rest of tests of section 5
+   
+   MS_LAST_INSN_RO_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5F");
+   MV_CONS_MODE_SW_I_E_CYCLE_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5G");
+   MS_LAST_INSN_RO_CYCLE <= '1';
+   MV_CONS_MODE_SW_I_E_CYCLE_MODE <= '1';
+   MS_START_KEY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5H");
+   MS_START_KEY_PULSE <= '1';
+
+   PS_2ND_SCAN <= '1';   
+   PS_DISPLAY_ROUTINE_1 <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5I");
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5J");
+   PS_2ND_SCAN <= '0';
+   PS_DISPLAY_ROUTINE_1 <= '0';
+   PS_D_CYCLE <= '0';
+   MS_START_KEY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5K");
+   MS_START_KEY_PULSE <= '1';
+   
+   MV_CONS_MODE_SW_ALTER_MODE <= '1';
+   MV_CONS_MODE_SW_DISPLAY_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5L");
+   MV_CONS_CYCLE_CTRL_STOR_SCAN <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5M");
+   MV_CONS_CYCLE_CTRL_STOR_SCAN <= '1';
+   MS_START_KEY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5N");
+   MS_START_KEY_PULSE <= '1';
+   
+   PS_ALTER_ROUTINE <= '1';
+   PS_NO_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5O");
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5P");
+   PS_ALTER_ROUTINE <= '0';
+   PS_NO_SCAN <= '0';
+   PS_D_CYCLE <= '0';
+   MS_START_KEY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5Q");
+   MS_START_KEY_PULSE <= '1';
+   
+   SWITCH_TOG_ADDR_STOP <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5R");
+   PS_ADDRESS_STOP <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5S");
+   SWITCH_TOG_ADDR_STOP <= '0';
+   PS_ADDRESS_STOP <= '0';
+   MS_START_KEY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5T");
+   MS_START_KEY_PULSE <= '1';
+   
+   PS_STOP_KEY_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5U");
+   PS_STORAGE_SCAN_ROUTINE <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5V");
+   check1(PS_SPECIAL_STOP_LATCH,'0',testName,"5VA");
+   PS_STOP_KEY_LATCH <= '0';
+   PS_STORAGE_SCAN_ROUTINE <= '0';
+   MS_START_KEY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5W");
+   MS_START_KEY_PULSE <= '1';
+   
+   PS_LAST_EXECUTE_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5X");
+   check1(PS_SPECIAL_STOP_LATCH,'0',testName,"5XA");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5Y");
+   check1(PS_SPECIAL_STOP_LATCH,'1',testName,"5YA");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5Z");
+   MS_START_KEY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5AA");
+   check1(PS_SPECIAL_STOP_LATCH,'0',testName,"5AB");     
+   MS_START_KEY_PULSE <= '1';
+   
+   PS_LAST_EXECUTE_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5AC");
+   MS_STOP_KEY_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5AD");
+   check1(PS_SPECIAL_STOP_LATCH,'1',testName,"5ADA");
+   MS_STOP_KEY_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'1',testName,"5AD");
+   MS_START_KEY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_LATCH,'0',testName,"5AE");     
+   check1(PS_SPECIAL_STOP_LATCH,'0',testName,"5AEA");
+   MS_START_KEY_PULSE <= '1';
+   
+   -- Test Special Stop Latch without setting Stop Latch
+   
+   PS_LOGIC_GATE_Z <= '0';  -- Don't set Stop Latch
+   PS_LAST_EXECUTE_CYCLE <= '1';
+   wait for 30 ns;   
+   check1(PS_STOP_LATCH,'0',testName,"5AF");
+   check1(PS_SPECIAL_STOP_LATCH,'0',testName,"5AG");
+   MS_STOP_KEY_LATCH <= '0';
+   wait for 30 ns;   
+   check1(PS_STOP_LATCH,'0',testName,"5AH");
+   check1(PS_SPECIAL_STOP_LATCH,'1',testName,"5AI");
+   
    wait;
    end process;
 
