@@ -902,10 +902,11 @@ procedure check1(
     begin    
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
-      
-
-
+     
    -- Your test bench declarations go here
+   
+   signal MS_COMPUTER_RESET: std_logic := '1';
+   signal MS_PROGRAM_RESET: std_logic := '1';
 
 -- END USER TEST BENCH DECLARATIONS
    
@@ -1372,13 +1373,62 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+   MS_COMPUTER_RESET_1 <= MS_COMPUTER_RESET;
+   MS_PROGRAM_RESET_1 <= MS_PROGRAM_RESET;
+   MS_PROGRAM_RESET_2 <= MS_PROGRAM_RESET;
+   MS_PROGRAM_RESET_3 <= MS_PROGRAM_RESET;
+   MS_PROGRAM_RESET_5 <= MS_PROGRAM_RESET;
+   
+   PS_B_CH_BUS <= "01100101";  -- BCD "N" (noop) with word mark   
+   
+   PS_B_CH_WM_BIT_1 <= PS_B_CH_BUS(6);
+   PS_B_CH_WM_BIT_2 <= PS_B_CH_WM_BIT_1;
+   PS_B_CH_NOT_BUS <= not PS_B_CH_BUS;
+   
+   MS_STOP_AT_F_DOT_LOGIC_GATE_D <= MS_LOGIC_GATE_D_1;      -- NOOP stops at Logic Gate F.
+   
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
 
    begin
-
+   
+   wait for 1 us;
+   MS_COMP_RST_CLOCK_START <= '0';
+   wait for 1 us;
+   MS_COMP_RST_CLOCK_START <= '1';
+   SWITCH_ROT_STOR_SCAN <= "001000";  -- Storage Scan Off
+   MS_COMPUTER_RESET <= '0';
+   MS_PROGRAM_RESET <= '0';
+   wait for 1 us;
+   MS_COMPUTER_RESET <= '1';
+   MS_PROGRAM_RESET <= '1';
+   
+   PS_CONS_STOP_PRINT_COMPLETE <= '1';  -- Console not currently printing anything
+   PS_NO_C_OR_D_CYCLE_OP_CODES <= '1';  -- Hopefully resets I ring at I Ring 1 time (NO OP)
+   -- PS_ARS_NO_OP <= '1';                 -- N op code
+  
+   PS_CONS_CLOCK_1_POS <= '1';
+   wait for 30 ns;
+   -- PS_CONS_CLOCK_1_POS <= '0';
+   PS_CONS_CLOCK_3_POS_1 <= '1';
+      
+   wait for 1 us;
+   MV_CONS_MODE_SW_RUN_MODE <= '0';
+   wait for 1 us;
+   SWITCH_MOM_CONS_START <= '1';
+   wait for 1 us;
+   SWITCH_MOM_CONS_START <= '0';
+   PS_CONS_CLOCK_1_POS <= '0';
+   PS_CONS_CLOCK_3_POS_1 <= '0';
+   wait for 50 us;
+   SWITCH_MOM_CONS_STOP <= '1';
+   wait for 1 us;
+   -- Help out the stop if instruction readout isn't working
+   MS_MASTER_ERROR <= '0';
+   SWITCH_MOM_CONS_STOP <= '0';
+   
    -- Your test bench code
 
    wait;
