@@ -1,0 +1,54 @@
+Generating HDL for page 12.30.09.1 MISC SCAN LATCH OUTPUTS at 7/8/2020 10:09:05 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_30_09_1_MISC_SCAN_LATCH_OUTPUTS_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1E to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_E, OUT_3A_E
+	and inputs of MS_NO_SCAN,MS_1ST_SCAN,MS_3RD_SCAN
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_3A_E
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_K
+	and inputs of OUT_2B_C,MS_2ND_SCAN
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_K
+	and inputs of MS_3RD_SCAN,MS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_K
+	and inputs of OUT_3C_K
+	and logic function of EQUAL
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of MS_NO_SCAN,MS_1ST_SCAN,MS_2ND_SCAN
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_G
+	and inputs of MS_NO_SCAN_CTRL,MS_1ST_SCAN_CTRL
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_P
+	and inputs of MS_2ND_SCAN_CTRL,MS_3RD_SCAN_CTRL
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_E
+	and inputs of MS_1ST_SCAN_CTRL,MS_2ND_SCAN_CTRL,MS_3RD_SCAN_CTRL
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E
+	and inputs of OUT_3E_G,OUT_3F_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_1ST_OR_NO_OR_3RD_SCAN
+	from gate output OUT_3A_E
+Generating output sheet edge signal assignment to 
+	signal PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN
+	from gate output OUT_1B_K
+Generating output sheet edge signal assignment to 
+	signal PS_1ST_OR_3RD_SCAN
+	from gate output OUT_2C_K
+Generating output sheet edge signal assignment to 
+	signal PS_NO_OR_1ST_OR_2ND_SCAN
+	from gate output OUT_3D_C
+Generating output sheet edge signal assignment to 
+	signal PS_1ST_OR_2ND_OR_3RD_SCAN_CTRL
+	from gate output OUT_3G_E
+Generating output sheet edge signal assignment to 
+	signal PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN_CTRL
+	from gate output OUT_DOT_1E

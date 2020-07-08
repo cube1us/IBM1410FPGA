@@ -1,0 +1,94 @@
+Generating HDL for page 12.30.01.1 NO SCAN AND 1ST SCAN LATCHES-ACC at 7/8/2020 10:07:51 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_30_01_1_NO_SCAN_AND_1ST_SCAN_LATCHES_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 2C
+Found combinatorial loop (need D FF) at output of gate at 3G
+Found combinatorial loop (need D FF) at output of gate at 2G
+Processing extension from block at 1E (Database ID=211126) to 1F (Database ID=211127)
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Copied connection from extension output pin A to master block at 1E
+Removed 2 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 29 outputs from Gate at 1E to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1I to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1A08
+Added LAMP signal LAMP_15A1B08
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of OUT_1C_E
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of OUT_1A_D
+	and inputs of OUT_3C_F
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_E
+	and inputs of OUT_1C_E
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of 
+	and inputs of OUT_2B_E
+	and logic function of Lamp
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_F_Latch, OUT_3C_F_Latch
+	and inputs of MS_LOGIC_GATE_B_1,MS_PROGRAM_RESET_1,OUT_2C_NoPin
+	and logic function of NAND
+Generating Statement for block at 2C with *latched* output pin(s) of OUT_2C_NoPin_Latch, OUT_2C_NoPin_Latch
+	and inputs of OUT_3C_F,OUT_4D_G
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_E, OUT_1C_E, OUT_1C_E
+	and inputs of OUT_2C_NoPin
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PS_NO_SCAN_CTRL,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_A
+	and inputs of OUT_3G_C
+	and logic function of Special
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_C_Latch, OUT_3G_C_Latch
+	and inputs of OUT_2G_F,MS_LOGIC_GATE_B_1,MS_PROGRAM_RESET_1
+	and logic function of NAND
+Generating Statement for block at 2G with *latched* output pin(s) of OUT_2G_F_Latch, OUT_2G_F_Latch
+	and inputs of OUT_3G_C,OUT_4H_NoPin
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of PS_LOGIC_GATE_C_1,PS_1ST_SCAN_CTRL
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_B
+	and inputs of OUT_1I_D
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of 
+	and inputs of OUT_3I_B
+	and logic function of Lamp
+Generating Statement for block at 1I with output pin(s) of OUT_1I_D, OUT_1I_D
+	and inputs of OUT_2G_F
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_NO_SCAN_1
+	from gate output OUT_2A_D
+Generating output sheet edge signal assignment to 
+	signal PS_NO_SCAN
+	from gate output OUT_1A_D
+Generating output sheet edge signal assignment to 
+	signal MS_NO_SCAN
+	from gate output OUT_1C_E
+Generating output sheet edge signal assignment to 
+	signal PS_1ST_SCAN
+	from gate output OUT_1E_A
+Generating output sheet edge signal assignment to 
+	signal MS_1ST_SCAN
+	from gate output OUT_1I_D
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 2C
+Generating D Flip Flop for block at 3G
+Generating D Flip Flop for block at 2G

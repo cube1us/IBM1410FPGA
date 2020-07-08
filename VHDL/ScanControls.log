@@ -1,0 +1,157 @@
+Generating HDL for group named ScanControlsat 7/8/2020 2:55:02 PM containing pages: 
+	12.30.01.1, 12.30.02.1, 12.30.03.1, 12.30.04.1, 12.30.05.1
+	12.30.06.1, 12.30.09.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ScanControls_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 7 pages...
+Found 10 signals on page 12.30.01.1
+Found 11 signals on page 12.30.02.1
+Found 12 signals on page 12.30.03.1
+Found 14 signals on page 12.30.04.1
+Found 34 signals on page 12.30.05.1
+Found 20 signals on page 12.30.06.1
+Found 14 signals on page 12.30.09.1
+Found 71 unique input signals and 31 unique output signals, (80 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S LOGIC GATE B 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE C 1 originates outside the group.
+INFO:  Signal +S NO SCAN CTRL originates inside the group.
+INFO:  Signal -S PROGRAM RESET 1 originates outside the group.
+INFO:  Signal +S 1ST SCAN CTRL originates inside the group.
+INFO:  Signal -S 1ST SCAN originates inside the group.
+INFO:  Signal +S 2ND SCAN CTRL originates inside the group.
+INFO:  Signal +S 3RD SCAN CTRL originates inside the group.
+INFO:  Signal -S LOGIC GATE D 1 originates outside the group.
+INFO:  Signal +S NEXT TO LAST LOGIC GATE originates outside the group.
+INFO:  Signal +S 1ST SCAN originates inside the group.
+INFO:  Signal -S 1401 I-O SET BRANCH CNDS originates outside the group.
+INFO:  Signal +S SET NO SCAN CTRL originates inside the group.
+INFO:  Signal +S SET 1ST SCAN CTRL originates inside the group.
+INFO:  Signal +S RGEN 1ST SCAN CTRL originates inside the group.
+INFO:  Signal -S DISPLAY+ALTER SET 2ND SCAN originates outside the group.
+INFO:  Signal +S 2ND SCAN originates inside the group.
+INFO:  Signal +S 3RD SCAN originates inside the group.
+INFO:  Signal +S SET 2ND SCAN CTRL originates inside the group.
+INFO:  Signal +S RGEN 2ND SCAN CTRL originates inside the group.
+INFO:  Signal +S RGEN 3RD SCAN CTRL originates inside the group.
+INFO:  Signal +S SET 3RD SCAN CTRL originates inside the group.
+INFO:  Signal -S DATA MOVE A CYCLE CTRL SET originates outside the group.
+INFO:  Signal -S EDIT SET A CYCLE CTRL originates outside the group.
+INFO:  Signal -S SET A CYCLE CTRL ON Z OP originates outside the group.
+INFO:  Signal -S STORE AR SET A CYCLE CTRL A originates outside the group.
+INFO:  Signal -S STORE AR SET A CYCLE CTRL B originates outside the group.
+INFO:  Signal -S LAST I CYCLE B originates outside the group.
+INFO:  Signal -S G OP SET C CYCLE CTRL B originates outside the group.
+INFO:  Signal -S STORE AR SET C CYCLE CTRL A originates outside the group.
+INFO:  Signal -S STORE AR SET C CYCLE CTRL B originates outside the group.
+INFO:  Signal -S ALT ROUTINE.2ND SCAN originates outside the group.
+INFO:  Signal -S WORD MARK OP.A CYCLE originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL A originates outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE 1 originates outside the group.
+INFO:  Signal -S 1401 TAKE I TO B CYCLE originates outside the group.
+INFO:  Signal -S FILE OP.D CY.2ND SCAN originates outside the group.
+INFO:  Signal -S FILE OP TAKE EXTENSION CYCLE originates outside the group.
+INFO:  Signal -S FILE OP.LAST INSN RO CYCLE originates outside the group.
+INFO:  Signal +S MPLY.MQ.B.T.1.B1-9 originates outside the group.
+INFO:  Signal +S SET NO SCAN CTRL * BR OPS originates outside the group.
+INFO:  Signal +S DATA MOVE OP CODE originates outside the group.
+INFO:  Signal +S OP MOD REG NOT 8 BIT originates outside the group.
+INFO:  Signal +S 1ST SCAN FIRST OP CODES originates outside the group.
+INFO:  Signal -S CLEAR OP TAKE 1ST SCAN originates outside the group.
+INFO:  Signal -S MPLY.N.C originates outside the group.
+INFO:  Signal +S REGEN 1ST SCAN CTRL*ARITH originates outside the group.
+INFO:  Signal -S STD A CYCLE OPS.A CYCLE originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL C originates outside the group.
+INFO:  Signal -S TLU SET B CYCLE CTRL originates outside the group.
+INFO:  Signal -S CMP MODE SET A CYCLE CTRL A originates outside the group.
+INFO:  Signal -S TLU SET A CYCLE CTRL B originates outside the group.
+INFO:  Signal -S MPLY.U+Y.B.AW.1 originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL G originates outside the group.
+INFO:  Signal +S OP MOD REG 8 BIT originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL B originates outside the group.
+INFO:  Signal +S SET 2ND SCAN CTRL*ARITH originates outside the group.
+INFO:  Signal -S EDIT SKID CYCLE originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL E originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL F originates outside the group.
+INFO:  Signal +S RGEN 3RD SCAN CTRL*ARITH originates outside the group.
+INFO:  Signal -S EDIT SET B CYCLE CTRL D originates outside the group.
+INFO:  Signal -S LB.B CYCLE.EXT.ZONE CARRY originates outside the group.
+INFO:  Signal +S SET 3RD SCAN CTRL * ARITH originates outside the group.
+INFO:  Signal -S NO SCAN originates inside the group.
+INFO:  Signal -S 2ND SCAN originates inside the group.
+INFO:  Signal -S 3RD SCAN originates inside the group.
+INFO:  Signal -S NO SCAN CTRL originates inside the group.
+INFO:  Signal -S 1ST SCAN CTRL originates inside the group.
+INFO:  Signal -S 2ND SCAN CTRL originates inside the group.
+INFO:  Signal -S 3RD SCAN CTRL originates inside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S 1ST SCAN is used outside the group.
+INFO:  Signal +S NO SCAN is used outside the group.
+INFO:  Signal +S NO SCAN 1 is used outside the group.
+INFO:  Signal -S NO SCAN is used outside the group.
+INFO:  Signal -S 1ST SCAN is used outside the group.
+INFO:  Signal +S 2ND SCAN is used outside the group.
+INFO:  Signal -S 2ND SCAN is used outside the group.
+INFO:  Signal +S 1ST OR 2ND SCAN is used outside the group.
+INFO:  Signal +S 3RD SCAN is used outside the group.
+INFO:  Signal -S 3RD SCAN is used outside the group.
+INFO:  Signal +S NO SCAN CTRL is used outside the group.
+INFO:  Signal +S 1ST SCAN CTRL is used outside the group.
+INFO:  Signal -S NO SCAN CTRL is used outside the group.
+INFO:  Signal -S 1ST SCAN CTRL is used outside the group.
+INFO:  Signal +S 2ND SCAN CTRL is used only inside the group.
+INFO:  Signal +S 3RD SCAN CTRL is used only inside the group.
+INFO:  Signal -S 2ND SCAN CTRL is used outside the group.
+INFO:  Signal -S 3RD SCAN CTRL is used outside the group.
+INFO:  Signal +S SET NO SCAN CTRL is used only inside the group.
+INFO:  Signal +S SET 1ST SCAN CTRL is used only inside the group.
+INFO:  Signal +S RGEN 1ST SCAN CTRL is used only inside the group.
+INFO:  Signal +S SET 2ND SCAN CTRL is used only inside the group.
+INFO:  Signal +S RGEN 2ND SCAN CTRL is used only inside the group.
+INFO:  Signal +S RGEN 3RD SCAN CTRL is used only inside the group.
+INFO:  Signal +S SET 3RD SCAN CTRL is used only inside the group.
+INFO:  Signal +S 1ST+NO+3RD SCAN is used outside the group.
+INFO:  Signal +S NO+1ST+2ND+3RD SCAN is used outside the group.
+INFO:  Signal +S 1ST+3RD SCAN is used outside the group.
+INFO:  Signal +S NO+1ST+2ND SCAN is used outside the group.
+INFO:  Signal +S NO+1ST+2ND+3RD SCAN CTRL is used outside the group.
+INFO:  Signal +S 1ST+2ND+3RD SCAN CTRL is used outside the group.
+Removing 9 output signals that do not have destinations outside the group...
+Removing 22 input signals that originate inside the group...
+Signal +S NO SCAN CTRL is output from the group, but also used as an input inside the group.
+Signal +S 1ST SCAN CTRL is output from the group, but also used as an input inside the group.
+Signal -S 1ST SCAN is output from the group, but also used as an input inside the group.
+Signal +S 1ST SCAN is output from the group, but also used as an input inside the group.
+Signal +S 2ND SCAN is output from the group, but also used as an input inside the group.
+Signal +S 3RD SCAN is output from the group, but also used as an input inside the group.
+Signal -S NO SCAN is output from the group, but also used as an input inside the group.
+Signal -S 2ND SCAN is output from the group, but also used as an input inside the group.
+Signal -S 3RD SCAN is output from the group, but also used as an input inside the group.
+Signal -S NO SCAN CTRL is output from the group, but also used as an input inside the group.
+Signal -S 1ST SCAN CTRL is output from the group, but also used as an input inside the group.
+Signal -S 2ND SCAN CTRL is output from the group, but also used as an input inside the group.
+Signal -S 3RD SCAN CTRL is output from the group, but also used as an input inside the group.
+Input Signal +S OP MOD REG NOT 8 BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG 8 BIT replaced by Bus signal +S OP MOD REG BUS
+Page 12.30.01.1 generates Lamp Output LAMP_15A1A08
+Page 12.30.01.1 generates Lamp Output LAMP_15A1B08
+Page 12.30.02.1 generates Lamp Output LAMP_15A1C08
+Page 12.30.02.1 generates Lamp Output LAMP_15A1D08
+DEBUG: Tentative bus LAMPS SCAN identified based on signal LAMP_15A1A08
+DEBUG: Added signal LAMP_15A1B08 to bus LAMPS SCAN
+DEBUG: Added signal LAMP_15A1C08 to bus LAMPS SCAN
+DEBUG: Added signal LAMP_15A1D08 to bus LAMPS SCAN
+INFO: Bus LAMPS SCAN identified 
+Output signal LAMP_15A1A08 replaced by bus LAMPS SCAN
+Output signal LAMP_15A1B08 replaced by bus LAMPS SCAN
+Output signal LAMP_15A1C08 replaced by bus LAMPS SCAN
+Output signal LAMP_15A1D08 replaced by bus LAMPS SCAN
+Generating list of internal signals/wires ...
+9 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.30.01.1 (NO SCAN AND 1ST SCAN LATCHES-ACC)
+Generating HDL associated with page 12.30.02.1 (2ND AND 3RD SCAN LATCHES-ACC)
+Generating HDL associated with page 12.30.03.1 (NO SCAN AND 1ST SCAN CTRLS-ACC)
+Generating HDL associated with page 12.30.04.1 (2ND AND 3RD SCAN CTRLS)
+Generating HDL associated with page 12.30.05.1 (SCAN CONTROLS-ACC)
+Generating HDL associated with page 12.30.06.1 (SCAN CONTROLS)
+Generating HDL associated with page 12.30.09.1 (MISC SCAN LATCH OUTPUTS)

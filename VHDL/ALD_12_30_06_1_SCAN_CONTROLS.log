@@ -1,0 +1,47 @@
+Generating HDL for page 12.30.06.1 SCAN CONTROLS at 7/8/2020 10:09:02 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_30_06_1_SCAN_CONTROLS_tb.vhdl, generating default test bench code.
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_DATA_MOVE_OP_CODE,PS_LAST_INSN_RO_CYCLE_1,PS_OP_MOD_REG_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_E
+	and inputs of OUT_4B_D,MS_EDIT_SET_B_CYCLE_CTRL_B,MS_EDIT_SET_B_CYCLE_CTRL_G
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_G
+	and inputs of MS_EDIT_SET_B_CYCLE_CTRL_C,MS_STD_A_CYCLE_OPS_DOT_A_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_K
+	and inputs of MS_EDIT_SKID_CYCLE,MS_DATA_MOVE_A_CYCLE_CTRL_SET
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of MS_EDIT_SET_B_CYCLE_CTRL_E,MS_EDIT_SET_B_CYCLE_CTRL_F
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,MS_EDIT_SKID_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_P
+	and inputs of MS_EDIT_SET_B_CYCLE_CTRL_D,MS_LB_DOT_B_CYCLE_DOT_EXT_DOT_ZONE_CARRY
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_3B_E,PS_SET_2ND_SCAN_CTRL_STAR_ARITH
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_3D_G,OUT_3E_K
+	and logic function of OR
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F
+	and inputs of OUT_3F_C,PS_RGEN_3RD_SCAN_CTRL_STAR_ARITH,OUT_3G_P
+	and logic function of OR
+Generating Statement for block at 3H with output pin(s) of OUT_DOT_3H
+	and inputs of OUT_3H_P,PS_SET_3RD_SCAN_CTRL_STAR_ARITH
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_2ND_SCAN_CTRL
+	from gate output OUT_DOT_3B
+Generating output sheet edge signal assignment to 
+	signal PS_RGEN_2ND_SCAN_CTRL
+	from gate output OUT_DOT_1D
+Generating output sheet edge signal assignment to 
+	signal PS_RGEN_3RD_SCAN_CTRL
+	from gate output OUT_DOT_3F
+Generating output sheet edge signal assignment to 
+	signal PS_SET_3RD_SCAN_CTRL
+	from gate output OUT_DOT_3H

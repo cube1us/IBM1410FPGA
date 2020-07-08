@@ -1,0 +1,56 @@
+Generating HDL for page 12.30.05.1 SCAN CONTROLS-ACC at 7/8/2020 10:08:58 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_30_05_1_SCAN_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Generating Statement for block at 2A with output pin(s) of OUT_2A_C
+	and inputs of MS_1401_TAKE_I_TO_B_CYCLE,MS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,MS_FILE_OP_TAKE_EXTENSION_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of MS_ALT_ROUTINE_DOT_2ND_SCAN,MS_LAST_I_CYCLE_B
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_K
+	and inputs of MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_AW_DOT_1,MS_FILE_OP_DOT_LAST_INSN_RO_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D
+	and inputs of PS_DATA_MOVE_OP_CODE,PS_OP_MOD_REG_NOT_8_BIT,PS_LAST_INSN_RO_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_E
+	and inputs of OUT_4C_D,OUT_4D_R,MS_STORE_AR_SET_C_CYCLE_CTRL_A
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_R
+	and inputs of PS_LAST_INSN_RO_CYCLE_1,PS_1ST_SCAN_FIRST_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of MS_CLEAR_OP_TAKE_1ST_SCAN,MS_MPLY_DOT_N_DOT_C
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of MS_G_OP_SET_C_CYCLE_CTRL_B,MS_DATA_MOVE_A_CYCLE_CTRL_SET,MS_WORD_MARK_OP_DOT_A_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of MS_EDIT_SET_A_CYCLE_CTRL,MS_EDIT_SET_B_CYCLE_CTRL_A
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_G
+	and inputs of MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,MS_EDIT_SET_B_CYCLE_CTRL_C,MS_TLU_SET_B_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_G
+	and inputs of MS_SET_A_CYCLE_CTRL_ON_Z_OP,MS_CMP_MODE_SET_A_CYCLE_CTRL_A,MS_TLU_SET_A_CYCLE_CTRL_B
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_C
+	and inputs of MS_STORE_AR_SET_C_CYCLE_CTRL_B,MS_STORE_AR_SET_A_CYCLE_CTRL_A,MS_STORE_AR_SET_A_CYCLE_CTRL_B
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_2A_C,OUT_2B_D,OUT_1B_K,PS_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_1_DOT_B1_9,PS_SET_NO_SCAN_CTRL_STAR_BR_OPS
+	and logic function of OR
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_2C_E,OUT_2D_C
+	and logic function of OR
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E
+	and inputs of OUT_2E_D,PS_REGEN_1ST_SCAN_CTRL_STAR_ARITH,OUT_2F_C,OUT_2G_G,OUT_2H_G,OUT_2I_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_NO_SCAN_CTRL
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_SET_1ST_SCAN_CTRL
+	from gate output OUT_DOT_1C
+Generating output sheet edge signal assignment to 
+	signal PS_RGEN_1ST_SCAN_CTRL
+	from gate output OUT_DOT_2E
