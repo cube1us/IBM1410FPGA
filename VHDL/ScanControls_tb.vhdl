@@ -350,6 +350,13 @@ uut_process: process
    check1(MS_1ST_SCAN_CTRL,'1',testName,"SL");
    check1(MS_2ND_SCAN_CTRL,'1',testName,"SM");
    check1(MS_3RD_SCAN_CTRL,'1',testName,"SM");
+   check1(PS_1ST_OR_NO_OR_3RD_SCAN,'0',testName,"SN");
+   check1(PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN,'0',testName,"SO");
+   check1(PS_1ST_OR_3RD_SCAN,'0',testname,"SP");
+   check1(PS_NO_OR_1ST_OR_2ND_SCAN,'0',testName,"SQ");
+   check1(PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN_CTRL,'0',testName,"SR");
+   check1(PS_1ST_OR_2ND_OR_3RD_SCAN_CTRL,'0',testName,"SS");
+   
 
    -- First test No Scan Ctrl latch and No Scan latch      
    
@@ -363,6 +370,10 @@ uut_process: process
    wait for 30 ns;
    check1(PS_NO_SCAN_CTRL,'1',testName,"1D");
    check1(PS_NO_SCAN,'0',testName,"1E");
+   
+   check1(PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN_CTRL,'1',testName,"1EA");
+   check1(PS_1ST_OR_2ND_OR_3RD_SCAN_CTRL,'0',testName,"1EB");
+      
    -- Set No Scan Latch
    PS_LOGIC_GATE_C_1 <= '1';
    wait for 30 ns;
@@ -375,6 +386,12 @@ uut_process: process
    wait for 30 ns;
    check1(PS_NO_SCAN_CTRL,'0',testName,"1I");
    check1(PS_NO_SCAN,'1',testName,"1J");
+   
+   check1(PS_1ST_OR_NO_OR_3RD_SCAN,'1',testName,"1JA");
+   check1(PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN,'1',testName,"1JB");
+   check1(PS_1ST_OR_3RD_SCAN,'0',testname,"1JC");
+   check1(PS_NO_OR_1ST_OR_2ND_SCAN,'1',testName,"1JD");
+   
    -- Reset No Scan Latch
    MS_LOGIC_GATE_D_1 <= '1';
    MS_LOGIC_GATE_B_1 <= '0';
@@ -496,12 +513,22 @@ uut_process: process
    check1(PS_1ST_SCAN_CTRL,'1',testName,"3F");
    check1(PS_1ST_SCAN,'1',testName,"3G");
    check1(MS_1ST_SCAN,'0',testName,"3H");
+   
+   check1(PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN_CTRL,'1',testName,"3HA");
+   check1(PS_1ST_OR_2ND_OR_3RD_SCAN_CTRL,'1',testName,"3HB");
+
    -- Reset 1st Scan Ctrl Latch.  1st Scan Latch stays set
    PS_LOGIC_GATE_C_1 <= '0';
    MS_LOGIC_GATE_D_1 <= '0';
    wait for 30 ns;
    check1(PS_1ST_SCAN_CTRL,'0',testName,"3I");
    check1(PS_1ST_SCAN,'1',testName,"3J");
+   
+   check1(PS_1ST_OR_NO_OR_3RD_SCAN,'1',testName,"3JA");
+   check1(PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN,'1',testName,"3JB");
+   check1(PS_1ST_OR_3RD_SCAN,'1',testname,"3JC");
+   check1(PS_NO_OR_1ST_OR_2ND_SCAN,'1',testName,"3JD");   
+   
    -- Reset 1st Scan Latch
    MS_LOGIC_GATE_D_1 <= '1';
    MS_LOGIC_GATE_B_1 <= '0';
@@ -721,7 +748,7 @@ uut_process: process
    wait for 30 ns;
 
    
-   testName := "12.30.01.01, 03.01 Part 1";
+   testName := "12.30.04.01, 02.01 Part 1";
 
    -- First test 2nd Scan Ctrl latch and 2nd Scan latch      
    
@@ -740,19 +767,234 @@ uut_process: process
    check1(MS_2ND_SCAN_CTRL,'0',testName,"1E");
    check1(PS_2ND_SCAN,'1',testName,"1F");
    check1(MS_2ND_SCAN,'0',testName,"1G");
+   
+   check1(PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN_CTRL,'1',testName,"1HA");
+   check1(PS_1ST_OR_2ND_OR_3RD_SCAN_CTRL,'1',testName,"1HB");
+
    -- Reset 2nd Scan Ctrl Latch.  2nd Scan Latch stays set
    PS_LOGIC_GATE_C_1 <= '0';
    MS_LOGIC_GATE_D_1 <= '0';
    wait for 30 ns;
    check1(MS_2ND_SCAN_CTRL,'1',testName,"1H");
    check1(PS_2ND_SCAN,'1',testName,"1I");
+
+   check1(PS_1ST_OR_NO_OR_3RD_SCAN,'0',testName,"1JA");
+   check1(PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN,'1',testName,"1JB");
+   check1(PS_1ST_OR_3RD_SCAN,'0',testname,"1JC");
+   check1(PS_NO_OR_1ST_OR_2ND_SCAN,'1',testName,"1JC");
+
+   testName := "12.30.04.01, 06.01 Part 2";
+
+   -- Next, do some tests requiring that 2nd Scan already be set (Regen)
+   
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+   
+   MS_EDIT_SET_B_CYCLE_CTRL_C <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'0',testName,"2A");
+   MS_EDIT_SET_B_CYCLE_CTRL_C <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'1',testName,"2B");
+   MS_LOGIC_GATE_D_1 <= '1';
+
+   MS_EDIT_SKID_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'0',testName,"2C");
+   MS_EDIT_SKID_CYCLE <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'1',testName,"2D");
+   MS_LOGIC_GATE_D_1 <= '1';
+
+   MS_DATA_MOVE_A_CYCLE_CTRL_SET <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'0',testName,"2E");
+   MS_DATA_MOVE_A_CYCLE_CTRL_SET <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'1',testName,"2F");
+   MS_LOGIC_GATE_D_1 <= '1';
+
+   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'0',testName,"2G");
+   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'1',testName,"2H");
+   MS_LOGIC_GATE_D_1 <= '1';
+
    -- Reset 2nd Scan Latch
    MS_LOGIC_GATE_D_1 <= '1';
    MS_LOGIC_GATE_B_1 <= '0';
    wait for 30 ns;
-   check1(MS_2ND_SCAN_CTRL,'1',testName,"1J");
-   check1(PS_2ND_SCAN,'0',testName,"1K");
+   check1(MS_2ND_SCAN_CTRL,'1',testName,"2I");
+   check1(PS_2ND_SCAN,'0',testName,"2J");
    MS_LOGIC_GATE_B_1 <= '1';
+   
+   testName := "12.30.04.01 Part 3       ";
+
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+   
+   MS_EDIT_SET_B_CYCLE_CTRL_B <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'0',testName,"3A");
+   MS_EDIT_SET_B_CYCLE_CTRL_B <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'1',testName,"3B");
+   MS_LOGIC_GATE_D_1 <= '1';
+   
+   MS_EDIT_SET_B_CYCLE_CTRL_G <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'0',testName,"3C");
+   MS_EDIT_SET_B_CYCLE_CTRL_G <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'1',testName,"3D");
+   MS_LOGIC_GATE_D_1 <= '1';
+   
+   PS_SET_2ND_SCAN_CTRL_STAR_ARITH <= '1';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'0',testName,"3E");
+   PS_SET_2ND_SCAN_CTRL_STAR_ARITH <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'1',testName,"3F");
+   MS_LOGIC_GATE_D_1 <= '1';
+   
+   PS_LAST_INSN_RO_CYCLE_1 <= '1';
+   PS_DATA_MOVE_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'1',testName,"3G");
+   PS_OP_MOD_REG_BUS(3) <= '1';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'0',testName,"3H");
+   PS_LAST_INSN_RO_CYCLE_1 <= '0';
+   PS_DATA_MOVE_OP_CODE <= '0';
+   PS_OP_MOD_REG_BUS(3) <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_2ND_SCAN_CTRL,'1',testName,"3I");
+   MS_LOGIC_GATE_D_1 <= '1';
+   
+   
+   testName := "12.30.04.01, 02.01 Part 4";
+
+   -- First test 3rd Scan Ctrl latch and 3rd Scan latch     
+   
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+       
+   MS_EDIT_SET_B_CYCLE_CTRL_D <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'0',testName,"4A");  -- PS is internal only signal
+   check1(PS_3RD_SCAN,'0',testName,"4B");
+   MS_EDIT_SET_B_CYCLE_CTRL_D <= '1';
+   -- 3rd Scan Ctrl Latch should still be set
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'0',testName,"4C");
+   check1(PS_3RD_SCAN,'0',testName,"4D");
+   -- Set 3rd Scan Latch
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'0',testName,"4E");
+   check1(PS_3RD_SCAN,'1',testName,"4F");
+   check1(MS_3RD_SCAN,'0',testName,"4G");
+   
+   check1(PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN_CTRL,'1',testName,"4GA");
+   check1(PS_1ST_OR_2ND_OR_3RD_SCAN_CTRL,'1',testName,"4GB");
+   
+   -- Reset 3rd Scan Ctrl Latch.  2nd Scan Latch stays set
+   PS_LOGIC_GATE_C_1 <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'1',testName,"4H");
+   check1(PS_3RD_SCAN,'1',testName,"4I");
+     
+   check1(PS_1ST_OR_NO_OR_3RD_SCAN,'1',testName,"4IA");
+   check1(PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN,'1',testName,"4IB");
+   check1(PS_1ST_OR_3RD_SCAN,'1',testname,"4IC");
+   check1(PS_NO_OR_1ST_OR_2ND_SCAN,'0',testName,"4ID");
+   
+   -- Test some things that require 3rd scan be already set (regen)
+   
+   MS_EDIT_SET_B_CYCLE_CTRL_E <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'0',testName,"4J");
+   MS_EDIT_SET_B_CYCLE_CTRL_E <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'1',testName,"4K");
+   MS_LOGIC_GATE_D_1 <= '1';
+      
+   MS_EDIT_SET_B_CYCLE_CTRL_F <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'0',testName,"4L");
+   MS_EDIT_SET_B_CYCLE_CTRL_F <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'1',testName,"4M");
+   MS_LOGIC_GATE_D_1 <= '1';
+      
+   MS_EDIT_SKID_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'0',testName,"4N");
+   MS_EDIT_SKID_CYCLE <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'1',testName,"4O");
+   MS_LOGIC_GATE_D_1 <= '1';
+      
+   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'0',testName,"4P");
+   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'1',testName,"4Q");
+   MS_LOGIC_GATE_D_1 <= '1';
+   
+   PS_RGEN_3RD_SCAN_CTRL_STAR_ARITH <= '1';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'0',testName,"4P");
+   PS_RGEN_3RD_SCAN_CTRL_STAR_ARITH <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'1',testName,"4Q");
+   MS_LOGIC_GATE_D_1 <= '1';
+      
+   -- Reset 3rd Scan latch
+   
+   MS_LOGIC_GATE_D_1 <= '1';
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'1',testName,"4R");
+   check1(PS_3RD_SCAN,'0',testName,"4S");
+   MS_LOGIC_GATE_B_1 <= '1';
+   
+   -- Test the rest
+   
+   -- Already tested EDIT_SET_B_CYCLE_CTRL_D
+
+   MS_LB_DOT_B_CYCLE_DOT_EXT_DOT_ZONE_CARRY <= '0';   
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'0',testName,"4T");
+   MS_LB_DOT_B_CYCLE_DOT_EXT_DOT_ZONE_CARRY <= '1';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'1',testName,"4U");
+   MS_LOGIC_GATE_D_1 <= '1';
+
+   PS_SET_3RD_SCAN_CTRL_STAR_ARITH <= '1';   
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'0',testName,"4V");
+   PS_SET_3RD_SCAN_CTRL_STAR_ARITH <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_3RD_SCAN_CTRL,'1',testName,"4W");
+   MS_LOGIC_GATE_D_1 <= '1';
+   
    
    wait;
    end process;
