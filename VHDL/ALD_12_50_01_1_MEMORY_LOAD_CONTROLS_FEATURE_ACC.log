@@ -1,0 +1,64 @@
+Generating HDL for page 12.50.01.1 MEMORY LOAD CONTROLS FEATURE-ACC at 7/9/2020 3:52:15 PM
+Ignoring Logic Block 1C with symbol R
+Removed 1 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 3 outputs from Dot Function at 2D to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_D
+	and inputs of PS_CLEAR_OP_CODE,PS_B_CYCLE_1,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of OUT_4A_D,MS_MPLY_DOT_N_OR_1_OR_2_DOT_D,MS_ALT_ROUTINE_DOT_2ND_SCAN
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of PS_A_CYCLE,PS_1401_STORE_AR_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_B
+	and inputs of PS_B_CH_NOT_GROUP_MARK_WM
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_E
+	and inputs of OUT_5C_C,MS_STORAGE_SCAN_LOAD
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_R
+	and inputs of OUT_DOT_3D
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_K
+	and inputs of PS_INPUT_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of OUT_DOT_5E,OUT_5F_C
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_F
+	and inputs of MS_ANY_CHECK_TEST
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C, OUT_5F_C
+	and inputs of PS_INPUT_CYCLE,PS_I_O_END_OF_STG_STOP_CTRL
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_K
+	and inputs of OUT_5F_C,OUT_DOT_5E
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_NoPin
+	and inputs of PS_A_OR_B_CYCLE,PS_WORD_MARK_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of PS_LOAD_MEM_ON_B_CY_OP_CODES,PS_B_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_F
+	and inputs of OUT_5G_NoPin,OUT_5H_NoPin,OUT_5I_NoPin
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_NoPin
+	and inputs of PS_C_CYCLE,PS_STORE_ADDR_REGS_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3B_D,OUT_3D_E,OUT_3F_K,OUT_3H_F
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2D_R,OUT_2E_F
+	and logic function of OR
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E, OUT_DOT_5E
+	and inputs of OUT_5D_B,OUT_5E_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_INPUT_CYCLE_DOT_LOAD
+	from gate output OUT_4E_G
+Generating output sheet edge signal assignment to 
+	signal MY_LOAD_MEMORY
+	from gate output OUT_DOT_2D

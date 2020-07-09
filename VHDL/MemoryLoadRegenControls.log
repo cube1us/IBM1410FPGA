@@ -1,0 +1,61 @@
+Generating HDL for group named MemoryLoadRegenControlsat 7/9/2020 3:53:09 PM containing pages: 
+	12.50.01.1, 12.50.02.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\MemoryLoadRegenControls_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 19 signals on page 12.50.01.1
+Found 28 signals on page 12.50.02.1
+Found 41 unique input signals and 4 unique output signals, (45 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S A CYCLE originates outside the group.
+INFO:  Signal +S A OR B CYCLE originates outside the group.
+INFO:  Signal +S B CYCLE 1 originates outside the group.
+INFO:  Signal +S C CYCLE originates outside the group.
+INFO:  Signal -S STORAGE SCAN LOAD originates outside the group.
+INFO:  Signal -S ALT ROUTINE.2ND SCAN originates outside the group.
+INFO:  Signal +S 1ST SCAN originates outside the group.
+INFO:  Signal +S CLEAR OP CODE originates outside the group.
+INFO:  Signal -S MPLY.N+1+2.D originates outside the group.
+INFO:  Signal +S 1401 STORE AR OP CODES originates outside the group.
+INFO:  Signal +S B CH NOT GROUP MARK WM originates outside the group.
+INFO:  Signal -S ANY CHECK TEST originates outside the group.
+INFO:  Signal +S INPUT CYCLE originates outside the group.
+INFO:  Signal +S I-O END OF STG STOP CTRL originates outside the group.
+INFO:  Signal +S WORD MARK OP CODES originates outside the group.
+INFO:  Signal +S LOAD MEM ON B CY OP CODES originates outside the group.
+INFO:  Signal +S STORE ADDR REGS OP CODE originates outside the group.
+INFO:  Signal +S I RING 1+5+6+10+1401.3+8 originates outside the group.
+INFO:  Signal -S I CYCLE.NOT CR DISABLE originates outside the group.
+INFO:  Signal -S X CYCLE originates outside the group.
+INFO:  Signal +S C OR D CYCLE originates outside the group.
+INFO:  Signal -S STORAGE SCAN RGEN originates outside the group.
+INFO:  Signal -S 1401 B CYCLE I RING OP originates outside the group.
+INFO:  Signal +S PROCESS ROUTINE originates outside the group.
+INFO:  Signal -S PROCESS ROUTINE originates outside the group.
+INFO:  Signal -S DISP ROUTINE.D CY.2ND SCAN originates outside the group.
+INFO:  Signal -S ALTR ROUTINE.D CY.NO SCAN originates outside the group.
+INFO:  Signal -S OUTPUT CYCLE originates outside the group.
+INFO:  Signal -S MPLY.N.C originates outside the group.
+INFO:  Signal -S 1401 STORE AR.C CYCLE originates outside the group.
+INFO:  Signal -S INTERRUPT.B CYCLE originates outside the group.
+INFO:  Signal -S INPUT CYCLE GRP MK WM INSRT originates outside the group.
+INFO:  Signal +S REGEN MEM ON B CY OP CODES originates outside the group.
+INFO:  Signal -S STD A CYCLE OPS.A CYCLE originates outside the group.
+INFO:  Signal -S B CYCLE .NO SCAN originates outside the group.
+INFO:  Signal -S STORAGE SCAN ROUTINE originates outside the group.
+INFO:  Signal -S DISPLAY ROUTINE originates outside the group.
+INFO:  Signal -S ALTER ROUTINE originates outside the group.
+INFO:  Signal -S DIV.2.D originates outside the group.
+INFO:  Signal -S FILE OP.D CYCLE originates outside the group.
+INFO:  Signal -S MPLY.3.D originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -Y LOAD MEMORY is used outside the group.
+INFO:  Signal +S INPUT CYCLE.LOAD is used outside the group.
+INFO:  Signal -S C+D CYCLE.INSN READ OUT is used outside the group.
+INFO:  Signal -Y REGEN MEMORY is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.50.01.1 (MEMORY LOAD CONTROLS FEATURE-ACC)
+Generating HDL associated with page 12.50.02.1 (MEMORY RGEN CONTROLS FEATURE-ACC)

@@ -1,0 +1,58 @@
+Generating HDL for page 12.50.02.1 MEMORY RGEN CONTROLS FEATURE-ACC at 7/9/2020 3:52:23 PM
+Ignoring Logic Block 1C with symbol R
+Removed 1 outputs from Gate at 5E to ignored block(s) or identical signal names
+Removed 3 outputs from Dot Function at 2A to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B
+	and inputs of MS_ANY_CHECK_TEST
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of MS_STORAGE_SCAN_RGEN,MS_OUTPUT_CYCLE,MS_MPLY_DOT_N_DOT_C
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_F
+	and inputs of OUT_DOT_3B
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of MS_1401_STORE_AR_DOT_C_CYCLE,MS_1401_B_CYCLE_I_RING_OP,MS_INTERRUPT_DOT_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_REGEN_MEM_ON_B_CY_OP_CODES,PS_B_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_B
+	and inputs of MS_INPUT_CYCLE_GRP_MK_WM_INSRT
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_D, OUT_5E_D
+	and inputs of PS_C_OR_D_CYCLE,PS_I_RING_1_OR_5_OR_6_OR_10_OR_1401_DOT_3_OR_8,PS_PROCESS_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_G
+	and inputs of OUT_5D_C,OUT_5E_D,MS_STD_A_CYCLE_OPS_DOT_A_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_G
+	and inputs of MS_I_CYCLE_DOT_NOT_CR_DISABLE,MS_X_CYCLE,MS_B_CYCLE_DOT_NO_SCAN
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of MS_PROCESS_ROUTINE,MS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of MS_DISPLAY_ROUTINE,MS_ALTER_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of MS_ALTR_ROUTINE_DOT_D_CY_DOT_NO_SCAN,OUT_DOT_4H,MS_DISP_ROUTINE_DOT_D_CY_DOT_2ND_SCAN
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of MS_MPLY_DOT_3_DOT_D,MS_DIV_DOT_2_DOT_D,MS_FILE_OP_DOT_D_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_DOT_2A
+	and inputs of OUT_2A_B,OUT_2B_F
+	and logic function of OR
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_3B_C,OUT_3C_C,OUT_3D_B,OUT_3E_G,OUT_3F_G,OUT_3H_C,OUT_3I_D
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H
+	and inputs of OUT_4G_D,OUT_4H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT
+	from gate output OUT_5E_D
+Generating output sheet edge signal assignment to 
+	signal MY_REGEN_MEMORY
+	from gate output OUT_DOT_2A
