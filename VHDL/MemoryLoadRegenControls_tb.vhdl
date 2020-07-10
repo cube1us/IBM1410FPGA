@@ -246,6 +246,113 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "12.50.01.1        ";
+   
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"SA");
+   check1(PS_INPUT_CYCLE_DOT_LOAD,'0',testName,"SB");
+   
+   MS_ANY_CHECK_TEST <= '1';   
+   PS_CLEAR_OP_CODE <= '1';
+   PS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"1A");
+   PS_B_CYCLE_1 <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'0',testName,"1B");
+   MS_ANY_CHECK_TEST <= '0';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"1B");
+   MS_ANY_CHECK_TEST <= '1';
+   PS_CLEAR_OP_CODE <= '0';
+   PS_1ST_SCAN <= '0';
+   PS_B_CYCLE_1 <= '0';
+   
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"2A");
+   MS_MPLY_DOT_N_OR_1_OR_2_DOT_D <= '0';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'0',testName,"2B");
+   MS_MPLY_DOT_N_OR_1_OR_2_DOT_D <= '1';
+   MS_ALT_ROUTINE_DOT_2ND_SCAN <= '0';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'0',testName,"2C");
+   MS_ALT_ROUTINE_DOT_2ND_SCAN <= '1';
+   
+   PS_A_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"3A");
+   PS_1401_STORE_AR_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'0',testName,"3B");
+   PS_A_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"3C");
+   PS_1401_STORE_AR_OP_CODES <= '0';
+   
+   MS_STORAGE_SCAN_LOAD <= '0';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'0',testName,"4A");
+   MS_STORAGE_SCAN_LOAD <= '1';
+   
+   PS_B_CH_NOT_GROUP_MARK_WM <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"5A");
+   check1(PS_INPUT_CYCLE_DOT_LOAD,'0',testName,"5B");
+   PS_INPUT_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'0',testName,"5C");
+   check1(PS_INPUT_CYCLE_DOT_LOAD,'1',testName,"5D");
+   PS_B_CH_NOT_GROUP_MARK_WM <= '0';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"5E");
+   check1(PS_INPUT_CYCLE_DOT_LOAD,'0',testName,"5F");
+   PS_INPUT_CYCLE <= '0';
+   
+   PS_INPUT_CYCLE <= '1';
+   PS_I_O_END_OF_STG_STOP_CTRL <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'0',testName,"6A");
+   check1(PS_INPUT_CYCLE_DOT_LOAD,'1',testName,"6B");
+   PS_INPUT_CYCLE <= '0';   
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"6C");
+   check1(PS_INPUT_CYCLE_DOT_LOAD,'0',testName,"6D");
+   PS_I_O_END_OF_STG_STOP_CTRL <= '0';
+   
+   PS_A_OR_B_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"7A");
+   PS_WORD_MARK_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'0',testName,"7B");
+   PS_A_OR_B_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"7C");
+   PS_WORD_MARK_OP_CODES <= '0';
+   
+   PS_B_CYCLE_1 <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"8A");
+   PS_LOAD_MEM_ON_B_CY_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'0',testName,"8B");
+   PS_B_CYCLE_1 <= '0';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"8C");
+   PS_LOAD_MEM_ON_B_CY_OP_CODES <= '0';
+   
+   PS_C_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"9A");
+   PS_STORE_ADDR_REGS_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'0',testName,"9B");
+   PS_C_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MY_LOAD_MEMORY,'1',testName,"9C");
+   PS_STORE_ADDR_REGS_OP_CODE <= '0';
 
    wait;
    end process;
