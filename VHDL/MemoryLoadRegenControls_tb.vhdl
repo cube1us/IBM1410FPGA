@@ -275,6 +275,7 @@ uut_process: process
    wait for 30 ns;
    check1(MY_LOAD_MEMORY,'0',testName,"2B");
    MS_MPLY_DOT_N_OR_1_OR_2_DOT_D <= '1';
+   wait for 30 ns;
    MS_ALT_ROUTINE_DOT_2ND_SCAN <= '0';
    wait for 30 ns;
    check1(MY_LOAD_MEMORY,'0',testName,"2C");
@@ -309,6 +310,7 @@ uut_process: process
    check1(MY_LOAD_MEMORY,'1',testName,"5E");
    check1(PS_INPUT_CYCLE_DOT_LOAD,'0',testName,"5F");
    PS_INPUT_CYCLE <= '0';
+   wait for 30 ns;
    
    PS_INPUT_CYCLE <= '1';
    PS_I_O_END_OF_STG_STOP_CTRL <= '1';
@@ -354,6 +356,182 @@ uut_process: process
    check1(MY_LOAD_MEMORY,'1',testName,"9C");
    PS_STORE_ADDR_REGS_OP_CODE <= '0';
 
+   testName := "12.50.02.1        ";
+   
+   -- Have to first turn active a -S signals which in their
+   -- default state will interfere with the test at gate 3H
+   
+   MS_DISPLAY_ROUTINE <= '0';  -- Gate 4H
+   
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"SA");
+   check1(MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT,'1',testName,"SB");
+   
+   MS_ANY_CHECK_TEST <= '1';
+   MS_STORAGE_SCAN_RGEN <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1A");
+   MS_STORAGE_SCAN_RGEN <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1B");
+   MS_ANY_CHECK_TEST <= '0';
+   wait for 30 ns;
+   MS_STORAGE_SCAN_RGEN <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1C");
+   MS_ANY_CHECK_TEST <= '1';
+   wait for 30 ns;
+   MS_STORAGE_SCAN_RGEN <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1D");
+   
+   MS_OUTPUT_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1E");
+   MS_OUTPUT_CYCLE <= '1';
+   wait for 30 ns;
+   MS_MPLY_DOT_N_DOT_C <= '0';   
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1F");
+   MS_MPLY_DOT_N_DOT_C <= '1';
+   wait for 30 ns;   
+   
+   MS_1401_STORE_AR_DOT_C_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1G");
+   MS_1401_STORE_AR_DOT_C_CYCLE <= '1';
+   wait for 30 ns;
+   MS_1401_B_CYCLE_I_RING_OP <= '0';   
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1H");
+   MS_1401_B_CYCLE_I_RING_OP <= '1';
+   wait for 30 ns;
+   MS_INTERRUPT_DOT_B_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1I");   
+   MS_INTERRUPT_DOT_B_CYCLE <= '1';
+   wait for 30 ns;
+   
+   MS_INPUT_CYCLE_GRP_MK_WM_INSRT <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1J");   
+   MS_INPUT_CYCLE_GRP_MK_WM_INSRT <= '1';
+   wait for 30 ns;
+   
+   PS_REGEN_MEM_ON_B_CY_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1K");
+   PS_B_CYCLE_1 <= '1';   
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1L");
+   PS_REGEN_MEM_ON_B_CY_OP_CODES <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1M");
+   PS_B_CYCLE_1 <= '0';
+   
+   PS_C_OR_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1N");
+   check1(MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT,'1',testName,"1O");
+   PS_I_RING_1_OR_5_OR_6_OR_10_OR_1401_DOT_3_OR_8 <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1P");
+   check1(MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT,'1',testName,"1Q");
+   PS_PROCESS_ROUTINE <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1R");
+   check1(MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT,'0',testName,"1S");
+   PS_I_RING_1_OR_5_OR_6_OR_10_OR_1401_DOT_3_OR_8 <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1T");
+   check1(MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT,'1',testName,"1U");
+   PS_C_OR_D_CYCLE <= '0';
+   PS_PROCESS_ROUTINE <= '0';
+   wait for 30 ns;
+   
+   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1V");
+   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= '1';
+   wait for 30 ns;
+   
+   MS_I_CYCLE_DOT_NOT_CR_DISABLE <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1W");
+   MS_I_CYCLE_DOT_NOT_CR_DISABLE <= '1';
+   wait for 30 ns;
+   MS_X_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1X");
+   MS_X_CYCLE <= '1';
+   wait for 30 ns;
+   MS_B_CYCLE_DOT_NO_SCAN <= '0';   
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1Y");
+   MS_B_CYCLE_DOT_NO_SCAN <= '1';   
+   wait for 30 ns;
+   
+   -- NOTE:  At this point -S Display Routine is already '0'
+   
+   check1(MY_REGEN_MEMORY,'1',testName,"1Z");
+   wait for 30 ns;
+   MS_ALTR_ROUTINE_DOT_D_CY_DOT_NO_SCAN <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1AA");
+   MS_ALTR_ROUTINE_DOT_D_CY_DOT_NO_SCAN <= '1';
+   wait for 30 ns;
+   MS_DISP_ROUTINE_DOT_D_CY_DOT_2ND_SCAN <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1AB");
+   MS_DISP_ROUTINE_DOT_D_CY_DOT_2ND_SCAN <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1AC");
+   
+   MS_DISPLAY_ROUTINE <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1AD");
+   MS_ALTER_ROUTINE <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1AE");
+   MS_ALTER_ROUTINE <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1AF");
+   
+   MS_PROCESS_ROUTINE <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1AG");
+   MS_PROCESS_ROUTINE <= '1';
+   wait for 30 ns;
+   MS_STORAGE_SCAN_ROUTINE <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1AH");
+   MS_STORAGE_SCAN_ROUTINE <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1AI");
+   
+   -- Take 3H out of the equation again (to 0)
+   
+   MS_DISPLAY_ROUTINE <= '0';   
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1AJ");
+   
+   MS_MPLY_DOT_3_DOT_D <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1AK");
+   MS_MPLY_DOT_3_DOT_D <= '1';
+   wait for 30 ns;
+   MS_DIV_DOT_2_DOT_D <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1AL");
+   MS_DIV_DOT_2_DOT_D <= '1';
+   wait for 30 ns;
+   MS_FILE_OP_DOT_D_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'0',testName,"1AM");
+   MS_FILE_OP_DOT_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MY_REGEN_MEMORY,'1',testName,"1AN");
+      
    wait;
    end process;
 
