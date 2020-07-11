@@ -1,0 +1,62 @@
+Generating HDL for page 12.60.04.1 BRANCH CONDITIONS at 7/11/2020 1:16:00 PM
+Removed 2 outputs from Dot Function at 1B to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_CLEAR_OP_CODE,PS_I_RING_11_TIME,PS_LAST_INSN_RO_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_4B_D,MS_2ND_CND_A_BRANCH_GATED,MS_W_TYPE_BRANCH_COND
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of MS_2ND_CND_A_BRANCH_GATED,MS_W_TYPE_BRANCH_COND,OUT_DOT_4F
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of PS_CLEAR_OP_CODE,PS_1ST_SCAN,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_R
+	and inputs of PS_NOT_EVEN_HUNDREDS_ADDR
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of PS_CLEAR_OP_CODE,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of MS_BRANCH_TO_A_AR_LATCH,MS_1401_BRANCH_LATCH
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of OUT_5G_C,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_D
+	and inputs of MS_W_TYPE_BRANCH_COND,MS_2ND_CND_A_BRANCH_GATED,MS_1401_TAKE_I_TO_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_B
+	and inputs of PS_EVEN_HUNDREDS_ADDR
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_P
+	and inputs of OUT_DOT_3D,OUT_DOT_4F
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_2B_D,PS_BRANCH_TO_A_COND_STAR_1412_19
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D, OUT_DOT_3D
+	and inputs of OUT_4D_C,OUT_4E_R
+	and logic function of OR
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_2C_C,PS_SET_NO_SCAN_CTRL_STAR_1412_19
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F, OUT_DOT_4F
+	and inputs of OUT_4F_G,OUT_4G_G,OUT_4H_B
+	and logic function of OR
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_2G_D,PS_SET_B_CYCLE_CTRL_STAR_1412_19,OUT_2H_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_BRANCH_TO_A_CONDITIONS
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal MS_CLEAR_OP_TAKE_1ST_SCAN
+	from gate output OUT_DOT_3D
+Generating output sheet edge signal assignment to 
+	signal PS_SET_NO_SCAN_CTRL_STAR_BR_OPS
+	from gate output OUT_DOT_2C
+Generating output sheet edge signal assignment to 
+	signal PS_SET_B_CYCLE_CTRL_STAR_BR_OPS
+	from gate output OUT_DOT_2G

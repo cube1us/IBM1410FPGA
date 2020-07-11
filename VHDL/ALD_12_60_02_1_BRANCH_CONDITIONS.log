@@ -1,0 +1,59 @@
+Generating HDL for page 12.60.02.1 BRANCH CONDITIONS at 7/11/2020 1:15:31 PM
+Removed 1 outputs from Gate at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_OVERFLOW,PS_Z_SYMBOL_OP_MODIFIER,PS_COND_TEST_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_BLANK_SYMBOL_OP_MODIFIER,PS_COND_TEST_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of OUT_5A_NoPin,OUT_5B_NoPin,OUT_5C_NoPin
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_OP_MOD_REG_1_BIT,PS_E_CH_NOT_READY,PS_BRANCH_ON_STATUS_CH_1
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_OP_MOD_REG_2_BIT,PS_E_CH_BUSY,PS_BRANCH_ON_STATUS_CH_1
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of PS_OP_MOD_REG_4_BIT,PS_E_CH_CHECK,PS_BRANCH_ON_STATUS_CH_1
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_5D_NoPin,OUT_5E_NoPin,OUT_5F_NoPin
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PS_OP_MOD_REG_8_BIT,PS_E_CH_CONDITION,PS_BRANCH_ON_STATUS_CH_1
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_D
+	and inputs of MS_GROUP_MARK_OP_MODIFIER,OUT_2G_D
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_NoPin
+	and inputs of PS_OP_MOD_REG_B_BIT,PS_E_CH_WRONG_LENGTH_RECORD,PS_BRANCH_ON_STATUS_CH_1
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_D, OUT_2G_D
+	and inputs of OUT_DOT_3B
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of PS_I_RING_6_TIME,PS_STOP_DOT_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D
+	and inputs of OUT_5G_NoPin,OUT_5H_NoPin,OUT_5I_NoPin
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_NoPin
+	and inputs of PS_BRANCH_ON_STATUS_CH_1,PS_E_CH_NO_TRANSFER_LATCH,PS_OP_MOD_REG_A_BIT
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_R
+	and inputs of OUT_DOT_3B,PS_LAST_INSN_RO_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B, OUT_DOT_3B
+	and inputs of OUT_3B_D,PS_2ND_CND_A_BRANCH_STAR_INTR,PS_2ND_CND_A_BRANCH_JRJ,PS_2ND_CND_A_BRANCH,OUT_3E_D,OUT_3H_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_I_O_INTLK_RESET_CONDITION
+	from gate output OUT_1F_D
+Generating output sheet edge signal assignment to 
+	signal MS_J_TYPE_BRANCH_COND
+	from gate output OUT_2G_D
+Generating output sheet edge signal assignment to 
+	signal MS_2ND_CND_A_BRANCH_GATED
+	from gate output OUT_1I_R
