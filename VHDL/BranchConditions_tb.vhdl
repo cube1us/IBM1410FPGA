@@ -288,7 +288,373 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "12.60.01.1        ";
+   
+   wait for 30 ns;
+   check1(PS_HIGH_OR_LOW,'0',testName,"SA");
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"SB");
+   
+   -- PS Last Insn RO Cycle needs to be one to test this page
 
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;   
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"SC");
+   
+   PS_COND_TEST_BRANCH_OP_CODE <= '1';  -- Used for several tests
+   
+   MS_HIGH <= '0';
+   wait for 30 ns;
+   check1(PS_HIGH_OR_LOW,'1',testName,"1A");
+   MS_HIGH <= '1';
+   MS_LOW <= '0';
+   wait for 30 ns;
+   check1(PS_HIGH_OR_LOW,'1',testName,"1B");
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1C");
+   PS_SLASH_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;   
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"1D");
+   MS_LOW <= '1';
+   PS_SLASH_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_S_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"2A");
+   PS_EQUAL <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"2B");
+   PS_S_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"2C");
+   PS_EQUAL <= '0';
+   
+   PS_T_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"3A");
+   PS_LOW <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"3B");
+   PS_T_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"3C");
+   PS_LOW <= '0';
+   
+   PS_U_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"3D");
+   PS_HIGH <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"3E");
+   PS_U_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"3F");
+   PS_HIGH <= '0';
+   
+   PS_V_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"4A");
+   PS_ZR_BAL_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"4B");
+   MS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"4C");
+   MS_1401_MODE <= '1';
+   PS_V_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"4D");
+   PS_ZR_BAL_LATCH <= '0';
+   
+   PS_W_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"5A");
+   PS_DIV_OVERFLOW <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"BB");
+   MS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"5C");
+   MS_1401_MODE <= '1';
+   PS_W_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"5D");
+   PS_DIV_OVERFLOW <= '0';
+   
+   testName := "12.60.02.1        ";
+   
+   PS_LAST_INSN_RO_CYCLE <= '1';  -- Needs to be set for testing this page as well
+   
+   PS_COND_TEST_BRANCH_OP_CODE <= '1';  -- Used for several tests
+
+   PS_Z_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1A");
+   PS_OVERFLOW <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"1B");
+   PS_Z_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1C");
+   PS_OVERFLOW <= '0';
+      
+   PS_BLANK_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"2A");
+   PS_COND_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"2B");
+   
+   PS_BLANK_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"3A");
+   PS_E_CH_NOT_READY <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"3B");
+   PS_BRANCH_ON_STATUS_CH_1 <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"3C");
+   PS_E_CH_NOT_READY <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"3D");
+   PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '0';
+
+   PS_BRANCH_ON_STATUS_CH_1 <= '1';  -- Leave on for several tests.
+
+   PS_OP_MOD_REG_BUS(HDL_2_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"4A");
+   PS_E_CH_BUSY <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"4B");
+   PS_OP_MOD_REG_BUS(HDL_2_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"4C");
+   PS_E_CH_BUSY <= '0';
+   
+   PS_OP_MOD_REG_BUS(HDL_4_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"5A");
+   PS_E_CH_CHECK <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"5B");
+   PS_OP_MOD_REG_BUS(HDL_4_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"5C");
+   PS_E_CH_CHECK <= '0';
+
+   PS_OP_MOD_REG_BUS(HDL_8_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"6A");
+   PS_E_CH_CONDITION <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"6B");
+   PS_OP_MOD_REG_BUS(HDL_8_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"6C");
+   PS_E_CH_CONDITION <= '0';
+   
+   PS_OP_MOD_REG_BUS(HDL_B_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"7A");
+   PS_E_CH_WRONG_LENGTH_RECORD <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"7B");
+   PS_OP_MOD_REG_BUS(HDL_B_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"7C");
+   PS_E_CH_WRONG_LENGTH_RECORD <= '0';   
+   
+   PS_OP_MOD_REG_BUS(HDL_A_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"8A");
+   PS_E_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"8B");
+   PS_OP_MOD_REG_BUS(HDL_A_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"8C");
+   PS_E_CH_NO_TRANSFER_LATCH <= '0';
+
+   PS_BRANCH_ON_STATUS_CH_1 <= '0';
+   
+   PS_I_RING_HDL_BUS(6) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"9A");
+   check1(MS_J_TYPE_BRANCH_COND,'1',testName,"9B");
+   check1(PS_I_O_INTLK_RESET_CONDITION,'0',testName,"9C");
+   PS_STOP_DOT_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"9D");
+   check1(MS_J_TYPE_BRANCH_COND,'0',testName,"9E");
+   check1(PS_I_O_INTLK_RESET_CONDITION,'1',testName,"9F");
+   
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"9H");
+   check1(MS_J_TYPE_BRANCH_COND,'0',testName,"9I");
+   PS_I_RING_HDL_BUS(6) <= '0';
+   wait for 30 ns;
+   check1(MS_J_TYPE_BRANCH_COND,'1',testName,"9G");
+   
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"10A");
+   PS_2ND_CND_A_BRANCH_STAR_INTR <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"10B");
+   PS_2ND_CND_A_BRANCH_STAR_INTR <= '0';
+   wait for 30 ns;
+   
+   PS_2ND_CND_A_BRANCH_JRJ <= '1';  -- From 12.60.15.1
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"10C");
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"10D");
+   PS_2ND_CND_A_BRANCH_JRJ <= '0';
+   
+   MS_GROUP_MARK_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_INTLK_RESET_CONDITION,'1',testName,"10E");    
+   
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   
+   testName := "12.60.03.1        ";
+   
+   PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1A");
+   PS_B_CH_WM_BIT_1 <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1B");
+   PS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1C");
+   PS_B_CYCLE <= '1';  -- Needed for the following tests as well
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1D");
+   check1(PS_B_OR_W_OR_V_BRANCH_CND,'1',testName,"1E");  -- Does not require B Cycle 
+   PS_1ST_SCAN <= '1'; -- Needed for the following tests as well
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"1F");
+   check1(PS_B_OR_W_OR_V_BRANCH_CND,'1',testName,"1G");
+   PS_B_CH_WM_BIT_1 <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1H");
+   check1(PS_B_OR_W_OR_V_BRANCH_CND,'0',testName,"1I");   
+   PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '1';
+   wait for 30 ns;
+
+   PS_B_CYCLE <= '1';  -- Needed for the following tests as well
+   PS_1ST_SCAN <= '1'; -- Needed for the following tests as well
+   
+   PS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '1';
+   PS_OP_MOD_REG_BUS(HDL_2_BIT) <= '1';   
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"2A");
+   PS_CMP_ZONE_EQUAL <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"2B");
+   PS_OP_MOD_REG_BUS(HDL_2_BIT) <= '0';   
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"2C");
+   PS_CMP_ZONE_EQUAL <= '0';
+   PS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '0';
+   
+   PS_CMP_EQUAL <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"3A");
+   PS_CHAR_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"3B");
+   PS_CMP_EQUAL <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"3C");
+
+   PS_B_CH_BUS(HDL_B_BIT) <= '1';    
+   PS_A_CH_BUS(HDL_B_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"4A");
+   check1(PS_B_OR_W_OR_V_BRANCH_CND,'0',testName,"4B");   
+   PS_BIT_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"4B");
+   check1(PS_B_OR_W_OR_V_BRANCH_CND,'1',testName,"4C");
+   PS_A_CH_BUS(HDL_B_BIT) <= '0';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"4D");
+   check1(PS_B_OR_W_OR_V_BRANCH_CND,'0',testName,"4E");   
+   PS_B_CH_BUS(HDL_B_BIT) <= '0';
+   wait for 30 ns;
+   
+   PS_BIT_TEST_BRANCH_OP_CODE <= '1'; -- For the following tests
+   
+   PS_B_CH_BUS(HDL_A_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"5A");
+   PS_A_CH_BUS(HDL_A_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"5B");
+   PS_B_CH_BUS(HDL_A_BIT) <= '0';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"5C");
+   PS_B_CH_BUS(HDL_A_BIT) <= '0';
+   wait for 30 ns;
+      
+   PS_B_CH_BUS(HDL_8_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"6A");
+   PS_A_CH_BUS(HDL_8_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"6B");
+   PS_B_CH_BUS(HDL_8_BIT) <= '0';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"6C");
+   PS_B_CH_BUS(HDL_8_BIT) <= '0';
+   wait for 30 ns;
+      
+   PS_B_CH_BUS(HDL_4_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"7A");
+   check1(PS_B_OR_W_OR_V_BRANCH_CND,'0',testName,"7B");   
+   PS_A_CH_BUS(HDL_4_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"7B");
+   check1(PS_B_OR_W_OR_V_BRANCH_CND,'1',testName,"7C");
+   PS_B_CH_BUS(HDL_4_BIT) <= '0';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"7D");
+   check1(PS_B_OR_W_OR_V_BRANCH_CND,'0',testName,"7E");   
+   PS_B_CH_BUS(HDL_4_BIT) <= '0';
+   wait for 30 ns;
+  
+   PS_B_CH_BUS(HDL_2_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"8A");
+   PS_A_CH_BUS(HDL_2_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"8B");
+   PS_B_CH_BUS(HDL_2_BIT) <= '0';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"8C");
+   PS_B_CH_BUS(HDL_2_BIT) <= '0';
+   wait for 30 ns;
+
+   PS_B_CH_BUS(HDL_1_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"9A");
+   PS_A_CH_BUS(HDL_1_BIT) <= '1';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"9B");
+   PS_B_CH_BUS(HDL_1_BIT) <= '0';    
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"9C");
+   PS_B_CH_BUS(HDL_1_BIT) <= '0';
+   wait for 30 ns;
+   
    wait;
    end process;
 
