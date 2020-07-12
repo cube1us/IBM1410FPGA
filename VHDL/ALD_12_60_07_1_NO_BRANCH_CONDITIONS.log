@@ -1,0 +1,49 @@
+Generating HDL for page 12.60.07.1 NO BRANCH CONDITIONS at 7/12/2020 10:41:16 AM
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C
+	and inputs of MS_CMP_LOW,MS_CMP_HIGH
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of OUT_5A_C,PS_CHAR_TEST_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_B_CYCLE,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_B_CH_B_BIT,PS_A_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of PS_1ST_SCAN,PS_BIT_TEST_BRANCH_OP_CODE,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_B_CH_A_BIT,PS_A_CH_A_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_F
+	and inputs of OUT_4C_NoPin,OUT_4D_NoPin,OUT_4E_NoPin
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_B_CH_8_BIT,PS_A_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
+	and inputs of PS_B_CH_4_BIT,PS_A_CH_4_BIT
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_B_CH_2_BIT,PS_A_CH_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_F
+	and inputs of OUT_4F_NoPin,OUT_4G_NoPin,OUT_4H_NoPin
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of PS_B_CH_1_BIT,PS_A_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_4A_G,OUT_4B_D
+	and logic function of OR
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_2C_D,OUT_2D_F,OUT_2G_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_CHAR_TEST_NO_BRANCH
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal MS_BIT_TEST_NO_BRANCH
+	from gate output OUT_DOT_1C

@@ -1,0 +1,83 @@
+Generating HDL for page 12.60.08.1 NO BRANCH CONDITIONS-ACC at 7/12/2020 10:41:19 AM
+Removed 2 outputs from Gate at 3D to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C, OUT_5A_C
+	and inputs of PS_I_RING_1_OR_1401_AND_3_TIME,PS_STOP_DOT_BRANCH_OP_CODE,PS_LAST_INSN_RO_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_G
+	and inputs of OUT_5A_C,MS_CND_TEST_NO_BRANCH,MS_EXTERNAL_CND_NO_BRANCH
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_E
+	and inputs of PS_LAST_INSN_RO_CYCLE,PS_CLEAR_OP_CODE,PS_I_RING_1_OR_6_TIME
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_5A_C,MS_EXTERNAL_CND_NO_BRANCH,MS_CND_TEST_NO_BRANCH
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_B_CH_WM_BIT_1,PS_OP_MOD_REG_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_G
+	and inputs of OUT_5B_E,OUT_DOT_4D
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_OP_MOD_REG_2_BIT,MS_CMP_ZONE_UNEQUAL
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_E
+	and inputs of OUT_5C_NoPin,OUT_5D_NoPin
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_A, OUT_3D_A
+	and inputs of OUT_5G_E
+	and logic function of EQUAL
+Generating Statement for block at 4E with output pin(s) of OUT_4E_E
+	and inputs of PS_B_CYCLE,PS_1ST_SCAN,PS_ZN_OR_WM_TST_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of MS_CHAR_TEST_NO_BRANCH,MS_BIT_TEST_NO_BRANCH,MS_NO_BRANCH_CND_INTERRUPT
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of PS_1401_MODE,MS_1401_BRANCH_LATCH
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of OUT_5F_C,MS_NO_BRANCH_LATCH
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_K
+	and inputs of OUT_4F_D,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_E
+	and inputs of OUT_DOT_4D,MS_CHAR_TEST_NO_BRANCH,MS_BIT_TEST_NO_BRANCH
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_E
+	and inputs of PS_NO_SCAN,PS_PROCESS_ROUTINE,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_3D_A,MS_OVERLAP_CH_2_NO_BRANCH,OUT_DOT_3H
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_C
+	and inputs of PS_CLEAR_OP_CODE,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E
+	and inputs of MS_NO_BRANCH_CND_INTERRUPT,MS_1401_NO_OP_DOT_LIROC,MS_1401_BRANCH_LAST_EX_CYCLE
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_B
+	and inputs of PS_EVEN_HUNDREDS_ADDR
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of OUT_DOT_2A
+	and inputs of OUT_2A_G,PS_NO_BRANCH_COND_STAR_1412_19,OUT_2C_G,OUT_2E_D
+	and logic function of OR
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2B_D,OUT_2F_E,OUT_2G_C,OUT_2H_E,PS_LAST_EXECUTE_CYCLE_STAR_1412_19
+	and logic function of OR
+Generating Statement for block at 3H with output pin(s) of OUT_DOT_3H
+	and inputs of OUT_3F_K,OUT_5H_C,OUT_5I_B
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D, OUT_DOT_4D
+	and inputs of OUT_4D_E,OUT_4E_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_B_CYCLE_DOT_NO_SCAN
+	from gate output OUT_3D_A
+Generating output sheet edge signal assignment to 
+	signal PS_NO_BRANCH_CONDITIONS
+	from gate output OUT_DOT_2A
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_EXECUTE_CYCLE_STAR_BR_CND
+	from gate output OUT_DOT_2B

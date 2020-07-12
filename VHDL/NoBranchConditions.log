@@ -1,0 +1,124 @@
+Generating HDL for group named NoBranchConditionsat 7/12/2020 10:42:07 AM containing pages: 
+	12.60.05.1, 12.60.06.1, 12.60.07.1, 12.60.08.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\NoBranchConditions_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 4 pages...
+Found 20 signals on page 12.60.05.1
+Found 22 signals on page 12.60.06.1
+Found 20 signals on page 12.60.07.1
+Found 31 signals on page 12.60.08.1
+Found 78 unique input signals and 8 unique output signals, (81 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LAST INSN RO CYCLE originates outside the group.
+INFO:  Signal +S HIGH OR LOW originates outside the group.
+INFO:  Signal +S W SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S NOT DIV OVERFLOW originates outside the group.
+INFO:  Signal +S OVERLAP NO BR CND originates inside the group.
+INFO:  Signal +S S SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S HIGH originates outside the group.
+INFO:  Signal +S T SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S SLASH SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S EQUAL originates outside the group.
+INFO:  Signal -S EQUAL originates outside the group.
+INFO:  Signal +S 1401 MODE originates outside the group.
+INFO:  Signal +S V SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S NOT ZR BAL LATCH originates outside the group.
+INFO:  Signal +S Z SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S NO OVERFLOW originates outside the group.
+INFO:  Signal +S COND TEST BRANCH OP CODE originates outside the group.
+INFO:  Signal -S LOW originates outside the group.
+INFO:  Signal +S U SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S OP MOD REG 1 BIT originates outside the group.
+INFO:  Signal +S E CH NOT READY originates outside the group.
+INFO:  Signal +S OP MOD REG 2 BIT originates outside the group.
+INFO:  Signal +S E CH BUSY originates outside the group.
+INFO:  Signal +S OP MOD REG 4 BIT originates outside the group.
+INFO:  Signal +S E CH CHECK originates outside the group.
+INFO:  Signal +S OP MOD REG 8 BIT originates outside the group.
+INFO:  Signal +S E CH CONDITION originates outside the group.
+INFO:  Signal +S OP MOD REG B BIT originates outside the group.
+INFO:  Signal -S E CH CORRECT LENGTH RECORD originates outside the group.
+INFO:  Signal +S OP MOD REG A BIT originates outside the group.
+INFO:  Signal +S E CH NO TRANSFER LATCH originates outside the group.
+INFO:  Signal +S BRANCH ON STATUS CH 1 originates outside the group.
+INFO:  Signal +S ONE SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S E CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal +S TWO SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S F CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal +S OP MOD SYM FOR I O STATUS originates outside the group.
+INFO:  Signal -S SPECIAL BRANCH LATCH originates outside the group.
+INFO:  Signal +S B CYCLE originates outside the group.
+INFO:  Signal +S 1ST SCAN originates outside the group.
+INFO:  Signal +S CHAR TEST BRANCH OP CODE originates outside the group.
+INFO:  Signal -S CMP LOW originates outside the group.
+INFO:  Signal -S CMP HIGH originates outside the group.
+INFO:  Signal +S B CH B BIT originates outside the group.
+INFO:  Signal +S A CH B BIT originates outside the group.
+INFO:  Signal +S BIT TEST BRANCH OP CODE originates outside the group.
+INFO:  Signal +S B CH A BIT originates outside the group.
+INFO:  Signal +S A CH A BIT originates outside the group.
+INFO:  Signal +S B CH 8 BIT originates outside the group.
+INFO:  Signal +S A CH 8 BIT originates outside the group.
+INFO:  Signal +S B CH 4 BIT originates outside the group.
+INFO:  Signal +S A CH 4 BIT originates outside the group.
+INFO:  Signal +S B CH 2 BIT originates outside the group.
+INFO:  Signal +S A CH 2 BIT originates outside the group.
+INFO:  Signal +S B CH 1 BIT originates outside the group.
+INFO:  Signal +S A CH 1 BIT originates outside the group.
+INFO:  Signal +S I RING 1 OR 6 TIME originates outside the group.
+INFO:  Signal +S I RING 1+1401 AND 3 TIME originates outside the group.
+INFO:  Signal +S PROCESS ROUTINE originates outside the group.
+INFO:  Signal +S NO SCAN originates outside the group.
+INFO:  Signal -S CND TEST NO BRANCH originates inside the group.
+INFO:  Signal -S EXTERNAL CND NO BRANCH originates inside the group.
+INFO:  Signal -S CHAR TEST NO BRANCH originates inside the group.
+INFO:  Signal -S BIT TEST NO BRANCH originates inside the group.
+INFO:  Signal +S STOP.BRANCH OP CODE originates outside the group.
+INFO:  Signal +S NO BRANCH COND*1412-19 originates outside the group.
+INFO:  Signal +S CLEAR OP CODE originates outside the group.
+INFO:  Signal +S LAST EXECUTE CYCLE*1412-19 originates outside the group.
+INFO:  Signal +S B CH WM BIT 1 originates outside the group.
+INFO:  Signal -S CMP ZONE UNEQUAL originates outside the group.
+INFO:  Signal +S ZN OR WM TST BRANCH OP CODE originates outside the group.
+INFO:  Signal -S 1401 BRANCH LATCH originates outside the group.
+INFO:  Signal -S NO BRANCH LATCH originates outside the group.
+INFO:  Signal -S NO BRANCH CND INTERRUPT originates outside the group.
+INFO:  Signal -S OVERLAP CH 2 NO BRANCH originates outside the group.
+INFO:  Signal -S 1401 BRANCH LAST EX CYCLE originates outside the group.
+INFO:  Signal -S 1401 NO OP.LIROC originates outside the group.
+INFO:  Signal +S EVEN HUNDREDS ADDR originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S CND TEST NO BRANCH is used only inside the group.
+INFO:  Signal +S OVERLAP NO BR CND is used only inside the group.
+INFO:  Signal -S EXTERNAL CND NO BRANCH is used only inside the group.
+INFO:  Signal -S CHAR TEST NO BRANCH is used only inside the group.
+INFO:  Signal -S BIT TEST NO BRANCH is used only inside the group.
+INFO:  Signal +S LAST EXECUTE CYCLE * BR CND is used outside the group.
+INFO:  Signal -S B CYCLE .NO SCAN is used outside the group.
+INFO:  Signal +S NO BRANCH CONDITIONS is used outside the group.
+Removing 5 output signals that do not have destinations outside the group...
+Removing 5 input signals that originate inside the group...
+Input Signal +S OP MOD REG 1 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG 2 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG 4 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG 8 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG B BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG A BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S B CH B BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH B BIT replaced by Bus signal +S A CH BUS
+Input Signal +S B CH A BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH A BIT replaced by Bus signal +S A CH BUS
+Input Signal +S B CH 8 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH 8 BIT replaced by Bus signal +S A CH BUS
+Input Signal +S B CH 4 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH 4 BIT replaced by Bus signal +S A CH BUS
+Input Signal +S B CH 2 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH 2 BIT replaced by Bus signal +S A CH BUS
+Input Signal +S B CH 1 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH 1 BIT replaced by Bus signal +S A CH BUS
+Generating list of internal signals/wires ...
+5 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.60.05.1 (NO BRANCH CONDITIONS)
+Generating HDL associated with page 12.60.06.1 (NO BRANCH CONDITIONS)
+Generating HDL associated with page 12.60.07.1 (NO BRANCH CONDITIONS)
+Generating HDL associated with page 12.60.08.1 (NO BRANCH CONDITIONS-ACC)

@@ -1,0 +1,55 @@
+Generating HDL for page 12.60.05.1 NO BRANCH CONDITIONS at 7/12/2020 10:41:05 AM
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of PS_W_SYMBOL_OP_MODIFIER,PS_NOT_DIV_OVERFLOW
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_3C_C
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_S_SYMBOL_OP_MODIFIER,PS_HIGH_OR_LOW
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of MS_HIGH,MS_EQUAL
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of OUT_5E_C,PS_T_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_F
+	and inputs of OUT_4D_NoPin,OUT_4E_NoPin,OUT_4F_NoPin
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
+	and inputs of PS_SLASH_SYMBOL_OP_MODIFIER,PS_EQUAL
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_V_SYMBOL_OP_MODIFIER,PS_NOT_ZR_BAL_LATCH
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_P
+	and inputs of PS_1401_MODE
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_K
+	and inputs of OUT_2G_P
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of PS_Z_SYMBOL_OP_MODIFIER,PS_NO_OVERFLOW
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_F
+	and inputs of OUT_4G_NoPin,OUT_4H_NoPin,OUT_4I_NoPin
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_C
+	and inputs of OUT_DOT_2H,PS_LAST_INSN_RO_CYCLE,PS_COND_TEST_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_C
+	and inputs of MS_EQUAL,MS_LOW
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_NoPin
+	and inputs of OUT_5I_C,PS_U_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_1G_K,OUT_1H_C
+	and logic function of OR
+Generating Statement for block at 2H with output pin(s) of OUT_DOT_2H
+	and inputs of OUT_2C_C,PS_OVERLAP_NO_BR_CND,OUT_2E_F,OUT_2H_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_CND_TEST_NO_BRANCH
+	from gate output OUT_DOT_1G
