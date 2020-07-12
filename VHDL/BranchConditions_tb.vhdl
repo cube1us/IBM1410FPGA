@@ -380,7 +380,7 @@ uut_process: process
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"5D");
    PS_DIV_OVERFLOW <= '0';
    
-   testName := "12.60.02.1        ";
+   testName := "12.60.02.1, 04.1  ";
    
    PS_LAST_INSN_RO_CYCLE <= '1';  -- Needs to be set for testing this page as well
    
@@ -389,12 +389,18 @@ uut_process: process
    PS_Z_SYMBOL_OP_MODIFIER <= '1';
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1A");
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"1AA");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"1AB");
    PS_OVERFLOW <= '1';
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"1B");
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'1',testName,"1BA");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'1',testName,"1BB");
    PS_Z_SYMBOL_OP_MODIFIER <= '0';
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1C");
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"1CA");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"1CB");
    PS_OVERFLOW <= '0';
       
    PS_BLANK_SYMBOL_OP_MODIFIER <= '1';
@@ -522,28 +528,40 @@ uut_process: process
    
    PS_LAST_INSN_RO_CYCLE <= '0';
    
-   testName := "12.60.03.1        ";
+   testName := "12.60.03.1, 04.1  ";
    
    PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '1';
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1A");
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"1AA");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"1AB");
    PS_B_CH_WM_BIT_1 <= '1';
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1B");
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"1BA");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"1BB");
    PS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '1';
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1C");
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"1CA");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"1CB");
    PS_B_CYCLE <= '1';  -- Needed for the following tests as well
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1D");
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"1DA");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"1DB");
    check1(PS_B_OR_W_OR_V_BRANCH_CND,'1',testName,"1E");  -- Does not require B Cycle 
    PS_1ST_SCAN <= '1'; -- Needed for the following tests as well
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"1F");
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'1',testName,"1FA");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'1',testName,"1FB");
    check1(PS_B_OR_W_OR_V_BRANCH_CND,'1',testName,"1G");
    PS_B_CH_WM_BIT_1 <= '0';
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1H");
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"1GA");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"1GB");
    check1(PS_B_OR_W_OR_V_BRANCH_CND,'0',testName,"1I");   
    PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '1';
    wait for 30 ns;
@@ -613,7 +631,7 @@ uut_process: process
    PS_B_CH_BUS(HDL_8_BIT) <= '0';    
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"6C");
-   PS_B_CH_BUS(HDL_8_BIT) <= '0';
+   PS_A_CH_BUS(HDL_8_BIT) <= '0';
    wait for 30 ns;
       
    PS_B_CH_BUS(HDL_4_BIT) <= '1';    
@@ -628,7 +646,7 @@ uut_process: process
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"7D");
    check1(PS_B_OR_W_OR_V_BRANCH_CND,'0',testName,"7E");   
-   PS_B_CH_BUS(HDL_4_BIT) <= '0';
+   PS_A_CH_BUS(HDL_4_BIT) <= '0';
    wait for 30 ns;
   
    PS_B_CH_BUS(HDL_2_BIT) <= '1';    
@@ -640,7 +658,7 @@ uut_process: process
    PS_B_CH_BUS(HDL_2_BIT) <= '0';    
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"8C");
-   PS_B_CH_BUS(HDL_2_BIT) <= '0';
+   PS_A_CH_BUS(HDL_2_BIT) <= '0';
    wait for 30 ns;
 
    PS_B_CH_BUS(HDL_1_BIT) <= '1';    
@@ -652,9 +670,109 @@ uut_process: process
    PS_B_CH_BUS(HDL_1_BIT) <= '0';    
    wait for 30 ns;
    check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"9C");
-   PS_B_CH_BUS(HDL_1_BIT) <= '0';
+   PS_A_CH_BUS(HDL_1_BIT) <= '0';
    wait for 30 ns;
    
+   PS_B_CYCLE <= '0';
+   PS_1ST_SCAN <= '0';
+   PS_BIT_TEST_BRANCH_OP_CODE <= '0';
+   
+   testName := "12.60.04.1        ";
+   
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"1A");
+   PS_BRANCH_TO_A_COND_STAR_1412_19 <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"1B");
+   PS_BRANCH_TO_A_COND_STAR_1412_19 <= '0';
+   wait for 30 ns;
+   
+   PS_CLEAR_OP_CODE <= '1';
+   PS_I_RING_HDL_BUS(11) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"2A");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'1',testName,"2B");
+   PS_CLEAR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_CONDITIONS,'0',testName,"2C");
+   PS_I_RING_HDL_BUS(11) <= '0';
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   wait for 30 ns;
+   
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"3A");
+   PS_SET_NO_SCAN_CTRL_STAR_1412_19 <= '1';
+   wait for 30 ns;  
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'1',testName,"3B");
+   PS_SET_NO_SCAN_CTRL_STAR_1412_19 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"3C");
+
+   PS_CLEAR_OP_CODE <= '1';
+   PS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   check1(MS_CLEAR_OP_TAKE_1ST_SCAN,'1',testName,"4A");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"4B");
+   PS_B_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_CLEAR_OP_TAKE_1ST_SCAN,'1',testName,"4C");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"4D");
+   PS_NOT_EVEN_HUNDREDS_ADDR <= '1';
+   wait for 30 ns;
+   check1(MS_CLEAR_OP_TAKE_1ST_SCAN,'0',testName,"4E");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'1',testName,"4F");
+   PS_CLEAR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MS_CLEAR_OP_TAKE_1ST_SCAN,'1',testName,"4G");
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"4H");
+   PS_NOT_EVEN_HUNDREDS_ADDR <= '0';
+   PS_1ST_SCAN <= '0';
+   PS_B_CYCLE <= '0';
+      
+   wait for 30 ns;
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"5A");
+   PS_SET_B_CYCLE_CTRL_STAR_1412_19 <= '1';
+   wait for 30 ns;
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'1',testName,"5B");
+   PS_SET_B_CYCLE_CTRL_STAR_1412_19 <= '0';
+   wait for 30 ns;
+   
+   MS_1401_TAKE_I_TO_B_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'1',testName,"6A");
+   MS_1401_TAKE_I_TO_B_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"6B");
+   
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"7A");
+   PS_CLEAR_OP_CODE <= '1';
+   PS_B_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"7B");   
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"7C");
+   PS_EVEN_HUNDREDS_ADDR <= '1';
+   wait for 30 ns;
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"7D");   
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"7E");
+   PS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'0',testName,"7F");   
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'0',testName,"7G");
+   MS_1401_BRANCH_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'1',testName,"7H");   
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'1',testName,"7I");
+   MS_1401_BRANCH_LATCH <= '1';
+   wait for 30 ns;
+   MS_BRANCH_TO_A_AR_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_SET_B_CYCLE_CTRL_STAR_BR_OPS,'1',testName,"7J");   
+   check1(PS_SET_NO_SCAN_CTRL_STAR_BR_OPS,'1',testName,"7K");
+   MS_BRANCH_TO_A_AR_LATCH <= '1';
+   
+   
+      
    wait;
    end process;
 
