@@ -560,6 +560,7 @@ uut_process: process
    wait for 30 ns;
    check1(PS_NO_BRANCH_CONDITIONS,'1',testName,"11G");
    MS_CMP_HIGH <= '1';
+   PS_B_CYCLE <= '0';
 
    PS_1ST_SCAN <= '1';
    PS_B_CYCLE <= '1';
@@ -634,9 +635,85 @@ uut_process: process
    wait for 30 ns;
    check1(PS_NO_BRANCH_CONDITIONS,'1',testName,"18C");
    PS_A_CH_BUS(HDL_1_BIT) <= '0';
+   PS_B_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'0',testName,"18C");
+   PS_B_CYCLE <= '0';
+   PS_1ST_SCAN <= '0';
+   PS_BIT_TEST_BRANCH_OP_CODE <= '0';
+
+   testName := "12.60.08.1        ";
+   
+   PS_NO_SCAN <= '1';
+   PS_PROCESS_ROUTINE <= '1';
+   wait for 30 ns;
+   check1(MS_B_CYCLE_DOT_NO_SCAN,'1',testName,"1A");
+   PS_B_CYCLE <= '1';   
+   wait for 30 ns;
+   check1(MS_B_CYCLE_DOT_NO_SCAN,'0',testName,"1B");
+   PS_NO_SCAN <= '0';
+   wait for 30 ns;
+   check1(MS_B_CYCLE_DOT_NO_SCAN,'1',testName,"1C");
+   PS_B_CYCLE <= '0';
+   PS_PROCESS_ROUTINE <= '0';
+   wait for 30 ns;
+   
+   check1(PS_NO_BRANCH_CONDITIONS,'0',testName,"2A");
+   PS_NO_BRANCH_COND_STAR_1412_19 <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'1',testName,"2B");
+   PS_NO_BRANCH_COND_STAR_1412_19 <= '0';
+   wait for 30 ns;
+      
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '1';
+   PS_STOP_DOT_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'0',testName,"3A");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'1',testName,"3B");
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'0',testName,"3C");      
+   PS_STOP_DOT_BRANCH_OP_CODE <= '0';
+   
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   PS_CLEAR_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'0',testName,"4A");
+   PS_I_RING_1_OR_6_TIME <= '1';      
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'1',testName,"4B");
+   PS_CLEAR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'0',testName,"4C");
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   
+   PS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'0',testName,"5A");
+   PS_B_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'0',testName,"5B");
+   PS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'1',testName,"5C");
+   -- At this point, 4E pin E should be 0
+   
+   PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'1',testName,"5D");
+   PS_B_CH_WM_BIT_1 <= '1';   
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_CONDITIONS,'0',testName,"5E");
+   
+   
+   
+      
    
    wait;
    end process;
+   
 
 -- The following is needed for older VHDL simulations to
 -- terminate the simulation process.  If your environment
