@@ -1,0 +1,66 @@
+Generating HDL for group named BranchLatchesAndIOConditionsat 7/13/2020 4:03:19 PM containing pages: 
+	12.60.14.1, 12.60.15.1, 12.60.16.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\BranchLatchesAndIOConditions_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 15 signals on page 12.60.14.1
+Found 21 signals on page 12.60.15.1
+Found 17 signals on page 12.60.16.1
+Found 32 unique input signals and 9 unique output signals, (40 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LOGIC GATE E 1 originates outside the group.
+INFO:  Signal +S I RING OP TIME originates outside the group.
+INFO:  Signal +S NEXT TO LAST LOGIC GATE originates outside the group.
+INFO:  Signal +S BRANCH TO A CONDITIONS originates outside the group.
+INFO:  Signal +S NO BRANCH CONDITIONS originates outside the group.
+INFO:  Signal +S NO BRANCH CONDITIONS JRJ originates inside the group.
+INFO:  Signal -S 1401 MODE originates outside the group.
+INFO:  Signal -S PROGRAM RESET 3 originates outside the group.
+INFO:  Signal -S PROGRAM SET BRANCH CTRL originates outside the group.
+INFO:  Signal +S E CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal +S ONE SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S F CH OVLP IN PROCESS originates outside the group.
+INFO:  Signal +S TWO SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S COND TEST BRANCH OP CODE originates outside the group.
+INFO:  Signal +S OP MOD SYM FOR I O STATUS originates outside the group.
+INFO:  Signal +S SPECIAL BRANCH LATCH originates outside the group.
+INFO:  Signal +S OP MOD REG 1 BIT originates outside the group.
+INFO:  Signal +S F CH NOT READY originates outside the group.
+INFO:  Signal +S OP MOD REG 2 BIT originates outside the group.
+INFO:  Signal +S F CH BUSY originates outside the group.
+INFO:  Signal +S OP MOD REG 4 BIT originates outside the group.
+INFO:  Signal +S F CH CHECK originates outside the group.
+INFO:  Signal +S BRANCH ON STATUS CH 2 originates outside the group.
+INFO:  Signal +S F CH CONDITION originates outside the group.
+INFO:  Signal +S OP MOD REG 8 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG B BIT originates outside the group.
+INFO:  Signal +S F CH WRONG LENGTH RECORD originates outside the group.
+INFO:  Signal +S OP MOD REG A BIT originates outside the group.
+INFO:  Signal +S F CH NO TRANSFER LATCH originates outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE originates outside the group.
+INFO:  Signal -S F CH CORRECT LENGTH RECORD originates outside the group.
+INFO:  Signal +S NO BRANCH OP CODES originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S BRANCH TO A AR LATCH is used outside the group.
+INFO:  Signal -S NO BRANCH LATCH is used outside the group.
+INFO:  Signal +S NO BRANCH LATCH is used outside the group.
+INFO:  Signal +S BRANCH TO A AR LATCH is used outside the group.
+INFO:  Signal +S BRANCH TO 00001 ADDR LAT is used outside the group.
+INFO:  Signal -S BRANCH TO 00001 is used outside the group.
+INFO:  Signal +S 2ND CND A BRANCH JRJ is used outside the group.
+INFO:  Signal -S OVERLAP CH 2 NO BRANCH is used outside the group.
+INFO:  Signal +S NO BRANCH CONDITIONS JRJ is used only inside the group.
+Removing 1 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Input Signal +S I RING OP TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S OP MOD REG 1 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG 2 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG 4 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG 8 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG B BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG A BIT replaced by Bus signal +S OP MOD REG BUS
+Generating list of internal signals/wires ...
+1 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.60.14.1 (BRANCH LATCHES)
+Generating HDL associated with page 12.60.15.1 (BRANCH CONDITIONS)
+Generating HDL associated with page 12.60.16.1 (NO BRANCH CONDITIONS)

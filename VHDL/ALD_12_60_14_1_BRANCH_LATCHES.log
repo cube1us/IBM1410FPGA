@@ -1,0 +1,68 @@
+Generating HDL for page 12.60.14.1 BRANCH LATCHES at 7/13/2020 4:02:20 PM
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 3E
+Found combinatorial loop (need D FF) at output of gate at 2E
+Found combinatorial loop (need D FF) at output of gate at 3H
+Found combinatorial loop (need D FF) at output of gate at 2H
+Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_D_Latch, OUT_3B_D_Latch
+	and inputs of OUT_2B_E,MS_PROGRAM_RESET_3,OUT_5E_P
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_E_Latch, OUT_2B_E_Latch
+	and inputs of OUT_3B_D,MS_PROGRAM_SET_BRANCH_CTRL,OUT_5C_C
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of MS_1401_MODE,OUT_DOT_5D,PS_NEXT_TO_LAST_LOGIC_GATE
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_P, OUT_5E_P, OUT_5E_P
+	and inputs of PS_I_RING_OP_TIME,PS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_D_Latch
+	and inputs of OUT_2E_C,MS_PROGRAM_RESET_3
+	and logic function of NAND
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_C_Latch, OUT_2E_C_Latch
+	and inputs of OUT_DOT_3E,OUT_5F_NoPin
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PS_NEXT_TO_LAST_LOGIC_GATE,MS_1401_MODE,PS_BRANCH_TO_A_CONDITIONS
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_K
+	and inputs of OUT_5E_P,MS_PROGRAM_SET_BRANCH_CTRL
+	and logic function of NAND
+Generating Statement for block at 3H with *latched* output pin(s) of OUT_3H_E_Latch, OUT_3H_E_Latch
+	and inputs of OUT_5E_P,OUT_2H_C,MS_PROGRAM_SET_BRANCH_CTRL
+	and logic function of NAND
+Generating Statement for block at 2H with *latched* output pin(s) of OUT_2H_C_Latch, OUT_2H_C_Latch
+	and inputs of OUT_3H_E,MS_PROGRAM_RESET_3
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E, OUT_DOT_3E
+	and inputs of OUT_3E_D,OUT_3F_K
+	and logic function of OR
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of PS_NO_BRANCH_CONDITIONS,PS_NO_BRANCH_CONDITIONS_JRJ
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_NO_BRANCH_LATCH
+	from gate output OUT_3B_D
+Generating output sheet edge signal assignment to 
+	signal PS_NO_BRANCH_LATCH
+	from gate output OUT_2B_E
+Generating output sheet edge signal assignment to 
+	signal PS_BRANCH_TO_A_AR_LATCH
+	from gate output OUT_2E_C
+Generating output sheet edge signal assignment to 
+	signal MS_BRANCH_TO_00001
+	from gate output OUT_3H_E
+Generating output sheet edge signal assignment to 
+	signal PS_BRANCH_TO_00001_ADDR_LAT
+	from gate output OUT_2H_C
+Generating output sheet edge signal assignment to 
+	signal MS_BRANCH_TO_A_AR_LATCH
+	from gate output OUT_DOT_3E
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 3E
+Generating D Flip Flop for block at 2E
+Generating D Flip Flop for block at 3H
+Generating D Flip Flop for block at 2H
