@@ -213,6 +213,335 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "12.60.14.1        ";
+   
+   wait for 30 ns;
+   MS_PROGRAM_RESET_3 <= '0';
+   wait for 1 us;
+   MS_PROGRAM_RESET_3 <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'0',testName,"SA");
+   check1(MS_NO_BRANCH_LATCH,'1',testName,"SB");
+   check1(PS_BRANCH_TO_A_AR_LATCH,'0',testName,"SC");
+   check1(MS_BRANCH_TO_A_AR_LATCH,'1',testName,"SD");
+   check1(PS_BRANCH_TO_00001_ADDR_LAT,'1',testname,"SE");
+   check1(MS_BRANCH_TO_00001,'0',testname,"SF");
+   
+   MS_PROGRAM_SET_BRANCH_CTRL <= '0';
+   -- Set the latch
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'1',testName,"1A");
+   check1(MS_NO_BRANCH_LATCH,'0',testName,"1B");
+   MS_PROGRAM_SET_BRANCH_CTRL <= '1';
+   wait for 30 ns;
+   -- It should still be set
+   check1(PS_NO_BRANCH_LATCH,'1',testName,"1C");
+   -- Start reset test - should still be set
+   PS_I_RING_HDL_BUS(0) <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'1',testName,"1D");
+   -- The following should reset it
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'0',testName,"1E");
+   -- Remove the reset signals
+   PS_I_RING_HDL_BUS(0) <= '0';
+   PS_LOGIC_GATE_E_1 <= '0';
+   wait for 30 ns;
+   -- Start the next set test - first signal
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'0',testName,"1F");
+   MS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'0',testName,"1G");
+   -- second and third signals
+   MS_1401_MODE <= '1';
+   PS_NO_BRANCH_CONDITIONS <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'1',testName,"1H");
+   PS_NO_BRANCH_CONDITIONS <= '0';  -- Leaving not 1401 mode and NLLG.
+   -- Reset the latch again
+   PS_I_RING_HDL_BUS(0) <= '1';
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'0',testName,"1I");
+   -- Set the latch again from page 12.60.16.1
+   PS_I_RING_HDL_BUS(0) <= '0';
+   PS_LOGIC_GATE_E_1 <= '0';   
+   PS_NO_BRANCH_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'0',testName,"1J");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'1',testName,"1K");   
+   -- Reset it again   
+   PS_NO_BRANCH_OP_CODES <= '0';
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '0';
+   PS_I_RING_HDL_BUS(0) <= '1';
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns;
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_LATCH,'0',testName,"1L");   
+   
+   PS_I_RING_HDL_BUS(0) <= '0';
+   PS_LOGIC_GATE_E_1 <= '0';
+   MS_1401_MODE <= '1';
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+   check1(PS_BRANCH_TO_A_AR_LATCH,'0',testName,"2A");
+   -- Finish setting the latch
+   PS_BRANCH_TO_A_CONDITIONS <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_AR_LATCH,'1',testName,"2B");
+   check1(MS_BRANCH_TO_A_AR_LATCH,'0',testName,"2C");   
+   -- Reset the latch
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '0';  -- Remove one of the set signals
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_AR_LATCH,'1',testName,"2D");
+   MS_PROGRAM_SET_BRANCH_CTRL <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_AR_LATCH,'0',testName,"2E");
+   -- Set it again
+   MS_PROGRAM_SET_BRANCH_CTRL <= '1';
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_AR_LATCH,'1',testName,"2F");
+   -- Test the other reset signal
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '0';
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_AR_LATCH,'1',testName,"2G");
+   PS_I_RING_HDL_BUS(0) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_A_AR_LATCH,'0',testName,"2H");
+   
+   PS_LOGIC_GATE_E_1 <= '0';
+   PS_I_RING_HDL_BUS(0) <= '0';
+   MS_PROGRAM_SET_BRANCH_CTRL <= '1';
+   -- Earlier latch test resets reset this gate as well.
+   check1(PS_BRANCH_TO_00001_ADDR_LAT,'0',testName,"3A");
+   check1(MS_BRANCH_TO_00001,'1',testname,"3B");
+   -- Set it again
+   MS_PROGRAM_RESET_3 <= '0';
+   wait for 1 us;
+   MS_PROGRAM_RESET_3 <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_00001_ADDR_LAT,'1',testName,"3C");
+   -- Test first reset
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_00001_ADDR_LAT,'1',testName,"3D");
+   -- Finish the reset
+   PS_I_RING_HDL_BUS(0) <= '1';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_00001_ADDR_LAT,'0',testName,"3E");
+   -- Set it again
+   PS_LOGIC_GATE_E_1 <= '0';
+   PS_I_RING_HDL_BUS(0) <= '0';   
+   MS_PROGRAM_RESET_3 <= '0';
+   wait for 30 us;
+   MS_PROGRAM_RESET_3 <= '1';
+   wait for 30 ns;
+   -- Test the other reset
+   MS_PROGRAM_SET_BRANCH_CTRL <= '0';
+   wait for 30 ns;
+   check1(PS_BRANCH_TO_00001_ADDR_LAT,'0',testName,"3F");
+   MS_PROGRAM_SET_BRANCH_CTRL <= '1';
+
+   testName := "12.60.15.1        ";
+   
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"1A");
+   PS_OP_MOD_SYM_FOR_I_O_STATUS <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"1B");
+   PS_SPECIAL_BRANCH_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"1C");
+   PS_COND_TEST_BRANCH_OP_CODE <= '1'; -- Leave set for several tests
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'1',testName,"1D");
+   PS_OP_MOD_SYM_FOR_I_O_STATUS <= '0';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"1E");
+   PS_SPECIAL_BRANCH_LATCH <= '0';
+   wait for 30 ns;
+   
+   PS_E_CH_OVLP_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"2A");
+   PS_ONE_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'1',testName,"2B");
+   PS_E_CH_OVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"2C");
+   PS_ONE_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_F_CH_OVLP_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"3A");
+   PS_TWO_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'1',testName,"3B");
+   PS_F_CH_OVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"3C");
+   PS_TWO_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_COND_TEST_BRANCH_OP_CODE <= '0';
+   
+   PS_BRANCH_ON_STATUS_CH_2 <= '1'; -- Used for a number of tests
+   
+   PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"4A");
+   PS_F_CH_NOT_READY <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'1',testName,"4B");
+   PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"4C");
+   PS_F_CH_NOT_READY <= '0';
+      
+   PS_OP_MOD_REG_BUS(HDL_2_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"5A");
+   PS_F_CH_BUSY <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'1',testName,"5B");
+   PS_OP_MOD_REG_BUS(HDL_2_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"5C");
+   PS_F_CH_BUSY <= '0';
+   
+   PS_OP_MOD_REG_BUS(HDL_4_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"6A");
+   PS_F_CH_CHECK <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'1',testName,"6B");
+   PS_OP_MOD_REG_BUS(HDL_4_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"6C");
+   PS_F_CH_CHECK <= '0';
+   
+   PS_OP_MOD_REG_BUS(HDL_8_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"7A");
+   PS_F_CH_CONDITION <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'1',testName,"7B");
+   PS_OP_MOD_REG_BUS(HDL_8_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"7C");
+   PS_F_CH_CONDITION <= '0';
+   
+   PS_OP_MOD_REG_BUS(HDL_B_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"8A");
+   PS_F_CH_WRONG_LENGTH_RECORD <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'1',testName,"8B");
+   PS_OP_MOD_REG_BUS(HDL_B_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"8C");
+   PS_F_CH_WRONG_LENGTH_RECORD <= '0';
+   
+   PS_OP_MOD_REG_BUS(HDL_A_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"9A");
+   PS_F_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'1',testName,"9B");
+   PS_OP_MOD_REG_BUS(HDL_A_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_2ND_CND_A_BRANCH_JRJ,'0',testName,"9C");
+   PS_F_CH_NO_TRANSFER_LATCH <= '0';   
+
+   PS_BRANCH_ON_STATUS_CH_2 <= '1'; -- Used for a number of tests -- Again
+   PS_LAST_INSN_RO_CYCLE <= '1'; -- Ditto
+
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"10A");
+
+   PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"11A");
+   PS_F_CH_NOT_READY <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'1',testName,"11B");
+   PS_OP_MOD_REG_BUS(HDL_1_BIT) <= '0';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"11C");
+   PS_F_CH_NOT_READY <= '0';
+      
+   PS_OP_MOD_REG_BUS(HDL_2_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"12A");
+   PS_F_CH_BUSY <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'1',testName,"12B");
+   PS_OP_MOD_REG_BUS(HDL_2_BIT) <= '0';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"12C");
+   PS_F_CH_BUSY <= '0';
+   
+   PS_OP_MOD_REG_BUS(HDL_4_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"13A");
+   PS_F_CH_CHECK <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'1',testName,"13B");
+   PS_OP_MOD_REG_BUS(HDL_4_BIT) <= '0';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"13C");
+   PS_F_CH_CHECK <= '0';
+   
+   PS_OP_MOD_REG_BUS(HDL_8_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"14A");
+   PS_F_CH_CONDITION <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'1',testName,"14B");
+   PS_OP_MOD_REG_BUS(HDL_8_BIT) <= '0';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"14C");
+   PS_F_CH_CONDITION <= '0';
+   
+   MS_F_CH_CORRECT_LENGTH_RECORD <= '0';
+   PS_OP_MOD_REG_BUS(HDL_B_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"15A");
+   MS_F_CH_CORRECT_LENGTH_RECORD <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'1',testName,"15B");
+   PS_OP_MOD_REG_BUS(HDL_B_BIT) <= '0';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"15C");
+   
+   PS_OP_MOD_REG_BUS(HDL_A_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"16A");
+   PS_F_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'1',testName,"16B");   
+   PS_OP_MOD_REG_BUS(HDL_A_BIT) <= '0';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'0',testName,"16C");
+   PS_F_CH_NO_TRANSFER_LATCH <= '0';   
+
+   PS_LAST_INSN_RO_CYCLE <= '0';   
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'1',testName,"17A");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   PS_BRANCH_ON_STATUS_CH_2 <= '0';
+   wait for 30 ns;
+   check1(MS_OVERLAP_CH_2_NO_BRANCH,'1',testName,"17B");
+   PS_LAST_INSN_RO_CYCLE <= '0';   
+
 
    wait;
    end process;
