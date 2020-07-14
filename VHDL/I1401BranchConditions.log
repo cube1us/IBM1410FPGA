@@ -1,0 +1,65 @@
+Generating HDL for group named I1401BranchConditionsat 7/14/2020 1:10:38 PM containing pages: 
+	12.60.17.1, 12.60.18.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\I1401BranchConditions_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 20 signals on page 12.60.17.1
+Found 23 signals on page 12.60.18.1
+Found 40 unique input signals and 2 unique output signals, (42 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S 1401 I-O CK STOP SW originates outside the group.
+INFO:  Signal +S FILE INVALID ADDRESS originates outside the group.
+INFO:  Signal +S N SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S E CH CONDITION BUS originates outside the group.
+INFO:  Signal +S EXCLAM MARK+REC MARK OP MOD originates outside the group.
+INFO:  Signal +S E CH TAPE ERROR originates outside the group.
+INFO:  Signal +S L SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S SELECTED CARRIAGE CH originates outside the group.
+INFO:  Signal +S COML AT OR 9 SYMBOL OP MOD originates outside the group.
+INFO:  Signal +S 1401 FILE VALIDITY CK originates outside the group.
+INFO:  Signal +S V SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S 1401 FILE WRONG LENG REC originates outside the group.
+INFO:  Signal +S W SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S 1401 FILE ADDR COMPARE originates outside the group.
+INFO:  Signal +S X SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S 1401 ANY FILE CHECK originates outside the group.
+INFO:  Signal +S Y SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S 1401 INQUIRY ERROR originates outside the group.
+INFO:  Signal +S ASTERISK OP MODIFIER originates outside the group.
+INFO:  Signal +S 1401 PROCESS CHECK originates outside the group.
+INFO:  Signal +S PERCENT SIGN OP MODIFIER originates outside the group.
+INFO:  Signal +S E1 INPUT C BIT originates outside the group.
+INFO:  Signal +S A SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S E1 INPUT B BIT originates outside the group.
+INFO:  Signal +S B SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S NOT B.A.8 OP MOD originates outside the group.
+INFO:  Signal +S 4.2.NOT 1 OP MOD originates outside the group.
+INFO:  Signal +S FILE BUSY LATCH originates outside the group.
+INFO:  Signal +S C SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S E1 INPUT A BIT originates outside the group.
+INFO:  Signal +S E1 INPUT 8 BIT originates outside the group.
+INFO:  Signal +S D SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S E SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S E1 INPUT 4 BIT originates outside the group.
+INFO:  Signal +S E1 INPUT 2 BIT originates outside the group.
+INFO:  Signal +S F SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S G SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S E1 INPUT 1 BIT originates outside the group.
+INFO:  Signal +S 1401 READ ERROR originates outside the group.
+INFO:  Signal +S QUESTION MK OP MODIFIER originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S 1401 BRANCH CONDITION is used outside the group.
+INFO:  Signal +S 1401 BRANCH CONDITION JRJ is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S E1 INPUT C BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal +S E1 INPUT B BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal +S E1 INPUT A BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal +S E1 INPUT 8 BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal +S E1 INPUT 4 BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal +S E1 INPUT 2 BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal +S E1 INPUT 1 BIT replaced by Bus signal +S E1 INPUT BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.60.17.1 (1401 BRANCHES)
+Generating HDL associated with page 12.60.18.1 (1401 BRANCHES)

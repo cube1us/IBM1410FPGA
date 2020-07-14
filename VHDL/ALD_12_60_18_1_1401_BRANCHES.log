@@ -1,0 +1,49 @@
+Generating HDL for page 12.60.18.1 1401 BRANCHES at 7/14/2020 1:10:07 PM
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of PS_1401_PROCESS_CHECK,PS_PERCENT_SIGN_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of PS_E1_INPUT_C_BIT,PS_E_CH_CONDITION_BUS,PS_A_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_4A_NoPin,OUT_4B_NoPin,OUT_4C_NoPin
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_B_SYMBOL_OP_MODIFIER,PS_E1_INPUT_B_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of PS_NOT_B_DOT_A_DOT_8_OP_MOD,PS_4_DOT_2_DOT_NOT_1_OP_MOD,PS_FILE_BUSY_LATCH
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_P
+	and inputs of OUT_3C_C
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_C_SYMBOL_OP_MODIFIER,PS_E1_INPUT_A_BIT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_E1_INPUT_8_BIT,PS_D_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_F
+	and inputs of OUT_4D_NoPin,OUT_4E_NoPin,OUT_4F_NoPin
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
+	and inputs of PS_E_SYMBOL_OP_MODIFIER,PS_E1_INPUT_4_BIT
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_E1_INPUT_2_BIT,PS_F_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of PS_G_SYMBOL_OP_MODIFIER,PS_E1_INPUT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_F
+	and inputs of OUT_4G_NoPin,OUT_4H_NoPin,OUT_4I_NoPin
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_NoPin
+	and inputs of PS_1401_READ_ERROR,PS_QUESTION_MK_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_2B_D,OUT_2C_P,OUT_2E_F,OUT_2H_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_1401_BRANCH_CONDITION_JRJ
+	from gate output OUT_DOT_1B

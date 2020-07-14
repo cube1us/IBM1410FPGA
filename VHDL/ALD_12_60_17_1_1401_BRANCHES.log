@@ -1,0 +1,43 @@
+Generating HDL for page 12.60.17.1 1401 BRANCHES at 7/14/2020 1:10:05 PM
+Generating Statement for block at 4A with output pin(s) of OUT_4A_P
+	and inputs of PS_FILE_INVALID_ADDRESS,PS_N_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_E
+	and inputs of PS_E_CH_CONDITION_BUS,MS_1401_I_O_CK_STOP_SW,PS_EXCLAM_MARK_OR_REC_MARK_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_E
+	and inputs of OUT_4A_P,OUT_4B_E,OUT_4C_E
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_E
+	and inputs of PS_E_CH_TAPE_ERROR,PS_L_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PS_SELECTED_CARRIAGE_CH,PS_COML_AT_OR_9_SYMBOL_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of PS_1401_FILE_VALIDITY_CK,PS_V_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_E
+	and inputs of OUT_4D_G,OUT_4E_C,OUT_4F_D
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of PS_1401_FILE_WRONG_LENG_REC,PS_W_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_1401_FILE_ADDR_COMPARE,PS_X_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of PS_1401_ANY_FILE_CHECK,PS_Y_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_F
+	and inputs of OUT_4G_NoPin,OUT_4H_NoPin,OUT_4I_NoPin
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_NoPin
+	and inputs of PS_1401_INQUIRY_ERROR,PS_ASTERISK_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_2B_E,OUT_2E_E,OUT_2H_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_1401_BRANCH_CONDITION
+	from gate output OUT_DOT_1B
