@@ -183,7 +183,147 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "12.60.19.1        ";
+   
+   wait for 30 ns;
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 1 us;
+   MS_PROGRAM_RESET_1 <= '1';
+   wait for 30 ns;
+   
+   PS_1401_MODE <= '1';  -- These are 1401 mode tests
+   
+   check1(PS_1401_BRANCH_LATCH,'0',testName,"SA");
+   check1(MS_1401_BRANCH_LATCH,'1',testName,"SB");
+   check1(MS_1401_BRANCH_LAST_EX_CYCLE,'1',testName,"SC");
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"SD");
+   
+   PS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_LATCH,'0',testName,"1A");
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';     
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_LATCH,'0',testName,"1B");
+   PS_B_OR_W_OR_V_BRANCH_CND <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_LATCH,'0',testName,"1C");
+   PS_B_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_LATCH,'1',testName,"1D");
+   check1(MS_1401_BRANCH_LATCH,'0',testName,"1E");   
+   -- Latch should remain set   
+   PS_B_CYCLE <= '0';
+   PS_1ST_SCAN <= '0';
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '0';     
+   PS_B_OR_W_OR_V_BRANCH_CND <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_LATCH,'1',testName,"2A");
+   -- Reset latch by leaving 1401 mode
+   PS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_LATCH,'0',testName,"2B");
+   
+   -- Go back into 1401 mode for the rest of the tests
+   
+   PS_1401_MODE <= '1';
+   
+   -- Set the branch latch again
+   
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_LATCH,'0',testName,"3A");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_LATCH,'0',testName,"3B");
+   MS_1401_UNCOND_BRANCH <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_LATCH,'1',testName,"3C");
+      
+   -- Use this opportunity, with the branch latch set, and
+   -- the 1401 Unconditional Branch set to test another gate
+   
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"4A");
+   check1(MS_1401_BRANCH_LAST_EX_CYCLE,'1',testName,"4B");
+   PS_1401_NO_EXE_CY_BRANCH_OPS <= '1';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'0',testName,"4C");
+   check1(MS_1401_BRANCH_LAST_EX_CYCLE,'1',testName,"4D");
+   MS_1401_UNCOND_BRANCH <= '1';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"4E");      
+   check1(MS_1401_BRANCH_LAST_EX_CYCLE,'0',testName,"4F");
+   PS_1401_NO_EXE_CY_BRANCH_OPS <= '0';
+   -- Branch latch should still be set
+   check1(PS_1401_BRANCH_LATCH,'1',testName,"4G");
 
+   -- Reset the latch - one more latch test to go
+      
+   MS_I_RING_OP_TIME <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_LATCH,'0',testName,"5A");
+   MS_I_RING_OP_TIME <= '1';
+
+   PS_1401_NO_EXE_CY_BRANCH_OPS <= '1'; -- Used for later etsts
+
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"5B");
+   check1(PS_1401_BRANCH_LATCH,'0',testName,"5C");
+   PS_1401_COND_TEST_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"5D");
+   check1(PS_1401_BRANCH_LATCH,'0',testName,"5E");
+   PS_1401_BRANCH_CONDITION <= '1';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'0',testName,"5F");
+   check1(PS_1401_BRANCH_LATCH,'1',testName,"5G");
+   
+   -- Ignore the branch latch for the remaining tests
+            
+   PS_1401_BRANCH_CONDITION <= '0';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"5H");
+   PS_1401_BRANCH_CONDITION_JRJ <= '1';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'0',testName,"5I");
+   PS_1401_BRANCH_CONDITION_JRJ <= '0';
+   PS_1401_COND_TEST_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"5J");
+   
+   MS_1401_CLEAR_DOT_I_RING_11 <= '0';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'0',testName,"5K");
+   MS_1401_CLEAR_DOT_I_RING_11 <= '1';
+   wait for 30 ns;
+   MS_J_TYPE_BRANCH_COND <= '0';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'0',testName,"5L");
+   MS_J_TYPE_BRANCH_COND <= '1';
+   
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"6A");
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '1';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"6B");
+   PS_1401_I_RING_8_BRANCH_OPS <= '1';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'0',testName,"6C");
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"6D");
+   PS_1401_I_RING_8_BRANCH_OPS <= '0';
+   
+   PS_I_RING_9_TIME <= '1';  -- Not a group test bench - use the actual name
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"7A");
+   PS_1401_I_RING_9_BRANCH_OPS <= '1';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'0',testName,"7B");
+   PS_I_RING_9_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_1401_TAKE_I_TO_B_CYCLE,'1',testName,"7C");
+   
    wait;
    end process;
 
