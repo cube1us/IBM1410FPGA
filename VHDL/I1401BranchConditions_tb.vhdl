@@ -219,6 +219,234 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "12.60.17.1        ";
+   
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"SA");
+   
+   PS_FILE_INVALID_ADDRESS <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"1A");
+   PS_N_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'1',testName,"1B");
+   PS_FILE_INVALID_ADDRESS <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"1C");
+   PS_N_SYMBOL_OP_MODIFIER <= '0';
+   
+   MS_1401_I_O_CK_STOP_SW <= '0';
+   PS_E_CH_CONDITION_BUS <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"2A");
+   PS_EXCLAM_MARK_OR_REC_MARK_OP_MOD <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"2B");
+   MS_1401_I_O_CK_STOP_SW <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'1',testName,"2C");
+   PS_E_CH_CONDITION_BUS <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"2D");
+   PS_EXCLAM_MARK_OR_REC_MARK_OP_MOD <= '0';
+   
+   PS_E_CH_TAPE_ERROR <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"3A");
+   PS_L_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'1',testName,"3B");
+   PS_E_CH_TAPE_ERROR <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"3C");
+   PS_L_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_SELECTED_CARRIAGE_CH <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"4A");
+   PS_COML_AT_OR_9_SYMBOL_OP_MOD <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'1',testName,"4B");
+   PS_SELECTED_CARRIAGE_CH <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"4C");
+   PS_COML_AT_OR_9_SYMBOL_OP_MOD <= '0';
+   
+   PS_1401_FILE_VALIDITY_CK <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"5A");
+   PS_V_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'1',testName,"5B");
+   PS_1401_FILE_VALIDITY_CK <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"5C");
+   PS_V_SYMBOL_OP_MODIFIER <= '0';
+      
+   PS_1401_FILE_WRONG_LENG_REC <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"6A");
+   PS_W_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'1',testName,"6B");
+   PS_1401_FILE_WRONG_LENG_REC <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"6C");
+   PS_W_SYMBOL_OP_MODIFIER <= '0';
+      
+   PS_1401_FILE_ADDR_COMPARE <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"7A");
+   PS_X_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'1',testName,"7B");
+   PS_1401_FILE_ADDR_COMPARE <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"7C");
+   PS_X_SYMBOL_OP_MODIFIER <= '0';
+         
+   PS_1401_ANY_FILE_CHECK <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"8A");
+   PS_Y_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'1',testName,"8B");
+   PS_1401_ANY_FILE_CHECK <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"8C");
+   PS_Y_SYMBOL_OP_MODIFIER <= '0';
+            
+   PS_1401_INQUIRY_ERROR <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"9A");
+   PS_ASTERISK_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'1',testName,"9B");
+   PS_1401_INQUIRY_ERROR <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION,'0',testName,"9C");
+   PS_ASTERISK_OP_MODIFIER <= '0';
+
+   testName := "12.60.18.1        ";
+
+   PS_1401_PROCESS_CHECK <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"1A");
+   PS_PERCENT_SIGN_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'1',testName,"1B");
+   PS_1401_PROCESS_CHECK <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"1C");
+   PS_PERCENT_SIGN_OP_MODIFIER <= '0';
+
+   PS_E1_INPUT_BUS(HDL_C_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"2A");
+   PS_E_CH_CONDITION_BUS <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"2B");
+   PS_A_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'1',testName,"2C");
+   PS_E1_INPUT_BUS(HDL_C_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"2D");
+   PS_A_SYMBOL_OP_MODIFIER <= '0';
+   PS_E_CH_CONDITION_BUS <= '0';
+   
+   PS_E1_INPUT_BUS(HDL_B_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"3A");
+   PS_B_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'1',testName,"3B");
+   PS_E1_INPUT_BUS(HDL_B_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"3C");
+   PS_B_SYMBOL_OP_MODIFIER <= '0';   
+   
+   PS_E1_INPUT_BUS(HDL_A_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"4A");
+   PS_C_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'1',testName,"4B");
+   PS_E1_INPUT_BUS(HDL_A_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"4C");
+   PS_C_SYMBOL_OP_MODIFIER <= '0';
+      
+   PS_E1_INPUT_BUS(HDL_8_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"5A");
+   PS_D_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'1',testName,"5B");
+   PS_E1_INPUT_BUS(HDL_8_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"5C");
+   PS_D_SYMBOL_OP_MODIFIER <= '0';
+      
+   PS_E1_INPUT_BUS(HDL_4_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"6A");
+   PS_E_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'1',testName,"6B");
+   PS_E1_INPUT_BUS(HDL_4_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"6C");
+   PS_E_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_E1_INPUT_BUS(HDL_2_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"7A");
+   PS_F_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'1',testName,"7B");
+   PS_E1_INPUT_BUS(HDL_2_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"7C");
+   PS_F_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_E1_INPUT_BUS(HDL_1_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"8A");
+   PS_G_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'1',testName,"8B");
+   PS_E1_INPUT_BUS(HDL_1_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"8C");
+   PS_G_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_1401_READ_ERROR <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"9A");
+   PS_QUESTION_MK_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'1',testName,"9B");
+   PS_1401_READ_ERROR <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"9C");
+   PS_QUESTION_MK_OP_MODIFIER <= '0';
+   
+   PS_NOT_B_DOT_A_DOT_8_OP_MOD <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"10A");
+   PS_4_DOT_2_DOT_NOT_1_OP_MOD <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"10B");
+   PS_FILE_BUSY_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'1',testName,"10C");
+   PS_NOT_B_DOT_A_DOT_8_OP_MOD <= '0';
+   wait for 30 ns;
+   check1(PS_1401_BRANCH_CONDITION_JRJ,'0',testName,"10D");
+   PS_4_DOT_2_DOT_NOT_1_OP_MOD <= '0';
+   PS_FILE_BUSY_LATCH <= '0';
 
    wait;
    end process;
