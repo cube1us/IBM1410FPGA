@@ -1,0 +1,142 @@
+Generating HDL for page 12.61.13.1 SPECIAL BRANCH LATCH at 7/15/2020 4:54:11 PM
+WARNING: Diagram block at coordinate 5A has 2 different output pins: M,C
+WARNING: Diagram block at coordinate 2C has 2 different output pins: M,B
+WARNING: Diagram block at coordinate 4G has 2 different output pins: M,C
+WARNING: Diagram block at coordinate 4I has 2 different output pins: M,C
+Found combinatorial loop (need D FF) at output of gate at 5A
+Found combinatorial loop (need D FF) at output of gate at 3A
+Found combinatorial loop (need D FF) at output of gate at 2A
+Found combinatorial loop (need D FF) at output of gate at 2C
+Found combinatorial loop (need D FF) at output of gate at 3D
+Found combinatorial loop (need D FF) at output of gate at 2D
+Found combinatorial loop (need D FF) at output of gate at 4G
+Found combinatorial loop (need D FF) at output of gate at 4I
+Ignoring Pin M connection from/to block at 5A
+Ignoring Pin M connection from/to block at 2C
+Ignoring Pin M connection from/to block at 4G
+Ignoring Pin M connection from/to block at 4I
+Removed 1 inputs to Gate at 5A from ignored block(s)
+Removed 1 outputs from Gate at 5A to ignored block(s) or identical signal names
+Removed 1 inputs to Gate at 2C from ignored block(s)
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 1 inputs to Gate at 4G from ignored block(s)
+Removed 1 outputs from Gate at 4G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 1 inputs to Gate at 4I from ignored block(s)
+Removed 1 outputs from Gate at 4I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with *latched* output pin(s) of OUT_5A_C_Latch
+	and inputs of MC_BUFFER_INQ_REQUEST
+	and logic function of NOR
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C
+	and inputs of PS_BRANCH_TO_A_CONDITIONS,OUT_3B_G,PS_N_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_D_Latch, OUT_3A_D_Latch
+	and inputs of OUT_4A_C,MS_PROGRAM_RESET_1,OUT_DOT_2B
+	and logic function of NAND
+Generating Statement for block at 2A with *latched* output pin(s) of OUT_2A_C_Latch
+	and inputs of OUT_3A_D
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G
+	and inputs of MS_CONS_INQUIRY_REQUEST
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_LOGIC_GATE_C_1,OUT_DOT_5A,PS_Q_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of MS_INTERRUPT_TEST_OP_CODE,MS_COND_TEST_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_3A_D
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_LOGIC_GATE_C_1,PS_K_SYMBOL_OP_MODIFIER,OUT_5D_C
+	and logic function of NAND
+Generating Statement for block at 2C with *latched* output pin(s) of OUT_2C_B_Latch
+	and inputs of MC_BUFFER_OUTQUIRY_PULSE
+	and logic function of NOR
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of MS_E_CH_TAPE_INDICATOR,MS_F_CH_TAPE_INDICATOR
+	and logic function of NAND
+Generating Statement for block at 3D with *latched* output pin(s) of OUT_3D_K_Latch, OUT_3D_K_Latch
+	and inputs of OUT_DOT_2D,MS_LOGIC_GATE_B_1
+	and logic function of NAND
+Generating Statement for block at 2D with *latched* output pin(s) of OUT_2D_C_Latch
+	and inputs of OUT_4B_D,OUT_4C_C,OUT_3D_K
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_A
+	and inputs of MC_PRINTER_CHANNEL_9,MS_9_SYMBOL_OP_MODIFIER
+	and logic function of NOR
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E
+	and inputs of OUT_DOT_2B,PS_N_SYMBOL_OP_MODIFIER,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_A
+	and inputs of MC_PRINTER_CHANNEL_12,MS_COML_AT_SYM_OP_MODIFIER
+	and logic function of NOR
+Generating Statement for block at 3F with output pin(s) of OUT_3F_F
+	and inputs of MS_1401_MODE,OUT_DOT_4E,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D
+	and inputs of OUT_3E_E,OUT_3F_F,OUT_3G_E
+	and logic function of NAND
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_C_Latch, OUT_4G_C_Latch
+	and inputs of MC_FORMS_BUSY_STATUS_TO_CPU
+	and logic function of NOR
+Generating Statement for block at 3G with output pin(s) of OUT_3G_E
+	and inputs of OUT_4G_C,PS_LOGIC_GATE_C_1,PS_R_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_P
+	and inputs of OUT_4G_C
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D
+	and inputs of PS_LOGIC_GATE_C_1,PS_P_SYMBOL_OP_MODIFIER,PS_1403_PRINT_BUFFER_BUSY
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_3H_D
+	and logic function of NAND
+Generating Statement for block at 4I with *latched* output pin(s) of OUT_4I_C_Latch
+	and inputs of MC_READ_COLUMN_BINARY
+	and logic function of NOR
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of OUT_4I_C,PS_LOGIC_GATE_C_1,PS_M_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_F
+	and inputs of OUT_3I_D
+	and logic function of NOT
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A, OUT_DOT_5A
+	and inputs of OUT_5A_C,OUT_5B_G
+	and logic function of OR
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B, OUT_DOT_2B
+	and inputs of OUT_2A_C,OUT_2C_B
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D, OUT_DOT_2D
+	and inputs of OUT_2D_C,PS_SPEC_BRANCH_LATCH_STAR_1414_STAR,OUT_2F_D,OUT_2H_C,OUT_2I_F
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E, OUT_DOT_4E
+	and inputs of OUT_4E_A,OUT_4F_A
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_INT_OUTQUIRY_REQUEST
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal MS_SPECIAL_BRANCH_LATCH
+	from gate output OUT_3D_K
+Generating output sheet edge signal assignment to 
+	signal MS_PRT_CARR_BUSY
+	from gate output OUT_2G_P
+Generating output sheet edge signal assignment to 
+	signal PS_ANY_INQUIRY_REQUEST
+	from gate output OUT_DOT_5A
+Generating output sheet edge signal assignment to 
+	signal PS_SPECIAL_BRANCH_LATCH
+	from gate output OUT_DOT_2D
+Generating output sheet edge signal assignment to 
+	signal PS_SELECTED_CARRIAGE_CH
+	from gate output OUT_DOT_4E
+Generating D Flip Flop for block at 5A
+Generating D Flip Flop for block at 3A
+Generating D Flip Flop for block at 2A
+Generating D Flip Flop for block at 2C
+Generating D Flip Flop for block at 3D
+Generating D Flip Flop for block at 2D
+Generating D Flip Flop for block at 4G
+Generating D Flip Flop for block at 4I

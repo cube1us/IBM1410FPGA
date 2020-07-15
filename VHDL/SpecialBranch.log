@@ -1,0 +1,68 @@
+Generating HDL for group named SpecialBranchat 7/15/2020 4:59:17 PM containing pages: 
+	12.61.12.1, 12.61.13.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\SpecialBranch_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 21 signals on page 12.61.12.1
+Found 32 signals on page 12.61.13.1
+Found 37 unique input signals and 15 unique output signals, (52 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LAST LOGIC GATE 2 originates outside the group.
+INFO:  Signal +S LAST LOGIC GATE 1 originates outside the group.
+INFO:  Signal +S NO SCAN originates outside the group.
+INFO:  Signal +S EXCLAM MARK+REC MARK OP MOD originates outside the group.
+INFO:  Signal +S QUESTION MK OP MODIFIER originates outside the group.
+INFO:  Signal +S COND TEST BRANCH OP CODE originates outside the group.
+INFO:  Signal +S K SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S PERCENT SIGN OP MODIFIER originates outside the group.
+INFO:  Signal +S W SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S Z SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S Q SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S ASTERISK OP MODIFIER originates outside the group.
+INFO:  Signal -S LOGIC GATE B 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE C 1 originates outside the group.
+INFO:  Signal +S BRANCH TO A CONDITIONS originates outside the group.
+INFO:  Signal -C BUFFER INQ REQUEST originates outside the group.
+INFO:  Signal +S N SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S PROGRAM RESET 1 originates outside the group.
+INFO:  Signal -S CONS INQUIRY REQUEST originates outside the group.
+INFO:  Signal +S Q SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S INTERRUPT TEST OP CODE originates outside the group.
+INFO:  Signal -S COND TEST BRANCH OP CODE originates outside the group.
+INFO:  Signal -C BUFFER OUTQUIRY PULSE originates outside the group.
+INFO:  Signal -S E CH TAPE INDICATOR originates outside the group.
+INFO:  Signal -S F CH TAPE INDICATOR originates outside the group.
+INFO:  Signal +S SPEC BRANCH LATCH *1414* originates outside the group.
+INFO:  Signal -C PRINTER CHANNEL 9 originates outside the group.
+INFO:  Signal -S 9 SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S 1401 MODE originates outside the group.
+INFO:  Signal -C PRINTER CHANNEL 12 originates outside the group.
+INFO:  Signal -S COML AT SYM OP MODIFIER originates outside the group.
+INFO:  Signal -C FORMS BUSY STATUS TO CPU originates outside the group.
+INFO:  Signal +S R SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S P SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S 1403 PRINT BUFFER BUSY originates outside the group.
+INFO:  Signal -C READ COLUMN BINARY originates outside the group.
+INFO:  Signal +S M SYMBOL OP MODIFIER originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S RESET READER ERROR LATCH is used outside the group.
+INFO:  Signal -S RES PUNCH + PRINT ERROR is used outside the group.
+INFO:  Signal -S RESET END OF REEL IND is used outside the group.
+INFO:  Signal -S RESET PROCESS CK LAT is used outside the group.
+INFO:  Signal -S SET NO DIV OVERFLOW is used outside the group.
+INFO:  Signal -S RESET DIV OVERFLOW is used outside the group.
+INFO:  Signal -S RESET INQUIRY ERROR is used outside the group.
+INFO:  Signal -S SET NO OVERFLOW is used outside the group.
+INFO:  Signal -S RESET OVERFLOW is used outside the group.
+INFO:  Signal -S SPECIAL BRANCH LATCH is used outside the group.
+INFO:  Signal +S SPECIAL BRANCH LATCH is used outside the group.
+INFO:  Signal +S SELECTED CARRIAGE CH is used outside the group.
+INFO:  Signal -S PRT CARR BUSY is used outside the group.
+INFO:  Signal +S ANY INQUIRY REQUEST is used outside the group.
+INFO:  Signal +S INT OUTQUIRY REQUEST is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.61.12.1 (TEST AND BRANCH RESULTS)
+Generating HDL associated with page 12.61.13.1 (SPECIAL BRANCH LATCH)
