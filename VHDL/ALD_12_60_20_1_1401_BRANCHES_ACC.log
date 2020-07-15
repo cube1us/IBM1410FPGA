@@ -1,0 +1,55 @@
+Generating HDL for page 12.60.20.1 1401 BRANCHES-ACC at 7/15/2020 1:56:52 PM
+Old test bench file ALD_12_60_20_1_1401_BRANCHES_ACC_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+Removed 1 outputs from Gate at 5A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5D to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_D
+	and inputs of PS_1401_COND_TEST_OP_CODE,PS_A_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G
+	and inputs of PS_1401_COND_TEST_OP_CODE,PS_EXCLAM_MK_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of PS_1401_COND_TEST_OP_CODE,PS_RECORD_MARK_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_K, OUT_5D_K
+	and inputs of MS_EXCLAM_MK_OP_MODIFIER,MS_RECORD_MARK_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P
+	and inputs of OUT_5D_K,PS_E_CH_BUSY_BUS
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_4E_P,OUT_4F_P,OUT_4G_R
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_P
+	and inputs of MS_LOGIC_GATE_D_1
+	and logic function of SS
+	INFO: SingleShot at 4F pulse time: 3000 ns, Clock Period is 10 ns
+Generating Statement for block at 5G with output pin(s) of OUT_5G_P, OUT_5G_P
+	and inputs of MS_9_SYMBOL_OP_MODIFIER,MS_COML_AT_SYM_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_R
+	and inputs of OUT_5G_P,OUT_5H_K
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_K
+	and inputs of MS_PRT_CARR_BUSY,MS_1403_PRINT_BUFFER_BUSY
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_TEST_READ_E_OR_F
+	from gate output OUT_5A_D
+Generating output sheet edge signal assignment to 
+	signal MS_TEST_PUNCH_ERROR
+	from gate output OUT_5B_G
+Generating output sheet edge signal assignment to 
+	signal MS_TEST_PRINT_ERROR
+	from gate output OUT_5C_C
+Generating output sheet edge signal assignment to 
+	signal PS_EXCLAM_MARK_OR_REC_MARK_OP_MOD
+	from gate output OUT_5D_K
+Generating output sheet edge signal assignment to 
+	signal PS_1401_STOP_AND_WAIT
+	from gate output OUT_3E_D
+Generating output sheet edge signal assignment to 
+	signal PS_COML_AT_OR_9_SYMBOL_OP_MOD
+	from gate output OUT_5G_P
