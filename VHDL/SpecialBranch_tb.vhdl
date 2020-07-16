@@ -267,6 +267,427 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "12.61.12.1        ";
+   
+   wait for 30 ns;
+   check1(MS_RESET_READER_ERROR_LATCH,'1',testName,"SA");
+   check1(MS_RES_PUNCH_OR_PRINT_ERROR,'1',testName,"SB");
+   check1(MS_RESET_END_OF_REEL_IND,'1',testName,"SC");
+   check1(MS_RESET_PROCESS_CK_LAT,'1',testName,"SD");
+   check1(MS_SET_NO_DIV_OVERFLOW,'1',testName,"SE");
+   check1(MS_RESET_DIV_OVERFLOW,'1',testName,"SF");
+   check1(MS_RESET_INQUIRY_ERROR,'1',testName,"SG");
+   check1(MS_SET_NO_OVERFLOW,'1',testName,"SH");
+   check1(MS_RESET_OVERFLOW,'1',testName,"SI");
+   
+   PS_LAST_LOGIC_GATE_1 <= '1'; -- Used for almost all of the tests.
+   PS_LAST_LOGIC_GATE_2 <= '1'; -- Used for the rest of the tests
+   PS_NO_SCAN <= '1';           -- Used for all of the tests
+   PS_COND_TEST_BRANCH_OP_CODE <= '1'; -- Used for all of the tests
+   
+   wait for 30 ns;
+   check1(MS_RESET_READER_ERROR_LATCH,'1',testName,"1A");
+   PS_QUESTION_MK_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MS_RESET_READER_ERROR_LATCH,'0',testName,"1B");
+   -- Leave set until the end
+   
+   check1(MS_RES_PUNCH_OR_PRINT_ERROR,'1',testName,"2A");
+   PS_EXCLAM_MARK_OR_REC_MARK_OP_MOD <= '1';
+   wait for 30 ns;
+   check1(MS_RES_PUNCH_OR_PRINT_ERROR,'0',testName,"2B");
+   -- Leave set until the end
+   
+   check1(MS_RESET_END_OF_REEL_IND,'1',testName,"3A");
+   PS_K_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MS_RESET_END_OF_REEL_IND,'0',testName,"3B");
+   -- Leave set until the end
+   
+   check1(MS_RESET_PROCESS_CK_LAT,'1',testName,"4A");
+   PS_PERCENT_SIGN_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MS_RESET_PROCESS_CK_LAT,'0',testName,"4B");
+   -- Leave set until the end
+   
+   check1(MS_SET_NO_DIV_OVERFLOW,'1',testName,"5A");
+   check1(MS_RESET_DIV_OVERFLOW,'1',testName,"5B");
+   PS_W_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MS_SET_NO_DIV_OVERFLOW,'0',testName,"5C");
+   check1(MS_RESET_DIV_OVERFLOW,'0',testName,"5D");
+   -- Leave set until the end
+   
+   check1(MS_RESET_INQUIRY_ERROR,'1',testName,"6A");
+   MS_Q_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(MS_RESET_INQUIRY_ERROR,'0',testName,"6B");
+   MS_Q_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   MS_ASTERISK_OP_MODIFIER <= '0';   
+   wait for 30 ns;
+   check1(MS_RESET_INQUIRY_ERROR,'0',testName,"6C");
+   -- Leave set until the end
+
+   check1(MS_SET_NO_OVERFLOW,'1',testName,"7A");
+   check1(MS_RESET_OVERFLOW,'1',testName,"7B");
+   PS_Z_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;      
+   check1(MS_SET_NO_OVERFLOW,'0',testName,"7C");
+   check1(MS_RESET_OVERFLOW,'0',testName,"7D");
+   
+   PS_LAST_LOGIC_GATE_2 <= '0';
+   wait for 30 ns;
+   check1(MS_RESET_READER_ERROR_LATCH,'0',testName,"8A");
+   check1(MS_RES_PUNCH_OR_PRINT_ERROR,'0',testName,"8B");
+   check1(MS_RESET_END_OF_REEL_IND,'0',testName,"8C");
+   check1(MS_RESET_PROCESS_CK_LAT,'0',testName,"8D");
+   check1(MS_SET_NO_DIV_OVERFLOW,'0',testName,"8E");
+   check1(MS_RESET_DIV_OVERFLOW,'1',testName,"8F");
+   check1(MS_RESET_INQUIRY_ERROR,'1',testName,"8G");
+   check1(MS_SET_NO_OVERFLOW,'0',testName,"8H");
+   check1(MS_RESET_OVERFLOW,'1',testName,"8I");
+
+   PS_LAST_LOGIC_GATE_2 <= '1';
+   PS_LAST_LOGIC_GATE_1 <= '0';
+   wait for 30 ns;
+   check1(MS_RESET_READER_ERROR_LATCH,'1',testName,"9A");
+   check1(MS_RES_PUNCH_OR_PRINT_ERROR,'1',testName,"9B");
+   check1(MS_RESET_END_OF_REEL_IND,'1',testName,"9C");
+   check1(MS_RESET_PROCESS_CK_LAT,'1',testName,"9D");
+   check1(MS_SET_NO_DIV_OVERFLOW,'1',testName,"9E");
+   check1(MS_RESET_DIV_OVERFLOW,'0',testName,"9F");
+   check1(MS_RESET_INQUIRY_ERROR,'0',testName,"9G");
+   check1(MS_SET_NO_OVERFLOW,'1',testName,"9H");
+   check1(MS_RESET_OVERFLOW,'0',testName,"9I");
+   
+   PS_LAST_LOGIC_GATE_1 <= '1';
+   PS_NO_SCAN <= '0';
+   wait for 30 ns;
+   check1(MS_RESET_READER_ERROR_LATCH,'1',testName,"10A");
+   check1(MS_RES_PUNCH_OR_PRINT_ERROR,'1',testName,"10B");
+   check1(MS_RESET_END_OF_REEL_IND,'1',testName,"10C");
+   check1(MS_RESET_PROCESS_CK_LAT,'1',testName,"10D");
+   check1(MS_SET_NO_DIV_OVERFLOW,'1',testName,"10E");
+   check1(MS_RESET_DIV_OVERFLOW,'1',testName,"10F");
+   check1(MS_RESET_INQUIRY_ERROR,'1',testName,"10G");
+   check1(MS_SET_NO_OVERFLOW,'1',testName,"10H");
+   check1(MS_RESET_OVERFLOW,'1',testName,"10I");
+   
+   PS_NO_SCAN <= '1';
+   PS_COND_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MS_RESET_READER_ERROR_LATCH,'1',testName,"11A");
+   check1(MS_RES_PUNCH_OR_PRINT_ERROR,'1',testName,"11B");
+   check1(MS_RESET_END_OF_REEL_IND,'1',testName,"11C");
+   check1(MS_RESET_PROCESS_CK_LAT,'1',testName,"11D");
+   check1(MS_SET_NO_DIV_OVERFLOW,'1',testName,"11E");
+   check1(MS_RESET_DIV_OVERFLOW,'1',testName,"11F");
+   check1(MS_RESET_INQUIRY_ERROR,'1',testName,"11G");
+   check1(MS_SET_NO_OVERFLOW,'1',testName,"11H");
+   check1(MS_RESET_OVERFLOW,'1',testName,"11I");
+   
+   testName := "12.61.13.1        ";
+   
+   -- Reset the special branch latch
+   
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"1A");
+   check1(MS_SPECIAL_BRANCH_LATCH,'1',testName,"1B");
+   
+   PS_LOGIC_GATE_C_1 <= '1'; -- Used for the following tests
+   
+   PS_P_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"2A");
+   PS_1403_PRINT_BUFFER_BUSY <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"2B");
+   check1(MS_SPECIAL_BRANCH_LATCH,'0',testName,"2C");
+   PS_P_SYMBOL_OP_MODIFIER <= '0';
+   PS_1403_PRINT_BUFFER_BUSY <= '0';
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"2D");   
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   
+   PS_Q_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"3A");
+   MS_CONS_INQUIRY_REQUEST <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"3B");
+   MS_CONS_INQUIRY_REQUEST <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"3C");   
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"3D");
+   MC_BUFFER_INQ_REQUEST <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"3E");
+   MC_BUFFER_INQ_REQUEST <= '1';
+   PS_Q_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"3G");
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   
+   PS_K_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"4A");
+   MS_E_CH_TAPE_INDICATOR <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"4B");
+   MS_E_CH_TAPE_INDICATOR <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"4C");   
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"4D");
+   MS_F_CH_TAPE_INDICATOR <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"4E");
+   MS_F_CH_TAPE_INDICATOR <= '1';
+   PS_K_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"4G");
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   
+   PS_R_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"5A");
+   check1(MS_PRT_CARR_BUSY,'1',testName,"5B");
+   MC_FORMS_BUSY_STATUS_TO_CPU <= '0';
+   wait for 30 ns;
+   check1(MS_PRT_CARR_BUSY,'0',testName,"5C");
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"5D");
+   check1(MS_SPECIAL_BRANCH_LATCH,'0',testName,"5E");
+   PS_R_SYMBOL_OP_MODIFIER <= '0';
+   MC_FORMS_BUSY_STATUS_TO_CPU <= '1';
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"5F");   
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   
+   MS_1401_MODE <= '0'; 
+   check1(PS_SELECTED_CARRIAGE_CH,'0',testName,"6A");
+   MS_9_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"6B");
+   check1(PS_SELECTED_CARRIAGE_CH,'0',testName,"6C");
+   MC_PRINTER_CHANNEL_9 <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"6D");
+   check1(PS_SELECTED_CARRIAGE_CH,'1',testName,"6E");
+   MS_9_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"6F");
+   check1(PS_SELECTED_CARRIAGE_CH,'0',testName,"6G");
+   MS_9_SYMBOL_OP_MODIFIER <= '0';
+   MS_1401_MODE <= '1'; -- Leave set after this, as well.
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"6H");
+   check1(PS_SELECTED_CARRIAGE_CH,'1',testName,"6I");
+   MS_9_SYMBOL_OP_MODIFIER <= '1';
+   MC_PRINTER_CHANNEL_9 <= '1';
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   
+   check1(PS_SELECTED_CARRIAGE_CH,'0',testName,"7A");
+   MS_COML_AT_SYM_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"7B");
+   check1(PS_SELECTED_CARRIAGE_CH,'0',testName,"7C");
+   MC_PRINTER_CHANNEL_12 <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"7D");
+   check1(PS_SELECTED_CARRIAGE_CH,'1',testName,"7E");
+   MS_COML_AT_SYM_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"7F");
+   check1(PS_SELECTED_CARRIAGE_CH,'0',testName,"7G");
+   MS_COML_AT_SYM_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"7H");
+   check1(PS_SELECTED_CARRIAGE_CH,'1',testName,"7I");
+   MS_COML_AT_SYM_OP_MODIFIER <= '1';
+   MC_PRINTER_CHANNEL_12 <= '1';
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   
+   PS_M_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"8A");
+   MC_READ_COLUMN_BINARY <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"8B");
+   check1(MS_SPECIAL_BRANCH_LATCH,'0',testName,"8C");
+   PS_M_SYMBOL_OP_MODIFIER <= '0';
+   MC_READ_COLUMN_BINARY <= '1';
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"8D");   
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"9A");
+   PS_SPEC_BRANCH_LATCH_STAR_1414_STAR <= '1';
+   wait for 30 ns;
+   PS_SPEC_BRANCH_LATCH_STAR_1414_STAR <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"9B");
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   
+   PS_P_SYMBOL_OP_MODIFIER <= '1';
+   PS_1403_PRINT_BUFFER_BUSY <= '1';
+   MS_CONS_INQUIRY_REQUEST <= '0';
+   MC_BUFFER_INQ_REQUEST <= '0';
+   PS_Q_SYMBOL_OP_MODIFIER <= '1';
+   MS_E_CH_TAPE_INDICATOR <= '0';
+   MS_F_CH_TAPE_INDICATOR <= '0';
+   PS_K_SYMBOL_OP_MODIFIER <= '1';
+   PS_R_SYMBOL_OP_MODIFIER <= '1';
+   MC_FORMS_BUSY_STATUS_TO_CPU <= '0';
+   MS_1401_MODE <= '1';
+   MS_9_SYMBOL_OP_MODIFIER <= '0';
+   MC_PRINTER_CHANNEL_9 <= '0';
+   MS_COML_AT_SYM_OP_MODIFIER <= '0';
+   MC_PRINTER_CHANNEL_12 <= '0';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"10");
+   
+   PS_P_SYMBOL_OP_MODIFIER <= '0';
+   PS_1403_PRINT_BUFFER_BUSY <= '0';
+   MS_CONS_INQUIRY_REQUEST <= '1';
+   MC_BUFFER_INQ_REQUEST <= '1';
+   PS_Q_SYMBOL_OP_MODIFIER <= '0';
+   MS_E_CH_TAPE_INDICATOR <= '1';
+   MS_F_CH_TAPE_INDICATOR <= '1';
+   PS_K_SYMBOL_OP_MODIFIER <= '0';
+   PS_R_SYMBOL_OP_MODIFIER <= '0';
+   MC_FORMS_BUSY_STATUS_TO_CPU <= '1';
+   MS_1401_MODE <= '1';
+   MS_9_SYMBOL_OP_MODIFIER <= '1';
+   MC_PRINTER_CHANNEL_9 <= '1';
+   MS_COML_AT_SYM_OP_MODIFIER <= '1';
+   MC_PRINTER_CHANNEL_12 <= '1';
+   wait for 30 ns;
+   
+   check1(PS_ANY_INQUIRY_REQUEST,'0',testname,"11A");
+   MC_BUFFER_INQ_REQUEST <= '0';
+   wait for 30 ns;
+   check1(PS_ANY_INQUIRY_REQUEST,'1',testname,"11B");
+   MC_BUFFER_INQ_REQUEST <= '1';
+   wait for 30 ns;
+   MS_CONS_INQUIRY_REQUEST <= '0';
+   wait for 30 ns;
+   check1(PS_ANY_INQUIRY_REQUEST,'1',testname,"11C");
+   MS_CONS_INQUIRY_REQUEST <= '1';
+   
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_1 <= '1';
+   check1(PS_INT_OUTQUIRY_REQUEST,'0',testname,"12A");
+   -- Set the outquiry latch
+   MC_BUFFER_OUTQUIRY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"12B");
+   MC_BUFFER_OUTQUIRY_PULSE <= '1';
+   wait for 30 ns;   
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"12C");
+   -- Test resetting outquiry latch
+   PS_BRANCH_TO_A_CONDITIONS <= '1';
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"12D");
+   PS_N_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"12E");
+   MS_INTERRUPT_TEST_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'0',testname,"12F");
+   MS_INTERRUPT_TEST_OP_CODE <= '1';
+   -- Set the outquiry latch again
+   MC_BUFFER_OUTQUIRY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"12G");
+   MC_BUFFER_OUTQUIRY_PULSE <= '1';
+   -- And then reset it the other way
+   MS_COND_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'0',testname,"12H");
+   MS_COND_TEST_BRANCH_OP_CODE <= '1';
+   -- Set the outquiry latch again
+   MC_BUFFER_OUTQUIRY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"12G");
+   MC_BUFFER_OUTQUIRY_PULSE <= '1';
+   -- More reset tests
+   PS_BRANCH_TO_A_CONDITIONS <= '0';
+   PS_N_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30ns;
+   MS_COND_TEST_BRANCH_OP_CODE <= '0';  -- should NOT reset
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"12H");
+   PS_N_SYMBOL_OP_MODIFIER <= '1';  -- should still not restet
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"12I");
+   PS_BRANCH_TO_A_CONDITIONS <= '1';  -- NOW it should reset
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'0',testname,"12J");
+   PS_BRANCH_TO_A_CONDITIONS <= '0';   
+   PS_N_SYMBOL_OP_MODIFIER <= '0';
+   MS_COND_TEST_BRANCH_OP_CODE <= '1';
+   
+   --  Test special branch latch on outquiry request
+      
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"13A");
+   -- Set the outquiry request latch
+   MC_BUFFER_OUTQUIRY_PULSE <= '0';
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"13B");
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"13C");
+   MC_BUFFER_OUTQUIRY_PULSE <= '1';
+   PS_N_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"13D");
+   check1(PS_SPECIAL_BRANCH_LATCH,'0',testName,"13E");
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   check1(PS_INT_OUTQUIRY_REQUEST,'1',testname,"13F");
+   check1(PS_SPECIAL_BRANCH_LATCH,'1',testName,"13G");
+   
+   
+   
+   
 
    wait;
    end process;
