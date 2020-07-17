@@ -1,0 +1,75 @@
+Generating HDL for page 12.62.01.1 E CH NOT READY at 7/16/2020 1:45:21 PM
+Ignoring Logic Block 2B with symbol R
+Found combinatorial loop (need D FF) at output of gate at 3G
+Found combinatorial loop (need D FF) at output of gate at 2G
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 2B to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1A16
+Generating Statement for block at 3A with output pin(s) of OUT_3A_B
+	and inputs of OUT_DOT_5A,MS_E_CH_SELECT_UNIT_F
+	and logic function of NOR
+Generating Statement for block at 3B with output pin(s) of OUT_3B_B
+	and inputs of OUT_DOT_5B,MS_E_CH_SELECT_ANY_BUFFER
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of MC_TAPE_READY,MS_E_CH_SELECT_TAPE_DATA
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F, OUT_2C_F, OUT_2C_F, OUT_2C_F
+	and inputs of OUT_DOT_2B
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_R
+	and inputs of OUT_2C_F
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_G
+	and inputs of MS_E_CH_SELECT_UNIT_T,MS_E_CH_SELECT_AND_REWIND
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of 
+	and inputs of OUT_1F_K
+	and logic function of Lamp
+Generating Statement for block at 3F with output pin(s) of OUT_3F_G
+	and inputs of OUT_2C_F,PS_E_CH_STATUS_SAMPLE_A
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_R, OUT_2F_R
+	and inputs of OUT_2G_E
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of OUT_1F_K
+	and inputs of OUT_2F_R
+	and logic function of NOT
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_C_Latch, OUT_3G_C_Latch
+	and inputs of OUT_2G_E,MS_E_CH_RESET
+	and logic function of NAND
+Generating Statement for block at 2G with *latched* output pin(s) of OUT_2G_E_Latch, OUT_2G_E_Latch
+	and inputs of OUT_3F_G,OUT_3G_C,OUT_3H_C
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of OUT_2C_F,PS_E_CH_STATUS_SAMPLE_B,PS_E_CH_2ND_ADDR_TRF
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_B
+	and inputs of OUT_3G_C
+	and logic function of NOT
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
+	and inputs of MC_1301_READY_E_CH,MC_1405_READY_E_CH
+	and logic function of OR
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_3A_B,OUT_3B_B,PS_E_CH_READY_BUS_STAR_SIF,PS_E_CH_READY_BUS_STAR_1412_19,OUT_3C_C,OUT_2D_G
+	and logic function of OR
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
+	and inputs of MC_BUFFER_READY,MC_BUFFER_READY_JRJ
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_READY_BUS
+	from gate output OUT_2C_F
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_READY_BUS
+	from gate output OUT_1C_R
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_NOT_READY
+	from gate output OUT_2F_R
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_NOT_READY
+	from gate output OUT_2H_B
+Generating D Flip Flop for block at 3G
+Generating D Flip Flop for block at 2G

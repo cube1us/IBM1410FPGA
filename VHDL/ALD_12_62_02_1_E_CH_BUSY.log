@@ -1,0 +1,100 @@
+Generating HDL for page 12.62.02.1 E CH BUSY at 7/16/2020 1:45:27 PM
+Found combinatorial loop (need D FF) at output of gate at 3G
+Found combinatorial loop (need D FF) at output of gate at 2G
+Removed 5 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1I to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1C16
+Generating Statement for block at 3A with output pin(s) of OUT_3A_L
+	and inputs of MC_SELECT_AND_REWIND_STAR_E_CH,MS_E_CH_SELECT_TAPE_DATA
+	and logic function of NOR
+Generating Statement for block at 2A with output pin(s) of OUT_2A_K, OUT_2A_K
+	and inputs of OUT_3A_L,MS_I_RING_5_TIME
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A
+	and inputs of OUT_DOT_5B,MS_E_CH_SELECT_UNIT_F
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A
+	and inputs of OUT_DOT_5C,MS_E_CH_SELECT_ANY_BUFFER
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_H, OUT_2C_H
+	and inputs of OUT_DOT_3C
+	and logic function of Special
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C, OUT_1C_C, OUT_1C_C, OUT_1C_C
+	and inputs of OUT_2C_H
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_A
+	and inputs of MC_TAPE_BUSY,MS_E_CH_SELECT_TAPE_DATA
+	and logic function of NOR
+Generating Statement for block at 5E with output pin(s) of OUT_5E_D
+	and inputs of OUT_1C_C,PS_E_CH_STATUS_SAMPLE_B,PS_E_CH_2ND_ADDR_TRF
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of OUT_5E_D
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_G
+	and inputs of OUT_2A_K,OUT_5H_C
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of 
+	and inputs of OUT_1F_E
+	and logic function of Lamp
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of OUT_1C_C,PS_E_CH_STATUS_SAMPLE_A,PS_E_CH_READY_BUS
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_E
+	and inputs of OUT_1H_C
+	and logic function of NOT
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_P_Latch, OUT_3G_P_Latch
+	and inputs of OUT_DOT_4G,MS_E_CH_RESET
+	and logic function of NAND
+Generating Statement for block at 2G with *latched* output pin(s) of OUT_2G_G_Latch
+	and inputs of OUT_3F_D,OUT_3G_P,OUT_DOT_3H
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_C
+	and inputs of MS_CONSOLE_HOME_POSITION,PS_W_OR_X_SYMBOL_OP_MODIFIER,PS_E_CH_SELECT_UNIT_T
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of OUT_1C_C,PS_PERCENT_OR_COML_AT,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_C, OUT_1H_C
+	and inputs of OUT_DOT_4G
+	and logic function of NOT
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of PS_I_RING_5_TIME,PS_E_CH_SELECT_TAPE_DATA,MS_1401_MODE
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_D
+	and inputs of OUT_3G_P
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
+	and inputs of MC_1301_BUSY_E_CH,MC_1405_BUSY_E_CH
+	and logic function of OR
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
+	and inputs of MC_BUFFER_BUSY,MC_BUFFER_BUSY_JRJ
+	and logic function of OR
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3B_A,OUT_3C_A,PS_E_CH_BUSY_BUS_STAR_1412_19,OUT_3D_A,OUT_3E_G
+	and logic function of OR
+Generating Statement for block at 3H with output pin(s) of OUT_DOT_3H
+	and inputs of OUT_3H_C,OUT_3I_D
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G, OUT_DOT_4G
+	and inputs of OUT_4E_G,OUT_2G_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_SELECT_AND_REWIND
+	from gate output OUT_2A_K
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_BUSY_BUS
+	from gate output OUT_2C_H
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_BUSY_BUS
+	from gate output OUT_1C_C
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_BUSY
+	from gate output OUT_1H_C
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_BUSY
+	from gate output OUT_1I_D
+Generating D Flip Flop for block at 3G
+Generating D Flip Flop for block at 2G
