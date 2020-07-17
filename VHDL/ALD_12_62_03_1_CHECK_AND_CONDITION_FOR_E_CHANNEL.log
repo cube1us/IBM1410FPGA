@@ -1,22 +1,14 @@
-Generating HDL for page 12.62.03.1 CHECK AND CONDITION FOR E CHANNEL at 7/17/2020 7:28:35 AM
-WARNING: Diagram block at coordinate 3C has 2 different output pins: M,B
-WARNING: Diagram block at coordinate 3F has 2 different output pins: M,L
+Generating HDL for page 12.62.03.1 CHECK AND CONDITION FOR E CHANNEL at 7/17/2020 12:32:57 PM
 NOTE: DOT Function at 5A is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 NOTE: DOT Function at 5B is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 NOTE: DOT Function at 5D is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 NOTE: DOT Function at 5E is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Ignoring Logic Block 2A with symbol R
 Ignoring Logic Block 2B with symbol R
-Found combinatorial loop (need D FF) at output of gate at 3C
-Found combinatorial loop (need D FF) at output of gate at 3F
 Ignoring Logic Block 2I with symbol R
-Ignoring Pin M connection from/to block at 3C
-Ignoring Pin M connection from/to block at 3F
-Removed 1 inputs to Gate at 3C from ignored block(s)
-Removed 2 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
 Removed 2 outputs from Gate at 1C to ignored block(s) or identical signal names
-Removed 1 inputs to Gate at 3F from ignored block(s)
-Removed 2 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3F to ignored block(s) or identical signal names
 Removed 3 outputs from Gate at 1G to ignored block(s) or identical signal names
 Removed 1 outputs from Dot Function at 2B to ignored block(s) or identical signal names
 Generating Statement for block at 3A with output pin(s) of OUT_3A_C
@@ -25,7 +17,7 @@ Generating Statement for block at 3A with output pin(s) of OUT_3A_C
 Generating Statement for block at 3B with output pin(s) of OUT_3B_C
 	and inputs of OUT_DOT_5B,MS_E_CH_SELECT_ANY_BUFFER
 	and logic function of NOR
-Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_B_Latch, OUT_3C_B_Latch
+Generating Statement for block at 3C with output pin(s) of OUT_3C_B, OUT_3C_B
 	and inputs of MC_TAPE_ERROR
 	and logic function of NOR
 Generating Statement for block at 2C with output pin(s) of OUT_2C_D, OUT_2C_D
@@ -49,7 +41,7 @@ Generating Statement for block at 2E with output pin(s) of OUT_2E_G
 Generating Statement for block at 4F with output pin(s) of OUT_4F_G
 	and inputs of PS_1401_MODE,OUT_5G_B
 	and logic function of NAND
-Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_L_Latch, OUT_3F_L_Latch, OUT_3F_L_Latch
+Generating Statement for block at 3F with output pin(s) of OUT_3F_L, OUT_3F_L, OUT_3F_L
 	and inputs of MC_SEL_OR_TAPE_IND_ON_CH_1
 	and logic function of NOR
 Generating Statement for block at 5G with output pin(s) of OUT_5G_B, OUT_5G_B
@@ -112,5 +104,3 @@ Generating output sheet edge signal assignment to
 Generating output sheet edge signal assignment to 
 	signal MS_E_CH_TAPE_INDICATOR
 	from gate output OUT_1H_C
-Generating D Flip Flop for block at 3C
-Generating D Flip Flop for block at 3F
