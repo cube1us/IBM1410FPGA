@@ -362,6 +362,297 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "12.62.01.1        ";
+   
+   wait for 30 ns;
+   MS_E_CH_RESET <= '0';
+   wait for 1 us;
+   MS_E_CH_RESET <= '1';
+   
+   check1(PS_E_CH_READY_BUS,'0',testName,"SA");
+   check1(MS_E_CH_READY_BUS,'1',testName,"SB");
+   check1(PS_E_CH_NOT_READY,'0',testName,"SC");
+   check1(MS_E_CH_NOT_READY,'1',testName,"SD");
+   
+   MC_1301_READY_E_CH <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'0',testName,"1A");
+   MS_E_CH_SELECT_UNIT_F <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'1',testName,"1B");
+   check1(MS_E_CH_READY_BUS,'0',testName,"1C");
+   MC_1301_READY_E_CH <= '1';
+   wait for 30 ns;
+   MC_1405_READY_E_CH <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'1',testName,"1D");
+   MC_1405_READY_E_CH <= '1';   
+   MS_E_CH_SELECT_UNIT_F <= '1';
+   
+   MC_BUFFER_READY <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'0',testName,"2A");
+   MS_E_CH_SELECT_ANY_BUFFER <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'1',testName,"2B");
+   MC_BUFFER_READY <= '1';
+   wait for 30 ns;
+   MC_BUFFER_READY_JRJ <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'1',testName,"2C");
+   MC_BUFFER_READY_JRJ <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'0',testName,"2D");
+   MS_E_CH_SELECT_ANY_BUFFER <= '1';
+   
+   MC_TAPE_READY <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'0',testName,"3A");
+   MS_E_CH_SELECT_TAPE_DATA <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'1',testName,"3B");
+   MC_TAPE_READY <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'0',testName,"3C");
+   MS_E_CH_SELECT_TAPE_DATA <= '1';
+   
+   PS_E_CH_READY_BUS_STAR_SIF <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'1',testName,"4A");
+   PS_E_CH_READY_BUS_STAR_SIF <= '0';
+   wait for 30 ns;
+   PS_E_CH_READY_BUS_STAR_1412_19 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'1',testName,"4B");
+   PS_E_CH_READY_BUS_STAR_1412_19 <= '0';
+   wait for 30 ns;
+   MS_E_CH_SELECT_UNIT_T <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'1',testName,"4C");
+   MS_E_CH_SELECT_UNIT_T <= '1';
+   wait for 30 ns;
+   -- The next signal actually originates on 12.62.02.1
+   
+   MS_I_RING_HDL_BUS(5) <= '0';
+   MC_SELECT_AND_REWIND_STAR_E_CH <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'0',testName,"4D");
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"4E");
+   MS_E_CH_SELECT_TAPE_DATA <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'0',testName,"4F");
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"4G");
+   MS_I_RING_HDL_BUS(5) <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'1',testName,"4H");
+   check1(PS_E_CH_BUSY_BUS,'1',testName,"4I");   
+   MC_SELECT_AND_REWIND_STAR_E_CH <= '1';
+   MS_E_CH_SELECT_TAPE_DATA <= '1';      
+   
+  
+  -- Make sure we are not ready 
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'0',testName,"5A");
+   check1(PS_E_CH_NOT_READY,'0',testName,"5B");
+   -- Set the not ready latch
+   PS_E_CH_STATUS_SAMPLE_A <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NOT_READY,'1',testName,"5C");
+   check1(MS_E_CH_NOT_READY,'0',testName,"5D");
+   -- Reset the latch before the next test, ready still off   
+   PS_E_CH_STATUS_SAMPLE_A <= '0';
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NOT_READY,'0',testName,"5E");
+   
+   PS_E_CH_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NOT_READY,'0',testName,"6A");
+   check1(LAMP_15A1A16,'0',testName,"6B");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NOT_READY,'1',testName,"6C");
+   check1(LAMP_15A1A16,'1',testName,"6D");
+   PS_E_CH_2ND_ADDR_TRF <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NOT_READY,'0',testName,"6E");
+   
+   -- Set ready back to true
+   
+   PS_E_CH_READY_BUS_STAR_SIF <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_READY_BUS,'1',testName,"7A");
+   -- Should not be able to set the not ready latch now
+   PS_E_CH_STATUS_SAMPLE_A <= '1';
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   PS_E_CH_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NOT_READY,'0',testName,"7B");
+   PS_E_CH_STATUS_SAMPLE_A <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   PS_E_CH_2ND_ADDR_TRF <= '0';
+   PS_E_CH_READY_BUS_STAR_SIF <= '0';
+   
+   testName := "12.62.02.1        ";
+   
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"SA");
+   check1(MS_E_CH_BUSY_BUS,'1',testName,"SB");
+   check1(PS_E_CH_BUSY,'0',testName,"SC");
+   check1(MS_E_CH_BUSY,'1',testName,"SD");
+   
+   MC_1301_BUSY_E_CH <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"1A");
+   MS_E_CH_SELECT_UNIT_F <= '0';   
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'1',testName,"1B");
+   check1(MS_E_CH_BUSY_BUS,'0',testName,"1C");
+   MC_1301_BUSY_E_CH <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"1E");
+   MC_1405_BUSY_E_CH <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'1',testName,"1F");
+   MC_1405_BUSY_E_CH <= '1';
+   MS_E_CH_SELECT_UNIT_F <= '1';   
+   wait for 30 ns;
+   
+   MC_BUFFER_BUSY <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"2A");
+   MS_E_CH_SELECT_ANY_BUFFER <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'1',testName,"2B");
+   MC_BUFFER_BUSY_JRJ <= '0';
+   MC_BUFFER_BUSY <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'1',testName,"2C");
+   MS_E_CH_SELECT_ANY_BUFFER <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"2D");
+   MC_BUFFER_BUSY_JRJ <= '1';
+   
+   MC_TAPE_BUSY <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"3A");
+   MS_E_CH_SELECT_TAPE_DATA <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'1',testName,"3B");
+   MC_TAPE_BUSY <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"3C");
+   MS_E_CH_SELECT_TAPE_DATA <= '1';
+   
+   -- Note part of the next sequence tested as part of 12.62.01.1
+
+   MS_CONSOLE_HOME_POSITION <= '0';   
+   PS_E_CH_SELECT_UNIT_T <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"4A");
+   PS_W_OR_X_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"4B");
+   MS_CONSOLE_HOME_POSITION <= '1';   
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'1',testName,"4C");
+   PS_E_CH_SELECT_UNIT_T <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"4D");
+   PS_W_OR_X_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_E_CH_BUSY_BUS_STAR_1412_19 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'1',testName,"5A");
+   
+   -- Leave busy bus set for the next several tests
+   
+   MS_1401_MODE <= '0';
+   check1(PS_E_CH_BUSY,'0',testName,"6A");
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'0',testName,"6B");
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'0',testName,"6C");
+   PS_I_RING_HDL_BUS(5) <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'0',testName,"6D");
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'0',testName,"6E");
+   MS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'1',testName,"6F");
+   check1(LAMP_15A1C16,'1',testName,"6G");
+   PS_E_CH_SELECT_TAPE_DATA <= '0';
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_I_RING_HDL_BUS(5) <= '0';
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'1',testName,"6H");
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'0',testName,"6I");
+   check1(LAMP_15A1C16,'0',testName,"6J");
+   
+   PS_E_CH_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'0',testName,"7A");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'1',testName,"7B");
+   PS_E_CH_2ND_ADDR_TRF <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'1',testName,"7C");
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'0',testName,"7D");
+   
+   PS_E_CH_READY_BUS_STAR_SIF <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'0',testName,"8A");
+   PS_E_CH_STATUS_SAMPLE_A <= '1';   
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'1',testName,"8B");
+   PS_E_CH_READY_BUS_STAR_SIF <= '0';
+   PS_E_CH_STATUS_SAMPLE_A <= '0';   
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'1',testName,"8C");
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'0',testName,"8D");
+   
+   -- Without the Busy bus, the busy latch should not set
+   PS_E_CH_BUSY_BUS_STAR_1412_19 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY_BUS,'0',testName,"9A");
+      
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_I_RING_HDL_BUS(5) <= '1';
+   PS_LOGIC_GATE_C_1 <= '1';
+   MS_1401_MODE <= '1';
+   PS_E_CH_2ND_ADDR_TRF <= '1';
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   PS_E_CH_READY_BUS_STAR_SIF <= '1';
+   PS_E_CH_STATUS_SAMPLE_A <= '1';   
+   wait for 30 ns;
+   check1(PS_E_CH_BUSY,'0',testName,"9B");
+   
 
    wait;
    end process;
