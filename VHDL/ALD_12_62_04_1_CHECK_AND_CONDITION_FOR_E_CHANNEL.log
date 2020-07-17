@@ -1,4 +1,4 @@
-Generating HDL for page 12.62.04.1 CHECK AND CONDITION FOR E CHANNEL at 7/16/2020 1:48:18 PM
+Generating HDL for page 12.62.04.1 CHECK AND CONDITION FOR E CHANNEL at 7/17/2020 7:29:21 AM
 Found combinatorial loop (need D FF) at output of gate at 4B
 Found combinatorial loop (need D FF) at output of gate at 3B
 Found combinatorial loop (need D FF) at output of gate at 4G

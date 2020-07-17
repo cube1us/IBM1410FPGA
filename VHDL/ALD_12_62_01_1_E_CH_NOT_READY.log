@@ -1,4 +1,6 @@
-Generating HDL for page 12.62.01.1 E CH NOT READY at 7/16/2020 1:45:21 PM
+Generating HDL for page 12.62.01.1 E CH NOT READY at 7/17/2020 7:26:29 AM
+NOTE: DOT Function at 5A is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5B is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Ignoring Logic Block 2B with symbol R
 Found combinatorial loop (need D FF) at output of gate at 3G
 Found combinatorial loop (need D FF) at output of gate at 2G
@@ -52,13 +54,13 @@ Generating Statement for block at 2H with output pin(s) of OUT_2H_B
 	and logic function of NOT
 Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
 	and inputs of MC_1301_READY_E_CH,MC_1405_READY_E_CH
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
 	and inputs of OUT_3A_B,OUT_3B_B,PS_E_CH_READY_BUS_STAR_SIF,PS_E_CH_READY_BUS_STAR_1412_19,OUT_3C_C,OUT_2D_G
 	and logic function of OR
 Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
 	and inputs of MC_BUFFER_READY,MC_BUFFER_READY_JRJ
-	and logic function of OR
+	and logic function of AND
 Generating output sheet edge signal assignment to 
 	signal MS_E_CH_READY_BUS
 	from gate output OUT_2C_F

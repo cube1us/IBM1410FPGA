@@ -1,6 +1,10 @@
-Generating HDL for page 12.62.03.1 CHECK AND CONDITION FOR E CHANNEL at 7/16/2020 1:57:24 PM
+Generating HDL for page 12.62.03.1 CHECK AND CONDITION FOR E CHANNEL at 7/17/2020 7:28:35 AM
 WARNING: Diagram block at coordinate 3C has 2 different output pins: M,B
 WARNING: Diagram block at coordinate 3F has 2 different output pins: M,L
+NOTE: DOT Function at 5A is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5B is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5D is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5E is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Ignoring Logic Block 2A with symbol R
 Ignoring Logic Block 2B with symbol R
 Found combinatorial loop (need D FF) at output of gate at 3C
@@ -74,19 +78,19 @@ Generating Statement for block at 1H with output pin(s) of OUT_1H_C
 	and logic function of NAND
 Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
 	and inputs of MC_1301_ERROR_E_CH,MC_1405_ERROR_E_CH
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
 	and inputs of MC_BUFFER_ERROR,MC_BUFFER_ERROR_JRJ
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
 	and inputs of OUT_3A_C,OUT_3B_C,PS_E_CH_CHECK_BUS_STAR_SIF,PS_E_CH_CHECK_BUS_STAR_1412_19,OUT_2E_G
 	and logic function of OR
 Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
 	and inputs of MC_1301_E_CH_CONDITION,MC_1405_CONDITION_E_CH
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
 	and inputs of MC_BUFFER_CONDITION,MC_BUFFER_CONDITION_JRJ
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G
 	and inputs of OUT_3D_L,OUT_3E_L,OUT_3G_D
 	and logic function of OR

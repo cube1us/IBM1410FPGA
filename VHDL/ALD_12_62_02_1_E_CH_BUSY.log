@@ -1,4 +1,6 @@
-Generating HDL for page 12.62.02.1 E CH BUSY at 7/16/2020 1:45:27 PM
+Generating HDL for page 12.62.02.1 E CH BUSY at 7/17/2020 7:27:38 AM
+NOTE: DOT Function at 5B is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5C is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Found combinatorial loop (need D FF) at output of gate at 3G
 Found combinatorial loop (need D FF) at output of gate at 2G
 Removed 5 outputs from Gate at 2C to ignored block(s) or identical signal names
@@ -68,10 +70,10 @@ Generating Statement for block at 1I with output pin(s) of OUT_1I_D
 	and logic function of NOT
 Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
 	and inputs of MC_1301_BUSY_E_CH,MC_1405_BUSY_E_CH
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
 	and inputs of MC_BUFFER_BUSY,MC_BUFFER_BUSY_JRJ
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
 	and inputs of OUT_3B_A,OUT_3C_A,PS_E_CH_BUSY_BUS_STAR_1412_19,OUT_3D_A,OUT_3E_G
 	and logic function of OR
