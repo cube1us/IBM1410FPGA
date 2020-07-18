@@ -13,6 +13,7 @@
 -- Dependencies: 
 -- 
 -- Revision:
+-- Revision 0.02 - Changed to only retrigger on falling edge of an input
 -- Revision 0.01 - File Created
 -- Additional Comments:
 -- 
@@ -50,6 +51,8 @@ constant Counter_Max: INTEGER := PULSETIME / CLOCKPERIOD;
 
 Signal count: INTEGER RANGE 0 to Counter_Max := 0;
 
+signal SSTAGE1, SSTAGE2, SSTAGE3: STD_LOGIC;
+
 begin
 
 process(FPGA_CLK, IN1, IN2, IN3)
@@ -57,8 +60,14 @@ begin
 	if(FPGA_CLK'event and FPGA_CLK = '1') then
 	   if(count /= 0) then
               count <= count - 1;
-	   elsif(IN1 = '0' OR IN2 = '0' OR IN3 = '0') then
-              count <= Counter_Max;
+           else
+              -- Look for falling edge of any trigger signal
+              SSTAGE1 <= NOT (IN1 AND IN2 AND IN3);  -- Any 0 input will do
+              SSTAGE2 <= SSTAGE1;
+              SSTAGE3 <= SSTAGE2;
+              if(SSTAGE1 = '1' AND SSTAGE2 = '1' AND SSTAGE3 = '0') then
+	              count <= Counter_Max;
+              end if;
            end if;
 	end if;
 
