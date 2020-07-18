@@ -1,7 +1,7 @@
-Generating HDL for group named MasterResetat 7/18/2020 10:22:19 AM containing pages: 
+Generating HDL for group named MasterResetat 7/18/2020 10:41:15 AM containing pages: 
 	12.65.01.1, 12.65.02.1, 12.65.03.1, 12.65.04.1, 12.65.05.1
 	12.65.06.1, 12.65.10.1, 12.65.11.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\MasterReset_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file MasterReset_tb.vhdl 55 lines preserved and 32 declaration lines preserved
 Building lists of signals on 8 pages...
 Found 8 signals on page 12.65.01.1
 Found 4 signals on page 12.65.02.1
