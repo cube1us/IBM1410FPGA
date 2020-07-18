@@ -1,0 +1,87 @@
+Generating HDL for group named MasterResetat 7/18/2020 10:22:19 AM containing pages: 
+	12.65.01.1, 12.65.02.1, 12.65.03.1, 12.65.04.1, 12.65.05.1
+	12.65.06.1, 12.65.10.1, 12.65.11.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\MasterReset_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 8 pages...
+Found 8 signals on page 12.65.01.1
+Found 4 signals on page 12.65.02.1
+Found 16 signals on page 12.65.03.1
+Found 12 signals on page 12.65.04.1
+Found 3 signals on page 12.65.05.1
+Found 3 signals on page 12.65.06.1
+Found 4 signals on page 12.65.10.1
+Found 6 signals on page 12.65.11.1
+Found 16 unique input signals and 36 unique output signals, (42 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -V 36 VOLTS originates outside the group.
+INFO:  Signal +S PWR ON RESET originates inside the group.
+INFO:  Signal -S COMP RST CLOCK START originates inside the group.
+INFO:  Signal +S PWR ON+CPR RESETS originates inside the group.
+INFO:  Signal -S DELAYED RESET originates inside the group.
+INFO:  Signal -S AUTOMATIC COMPUTER RESET originates outside the group.
+INFO:  Signal -S ONLY PROGRAM RESET originates inside the group.
+INFO:  Signal +S STOPPED.NOT IN PROCESS originates outside the group.
+INFO:  Signal -S START KEY PULSE originates outside the group.
+INFO:  Signal +S PROG RST KEY originates inside the group.
+INFO:  Signal -S ALL POWER ON .CPR RESETS originates inside the group.
+INFO:  Signal +S STOPPED AT CYCLE END originates outside the group.
+INFO:  Signal +S PROGRAM RESET originates inside the group.
+INFO:  Signal -V CONSOLE PWR SUPPLY 36 VOLTS originates outside the group.
+INFO:  Signal +S 1401 MODE 1 originates inside the group.
+INFO:  Signal +S 1401 MODE originates inside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S COMP + POWER ON RESET is used outside the group.
+INFO:  Signal -S COMP RST CLOCK START is used outside the group.
+INFO:  Signal +S EARLY COMPUTER RESET is used outside the group.
+INFO:  Signal -S DELAYED RESET is used only inside the group.
+INFO:  Signal +S PWR ON+CPR RESETS is used only inside the group.
+INFO:  Signal +S PROG RST KEY is used only inside the group.
+INFO:  Signal +S PWR ON RESET is used only inside the group.
+INFO:  Signal -S SYSTEM RESET is used outside the group.
+INFO:  Signal -S COMPUTER RESET 1 is used outside the group.
+INFO:  Signal -S IN PROCESS RESET is used outside the group.
+INFO:  Signal -S ALL POWER ON .CPR RESETS is used only inside the group.
+INFO:  Signal -S COMPUTER RESET 2 is used outside the group.
+INFO:  Signal -C COMP RESET TO TAPE*E CH is used outside the group.
+INFO:  Signal -C E CH COMP RESET TO 1301 is used outside the group.
+INFO:  Signal -C E CH COMP RESET TO 1405 is used outside the group.
+INFO:  Signal -C COMP RESET TO TAPE*F CH is used outside the group.
+INFO:  Signal -C F CH COMP RESET TO 1301 is used outside the group.
+INFO:  Signal -C F CH COMP RESET TO 1405 is used outside the group.
+INFO:  Signal -C COMP RESET TO BUFFER is used outside the group.
+INFO:  Signal -S PROGRAM RESET 1 is used outside the group.
+INFO:  Signal -S ONLY PROGRAM RESET is used outside the group.
+INFO:  Signal -S PROGRAM RESET is used outside the group.
+INFO:  Signal +S PROGRAM RESET is used outside the group.
+INFO:  Signal -S PROGRAM RESET 6 is used outside the group.
+INFO:  Signal -S START RESET is used outside the group.
+INFO:  Signal -S PROGRAM RESET 3 is used outside the group.
+INFO:  Signal -S PROGRAM RESET 4 is used outside the group.
+INFO:  Signal -S PROGRAM RESET 5 is used outside the group.
+INFO:  Signal -S PROGRAM RESET 2 is used outside the group.
+INFO:  Signal +S 1401 MODE 1 is used outside the group.
+INFO:  Signal +S 1401 MODE is used outside the group.
+INFO:  Signal -V 1401 MODE is used outside the group.
+INFO:  Signal -S 1401 MODE 1 is used outside the group.
+INFO:  Signal -S 1401 MODE is used outside the group.
+INFO:  Signal -Y 1401 MODE 1 is used outside the group.
+INFO:  Signal -C 1401 MODE TO 1405 is used outside the group.
+Removing 5 output signals that do not have destinations outside the group...
+Removing 10 input signals that originate inside the group...
+Signal -S COMP RST CLOCK START is output from the group, but also used as an input inside the group.
+Signal -S ONLY PROGRAM RESET is output from the group, but also used as an input inside the group.
+Signal +S PROGRAM RESET is output from the group, but also used as an input inside the group.
+Signal +S 1401 MODE 1 is output from the group, but also used as an input inside the group.
+Signal +S 1401 MODE is output from the group, but also used as an input inside the group.
+Page 12.65.10.1 generates Lamp Output LAMP_15A1K23
+Generating list of internal signals/wires ...
+5 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 12.65.01.1 (MASTER RESET-ACC)
+Generating HDL associated with page 12.65.02.1 (MASTER RESET-ACC)
+Generating HDL associated with page 12.65.03.1 (MASTER RESET FEATURE-ACC)
+Generating HDL associated with page 12.65.04.1 (MASTER RESET)
+Generating HDL associated with page 12.65.05.1 (MASTER RESET)
+Generating HDL associated with page 12.65.06.1 (MASTER RESET)
+Generating HDL associated with page 12.65.10.1 (1401 MODE DRIVE-ACC)
+Generating HDL associated with page 12.65.11.1 (1401 MODE DRIVE-ACC)

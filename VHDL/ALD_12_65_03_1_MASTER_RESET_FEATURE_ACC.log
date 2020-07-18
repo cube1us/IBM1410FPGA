@@ -1,0 +1,95 @@
+Generating HDL for page 12.65.03.1 MASTER RESET FEATURE-ACC at 7/18/2020 9:56:49 AM
+Processing extension from block at 1A (Database ID=215485) to 1B (Database ID=215486)
+Copied connection from extension output pin A to master block at 1A
+Copied connection from extension output pin A to master block at 1A
+Copied connection from extension output pin A to master block at 1A
+Copied connection from extension output pin A to master block at 1A
+Copied connection from extension output pin A to master block at 1A
+Copied connection from extension output pin A to master block at 1A
+Copied connection from extension output pin A to master block at 1A
+Moved connection from extension 1B pin A to be from master at 1A
+Moved connection from extension 1B pin A to be from master at 1A
+Moved connection from extension 1B pin A to be from master at 1A
+Moved connection from extension 1B pin A to be from master at 1A
+Moved connection from extension 1B pin A to be from master at 1A
+WARNING: During sheet edge merge, Logic block at 1F pin A outputs to two different signal names: -C E CH COMP RESET TO 1405 vs. -C E CH COMP RESET TO 1301
+WARNING: During sheet edge merge, Logic block at 1H pin E outputs to two different signal names: -C F CH COMP RESET TO 1405 vs. -C F CH COMP RESET TO 1301
+Removed 14 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C
+	and inputs of OUT_5B_D,MS_AUTOMATIC_COMPUTER_RESET
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_A, OUT_1A_A, OUT_1A_A, OUT_1A_A, OUT_1A_A, OUT_1A_A
+	and inputs of OUT_2B_L
+	and logic function of Special
+Generating Statement for block at 5B with output pin(s) of OUT_5B_D, OUT_5B_D, OUT_5B_D
+	and inputs of PS_PWR_ON_OR_CPR_RESETS,MS_COMP_RST_CLOCK_START
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_DOT_5C
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_L, OUT_2B_L
+	and inputs of OUT_4A_C
+	and logic function of EQUAL
+Generating Statement for block at 5C with output pin(s) of OUT_5C_D
+	and inputs of OUT_5B_D,MS_AUTOMATIC_COMPUTER_RESET,MS_DELAYED_RESET
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_P
+	and inputs of MS_ONLY_PROGRAM_RESET
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_A
+	and inputs of OUT_2B_L
+	and logic function of Special
+Generating Statement for block at 1E with output pin(s) of OUT_1E_A
+	and inputs of OUT_1A_A
+	and logic function of EQUAL
+Generating Statement for block at 1F with output pin(s) of OUT_1F_A, OUT_1F_A
+	and inputs of OUT_1A_A
+	and logic function of EQUAL
+Generating Statement for block at 1G with output pin(s) of OUT_1G_H
+	and inputs of OUT_1A_A
+	and logic function of EQUAL
+Generating Statement for block at 1H with output pin(s) of OUT_1H_E, OUT_1H_E
+	and inputs of OUT_1A_A
+	and logic function of EQUAL
+Generating Statement for block at 1I with output pin(s) of OUT_1I_E
+	and inputs of OUT_1A_A
+	and logic function of EQUAL
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
+	and inputs of OUT_5C_D,OUT_5D_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_COMPUTER_RESET_1
+	from gate output OUT_1A_A
+Generating output sheet edge signal assignment to 
+	signal MS_ALL_POWER_ON_DOT_CPR_RESETS
+	from gate output OUT_5B_D
+Generating output sheet edge signal assignment to 
+	signal MS_IN_PROCESS_RESET
+	from gate output OUT_3B_C
+Generating output sheet edge signal assignment to 
+	signal MS_COMPUTER_RESET_2
+	from gate output OUT_1D_A
+Generating output sheet edge signal assignment to 
+	signal MC_COMP_RESET_TO_TAPE_STAR_E_CH
+	from gate output OUT_1E_A
+Generating output sheet edge signal assignment to 
+	signal MC_E_CH_COMP_RESET_TO_1301
+	from gate output OUT_1F_A
+Generating output sheet edge signal assignment to 
+	signal MC_E_CH_COMP_RESET_TO_1405
+	from gate output OUT_1F_A
+Generating output sheet edge signal assignment to 
+	signal MC_COMP_RESET_TO_TAPE_STAR_F_CH
+	from gate output OUT_1G_H
+Generating output sheet edge signal assignment to 
+	signal MC_F_CH_COMP_RESET_TO_1301
+	from gate output OUT_1H_E
+Generating output sheet edge signal assignment to 
+	signal MC_F_CH_COMP_RESET_TO_1405
+	from gate output OUT_1H_E
+Generating output sheet edge signal assignment to 
+	signal MC_COMP_RESET_TO_BUFFER
+	from gate output OUT_1I_E

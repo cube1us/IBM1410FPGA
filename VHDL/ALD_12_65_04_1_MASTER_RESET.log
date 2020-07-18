@@ -1,0 +1,67 @@
+Generating HDL for page 12.65.04.1 MASTER RESET at 7/18/2020 9:56:57 AM
+Processing extension from block at 1B (Database ID=215655) to 1C (Database ID=215656)
+Copied connection from extension output pin A to master block at 1B
+Copied connection from extension output pin A to master block at 1B
+Copied connection from extension output pin A to master block at 1B
+Copied connection from extension output pin A to master block at 1B
+Copied connection from extension output pin A to master block at 1B
+Copied connection from extension output pin A to master block at 1B
+Copied connection from extension output pin A to master block at 1B
+Copied connection from extension output pin A to master block at 1B
+Copied connection from extension output pin A to master block at 1B
+Copied connection from extension output pin A to master block at 1B
+Moved connection from extension 1C pin A to be from master at 1B
+WARNING: During sheet edge merge, Logic block at 1B pin A outputs to two different signal names: -S PROGRAM RESET vs. -S PROGRAM RESET 1
+Removed 1 outputs from Gate at 5B to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 29 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 12 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C
+	and inputs of PS_STOPPED_DOT_NOT_IN_PROCESS,PS_PROG_RST_KEY
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_P
+	and inputs of PS_PROG_RST_KEY,PS_STOPPED_AT_CYCLE_END
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_E
+	and inputs of OUT_5A_C,MS_ALL_POWER_ON_DOT_CPR_RESETS,MS_AUTOMATIC_COMPUTER_RESET
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G, OUT_3B_G, OUT_3B_G
+	and inputs of OUT_4B_E
+	and logic function of EQUAL
+Generating Statement for block at 1B with output pin(s) of OUT_1B_A, OUT_1B_A, OUT_1B_A
+	and inputs of OUT_3B_G
+	and logic function of Special
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_3B_G
+	and logic function of Special
+Generating Statement for block at 5I with output pin(s) of OUT_5I_B
+	and inputs of MS_START_KEY_PULSE
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_G
+	and inputs of OUT_5I_B,PS_STOPPED_AT_CYCLE_END
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_NoPin
+	and inputs of OUT_1B_A,OUT_4I_G
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_D
+	and inputs of OUT_2I_NoPin
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_ONLY_PROGRAM_RESET
+	from gate output OUT_5B_P
+Generating output sheet edge signal assignment to 
+	signal PS_PROGRAM_RESET
+	from gate output OUT_3B_G
+Generating output sheet edge signal assignment to 
+	signal MS_PROGRAM_RESET_1
+	from gate output OUT_1B_A
+Generating output sheet edge signal assignment to 
+	signal MS_PROGRAM_RESET
+	from gate output OUT_1B_A
+Generating output sheet edge signal assignment to 
+	signal MS_PROGRAM_RESET_6
+	from gate output OUT_2H_C
+Generating output sheet edge signal assignment to 
+	signal MS_START_RESET
+	from gate output OUT_1I_D

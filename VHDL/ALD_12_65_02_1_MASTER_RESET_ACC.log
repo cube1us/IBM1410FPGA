@@ -1,0 +1,11 @@
+Generating HDL for page 12.65.02.1 MASTER RESET-ACC at 7/18/2020 9:56:44 AM
+Removed 6 outputs from Gate at 3E to ignored block(s) or identical signal names
+Generating Statement for block at 5E with output pin(s) of OUT_5E_G
+	and inputs of PS_PWR_ON_OR_CPR_RESETS,MS_COMP_RST_CLOCK_START,PS_PWR_ON_RESET
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of OUT_5E_G
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal MS_SYSTEM_RESET
+	from gate output OUT_3E_C

@@ -1,0 +1,15 @@
+Generating HDL for page 12.65.06.1 MASTER RESET at 7/18/2020 9:57:13 AM
+Removed 15 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 12 outputs from Gate at 3D to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_H
+	and inputs of PS_PROGRAM_RESET
+	and logic function of Special
+Generating Statement for block at 3D with output pin(s) of OUT_3D_H
+	and inputs of PS_PROGRAM_RESET
+	and logic function of Special
+Generating output sheet edge signal assignment to 
+	signal MS_PROGRAM_RESET_2
+	from gate output OUT_3A_H
+Generating output sheet edge signal assignment to 
+	signal MS_PROGRAM_RESET_5
+	from gate output OUT_3D_H

@@ -1,0 +1,54 @@
+Generating HDL for page 12.65.10.1 1401 MODE DRIVE-ACC at 7/18/2020 10:15:01 AM
+Ignoring Logic Block 3A with symbol L
+Ignoring Logic Block 3B with symbol CAP
+Processing extension from block at 1A (Database ID=215983) to 1B (Database ID=215984)
+Copied connection from extension output pin C to master block at 1A
+Copied connection from extension output pin C to master block at 1A
+Copied connection from extension output pin C to master block at 1A
+Copied connection from extension output pin C to master block at 1A
+Copied connection from extension output pin C to master block at 1A
+Copied connection from extension output pin C to master block at 1A
+Processing extension from block at 5B (Database ID=215985) to 5C (Database ID=215995)
+Copied connection from extension output pin T to master block at 5B
+Moved connection from extension 5C pin T to be from master at 5B
+Processing extension from block at 1F (Database ID=215999) to 1G (Database ID=216000)
+Copied connection from extension output pin H to master block at 1F
+Copied connection from extension output pin H to master block at 1F
+Copied connection from extension output pin H to master block at 1F
+Copied connection from extension output pin H to master block at 1F
+Copied connection from extension output pin H to master block at 1F
+Copied connection from extension output pin H to master block at 1F
+Copied connection from extension output pin H to master block at 1F
+Copied connection from extension output pin H to master block at 1F
+Removed 20 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4B to ignored block(s) or identical signal names
+Removed 24 outputs from Gate at 1F to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1K23
+Generating Statement for block at 1A with output pin(s) of OUT_1A_C
+	and inputs of OUT_4B_F
+	and logic function of Special
+Generating Statement for block at 5B with output pin(s) of OUT_5B_T, OUT_5B_T, OUT_5B_T
+	and inputs of MV_CONSOLE_PWR_SUPPLY_36_VOLTS
+	and logic function of Switch
+WARNING: TOG switch for block at 5B appears to have more than two outputs 
+Generating Statement for block at 4B with output pin(s) of OUT_4B_F, OUT_4B_F
+	and inputs of OUT_5B_T
+	and logic function of Resistor
+Generating Statement for block at 4C with output pin(s) of OUT_4C_A
+	and inputs of OUT_5B_T
+	and logic function of Resistor
+Generating Statement for block at 3C with output pin(s) of 
+	and inputs of OUT_4C_A
+	and logic function of Lamp
+Generating Statement for block at 1F with output pin(s) of OUT_1F_H
+	and inputs of OUT_4B_F
+	and logic function of Special
+Generating output sheet edge signal assignment to 
+	signal PS_1401_MODE_1
+	from gate output OUT_1A_C
+Generating output sheet edge signal assignment to 
+	signal MV_1401_MODE
+	from gate output OUT_5B_T
+Generating output sheet edge signal assignment to 
+	signal PS_1401_MODE
+	from gate output OUT_1F_H

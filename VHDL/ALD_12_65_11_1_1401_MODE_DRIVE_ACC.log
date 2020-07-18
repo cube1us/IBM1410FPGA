@@ -1,0 +1,39 @@
+Generating HDL for page 12.65.11.1 1401 MODE DRIVE-ACC at 7/18/2020 9:58:48 AM
+Ignoring Logic Block 1C with symbol R
+Processing extension from block at 1E (Database ID=216162) to 1F (Database ID=216163)
+Copied connection from extension output pin C to master block at 1E
+Copied connection from extension output pin C to master block at 1E
+Copied connection from extension output pin C to master block at 1E
+Copied connection from extension output pin C to master block at 1E
+Copied connection from extension output pin C to master block at 1E
+Copied connection from extension output pin C to master block at 1E
+Copied connection from extension output pin C to master block at 1E
+Copied connection from extension output pin C to master block at 1E
+Copied connection from extension output pin C to master block at 1E
+Removed 14 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 22 outputs from Gate at 1E to ignored block(s) or identical signal names
+Generating Statement for block at 1A with output pin(s) of OUT_1A_A
+	and inputs of PS_1401_MODE_1
+	and logic function of Special
+Generating Statement for block at 1B with output pin(s) of OUT_1B_F
+	and inputs of PS_1401_MODE_1
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C, OUT_1E_C
+	and inputs of PS_1401_MODE
+	and logic function of Special
+Generating Statement for block at 1H with output pin(s) of OUT_1H_G
+	and inputs of OUT_1E_C
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal MS_1401_MODE_1
+	from gate output OUT_1A_A
+Generating output sheet edge signal assignment to 
+	signal MY_1401_MODE_1
+	from gate output OUT_1B_F
+Generating output sheet edge signal assignment to 
+	signal MS_1401_MODE
+	from gate output OUT_1E_C
+Generating output sheet edge signal assignment to 
+	signal MC_1401_MODE_TO_1405
+	from gate output OUT_1H_G

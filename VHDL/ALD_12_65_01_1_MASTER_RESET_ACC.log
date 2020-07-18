@@ -1,0 +1,91 @@
+Generating HDL for page 12.65.01.1 MASTER RESET-ACC at 7/18/2020 9:56:21 AM
+NOTE: DOT Function at 4E is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Ignoring Logic Block 3B with symbol L
+Ignoring Logic Block 3D with symbol CAP
+Ignoring Logic Block 3F with symbol CAP
+Ignoring Logic Block 2F with symbol L
+Ignoring Logic Block 1F with symbol CAP
+Ignoring Logic Block 3H with symbol CAP
+Removed 2 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4G to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 4E to ignored block(s) or identical signal names
+Generating Statement for block at 5C with output pin(s) of OUT_5C_N
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 4C with output pin(s) of OUT_4C_X, OUT_4C_X, OUT_4C_X
+	and inputs of OUT_5C_N
+	and logic function of Resistor
+Generating Statement for block at 3C with output pin(s) of OUT_3C_P
+	and inputs of OUT_4C_X
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_1D_D
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_P
+	and inputs of OUT_2C_C
+	and logic function of SS
+	INFO: SingleShot at 1C pulse time: 25000 ns, Clock Period is 10 ns
+Generating Statement for block at 2D with output pin(s) of OUT_2D_P, OUT_2D_P
+	and inputs of OUT_4C_X,OUT_DOT_4E
+	and logic function of SS
+	INFO: SingleShot at 2D pulse time: 20000000 ns, Clock Period is 10 ns
+Generating Statement for block at 1D with output pin(s) of OUT_1D_D, OUT_1D_D
+	and inputs of OUT_2D_P
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_T
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 4E with output pin(s) of OUT_4E_X
+	and inputs of OUT_5E_T
+	and logic function of Resistor
+Generating Statement for block at 3E with output pin(s) of OUT_3E_P, OUT_3E_P, OUT_3E_P
+	and inputs of OUT_4C_X,OUT_DOT_4E
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_H, OUT_2E_H
+	and inputs of OUT_3E_P,OUT_3E_P,OUT_3E_P
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_A
+	and inputs of OUT_2E_H
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_T
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 4F with output pin(s) of OUT_4F_X
+	and inputs of OUT_5F_T
+	and logic function of Resistor
+Generating Statement for block at 5G with output pin(s) of OUT_5G_T
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 4G with output pin(s) of OUT_4G_X, OUT_4G_X
+	and inputs of OUT_5G_T
+	and logic function of Resistor
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of OUT_4G_X,OUT_4G_X
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E, OUT_DOT_4E
+	and inputs of OUT_4E_X,OUT_4F_X
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal PS_PWR_ON_RESET
+	from gate output OUT_3C_P
+Generating output sheet edge signal assignment to 
+	signal MS_COMP_RST_CLOCK_START
+	from gate output OUT_1C_P
+Generating output sheet edge signal assignment to 
+	signal MS_DELAYED_RESET
+	from gate output OUT_2D_P
+Generating output sheet edge signal assignment to 
+	signal PS_EARLY_COMPUTER_RESET
+	from gate output OUT_1D_D
+Generating output sheet edge signal assignment to 
+	signal MS_COMP_OR_POWER_ON_RESET
+	from gate output OUT_2E_H
+Generating output sheet edge signal assignment to 
+	signal PS_PWR_ON_OR_CPR_RESETS
+	from gate output OUT_1E_A
+Generating output sheet edge signal assignment to 
+	signal PS_PROG_RST_KEY
+	from gate output OUT_3G_C
