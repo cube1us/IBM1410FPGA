@@ -1,4 +1,4 @@
-Generating HDL for page 12.65.01.1 MASTER RESET-ACC at 7/18/2020 9:56:21 AM
+Generating HDL for page 12.65.01.1 MASTER RESET-ACC at 7/18/2020 2:05:24 PM
 NOTE: DOT Function at 4E is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Ignoring Logic Block 3B with symbol L
 Ignoring Logic Block 3D with symbol CAP
@@ -8,9 +8,9 @@ Ignoring Logic Block 1F with symbol CAP
 Ignoring Logic Block 3H with symbol CAP
 Removed 2 outputs from Gate at 4C to ignored block(s) or identical signal names
 Removed 2 outputs from Gate at 1C to ignored block(s) or identical signal names
-Removed 1 outputs from Gate at 2E to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 4G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1I to ignored block(s) or identical signal names
 Removed 2 outputs from Dot Function at 4E to ignored block(s) or identical signal names
 Generating Statement for block at 5C with output pin(s) of OUT_5C_N
 	and inputs of MV_36_VOLTS
@@ -44,11 +44,11 @@ Generating Statement for block at 4E with output pin(s) of OUT_4E_X
 Generating Statement for block at 3E with output pin(s) of OUT_3E_P, OUT_3E_P, OUT_3E_P
 	and inputs of OUT_4C_X,OUT_DOT_4E
 	and logic function of NAND
-Generating Statement for block at 2E with output pin(s) of OUT_2E_H, OUT_2E_H
+Generating Statement for block at 2E with output pin(s) of OUT_2E_H
 	and inputs of OUT_3E_P,OUT_3E_P,OUT_3E_P
 	and logic function of NAND
 Generating Statement for block at 1E with output pin(s) of OUT_1E_A
-	and inputs of OUT_2E_H
+	and inputs of OUT_1I_A
 	and logic function of NOT
 Generating Statement for block at 5F with output pin(s) of OUT_5F_T
 	and inputs of MV_36_VOLTS
@@ -65,6 +65,13 @@ Generating Statement for block at 4G with output pin(s) of OUT_4G_X, OUT_4G_X
 Generating Statement for block at 3G with output pin(s) of OUT_3G_C
 	and inputs of OUT_4G_X,OUT_4G_X
 	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_B
+	and inputs of OUT_2E_H
+	and logic function of DELAY
+	INFO: ShiftRegister at 2I Delay: 120 ns, Clock Period is 10 ns
+Generating Statement for block at 1I with output pin(s) of OUT_1I_A, OUT_1I_A
+	and inputs of OUT_2I_B
+	and logic function of EQUAL
 Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E, OUT_DOT_4E
 	and inputs of OUT_4E_X,OUT_4F_X
 	and logic function of AND
@@ -81,11 +88,11 @@ Generating output sheet edge signal assignment to
 	signal PS_EARLY_COMPUTER_RESET
 	from gate output OUT_1D_D
 Generating output sheet edge signal assignment to 
-	signal MS_COMP_OR_POWER_ON_RESET
-	from gate output OUT_2E_H
-Generating output sheet edge signal assignment to 
 	signal PS_PWR_ON_OR_CPR_RESETS
 	from gate output OUT_1E_A
 Generating output sheet edge signal assignment to 
 	signal PS_PROG_RST_KEY
 	from gate output OUT_3G_C
+Generating output sheet edge signal assignment to 
+	signal MS_COMP_OR_POWER_ON_RESET
+	from gate output OUT_1I_A
