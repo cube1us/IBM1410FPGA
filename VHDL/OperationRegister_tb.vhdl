@@ -120,10 +120,32 @@ procedure check1(
     begin    
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
-      
 
+-- Assemble the op register bus (grouping does not bus outputs, only inputs?)
+      
+signal PS_OP_REG_BUS: STD_LOGIC_VECTOR(7 downto 0);
 
    -- Your test bench declarations go here
+   
+-- Routine to check OP Register bits against
+-- B Ch test vector
+
+procedure checkOpReg(
+   testName: in string;
+   test: in string) is
+   begin
+   for i in 0 to 7 loop
+      if(i = 7) then
+        check1(NOT PS_OP_REG_BUS(i),PS_B_CH_BUS(i),testName,test);
+      elsif(i /= 6) then  -- There is no WM bit in op register 
+        check1(PS_OP_REG_BUS(i),PS_B_CH_BUS(i),testName,test);
+      end if;
+      if(i < 6) then
+         check1(PS_OP_REG_NOT_BUS(i), PS_B_CH_NOT_BUS(i),testName,test);
+      end if;
+   end loop;
+   
+   end procedure; 
 
 -- END USER TEST BENCH DECLARATIONS
    
@@ -197,6 +219,16 @@ fpga_clk_process: process
 -- End of TestBenchFPGAClock.vhdl
 --   
 
+-- Permanent complement for testing
+
+PS_B_CH_NOT_BUS <= NOT PS_B_CH_BUS;
+
+-- The OP Reg didn't bus, perhaps because the signals are used as inputs
+-- on their individual pages.  Need to investigate that.  (The lamps didn't either)
+
+PS_OP_REG_BUS <= PS_OP_REG_C_BIT & '0' & PS_OP_REG_B_BIT & PS_OP_REG_A_BIT &
+   PS_OP_REG_8_BIT & PS_OP_REG_4_BIT & PS_OP_REG_2_BIT & PS_OP_REG_1_BIT;
+   
 -- Place your test bench code in the uut_process
 
 uut_process: process
@@ -207,7 +239,91 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.10.01.1        ";
+   
+   MS_ADDRESS_SET_ROUTINE <= '1';
+   PS_PROCESS_ROUTINE <= '0';
+   wait for 30 ns;
+   check1(PS_CONTROL_REG_DISABLE,'1',testName,"1A");
+   check1(MS_CONTROL_REG_DISABLE,'0',testName,"1B");
+   PS_PROCESS_ROUTINE <= '1';
+   wait for 30 ns;
+   check1(PS_CONTROL_REG_DISABLE,'0',testName,"1C");
+   check1(MS_CONTROL_REG_DISABLE,'1',testName,"1D");
+   MS_ADDRESS_SET_ROUTINE <= '0';
+   wait for 30 ns;
+   check1(PS_CONTROL_REG_DISABLE,'1',testName,"1C");
+   check1(MS_CONTROL_REG_DISABLE,'0',testName,"1A");
+   MS_ADDRESS_SET_ROUTINE <= '1';
+   
+   
+   PS_B_CH_BUS <= "10000000";  -- C Bit
+   wait for 30 ns;
+   PS_SET_OP_REG <= '1';
+   wait for 30 ns;
+   checkOpReg(testname,"2A C Bit");
+   PS_SET_OP_REG <= '0';
+   wait for 30 ns;
+   checkOpReg(testname,"2B C Bit");
 
+   PS_B_CH_BUS <= "00100000";  -- B bit (no WM bit used)
+   wait for 30 ns;
+   PS_SET_OP_REG <= '1';
+   wait for 30 ns;
+   checkOpReg(testname,"2C B Bit");
+   PS_SET_OP_REG <= '0';
+   wait for 30 ns;
+   checkOpReg(testname,"2D B Bit");
+   
+   PS_B_CH_BUS <= "00010000";  -- A bit
+   wait for 30 ns;
+   PS_SET_OP_REG <= '1';
+   wait for 30 ns;
+   checkOpReg(testname,"2E A Bit");
+   PS_SET_OP_REG <= '0';
+   wait for 30 ns;
+   checkOpReg(testname,"2F A Bit");
+      
+   PS_B_CH_BUS <= "00001000";  -- 8 bit
+   wait for 30 ns;
+   PS_SET_OP_REG <= '1';
+   wait for 30 ns;
+   checkOpReg(testname,"2G 8 Bit");
+   PS_SET_OP_REG <= '0';
+   wait for 30 ns;
+   checkOpReg(testname,"2H 8 Bit");
+      
+   PS_B_CH_BUS <= "00000100";  -- 4 bit
+   wait for 30 ns;
+   PS_SET_OP_REG <= '1';
+   wait for 30 ns;
+   checkOpReg(testname,"2I 4 Bit");
+   PS_SET_OP_REG <= '0';
+   wait for 30 ns;
+   checkOpReg(testname,"2J 4 Bit");
+      
+   PS_B_CH_BUS <= "00000010";  -- 2 bit
+   wait for 30 ns;
+   PS_SET_OP_REG <= '1';
+   wait for 30 ns;
+   checkOpReg(testname,"2K 2 Bit");
+   PS_SET_OP_REG <= '0';
+   wait for 30 ns;
+   checkOpReg(testname,"2L 2 Bit");
+      
+   PS_B_CH_BUS <= "00000001";  -- 1 bit
+   wait for 30 ns;
+   PS_SET_OP_REG <= '1';
+   wait for 30 ns;
+   checkOpReg(testname,"2M 1 Bit");
+   PS_SET_OP_REG <= '0';
+   wait for 30 ns;
+   checkOpReg(testname,"2N 1 Bit");
+   
+   
+   
+   
    wait;
    end process;
 
