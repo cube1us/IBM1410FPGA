@@ -1,0 +1,56 @@
+Generating HDL for group named OperationDecodeat 7/19/2020 5:12:05 PM containing pages: 
+	13.11.01.1, 13.11.02.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\OperationDecode_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 14 signals on page 13.11.01.1
+Found 14 signals on page 13.11.02.1
+Found 12 unique input signals and 16 unique output signals, (28 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S OP REG B BIT originates outside the group.
+INFO:  Signal +S OP REG NOT B BIT originates outside the group.
+INFO:  Signal +S OP REG A BIT originates outside the group.
+INFO:  Signal +S OP REG NOT A BIT originates outside the group.
+INFO:  Signal +S OP REG 8 BIT originates outside the group.
+INFO:  Signal +S OP REG NOT 8 BIT originates outside the group.
+INFO:  Signal +S OP REG 4 BIT originates outside the group.
+INFO:  Signal +S OP REG NOT 4 BIT originates outside the group.
+INFO:  Signal +S OP REG 2 BIT originates outside the group.
+INFO:  Signal +S OP REG NOT 2 BIT originates outside the group.
+INFO:  Signal +S OP REG 1 BIT originates outside the group.
+INFO:  Signal +S OP REG NOT 1 BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S OP DCDR NOT B.NOT A.8 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT B.A.8 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT B.A.NOT 8 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT B.NOT A.NOT 8 is used outside the group.
+INFO:  Signal +S OP DCDR B.A.NOT 8 B is used outside the group.
+INFO:  Signal +S OP DCDR B.A.8 B is used outside the group.
+INFO:  Signal +S OP DCDR B.NOT A.NOT 8 B is used outside the group.
+INFO:  Signal +S OP DCDR B.NOT A.8 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT 4.NOT 2.NOT 1 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT 4.NOT 2.1 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT 4.2.1 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT 4.2.NOT 1 B is used outside the group.
+INFO:  Signal +S OP DCDR 4.2.NOT 1 B is used outside the group.
+INFO:  Signal +S OP DCDR 4.NOT 2.1 B is used outside the group.
+INFO:  Signal +S OP DCDR 4.NOT 2.NOT 1 B is used outside the group.
+INFO:  Signal +S OP DCDR 4.2.1 B is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S OP REG B BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT B BIT replaced by Bus signal +S OP REG NOT BUS
+Input Signal +S OP REG A BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT A BIT replaced by Bus signal +S OP REG NOT BUS
+Input Signal +S OP REG 8 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT 8 BIT replaced by Bus signal +S OP REG NOT BUS
+Input Signal +S OP REG 4 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT 4 BIT replaced by Bus signal +S OP REG NOT BUS
+Input Signal +S OP REG 2 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT 2 BIT replaced by Bus signal +S OP REG NOT BUS
+Input Signal +S OP REG 1 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT 1 BIT replaced by Bus signal +S OP REG NOT BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.11.01.1 (OPERATION DECODE)
+Generating HDL associated with page 13.11.02.1 (OPERATION DECODE)
