@@ -1,6 +1,6 @@
-Generating HDL for group named OperationRegisterat 7/19/2020 9:59:09 AM containing pages: 
+Generating HDL for group named OperationRegisterat 7/19/2020 1:59:11 PM containing pages: 
 	13.10.01.1, 13.10.02.1, 13.10.03.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\OperationRegister_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file OperationRegister_tb.vhdl 143 lines preserved and 52 declaration lines preserved
 Building lists of signals on 3 pages...
 Found 17 signals on page 13.10.01.1
 Found 14 signals on page 13.10.02.1
@@ -93,15 +93,29 @@ DEBUG: Added signal LAMP_11C8G09 to bus LAMPS OPREG CE
 DEBUG: Added signal LAMP_11C8H09 to bus LAMPS OPREG CE
 DEBUG: Added signal LAMP_11C8J09 to bus LAMPS OPREG CE
 DEBUG: Added signal LAMP_11C8K09 to bus LAMPS OPREG CE
-INFO: Bus +S OP REG BUS NOT generated.  Found 7 members of 8 Total members 
+INFO: Bus +S OP REG BUS identified 
 INFO: Bus +S OP REG NOT BUS identified 
-INFO: Bus LAMPS OPREG CE NOT generated.  Found 7 members of 8 Total members 
+INFO: Bus LAMPS OPREG CE identified 
+Output signal +S OP REG C BIT replaced by bus +S OP REG BUS
+Output signal +S OP REG B BIT replaced by bus +S OP REG BUS
 Output signal +S OP REG NOT B BIT replaced by bus +S OP REG NOT BUS
+Output signal +S OP REG A BIT replaced by bus +S OP REG BUS
 Output signal +S OP REG NOT A BIT replaced by bus +S OP REG NOT BUS
+Output signal +S OP REG 8 BIT replaced by bus +S OP REG BUS
 Output signal +S OP REG NOT 8 BIT replaced by bus +S OP REG NOT BUS
+Output signal +S OP REG 4 BIT replaced by bus +S OP REG BUS
 Output signal +S OP REG NOT 4 BIT replaced by bus +S OP REG NOT BUS
+Output signal +S OP REG 2 BIT replaced by bus +S OP REG BUS
 Output signal +S OP REG NOT 2 BIT replaced by bus +S OP REG NOT BUS
+Output signal +S OP REG 1 BIT replaced by bus +S OP REG BUS
 Output signal +S OP REG NOT 1 BIT replaced by bus +S OP REG NOT BUS
+Output signal LAMP_11C8D09 replaced by bus LAMPS OPREG CE
+Output signal LAMP_11C8E09 replaced by bus LAMPS OPREG CE
+Output signal LAMP_11C8F09 replaced by bus LAMPS OPREG CE
+Output signal LAMP_11C8G09 replaced by bus LAMPS OPREG CE
+Output signal LAMP_11C8H09 replaced by bus LAMPS OPREG CE
+Output signal LAMP_11C8J09 replaced by bus LAMPS OPREG CE
+Output signal LAMP_11C8K09 replaced by bus LAMPS OPREG CE
 Generating list of internal signals/wires ...
 0 internal signals/wires found.
 Generating HDL prefixes...
