@@ -1,0 +1,124 @@
+Generating HDL for group named OperationModifierRegisterat 7/20/2020 12:30:25 PM containing pages: 
+	13.12.01.1, 13.12.02.1, 13.12.03.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\OperationModifierRegister_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 14 signals on page 13.12.01.1
+Found 19 signals on page 13.12.02.1
+Found 13 signals on page 13.12.03.1
+Found 25 unique input signals and 14 unique output signals, (39 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S OP REG 1401 C BIT originates outside the group.
+INFO:  Signal -S OP REG A BIT originates outside the group.
+INFO:  Signal +S B CH NOT C BIT originates outside the group.
+INFO:  Signal +S B CH C BIT originates outside the group.
+INFO:  Signal -S RESET OP MOD REG originates outside the group.
+INFO:  Signal +S 1401 D+P+Y OP CODES originates outside the group.
+INFO:  Signal +S 1401 DATA MOVE SET OP MOD originates outside the group.
+INFO:  Signal +S SET OP MOD REG originates outside the group.
+INFO:  Signal +S B CH NOT B BIT originates outside the group.
+INFO:  Signal +S B CH B BIT originates outside the group.
+INFO:  Signal +S OP REG B BIT originates outside the group.
+INFO:  Signal +S B CH NOT A BIT originates outside the group.
+INFO:  Signal +S B CH A BIT originates outside the group.
+INFO:  Signal +S B CH NOT 8 BIT originates outside the group.
+INFO:  Signal +S B CH 8 BIT originates outside the group.
+INFO:  Signal +S 1401 P OP CODE originates outside the group.
+INFO:  Signal +S B CH NOT 4 BIT originates outside the group.
+INFO:  Signal +S B CH 4 BIT originates outside the group.
+INFO:  Signal +S 1401 L NOT PERCENT OP CODE originates outside the group.
+INFO:  Signal +S B CH NOT 2 BIT originates outside the group.
+INFO:  Signal +S B CH 2 BIT originates outside the group.
+INFO:  Signal -S 1401 D OP CODE originates outside the group.
+INFO:  Signal +S B CH NOT 1 BIT originates outside the group.
+INFO:  Signal +S B CH 1 BIT originates outside the group.
+INFO:  Signal -S 1401 Y OP CODE originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S OP MOD REG NOT B BIT is used outside the group.
+INFO:  Signal +S OP MOD REG B BIT is used outside the group.
+INFO:  Signal +S OP MOD REG C BIT is used outside the group.
+INFO:  Signal +S OP MOD REG NOT C BIT is used outside the group.
+INFO:  Signal +S OP MOD REG NOT 8 BIT is used outside the group.
+INFO:  Signal +S OP MOD REG A BIT is used outside the group.
+INFO:  Signal +S OP MOD REG NOT A BIT is used outside the group.
+INFO:  Signal +S OP MOD REG 8 BIT is used outside the group.
+INFO:  Signal +S OP MOD REG 4 BIT is used outside the group.
+INFO:  Signal +S OP MOD REG NOT 4 BIT is used outside the group.
+INFO:  Signal +S OP MOD REG 1 BIT is used outside the group.
+INFO:  Signal +S OP MOD REG 2 BIT is used outside the group.
+INFO:  Signal +S OP MOD REG NOT 2 BIT is used outside the group.
+INFO:  Signal +S OP MOD REG NOT 1 BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S B CH NOT C BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH C BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT B BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH B BIT replaced by Bus signal +S B CH BUS
+Input Signal +S OP REG B BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S B CH NOT A BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH A BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT 8 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 8 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT 4 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 4 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT 2 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 2 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT 1 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 1 BIT replaced by Bus signal +S B CH BUS
+Page 13.12.01.1 generates Lamp Output LAMP_11C8D08
+Page 13.12.01.1 generates Lamp Output LAMP_11C8E08
+Page 13.12.02.1 generates Lamp Output LAMP_11C8F08
+Page 13.12.02.1 generates Lamp Output LAMP_11C8G08
+Page 13.12.02.1 generates Lamp Output LAMP_11C8H08
+Page 13.12.03.1 generates Lamp Output LAMP_11C8J08
+Page 13.12.03.1 generates Lamp Output LAMP_11C8K08
+DEBUG: Tentative bus +S OP MOD REG NOT BUS identified based on signal +S OP MOD REG NOT B BIT
+DEBUG: Tentative bus +S OP MOD REG BUS identified based on signal +S OP MOD REG B BIT
+DEBUG: Added signal +S OP MOD REG C BIT to bus +S OP MOD REG BUS
+DEBUG: Added signal +S OP MOD REG NOT C BIT to bus +S OP MOD REG NOT BUS
+DEBUG: Added signal +S OP MOD REG NOT 8 BIT to bus +S OP MOD REG NOT BUS
+DEBUG: Added signal +S OP MOD REG A BIT to bus +S OP MOD REG BUS
+DEBUG: Added signal +S OP MOD REG NOT A BIT to bus +S OP MOD REG NOT BUS
+DEBUG: Added signal +S OP MOD REG 8 BIT to bus +S OP MOD REG BUS
+DEBUG: Added signal +S OP MOD REG 4 BIT to bus +S OP MOD REG BUS
+DEBUG: Added signal +S OP MOD REG NOT 4 BIT to bus +S OP MOD REG NOT BUS
+DEBUG: Added signal +S OP MOD REG 1 BIT to bus +S OP MOD REG BUS
+DEBUG: Added signal +S OP MOD REG 2 BIT to bus +S OP MOD REG BUS
+DEBUG: Added signal +S OP MOD REG NOT 2 BIT to bus +S OP MOD REG NOT BUS
+DEBUG: Added signal +S OP MOD REG NOT 1 BIT to bus +S OP MOD REG NOT BUS
+DEBUG: Tentative bus LAMPS OPMOD CE identified based on signal LAMP_11C8D08
+DEBUG: Added signal LAMP_11C8E08 to bus LAMPS OPMOD CE
+DEBUG: Added signal LAMP_11C8F08 to bus LAMPS OPMOD CE
+DEBUG: Added signal LAMP_11C8G08 to bus LAMPS OPMOD CE
+DEBUG: Added signal LAMP_11C8H08 to bus LAMPS OPMOD CE
+DEBUG: Added signal LAMP_11C8J08 to bus LAMPS OPMOD CE
+DEBUG: Added signal LAMP_11C8K08 to bus LAMPS OPMOD CE
+INFO: Bus +S OP MOD REG NOT BUS identified 
+INFO: Bus +S OP MOD REG BUS identified 
+INFO: Bus LAMPS OPMOD CE identified 
+Output signal +S OP MOD REG NOT B BIT replaced by bus +S OP MOD REG NOT BUS
+Output signal +S OP MOD REG B BIT replaced by bus +S OP MOD REG BUS
+Output signal +S OP MOD REG C BIT replaced by bus +S OP MOD REG BUS
+Output signal +S OP MOD REG NOT C BIT replaced by bus +S OP MOD REG NOT BUS
+Output signal +S OP MOD REG NOT 8 BIT replaced by bus +S OP MOD REG NOT BUS
+Output signal +S OP MOD REG A BIT replaced by bus +S OP MOD REG BUS
+Output signal +S OP MOD REG NOT A BIT replaced by bus +S OP MOD REG NOT BUS
+Output signal +S OP MOD REG 8 BIT replaced by bus +S OP MOD REG BUS
+Output signal +S OP MOD REG 4 BIT replaced by bus +S OP MOD REG BUS
+Output signal +S OP MOD REG NOT 4 BIT replaced by bus +S OP MOD REG NOT BUS
+Output signal +S OP MOD REG 1 BIT replaced by bus +S OP MOD REG BUS
+Output signal +S OP MOD REG 2 BIT replaced by bus +S OP MOD REG BUS
+Output signal +S OP MOD REG NOT 2 BIT replaced by bus +S OP MOD REG NOT BUS
+Output signal +S OP MOD REG NOT 1 BIT replaced by bus +S OP MOD REG NOT BUS
+Output signal LAMP_11C8D08 replaced by bus LAMPS OPMOD CE
+Output signal LAMP_11C8E08 replaced by bus LAMPS OPMOD CE
+Output signal LAMP_11C8F08 replaced by bus LAMPS OPMOD CE
+Output signal LAMP_11C8G08 replaced by bus LAMPS OPMOD CE
+Output signal LAMP_11C8H08 replaced by bus LAMPS OPMOD CE
+Output signal LAMP_11C8J08 replaced by bus LAMPS OPMOD CE
+Output signal LAMP_11C8K08 replaced by bus LAMPS OPMOD CE
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.12.01.1 (OPERATION MODIFIER REGISTER)
+Generating HDL associated with page 13.12.02.1 (OPERATION MODIFIER REGISTER)
+Generating HDL associated with page 13.12.03.1 (OPERATION MODIFIER REGISTER)

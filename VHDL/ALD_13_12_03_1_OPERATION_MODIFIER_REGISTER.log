@@ -1,0 +1,81 @@
+Generating HDL for page 13.12.03.1 OPERATION MODIFIER REGISTER at 7/20/2020 12:29:47 PM
+Found combinatorial loop (need D FF) at output of gate at 4B
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 4F
+Found combinatorial loop (need D FF) at output of gate at 3F
+Removed 11 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 11 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2G to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8J08
+Added LAMP signal LAMP_11C8K08
+Generating Statement for block at 2A with output pin(s) of OUT_2A_C
+	and inputs of OUT_4B_D
+	and logic function of Special
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G
+	and inputs of PS_B_CH_NOT_2_BIT,PS_SET_OP_MOD_REG
+	and logic function of NAND
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_D_Latch, OUT_4B_D_Latch
+	and inputs of OUT_5B_G,MS_RESET_OP_MOD_REG,OUT_3B_H
+	and logic function of NAND
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_H_Latch, OUT_3B_H_Latch
+	and inputs of OUT_4B_D,OUT_5D_D,OUT_5C_C
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of PS_B_CH_2_BIT,PS_SET_OP_MOD_REG
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_A, OUT_2C_A
+	and inputs of OUT_3B_H
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_D
+	and inputs of MS_1401_D_OP_CODE,PS_1401_DATA_MOVE_SET_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_2C_A
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of 
+	and inputs of OUT_2D_C
+	and logic function of Lamp
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of OUT_4F_C
+	and logic function of Special
+Generating Statement for block at 5F with output pin(s) of OUT_5F_K
+	and inputs of PS_B_CH_NOT_1_BIT,PS_SET_OP_MOD_REG
+	and logic function of NAND
+Generating Statement for block at 4F with *latched* output pin(s) of OUT_4F_C_Latch, OUT_4F_C_Latch
+	and inputs of OUT_5F_K,MS_RESET_OP_MOD_REG,OUT_3F_H
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_H_Latch, OUT_3F_H_Latch
+	and inputs of OUT_4F_C,OUT_5H_E,OUT_5G_D
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_D
+	and inputs of PS_SET_OP_MOD_REG,PS_B_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A, OUT_2G_A
+	and inputs of OUT_3F_H
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_E
+	and inputs of MS_1401_Y_OP_CODE,PS_1401_DATA_MOVE_SET_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_K
+	and inputs of OUT_2G_A
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of 
+	and inputs of OUT_2H_K
+	and logic function of Lamp
+Generating output sheet edge signal assignment to 
+	signal PS_OP_MOD_REG_2_BIT
+	from gate output OUT_2A_C
+Generating output sheet edge signal assignment to 
+	signal PS_OP_MOD_REG_NOT_2_BIT
+	from gate output OUT_2C_A
+Generating output sheet edge signal assignment to 
+	signal PS_OP_MOD_REG_1_BIT
+	from gate output OUT_2E_A
+Generating output sheet edge signal assignment to 
+	signal PS_OP_MOD_REG_NOT_1_BIT
+	from gate output OUT_2G_A
+Generating D Flip Flop for block at 4B
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 4F
+Generating D Flip Flop for block at 3F
