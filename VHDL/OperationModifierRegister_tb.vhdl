@@ -92,6 +92,24 @@ procedure check1(
 
 
    -- Your test bench declarations go here
+   
+-- Routine to check OP Register bits against
+   -- B Ch test vector
+   
+   procedure checkOpModReg(
+      testName: in string;
+      test: in string) is
+      begin
+      for i in 0 to 7 loop
+         if(i /= 6) then  -- There is no WM bit in op mod register 
+           check1(PS_OP_MOD_REG_BUS(i),PS_B_CH_BUS(i),testName,test);
+           check1(PS_OP_MOD_REG_NOT_BUS(i),PS_B_CH_NOT_BUS(i),testName,test);
+           check1(LAMPS_OPMOD_CE(i),PS_B_CH_BUS(i),testName,test);
+         end if;
+      end loop;
+      
+      end procedure; 
+   
 
 -- END USER TEST BENCH DECLARATIONS
    
@@ -151,6 +169,10 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+-- Permanent complement for testing
+
+PS_B_CH_NOT_BUS <= NOT PS_B_CH_BUS;
+
 uut_process: process
 
    variable testName: string(1 to 18);
@@ -159,6 +181,179 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.12.01.1        ";
+   
+   wait for 30 ns;
+   MS_RESET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+   
+   PS_B_CH_BUS <= "00000000";
+   PS_SET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+   PS_SET_OP_MOD_REG <= '0';
+   wait for 30 ns;
+   checkOpModReg(testName,"No Bits");
+   
+   PS_B_CH_BUS <= "00000001";
+   PS_SET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+   PS_SET_OP_MOD_REG <= '0';
+   wait for 30 ns;
+   checkOpModReg(testName,"1 Bit");
+   
+   PS_B_CH_BUS <= "00000010";
+   PS_SET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+   PS_SET_OP_MOD_REG <= '0';
+   wait for 30 ns;
+   checkOpModReg(testName,"2 Bit");
+
+   PS_B_CH_BUS <= "00000100";
+   PS_SET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+   PS_SET_OP_MOD_REG <= '0';
+   wait for 30 ns;
+   checkOpModReg(testName,"4 Bit");
+
+   PS_B_CH_BUS <= "00001000";
+   PS_SET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+   PS_SET_OP_MOD_REG <= '0';
+   wait for 30 ns;
+   checkOpModReg(testName,"8 Bit");
+
+   PS_B_CH_BUS <= "00010000";
+   PS_SET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+   PS_SET_OP_MOD_REG <= '0';
+   wait for 30 ns;
+   checkOpModReg(testName,"A Bit");
+
+   PS_B_CH_BUS <= "00100000";
+   PS_SET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+   PS_SET_OP_MOD_REG <= '0';
+   wait for 30 ns;
+   checkOpModReg(testName,"B Bit");
+
+   PS_B_CH_BUS <= "10000000";
+   PS_SET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+   PS_SET_OP_MOD_REG <= '0';
+   wait for 30 ns;
+   checkOpModReg(testName,"C Bit");
+
+   PS_B_CH_BUS <= "11111111";
+   PS_SET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+   PS_SET_OP_MOD_REG <= '0';
+   wait for 30 ns;
+   checkOpModReg(testName,"Set All Bits");
+   
+   MS_RESET_OP_MOD_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_OP_MOD_REG <= '1';
+   wait for 30 ns;
+
+   -- All bits should be reset
+   
+   for i in 0 to 7 loop
+      -- Oddly, in the case of a reset, the C bit gets set in the Op Mod. Reg.
+      if(i = 7) then
+        check1(PS_OP_MOD_REG_BUS(i),'1',testName,"Reset Op Mod Reg A");
+        check1(PS_OP_MOD_REG_NOT_BUS(i),'0',testName,"Reset Op Mod Reg B");
+        check1(LAMPS_OPMOD_CE(i),'1',testName,"Reset Op Mod Reg C");     
+      elsif(i /= 6) then  -- There is no WM bit in op mod register 
+        check1(PS_OP_MOD_REG_BUS(i),'0',testName,"Reset Op Mod Reg D");
+        check1(PS_OP_MOD_REG_NOT_BUS(i),'1',testName,"Reset Op Mod Reg E");
+        check1(LAMPS_OPMOD_CE(i),'0',testName,"Reset Op Mod Reg C");
+      end if;
+   end loop;
+   
+   -- Tests to reset or set individual bits in 1401 mode in particular
+   
+   PS_1401_DATA_MOVE_SET_OP_MOD <= '1';  -- Used for the following tests
+   MS_1401_D_OP_CODE <= '0';
+   MS_1401_Y_OP_CODE <= '0';
+
+   
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_C_BIT),'1',testName,"Reset C Bit A");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_C_BIT),'0',testName,"Reset C Bit B");
+   check1(LAMPS_OPMOD_CE(HDL_C_BIT),'1',testName,"Reset C Bit C");
+   PS_1401_D_OR_P_OR_Y_OP_CODES <= '1';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_C_BIT),'0',testName,"Reset C Bit D");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_C_BIT),'1',testName,"Reset C Bit E");
+   check1(LAMPS_OPMOD_CE(HDL_C_BIT),'0',testName,"Reset C Bit F");
+   PS_1401_D_OR_P_OR_Y_OP_CODES <= '0';
+   
+   PS_OP_REG_1401_C_BIT <= '1';  -- Yes this is C bit affecting 1401 OM B bit
+   MS_OP_REG_A_BIT <= '0';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_B_BIT),'0',testName,"Set B Bit A");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_B_BIT),'1',testName,"Set B Bit B");
+   check1(LAMPS_OPMOD_CE(HDL_B_BIT),'0',testName,"Set B Bit C");
+   MS_OP_REG_A_BIT <= '1';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_B_BIT),'1',testName,"Set B Bit D");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_B_BIT),'0',testName,"Set B Bit E");
+   check1(LAMPS_OPMOD_CE(HDL_B_BIT),'1',testName,"Set B Bit F");
+   
+   PS_OP_REG_BUS(HDL_B_BIT) <= '1';
+   MS_OP_REG_A_BIT <= '0';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_A_BIT),'0',testName,"Set A Bit A");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_A_BIT),'1',testName,"Set A Bit B");
+   check1(LAMPS_OPMOD_CE(HDL_A_BIT),'0',testName,"Set A Bit C");
+   MS_OP_REG_A_BIT <= '1';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_A_BIT),'1',testName,"Set A Bit D");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_A_BIT),'0',testName,"Set A Bit E");
+   check1(LAMPS_OPMOD_CE(HDL_A_BIT),'1',testName,"Set A Bit F");
+      
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_8_BIT),'0',testName,"Set 8 Bit A");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_8_BIT),'1',testName,"Set 8 Bit B");
+   check1(LAMPS_OPMOD_CE(HDL_8_BIT),'0',testName,"Set 8 Bit C");
+   PS_1401_P_OP_CODE <= '1';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_8_BIT),'1',testName,"Set 8 Bit D");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_8_BIT),'0',testName,"Set 8 Bit E");
+   check1(LAMPS_OPMOD_CE(HDL_8_BIT),'1',testName,"Set 8 Bit F");
+   
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_4_BIT),'0',testName,"Set 4 Bit A");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_4_BIT),'1',testName,"Set 4 Bit B");
+   check1(LAMPS_OPMOD_CE(HDL_4_BIT),'0',testName,"Set 4 Bit C");
+   PS_1401_L_NOT_PERCENT_OP_CODE <= '1';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_4_BIT),'1',testName,"Set 4 Bit D");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_4_BIT),'0',testName,"Set 4 Bit E");
+   check1(LAMPS_OPMOD_CE(HDL_4_BIT),'1',testName,"Set 4 Bit F");
+   
+   MS_1401_D_OP_CODE <= '0';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_2_BIT),'0',testName,"Set 2 Bit A");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_2_BIT),'1',testName,"Set 2 Bit B");
+   check1(LAMPS_OPMOD_CE(HDL_2_BIT),'0',testName,"Set 2 Bit C");
+   MS_1401_D_OP_CODE <= '1';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_2_BIT),'1',testName,"Set 2 Bit D");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_2_BIT),'0',testName,"Set 2 Bit E");
+   check1(LAMPS_OPMOD_CE(HDL_2_BIT),'1',testName,"Set 2 Bit F");
+
+   MS_1401_Y_OP_CODE <= '0';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_1_BIT),'0',testName,"Set 1 Bit A");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_1_BIT),'1',testName,"Set 1 Bit B");
+   check1(LAMPS_OPMOD_CE(HDL_1_BIT),'0',testName,"Set 1 Bit C");
+   MS_1401_Y_OP_CODE <= '1';
+   wait for 30ns;
+   check1(PS_OP_MOD_REG_BUS(HDL_1_BIT),'1',testName,"Set 1 Bit D");
+   check1(PS_OP_MOD_REG_NOT_BUS(HDL_1_BIT),'0',testName,"Set 1 Bit E");
+   check1(LAMPS_OPMOD_CE(HDL_1_BIT),'1',testName,"Set 1 Bit F");
 
    wait;
    end process;
