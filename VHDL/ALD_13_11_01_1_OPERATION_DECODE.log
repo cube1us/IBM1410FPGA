@@ -1,4 +1,4 @@
-Generating HDL for page 13.11.01.1 OPERATION DECODE at 7/19/2020 5:11:37 PM
+Generating HDL for page 13.11.01.1 OPERATION DECODE at 7/20/2020 8:03:36 AM
 Removed 2 outputs from Gate at 2A to ignored block(s) or identical signal names
 Removed 4 outputs from Gate at 2B to ignored block(s) or identical signal names
 Removed 3 outputs from Gate at 2C to ignored block(s) or identical signal names
@@ -65,7 +65,7 @@ Generating output sheet edge signal assignment to
 	signal PS_OP_DCDR_NOT_B_DOT_A_DOT_NOT_8_B
 	from gate output OUT_2C_D
 Generating output sheet edge signal assignment to 
-	signal PS_OP_DCDR_NOT_B_DOT_NOT_A_DOT_NOT_8
+	signal PS_OP_DCDR_NOT_B_DOT_NOT_A_DOT_NOT_8_B
 	from gate output OUT_2D_A
 Generating output sheet edge signal assignment to 
 	signal PS_OP_DCDR_B_DOT_A_DOT_NOT_8_B
