@@ -1,0 +1,40 @@
+Generating HDL for page 13.12.15.1 OP MODIFIER DECODE at 7/20/2020 4:34:23 PM
+Removed 2 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3G to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of PS_NOT_4_DOT_2_DOT_1_OP_MOD,PS_OP_MOD_REG_C_BIT,PS_B_DOT_A_DOT_NOT_8_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_D
+	and inputs of OUT_4A_NoPin
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_OP_MOD_REG_NOT_C_BIT,PS_B_DOT_A_DOT_NOT_8_OP_MOD,PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_R
+	and inputs of OUT_4C_NoPin
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_B_DOT_A_DOT_NOT_8_OP_MOD,PS_OP_MOD_REG_NOT_C_BIT,PS_4_DOT_2_DOT_1_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_4E_NoPin
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_OP_MOD_REG_C_BIT,PS_B_DOT_A_DOT_8_OP_MOD,PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_R
+	and inputs of OUT_4G_NoPin
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_C_SYMBOL_OP_MODIFIER
+	from gate output OUT_3A_D
+Generating output sheet edge signal assignment to 
+	signal PS_D_SYMBOL_OP_MODIFIER
+	from gate output OUT_3C_R
+Generating output sheet edge signal assignment to 
+	signal PS_G_SYMBOL_OP_MODIFIER
+	from gate output OUT_3E_D
+Generating output sheet edge signal assignment to 
+	signal PS_QUESTION_MK_OP_MODIFIER
+	from gate output OUT_3G_R

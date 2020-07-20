@@ -1,0 +1,53 @@
+Generating HDL for page 13.12.14.1 OP MODIFIER DECODE at 7/20/2020 4:34:21 PM
+Removed 2 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 7 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 4B to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of MS_9_SYMBOL_OP_MODIFIER,MS_COML_AT_SYM_OP_MODIFIER,MS_P_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_R
+	and inputs of MS_M_SYMBOL_OP_MODIFIER
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of MS_Q_SYMBOL_OP_MODIFIER,MS_R_SYMBOL_OP_MODIFIER,MS_K_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of MS_N_SYMBOL_OP_MODIFIER
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_H, OUT_4C_H
+	and inputs of PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD,PS_OP_MOD_REG_NOT_C_BIT,PS_NOT_B_DOT_A_DOT_8_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A
+	and inputs of OUT_4C_H
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_OP_MOD_REG_NOT_C_BIT,PS_NOT_B_DOT_A_DOT_8_OP_MOD,PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_4E_NoPin
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_OP_MOD_REG_NOT_C_BIT,PS_B_DOT_A_DOT_NOT_8_OP_MOD,PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_R
+	and inputs of OUT_4G_NoPin
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_4A_G,OUT_3B_F,PS_OP_MOD_SYM_IO_STATUS_STAR_1414_STAR,OUT_4B_G,OUT_3A_R
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_RECORD_MARK_OP_MODIFIER
+	from gate output OUT_4C_H
+Generating output sheet edge signal assignment to 
+	signal PS_RECORD_MARK_OP_MODIFIER
+	from gate output OUT_3C_A
+Generating output sheet edge signal assignment to 
+	signal PS_PERCENT_SIGN_OP_MODIFIER
+	from gate output OUT_3E_D
+Generating output sheet edge signal assignment to 
+	signal PS_A_SYMBOL_OP_MODIFIER
+	from gate output OUT_3G_R
+Generating output sheet edge signal assignment to 
+	signal PS_OP_MOD_SYM_FOR_I_O_STATUS
+	from gate output OUT_DOT_4B

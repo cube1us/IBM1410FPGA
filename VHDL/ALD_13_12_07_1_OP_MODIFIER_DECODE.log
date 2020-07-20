@@ -1,0 +1,41 @@
+Generating HDL for page 13.12.07.1 OP MODIFIER DECODE at 7/20/2020 4:34:11 PM
+Removed 6 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 7 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 7 outputs from Gate at 2H to ignored block(s) or identical signal names
+Generating Statement for block at 3B with output pin(s) of OUT_3B_NoPin
+	and inputs of PS_OP_MOD_REG_NOT_1_BIT,PS_OP_MOD_REG_NOT_2_BIT,PS_OP_MOD_REG_NOT_4_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_3B_NoPin
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_NoPin
+	and inputs of PS_OP_MOD_REG_NOT_4_BIT,PS_OP_MOD_REG_NOT_2_BIT,PS_OP_MOD_REG_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of OUT_3D_NoPin
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_H
+	and inputs of PS_OP_MOD_REG_1_BIT,PS_OP_MOD_REG_NOT_4_BIT,PS_OP_MOD_REG_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_A
+	and inputs of OUT_3F_H
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_NoPin
+	and inputs of PS_OP_MOD_REG_NOT_4_BIT,PS_OP_MOD_REG_NOT_1_BIT,PS_OP_MOD_REG_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_R
+	and inputs of OUT_3H_NoPin
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD
+	from gate output OUT_2B_D
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD
+	from gate output OUT_2D_D
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_4_DOT_2_DOT_1_OP_MOD
+	from gate output OUT_2F_A
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD
+	from gate output OUT_2H_R

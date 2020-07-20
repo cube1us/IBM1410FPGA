@@ -1,0 +1,44 @@
+Generating HDL for page 13.12.05.1 OP MODIFIER DECODE at 7/20/2020 4:34:04 PM
+Removed 2 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2H to ignored block(s) or identical signal names
+Generating Statement for block at 3B with output pin(s) of OUT_3B_H, OUT_3B_H
+	and inputs of PS_OP_MOD_REG_NOT_A_BIT,PS_OP_MOD_REG_NOT_8_BIT,PS_OP_MOD_REG_NOT_B_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_A
+	and inputs of OUT_3B_H
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_NoPin
+	and inputs of PS_OP_MOD_REG_NOT_B_BIT,PS_OP_MOD_REG_NOT_A_BIT,PS_OP_MOD_REG_8_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of OUT_3D_NoPin
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_NoPin
+	and inputs of PS_OP_MOD_REG_A_BIT,PS_OP_MOD_REG_NOT_B_BIT,PS_OP_MOD_REG_8_BIT
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_R
+	and inputs of OUT_3F_NoPin
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_NoPin
+	and inputs of PS_OP_MOD_REG_NOT_B_BIT,PS_OP_MOD_REG_NOT_8_BIT,PS_OP_MOD_REG_A_BIT
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_R
+	and inputs of OUT_3H_NoPin
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD
+	from gate output OUT_3B_H
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD
+	from gate output OUT_2B_A
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_B_DOT_NOT_A_DOT_8_OP_MOD
+	from gate output OUT_2D_D
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_B_DOT_A_DOT_8_OP_MOD
+	from gate output OUT_2F_R
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_B_DOT_A_DOT_NOT_8_OP_MOD
+	from gate output OUT_2H_R

@@ -1,0 +1,71 @@
+Generating HDL for page 13.12.17.1 OP MODIFIER DECODE at 7/20/2020 4:34:26 PM
+Removed 2 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 3E to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_H, OUT_4A_H
+	and inputs of PS_OP_MOD_REG_NOT_C_BIT,PS_B_DOT_NOT_A_DOT_8_OP_MOD,PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_A
+	and inputs of OUT_4A_H
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_H, OUT_4B_H
+	and inputs of PS_OP_MOD_REG_C_BIT,PS_NOT_B_DOT_A_DOT_NOT_8_OP_MOD,PS_4_DOT_2_DOT_1_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A, OUT_3B_A
+	and inputs of OUT_4B_H
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_OP_MOD_REG_C_BIT,PS_NOT_B_DOT_A_DOT_8_OP_MOD,PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_R
+	and inputs of OUT_4C_NoPin
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_OP_MOD_REG_NOT_C_BIT,PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of OUT_4D_NoPin
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_OP_MOD_REG_NOT_C_BIT,PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_R
+	and inputs of OUT_4E_NoPin
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of MS_E_CH_UNOVLP_IN_PROCESS,MS_F_CH_UNOVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_P, OUT_3F_P
+	and inputs of OUT_3B_A,OUT_4F_C
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of OUT_3F_P
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_ASTERISK_OP_MODIFIER
+	from gate output OUT_4A_H
+Generating output sheet edge signal assignment to 
+	signal PS_ASTERISK_OP_MODIFIER
+	from gate output OUT_3A_A
+Generating output sheet edge signal assignment to 
+	signal MS_X_SYMBOL_OP_MODIFIER
+	from gate output OUT_4B_H
+Generating output sheet edge signal assignment to 
+	signal PS_X_SYMBOL_OP_MODIFIER
+	from gate output OUT_3B_A
+Generating output sheet edge signal assignment to 
+	signal PS_Y_SYMBOL_OP_MODIFIER
+	from gate output OUT_3C_R
+Generating output sheet edge signal assignment to 
+	signal PS_ONE_SYMBOL_OP_MODIFIER
+	from gate output OUT_3D_D
+Generating output sheet edge signal assignment to 
+	signal PS_TWO_SYMBOL_OP_MODIFIER
+	from gate output OUT_3E_R
+Generating output sheet edge signal assignment to 
+	signal MS_X_SYMBOL_OP_MOD_GATED
+	from gate output OUT_3F_P
+Generating output sheet edge signal assignment to 
+	signal PS_X_SYMBOL_OP_MOD_GATED
+	from gate output OUT_2F_C

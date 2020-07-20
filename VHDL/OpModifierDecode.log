@@ -1,0 +1,201 @@
+Generating HDL for group named OpModifierDecodeat 7/20/2020 4:36:00 PM containing pages: 
+	13.12.05.1, 13.12.06.1, 13.12.07.1, 13.12.08.1, 13.12.09.1
+	13.12.10.1, 13.12.11.1, 13.12.12.1, 13.12.13.1, 13.12.14.1
+	13.12.15.1, 13.12.16.1, 13.12.17.1, 13.12.18.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\OpModifierDecode_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 14 pages...
+Found 10 signals on page 13.12.05.1
+Found 9 signals on page 13.12.06.1
+Found 9 signals on page 13.12.07.1
+Found 9 signals on page 13.12.08.1
+Found 12 signals on page 13.12.09.1
+Found 11 signals on page 13.12.10.1
+Found 15 signals on page 13.12.11.1
+Found 12 signals on page 13.12.12.1
+Found 16 signals on page 13.12.13.1
+Found 20 signals on page 13.12.14.1
+Found 12 signals on page 13.12.15.1
+Found 16 signals on page 13.12.16.1
+Found 22 signals on page 13.12.17.1
+Found 17 signals on page 13.12.18.1
+Found 52 unique input signals and 76 unique output signals, (100 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S OP MOD REG NOT B BIT originates outside the group.
+INFO:  Signal +S OP MOD REG A BIT originates outside the group.
+INFO:  Signal +S OP MOD REG NOT A BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 8 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG NOT 8 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG B BIT originates outside the group.
+INFO:  Signal +S OP MOD REG NOT 4 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 2 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG NOT 2 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 1 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG NOT 1 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 4 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG C BIT originates outside the group.
+INFO:  Signal +S OP MOD REG NOT C BIT originates outside the group.
+INFO:  Signal +S NOT B.NOT A.NOT 8 OP MOD originates inside the group.
+INFO:  Signal +S NOT B.NOT A.8 OP MOD originates inside the group.
+INFO:  Signal +S NOT B.A.8 OP MOD originates inside the group.
+INFO:  Signal +S NOT 4.NOT 2.NOT 1 OP MOD originates inside the group.
+INFO:  Signal +S NOT 4.NOT 2.1 OP MOD originates inside the group.
+INFO:  Signal +S 4.NOT 2.NOT 1 OP MOD originates inside the group.
+INFO:  Signal +S NOT B.A.NOT 8 OP MOD originates inside the group.
+INFO:  Signal +S NOT 4.2.1 OP MOD originates inside the group.
+INFO:  Signal +S NOT 4.2.NOT 1 OP MOD originates inside the group.
+INFO:  Signal +S B.A.NOT 8 OP MOD originates inside the group.
+INFO:  Signal +S 4.2.NOT 1 OP MOD originates inside the group.
+INFO:  Signal +S 4.NOT 2.1 OP MOD originates inside the group.
+INFO:  Signal +S B.A.8 OP MOD originates inside the group.
+INFO:  Signal +S B.NOT A.8 OP MOD originates inside the group.
+INFO:  Signal +S B NOT A.NOT 8 OP MOD originates inside the group.
+INFO:  Signal -S 9 SYMBOL OP MODIFIER originates inside the group.
+INFO:  Signal -S COML AT SYM OP MODIFIER originates inside the group.
+INFO:  Signal -S Q SYMBOL OP MODIFIER originates inside the group.
+INFO:  Signal -S R SYMBOL OP MODIFIER originates inside the group.
+INFO:  Signal -S N SYMBOL OP MODIFIER originates inside the group.
+INFO:  Signal -S M SYMBOL OP MODIFIER originates inside the group.
+INFO:  Signal -S P SYMBOL OP MODIFIER originates inside the group.
+INFO:  Signal +S OP MOD SYM IO STATUS*1414* originates outside the group.
+INFO:  Signal -S K SYMBOL OP MODIFIER originates inside the group.
+INFO:  Signal +S 4.2.1 OP MOD originates inside the group.
+INFO:  Signal -S E CH UNOVLP IN PROCESS originates outside the group.
+INFO:  Signal -S F CH UNOVLP IN PROCESS originates outside the group.
+INFO:  Signal -S W SYMBOL OP MODIFIER originates inside the group.
+INFO:  Signal -S V SYMBOL OP MODIFIER originates inside the group.
+INFO:  Signal -S DOLLAR SIGN SYM OP MODIFIER originates inside the group.
+INFO:  Signal -S X SYMBOL OP MODIFIER originates inside the group.
+INFO:  Signal -S 1401 READ TRIGGER originates outside the group.
+INFO:  Signal +S R + DOLL SGN OP MOD *SIF originates outside the group.
+INFO:  Signal +S R + DOLL SGN OP MOD *SIF JRJ originates outside the group.
+INFO:  Signal +S W + X SYMBOL OP MOD *SIF originates outside the group.
+INFO:  Signal +S W + X SYMBOL OP MOD *SIF JRJ originates outside the group.
+INFO:  Signal -S 1401 PRINT TRIGGER originates outside the group.
+INFO:  Signal -S 1401 PUNCH TRIGGER originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S NOT B.NOT A.NOT 8 OP MOD is used outside the group.
+INFO:  Signal +S NOT B.A.8 OP MOD is used outside the group.
+INFO:  Signal +S NOT B.NOT A.8 OP MOD is used outside the group.
+INFO:  Signal +S NOT B.A.NOT 8 OP MOD is used only inside the group.
+INFO:  Signal +S NOT B.NOT A.NOT 8 OP MOD is used outside the group.
+INFO:  Signal +S B.A.NOT 8 OP MOD is used only inside the group.
+INFO:  Signal +S B.A.8 OP MOD is used only inside the group.
+INFO:  Signal +S B.NOT A.8 OP MOD is used only inside the group.
+INFO:  Signal +S B NOT A.NOT 8 OP MOD is used only inside the group.
+INFO:  Signal +S NOT 4.NOT 2.NOT 1 OP MOD is used outside the group.
+INFO:  Signal +S NOT 4.NOT 2.1 OP MOD is used outside the group.
+INFO:  Signal +S NOT 4.2.1 OP MOD is used outside the group.
+INFO:  Signal +S NOT 4.2.NOT 1 OP MOD is used outside the group.
+INFO:  Signal +S 4.2.NOT 1 OP MOD is used outside the group.
+INFO:  Signal +S 4.2.1 OP MOD is used outside the group.
+INFO:  Signal +S 4.NOT 2.1 OP MOD is used outside the group.
+INFO:  Signal +S 4.NOT 2.NOT 1 OP MOD is used outside the group.
+INFO:  Signal +S Z SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S BLANK SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -S 9 SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -S COML AT SYM OP MODIFIER is used outside the group.
+INFO:  Signal +S SLASH SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S S SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S T SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S U SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S W SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S V SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S B SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S E SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -S W SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -S V SYMBOL OP MODIFIER is used only inside the group.
+INFO:  Signal -S B SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -S E SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S F SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -S Q SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S Q SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S LOZ SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -S LOZ SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S N SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S R SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S M SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -S R SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -S N SYMBOL OP MODIFIER is used only inside the group.
+INFO:  Signal -S M SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S DOLLAR SIGN SYM OP MODIFIER is used outside the group.
+INFO:  Signal -S DOLLAR SIGN SYM OP MODIFIER is used only inside the group.
+INFO:  Signal +S OP MOD SYM FOR I O STATUS is used outside the group.
+INFO:  Signal +S PERCENT SIGN OP MODIFIER is used outside the group.
+INFO:  Signal +S A SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S RECORD MARK OP MODIFIER is used outside the group.
+INFO:  Signal -S RECORD MARK OP MODIFIER is used outside the group.
+INFO:  Signal +S C SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S D SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S G SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S QUESTION MK OP MODIFIER is used outside the group.
+INFO:  Signal -S GROUP MARK OP MODIFIER is used outside the group.
+INFO:  Signal +S L SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S EXCLAM MK OP MODIFIER is used outside the group.
+INFO:  Signal -S EXCLAM MK OP MODIFIER is used outside the group.
+INFO:  Signal +S K SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S P SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -S P SYMBOL OP MODIFIER is used only inside the group.
+INFO:  Signal -S K SYMBOL OP MODIFIER is used only inside the group.
+INFO:  Signal +S ONE SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S TWO SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S X SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S Y SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S ASTERISK OP MODIFIER is used outside the group.
+INFO:  Signal -S ASTERISK OP MODIFIER is used outside the group.
+INFO:  Signal -S X SYMBOL OP MODIFIER is used only inside the group.
+INFO:  Signal +S X SYMBOL OP MOD GATED is used outside the group.
+INFO:  Signal -S X SYMBOL OP MOD GATED is used outside the group.
+INFO:  Signal +S Q+V SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S W+X SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal +S DOLLAR SIGN+R SYMBOL OP MOD is used outside the group.
+INFO:  Signal -S Q+V SYMBOL OP MODIFIER is used outside the group.
+Removing 11 output signals that do not have destinations outside the group...
+Removing 28 input signals that originate inside the group...
+Signal +S NOT B.NOT A.NOT 8 OP MOD is output from the group, but also used as an input inside the group.
+Signal +S NOT B.NOT A.8 OP MOD is output from the group, but also used as an input inside the group.
+Signal +S NOT B.A.8 OP MOD is output from the group, but also used as an input inside the group.
+Signal +S NOT 4.NOT 2.NOT 1 OP MOD is output from the group, but also used as an input inside the group.
+Signal +S NOT 4.NOT 2.1 OP MOD is output from the group, but also used as an input inside the group.
+Signal +S 4.NOT 2.NOT 1 OP MOD is output from the group, but also used as an input inside the group.
+Signal +S NOT 4.2.1 OP MOD is output from the group, but also used as an input inside the group.
+Signal +S NOT 4.2.NOT 1 OP MOD is output from the group, but also used as an input inside the group.
+Signal +S 4.2.NOT 1 OP MOD is output from the group, but also used as an input inside the group.
+Signal +S 4.NOT 2.1 OP MOD is output from the group, but also used as an input inside the group.
+Signal -S 9 SYMBOL OP MODIFIER is output from the group, but also used as an input inside the group.
+Signal -S COML AT SYM OP MODIFIER is output from the group, but also used as an input inside the group.
+Signal -S Q SYMBOL OP MODIFIER is output from the group, but also used as an input inside the group.
+Signal -S R SYMBOL OP MODIFIER is output from the group, but also used as an input inside the group.
+Signal -S M SYMBOL OP MODIFIER is output from the group, but also used as an input inside the group.
+Signal +S 4.2.1 OP MOD is output from the group, but also used as an input inside the group.
+Signal -S W SYMBOL OP MODIFIER is output from the group, but also used as an input inside the group.
+Input Signal +S OP MOD REG NOT B BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG A BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG NOT A BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG 8 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG NOT 8 BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG B BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG NOT 4 BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG 2 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG NOT 2 BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG 1 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG NOT 1 BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Input Signal +S OP MOD REG 4 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG C BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S OP MOD REG NOT C BIT replaced by Bus signal +S OP MOD REG NOT BUS
+Generating list of internal signals/wires ...
+11 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.12.05.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.06.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.07.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.08.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.09.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.10.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.11.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.12.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.13.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.14.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.15.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.16.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.17.1 (OP MODIFIER DECODE)
+Generating HDL associated with page 13.12.18.1 (OP MODIFIER DECODE GROUPING)

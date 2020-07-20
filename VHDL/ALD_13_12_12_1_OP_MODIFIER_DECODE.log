@@ -1,0 +1,41 @@
+Generating HDL for page 13.12.12.1 OP MODIFIER DECODE at 7/20/2020 4:34:17 PM
+Removed 3 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of PS_OP_MOD_REG_C_BIT,PS_4_DOT_2_DOT_NOT_1_OP_MOD,PS_B_DOT_A_DOT_NOT_8_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_R
+	and inputs of OUT_4A_NoPin
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_H, OUT_4C_H
+	and inputs of PS_OP_MOD_REG_C_BIT,PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,PS_B_DOT_A_DOT_8_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A
+	and inputs of OUT_4C_H
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_H, OUT_4G_H
+	and inputs of PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,PS_OP_MOD_REG_C_BIT,PS_B_DOT_NOT_A_DOT_8_OP_MOD
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_A
+	and inputs of OUT_4G_H
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of OUT_1G_K
+	and inputs of OUT_4G_H
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal PS_F_SYMBOL_OP_MODIFIER
+	from gate output OUT_3A_R
+Generating output sheet edge signal assignment to 
+	signal MS_LOZ_SYMBOL_OP_MODIFIER
+	from gate output OUT_4C_H
+Generating output sheet edge signal assignment to 
+	signal PS_LOZ_SYMBOL_OP_MODIFIER
+	from gate output OUT_3C_A
+Generating output sheet edge signal assignment to 
+	signal PS_Q_SYMBOL_OP_MODIFIER
+	from gate output OUT_3G_A
+Generating output sheet edge signal assignment to 
+	signal MS_Q_SYMBOL_OP_MODIFIER
+	from gate output OUT_1G_K
