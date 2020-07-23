@@ -9,6 +9,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use WORK.ALL;
 
+
 -- End of include from HDLTemplate.vhdl
 
 entity OpModifierDecode_tb is
@@ -334,15 +335,2103 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+PS_OP_MOD_REG_NOT_BUS <= NOT PS_OP_MOD_REG_BUS;
+
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-
+   
+   variable OpModifierBCD: BCD.BCD;
+   variable testChar: string(1 to 6);
+   
    begin
 
    -- Your test bench code
 
+   -- Sampe usage:  OpModifierBCD := BCD.BCD_Asterisk;
+   
+   testName := "13.12.05.1        ";
+   
+   PS_OP_MOD_REG_BUS <= "00000000";
+   wait for 30 ns;   
+   check1(PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'1',testName,"1A");
+   check1(MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'0',testName,"1B");
+   check1(PS_NOT_B_DOT_NOT_A_DOT_8_OP_MOD,'0',testName,"1C");
+   check1(PS_NOT_B_DOT_A_DOT_8_OP_MOD,'0',testName,"1D");
+   
+   PS_OP_MOD_REG_BUS <= "00001000";
+   wait for 30 ns;   
+   check1(PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'0',testName,"2A");
+   check1(MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'1',testName,"2B");
+   check1(PS_NOT_B_DOT_NOT_A_DOT_8_OP_MOD,'1',testName,"2C");
+   check1(PS_NOT_B_DOT_A_DOT_8_OP_MOD,'0',testName,"2D");
+   
+   PS_OP_MOD_REG_BUS <= "00010000";
+   wait for 30 ns;   
+   check1(PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'0',testName,"3A");
+   check1(MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'1',testName,"3B");
+   check1(PS_NOT_B_DOT_NOT_A_DOT_8_OP_MOD,'0',testName,"3C");
+   check1(PS_NOT_B_DOT_A_DOT_8_OP_MOD,'0',testName,"3D");
+
+   PS_OP_MOD_REG_BUS <= "00011000";
+   wait for 30 ns;   
+   check1(PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'0',testName,"4A");
+   check1(MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'1',testName,"4B");
+   check1(PS_NOT_B_DOT_NOT_A_DOT_8_OP_MOD,'0',testName,"4C");
+   check1(PS_NOT_B_DOT_A_DOT_8_OP_MOD,'1',testName,"4D");
+
+   PS_OP_MOD_REG_BUS <= "00100000";
+   wait for 30 ns;   
+   check1(PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'0',testName,"5A");
+   check1(MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'1',testName,"5B");
+   check1(PS_NOT_B_DOT_NOT_A_DOT_8_OP_MOD,'0',testName,"5C");
+   check1(PS_NOT_B_DOT_A_DOT_8_OP_MOD,'0',testName,"5D");
+
+   PS_OP_MOD_REG_BUS <= "00101000";
+   wait for 30 ns;   
+   check1(PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'0',testName,"6A");
+   check1(MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'1',testName,"6B");
+   check1(PS_NOT_B_DOT_NOT_A_DOT_8_OP_MOD,'0',testName,"6C");
+   check1(PS_NOT_B_DOT_A_DOT_8_OP_MOD,'0',testName,"6D");
+
+   PS_OP_MOD_REG_BUS <= "00110000";
+   wait for 30 ns;   
+   check1(PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'0',testName,"7A");
+   check1(MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'1',testName,"7B");
+   check1(PS_NOT_B_DOT_NOT_A_DOT_8_OP_MOD,'0',testName,"7C");
+   check1(PS_NOT_B_DOT_A_DOT_8_OP_MOD,'0',testName,"7D");
+
+   PS_OP_MOD_REG_BUS <= "00111000";
+   wait for 30 ns;   
+   check1(PS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'0',testName,"8A");
+   check1(MS_NOT_B_DOT_NOT_A_DOT_NOT_8_OP_MOD,'1',testName,"8B");
+   check1(PS_NOT_B_DOT_NOT_A_DOT_8_OP_MOD,'0',testName,"8C");
+   check1(PS_NOT_B_DOT_A_DOT_8_OP_MOD,'0',testName,"8D");
+   
+   testName := "13.12.07.1, 08.1  ";
+   
+   PS_OP_MOD_REG_BUS <= "00000000";
+   wait for 30 ns;   
+   check1(PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'1',testName,"1A");
+   check1(PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"1B");
+   check1(PS_NOT_4_DOT_2_DOT_1_OP_MOD,'0',testName,"1C");
+   check1(PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"1D");
+   check1(PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"1E");
+   check1(PS_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"1F");
+   check1(PS_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"1G");
+   check1(PS_4_DOT_2_DOT_1_OP_MOD,'0',testName,"1H");
+    
+   PS_OP_MOD_REG_BUS <= "00000001";
+   wait for 30 ns;   
+   check1(PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"2A");
+   check1(PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD,'1',testName,"2B");
+   check1(PS_NOT_4_DOT_2_DOT_1_OP_MOD,'0',testName,"2C");
+   check1(PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"2D");
+   check1(PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"2E");
+   check1(PS_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"2F");
+   check1(PS_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"2G");
+   check1(PS_4_DOT_2_DOT_1_OP_MOD,'0',testName,"2H");
+
+   PS_OP_MOD_REG_BUS <= "00000010";
+   wait for 30 ns;   
+   check1(PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"3A");
+   check1(PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"3B");
+   check1(PS_NOT_4_DOT_2_DOT_1_OP_MOD,'0',testName,"3C");
+   check1(PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD,'1',testName,"3D");
+   check1(PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"3E");
+   check1(PS_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"3F");
+   check1(PS_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"3G");
+   check1(PS_4_DOT_2_DOT_1_OP_MOD,'0',testName,"3H");
+
+   PS_OP_MOD_REG_BUS <= "00000011";
+   wait for 30 ns;   
+   check1(PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"4A");
+   check1(PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"4B");
+   check1(PS_NOT_4_DOT_2_DOT_1_OP_MOD,'1',testName,"4C");
+   check1(PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"4D");
+   check1(PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"4e");
+   check1(PS_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"4F");
+   check1(PS_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"4G");
+   check1(PS_4_DOT_2_DOT_1_OP_MOD,'0',testName,"4H");
+
+   PS_OP_MOD_REG_BUS <= "00000100";
+   wait for 30 ns;   
+   check1(PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"5A");
+   check1(PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"5B");
+   check1(PS_NOT_4_DOT_2_DOT_1_OP_MOD,'0',testName,"5C");
+   check1(PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"5D");
+   check1(PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'1',testName,"5E");
+   check1(PS_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"5F");
+   check1(PS_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"5G");
+   check1(PS_4_DOT_2_DOT_1_OP_MOD,'0',testName,"5H");
+
+   PS_OP_MOD_REG_BUS <= "00000101";
+   wait for 30 ns;   
+   check1(PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"6A");
+   check1(PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"6B");
+   check1(PS_NOT_4_DOT_2_DOT_1_OP_MOD,'0',testName,"6C");
+   check1(PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"6D");
+   check1(PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"6E");
+   check1(PS_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"6F");
+   check1(PS_4_DOT_NOT_2_DOT_1_OP_MOD,'1',testName,"6G");
+   check1(PS_4_DOT_2_DOT_1_OP_MOD,'0',testName,"6H");
+
+   PS_OP_MOD_REG_BUS <= "00000110";
+   wait for 30 ns;   
+   check1(PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"7A");
+   check1(PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"7B");
+   check1(PS_NOT_4_DOT_2_DOT_1_OP_MOD,'0',testName,"7C");
+   check1(PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"7D");
+   check1(PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"7E");
+   check1(PS_4_DOT_2_DOT_NOT_1_OP_MOD,'1',testName,"7F");
+   check1(PS_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"7G");
+   check1(PS_4_DOT_2_DOT_1_OP_MOD,'0',testName,"7H");
+
+   PS_OP_MOD_REG_BUS <= "00000111";
+   wait for 30 ns;   
+   check1(PS_NOT_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"8A");
+   check1(PS_NOT_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"8B");
+   check1(PS_NOT_4_DOT_2_DOT_1_OP_MOD,'0',testName,"8C");
+   check1(PS_NOT_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"8D");
+   check1(PS_4_DOT_NOT_2_DOT_NOT_1_OP_MOD,'0',testName,"8E");
+   check1(PS_4_DOT_2_DOT_NOT_1_OP_MOD,'0',testName,"8F");
+   check1(PS_4_DOT_NOT_2_DOT_1_OP_MOD,'0',testName,"8G");
+   check1(PS_4_DOT_2_DOT_1_OP_MOD,'1',testName,"8H");
+
+   testName := "13.12.09.1 ...    ";
+
+   for BCD_CHAR in BCD.BCD loop
+      PS_OP_MOD_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD_CHAR);
+      wait for 30 ns;
+      case BCD_CHAR is
+         when BCD.BCD_BLANK =>
+            testChar := "Blank ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'1',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+                        
+         when BCD.BCD_SLASH =>
+               testChar := "Slash ";
+               check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+               check1(PS_SLASH_SYMBOL_OP_MODIFIER,'1',testName,testChar & "/");
+               check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+               check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+               check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+               check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+               check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+               check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+               check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+   
+               check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+               check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                               
+               check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+               check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+               check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+               check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+               check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+               check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+               check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+               check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+               check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+               check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+               check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+               check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+               check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+               check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+               check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+               check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+               check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+               check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+               check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+               check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+               check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+               check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+               
+               check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+               check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+               check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+               check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+               check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+               check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+               check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+               check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+               check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+               check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+               check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+               check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+               check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_LOZENGE =>
+               testChar := "Lozng ";
+               check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+               check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+               check1(PS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "Lozenge");            
+               check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+               check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+               check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+               check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+               check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+               check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+   
+               check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+               check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                               
+               check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+               check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+               check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+               check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+               check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+               check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+               check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+               check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+               check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+               check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+               check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+               check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+               check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+               check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+               check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+               check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+               check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+               check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+               check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+               check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+               check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+               check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+               
+               check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+               check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+               check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+               check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+               check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+               check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+               check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+               check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+               check1(MS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "-Lozenge");
+               check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+               check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+               check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+               check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_DOLLAR =>
+               testChar := "$$$$$ ";
+               check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+               check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+               check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+               check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'1',testName,testChar & "$");
+               check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+               check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+               check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+               check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+               check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+   
+               check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+               check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                               
+               check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+               check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+               check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+               check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+               check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+               check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+               check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+               check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+               check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+               check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+               check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+               check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+               check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+               check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+               check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+               check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+               check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+               check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+               check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+               check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+               check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+               check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+               
+               check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+               check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+               check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+               check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+               check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+               check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+               check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+               check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+               check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+               check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+               check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+               check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+               check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_RECORD_MARK =>
+            testChar := "Recmk ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_PERCENT =>
+            testChar := "Prcnt ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'1',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_EXCLAMATION =>
+            testChar := "!!!!! ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_ASTERISK =>
+            testChar := "***** ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "-*");
+
+         when BCD.BCD_1 =>
+            testChar := "11111 ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'1',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_2 =>
+            testChar := "22222 ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'1',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_A =>
+            testChar := "AAAAA ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'1',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_B =>
+            testChar := "BBBBB ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_C =>
+            testChar := "CCCCC ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'1',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_D =>
+            testChar := "DDDDD ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'1',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_E =>
+            testChar := "EEEEE ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_F =>
+            testChar := "FFFFF ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'1',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_G =>
+            testChar := "GGGGG ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'1',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_K =>
+            testChar := "KKKKK ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'1',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_L =>
+            testChar := "LLLLL ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'1',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_M =>
+            testChar := "MMMMM ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_N =>
+            testChar := "NNNNN ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'1',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_P =>
+            testChar := "PPPPP ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'1',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_Q =>
+            testChar := "QQQQQ ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_R =>
+            testChar := "RRRRR ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_S =>
+            testChar := "SSSSS ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'1',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_T =>
+            testChar := "TTTTT ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'1',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_U =>
+            testChar := "UUUUU ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'1',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_V =>
+            testChar := "VVVVV ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'1',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_W =>
+            testChar := "WWWWW ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_X =>
+            testChar := "XXXXX ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'1',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_Y =>
+            testChar := "YYYYY ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'1',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_Z =>
+            testChar := "ZZZZZ ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'1',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_9 =>
+            testChar := "99999 ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'0',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_AT =>
+            testChar := "@@@@@ ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'0',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_GROUP_MARK =>
+            testChar := "GrpMk ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'0',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+         when BCD.BCD_QUESTION_MARK =>
+            testChar := "????? ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'1',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+                        
+         when others =>
+            testChar := "OTHER ";
+            check1(PS_BLANK_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_SLASH_SYMBOL_OP_MODIFIER,'0',testName,testChar & "/");
+            check1(PS_LOZ_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Lozenge");            
+            check1(PS_DOLLAR_SIGN_SYM_OP_MODIFIER,'0',testName,testChar & "$");
+            check1(PS_RECORD_MARK_OP_MODIFIER,'0',testName,testChar & "RecordMark");
+            check1(PS_PERCENT_SIGN_OP_MODIFIER,'0',testName,testChar & "%");
+            check1(PS_QUESTION_MK_OP_MODIFIER,'0',testName,testChar & "?");
+            check1(PS_EXCLAM_MK_OP_MODIFIER,'0',testName,testChar & "!");
+            check1(PS_ASTERISK_OP_MODIFIER,'0',testName,testChar & "*");
+
+            check1(PS_ONE_SYMBOL_OP_MODIFIER,'0',testName,testChar & "1");
+            check1(PS_TWO_SYMBOL_OP_MODIFIER,'0',testName,testChar & "2");            
+                                                            
+            check1(PS_A_SYMBOL_OP_MODIFIER,'0',testName,testChar & "A");
+            check1(PS_B_SYMBOL_OP_MODIFIER,'0',testName,testChar & "B");
+            check1(PS_C_SYMBOL_OP_MODIFIER,'0',testName,testChar & "C");
+            check1(PS_D_SYMBOL_OP_MODIFIER,'0',testName,testChar & "D");
+            check1(PS_E_SYMBOL_OP_MODIFIER,'0',testName,testChar & "E");
+            check1(PS_F_SYMBOL_OP_MODIFIER,'0',testName,testChar & "F");            
+            check1(PS_G_SYMBOL_OP_MODIFIER,'0',testName,testChar & "G");
+            check1(PS_K_SYMBOL_OP_MODIFIER,'0',testName,testChar & "K");
+            check1(PS_L_SYMBOL_OP_MODIFIER,'0',testName,testChar & "L");
+            check1(PS_M_SYMBOL_OP_MODIFIER,'0',testName,testChar & "M");
+            check1(PS_N_SYMBOL_OP_MODIFIER,'0',testName,testChar & "N");
+            check1(PS_P_SYMBOL_OP_MODIFIER,'0',testName,testChar & "P");
+            check1(PS_Q_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Q");
+            check1(PS_R_SYMBOL_OP_MODIFIER,'0',testName,testChar & "R");
+            check1(PS_S_SYMBOL_OP_MODIFIER,'0',testName,testChar & "S");
+            check1(PS_T_SYMBOL_OP_MODIFIER,'0',testName,testChar & "T");
+            check1(PS_U_SYMBOL_OP_MODIFIER,'0',testName,testChar & "U");
+            check1(PS_V_SYMBOL_OP_MODIFIER,'0',testName,testChar & "V");
+            check1(PS_W_SYMBOL_OP_MODIFIER,'0',testName,testChar & "W");
+            check1(PS_X_SYMBOL_OP_MODIFIER,'0',testName,testChar & "X");
+            check1(PS_Y_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Y");
+            check1(PS_Z_SYMBOL_OP_MODIFIER,'0',testName,testChar & "Z");
+            
+            check1(MS_B_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-B");
+            check1(MS_E_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-E");
+            check1(MS_M_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-M");
+            check1(MS_Q_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Q");
+            check1(MS_R_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-R");
+            check1(MS_W_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-W");
+            check1(MS_9_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-9");
+            check1(MS_COML_AT_SYM_OP_MODIFIER,'1',testName,testChar & "-@");
+            check1(MS_LOZ_SYMBOL_OP_MODIFIER,'1',testName,testChar & "-Lozenge");
+            check1(MS_RECORD_MARK_OP_MODIFIER,'1',testName,testChar & "-Record Mark");
+            check1(MS_EXCLAM_MK_OP_MODIFIER,'1',testName,testChar & "-!");
+            check1(MS_GROUP_MARK_OP_MODIFIER,'1',testName,testChar & "-Group Mark");
+            check1(MS_ASTERISK_OP_MODIFIER,'1',testName,testChar & "-*");
+
+      end case;       
+   end loop;
+   
    wait;
    end process;
 
