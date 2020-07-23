@@ -75,6 +75,10 @@ package BCD is
    
    function bcd_to_slv8(bcd_char: in BCD)
       return std_logic_vector;
+      
+   function bcd_to_slv8_odd_parity(bcd_char: in BCD)
+         return std_logic_vector;
+     
         
 end package BCD;
 
@@ -90,6 +94,19 @@ package body BCD is
       return std_logic_vector is
       begin
          return (std_logic_vector( to_unsigned(BCD'POS(BCD_CHAR), 8)));
+      end;
+
+   function bcd_to_slv8_odd_parity(BCD_CHAR: in BCD)
+      return std_logic_vector is
+      variable temp: std_logic_vector(7 downto 0);
+      variable temp_parity: std_logic := '1';   -- Start with odd parity, no bits
+      begin
+         temp := std_logic_vector( to_unsigned(BCD'POS(BCD_CHAR), 8));         
+         for i in temp'length-1 downto 0 loop   -- the top bit will be 0!
+            temp_parity := temp_parity xor temp(i);
+         end loop;
+         temp(7) := temp_parity;
+         return(temp);
       end;
 
 end package body;
