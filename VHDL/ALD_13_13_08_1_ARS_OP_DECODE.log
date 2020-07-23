@@ -1,0 +1,45 @@
+Generating HDL for page 13.13.08.1 ARS OP DECODE at 7/23/2020 4:43:12 PM
+Removed 1 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_H
+	and inputs of PS_OP_DCDR_B_DOT_NOT_A_DOT_NOT_8_B,PS_OP_DCDR_4_DOT_NOT_2_DOT_1_B,PS_OP_REG_ARS_NOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_A
+	and inputs of OUT_4A_H
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_OP_REG_COM_C_BIT,PS_OP_DCDR_B_DOT_NOT_A_DOT_NOT_8_B,PS_OP_DCDR_NOT_4_DOT_2_DOT_NOT_1_B
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D, OUT_2C_D
+	and inputs of OUT_4C_NoPin
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_R
+	and inputs of OUT_2C_D
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_OP_REG_COM_C_BIT,PS_OP_DCDR_B_DOT_A_DOT_NOT_8_B,PS_OP_DCDR_4_DOT_2_DOT_NOT_1_B
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_R, OUT_2E_R
+	and inputs of OUT_4E_NoPin
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of OUT_1F_B
+	and inputs of OUT_2E_R
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_ARS_NO_OP
+	from gate output OUT_2A_A
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_STACKER_SEL_OP_CODE
+	from gate output OUT_2C_D
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_STACKER_SEL_OP_CODE
+	from gate output OUT_1D_R
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_FORMS_CTRL_OP_CODE
+	from gate output OUT_2E_R
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_FORMS_CTRL_OP_CODE
+	from gate output OUT_1F_B

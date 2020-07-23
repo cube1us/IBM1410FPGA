@@ -1,0 +1,74 @@
+Generating HDL for page 13.13.06.1 ARS OP DECODE at 7/23/2020 4:39:08 PM
+Removed 2 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 3C to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of PS_OP_REG_ARS_C_BIT,PS_OP_DCDR_4_DOT_NOT_2_DOT_NOT_1_B,PS_OP_DCDR_B_DOT_NOT_A_DOT_NOT_8_B
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_R
+	and inputs of OUT_4A_NoPin
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of OUT_1A_K, OUT_1A_K, OUT_1A_K
+	and inputs of OUT_DOT_3A
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of MS_1401_I_O_MOVE_OP
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_1B_P
+	and inputs of OUT_1A_K,OUT_1C_K
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_OP_DCDR_B_DOT_NOT_A_DOT_NOT_8_B,PS_OP_DCDR_NOT_4_DOT_2_DOT_1_B,PS_OP_REG_ARS_NOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of OUT_4C_NoPin
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_K, OUT_1C_K, OUT_1C_K
+	and inputs of OUT_DOT_3C
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_R
+	and inputs of MS_1401_I_O_LOAD_OP
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C
+	and inputs of OUT_1A_K,OUT_1C_K,MS_UNIT_CTRL_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D, OUT_4E_D
+	and inputs of PS_OP_REG_ARS_NOT_C_BIT,PS_OP_DCDR_B_DOT_NOT_A_DOT_8_B,PS_OP_DCDR_NOT_4_DOT_NOT_2_DOT_1_B
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of OUT_4E_D
+	and logic function of Special
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D
+	and inputs of MS_1401_M_OP_CODE,MS_1401_L_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A
+	and inputs of OUT_3A_R,OUT_3B_F
+	and logic function of OR
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C, OUT_DOT_3C
+	and inputs of OUT_3C_D,OUT_3D_R
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_1D_C,OUT_1E_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_I_O_MOVE_OP_CODE
+	from gate output OUT_1A_K
+Generating output sheet edge signal assignment to 
+	signal PS_I_O_MOVE_OR_I_O_LOAD_OP_CODE
+	from gate output OUT_1B_P
+Generating output sheet edge signal assignment to 
+	signal MS_I_O_LOAD_OP_CODE
+	from gate output OUT_1C_K
+Generating output sheet edge signal assignment to 
+	signal MS_BRANCH_ON_STATUS_CH_1
+	from gate output OUT_4E_D
+Generating output sheet edge signal assignment to 
+	signal PS_BRANCH_ON_STATUS_CH_1
+	from gate output OUT_2E_C
+Generating output sheet edge signal assignment to 
+	signal PS_I_O_LOAD_OP_CODE
+	from gate output OUT_DOT_3C
+Generating output sheet edge signal assignment to 
+	signal PS_ANY_M_OR_L_OR_U_OP
+	from gate output OUT_DOT_1D

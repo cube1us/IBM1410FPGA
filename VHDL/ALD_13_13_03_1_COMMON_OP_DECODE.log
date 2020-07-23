@@ -1,0 +1,57 @@
+Generating HDL for page 13.13.03.1 COMMON OP DECODE at 7/23/2020 4:39:03 PM
+Removed 3 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2I to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of PS_OP_REG_COM_C_BIT,PS_OP_DCDR_B_DOT_A_DOT_NOT_8_B,PS_OP_DCDR_NOT_4_DOT_2_DOT_1_B
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_R, OUT_2A_R
+	and inputs of OUT_4A_NoPin
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_1B_K
+	and inputs of OUT_2A_R
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_H, OUT_4D_H
+	and inputs of PS_OP_DCDR_NOT_B_DOT_A_DOT_8_B,PS_OP_DCDR_NOT_4_DOT_NOT_2_DOT_1_B,PS_OP_REG_COM_NOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_A
+	and inputs of OUT_4D_H
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_H, OUT_4G_H
+	and inputs of PS_OP_DCDR_4_DOT_2_DOT_NOT_1_B,PS_OP_REG_COM_NOT_C_BIT,PS_OP_DCDR_NOT_B_DOT_A_DOT_NOT_8_B
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A
+	and inputs of OUT_4G_H
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_C, OUT_4I_C
+	and inputs of PS_OP_DCDR_NOT_B_DOT_A_DOT_NOT_8_B,PS_OP_REG_COM_NOT_C_BIT,PS_OP_DCDR_4_DOT_NOT_2_DOT_1_B
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_E
+	and inputs of OUT_4I_C
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_COMPARE_OP_CODE
+	from gate output OUT_2A_R
+Generating output sheet edge signal assignment to 
+	signal MS_COMPARE_OP_CODE
+	from gate output OUT_1B_K
+Generating output sheet edge signal assignment to 
+	signal MS_MOVE_ZERO_SUP_OP_CODE
+	from gate output OUT_4D_H
+Generating output sheet edge signal assignment to 
+	signal PS_MOVE_ZERO_SUP_OP_CODE
+	from gate output OUT_2D_A
+Generating output sheet edge signal assignment to 
+	signal MS_BIT_TEST_BRANCH_OP_CODE
+	from gate output OUT_4G_H
+Generating output sheet edge signal assignment to 
+	signal PS_BIT_TEST_BRANCH_OP_CODE
+	from gate output OUT_2G_A
+Generating output sheet edge signal assignment to 
+	signal MS_ZN_OR_WM_TST_BRANCH_OP_CODE
+	from gate output OUT_4I_C
+Generating output sheet edge signal assignment to 
+	signal PS_ZN_OR_WM_TST_BRANCH_OP_CODE
+	from gate output OUT_2I_E

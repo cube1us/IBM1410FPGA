@@ -1,0 +1,44 @@
+Generating HDL for page 13.13.02.1 COMMON OP DECODE at 7/23/2020 4:38:58 PM
+Removed 6 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2G to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_H, OUT_4A_H
+	and inputs of PS_OP_DCDR_NOT_B_DOT_NOT_A_DOT_8_B,PS_OP_REG_COM_C_BIT,PS_OP_DCDR_4_DOT_NOT_2_DOT_NOT_1_B
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_A
+	and inputs of OUT_4A_H
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_Q
+	and inputs of OUT_4A_H
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_H, OUT_4D_H
+	and inputs of PS_OP_DCDR_4_DOT_NOT_2_DOT_NOT_1_B,PS_OP_REG_COM_NOT_C_BIT,PS_OP_DCDR_NOT_B_DOT_A_DOT_8_B
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_A
+	and inputs of OUT_4D_H
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_H, OUT_4G_H
+	and inputs of PS_OP_REG_COM_C_BIT,PS_OP_DCDR_B_DOT_A_DOT_NOT_8_B,PS_OP_DCDR_4_DOT_NOT_2_DOT_1_B
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A
+	and inputs of OUT_4G_H
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_MPLY_OP_CODE
+	from gate output OUT_2A_A
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_OP_CODE
+	from gate output OUT_2C_Q
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_OP_CODE
+	from gate output OUT_4D_H
+Generating output sheet edge signal assignment to 
+	signal PS_DIV_OP_CODE
+	from gate output OUT_2D_A
+Generating output sheet edge signal assignment to 
+	signal MS_EDIT_OP_CODE
+	from gate output OUT_4G_H
+Generating output sheet edge signal assignment to 
+	signal PS_EDIT_OP_CODE
+	from gate output OUT_2G_A
