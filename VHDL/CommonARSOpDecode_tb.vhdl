@@ -355,16 +355,106 @@ fpga_clk_process: process
 -- End of TestBenchFPGAClock.vhdl
 --   
 
+PS_OP_REG_NOT_BUS <= PS_OP_REG_BUS(5 downto 0);
+
 -- Place your test bench code in the uut_process
 
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   
+   variable OpCodeBCD: BCD.BCD;
+   variable testChar: string(1 to 6);
 
    begin
 
    -- Your test bench code
+   
+   for BCD_CHAR in BCD.BCD loop
+      PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD_CHAR);
+      wait for 30 ns;
+      case BCD_CHAR is
+         when others =>
+            testChar := "OTHER ";
+            check1(PS_RESET_ADD_OP_CODE,'0',testName,testChar & "?");            
+            check1(PS_RESET_SUBT_OP_CODE,'0',testName,testChar & "!");
+            check1(PS_ADD_OP_CODE,'0',testName,testChar & "A");
+            check1(PS_SUBT_OP_CODE,'0',testName,testChar & "S");
+            check1(PS_MPLY_OP_CODE,'0',testname,testChar & "@");
+            check1(PS_DIV_OP_CODE,'0',testname,testChar & "%");
+            check1(PS_EDIT_OP_CODE,'0',testname,testChar & "E");
+            check1(PS_COMPARE_OP_CODE,'0',testname,testChar & "C");            
+            check1(PS_MOVE_ZERO_SUP_OP_CODE,'0',testname,testChar & "Z");            
+            check1(PS_BIT_TEST_BRANCH_OP_CODE,'0',testname,testChar & "W");            
+            check1(PS_ZN_OR_WM_TST_BRANCH_OP_CODE,'0',testname,testChar & "V");            
+            check1(PS_SET_WORD_MARK_OP_CODE,'0',testname,testChar & ",");            
+            check1(PS_CLEAR_WORD_MARK_OP_CODE,'0',testname,testChar & "Lozenge");            
+            check1(PS_STOP_DOT_BRANCH_OP_CODE,'0',testname,testChar & ".");            
+            check1(PS_CLEAR_OP_CODE,'0',testname,testChar & "/");            
+            check1(PS_UNIT_CTRL_OP_CODE,'0',testname,testChar & "U");            
+            check1(PS_DATA_MOVE_OP_CODE,'0',testname,testChar & "D");            
+            check1(PS_CHAR_TEST_BRANCH_OP_CODE,'0',testname,testChar & "B");            
+            check1(PS_COND_TEST_BRANCH_OP_CODE,'0',testname,testChar & "J");            
+            check1(PS_I_O_MOVE_OR_I_O_LOAD_OP_CODE,'0',testname,testChar & "M+L");            
+            check1(PS_I_O_LOAD_OP_CODE,'0',testname,testChar & "L");            
+            check1(PS_ANY_M_OR_L_OR_U_OP,'0',testname,testChar & "M+L+U");            
+            check1(PS_BRANCH_ON_STATUS_CH_1,'0',testname,testChar & "R");            
+            check1(PS_BRANCH_ON_STATUS_CH_2,'0',testname,testChar & "X");            
+            check1(PS_STORE_ADDR_REGS_OP_CODE,'0',testname,testChar & "G");            
+            check1(PS_TABLE_SEARCH_OP_CODE,'0',testname,testChar & "T");            
+            check1(PS_ARS_NO_OP,'0',testname,testChar & "N");            
+            check1(PS_E_CH_STACKER_SEL_OP_CODE,'0',testname,testChar & "K");      
+            check1(PS_SET_WORD_MARK_OP_CODE,'0',testname,testChar & ",");            
+            check1(PS_CLEAR_WORD_MARK_OP_CODE,'0',testname,testChar & "Lozenge");            
+            check1(PS_STOP_DOT_BRANCH_OP_CODE,'0',testname,testChar & ".");            
+            check1(PS_CLEAR_OP_CODE,'0',testname,testChar & "/");            
+            check1(PS_UNIT_CTRL_OP_CODE,'0',testname,testChar & "U");            
+            check1(PS_DATA_MOVE_OP_CODE,'0',testname,testChar & "D");            
+            check1(PS_CHAR_TEST_BRANCH_OP_CODE,'0',testname,testChar & "B");            
+            check1(PS_COND_TEST_BRANCH_OP_CODE,'0',testname,testChar & "J");            
+            check1(PS_I_O_MOVE_OR_I_O_LOAD_OP_CODE,'0',testname,testChar & "M+L");            
+            check1(PS_I_O_LOAD_OP_CODE,'0',testname,testChar & "L");            
+            check1(PS_ANY_M_OR_L_OR_U_OP,'0',testname,testChar & "M+L+U");            
+            check1(PS_BRANCH_ON_STATUS_CH_1,'0',testname,testChar & "R");            
+            check1(PS_BRANCH_ON_STATUS_CH_2,'0',testname,testChar & "X");            
+            check1(PS_STORE_ADDR_REGS_OP_CODE,'0',testname,testChar & "G");            
+            check1(PS_TABLE_SEARCH_OP_CODE,'0',testname,testChar & "T");            
+            check1(PS_ARS_NO_OP,'0',testname,testChar & "N");            
+            check1(PS_E_CH_STACKER_SEL_OP_CODE,'0',testname,testChar & "K");            
+            check1(PS_E_CH_FORMS_CTRL_OP_CODE,'0',testname,testChar & "F");            
+            
+            check1(MS_RESET_ADD_OP_CODE,'1',testname,testChar & "-?");
+            check1(MS_RESET_SUBT_OP_CODE,'1',testName,testChar & "-!");
+            check1(MS_ADD_OP_CODE,'1',testName,testChar & "-A");
+            check1(MS_SUBT_OP_CODE,'1',testName,testChar & "-S");
+            check1(MS_MPLY_OP_CODE,'1',testname,testChar & "-@");
+            check1(MS_DIV_OP_CODE,'1',testname,testChar & "-%");
+            check1(MS_EDIT_OP_CODE,'1',testname,testChar & "-E");
+            check1(MS_COMPARE_OP_CODE,'1',testname,testChar & "-C");            
+            check1(MS_MOVE_ZERO_SUP_OP_CODE,'1',testname,testChar & "-Z");            
+            check1(MS_BIT_TEST_BRANCH_OP_CODE,'1',testname,testChar & "-W");            
+            check1(MS_ZN_OR_WM_TST_BRANCH_OP_CODE,'1',testname,testChar & "-V");            
+            check1(MS_I_O_MOVE_OP_CODE,'1',testname,testChar & "-M");            
+            check1(MS_INTERRUPT_TEST_OP_CODE,'1',testname,testChar & "-Y");            
+            check1(MS_SET_WORD_MARK_OP_CODE,'1',testname,testChar & ",");            
+            check1(MS_CLEAR_WORD_MARK_OP_CODE,'1',testname,testChar & "-Lozenge");            
+            check1(MS_STOP_DOT_BRANCH_OP_CODE,'1',testname,testChar & "-.");            
+            check1(MS_CLEAR_OP_CODE,'1',testname,testChar & "-/");            
+            check1(MS_UNIT_CTRL_OP_CODE,'1',testname,testChar & "-U");            
+            check1(MS_DATA_MOVE_OP_CODE,'1',testname,testChar & "-D");            
+            check1(MS_CHAR_TEST_BRANCH_OP_CODE,'1',testname,testChar & "-B");            
+            check1(MS_COND_TEST_BRANCH_OP_CODE,'1',testname,testChar & "-J");            
+            check1(MS_I_O_LOAD_OP_CODE,'-',testname,testChar & "-L");            
+            check1(MS_BRANCH_ON_STATUS_CH_1,'1',testname,testChar & "-R");            
+            check1(MS_BRANCH_ON_STATUS_CH_2,'1',testname,testChar & "-X");            
+            check1(MS_STORE_ADDR_REGS_OP_CODE,'1',testname,testChar & "-G");            
+            check1(MS_TABLE_SEARCH_OP_CODE,'1',testname,testChar & "-T");            
+            check1(MS_E_CH_STACKER_SEL_OP_CODE,'1',testname,testChar & "-K");            
+            check1(MS_E_CH_FORMS_CTRL_OP_CODE,'1',testname,testChar & "-F");            
+            
+      end case;
+   end loop;
 
    wait;
    end process;
