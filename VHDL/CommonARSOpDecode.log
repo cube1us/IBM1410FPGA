@@ -1,8 +1,10 @@
-Generating HDL for group named CommonARSOpDecodeat 7/23/2020 4:42:35 PM containing pages: 
-	13.13.01.1, 13.13.02.1, 13.13.03.1, 13.13.04.1, 13.13.05.1
-	13.13.06.1, 13.13.07.1, 13.13.08.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\CommonARSOpDecode_tb.vhdl, FileNotFoundException , generating default test bench code.
-Building lists of signals on 8 pages...
+Generating HDL for group named CommonARSOpDecodeat 7/24/2020 7:55:28 AM containing pages: 
+	13.11.01.1, 13.11.02.1, 13.13.01.1, 13.13.02.1, 13.13.03.1
+	13.13.04.1, 13.13.05.1, 13.13.06.1, 13.13.07.1, 13.13.08.1
+Old test bench file CommonARSOpDecode_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+Building lists of signals on 10 pages...
+Found 14 signals on page 13.11.01.1
+Found 14 signals on page 13.11.02.1
 Found 16 signals on page 13.13.01.1
 Found 13 signals on page 13.13.02.1
 Found 17 signals on page 13.13.03.1
@@ -11,25 +13,37 @@ Found 16 signals on page 13.13.05.1
 Found 19 signals on page 13.13.06.1
 Found 15 signals on page 13.13.07.1
 Found 12 signals on page 13.13.08.1
-Found 27 unique input signals and 57 unique output signals, (83 total unique signals)
+Found 39 unique input signals and 73 unique output signals, (96 total unique signals)
 Determining sources for all input signals...
+INFO:  Signal +S OP REG B BIT originates outside the group.
+INFO:  Signal +S OP REG NOT B BIT originates outside the group.
+INFO:  Signal +S OP REG A BIT originates outside the group.
+INFO:  Signal +S OP REG NOT A BIT originates outside the group.
+INFO:  Signal +S OP REG 8 BIT originates outside the group.
+INFO:  Signal +S OP REG NOT 8 BIT originates outside the group.
+INFO:  Signal +S OP REG 4 BIT originates outside the group.
+INFO:  Signal +S OP REG NOT 4 BIT originates outside the group.
+INFO:  Signal +S OP REG 2 BIT originates outside the group.
+INFO:  Signal +S OP REG NOT 2 BIT originates outside the group.
+INFO:  Signal +S OP REG 1 BIT originates outside the group.
+INFO:  Signal +S OP REG NOT 1 BIT originates outside the group.
 INFO:  Signal +S OP REG COM C BIT originates outside the group.
 INFO:  Signal +S OP REG COM NOT C BIT originates outside the group.
-INFO:  Signal +S OP DCDR NOT B.A.NOT 8 B originates outside the group.
-INFO:  Signal +S OP DCDR B.A.NOT 8 B originates outside the group.
-INFO:  Signal +S OP DCDR B.A.8 B originates outside the group.
-INFO:  Signal +S OP DCDR B.NOT A.8 B originates outside the group.
-INFO:  Signal +S OP DCDR NOT 4.NOT 2.1 B originates outside the group.
-INFO:  Signal +S OP DCDR NOT 4.2.NOT 1 B originates outside the group.
-INFO:  Signal +S OP DCDR NOT B.NOT A.8 B originates outside the group.
-INFO:  Signal +S OP DCDR NOT B.A.8 B originates outside the group.
-INFO:  Signal +S OP DCDR 4.NOT 2.1 B originates outside the group.
-INFO:  Signal +S OP DCDR 4.NOT 2.NOT 1 B originates outside the group.
-INFO:  Signal +S OP DCDR NOT 4.2.1 B originates outside the group.
-INFO:  Signal +S OP DCDR 4.2.NOT 1 B originates outside the group.
+INFO:  Signal +S OP DCDR NOT B.A.NOT 8 B originates inside the group.
+INFO:  Signal +S OP DCDR B.A.NOT 8 B originates inside the group.
+INFO:  Signal +S OP DCDR B.A.8 B originates inside the group.
+INFO:  Signal +S OP DCDR B.NOT A.8 B originates inside the group.
+INFO:  Signal +S OP DCDR NOT 4.NOT 2.1 B originates inside the group.
+INFO:  Signal +S OP DCDR NOT 4.2.NOT 1 B originates inside the group.
+INFO:  Signal +S OP DCDR NOT B.NOT A.8 B originates inside the group.
+INFO:  Signal +S OP DCDR NOT B.A.8 B originates inside the group.
+INFO:  Signal +S OP DCDR 4.NOT 2.1 B originates inside the group.
+INFO:  Signal +S OP DCDR 4.NOT 2.NOT 1 B originates inside the group.
+INFO:  Signal +S OP DCDR NOT 4.2.1 B originates inside the group.
+INFO:  Signal +S OP DCDR 4.2.NOT 1 B originates inside the group.
 INFO:  Signal +S OP REG ARS C BIT originates outside the group.
 INFO:  Signal +S OP REG ARS NOT C BIT originates outside the group.
-INFO:  Signal +S OP DCDR B.NOT A.NOT 8 B originates outside the group.
+INFO:  Signal +S OP DCDR B.NOT A.NOT 8 B originates inside the group.
 INFO:  Signal -S 1401 DATA MOVE OP originates outside the group.
 INFO:  Signal -S 1401 CHAR TEST OP CODE originates outside the group.
 INFO:  Signal -S 1401 COND TEST OP CODE originates outside the group.
@@ -38,9 +52,25 @@ INFO:  Signal -S 1401 I-O MOVE OP originates outside the group.
 INFO:  Signal -S 1401 I-O LOAD OP originates outside the group.
 INFO:  Signal -S 1401 M OP CODE originates outside the group.
 INFO:  Signal -S 1401 L OP CODE originates outside the group.
-INFO:  Signal +S OP DCDR NOT 4.NOT 2.NOT 1 B originates outside the group.
-INFO:  Signal +S OP DCDR 4.2.1 B originates outside the group.
+INFO:  Signal +S OP DCDR NOT 4.NOT 2.NOT 1 B originates inside the group.
+INFO:  Signal +S OP DCDR 4.2.1 B originates inside the group.
 Determining destinations for all output signals...
+INFO:  Signal +S OP DCDR NOT B.NOT A.8 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT B.A.8 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT B.A.NOT 8 B is used only inside the group.
+INFO:  Signal +S OP DCDR NOT B.NOT A.NOT 8 B is used outside the group.
+INFO:  Signal +S OP DCDR B.A.NOT 8 B is used outside the group.
+INFO:  Signal +S OP DCDR B.A.8 B is used outside the group.
+INFO:  Signal +S OP DCDR B.NOT A.NOT 8 B is used outside the group.
+INFO:  Signal +S OP DCDR B.NOT A.8 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT 4.NOT 2.NOT 1 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT 4.NOT 2.1 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT 4.2.1 B is used outside the group.
+INFO:  Signal +S OP DCDR NOT 4.2.NOT 1 B is used outside the group.
+INFO:  Signal +S OP DCDR 4.2.NOT 1 B is used outside the group.
+INFO:  Signal +S OP DCDR 4.NOT 2.1 B is used outside the group.
+INFO:  Signal +S OP DCDR 4.NOT 2.NOT 1 B is used outside the group.
+INFO:  Signal +S OP DCDR 4.2.1 B is used outside the group.
 INFO:  Signal +S RESET ADD OP CODE is used outside the group.
 INFO:  Signal -S RESET ADD OP CODE is used outside the group.
 INFO:  Signal +S RESET SUBT OP CODE is used outside the group.
@@ -98,12 +128,40 @@ INFO:  Signal +S ARS NO OP is used outside the group.
 INFO:  Signal +S E CH STACKER SEL OP CODE is used outside the group.
 INFO:  Signal -S E CH STACKER SEL OP CODE is used outside the group.
 INFO:  Signal -S E CH FORMS CTRL OP CODE is used outside the group.
-Removing 0 output signals that do not have destinations outside the group...
-Removing 1 input signals that originate inside the group...
+Removing 1 output signals that do not have destinations outside the group...
+Removing 16 input signals that originate inside the group...
+Signal +S OP DCDR B.A.NOT 8 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR B.A.8 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR B.NOT A.8 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR NOT 4.NOT 2.1 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR NOT 4.2.NOT 1 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR NOT B.NOT A.8 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR NOT B.A.8 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR 4.NOT 2.1 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR 4.NOT 2.NOT 1 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR NOT 4.2.1 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR 4.2.NOT 1 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR B.NOT A.NOT 8 B is output from the group, but also used as an input inside the group.
 Signal -S UNIT CTRL OP CODE is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR NOT 4.NOT 2.NOT 1 B is output from the group, but also used as an input inside the group.
+Signal +S OP DCDR 4.2.1 B is output from the group, but also used as an input inside the group.
+Input Signal +S OP REG B BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT B BIT replaced by Bus signal +S OP REG NOT BUS
+Input Signal +S OP REG A BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT A BIT replaced by Bus signal +S OP REG NOT BUS
+Input Signal +S OP REG 8 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT 8 BIT replaced by Bus signal +S OP REG NOT BUS
+Input Signal +S OP REG 4 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT 4 BIT replaced by Bus signal +S OP REG NOT BUS
+Input Signal +S OP REG 2 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT 2 BIT replaced by Bus signal +S OP REG NOT BUS
+Input Signal +S OP REG 1 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP REG NOT 1 BIT replaced by Bus signal +S OP REG NOT BUS
 Generating list of internal signals/wires ...
-0 internal signals/wires found.
+1 internal signals/wires found.
 Generating HDL prefixes...
+Generating HDL associated with page 13.11.01.1 (OPERATION DECODE)
+Generating HDL associated with page 13.11.02.1 (OPERATION DECODE)
 Generating HDL associated with page 13.13.01.1 (COMMON OP DECODE)
 Generating HDL associated with page 13.13.02.1 (COMMON OP DECODE)
 Generating HDL associated with page 13.13.03.1 (COMMON OP DECODE)
