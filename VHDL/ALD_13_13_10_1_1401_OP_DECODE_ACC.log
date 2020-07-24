@@ -1,0 +1,87 @@
+Generating HDL for page 13.13.10.1 1401 OP DECODE-ACC at 7/24/2020 2:18:02 PM
+Found combinatorial loop (need D FF) at output of gate at 5A
+Found combinatorial loop (need D FF) at output of gate at 4A
+Removed 2 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1E to ignored block(s) or identical signal names
+Generating Statement for block at 5A with *latched* output pin(s) of OUT_5A_E_Latch, OUT_5A_E_Latch
+	and inputs of OUT_4A_C,MS_I_RING_11_TIME,MS_I_RING_OP_TIME
+	and logic function of NAND
+Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_C_Latch, OUT_4A_C_Latch
+	and inputs of OUT_5A_E,MS_I_RING_4_TIME
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_K, OUT_3A_K
+	and inputs of OUT_4A_C,OUT_4C_K
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_L
+	and inputs of OUT_3A_K
+	and logic function of EQUAL
+Generating Statement for block at 2B with output pin(s) of OUT_2B_B
+	and inputs of OUT_3A_K
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C, OUT_5C_C
+	and inputs of PS_OP_DCDR_B_DOT_A_DOT_NOT_8_B,PS_OP_DCDR_NOT_4_DOT_2_DOT_NOT_1_B,PS_OP_REG_1401_NOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_K, OUT_4C_K
+	and inputs of OUT_5C_C
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_P
+	and inputs of OUT_5A_E,OUT_4C_K
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_OP_REG_1401_NOT_C_BIT,PS_OP_DCDR_NOT_B_DOT_NOT_A_DOT_8_B,PS_OP_DCDR_NOT_4_DOT_2_DOT_1_B
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_R, OUT_2D_R
+	and inputs of OUT_4D_NoPin
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_F
+	and inputs of PS_OP_REG_1401_C_BIT
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of OUT_1E_B
+	and inputs of OUT_2D_R
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_R
+	and inputs of PS_OP_DCDR_B_DOT_NOT_A_DOT_8_B
+	and logic function of NOT
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of OUT_DOT_4F
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_B
+	and inputs of PS_OP_DCDR_NOT_4_DOT_NOT_2_DOT_NOT_1_B
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_E
+	and inputs of PS_OP_DCDR_NOT_4_DOT_NOT_2_DOT_NOT_1_B,PS_OP_DCDR_B_DOT_A_DOT_8_B,PS_OP_REG_1401_NOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F, OUT_DOT_4F
+	and inputs of OUT_4E_F,OUT_4F_R,OUT_4G_B
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_1401_COND_TEST_OP_CODE
+	from gate output OUT_2A_L
+Generating output sheet edge signal assignment to 
+	signal PS_1401_COND_TEST_OP_CODE
+	from gate output OUT_2B_B
+Generating output sheet edge signal assignment to 
+	signal MS_1401_B_OP_CODE
+	from gate output OUT_5C_C
+Generating output sheet edge signal assignment to 
+	signal MS_1401_CHAR_TEST_OP_CODE
+	from gate output OUT_3C_P
+Generating output sheet edge signal assignment to 
+	signal PS_1401_POUND_SIGN_OP_CODE
+	from gate output OUT_2D_R
+Generating output sheet edge signal assignment to 
+	signal MS_1401_POUND_SIGN_OP_CODE
+	from gate output OUT_1E_B
+Generating output sheet edge signal assignment to 
+	signal PS_1401_STORE_A_AR_OP_CODE
+	from gate output OUT_2F_C
+Generating output sheet edge signal assignment to 
+	signal MS_1401_STORE_B_AR_OP_CODE
+	from gate output OUT_4H_E
+Generating output sheet edge signal assignment to 
+	signal MS_1401_STORE_A_AR_OP_CODE
+	from gate output OUT_DOT_4F
+Generating D Flip Flop for block at 5A
+Generating D Flip Flop for block at 4A
