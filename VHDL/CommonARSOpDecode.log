@@ -1,7 +1,7 @@
-Generating HDL for group named CommonARSOpDecodeat 7/24/2020 7:55:28 AM containing pages: 
+Generating HDL for group named CommonARSOpDecodeat 7/24/2020 10:58:27 AM containing pages: 
 	13.11.01.1, 13.11.02.1, 13.13.01.1, 13.13.02.1, 13.13.03.1
 	13.13.04.1, 13.13.05.1, 13.13.06.1, 13.13.07.1, 13.13.08.1
-Old test bench file CommonARSOpDecode_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+Old test bench file CommonARSOpDecode_tb.vhdl 145 lines preserved and 32 declaration lines preserved
 Building lists of signals on 10 pages...
 Found 14 signals on page 13.11.01.1
 Found 14 signals on page 13.11.02.1
@@ -98,7 +98,7 @@ INFO:  Signal +S CLEAR OP CODE is used outside the group.
 INFO:  Signal +S SET WORD MARK OP CODE is used outside the group.
 INFO:  Signal -S STOP.BRANCH OP CODE is used outside the group.
 INFO:  Signal +S STOP.BRANCH OP CODE is used outside the group.
-INFO:  Signal -S SET WORK MARK OP CODE is used outside the group.
+INFO:  Signal -S SET WORD MARK OP CODE is used outside the group.
 INFO:  Signal +S CLEAR WORD MARK OP CODE is used outside the group.
 INFO:  Signal -S CLEAR WORD MARK OP CODE is used outside the group.
 INFO:  Signal -S CLEAR OP CODE is used outside the group.
