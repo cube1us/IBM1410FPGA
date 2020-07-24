@@ -1,4 +1,4 @@
-Generating HDL for page 13.13.04.1 COMMON OP DECODE at 7/23/2020 4:39:04 PM
+Generating HDL for page 13.13.04.1 COMMON OP DECODE at 7/24/2020 10:57:32 AM
 Removed 1 outputs from Gate at 2A to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
 Removed 6 outputs from Gate at 1D to ignored block(s) or identical signal names
@@ -46,7 +46,7 @@ Generating Statement for block at 1I with output pin(s) of OUT_1I_K
 	and inputs of OUT_2G_A
 	and logic function of NOT
 Generating output sheet edge signal assignment to 
-	signal MS_SET_WORK_MARK_OP_CODE
+	signal MS_SET_WORD_MARK_OP_CODE
 	from gate output OUT_4A_E
 Generating output sheet edge signal assignment to 
 	signal PS_SET_WORD_MARK_OP_CODE
