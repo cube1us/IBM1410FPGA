@@ -266,6 +266,13 @@ fpga_clk_process: process
 -- End of TestBenchFPGAClock.vhdl
 --   
 
+--  Perpetual signal assignments
+
+PS_OP_REG_NOT_BUS <= NOT PS_OP_REG_BUS(5 downto 0);
+PS_OP_REG_1401_C_BIT <= PS_OP_REG_BUS(7);
+PS_OP_REG_1401_NOT_C_BIT <= NOT PS_OP_REG_1401_C_BIT;
+MS_I_O_PERCENT_LATCH <= NOT PS_I_O_PERCENT_LATCH;
+
 -- Place your test bench code in the uut_process
 
 uut_process: process
@@ -276,6 +283,286 @@ uut_process: process
    begin
 
    -- Your test bench code
+
+   testName := "12.13.09.1        ";
+   
+   wait for 30 ns;
+   check1(MS_1401_Y_OP_CODE,'1',testName,"1A");
+   check1(PS_1401_D_OR_P_OR_Y_OP_CODES,'0',testName,"1B");  
+   check1(PS_1401_DATA_MOVE_OP_CODES,'0',testName,"1C");
+   check1(MS_1401_DATA_MOVE_OP,'1',testName,"1D");    
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_Y);
+   wait for 30 ns;
+   check1(MS_1401_Y_OP_CODE,'0',testName,"1E");
+   check1(PS_1401_D_OR_P_OR_Y_OP_CODES,'1',testName,"1F");
+   check1(PS_1401_DATA_MOVE_OP_CODES,'1',testName,"1G");
+   check1(MS_1401_DATA_MOVE_OP,'0',testName,"1H");    
+   PS_OP_REG_BUS <= "00000000";      
+   
+   wait for 30 ns;
+   check1(PS_1401_P_OP_CODE,'0',testName,"2A");
+   check1(PS_1401_D_OR_P_OR_Y_OP_CODES,'0',testName,"2B");      
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_P);
+   wait for 30 ns;
+   check1(PS_1401_P_OP_CODE,'1',testName,"2C");
+   check1(PS_1401_D_OR_P_OR_Y_OP_CODES,'1',testName,"2D");      
+   PS_OP_REG_BUS <= "00000000";      
+
+   wait for 30 ns;
+   check1(MS_1401_D_OP_CODE,'1',testName,"3A");
+   check1(PS_1401_D_OR_P_OR_Y_OP_CODES,'0',testName,"3B");      
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_D);
+   wait for 30 ns;
+   check1(MS_1401_D_OP_CODE,'0',testName,"3C");
+   check1(PS_1401_D_OR_P_OR_Y_OP_CODES,'1',testName,"3D");      
+   PS_OP_REG_BUS <= "00000000";         
+   
+   PS_I_O_PERCENT_LATCH <= '0';
+   wait for 30 ns;
+   check1(MS_1401_M_OP_CODE,'1',testName,"4A");
+   check1(PS_1401_DATA_MOVE_OP_CODES,'0',testName,"4B");
+   check1(MS_1401_I_O_MOVE_OP,'1',testName,"4C");
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_M);
+   wait for 30 ns;
+   check1(MS_1401_M_OP_CODE,'0',testName,"4D");
+   check1(PS_1401_DATA_MOVE_OP_CODES,'1',testName,"4E");
+   check1(MS_1401_I_O_MOVE_OP,'1',testName,"4F");
+   PS_I_O_PERCENT_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_1401_M_OP_CODE,'0',testName,"4G");
+   check1(PS_1401_DATA_MOVE_OP_CODES,'0',testName,"4H");
+   check1(MS_1401_I_O_MOVE_OP,'0',testName,"4I");
+   PS_OP_REG_BUS <= "00000000";         
+   
+   PS_I_O_PERCENT_LATCH <= '0';
+   wait for 30 ns;
+   check1(MS_1401_L_OP_CODE,'1',testName,"5A");
+   check1(PS_1401_DATA_MOVE_OP_CODES,'0',testName,"5B");
+   check1(MS_1401_I_O_LOAD_OP,'1',testName,"5C");
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_L);
+   wait for 30 ns;
+   check1(MS_1401_L_OP_CODE,'0',testName,"5D");
+   check1(PS_1401_DATA_MOVE_OP_CODES,'1',testName,"5E");
+   check1(MS_1401_I_O_LOAD_OP,'1',testName,"5F");
+   PS_I_O_PERCENT_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_1401_L_OP_CODE,'0',testName,"5G");
+   check1(PS_1401_DATA_MOVE_OP_CODES,'0',testName,"5H");
+   check1(MS_1401_I_O_LOAD_OP,'0',testName,"4I");
+   PS_OP_REG_BUS <= "00000000";    
+   PS_I_O_PERCENT_LATCH <= '0';
+   
+   testName := "13.13.10.1        ";
+   
+   -- First, reset the OP Thru 10 Time Latch
+   
+   MS_I_RING_HDL_BUS(0) <= '0';
+   wait for 30 ns;
+   check1(PS_1401_COND_TEST_OP_CODE,'0',testName,"1A");
+   check1(MS_1401_COND_TEST_OP_CODE,'1',testName,"1B");
+   check1(MS_1401_CHAR_TEST_OP_CODE,'1',testName,"1C");
+   check1(MS_1401_B_OP_CODE,'1',testName,"1D");
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_B);
+   wait for 30 ns;
+   check1(PS_1401_COND_TEST_OP_CODE,'0',testName,"1E");
+   check1(MS_1401_COND_TEST_OP_CODE,'1',testName,"1F");
+   check1(MS_1401_CHAR_TEST_OP_CODE,'0',testName,"1G");
+   check1(MS_1401_B_OP_CODE,'0',testName,"1H");
+   
+   -- Now, set the OP thru 10 time latch
+   MS_I_RING_HDL_BUS(0) <= '1';
+   MS_I_RING_HDL_BUS(4) <= '0';
+   wait for 30 ns;
+   check1(PS_1401_COND_TEST_OP_CODE,'1',testName,"1I");
+   check1(MS_1401_COND_TEST_OP_CODE,'0',testName,"1J");
+   check1(MS_1401_CHAR_TEST_OP_CODE,'1',testName,"1K");
+   check1(MS_1401_B_OP_CODE,'0',testName,"1L");
+   
+   -- Check that it stays set
+   MS_I_RING_HDL_BUS(4) <= '1';
+   wait for 30 ns;
+   check1(PS_1401_COND_TEST_OP_CODE,'1',testName,"1M");
+   check1(MS_1401_COND_TEST_OP_CODE,'0',testName,"1N");
+   check1(MS_1401_CHAR_TEST_OP_CODE,'1',testName,"1O");
+   check1(MS_1401_B_OP_CODE,'0',testName,"1P");
+
+   -- Take away the B Op code with the latch still set
+   PS_OP_REG_BUS <= "00000000";        
+   wait for 30 ns;
+   check1(PS_1401_COND_TEST_OP_CODE,'0',testName,"1Q");
+   check1(MS_1401_COND_TEST_OP_CODE,'1',testName,"1R");
+   check1(MS_1401_CHAR_TEST_OP_CODE,'1',testName,"1S");
+   check1(MS_1401_B_OP_CODE,'1',testName,"1T");
+   
+   -- Put the B op code back as a check
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_B);
+   wait for 30 ns;
+   check1(PS_1401_COND_TEST_OP_CODE,'1',testName,"1U");
+   check1(MS_1401_COND_TEST_OP_CODE,'0',testName,"1V");
+   check1(MS_1401_CHAR_TEST_OP_CODE,'1',testName,"1W");
+   check1(MS_1401_B_OP_CODE,'0',testName,"1X");
+   
+   -- And then reset the latch with B still present
+   MS_I_RING_HDL_BUS(11) <= '0';
+   wait for 30 ns;
+   check1(PS_1401_COND_TEST_OP_CODE,'0',testName,"1Y");
+   check1(MS_1401_COND_TEST_OP_CODE,'1',testName,"1Z");
+   check1(MS_1401_CHAR_TEST_OP_CODE,'0',testName,"1AA");
+   check1(MS_1401_B_OP_CODE,'0',testName,"1AB");
+
+   -- And that it stays reset
+   MS_I_RING_HDL_BUS(11) <= '1';
+   wait for 30 ns;
+   check1(PS_1401_COND_TEST_OP_CODE,'0',testName,"1AC");
+   check1(MS_1401_COND_TEST_OP_CODE,'1',testName,"1AD");
+   check1(MS_1401_CHAR_TEST_OP_CODE,'0',testName,"1AE");
+   check1(MS_1401_B_OP_CODE,'0',testName,"1AF");
+   PS_OP_REG_BUS <= "00000000";        
+   wait for 30 ns;
+   
+   check1(PS_1401_POUND_SIGN_OP_CODE,'0',testName,"2A");
+   check1(MS_1401_POUND_SIGN_OP_CODE,'1',testName,"2B");
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_POUND);
+   wait for 30 ns;
+   check1(PS_1401_POUND_SIGN_OP_CODE,'1',testName,"2C");
+   check1(MS_1401_POUND_SIGN_OP_CODE,'0',testName,"2D");
+   PS_OP_REG_BUS <= "00000000";
+   wait for 30 ns;
+   
+   check1(MS_1401_STORE_B_AR_OP_CODE,'1',testName,"3A");
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_H);
+   wait for 30 ns;
+   check1(MS_1401_STORE_B_AR_OP_CODE,'0',testName,"3B");
+   PS_OP_REG_BUS <= "00000000";
+   wait for 30 ns;
+
+   check1(PS_1401_STORE_A_AR_OP_CODE,'0',testName,"4A");
+   check1(MS_1401_STORE_A_AR_OP_CODE,'1',testName,"4B");
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_Q);
+   wait for 30 ns;
+   check1(PS_1401_STORE_A_AR_OP_CODE,'1',testName,"4C");
+   check1(MS_1401_STORE_A_AR_OP_CODE,'0',testName,"4D");
+   PS_OP_REG_BUS <= "00000000";
+   wait for 30 ns;
+      
+   check1(MS_1401_NO_OP_DOT_LIROC,'1',testName,"5A");
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"5B");
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_8);
+   wait for 30 ns;
+   check1(MS_1401_NO_OP_DOT_LIROC,'1',testName,"5C");
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'1',testName,"5D");
+   check1(PS_1401_NO_EXE_CY_BRANCH_OPS,'0',testName,"5E");   
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_NO_OP_DOT_LIROC,'0',testName,"5F");
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'1',testName,"5G");
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   PS_OP_REG_BUS <= "00000000";
+   wait for 30 ns;   
+      
+   check1(MS_1401_NO_OP_DOT_LIROC,'1',testName,"6A");
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"6B");
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_9);
+   wait for 30 ns;
+   check1(MS_1401_NO_OP_DOT_LIROC,'1',testName,"6C");
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'1',testName,"6D");
+   check1(PS_1401_NO_EXE_CY_BRANCH_OPS,'0',testName,"6E");   
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_NO_OP_DOT_LIROC,'0',testName,"6F");
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'1',testName,"6G");
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   PS_OP_REG_BUS <= "00000000";
+   wait for 30 ns;   
+   
+   check1(MS_1401_NO_OP_DOT_LIROC,'1',testName,"7A");
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"7B");
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_N);
+   wait for 30 ns;
+   check1(MS_1401_NO_OP_DOT_LIROC,'1',testName,"7C");
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"7D");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_NO_OP_DOT_LIROC,'0',testName,"7E");
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"7F");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   PS_OP_REG_BUS <= "00000000";
+   wait for 30 ns;   
+
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"8A");
+   check1(PS_1401_NO_EXE_CY_BRANCH_OPS,'0',testName,"8B");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'1',testName,"8C");
+   check1(PS_1401_NO_EXE_CY_BRANCH_OPS,'1',testName,"8D");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   -- Set 1401 COND TEST OP CODE
+   MS_I_RING_HDL_BUS(4) <= '0';
+   PS_OP_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_B);
+   wait for 30 ns;
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'1',testName,"8E");
+   check1(PS_1401_NO_EXE_CY_BRANCH_OPS,'1',testName,"8F");
+   -- And reset it
+   PS_OP_REG_BUS <= "00000000";
+   MS_I_RING_HDL_BUS(4) <= '1';
+   MS_I_RING_HDL_BUS(11) <= '0';
+   wait for 30 ns;
+   MS_I_RING_HDL_BUS(11) <= '1';
+   wait for 30 ns;
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"8G");
+   check1(PS_1401_NO_EXE_CY_BRANCH_OPS,'0',testName,"8H");
+   
+   check1(PS_1401_I_RING_9_BRANCH_OPS,'0',testName,"9A");
+   MS_E_CH_STACKER_SEL_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1401_NO_EXE_CY_BRANCH_OPS,'1',testName,"9B");
+   check1(PS_1401_I_RING_9_BRANCH_OPS,'1',testName,"9C");
+   MS_E_CH_STACKER_SEL_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_E_CH_FORMS_CTRL_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1401_NO_EXE_CY_BRANCH_OPS,'1',testName,"9D");
+   check1(PS_1401_I_RING_9_BRANCH_OPS,'1',testName,"9E");
+   MS_E_CH_FORMS_CTRL_OP_CODE <= '1';
+
+   MS_CONTROL_REG_DISABLE <= '0';
+   PS_OP_REG_BUS <= "00000000"; -- NOT B, NOT A, NOT 8
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"10A");
+   check1(PS_1401_I_RING_9_BRANCH_OPS,'0',testName,"10B");
+   check1(PS_1401_CARD_OR_PRINT_OP_CODE,'0',testName,"10C");
+   check1(MS_1401_CARD_OR_PRINT_OP_CODE,'1',testName,"10D");
+   MS_CONTROL_REG_DISABLE <= '1';
+   wait for 30 ns;
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'1',testName,"10E");
+   check1(PS_1401_I_RING_9_BRANCH_OPS,'0',testName,"10F");
+   check1(PS_1401_CARD_OR_PRINT_OP_CODE,'1',testName,"10G");
+   check1(MS_1401_CARD_OR_PRINT_OP_CODE,'0',testName,"10H");
+   PS_OP_REG_BUS <= "00000010";  -- Add in 2 bit
+   wait for 30 ns;
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'1',testName,"10I");
+   check1(PS_1401_I_RING_9_BRANCH_OPS,'1',testName,"10J");
+   check1(PS_1401_CARD_OR_PRINT_OP_CODE,'1',testName,"10K");
+   PS_OP_REG_BUS <= "00100010";  -- Add in B bit
+   wait for 30 ns;
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"10L");
+   check1(PS_1401_I_RING_9_BRANCH_OPS,'0',testName,"10M");
+   check1(PS_1401_CARD_OR_PRINT_OP_CODE,'0',testName,"10N");
+   PS_OP_REG_BUS <= "00010010";  -- Replace B with A
+   wait for 30 ns;
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"10O");
+   check1(PS_1401_I_RING_9_BRANCH_OPS,'0',testName,"10P");
+   check1(PS_1401_CARD_OR_PRINT_OP_CODE,'0',testName,"10Q");
+   PS_OP_REG_BUS <= "00001010";  -- Replace A with 8
+   wait for 30 ns;
+   check1(PS_1401_I_RING_8_BRANCH_OPS,'0',testName,"10R");
+   check1(PS_1401_I_RING_9_BRANCH_OPS,'0',testName,"10S");
+   check1(PS_1401_CARD_OR_PRINT_OP_CODE,'0',testName,"10T");
+   
+   
+         
 
    wait;
    end process;
