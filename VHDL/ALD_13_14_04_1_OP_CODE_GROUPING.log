@@ -1,0 +1,35 @@
+Generating HDL for page 13.14.04.1 OP CODE GROUPING at 7/25/2020 11:23:35 AM
+Removed 1 outputs from Gate at 4B to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of MS_I_O_MOVE_OP_CODE,MS_TABLE_SEARCH_OP_CODE,MS_I_O_LOAD_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_R, OUT_4B_R
+	and inputs of OUT_5B_NoPin
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of MS_COMPARE_OP_CODE,MS_ADD_TYPE_OR_MPL_OR_DIV_OR_E_OR_Z_OPS
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D, OUT_4D_D
+	and inputs of OUT_5D_NoPin
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of MS_WORD_MARK_OP_CODES,MS_UNIT_CTRL_OP_CODE,MS_DATA_MOVE_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of MS_E_CH_2_CHAR_ONLY_OP_CODES,MS_STORE_ADDR_REGS_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_P
+	and inputs of OUT_4B_R,OUT_4D_D
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E
+	and inputs of OUT_5E_C,OUT_5F_C,OUT_5G_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ARS_L_OR_M_OR_T_OP_CODES
+	from gate output OUT_4B_R
+Generating output sheet edge signal assignment to 
+	signal MS_ADD_TYPE_OR_MLP_OR_DIV_OR_E_OR_Z_OR_C_OPS
+	from gate output OUT_4D_D
+Generating output sheet edge signal assignment to 
+	signal PS_NO_BRANCH_OP_CODES
+	from gate output OUT_DOT_1E

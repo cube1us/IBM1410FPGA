@@ -1,0 +1,56 @@
+Generating HDL for page 13.14.08.1 OP CODE GROUPING-ACC at 7/25/2020 11:23:45 AM
+Removed 2 outputs from Gate at 4G to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of MS_ADD_TYPE_OP_CODES,MS_MPLY_OR_DIV_OP_CODES,MS_E_OR_Z_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_D, OUT_3A_D
+	and inputs of OUT_5A_NoPin
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_E
+	and inputs of OUT_3A_D,MS_DATA_MOVE_OP_CODE,MS_1401_POUND_SIGN_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of MS_COMPARE_OP_CODE,MS_W_OR_V_OP_CODES,MS_E_CH_2_CHAR_ONLY_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_K
+	and inputs of MS_CHAR_TEST_BRANCH_OP_CODE,MS_W_OR_V_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of MS_STOP_DOT_BRANCH_OP_CODE,MS_J_OR_R_OR_X_I_OR_O_OP_CODES,MS_TABLE_SEARCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_E
+	and inputs of MS_COND_TEST_BRANCH_OP_CODE,MS_BRANCH_ON_STATUS_CH_1,MS_BRANCH_ON_STATUS_CH_2
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_F, OUT_4G_F
+	and inputs of OUT_DOT_5G
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of OUT_4G_F,MS_CLEAR_OP_CODE,MS_STOP_DOT_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_G
+	and inputs of MS_INTERRUPT_TEST_OP_CODE,MS_I_OR_O_OP_CODES_STAR_12_19
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of OUT_5G_E,OUT_5H_G
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_5D_C,OUT_5F_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ADD_TYPE_OR_MPL_OR_DIV_OR_E_OR_Z_OPS
+	from gate output OUT_3A_D
+Generating output sheet edge signal assignment to 
+	signal PS_LOAD_MEM_ON_B_CY_OP_CODES
+	from gate output OUT_2C_E
+Generating output sheet edge signal assignment to 
+	signal PS_STOP_AT_H_ON_B_CYCLE_OPS
+	from gate output OUT_5E_K
+Generating output sheet edge signal assignment to 
+	signal MS_J_OR_R_OR_X_I_OR_O_OP_CODES_JRJ
+	from gate output OUT_4G_F
+Generating output sheet edge signal assignment to 
+	signal PS_STOP_AT_F_ON_B_CY_OPS
+	from gate output OUT_3G_C
+Generating output sheet edge signal assignment to 
+	signal PS_REGEN_MEM_ON_B_CY_OP_CODES
+	from gate output OUT_DOT_1D

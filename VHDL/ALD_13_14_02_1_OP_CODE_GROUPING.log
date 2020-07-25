@@ -1,0 +1,31 @@
+Generating HDL for page 13.14.02.1 OP CODE GROUPING at 7/25/2020 11:23:30 AM
+Removed 3 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1D to ignored block(s) or identical signal names
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of MS_RESET_TYPE_OP_CODES,MS_ADD_OR_SUBT_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_R, OUT_4C_R, OUT_4C_R
+	and inputs of OUT_5C_NoPin
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_NoPin
+	and inputs of OUT_4C_R,MS_1401_POUND_SIGN_OP_CODE,MS_MPLY_OR_DIV_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_D
+	and inputs of OUT_2C_NoPin
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of OUT_4C_R
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C
+	and inputs of OUT_1C_D
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_ADD_TYPE_OP_CODES
+	from gate output OUT_4C_R
+Generating output sheet edge signal assignment to 
+	signal PS_ADD_TYPE_OP_CODES
+	from gate output OUT_3D_D
+Generating output sheet edge signal assignment to 
+	signal PS_ARITH_TYPE_OP_CODES
+	from gate output OUT_1D_C

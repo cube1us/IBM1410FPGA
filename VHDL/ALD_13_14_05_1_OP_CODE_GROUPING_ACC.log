@@ -1,0 +1,53 @@
+Generating HDL for page 13.14.05.1 OP CODE GROUPING-ACC at 7/25/2020 11:23:37 AM
+Processing extension from block at 3D (Database ID=220603) to 3E (Database ID=220604)
+Copied connection from extension output pin H to master block at 3D
+Removed 3 outputs from Gate at 4A to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 15 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 4G to ignored block(s) or identical signal names
+Removed 15 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of MS_SET_WORD_MARK_OP_CODE,MS_CLEAR_WORD_MARK_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_R, OUT_4A_R
+	and inputs of OUT_5A_NoPin
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_4A_R
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of MS_I_O_MOVE_OP_CODE,MS_I_O_LOAD_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D, OUT_4C_D
+	and inputs of OUT_5C_NoPin
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_H
+	and inputs of OUT_4C_D
+	and logic function of Special
+Generating Statement for block at 5G with output pin(s) of OUT_5G_NoPin
+	and inputs of MS_1401_STORE_A_AR_OP_CODE,MS_1401_STORE_B_AR_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_R, OUT_4G_R
+	and inputs of OUT_5G_NoPin
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_H
+	and inputs of OUT_4G_R
+	and logic function of Special
+Generating output sheet edge signal assignment to 
+	signal MS_WORD_MARK_OP_CODES
+	from gate output OUT_4A_R
+Generating output sheet edge signal assignment to 
+	signal PS_WORD_MARK_OP_CODES
+	from gate output OUT_3B_F
+Generating output sheet edge signal assignment to 
+	signal MS_M_OR_L_OP_CODES
+	from gate output OUT_4C_D
+Generating output sheet edge signal assignment to 
+	signal PS_M_OR_L_OP_CODES
+	from gate output OUT_3D_H
+Generating output sheet edge signal assignment to 
+	signal MS_1401_STORE_AR_OP_CODES
+	from gate output OUT_4G_R
+Generating output sheet edge signal assignment to 
+	signal PS_1401_STORE_AR_OP_CODES
+	from gate output OUT_3H_H

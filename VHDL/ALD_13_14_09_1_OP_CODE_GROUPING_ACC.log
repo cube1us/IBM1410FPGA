@@ -1,0 +1,52 @@
+Generating HDL for page 13.14.09.1 OP CODE GROUPING-ACC at 7/25/2020 11:23:47 AM
+Ignoring Logic Block 4B with symbol R
+Removed 1 outputs from Gate at 5A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_E
+	and inputs of MS_RESET_TYPE_OP_CODES,MS_MPLY_OR_DIV_OP_CODES,MS_DATA_MOVE_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G
+	and inputs of MS_E_OR_Z_OP_CODES,MS_1401_POUND_SIGN_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_G
+	and inputs of MS_WORD_MARK_OP_CODES,MS_E_OR_Z_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A, OUT_3C_A
+	and inputs of OUT_DOT_4C
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_H
+	and inputs of MS_W_OR_V_OR_CLEAR_OP_CODES,MS_COMPARE_OP_CODE,MS_STOP_DOT_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of OUT_3C_A,MS_J_OR_R_OR_X_I_OR_O_OP_CODES,MS_ARS_D_OR_T_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of MS_1401_POUND_SIGN_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_D
+	and inputs of MS_ADD_TYPE_OP_CODES,MS_WORD_MARK_OP_CODES,MS_COMPARE_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_D
+	and inputs of MS_E_OR_Z_OP_CODES,MS_DATA_MOVE_OP_CODE,MS_1401_STORE_AR_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_5C_G,OUT_5D_H
+	and logic function of OR
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_5F_C,OUT_5G_D,OUT_5H_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_STOP_AT_F_ON_B_CY_OP_CODES
+	from gate output OUT_5A_E
+Generating output sheet edge signal assignment to 
+	signal PS_STOP_AT_J_ON_B_CY_OP_CODES
+	from gate output OUT_5B_G
+Generating output sheet edge signal assignment to 
+	signal MS_WM_OR_E_OR_Z_OR_W_OR_V_OR_C_OR_CLEAR_OR_DOT_OPS
+	from gate output OUT_3C_A
+Generating output sheet edge signal assignment to 
+	signal PS_RO_B_AR_ON_SCAN_B_CY_OPS
+	from gate output OUT_4E_C
+Generating output sheet edge signal assignment to 
+	signal PS_READ_OUT_AAR_ON_A_CY_OPS
+	from gate output OUT_DOT_1F

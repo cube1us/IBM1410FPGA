@@ -1,0 +1,51 @@
+Generating HDL for page 13.14.01.1 OP CODE GROUPING-ACC at 7/25/2020 11:23:23 AM
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 2G to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of MS_RESET_SUBT_OP_CODE,MS_RESET_ADD_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_R, OUT_3B_R
+	and inputs of OUT_5B_NoPin
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F
+	and inputs of OUT_3B_R
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of MS_SUBT_OP_CODE,MS_ADD_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D, OUT_3D_D
+	and inputs of OUT_5D_NoPin
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_R
+	and inputs of OUT_3D_D
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_H
+	and inputs of MS_MPLY_OP_CODE,MS_DIV_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_A, OUT_3F_A
+	and inputs of OUT_5F_H
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_H
+	and inputs of OUT_3F_A
+	and logic function of Special
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_TYPE_OP_CODES
+	from gate output OUT_3B_R
+Generating output sheet edge signal assignment to 
+	signal PS_RESET_TYPE_OP_CODES
+	from gate output OUT_2C_F
+Generating output sheet edge signal assignment to 
+	signal MS_ADD_OR_SUBT_OP_CODES
+	from gate output OUT_3D_D
+Generating output sheet edge signal assignment to 
+	signal PS_ADD_OR_SUBT_OP_CODES
+	from gate output OUT_2E_R
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_OR_DIV_OP_CODES
+	from gate output OUT_3F_A
+Generating output sheet edge signal assignment to 
+	signal PS_MPLY_OR_DIV_OP_CODES
+	from gate output OUT_2G_H

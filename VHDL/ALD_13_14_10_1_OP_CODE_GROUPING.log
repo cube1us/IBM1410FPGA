@@ -1,0 +1,57 @@
+Generating HDL for page 13.14.10.1 OP CODE GROUPING at 7/25/2020 11:23:49 AM
+Removed 2 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2G to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of MS_UNIT_CTRL_OP_CODE,MS_M_OR_L_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_R, OUT_3B_R
+	and inputs of OUT_5B_NoPin
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_R
+	and inputs of OUT_3B_R
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of MS_W_OR_V_OR_CLEAR_OP_CODES,MS_COMMON_OP_CODE_GROUPING
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_A, OUT_2D_A
+	and inputs of OUT_DOT_4D
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_H
+	and inputs of MS_ARS_D_OR_T_OP_CODES,MS_J_OR_R_OR_X_I_OR_O_OP_CODES,MS_STOP_DOT_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_B
+	and inputs of OUT_2D_A
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of MS_UNIT_CTRL_OP_CODE,MS_J_OR_R_OR_X_I_OR_O_OP_CODES_JRJ,MS_STORE_ADDR_REGS_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D, OUT_3F_D
+	and inputs of OUT_5F_NoPin
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_D
+	and inputs of OUT_3F_D
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_5D_C,OUT_5E_H
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_PERCENT_TYPE_OP_CODES
+	from gate output OUT_3B_R
+Generating output sheet edge signal assignment to 
+	signal PS_PERCENT_TYPE_OP_CODES
+	from gate output OUT_2C_R
+Generating output sheet edge signal assignment to 
+	signal MS_NOT_PERCENT_TYPE_OP_CODES
+	from gate output OUT_2D_A
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_PERCENT_TYPE_OP_CODES
+	from gate output OUT_1E_B
+Generating output sheet edge signal assignment to 
+	signal MS_1_ADDR_PLUS_MOD_OP_CODES
+	from gate output OUT_3F_D
+Generating output sheet edge signal assignment to 
+	signal PS_1_ADDR_PLUS_MOD_OP_CODES
+	from gate output OUT_2G_D

@@ -1,0 +1,30 @@
+Generating HDL for page 13.14.11.1 OP CODE GROUPING at 7/25/2020 11:23:50 AM
+Removed 3 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 5C with output pin(s) of OUT_5C_K
+	and inputs of MS_COMMON_OP_CODE_GROUPING,MS_CLEAR_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of MS_BIT_TEST_BRANCH_OP_CODE,MS_ZN_OR_WM_TST_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D, OUT_3E_D
+	and inputs of OUT_5E_NoPin
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_P
+	and inputs of OUT_3E_D,MS_DATA_MOVE_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_D
+	and inputs of MS_ARS_L_OR_M_OR_T_OP_CODES,MS_CHAR_TEST_BRANCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_5F_P,OUT_5G_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_2_ADDR_NO_MOD_OP_CODES
+	from gate output OUT_5C_K
+Generating output sheet edge signal assignment to 
+	signal MS_W_OR_V_OP_CODES
+	from gate output OUT_3E_D
+Generating output sheet edge signal assignment to 
+	signal PS_2_ADDR_PLUS_MOD_OP_CODES
+	from gate output OUT_DOT_1F

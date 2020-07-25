@@ -1,0 +1,29 @@
+Generating HDL for page 13.14.13.1 OP CODE GROUPING at 7/25/2020 11:23:55 AM
+Removed 1 outputs from Gate at 2E to ignored block(s) or identical signal names
+Generating Statement for block at 5C with output pin(s) of OUT_5C_P
+	and inputs of MS_ADD_TYPE_OP_CODES,MS_WM_OR_E_OR_Z_OR_W_OR_V_OR_C_OR_CLEAR_OR_DOT_OPS
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of MS_CHAR_TEST_BRANCH_OP_CODE,MS_ARS_D_OR_T_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_Q
+	and inputs of OUT_5F_H
+	and logic function of EQUAL
+Generating Statement for block at 5F with output pin(s) of OUT_5F_H, OUT_5F_H
+	and inputs of MS_PERCENT_TYPE_OP_CODES,MS_STORE_ADDR_REGS_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_A
+	and inputs of OUT_5F_H
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_5C_P,OUT_5E_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_NO_INDEX_ON_1ST_ADDR_OPS
+	from gate output OUT_2E_Q
+Generating output sheet edge signal assignment to 
+	signal MS_NO_INDEX_ON_1ST_ADDR_OPS
+	from gate output OUT_3F_A
+Generating output sheet edge signal assignment to 
+	signal PS_NO_D_CY_AT_I_RING_6_OPS
+	from gate output OUT_DOT_4C
