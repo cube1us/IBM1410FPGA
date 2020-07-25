@@ -369,6 +369,303 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.14.01.1, 02.1  ";
+   
+   wait for 30 ns;
+   check1(PS_RESET_TYPE_OP_CODES,'0',testName,"SA");
+   check1(PS_ADD_OR_SUBT_OP_CODES,'0',testName,"SB");
+   check1(PS_MPLY_OR_DIV_OP_CODES,'0',testName,"SC");
+   check1(PS_ADD_TYPE_OP_CODES,'0',testName,"SD");
+   check1(PS_ARITH_TYPE_OP_CODES,'0',testName,"SE");
+
+   MS_RESET_SUBT_OP_CODE <= '0';
+   wait for 30 ns; 
+   check1(PS_RESET_TYPE_OP_CODES,'1',testName,"1A");
+   check1(PS_ADD_TYPE_OP_CODES,'1',testName,"1B");
+   check1(PS_ARITH_TYPE_OP_CODES,'1',testName,"1C");
+   MS_RESET_SUBT_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_RESET_ADD_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_RESET_TYPE_OP_CODES,'1',testName,"1D");
+   check1(PS_ADD_TYPE_OP_CODES,'1',testName,"1E");
+   check1(PS_ARITH_TYPE_OP_CODES,'1',testName,"1F");
+   wait for 30 ns;
+   MS_RESET_ADD_OP_CODE <= '1';
+   
+   MS_SUBT_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_ADD_OR_SUBT_OP_CODES,'1',testName,"2A");
+   check1(PS_ADD_TYPE_OP_CODES,'1',testName,"2B");
+   check1(PS_ARITH_TYPE_OP_CODES,'1',testName,"2C");
+   MS_SUBT_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_ADD_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_ADD_OR_SUBT_OP_CODES,'1',testName,"2D");
+   check1(PS_ADD_TYPE_OP_CODES,'1',testName,"2E");
+   check1(PS_ARITH_TYPE_OP_CODES,'1',testName,"2F");
+   MS_ADD_OP_CODE <= '1';
+   
+   MS_MPLY_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_MPLY_OR_DIV_OP_CODES,'1',testName,"3A");
+   check1(PS_ADD_TYPE_OP_CODES,'0',testName,"3B");
+   check1(PS_ARITH_TYPE_OP_CODES,'1',testName,"3C");
+   MS_MPLY_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_DIV_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_MPLY_OR_DIV_OP_CODES,'1',testName,"3D");
+   check1(PS_ADD_TYPE_OP_CODES,'0',testName,"3E");
+   check1(PS_ARITH_TYPE_OP_CODES,'1',testName,"3F");
+   MS_DIV_OP_CODE <= '1';
+
+   wait for 30 ns;
+   check1(PS_ARITH_TYPE_OP_CODES,'0',testName,"4A");
+   MS_1401_POUND_SIGN_OP_CODE <= '0';
+   wait for 30 ns;   
+   check1(PS_ARITH_TYPE_OP_CODES,'1',testName,"4B");
+   MS_1401_POUND_SIGN_OP_CODE <= '1';
+
+   testName := "13.14.03.1        ";
+   
+   wait for 30 ns;
+   check1(PS_E_OR_Z_OP_CODES,'0',testName,"SA");
+   check1(PS_COMPARE_TYPE_OP_CODES,'0',testName,"SB");
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'0',testName,"SC");  -- for W, V or CLEAR
+
+   MS_EDIT_OP_CODE <= '0';
+   wait for 30 ns;               
+   check1(PS_E_OR_Z_OP_CODES,'1',testName,"1A");
+   MS_EDIT_OP_CODE <= '1';
+   wait for 30 ns;               
+   MS_MOVE_ZERO_SUP_OP_CODE <= '0';
+   wait for 30 ns;               
+   check1(PS_E_OR_Z_OP_CODES,'1',testName,"1B");
+   MS_MOVE_ZERO_SUP_OP_CODE <= '1';
+
+   MS_COMPARE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_COMPARE_TYPE_OP_CODES,'1',testName,"2A");
+   MS_COMPARE_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_TABLE_SEARCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_COMPARE_TYPE_OP_CODES,'1',testName,"2B");
+   MS_TABLE_SEARCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_COMPARE_TYPE_OP_CODES,'1',testName,"2C");
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '1';
+   
+   MS_BIT_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"3A");  
+   MS_BIT_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_CLEAR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"3B");  
+   MS_CLEAR_OP_CODE <= '1';
+   
+   testName := "13.14.04.1        ";
+   
+   check1(PS_NO_BRANCH_OP_CODES,'0',testName,"1A");
+   MS_I_O_MOVE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_OP_CODES,'1',testName,"1B");
+   MS_I_O_MOVE_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_TABLE_SEARCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_OP_CODES,'1',testName,"1C");
+   MS_TABLE_SEARCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_I_O_LOAD_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_OP_CODES,'1',testName,"1D");
+   MS_I_O_LOAD_OP_CODE <= '1';
+   wait for 30 ns;
+   
+   check1(PS_NO_BRANCH_OP_CODES,'0',testName,"2A");
+   MS_ADD_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_OP_CODES,'1',testName,"2B");
+   MS_ADD_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_COMPARE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_OP_CODES,'1',testName,"2C");
+   MS_COMPARE_OP_CODE <= '1';
+   wait for 30 ns;
+   
+   check1(PS_NO_BRANCH_OP_CODES,'0',testName,"3A");
+   MS_E_CH_2_CHAR_OP_CODES_STAR_1414_STAR <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_OP_CODES,'1',testName,"3B");
+   MS_E_CH_2_CHAR_OP_CODES_STAR_1414_STAR <= '1';
+   wait for 30 ns;
+   MS_STORE_ADDR_REGS_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_OP_CODES,'1',testName,"3C");
+   MS_STORE_ADDR_REGS_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_SET_WORD_MARK_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_OP_CODES,'1',testName,"3D");
+   MS_SET_WORD_MARK_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_OP_CODES,'1',testName,"3E");
+   MS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_DATA_MOVE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_BRANCH_OP_CODES,'1',testName,"3F");
+   MS_DATA_MOVE_OP_CODE <= '1';
+
+   testName := "13.14.05.1        ";
+   
+   wait for 30 ns;
+   check1(PS_WORD_MARK_OP_CODES,'0',testName,"SA");
+   -- MS_WORD_MARK_OP_CODES tested in previous page
+   check1(PS_M_OR_L_OP_CODES,'0',testName,"SB");
+   -- MS_M_OR_L_OP_CODES tested in previous page
+   check1(PS_1401_STORE_AR_OP_CODES,'0',testName,"SC");
+   check1(MS_1401_STORE_AR_OP_CODES,'1',testname,"SD");
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'0',testName,"SE");
+   check1(PS_A_CY_FIRST_OP_CODES,'0',testName,"SF"); -- Standing in for Common Op Code Grouping
+
+   
+   MS_SET_WORD_MARK_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_WORD_MARK_OP_CODES,'1',testName,"1A");
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"1B");
+   check1(PS_A_CY_FIRST_OP_CODES,'1',testName,"1C"); -- Standing in for Common Op Code Grouping
+   
+   MS_SET_WORD_MARK_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_CLEAR_WORD_MARK_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_WORD_MARK_OP_CODES,'1',testName,"1D");
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"1E");
+   check1(PS_A_CY_FIRST_OP_CODES,'1',testName,"1F"); -- Standing in for Common Op Code Grouping
+   MS_CLEAR_WORD_MARK_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_COMPARE_OP_CODE <= '0';
+   wait for 30 ns;   
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"1E");
+   check1(PS_A_CY_FIRST_OP_CODES,'1',testName,"1F"); -- Standing in for Common Op Code Grouping
+   MS_COMPARE_OP_CODE <= '1';
+   
+   
+   MS_I_O_MOVE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_M_OR_L_OP_CODES,'1',testName,"2A");
+   wait for 30 ns;
+   MS_I_O_MOVE_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_I_O_LOAD_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_M_OR_L_OP_CODES,'1',testName,"2B");
+   wait for 30 ns;
+   MS_I_O_LOAD_OP_CODE <= '1';
+   
+   MS_1401_STORE_A_AR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1401_STORE_AR_OP_CODES,'1',testName,"3A");
+   check1(MS_1401_STORE_AR_OP_CODES,'0',testname,"3B");
+   MS_1401_STORE_A_AR_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_1401_STORE_B_AR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1401_STORE_AR_OP_CODES,'1',testName,"3A");
+   check1(MS_1401_STORE_AR_OP_CODES,'0',testname,"3B");
+   MS_1401_STORE_B_AR_OP_CODE <= '1';
+   
+   testName := "13.14.06.1        ";
+   
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'0',testName,"SA");  -- Standing in for Common Op Code Grouping
+   check1(PS_A_REG_TO_A_CH_ON_B_CY_OPS,'0',testName,"SB");  
+   check1(PS_A_CY_FIRST_OP_CODES,'0',testName,"SC");  -- Standing in for Common Op Code Grouping
+   check1(MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,'1',testname,"SD");
+   
+   -- Word Mark Op Codes tested earlier on page 05.1
+   MS_COMPARE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"1A"); -- Standing in for Common Op Code Grouping
+   check1(PS_A_CY_FIRST_OP_CODES,'1',testName,"1B"); -- Standing in for Common Op Code Grouping
+   MS_COMPARE_OP_CODE <= '1';
+   wait for 30 ns;            
+   MS_STORE_ADDR_REGS_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"1C");
+   MS_STORE_ADDR_REGS_OP_CODE <= '1';
+   wait for 30 ns;  
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"1D");
+   wait for 30 ns;  
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_TABLE_SEARCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"1E");
+   MS_TABLE_SEARCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_CLEAR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"1F");
+   MS_CLEAR_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'0',testName,"1G");
+   check1(PS_A_CY_FIRST_OP_CODES,'0',testName,"1H"); -- Standing in for Common Op Code Grouping
+   
+   
+   MS_1401_STORE_A_AR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"2A");  -- Standing in for MS_1401_LB_OR_H_OR_Q_OP_CODES
+   MS_1401_STORE_A_AR_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_1401_POUND_SIGN_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'1',testName,"2B");  -- Standing in for MS_1401_LB_OR_H_OR_Q_OP_CODES
+   check1(PS_A_CY_FIRST_OP_CODES,'1',testName,"2C"); 
+   MS_1401_POUND_SIGN_OP_CODE <= '1';
+   wait for 30 ns;
+      
+   check1(PS_A_CY_FIRST_OP_CODES,'0',testName,"3A");    
+   MS_TABLE_SEARCH_OP_CODE <= '0';
+   wait for 30 ns;   
+   check1(PS_A_CY_FIRST_OP_CODES,'1',testName,"3B");
+    
+    
+   MS_TABLE_SEARCH_OP_CODE <= '0'; -- Leave set
+   wait for 30 ns;
+   check1(MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,'1',testName,"4A");
+   PS_A_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,'0',testName,"4B");
+   MS_TABLE_SEARCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,'1',testName,"4C");
+   MS_1401_POUND_SIGN_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,'0',testName,"4D");
+   MS_1401_POUND_SIGN_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_COMPARE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,'0',testName,"4E");
+   MS_COMPARE_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,'1',testName,"4F");
+
 
    wait;
    end process;
