@@ -586,7 +586,15 @@ uut_process: process
    check1(PS_1401_STORE_AR_OP_CODES,'1',testName,"3A");
    check1(MS_1401_STORE_AR_OP_CODES,'0',testname,"3B");
    MS_1401_STORE_B_AR_OP_CODE <= '1';
+   wait for 30 ns;
    
+   check1(PS_WORD_MARK_OP_CODES,'0',testName,"XA");
+   check1(PS_M_OR_L_OP_CODES,'0',testName,"XB");
+   check1(PS_1401_STORE_AR_OP_CODES,'0',testName,"XC");
+   check1(MS_1401_STORE_AR_OP_CODES,'1',testname,"XD");
+   check1(PS_1ST_SCAN_FIRST_OP_CODES,'0',testName,"XE");
+   check1(PS_A_CY_FIRST_OP_CODES,'0',testName,"XF"); -- Standing in for Common Op Code Grouping
+      
    testName := "13.14.06.1        ";
    
    wait for 30 ns;
@@ -644,7 +652,6 @@ uut_process: process
    wait for 30 ns;   
    check1(PS_A_CY_FIRST_OP_CODES,'1',testName,"3B");
     
-    
    MS_TABLE_SEARCH_OP_CODE <= '0'; -- Leave set
    wait for 30 ns;
    check1(MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,'1',testName,"4A");
@@ -666,7 +673,227 @@ uut_process: process
    wait for 30 ns;
    check1(MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,'1',testName,"4F");
 
+   testName := "13.14.07.1        ";
+   
+   check1(PS_B_CY_FIRST_OP_CODES,'0',testName,"SA");
+   check1(PS_A_REG_TO_A_CH_ON_B_CY_OPS,'0',testName,"SB");
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'0',testName,"SC");
+   
+   MS_CLEAR_OP_CODE <= '0'; -- Sets MS_W_OR_V_OR_CLEAR_OP_CODES
+   wait for 30 ns;
+   check1(PS_B_CY_FIRST_OP_CODES,'1',testName,"1A");
+   MS_CLEAR_OP_CODE <= '1'; -- Unsets MS_W_OR_V_OR_CLEAR_OP_CODES
+   wait for 30 ns;
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_B_CY_FIRST_OP_CODES,'1',testName,"1B");
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '1';
+   
+   MS_SET_WORD_MARK_OP_CODE <= '0';  -- Sets Common Op Code Grouiping
+   wait for 30 ns;
+   check1(PS_A_REG_TO_A_CH_ON_B_CY_OPS,'1',testName,"2A");
+   MS_SET_WORD_MARK_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_CLEAR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_A_REG_TO_A_CH_ON_B_CY_OPS,'1',testName,"2B");
+   MS_CLEAR_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_STOP_DOT_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_A_REG_TO_A_CH_ON_B_CY_OPS,'1',testName,"2C");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_1401_POUND_SIGN_OP_CODE <= '0';  -- Sets MS_1401_LB_OR_H_OR_Q_OP_CODES
+   wait for 30 ns;
+   check1(PS_A_REG_TO_A_CH_ON_B_CY_OPS,'1',testName,"2D");
+   MS_1401_POUND_SIGN_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_A_REG_TO_A_CH_ON_B_CY_OPS,'0',testName,"2E");
 
+   -- Use PS_A_REG_TO_A_CH_ON_B_CY_OPS as stand-in for MS_ARS_D_OR_T_OP_CODES
+   
+   MS_TABLE_SEARCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_A_REG_TO_A_CH_ON_B_CY_OPS,'1',testName,"3A");
+   MS_TABLE_SEARCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_DATA_MOVE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_A_REG_TO_A_CH_ON_B_CY_OPS,'1',testName,"3B");
+   MS_DATA_MOVE_OP_CODE <= '1';
+   wait for 30 ns;
+
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'0',testName,"4A");
+   MS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'1',testName,"4B");
+   MS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_1401_CARD_OR_PRINT_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'1',testName,"4C");
+   MS_1401_CARD_OR_PRINT_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_E_CH_STACKER_SEL_OP_CODE <= '0';  -- Set MS_E_CH_2_CHAR_ONLY_OP_CODES
+   wait for 30 ns;
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'1',testName,"4D");
+   MS_E_CH_STACKER_SEL_OP_CODE <= '1';  -- UnSet MS_E_CH_2_CHAR_ONLY_OP_CODES
+   wait for 30 ns;
+   MS_BIT_TEST_BRANCH_OP_CODE <= '0';  -- Set MS_W_OR_V_OP_CODES
+   wait for 30 ns;
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'1',testName,"4E");
+   MS_BIT_TEST_BRANCH_OP_CODE <= '1';  -- UnSet MS_W_OR_V_OP_CODES
+   wait for 30 ns;
+   
+   -- Use PS_OP_MOD_TO_A_CH_ON_B_CY_OPS as a stand-in for MS_J_OR_R_OR_X_I_OR_O_OP_CODES
+   
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'0',testName,"5A");
+   MS_BRANCH_ON_STATUS_CH_1 <= '0';  -- Set MS_J_OR_R_OR_X_I_OR_O_OP_CODES_JRJ
+   wait for 30 ns; 
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'1',testName,"5B");
+   MS_BRANCH_ON_STATUS_CH_1 <= '1';  -- UnSet MS_J_OR_R_OR_X_I_OR_O_OP_CODES_JRJ
+   wait for 30 ns; 
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns; 
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'1',testName,"5C");
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns; 
+   MS_INTERRUPT_TEST_OP_CODE <= '0';
+   wait for 30 ns; 
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'1',testName,"5D");
+   MS_INTERRUPT_TEST_OP_CODE <= '1';
+   wait for 30 ns; 
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'0',testName,"5E");
+   
+   check1(PS_B_CY_FIRST_OP_CODES,'0',testName,"XA");
+   check1(PS_A_REG_TO_A_CH_ON_B_CY_OPS,'0',testName,"XB");
+   check1(PS_OP_MOD_TO_A_CH_ON_B_CY_OPS,'0',testName,"XC");
+      
+   testName := "13.14.08.1        ";
+   
+   check1(PS_LOAD_MEM_ON_B_CY_OP_CODES,'0',testName,"SA");
+   check1(PS_REGEN_MEM_ON_B_CY_OP_CODES,'0',testName,"SB");
+   check1(PS_STOP_AT_H_ON_B_CYCLE_OPS,'0',testName,"SC");
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'0',testName,"SD");
+   
+   MS_ADD_OP_CODE <= '0';
+   wait for 30 ns;
+   -- Stand in for MS_ADD_TYPE_OR_MPL_OR_DIV_OR_E_OR_Z_OPS
+   check1(PS_LOAD_MEM_ON_B_CY_OP_CODES,'1',testName,"1A");
+   MS_ADD_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_MPLY_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_LOAD_MEM_ON_B_CY_OP_CODES,'1',testName,"1B");
+   MS_MPLY_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_EDIT_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_LOAD_MEM_ON_B_CY_OP_CODES,'1',testName,"1C");
+   MS_EDIT_OP_CODE <= '1';
+   wait for 30 ns;
+   
+   MS_DATA_MOVE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_LOAD_MEM_ON_B_CY_OP_CODES,'1',testName,"2A");
+   MS_DATA_MOVE_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_1401_POUND_SIGN_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_LOAD_MEM_ON_B_CY_OP_CODES,'1',testName,"2B");
+   MS_1401_POUND_SIGN_OP_CODE <= '1';
+   wait for 30 ns;
+   
+   MS_COMPARE_OP_CODE <= '0';
+   wait for 30ns;
+   check1(PS_REGEN_MEM_ON_B_CY_OP_CODES,'1',testName,"3A");
+   MS_COMPARE_OP_CODE <= '1';
+   wait for 30ns;
+   MS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '0';  -- Sets MS_W_OR_V_OP_CODES
+   wait for 30ns;
+   check1(PS_REGEN_MEM_ON_B_CY_OP_CODES,'1',testName,"3B");
+   MS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '1';  -- UnSets MS_W_OR_V_OP_CODES
+   wait for 30ns;
+   MS_E_CH_STACKER_SEL_OP_CODE <= '0';  -- Sets MS_E_CH_2_CHAR_ONLY_OP_CODES
+   wait for 30ns;
+   check1(PS_REGEN_MEM_ON_B_CY_OP_CODES,'1',testName,"3C");
+   MS_E_CH_STACKER_SEL_OP_CODE <= '1';  -- UnSets MS_E_CH_2_CHAR_ONLY_OP_CODES
+   wait for 30 ns;
+   -- Set MS_J_OR_R_OR_X_I_OR_O_OP_CODES_JRJ, so therefore set Set MS_J_OR_R_OR_X_I_OR_O_OP_CODES
+   MS_COND_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_REGEN_MEM_ON_B_CY_OP_CODES,'1',testName,"3D");
+   MS_COND_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   -- ILD SHOWS CLEAR setting setting this, but that is not on the ALD that way
+   MS_STOP_DOT_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_REGEN_MEM_ON_B_CY_OP_CODES,'1',testName,"3E");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_TABLE_SEARCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_REGEN_MEM_ON_B_CY_OP_CODES,'1',testName,"3F");
+   MS_TABLE_SEARCH_OP_CODE <= '1';
+   wait for 30 ns;
+   
+   MS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '0';  -- Sets MS_W_OR_V_OP_CODES
+   wait for 30ns;   
+   check1(PS_STOP_AT_H_ON_B_CYCLE_OPS,'1',testName,"4A");   
+   MS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '1';  -- UnSets MS_W_OR_V_OP_CODES
+   wait for 30ns;   
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30ns;   
+   check1(PS_STOP_AT_H_ON_B_CYCLE_OPS,'1',testName,"4B");   
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30ns;   
+   
+   -- Stand in for MS_J_OR_R_OR_X_I_OR_O_OP_CODES_JRJ
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'0',testName,"5A");
+   MS_COND_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns; 
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'1',testName,"5B");
+   MS_COND_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns; 
+   MS_BRANCH_ON_STATUS_CH_1 <= '0';
+   wait for 30 ns; 
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'1',testName,"5C");
+   MS_BRANCH_ON_STATUS_CH_1 <= '1';
+   wait for 30 ns; 
+   MS_BRANCH_ON_STATUS_CH_2 <= '0';
+   wait for 30 ns; 
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'1',testName,"5D");
+   MS_BRANCH_ON_STATUS_CH_2 <= '1';
+   wait for 30 ns;
+   MS_INTERRUPT_TEST_OP_CODE <= '0';
+   wait for 30 ns; 
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'1',testName,"5E");
+   MS_INTERRUPT_TEST_OP_CODE <= '1';
+   wait for 30 ns; 
+   MS_I_OR_O_OP_CODES_STAR_12_19 <= '0';
+   wait for 30 ns; 
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'1',testName,"5F");
+   MS_I_OR_O_OP_CODES_STAR_12_19 <= '1';
+   wait for 30 ns; 
+   
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'0',testName,"6A");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'1',testName,"6B");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_CLEAR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'1',testName,"6C");
+   MS_CLEAR_OP_CODE <= '1';
+   wait for 30 ns;
+
+   check1(PS_LOAD_MEM_ON_B_CY_OP_CODES,'0',testName,"XA");
+   check1(PS_REGEN_MEM_ON_B_CY_OP_CODES,'0',testName,"XB");
+   check1(PS_STOP_AT_H_ON_B_CYCLE_OPS,'0',testName,"XC");
+   check1(PS_STOP_AT_F_ON_B_CY_OPS,'0',testName,"XD");
+   
    wait;
    end process;
 
