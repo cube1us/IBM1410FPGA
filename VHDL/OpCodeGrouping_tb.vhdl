@@ -894,6 +894,233 @@ uut_process: process
    check1(PS_STOP_AT_H_ON_B_CYCLE_OPS,'0',testName,"XC");
    check1(PS_STOP_AT_F_ON_B_CY_OPS,'0',testName,"XD");
    
+   testName := "13.14.09.1        ";
+   
+   check1(PS_STOP_AT_F_ON_B_CY_OP_CODES,'0',testName,"SA");
+   check1(PS_STOP_AT_J_ON_B_CY_OP_CODES,'0',testName,"SB");
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'0',testName,"SC");
+   check1(PS_READ_OUT_AAR_ON_A_CY_OPS,'0',testName,"SD");
+   
+   MS_RESET_ADD_OP_CODE <= '0'; -- Sets MS_RESET_TYPE_OP_CODES
+   wait for 30 ns;
+   check1(PS_STOP_AT_F_ON_B_CY_OP_CODES,'1',testName,"1A");
+   MS_RESET_ADD_OP_CODE <= '1'; -- UnSets MS_RESET_TYPE_OP_CODES
+   wait for 30 ns;
+   MS_MPLY_OP_CODE <= '0';  -- Sets MPLY OR DIV OP CODES 
+   wait for 30 ns;
+   check1(PS_STOP_AT_F_ON_B_CY_OP_CODES,'1',testName,"1B");
+   MS_MPLY_OP_CODE <= '1';  -- UnSets MPLY OR DIV OP CODES 
+   wait for 30 ns;
+   MS_DATA_MOVE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_AT_F_ON_B_CY_OP_CODES,'1',testName,"1C");
+   MS_DATA_MOVE_OP_CODE <= '1';
+   wait for 30 ns;
+   
+   MS_EDIT_OP_CODE <= '0';  -- Sets E OR Z OP Codes
+   wait for 30 ns;
+   check1(PS_STOP_AT_J_ON_B_CY_OP_CODES,'1',testName,"2A");
+   MS_EDIT_OP_CODE <= '1';  -- UnSets E OR Z OP Codes
+   wait for 30 ns;
+   MS_1401_POUND_SIGN_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_STOP_AT_J_ON_B_CY_OP_CODES,'1',testName,"2B");
+   MS_1401_POUND_SIGN_OP_CODE <= '1';
+   wait for 30 ns;
+   
+   -- Serves as a stand-in for MS_WM_OR_E_OR_Z_OR_W_OR_V_OR_C_OR_CLEAR_OPS  (whew!)
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'0',testName,"3A");
+   MS_SET_WORD_MARK_OP_CODE <= '0'; -- Sets MS_WORD_MARK_OP_CODES
+   wait for 30 ns;
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'1',testName,"3B");
+   MS_SET_WORD_MARK_OP_CODE <= '1'; -- UnSets MS_WORD_MARK_OP_CODES
+   wait for 30 ns;
+   MS_EDIT_OP_CODE <= '0';  -- Sets E OR Z OP Codes
+   wait for 30 ns;
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'1',testName,"3C");
+   MS_EDIT_OP_CODE <= '1';  -- UnSets E OR Z OP Codes
+   wait for 30 ns;
+   MS_CLEAR_OP_CODE <= '0';  -- Sets W OR V OR_CLEAR OP CODES
+   wait for 30 ns;
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'1',testName,"3D");
+   MS_CLEAR_OP_CODE <= '1';  -- UnSets W OR V OR_CLEAR OP CODES
+   wait for 30 ns;
+   MS_COMPARE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'1',testName,"3E");
+   MS_COMPARE_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_STOP_DOT_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'1',testName,"3F");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'0',testName,"3G");
+   
+   MS_INTERRUPT_TEST_OP_CODE <= '0';  -- Sets MS_J_OR_R_OR_X_I_OR_O_OP_CODES
+   wait for 30 ns;
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'1',testName,"4A");
+   MS_INTERRUPT_TEST_OP_CODE <= '1';  -- UnSets MS_J_OR_R_OR_X_I_OR_O_OP_CODES
+   wait for 30 ns;
+   MS_TABLE_SEARCH_OP_CODE <= '0';  -- Sets MS_ARS_D_OR_T_OP_CODES   
+   wait for 30 ns;
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'1',testName,"4B");
+   MS_TABLE_SEARCH_OP_CODE <= '1';  -- Sets MS_ARS_D_OR_T_OP_CODES   
+   wait for 30 ns;
+   check1(PS_RO_B_AR_ON_SCAN_B_CY_OPS,'0',testName,"4C");
+   
+   check1(PS_READ_OUT_AAR_ON_A_CY_OPS,'0',testName,"5A");
+   MS_1401_POUND_SIGN_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_READ_OUT_AAR_ON_A_CY_OPS,'1',testName,"5B");
+   MS_1401_POUND_SIGN_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_ADD_OP_CODE <= '0';  -- Sets MS_AD_TYPE_OP_CODES
+   wait for 30 ns;
+   check1(PS_READ_OUT_AAR_ON_A_CY_OPS,'1',testName,"5C");
+   MS_ADD_OP_CODE <= '1';  -- UnSets MS_AD_TYPE_OP_CODES
+   wait for 30 ns;
+   MS_SET_WORD_MARK_OP_CODE <= '0'; -- Sets MS_WORD_MARK_OP_CODES
+   wait for 30 ns;
+   check1(PS_READ_OUT_AAR_ON_A_CY_OPS,'1',testName,"5D");
+   MS_SET_WORD_MARK_OP_CODE <= '1'; -- UnSets MS_WORD_MARK_OP_CODES
+   wait for 30 ns;
+   MS_COMPARE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_READ_OUT_AAR_ON_A_CY_OPS,'1',testName,"5E");
+   MS_COMPARE_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_EDIT_OP_CODE <= '0';  -- Sets E OR Z OP Codes
+   wait for 30 ns;
+   check1(PS_READ_OUT_AAR_ON_A_CY_OPS,'1',testName,"5F");
+   MS_EDIT_OP_CODE <= '1';  -- UnSets E OR Z OP Codes
+   wait for 30 ns;
+   MS_DATA_MOVE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_READ_OUT_AAR_ON_A_CY_OPS,'1',testName,"5G");
+   MS_DATA_MOVE_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_1401_STORE_A_AR_OP_CODE <= '0'; -- Sets MS_1401_STORE_AR_OP_CODES
+   wait for 30 ns;
+   check1(PS_READ_OUT_AAR_ON_A_CY_OPS,'1',testName,"5H");
+   MS_1401_STORE_A_AR_OP_CODE <= '1'; -- UnSets MS_1401_STORE_AR_OP_CODES
+   wait for 30 ns;
+   
+   testName := "13.14.10.1        ";
+   
+   check1(PS_PERCENT_TYPE_OP_CODES,'0',testName,"SA");
+   check1(MS_PERCENT_TYPE_OP_CODES,'1',testName,"SB");
+   check1(PS_NOT_PERCENT_TYPE_OP_CODES,'0',testName,"SC");
+   check1(MS_NOT_PERCENT_TYPE_OP_CODES,'1',testName,"SD");
+   check1(PS_1_ADDR_PLUS_MOD_OP_CODES,'0',testName,"SE");
+   check1(MS_1_ADDR_PLUS_MOD_OP_CODES,'1',testName,"SF");
+   
+   MS_I_O_LOAD_OP_CODE <= '0'; -- Sets MS_M_OR_L_OP_CODES
+   wait for 30 ns;
+   check1(PS_PERCENT_TYPE_OP_CODES,'1',testName,"1A");
+   check1(MS_PERCENT_TYPE_OP_CODES,'0',testName,"1B");
+   MS_I_O_LOAD_OP_CODE <= '1'; -- UnSets MS_M_OR_L_OP_CODES
+   wait for 30 ns;
+   MS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_PERCENT_TYPE_OP_CODES,'1',testName,"1C");
+   check1(MS_PERCENT_TYPE_OP_CODES,'0',testName,"1D");
+   MS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   
+   MS_CLEAR_OP_CODE <= '0';  -- Sets W OR V OR CLEAR OP CODES
+   wait for 30 ns;
+   check1(PS_NOT_PERCENT_TYPE_OP_CODES,'1',testName,"2A");
+   check1(MS_NOT_PERCENT_TYPE_OP_CODES,'0',testName,"2B");
+   MS_CLEAR_OP_CODE <= '1';  -- UnSets W OR V OR CLEAR OP CODES
+   wait for 30 ns;
+   MS_SET_WORD_MARK_OP_CODE <= '0'; -- Sets Common Op Code Grouping
+   wait for 30 ns;
+   check1(PS_NOT_PERCENT_TYPE_OP_CODES,'1',testName,"2C");
+   MS_SET_WORD_MARK_OP_CODE <= '1'; -- UnSets Common Op Code Grouping
+   wait for 30 ns;
+   MS_TABLE_SEARCH_OP_CODE <= '0';  -- Sets ARS D OR T OP CODES
+   wait for 30 ns;
+   check1(PS_NOT_PERCENT_TYPE_OP_CODES,'1',testName,"2D");
+   MS_TABLE_SEARCH_OP_CODE <= '1';  -- UnSets ARS D OR T OP CODES
+   wait for 30 ns;
+   MS_INTERRUPT_TEST_OP_CODE <= '0';  -- Sets MS_J_OR_R_OR_X_I_OR_O_OP_CODES
+   wait for 30 ns;
+   check1(PS_NOT_PERCENT_TYPE_OP_CODES,'1',testName,"2E");
+   MS_INTERRUPT_TEST_OP_CODE <= '1';  -- UnSets MS_J_OR_R_OR_X_I_OR_O_OP_CODES
+   wait for 30 ns;
+   MS_STOP_DOT_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NOT_PERCENT_TYPE_OP_CODES,'1',testName,"2F");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_NOT_PERCENT_TYPE_OP_CODES,'0',testName,"2G");
+
+   MS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1_ADDR_PLUS_MOD_OP_CODES,'1',testName,"3A");
+   check1(MS_1_ADDR_PLUS_MOD_OP_CODES,'0',testName,"3B");
+   MS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_INTERRUPT_TEST_OP_CODE <= '0';  -- Sets MS_J_OR_R_OR_X_I_OR_O_OP_CODES_JRJ
+   wait for 30 ns;
+   check1(PS_1_ADDR_PLUS_MOD_OP_CODES,'1',testName,"3C");
+   MS_INTERRUPT_TEST_OP_CODE <= '1';  -- UnSets MS_J_OR_R_OR_X_I_OR_O_OP_CODES_JRJ
+   wait for 30 ns;
+   MS_STORE_ADDR_REGS_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_1_ADDR_PLUS_MOD_OP_CODES,'1',testName,"3D");
+   MS_STORE_ADDR_REGS_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_1_ADDR_PLUS_MOD_OP_CODES,'0',testName,"3E");
+      
+   testName := "13.14.11.1        ";
+   
+   check1(PS_2_ADDR_NO_MOD_OP_CODES,'0',testName,"SA");
+   check1(PS_2_ADDR_PLUS_MOD_OP_CODES,'0',testName,"SB");
+   
+   MS_SET_WORD_MARK_OP_CODE <= '0'; -- Sets Common Op Code Grouping
+   wait for 30 ns;
+   check1(PS_2_ADDR_NO_MOD_OP_CODES,'1',testName,"1A");
+   MS_SET_WORD_MARK_OP_CODE <= '1'; -- UnSets Common Op Code Grouping
+   wait for 30 ns;
+   MS_CLEAR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_2_ADDR_NO_MOD_OP_CODES,'1',testName,"1B");
+   MS_CLEAR_OP_CODE <= '1';
+   wait for 30 ns;
+
+   -- Stand in for -S W OR V OP CODES
+   check1(PS_2_ADDR_PLUS_MOD_OP_CODES,'0',testName,"2A");
+   MS_BIT_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_2_ADDR_PLUS_MOD_OP_CODES,'1',testName,"2B");
+   MS_BIT_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_2_ADDR_PLUS_MOD_OP_CODES,'1',testName,"2C");
+   MS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   
+   MS_DATA_MOVE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_2_ADDR_PLUS_MOD_OP_CODES,'1',testName,"3A");
+   MS_DATA_MOVE_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_TABLE_SEARCH_OP_CODE <= '0';  -- Set MS_ARS_L_OR_M_OR_T_OP_CODES
+   wait for 30 ns;
+   check1(PS_2_ADDR_PLUS_MOD_OP_CODES,'1',testName,"3B");
+   MS_TABLE_SEARCH_OP_CODE <= '1';  -- UnSet MS_ARS_L_OR_M_OR_T_OP_CODES
+   wait for 30 ns;
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_2_ADDR_PLUS_MOD_OP_CODES,'1',testName,"3C");
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_2_ADDR_PLUS_MOD_OP_CODES,'0',testName,"3D");
+   
+      
    wait;
    end process;
 
