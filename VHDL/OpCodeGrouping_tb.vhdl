@@ -1246,9 +1246,193 @@ uut_process: process
    MS_INTERRUPT_TEST_OP_CODE <= '1';
    wait for 30 ns;
    check1(PS_NO_C_OR_D_CYCLE_OP_CODES,'0',testName,"5F");
+
+   testName := "13.14.13.1        ";
    
+   check1(PS_NO_D_CY_AT_I_RING_6_OPS,'0',testName,"1A");
+   MS_SUBT_OP_CODE <= '0';  -- Sets Add Type Op Codes
+   wait for 30 ns;
+   check1(PS_NO_D_CY_AT_I_RING_6_OPS,'1',testName,"1B");
+   MS_SUBT_OP_CODE <= '1';  -- UnSets Add Type Op Codes
+   wait for 30 ns;
+   MS_CLEAR_WORD_MARK_OP_CODE <= '0'; -- Sets _S WM_E_Z_W_F_C_CLEAR OR . OPS
+   wait for 30 ns;
+   check1(PS_NO_D_CY_AT_I_RING_6_OPS,'1',testName,"1C");
+   wait for 30 ns;
+   MS_CLEAR_WORD_MARK_OP_CODE <= '1';  -- UnSets _S WM_E_Z_W_F_C_CLEAR OR . OPS
+   wait for 30 ns;
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_D_CY_AT_I_RING_6_OPS,'1',testName,"1D");
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_DATA_MOVE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_D_CY_AT_I_RING_6_OPS,'1',testName,"1E");
+   MS_DATA_MOVE_OP_CODE <= '1';
+   wait for 30 ns;   
    
+   check1(PS_NO_INDEX_ON_1ST_ADDR_OPS,'0',testName,"2A");
+   -- Test -S NO INDEX ON 1ST ADDR OPS Using 13.14.14.1
+   MS_UNIT_CTRL_OP_CODE <= '0';  -- Sets -S Percent Type Op Codes
+   wait for 30 ns;
+   check1(PS_NO_INDEX_ON_1ST_ADDR_OPS,'1',testName,"2B");
+   MS_UNIT_CTRL_OP_CODE <= '1';  -- UnSets -S Percent Type Op Codes
+   wait for 30 ns;
+   MS_STORE_ADDR_REGS_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_INDEX_ON_1ST_ADDR_OPS,'1',testName,"2C");
+   MS_STORE_ADDR_REGS_OP_CODE <= '1';
+   wait for 30 ns;
+   
+   testName := "13.14.14.1        ";
+   
+   PS_1401_MODE <= '0';
+   MS_1401_MODE <= '1';
+   wait for 30 ns;
+   
+   check1(PS_ADDR_DOUBLE_OP_CODES,'0',testName,"1A");
+   MS_ADD_OP_CODE <= '0';  -- Sets -S Add Type Op Code
+   wait for 30 ns;
+   check1(PS_ADDR_DOUBLE_OP_CODES,'1',testName,"1B");
+   MS_ADD_OP_CODE <= '1';  -- UnSets -S Add Type Op Code
+   wait for 30 ns;
+   MS_SET_WORD_MARK_OP_CODE <= '0'; -- Sets -S Word Mark Op Codes
+   wait for 30 ns;
+   check1(PS_ADDR_DOUBLE_OP_CODES,'1',testName,"1C");
+   MS_SET_WORD_MARK_OP_CODE <= '1'; -- UnSets -S Word Mark Op Codes
+   wait for 30 ns;
+   MS_CLEAR_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_DOUBLE_OP_CODES,'1',testName,"1D");
+   MS_CLEAR_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_COND_TEST_BRANCH_OP_CODE <= '0';  -- Sets -S J OR R OR X I OR O OP CODES JRJ
+   wait for 30 ns;
+   check1(PS_ADDR_DOUBLE_OP_CODES,'1',testName,"1E");
+   MS_COND_TEST_BRANCH_OP_CODE <= '0';  -- UnSets -S J OR R OR X I OR O OP CODES JRJ
+   wait for 30 ns;
+   
+   -- 1401 mode should inhibit this particular output
+   MS_1401_MODE <= '0';
+   PS_1401_MODE <= '0'; -- This one has to be off for this test, even though it seems inconsistent.
+   -- Set all the inputs
+   MS_ADD_OP_CODE <= '0';  -- Sets -S Add Type Op Code
+   MS_SET_WORD_MARK_OP_CODE <= '0'; -- Sets -S Word Mark Op Codes
+   MS_CLEAR_OP_CODE <= '0';
+   MS_COND_TEST_BRANCH_OP_CODE <= '0';  -- Sets -S J OR R OR X I OR O OP CODES JRJ
+   wait for 30 ns;
+   check1(PS_ADDR_DOUBLE_OP_CODES,'0',testName,"1F");
+   -- Reset all the inputs since we are done
+   MS_ADD_OP_CODE <= '1';
+   MS_SET_WORD_MARK_OP_CODE <= '1';
+   MS_CLEAR_OP_CODE <= '1';
+   MS_COND_TEST_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
       
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_DOUBLE_OP_CODES,'1',testName,"2A");
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'1',testName,"2B");
+   MS_1401_STORE_A_AR_OP_CODE <= '0'; -- Sets -s 1401 STORE AR OP CODES
+   wait for 30 ns;
+   check1(PS_ADDR_DOUBLE_OP_CODES,'0',testName,"2C");
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"2D");
+   MS_1401_STORE_A_AR_OP_CODE <= '1'; -- UnSets -s 1401 STORE AR OP CODES
+   wait for 30 ns;
+   MS_1401_M_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_DOUBLE_OP_CODES,'0',testName,"2E");
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"2F");
+   MS_1401_M_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_1401_L_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_DOUBLE_OP_CODES,'0',testName,"2G");
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"2H");
+   MS_1401_L_OP_CODE <= '1';
+   wait for 30 ns;
+   -- Set all the inputs again   
+   MS_1401_STORE_A_AR_OP_CODE <= '0'; -- Sets -s 1401 STORE AR OP CODES
+   MS_1401_M_OP_CODE <= '0';
+   MS_1401_L_OP_CODE <= '0';
+   -- Turn off 1401 Mode
+   PS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_DOUBLE_OP_CODES,'0',testName,"2I");
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'1',testName,"2J");
+   -- Reset the inputs
+   MS_1401_STORE_A_AR_OP_CODE <= '1'; -- UnSets -s 1401 STORE AR OP CODES
+   MS_1401_M_OP_CODE <= '1';
+   MS_1401_L_OP_CODE <= '1';
+
+   MS_1401_MODE <= '1';
+   PS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'1',testName,"3A");
+   MS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '0'; -- Sets -S W or V Op Codes
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"3B");
+   MS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '1'; -- UnSets -S W or V Op Codes
+   wait for 30 ns;
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '0'; -- Sets -S No Index On 1st Addr Ops
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"3C");
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '1'; -- UnSets -S No Index On 1st Addr Ops
+   wait for 30 ns;
+   MS_COMPARE_OP_CODE <= '0'; -- Sets -S Compare Type Op Codes
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"3D");
+   MS_COMPARE_OP_CODE <= '1'; -- UnSets -S Compare Type Op Codes
+   wait for 30 ns;
+   MS_DATA_MOVE_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"3E");
+   MS_DATA_MOVE_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_DIV_OP_CODE <= '0'; -- Sets -S MPLY or DIV Op Codes
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"3F");
+   MS_DIV_OP_CODE <= '1'; -- UnSets -S MPLY or DIV Op Codes
+   wait for 30 ns;
+   MS_MOVE_ZERO_SUP_OP_CODE <= '0'; -- Sets -S E or Z Op Codes
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"3G");
+   MS_MOVE_ZERO_SUP_OP_CODE <= '1'; -- UnSets -S E or Z Op Codes
+   wait for 30 ns;
+   MS_TABLE_SEARCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"3H");
+   MS_TABLE_SEARCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_STOP_DOT_BRANCH_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"3I");
+   MS_STOP_DOT_BRANCH_OP_CODE <= '1';
+   wait for 30 ns;
+   MS_E_CH_STACKER_SEL_OP_CODE <= '0'; -- Sets -S E CH 2 Char Only Op Codes
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'0',testName,"3J");
+   MS_E_CH_STACKER_SEL_OP_CODE <= '1'; -- UnSets -S E CH 2 Char Only Op Codes
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'1',testName,"3K");
+
+   -- Now, set all the inputs, but in 1401 mode
+   PS_1401_MODE <= '1';
+   MS_1401_MODE <= '0';
+   MS_ZN_OR_WM_TST_BRANCH_OP_CODE <= '0'; -- Sets -S W or V Op Codes
+   MS_CHAR_TEST_BRANCH_OP_CODE <= '0'; -- Sets -S No Index On 1st Addr Ops
+   MS_COMPARE_OP_CODE <= '0'; -- Sets -S Compare Type Op Codes
+   MS_DATA_MOVE_OP_CODE <= '0';
+   MS_DIV_OP_CODE <= '0'; -- Sets -S MPLY or DIV Op Codes
+   MS_MOVE_ZERO_SUP_OP_CODE <= '0'; -- Sets -S E or Z Op Codes
+   MS_TABLE_SEARCH_OP_CODE <= '0';
+   MS_STOP_DOT_BRANCH_OP_CODE <= '0';
+   MS_E_CH_STACKER_SEL_OP_CODE <= '0'; -- Sets -S E CH 2 Char Only Op Codes
+   wait for 30 ns;
+   check1(MS_NOT_ADDR_DBL_OP_CODES,'1',testName,"3L");
+
+   
    wait;
    end process;
 
