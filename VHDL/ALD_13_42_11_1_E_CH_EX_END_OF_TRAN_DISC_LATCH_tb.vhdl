@@ -234,7 +234,176 @@ uut_process: process
    variable subtest: integer;
 
    begin
+   
+   testName := "13.42.11.1        ";
+   
+   -- Reset the latches
+   MS_E_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_E_CH_RESET <= '1';
+   
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"1A");
+   check1(PS_E_CH_DISCON_LATCH_JRJ,'0',testName,"1B");
+   check1(PS_E_CH_END_ADDR_TRF_STAR_1301_STAR,'0',testName,"1C");
+   
+   MC_1301_END_ADDR_TRF_E_CH <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"1D");
+   check1(PS_E_CH_DISCON_LATCH_JRJ,'0',testName,"1E");
+   check1(PS_E_CH_END_ADDR_TRF_STAR_1301_STAR,'1',testName,"1F");
+   check1(MC_E_CH_DISCON_TO_1301,'1',testName,"1G");
+   check1(MC_E_CH_DISCON_TO_1405,'1',testName,"1H");
+   PS_E2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"1I");
+   check1(PS_E_CH_DISCON_LATCH_JRJ,'0',testName,"1J");
+   PS_E_CH_2ND_ADDR_TRF <= '1';   
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'1',testName,"1K");
+   check1(PS_E_CH_DISCON_LATCH_JRJ,'1',testName,"1L");
+   check1(MC_E_CH_DISCON_TO_1301,'0',testName,"1M");
+   check1(MC_E_CH_DISCON_TO_1405,'0',testName,"1N");
+   -- In spite of what the ILD says, this does latch, apparently
+   MC_1301_END_ADDR_TRF_E_CH <= '1';
+   PS_E2_REG_FULL <= '0';
+   PS_E_CH_2ND_ADDR_TRF <= '0';   
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'1',testName,"1O");
+   check1(PS_E_CH_DISCON_LATCH_JRJ,'1',testName,"1P");
+   
+   -- Reset the latches
+   MS_E_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   MS_E1_REG_FULL <= '0';
+   MS_E2_REG_FULL <= '0';
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"2A");
+   check1(PS_E_CH_DISCON_LATCH_JRJ,'0',testName,"2B");
+   PS_E_CH_2ND_ADDR_TRF <= '1';   
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"2C");
+   MS_E1_REG_FULL <= '1';  -- NOT E1 reg full   
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"2D");
+   MS_E2_REG_FULL <= '1'; -- NOT E2 reg Full
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"2E");
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"2F");
+   PS_E_CH_STROBE_TRIGGER <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"2G");
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'1',testName,"2H");
+   MS_E1_REG_FULL <= '0';
+   MS_E2_REG_FULL <= '0';
+   PS_E_CH_2ND_ADDR_TRF <= '0';   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   PS_E_CH_STROBE_TRIGGER <= '0';
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '0';
+   -- Should stay latched
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'1',testName,"2I");
+   check1(PS_E_CH_DISCON_LATCH_JRJ,'1',testName,"2J");
+   
+   -- Reset the latches
+   MS_E_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_E_CH_RESET <= '1';
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"3A");
+   PS_E_CH_INPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"3B");
+   PS_E_CH_SELECT_UNIT_F <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'1',testName,"3C");
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '0';
+   PS_E_CH_INPUT_MODE <= '0';
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   -- Should stay latched
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'1',testName,"3D");
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '0';  -- Different reset this time
+   wait for 30 ns;
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"3E");
+   
+   MS_E_CH_FILE_ADDR_TRANSFER <= '0';
+   MS_E1_REG_FULL <= '0';
+   MS_E2_REG_FULL <= '0';
 
+   PS_E_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"4A");
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"4B");
+   MS_E_CH_FILE_ADDR_TRANSFER <= '1'; -- NOT ...
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"4C");
+   MS_E1_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"4D");
+   MS_E2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'0',testName,"4E");
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'1',testName,"4F");
+   MS_E_CH_FILE_ADDR_TRANSFER <= '0';
+   MS_E1_REG_FULL <= '0';
+   MS_E2_REG_FULL <= '0';
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '0';
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   PS_E_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;
+   -- Should stay latched   
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'1',testName,"4G");
+
+   -- Reset the latches
+   MS_E_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   MS_MASTER_ERROR <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'1',testName,"5A");
+   MS_MASTER_ERROR <= '1';   
+   wait for 30 ns;
+   check1(PS_E_CH_DISCON_LATCH,'1',testName,"5B");
+
+   -- Leave latch set for beginning of next test  
+   
+   check1(PS_E_CH_EXT_END_OF_TRANSFER,'0',testname,"6A"); 
+   check1(MS_E_CH_EXT_END_OF_TRANSFER,'1',testname,"6B");
+   PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT <= '1';
+   wait for 30 ns; 
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90ns; -- Trigger setup time
+   check1(PS_E_CH_EXT_END_OF_TRANSFER,'1',testname,"6C"); 
+   check1(MS_E_CH_EXT_END_OF_TRANSFER,'0',testname,"6D");
+
+
+   -- Reset the latches
+   MS_E_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT <= '1';  -- Should not set by itself
+   wait for 30 ns;
+   check1(PS_E_CH_EXT_END_OF_TRANSFER,'0',testname,"6G"); 
+   check1(MS_E_CH_EXT_END_OF_TRANSFER,'1',testname,"6H");
+   PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT <= '0';
+
+   
    -- Your test bench code
 
    wait;
