@@ -195,7 +195,229 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.42.10.1        ";
 
+   -- There is NO ILD for signal -C CPU READY TO TID
+   -- We do not have destination page 51.43.21.0
+   -- Input to gate DED Symbol DL is +S CLOCK STOPPED
+   -- This gate does NOT invert, so odds are that the 
+   -- signal SHOULD be named +C CPU READY TO TID - or
+   -- maybe the signal was just never used.
+   
+   wait for 30 ns;   
+   check1(MC_CPU_READY_TO_TID,'0',testName,"1A");
+   PS_CLOCK_STOPPED <= '1';
+   wait for 30 ns;   
+   check1(MC_CPU_READY_TO_TID,'1',testName,"1B");
+   PS_CLOCK_STOPPED <= '0';
+   
+   MS_LOGIC_GATE_A_1 <= '0';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'0',testName,"2A");
+   check1(MS_STOPPED_AT_CYCLE_END,'1',testName,"2B");
+   PS_CLOCK_STOPPED <= '1';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'0',testName,"2C");
+   PS_CONS_STOP_PRINT_COMPLETE <= '1';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'1',testName,"2D");
+   check1(MS_STOPPED_AT_CYCLE_END,'0',testName,"2E");
+   MS_LOGIC_GATE_A_1 <= '1';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'0',testName,"2F");
+   MS_LOGIC_GATE_R <= '0';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'1',testName,"2G");
+   MS_LOGIC_GATE_R <= '1';
+   wait for 30 ns;
+   MS_NO_LAST_GATE <= '0';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'1',testName,"2H");
+   MS_NO_LAST_GATE <= '1';
+   wait for 30 ns;
+   MS_LOGIC_GATE_W <= '0';
+   MS_LAST_LOGIC_GATE_1 <= '0';
+   PS_LOGIC_GATE_Z <= '0';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'0',testName,"2I");
+   MS_LOGIC_GATE_W <= '1';  -- NOT LGW
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'0',testName,"2J");
+   MS_LAST_LOGIC_GATE_1 <= '1';  -- AND NOT LLG
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'0',testName,"2K");
+   PS_LOGIC_GATE_Z <= '1';  -- AND LGZ
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'1',testName,"2L");
+   MS_LOGIC_GATE_W <= '0';  -- LGW
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'0',testName,"2M");
+   MS_LOGIC_GATE_W <= '1';  -- NOT LGW
+   wait for 30 ns;
+   MS_LAST_LOGIC_GATE_1 <= '0';  -- LG Z
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'0',testName,"2N");
+   MS_LAST_LOGIC_GATE_1 <= '1';  -- NOT LG Z
+   PS_LOGIC_GATE_Z <= '0';
+      
+   
+   -- Set +S Stopped at Cycle End again for the next test
+   
+   PS_CLOCK_STOPPED <= '1';
+   PS_CONS_STOP_PRINT_COMPLETE <= '1';
+   MS_LOGIC_GATE_A_1 <= '0';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'1',testName,"3A");
+   
+   -- Stopped at last exec cycle latch (Gates 4I, 3I)
+   
+   -- Reset Latch
+   PS_LOGIC_GATE_B_1 <= '1';
+   PS_PROCESS_ROUTINE <= '1';
+   wait for 30 ns;   
+   check1(PS_STOPPED_AT_LAST_EXEC_CYCLE,'0',testName,"3B");
+   PS_LOGIC_GATE_B_1 <= '0';
+   PS_PROCESS_ROUTINE <= '0';
+
+   -- Set the latch
+   MS_I_O_LAST_EX_DOT_Z <= '0';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_LAST_EXEC_CYCLE,'1',testName,"3C");
+   MS_I_O_LAST_EX_DOT_Z <= '1';
+   wait for 30 ns;
+   -- Latch should still be set
+   check1(PS_STOPPED_AT_LAST_EXEC_CYCLE,'1',testName,"3D");
+
+   -- Reset Latch
+   PS_LOGIC_GATE_B_1 <= '1';
+   PS_PROCESS_ROUTINE <= '1';
+   wait for 30 ns;   
+   check1(PS_STOPPED_AT_LAST_EXEC_CYCLE,'0',testName,"3E");
+   PS_LOGIC_GATE_B_1 <= '0';
+   PS_PROCESS_ROUTINE <= '0';
+   
+   -- Set the latch again
+   MS_LAST_EX_DOT_NEXT_TO_LAST <= '0';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_LAST_EXEC_CYCLE,'1',testName,"3F");
+   MS_LAST_EX_DOT_NEXT_TO_LAST <= '1';
+   wait for 30 ns;
+   -- Latch should still be set
+   check1(PS_STOPPED_AT_LAST_EXEC_CYCLE,'1',testName,"3G");
+
+   -- Reset Latch
+   PS_LOGIC_GATE_B_1 <= '1';
+   PS_PROCESS_ROUTINE <= '1';
+   wait for 30 ns;   
+   check1(PS_STOPPED_AT_LAST_EXEC_CYCLE,'0',testName,"3H");
+   PS_LOGIC_GATE_B_1 <= '0';
+   PS_PROCESS_ROUTINE <= '0';
+
+   -- Set the latch again
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_LAST_EXEC_CYCLE,'1',testName,"3I");
+   MS_PROGRAM_RESET_1 <= '1';
+   wait for 30 ns;
+   -- Latch should still be set
+   check1(PS_STOPPED_AT_LAST_EXEC_CYCLE,'1',testName,"3J");
+
+   PS_CLOCK_STOPPED <= '0';
+   PS_CONS_STOP_PRINT_COMPLETE <= '0';
+   MS_LOGIC_GATE_A_1 <= '1';
+   wait for 30 ns;
+   check1(PS_STOPPED_AT_CYCLE_END,'0',testName,"3K");
+   
+   -- Test the automatic computer restart process
+   
+   MS_STOP_KEY_LATCH <= '0';  -- Start test with this set
+   PS_CONS_STOP_PRINT_COMPLETE <= '0';
+   PS_MASTER_ERROR <= '0';
+   SWITCH_ROT_CHECK_CTRL <= "000000";  -- Neutral position
+   wait for 30 ns;
+   check1(MV_ERROR_CTRL_RESET_DOT_RESTART,'1',testName,"4A");
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"4B");
+   
+   -- Set switch to reset + restart
+   
+   SWITCH_ROT_CHECK_CTRL <= "010000";
+   wait for 30 ns;
+   check1(MV_ERROR_CTRL_RESET_DOT_RESTART,'0',testName,"4C");
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"4D");
+   check1(MS_ERROR_RESTART,'1',testName,"4E");
+   MS_STOP_KEY_LATCH <= '1';  -- So, pretend we are running with switch at Reset+Restart
+   wait for 30 ns;
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"4F");
+   check1(MS_ERROR_RESTART,'1',testName,"4G");
+   PS_MASTER_ERROR <= '1'; -- Then an error occurs
+   wait for 30 ns;
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"4F");
+   check1(MS_ERROR_RESTART,'1',testName,"4G");
+   PS_CONS_STOP_PRINT_COMPLETE <= '1'; -- And the console finishes its error printout   
+   wait for 90 ns;
+   -- The one shot for doing a reset should be triggered now
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'0',testName,"4H");
+   check1(MS_ERROR_RESTART,'1',testName,"4I");
+   PS_MASTER_ERROR <= '0';  -- Reset resets master error
+   wait for 900 ns;  -- Wait for the reset to not QUITE time out
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'0',testName,"4J");
+   check1(MS_ERROR_RESTART,'1',testName,"4K");
+   PS_1ST_CLOCK_PULSE_1 <= '1';  -- Condition for restart
+   wait for 200 ns;  -- By now the reset should have timed out and a restart begun
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"4L");
+   check1(MS_ERROR_RESTART,'0',testName,"4M");
+   -- Then reset the error restart latch
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_1 <= '0'; -- And we are off and running again
+   wait for 30 ns;
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"4N");
+   check1(MS_ERROR_RESTART,'1',testName,"4O");
+   
+   -- Test the error restart process (no reset)
+   
+   -- -S Stop Key Latch still at 1 (off)
+   PS_1ST_CLOCK_PULSE_1 <= '1'; 
+   SWITCH_ROT_CHECK_CTRL <= "000010"; -- Set to Error Restart (no reset)
+   wait for 30 ns;
+   check1(MV_ERROR_CTRL_RESET_DOT_RESTART,'1',testName,"5A");
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"5B");
+   check1(MS_ERROR_RESTART,'1',testName,"5C");
+   -- And an error occurss
+   PS_CONS_STOP_PRINT_COMPLETE <= '0';
+   PS_MASTER_ERROR <= '1';
+   wait for 30 ns;
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"5D");
+   check1(MS_ERROR_RESTART,'1',testName,"5E");
+   -- The printout completes, which should set the error restart latch
+   PS_CONS_STOP_PRINT_COMPLETE <= '1';
+   wait for 60 ns;
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"5F");
+   check1(MS_ERROR_RESTART,'0',testName,"5G");
+   PS_MASTER_ERROR <= '0'; -- I suppose this process resets master error
+   -- The latch should still be set
+   wait for 60 ns;
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"5H");
+   check1(MS_ERROR_RESTART,'0',testName,"5I");
+   -- This time, use the stop key latch signal to stop the restart
+   MS_STOP_KEY_LATCH <= '0';
+   wait for 30 ns;
+   check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"5I");
+   check1(MS_ERROR_RESTART,'1',testName,"5J");
+  
+   -- Test the sense switch gating
+   
+   check1(MS_GATE_BIT_SENSE_SWITCH,'1',testName,"6A");
+   MS_1401_COND_TEST_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MS_GATE_BIT_SENSE_SWITCH,'0',testName,"6B");
+   MS_1401_COND_TEST_OP_CODE <= '0';
+   wait for 30 ns;
+   MS_STORAGE_SCAN_LOAD <= '0';
+   wait for 30 ns;
+   check1(MS_GATE_BIT_SENSE_SWITCH,'0',testName,"6C");
+   MS_STORAGE_SCAN_LOAD <= '1';
+   
    wait;
    end process;
 
