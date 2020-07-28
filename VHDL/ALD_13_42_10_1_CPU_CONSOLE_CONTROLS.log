@@ -1,5 +1,5 @@
-Generating HDL for page 13.42.10.1 CPU-CONSOLE CONTROLS at 7/27/2020 6:57:46 PM
-Old test bench file ALD_13_42_10_1_CPU_CONSOLE_CONTROLS_tb.vhdl 0 lines preserved and 25 declaration lines preserved
+Generating HDL for page 13.42.10.1 CPU-CONSOLE CONTROLS at 7/27/2020 7:09:17 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_42_10_1_CPU_CONSOLE_CONTROLS_tb.vhdl, generating default test bench code.
 WARNING: Diagram block at coordinate 5G has 2 different output pins: D,A
 Found combinatorial loop (need D FF) at output of gate at 4D
 Found combinatorial loop (need D FF) at output of gate at 3D
