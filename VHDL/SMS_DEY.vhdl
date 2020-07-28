@@ -35,8 +35,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity SMS_DEY is
     Port ( 
         FPGA_CLK: IN STD_LOGIC;
-        GATEOFF: IN STD_LOGIC;
-        ACRESET: IN STD_LOGIC;
+        GATEOFF: IN STD_LOGIC := '1';    -- Pulled to gnd if not connected
+        ACRESET: IN STD_LOGIC := '1';    -- Pulled to gnd by GATEOFF if not connected
         DCRESET: IN STD_LOGIC := '1';
         GATEON:  IN STD_LOGIC;
         ACSET:   IN STD_LOGIC;
