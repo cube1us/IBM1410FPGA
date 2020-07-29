@@ -1,0 +1,72 @@
+Generating HDL for page 13.50.02.1 I-O CHANNEL SELECT REGISTER at 7/29/2020 3:23:26 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_50_02_1_I_O_CHANNEL_SELECT_REGISTER_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 4A
+Found combinatorial loop (need D FF) at output of gate at 3A
+Found combinatorial loop (need D FF) at output of gate at 4E
+Found combinatorial loop (need D FF) at output of gate at 3E
+Removed 2 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 18 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_P_Latch, OUT_4A_P_Latch
+	and inputs of MS_RESET_I_O_CH_SEL_REG,MS_PROGRAM_RESET_2,OUT_3A_NoPin
+	and logic function of NAND
+Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_NoPin_Latch, OUT_3A_NoPin_Latch
+	and inputs of OUT_4A_P,OUT_5B_D
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B, OUT_2A_B
+	and inputs of OUT_3A_NoPin
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_D
+	and inputs of PS_SET_I_O_CH_SEL_REG,PS_B_CH_A_BIT,PS_B_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_4A_P
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_A, OUT_1C_A
+	and inputs of OUT_2A_B,OUT_1D_B
+	and logic function of Special
+Generating Statement for block at 1D with output pin(s) of OUT_1D_B
+	and inputs of OUT_2E_E
+	and logic function of NOT
+Generating Statement for block at 4E with *latched* output pin(s) of OUT_4E_F_Latch, OUT_4E_F_Latch
+	and inputs of MS_PROGRAM_RESET_2,MS_RESET_I_O_CH_SEL_REG,OUT_3E_NoPin
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_NoPin_Latch, OUT_3E_NoPin_Latch
+	and inputs of OUT_4E_F,OUT_5F_E
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_E, OUT_2E_E
+	and inputs of OUT_3E_NoPin
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_E
+	and inputs of PS_SET_I_O_CH_SEL_REG,PS_B_CH_NOT_A_BIT,PS_B_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_D
+	and inputs of OUT_4E_F
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of OUT_1G_G
+	and inputs of OUT_1C_A
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_I_O_LOZENGE_LATCH
+	from gate output OUT_2A_B
+Generating output sheet edge signal assignment to 
+	signal PS_I_O_LOZENGE_LATCH
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal PS_LOZENGE_OR_ASTERISK
+	from gate output OUT_1C_A
+Generating output sheet edge signal assignment to 
+	signal MS_I_O_ASTERISK_LATCH
+	from gate output OUT_2E_E
+Generating output sheet edge signal assignment to 
+	signal PS_I_O_ASTERISK_LATCH
+	from gate output OUT_1F_D
+Generating output sheet edge signal assignment to 
+	signal MS_LOZENGE_OR_ASTERISK
+	from gate output OUT_1G_G
+Generating D Flip Flop for block at 4A
+Generating D Flip Flop for block at 3A
+Generating D Flip Flop for block at 4E
+Generating D Flip Flop for block at 3E
