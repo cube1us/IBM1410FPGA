@@ -147,7 +147,84 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.50.02.1        ";
+   
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '0';
+   wait for 90 ns;
+   MS_PROGRAM_RESET_2 <= '1';
+   wait for 30 ns;
+   
+   check1(PS_I_O_LOZENGE_LATCH,'0',testName,"1A");
+   check1(MS_I_O_LOZENGE_LATCH,'1',testName,"1B");
+   check1(PS_LOZENGE_OR_ASTERISK,'0',testName,"1C");
+   check1(MS_LOZENGE_OR_ASTERISK,'1',testName,"1D");
+   check1(PS_I_O_ASTERISK_LATCH,'0',testName,"1E");
+   
+   PS_B_CH_A_BIT <= '1';
+   PS_B_CH_B_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_LOZENGE_LATCH,'0',testName,"1F");
+   check1(MS_I_O_LOZENGE_LATCH,'1',testName,"1G");
+   check1(PS_LOZENGE_OR_ASTERISK,'0',testName,"1H");
+   check1(MS_LOZENGE_OR_ASTERISK,'1',testName,"1I");
+   check1(PS_I_O_ASTERISK_LATCH,'0',testName,"1J");
+   PS_SET_I_O_CH_SEL_REG <= '1';
+   wait for 30 ns;
+   PS_SET_I_O_CH_SEL_REG <= '0';
+   PS_B_CH_A_BIT <= '0';
+   PS_B_CH_B_BIT <= '0';
+   -- Should be latched, even with stimulus removed
+   wait for 30 ns;
+   check1(PS_I_O_LOZENGE_LATCH,'1',testName,"1K");
+   check1(MS_I_O_LOZENGE_LATCH,'0',testName,"1L");
+   check1(PS_LOZENGE_OR_ASTERISK,'1',testName,"1M");
+   check1(MS_LOZENGE_OR_ASTERISK,'0',testName,"1N");
+   check1(PS_I_O_ASTERISK_LATCH,'0',testName,"1O");
+   
+   
+   MS_RESET_I_O_CH_SEL_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_I_O_CH_SEL_REG <= '1';
+   check1(PS_I_O_LOZENGE_LATCH,'0',testName,"1P");
+   check1(MS_I_O_LOZENGE_LATCH,'1',testName,"1Q");
+   check1(PS_LOZENGE_OR_ASTERISK,'0',testName,"1R");
+   check1(MS_LOZENGE_OR_ASTERISK,'1',testName,"1S");
+   check1(PS_I_O_ASTERISK_LATCH,'0',testName,"1T");
+   check1(MS_I_O_ASTERISK_LATCH,'1',testName,"1U");
+   
+   PS_B_CH_NOT_A_BIT <= '1';
+   PS_B_CH_B_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_LOZENGE_LATCH,'0',testName,"2A");
+   check1(PS_LOZENGE_OR_ASTERISK,'0',testName,"2B");
+   check1(MS_LOZENGE_OR_ASTERISK,'1',testName,"2C");
+   check1(PS_I_O_ASTERISK_LATCH,'0',testName,"2D");
+   check1(MS_I_O_ASTERISK_LATCH,'1',testName,"2E");
+   PS_SET_I_O_CH_SEL_REG <= '1';
+   wait for 30 ns;
+   PS_SET_I_O_CH_SEL_REG <= '0';
+   PS_B_CH_NOT_A_BIT <= '0';
+   PS_B_CH_B_BIT <= '0';
+   wait for 30 ns;
+   -- Should be latched now, even with stimulus removed
+   check1(PS_I_O_LOZENGE_LATCH,'0',testName,"2F");
+   check1(PS_LOZENGE_OR_ASTERISK,'1',testName,"2G");
+   check1(MS_LOZENGE_OR_ASTERISK,'0',testName,"2H");
+   check1(PS_I_O_ASTERISK_LATCH,'1',testName,"2I");
+   check1(MS_I_O_ASTERISK_LATCH,'0',testName,"2J");
 
+   MS_RESET_I_O_CH_SEL_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_I_O_CH_SEL_REG <= '1';
+   check1(PS_I_O_LOZENGE_LATCH,'0',testName,"2K");
+   check1(MS_I_O_LOZENGE_LATCH,'1',testName,"2L");
+   check1(PS_LOZENGE_OR_ASTERISK,'0',testName,"2M");
+   check1(MS_LOZENGE_OR_ASTERISK,'1',testName,"2N");
+   check1(PS_I_O_ASTERISK_LATCH,'0',testName,"2O");
+   check1(MS_I_O_ASTERISK_LATCH,'1',testName,"2P");
+   
    wait;
    end process;
 
