@@ -278,7 +278,9 @@ uut_process: process
    -- Not yet
    check1(PS_I_O_PERCENT_LATCH,'1',testName,"1AA");
    PS_LOGIC_GATE_E_1 <= '1';
+   -- Now
    wait for 30 ns;
+   PS_I_RING_OP_TIME <= '0';
    check1(PS_I_O_PERCENT_OR_LOZENGE,'0',testName,"1AB");
    check1(PS_I_O_PERCENT_LATCH,'0',testName,"1AC");
    check1(MS_I_O_PERCENT_LATCH,'1',testName,"1AD");
@@ -287,6 +289,167 @@ uut_process: process
    check1(PS_I_O_COML_AT_LATCH,'0',testName,"1AG");
    check1(MS_I_O_COML_AT_LATCH,'1',testName,"1AH");
    check1(PS_COML_AT_OR_ASTERISK,'0',testName,"1AI");
+   
+   MS_1401_MODE <= '1';
+   PS_ANY_M_OR_L_OR_U_OP <= '1';
+   PS_I_CYCLE_1 <= '1';
+   PS_I_RING_3_TIME <= '1';
+   PS_LOGIC_GATE_E_1 <= '1';
+   PS_B_CH_NOT_WM_BIT <= '1';
+   PS_B_CH_8_BIT <= '1';
+   PS_B_CH_4_BIT <= '1';
+   PS_B_CH_NOT_2_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_O_CH_SEL_REG,'0',testName,"2A");
+   PS_B_CH_NOT_1_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_O_CH_SEL_REG,'1',testName,"2B");
+   PS_B_CH_NOT_A_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'0',testName,"2C");
+   check1(PS_I_O_PERCENT_LATCH,'0',testName,"2D");
+   check1(MS_I_O_PERCENT_LATCH,'1',testName,"2E");
+   check1(PS_PERCENT_OR_COML_AT,'0',testName,"2F");
+   check1(MS_PERCENT_OR_COML_AT,'1',testName,"2G");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"2H");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"2I");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"2J");
+   PS_B_CH_NOT_B_BIT <= '1';   
+   wait for 90 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'0',testName,"2K");
+   check1(PS_I_O_PERCENT_LATCH,'0',testName,"2L");
+   check1(MS_I_O_PERCENT_LATCH,'1',testName,"2M");
+   check1(PS_PERCENT_OR_COML_AT,'1',testName,"2N");
+   check1(MS_PERCENT_OR_COML_AT,'0',testName,"2O");
+   check1(PS_I_O_COML_AT_LATCH,'1',testName,"2P");
+   check1(MS_I_O_COML_AT_LATCH,'0',testName,"2Q");
+   check1(PS_COML_AT_OR_ASTERISK,'1',testName,"2R");
+   -- Latch should stay set until reset
+   PS_ANY_M_OR_L_OR_U_OP <= '0';
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_3_TIME <= '0';
+   PS_LOGIC_GATE_E_1 <= '0';
+   PS_B_CH_NOT_WM_BIT <= '0';
+   PS_B_CH_8_BIT <= '0';
+   PS_B_CH_4_BIT <= '0';
+   PS_B_CH_NOT_2_BIT <= '0';
+   PS_B_CH_NOT_1_BIT <= '0';
+   PS_B_CH_NOT_A_BIT <= '0';
+   PS_B_CH_NOT_B_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'0',testName,"2S");
+   check1(PS_I_O_PERCENT_LATCH,'0',testName,"2T");
+   check1(MS_I_O_PERCENT_LATCH,'1',testName,"2U");
+   check1(PS_PERCENT_OR_COML_AT,'1',testName,"2V");
+   check1(MS_PERCENT_OR_COML_AT,'0',testName,"2W");
+   check1(PS_I_O_COML_AT_LATCH,'1',testName,"2X");
+   check1(MS_I_O_COML_AT_LATCH,'0',testName,"2Y");
+   check1(PS_COML_AT_OR_ASTERISK,'1',testName,"2Z");
+   -- Reset the latch
+   PS_I_RING_OP_TIME <= '1';
+   wait for 30 ns;
+   -- Not yet
+   check1(PS_I_O_COML_AT_LATCH,'1',testName,"1AA");
+   PS_LOGIC_GATE_E_1 <= '1';
+   -- Now
+   wait for 30 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'0',testName,"2AB");
+   check1(PS_I_O_PERCENT_LATCH,'0',testName,"2AC");
+   check1(MS_I_O_PERCENT_LATCH,'1',testName,"2AD");
+   check1(PS_PERCENT_OR_COML_AT,'0',testName,"2AE");
+   check1(MS_PERCENT_OR_COML_AT,'1',testName,"2AF");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"2AG");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"2AH");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"2AI");
+   PS_I_RING_OP_TIME <= '0';
+
+   -- Now, re run the two tests in 1401 mode, which yields
+   -- different results.  In 1401 mode, NOT A and NOT B
+   -- sets the percent latch, not the coml at latch
+   
+   PS_1401_MODE <= '1';
+   MS_1401_MODE <= '0';
+  
+   PS_ANY_M_OR_L_OR_U_OP <= '1';
+   PS_I_CYCLE_1 <= '1';
+   PS_I_RING_3_TIME <= '1';
+   PS_LOGIC_GATE_E_1 <= '1';
+   PS_B_CH_NOT_WM_BIT <= '1';
+   PS_B_CH_8_BIT <= '1';
+   PS_B_CH_4_BIT <= '1';
+   PS_B_CH_NOT_2_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_O_CH_SEL_REG,'0',testName,"3A");
+   PS_B_CH_NOT_1_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_O_CH_SEL_REG,'1',testName,"3B");
+   
+   PS_B_CH_NOT_B_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'0',testName,"3C");
+   check1(PS_I_O_PERCENT_LATCH,'0',testName,"3D");
+   check1(MS_I_O_PERCENT_LATCH,'1',testName,"3E");
+   check1(PS_PERCENT_OR_COML_AT,'0',testName,"3F");
+   check1(MS_PERCENT_OR_COML_AT,'1',testName,"3G");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"3H");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"3I");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"3J");
+   
+   PS_B_CH_A_BIT <= '0';
+   PS_B_CH_NOT_A_BIT <= '1';
+   wait for 90 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'1',testName,"3K");
+   check1(PS_I_O_PERCENT_LATCH,'1',testName,"3L");
+   check1(MS_I_O_PERCENT_LATCH,'0',testName,"3M");
+   check1(PS_PERCENT_OR_COML_AT,'1',testName,"3N");
+   check1(MS_PERCENT_OR_COML_AT,'0',testName,"3O");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"3P");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"3Q");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"3R");
+   -- Latch should stay set until reset
+   PS_ANY_M_OR_L_OR_U_OP <= '0';
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_3_TIME <= '0';
+   PS_LOGIC_GATE_E_1 <= '0';
+   PS_B_CH_NOT_WM_BIT <= '0';
+   PS_B_CH_8_BIT <= '0';
+   PS_B_CH_4_BIT <= '0';
+   PS_B_CH_NOT_2_BIT <= '0';
+   PS_B_CH_NOT_1_BIT <= '0';
+   PS_B_CH_A_BIT <= '0';
+   PS_B_CH_NOT_B_BIT <= '0';
+   PS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'1',testName,"3S");
+   check1(PS_I_O_PERCENT_LATCH,'1',testName,"3T");
+   check1(MS_I_O_PERCENT_LATCH,'0',testName,"3U");
+   check1(PS_PERCENT_OR_COML_AT,'1',testName,"3V");
+   check1(MS_PERCENT_OR_COML_AT,'0',testName,"3W");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"3X");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"3Y");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"3Z");
+   -- Reset the latch
+   PS_I_RING_OP_TIME <= '1';
+   wait for 30 ns;
+   -- Not yet
+   check1(PS_I_O_PERCENT_LATCH,'1',testName,"3AA");
+   PS_LOGIC_GATE_E_1 <= '1';
+   -- Now
+   wait for 30 ns;
+   PS_I_RING_OP_TIME <= '0';
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'0',testName,"3AB");
+   check1(PS_I_O_PERCENT_LATCH,'0',testName,"3AC");
+   check1(MS_I_O_PERCENT_LATCH,'1',testName,"3AD");
+   check1(PS_PERCENT_OR_COML_AT,'0',testName,"3AE");
+   check1(MS_PERCENT_OR_COML_AT,'1',testName,"3AF");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"3AG");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"3AH");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"3AI");
+   
+   MS_I_O_ASTERISK_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_COML_AT_OR_ASTERISK,'1',testName,"4A");
+   MS_I_O_ASTERISK_LATCH <= '1';
    
 
    wait;
