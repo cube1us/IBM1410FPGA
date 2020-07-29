@@ -191,10 +191,103 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-
+   
+   -- Since this isn't a group page, we don't have the
+   -- bus vectors to work with.
+   
    begin
 
    -- Your test bench code
+
+   testName := "13.50.01.1        ";
+   
+   MS_PROGRAM_RESET_2 <= '0';
+   wait for 90 ns;
+   MS_PROGRAM_RESET_2 <= '1';
+   wait for 30 ns;
+   
+   check1(PS_SET_I_O_CH_SEL_REG,'0',testName,"SA");
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'0',testName,"SB");
+   check1(PS_I_O_PERCENT_LATCH,'0',testName,"SC");
+   check1(MS_I_O_PERCENT_LATCH,'1',testName,"SD");
+   check1(PS_PERCENT_OR_COML_AT,'0',testName,"SE");
+   check1(MS_PERCENT_OR_COML_AT,'1',testName,"SF");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"SG");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"SH");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"SI");
+   check1(MS_RESET_I_O_CH_SEL_REG,'1',testName,"SJ");
+   
+   PS_ANY_M_OR_L_OR_U_OP <= '1';
+   PS_I_CYCLE_1 <= '1';
+   PS_I_RING_3_TIME <= '1';
+   PS_LOGIC_GATE_E_1 <= '1';
+   PS_B_CH_NOT_WM_BIT <= '1';
+   PS_B_CH_8_BIT <= '1';
+   PS_B_CH_4_BIT <= '1';
+   PS_B_CH_NOT_2_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_O_CH_SEL_REG,'0',testName,"1A");
+   PS_B_CH_NOT_1_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_SET_I_O_CH_SEL_REG,'1',testName,"1B");
+   
+   PS_B_CH_A_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'0',testName,"1C");
+   check1(PS_I_O_PERCENT_LATCH,'0',testName,"1D");
+   check1(MS_I_O_PERCENT_LATCH,'1',testName,"1E");
+   check1(PS_PERCENT_OR_COML_AT,'0',testName,"1F");
+   check1(MS_PERCENT_OR_COML_AT,'1',testName,"1G");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"1H");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"1I");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"1J");
+   PS_B_CH_NOT_B_BIT <= '1';   
+   wait for 90 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'1',testName,"1K");
+   check1(PS_I_O_PERCENT_LATCH,'1',testName,"1L");
+   check1(MS_I_O_PERCENT_LATCH,'0',testName,"1M");
+   check1(PS_PERCENT_OR_COML_AT,'1',testName,"1N");
+   check1(MS_PERCENT_OR_COML_AT,'0',testName,"1O");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"1P");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"1Q");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"1R");
+   -- Latch should stay set until reset
+   PS_ANY_M_OR_L_OR_U_OP <= '0';
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_3_TIME <= '0';
+   PS_LOGIC_GATE_E_1 <= '0';
+   PS_B_CH_NOT_WM_BIT <= '0';
+   PS_B_CH_8_BIT <= '0';
+   PS_B_CH_4_BIT <= '0';
+   PS_B_CH_NOT_2_BIT <= '0';
+   PS_B_CH_NOT_1_BIT <= '0';
+   PS_B_CH_A_BIT <= '0';
+   PS_B_CH_NOT_B_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'1',testName,"1S");
+   check1(PS_I_O_PERCENT_LATCH,'1',testName,"1T");
+   check1(MS_I_O_PERCENT_LATCH,'0',testName,"1U");
+   check1(PS_PERCENT_OR_COML_AT,'1',testName,"1V");
+   check1(MS_PERCENT_OR_COML_AT,'0',testName,"1W");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"1X");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"1Y");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"1Z");
+   -- Reset the latch
+   PS_I_RING_OP_TIME <= '1';
+   wait for 30 ns;
+   -- Not yet
+   check1(PS_I_O_PERCENT_LATCH,'1',testName,"1AA");
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_PERCENT_OR_LOZENGE,'0',testName,"1AB");
+   check1(PS_I_O_PERCENT_LATCH,'0',testName,"1AC");
+   check1(MS_I_O_PERCENT_LATCH,'1',testName,"1AD");
+   check1(PS_PERCENT_OR_COML_AT,'0',testName,"1AE");
+   check1(MS_PERCENT_OR_COML_AT,'1',testName,"1AF");
+   check1(PS_I_O_COML_AT_LATCH,'0',testName,"1AG");
+   check1(MS_I_O_COML_AT_LATCH,'1',testName,"1AH");
+   check1(PS_COML_AT_OR_ASTERISK,'0',testName,"1AI");
+   
 
    wait;
    end process;
