@@ -1,0 +1,105 @@
+Generating HDL for page 13.50.04.1 E CH UNIT SELECTION OPTIONAL at 7/29/2020 3:51:58 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_50_04_1_E_CH_UNIT_SELECTION_OPTIONAL_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_D
+	and inputs of PS_E_CH_U_SEL_REG_NOT_1_BIT,PS_E_CH_U_SEL_REG_NOT_4_BIT,PS_E_CH_U_SEL_REG_NOT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C
+	and inputs of PS_E_CH_U_SEL_REG_NOT_A_BIT,PS_E_CH_U_SEL_REG_B_BIT,PS_E_CH_U_SEL_REG_NOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_A
+	and inputs of OUT_DOT_3A
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_E_CH_U_SEL_REG_C_BIT,PS_E_CH_U_SEL_REG_B_DOT_NOT_A_BIT,PS_E_CH_U_SEL_REG_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A
+	and inputs of OUT_DOT_4B
+	and logic function of EQUAL
+Generating Statement for block at 2B with output pin(s) of OUT_2B_B
+	and inputs of OUT_DOT_3A
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_E_CH_U_SEL_REG_4_BIT,PS_E_CH_U_SEL_REG_2_BIT,PS_E_CH_U_SEL_REG_1_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_F
+	and inputs of PS_E_CH_U_SEL_REG_8_BIT
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_R
+	and inputs of OUT_DOT_3A
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of MS_E_CH_SELECT_UNIT_R,MS_E_CH_SELECT_UNIT_N,OUT_DOT_4B
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of PS_E_CH_U_SEL_REG_NOT_C_BIT,PS_E_CH_U_SEL_REG_B_BIT,PS_E_CH_U_SEL_REG_NOT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_DOT_3D
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of MS_E_CH_SELECT_UNIT_L,MS_E_CH_SELECT_UNIT_M,OUT_DOT_4H
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_G
+	and inputs of PS_E_CH_U_SEL_A_DOT_NOT_8_DOT_NOT_1,PS_E_CH_U_SEL_REG_4_BIT
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of OUT_DOT_3D
+	and logic function of EQUAL
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of PS_E_CH_U_SEL_REG_C_BIT,PS_E_CH_U_SEL_REG_B_DOT_NOT_A_BIT,PS_E_CH_U_SEL_REG_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_K
+	and inputs of OUT_DOT_4F
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of PS_E_CH_U_SEL_REG_NOT_4_BIT,PS_E_CH_U_SEL_REG_2_BIT,PS_E_CH_U_SEL_REG_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_E
+	and inputs of PS_E_CH_U_SEL_REG_B_DOT_NOT_A_BIT,PS_E_CH_U_SEL_REG_C_BIT,PS_E_CH_U_SEL_REG_8_BIT
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_H
+	and inputs of OUT_DOT_4H
+	and logic function of EQUAL
+Generating Statement for block at 4I with output pin(s) of OUT_4I_D
+	and inputs of PS_E_CH_U_SEL_REG_NOT_4_BIT,PS_E_CH_U_SEL_REG_NOT_1_BIT,PS_E_CH_U_SEL_REG_NOT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A, OUT_DOT_3A, OUT_DOT_3A
+	and inputs of OUT_4A_D,OUT_3A_C,OUT_3C_F
+	and logic function of OR
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B, OUT_DOT_4B
+	and inputs of OUT_4B_D,OUT_4C_C
+	and logic function of OR
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_2C_R,OUT_4D_C,OUT_2D_C,OUT_4E_C
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D, OUT_DOT_3D
+	and inputs of OUT_3D_D,OUT_3E_G
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
+	and inputs of OUT_4F_D,OUT_4G_C
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H, OUT_DOT_4H
+	and inputs of OUT_4H_E,OUT_4I_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MC_UNIT_8_SEL_TO_I_O
+	from gate output OUT_2A_A
+Generating output sheet edge signal assignment to 
+	signal MC_SELECT_UNIT_P
+	from gate output OUT_3B_A
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_SELECT_UNIT_8
+	from gate output OUT_2B_B
+Generating output sheet edge signal assignment to 
+	signal MC_SELECT_UNIT_D
+	from gate output OUT_2E_A
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_SELECT_UNIT_K
+	from gate output OUT_2F_K
+Generating output sheet edge signal assignment to 
+	signal MC_SELECT_UNIT_Q
+	from gate output OUT_2H_H
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_BUFFER_SELECT
+	from gate output OUT_DOT_2C

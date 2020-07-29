@@ -1,0 +1,106 @@
+Generating HDL for group named EChIOUnitSelectionat 7/29/2020 3:54:18 PM containing pages: 
+	13.50.03.1, 13.50.04.1, 13.50.05.1, 13.50.07.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\EChIOUnitSelection_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 4 pages...
+Found 26 signals on page 13.50.03.1
+Found 25 signals on page 13.50.04.1
+Found 21 signals on page 13.50.05.1
+Found 31 signals on page 13.50.07.1
+Found 28 unique input signals and 43 unique output signals, (65 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S E CH U SEL REG NOT C BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG NOT B BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG NOT 8 BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG NOT 2 BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG NOT A BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG NOT 4 BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG 2 BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG NOT 1 BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG 1 BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG 4 BIT originates outside the group.
+INFO:  Signal +S E CH OUTPUT MODE originates outside the group.
+INFO:  Signal +S E CH U SEL REG A BIT originates outside the group.
+INFO:  Signal +S E CH INPUT MODE originates outside the group.
+INFO:  Signal +S E CH U SEL REG C BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG B.NOT A BIT originates inside the group.
+INFO:  Signal -S E CH SELECT UNIT N originates inside the group.
+INFO:  Signal -S E CH SELECT UNIT R originates inside the group.
+INFO:  Signal +S E CH U SEL REG B BIT originates outside the group.
+INFO:  Signal -S E CH SELECT UNIT L originates inside the group.
+INFO:  Signal -S E CH SELECT UNIT M originates inside the group.
+INFO:  Signal +S E CH U SEL A.NOT 8.NOT 1 originates inside the group.
+INFO:  Signal +S E CH U SEL REG 8 BIT originates outside the group.
+INFO:  Signal +S I RING 5 TIME originates outside the group.
+INFO:  Signal +S PERCENT OR COML AT originates outside the group.
+INFO:  Signal +S E CH ANY STATUS ON originates outside the group.
+INFO:  Signal +S E CH STATUS SAMPLE A DELAY originates outside the group.
+INFO:  Signal -S E CH STATUS SAMPLE B DELAY originates outside the group.
+INFO:  Signal -S E CH R.B.C.I. ON originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S E CH SELECT UNIT T is used outside the group.
+INFO:  Signal +S E CH SELECT UNIT T is used outside the group.
+INFO:  Signal +S E CH SELECT UNIT T.INPUT is used outside the group.
+INFO:  Signal -S E CH SELECT UNIT T.INPUT is used outside the group.
+INFO:  Signal +S E CH SELECT UNIT T.OUTPUT is used outside the group.
+INFO:  Signal +S E CH SELECT UNIT 1 is used outside the group.
+INFO:  Signal -C UNIT 1 SELECT TO I-O is used outside the group.
+INFO:  Signal -S E CH SELECT UNIT 1 is used outside the group.
+INFO:  Signal +S E CH SELECT UNIT 2 is used outside the group.
+INFO:  Signal -C UNIT 2 SELECT TO I-O is used outside the group.
+INFO:  Signal -S E CH SELECT UNIT 2 is used outside the group.
+INFO:  Signal -C UNIT 4 SELECT TO I-O is used outside the group.
+INFO:  Signal -S E CH SELECT UNIT 4 is used outside the group.
+INFO:  Signal -C UNIT 8 SEL TO I-O is used outside the group.
+INFO:  Signal +S E CH SELECT UNIT 8 is used outside the group.
+INFO:  Signal -C SELECT UNIT P is used outside the group.
+INFO:  Signal +S E CH BUFFER SELECT is used outside the group.
+INFO:  Signal -C SELECT UNIT D is used outside the group.
+INFO:  Signal -S E CH SELECT UNIT K is used outside the group.
+INFO:  Signal -C SELECT UNIT Q is used outside the group.
+INFO:  Signal +S E CH U SEL REG B.NOT A BIT is used only inside the group.
+INFO:  Signal -S E CH SELECT UNIT R is used only inside the group.
+INFO:  Signal -S E CH SELECT UNIT N is used only inside the group.
+INFO:  Signal -S E CH SELECT UNIT L is used only inside the group.
+INFO:  Signal -S E CH SELECT UNIT M is used only inside the group.
+INFO:  Signal -C E CH SELECT UNIT R is used outside the group.
+INFO:  Signal -C SELECT UNIT L is used outside the group.
+INFO:  Signal -C E CH SELECT UNIT M is used outside the group.
+INFO:  Signal -C SELECT UNIT N is used outside the group.
+INFO:  Signal +S E CH SELECT TAPE DATA is used outside the group.
+INFO:  Signal -S E CH SELECT UNIT F is used outside the group.
+INFO:  Signal -S E CH SELECT TAPE DATA is used outside the group.
+INFO:  Signal -S E CH SELECT UNIT F A is used outside the group.
+INFO:  Signal +S E CH SELECT UNIT F is used outside the group.
+INFO:  Signal +S E CH U SEL A.NOT 8.NOT 1 is used only inside the group.
+INFO:  Signal -S E CH SELECT UNIT U is used outside the group.
+INFO:  Signal +S E CH SELECT UNIT U is used outside the group.
+INFO:  Signal -C ODD PARITY TO TAPE *E CH is used outside the group.
+INFO:  Signal +S E CH SELECT UNIT B is used outside the group.
+INFO:  Signal -S E CH SELECT UNIT B is used outside the group.
+INFO:  Signal +S E CH SEL UNIT F LATCHED is used outside the group.
+INFO:  Signal -C UNIT SEL F *E CH 1301 is used outside the group.
+INFO:  Signal -C UNIT SEL F *E CH 1405 is used outside the group.
+Removing 6 output signals that do not have destinations outside the group...
+Removing 6 input signals that originate inside the group...
+Input Signal +S E CH U SEL REG NOT C BIT replaced by Bus signal +S E CH U SEL REG NOT BUS
+Input Signal +S E CH U SEL REG NOT B BIT replaced by Bus signal +S E CH U SEL REG NOT BUS
+Input Signal +S E CH U SEL REG NOT 8 BIT replaced by Bus signal +S E CH U SEL REG NOT BUS
+Input Signal +S E CH U SEL REG NOT 2 BIT replaced by Bus signal +S E CH U SEL REG NOT BUS
+Input Signal +S E CH U SEL REG NOT A BIT replaced by Bus signal +S E CH U SEL REG NOT BUS
+Input Signal +S E CH U SEL REG NOT 4 BIT replaced by Bus signal +S E CH U SEL REG NOT BUS
+Input Signal +S E CH U SEL REG 2 BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S E CH U SEL REG NOT 1 BIT replaced by Bus signal +S E CH U SEL REG NOT BUS
+Input Signal +S E CH U SEL REG 1 BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S E CH U SEL REG 4 BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S E CH U SEL REG A BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S E CH U SEL REG C BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S E CH U SEL REG B BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S E CH U SEL REG 8 BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S I RING 5 TIME replaced by Bus signal +S I RING HDL BUS
+Generating list of internal signals/wires ...
+6 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.50.03.1 (I-O UNIT SELECTION E CHANNEL)
+Generating HDL associated with page 13.50.04.1 (E CH UNIT SELECTION OPTIONAL)
+Generating HDL associated with page 13.50.05.1 (I-O UNIT SELECTION OPTIONAL)
+Generating HDL associated with page 13.50.07.1 (E CH UNIT SELECT OPTIONAL)

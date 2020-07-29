@@ -1,0 +1,83 @@
+Generating HDL for page 13.50.05.1 I-O UNIT SELECTION OPTIONAL at 7/29/2020 3:52:02 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_50_05_1_I_O_UNIT_SELECTION_OPTIONAL_tb.vhdl, generating default test bench code.
+Generating Statement for block at 3A with output pin(s) of OUT_3A_E
+	and inputs of PS_E_CH_U_SEL_REG_8_BIT,OUT_4I_R,PS_E_CH_U_SEL_REG_NOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_G
+	and inputs of OUT_DOT_3A
+	and logic function of EQUAL
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of PS_E_CH_U_SEL_REG_NOT_2_BIT,PS_E_CH_U_SEL_REG_1_BIT,PS_E_CH_U_SEL_REG_NOT_4_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of PS_E_CH_U_SEL_REG_NOT_C_BIT,OUT_4I_R,PS_E_CH_U_SEL_REG_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_H
+	and inputs of OUT_DOT_3C
+	and logic function of EQUAL
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of PS_E_CH_U_SEL_REG_NOT_4_BIT,PS_E_CH_U_SEL_REG_2_BIT,PS_E_CH_U_SEL_REG_1_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E
+	and inputs of PS_E_CH_U_SEL_REG_C_BIT,OUT_4I_R,PS_E_CH_U_SEL_REG_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_G
+	and inputs of OUT_DOT_3E
+	and logic function of EQUAL
+Generating Statement for block at 3F with output pin(s) of OUT_3F_E
+	and inputs of PS_E_CH_U_SEL_REG_4_BIT,PS_E_CH_U_SEL_REG_NOT_2_BIT,PS_E_CH_U_SEL_REG_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_E
+	and inputs of PS_E_CH_U_SEL_REG_NOT_C_BIT,OUT_4I_R,PS_E_CH_U_SEL_REG_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_E
+	and inputs of OUT_DOT_3G
+	and logic function of EQUAL
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of PS_E_CH_U_SEL_REG_4_BIT,PS_E_CH_U_SEL_REG_NOT_2_BIT,PS_E_CH_U_SEL_REG_1_BIT
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_NoPin
+	and inputs of PS_E_CH_U_SEL_REG_NOT_A_BIT,PS_E_CH_U_SEL_REG_B_BIT
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_R, OUT_4I_R, OUT_4I_R, OUT_4I_R, OUT_4I_R
+	and inputs of OUT_5I_NoPin
+	and logic function of NOT
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A, OUT_DOT_3A
+	and inputs of OUT_3A_E,OUT_3B_C
+	and logic function of OR
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C, OUT_DOT_3C
+	and inputs of OUT_3C_D,OUT_3D_D
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E, OUT_DOT_3E
+	and inputs of OUT_3E_E,OUT_3F_E
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G, OUT_DOT_3G
+	and inputs of OUT_3G_E,OUT_3H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MC_E_CH_SELECT_UNIT_R
+	from gate output OUT_1A_G
+Generating output sheet edge signal assignment to 
+	signal MC_SELECT_UNIT_L
+	from gate output OUT_1C_H
+Generating output sheet edge signal assignment to 
+	signal MC_E_CH_SELECT_UNIT_M
+	from gate output OUT_1E_G
+Generating output sheet edge signal assignment to 
+	signal MC_SELECT_UNIT_N
+	from gate output OUT_1G_E
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_U_SEL_REG_B_DOT_NOT_A_BIT
+	from gate output OUT_4I_R
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_SELECT_UNIT_R
+	from gate output OUT_DOT_3A
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_SELECT_UNIT_L
+	from gate output OUT_DOT_3C
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_SELECT_UNIT_M
+	from gate output OUT_DOT_3E
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_SELECT_UNIT_N
+	from gate output OUT_DOT_3G
