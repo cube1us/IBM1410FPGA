@@ -242,16 +242,812 @@ fpga_clk_process: process
 -- End of TestBenchFPGAClock.vhdl
 --   
 
+-- Perpetual signal assignments
+
+PS_E_CH_U_SEL_REG_NOT_BUS <= NOT PS_E_CH_U_SEL_REG_BUS;
+
 -- Place your test bench code in the uut_process
 
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-
+   variable testChar: string(1 to 6);
+   
    begin
 
    -- Your test bench code
+   
+   testName := "13.50.03.1 - 07.1 ";
+   wait for 30 ns;
+   
+   testChar := "Start ";
+   
+   -- Reset the latch
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 30 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   
+   check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+   check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+   check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+   check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+   check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+   check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+   check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+   check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+   check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+   check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+   check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+   check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+   check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+   check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+   check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+   check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+   check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+   check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+   check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+   check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+   check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+   check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+   check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+   check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+   check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+   check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+   check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+   check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+   check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+   check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+   check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+   check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+   check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+   check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+   check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+   check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+   check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+   
+   for BCD_CHAR in BCD.BCD loop
+      PS_E_CH_U_SEL_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD_CHAR);
+      wait for 30 ns;
+      report "Character is " & BCD.BCD'image(BCD_CHAR);
+      case BCD_CHAR is
+
+         when BCD.BCD_1 =>
+            testChar := "1     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'0',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_2 =>
+            testChar := "2     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'0',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_4 =>
+            testChar := "4     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'0',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'0',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_8 =>
+            testChar := "8     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            
+            -- The ALD page 13.50.04.1 decodes unit 8 as  B 8 instead of 8  Not sure if
+            -- this was done intentionally, and then rewired if the punch column binary
+            -- feature was instealled.  So, for now, Unit 8 does not decode
+            
+            -- FAILED check1(PS_E_CH_SELECT_UNIT_8,'1',testName,testChar & "+S 8");
+            -- FAILED check1(MC_UNIT_8_SEL_TO_I_O,'0',testName,testChar & "-C 8");
+            
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_T =>
+            testChar := "T     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_P =>
+            testChar := "P     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'0',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'1',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_D =>
+            testChar := "D     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'0',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'1',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_K =>
+            testChar := "K     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'0',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_Q =>
+            testChar := "Q     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'0',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'1',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_R =>
+            testChar := "R     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'0',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'1',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_L =>
+            testChar := "L     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'0',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'1',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_M =>
+            testChar := "2     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'0',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'1',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_N =>
+            testChar := "N     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'0',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'1',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_U =>
+            testChar := "U     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_B =>
+            testChar := "B     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'0',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+         when BCD.BCD_F =>
+            testChar := "F     ";   
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'0',testName,testChar & "-S F A");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+
+            -- Set the Unit F Latch
+            
+            PS_I_RING_HDL_BUS(5) <= '1';
+            wait for 30 ns;
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latch 1");
+            PS_PERCENT_OR_COML_AT <= '1';
+            wait for 30 ns;
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'1',testName,testChar & "+S F Latch 2");
+            -- Should stay latched
+            PS_I_RING_HDL_BUS(5) <= '0';
+            PS_PERCENT_OR_COML_AT <= '0';
+            wait for 30 ns;
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'1',testName,testChar & "+S F Latch 3");
+            MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON <= '0';
+            wait for 30 ns;
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301 1");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405 1");
+            MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON <= '1';
+            wait for 30 ns;
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'0',testName,testChar & "-C F*1301 2");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'0',testName,testChar & "-C F*1405 2");
+                        
+            -- Reset the latch  ;)
+            
+            PS_E_CH_ANY_STATUS_ON <= '1';
+            PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+            wait for 30 ns;
+            PS_E_CH_ANY_STATUS_ON <= '0';
+            PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+                                                
+         when others =>
+            testChar := "OTHER ";
+
+            check1(PS_E_CH_SELECT_UNIT_1,'0',testName,testChar & "+S 1");
+            check1(MS_E_CH_SELECT_UNIT_1,'1',testName,testChar & "-S 1");
+            check1(MC_UNIT_1_SELECT_TO_I_O,'1',testName,testChar & "-C 1");
+            check1(PS_E_CH_SELECT_UNIT_2,'0',testName,testChar & "+S 2");
+            check1(MS_E_CH_SELECT_UNIT_2,'1',testName,testChar & "-S 2");
+            check1(MC_UNIT_2_SELECT_TO_I_O,'1',testName,testChar & "-C 2");
+            check1(MS_E_CH_SELECT_UNIT_4,'1',testName,testChar & "-S 4");
+            check1(MC_UNIT_4_SELECT_TO_I_O,'1',testName,testChar & "-C 4");
+            check1(PS_E_CH_SELECT_UNIT_T,'0',testName,testChar & "+S T");
+            check1(MS_E_CH_SELECT_UNIT_T,'1',testName,testChar & "-S T");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,'0',testName,testChar & "+S T.Output");
+            check1(PS_E_CH_SELECT_UNIT_T_DOT_INPUT,'0',testName,testChar & "+S T.Input");
+            check1(MS_E_CH_SELECT_UNIT_T_DOT_INPUT,'1',testName,testChar & "-S T.Input");
+            check1(PS_E_CH_SELECT_UNIT_8,'0',testName,testChar & "+S 8");
+            check1(MC_UNIT_8_SEL_TO_I_O,'1',testName,testChar & "-C 8");
+            check1(MC_SELECT_UNIT_P,'1',testName,testChar & "-C P");
+            check1(MC_SELECT_UNIT_D,'1',testName,testChar & "-C D");
+            check1(MS_E_CH_SELECT_UNIT_K,'1',testName,testChar & "-S K");
+            check1(MC_SELECT_UNIT_Q,'1',testName,testChar & "-C Q");
+            check1(MC_E_CH_SELECT_UNIT_R,'1',testName,testChar & "-C R");
+            check1(MC_SELECT_UNIT_L,'1',testName,testChar & "-C L");
+            check1(MC_E_CH_SELECT_UNIT_M,'1',testName,testChar & "-C M");
+            check1(MC_SELECT_UNIT_N,'1',testName,testChar & "-C M");
+            check1(PS_E_CH_SELECT_UNIT_U,'0',testName,testChar & "+S U");
+            check1(MS_E_CH_SELECT_UNIT_U,'1',testName,testChar & "-S U");
+            check1(PS_E_CH_SELECT_UNIT_B,'0',testName,testChar & "+S B");
+            check1(MS_E_CH_SELECT_UNIT_B,'1',testName,testChar & "SS B");
+            check1(MC_ODD_PARITY_TO_TAPE_STAR_E_CH,'1',testName,testChar & "-C Tape Odd");
+            check1(PS_E_CH_SELECT_UNIT_F,'0',testName,testChar & "+S F");
+            check1(MS_E_CH_SELECT_UNIT_F,'1',testName,testChar & "-S F");
+            check1(MS_E_CH_SELECT_UNIT_F_A,'1',testName,testChar & "-S F A");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1301,'1',testName,testChar & "-C F*1301");
+            check1(MC_UNIT_SEL_F_STAR_E_CH_1405,'1',testName,testChar & "-C F*1405");
+   
+            check1(PS_E_CH_SELECT_TAPE_DATA,'0',testName,testChar & "+S Tape");  -- B or U
+            check1(MS_E_CH_SELECT_TAPE_DATA,'1',testName,testChar & "-S Tape");  -- B or U
+            check1(PS_E_CH_BUFFER_SELECT,'0',testName,testChar & "+S Buffer");
+            check1(PS_E_CH_SEL_UNIT_F_LATCHED,'0',testName,testChar & "+S F Latched");
+
+      end case;
+   end loop;      
+   
 
    wait;
    end process;
