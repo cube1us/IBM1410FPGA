@@ -285,6 +285,251 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.60.02.1        ";
+   
+   wait for 30 ns;
+   check1(PS_EVEN_PARITY_CYCLE,'0',testName,"1A");
+   PS_E_CH_SELECT_UNIT_U <= '1';
+   wait for 30 ns;
+   check1(PS_EVEN_PARITY_CYCLE,'0',testName,"1B");
+   PS_E_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_EVEN_PARITY_CYCLE,'1',testName,"1C");
+   PS_E_CH_SELECT_UNIT_U <= '0';
+   PS_E_CYCLE <= '0';
+   wait for 30 ns;
+   PS_F_CH_SELECT_UNIT_U <= '1';
+   wait for 30 ns;
+   check1(PS_EVEN_PARITY_CYCLE,'0',testName,"1D");
+   PS_F_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_EVEN_PARITY_CYCLE,'1',testName,"1E");
+   PS_F_CH_SELECT_UNIT_U <= '0';
+   PS_F_CYCLE <= '0';
+   wait for 30 ns;   
+   
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'1',testName,"2A");
+   MS_E_CH_SELECT_UNIT_B <= '0';
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'1',testName,"2B");
+   PS_E_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'0',testName,"2C");
+   MS_E_CH_SELECT_UNIT_B <= '1';
+   PS_E_CYCLE <= '0';
+   wait for 30 ns;
+   PS_F_CH_SELECT_ODD_PARITY_UNIT <= '1';
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'1',testName,"2D");
+   PS_F_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'0',testName,"2E");
+   PS_F_CH_SELECT_ODD_PARITY_UNIT <= '0';
+   PS_F_CYCLE <= '0';
+   wait for 30 ns;   
+   
+   testName := "13.60.03.1        ";
+   
+   check1(PS_E_CH_SELECT_ANY_BUFFER,'0',testName,"1A");
+   check1(MS_E_CH_SELECT_ANY_BUFFER,'1',testName,"1B");
+   MS_E_CH_SELECT_UNIT_1 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_SELECT_ANY_BUFFER,'1',testName,"1C");
+   check1(MS_E_CH_SELECT_ANY_BUFFER,'0',testName,"1D");
+   MS_E_CH_SELECT_UNIT_1 <= '1';
+   wait for 30 ns;
+   MS_E_CH_SELECT_UNIT_2 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_SELECT_ANY_BUFFER,'1',testName,"1E");
+   MS_E_CH_SELECT_UNIT_2 <= '1';
+   wait for 30 ns;
+   MS_E_CH_SELECT_UNIT_4 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_SELECT_ANY_BUFFER,'1',testName,"1F");
+   MS_E_CH_SELECT_UNIT_4 <= '1';
+   wait for 30 ns;
+   PS_E_CH_BUFFER_SELECT <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_SELECT_ANY_BUFFER,'1',testName,"1G");
+   PS_E_CYCLE <= '1';  -- Leave set to read out +S E Ch Odd Parity Unit
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'0',testName,"1H"); -- Stand in for +S E Ch Odd Parity Unit
+   check1(PS_E_CH_SELECT_7_BIT_UNIT,'1',testName,"1I");
+   PS_E_CH_BUFFER_SELECT <= '0';
+   wait for 30 ns;
+   
+   check1(MS_ODD_PARITY_CYCLE,'1',testName,"2A"); -- Stand in for +S E Ch Odd Parity Unit
+   MS_E_CH_SELECT_UNIT_T <= '0';
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'0',testName,"2B"); -- Stand in for +S E Ch Odd Parity Unit
+   MS_E_CH_SELECT_UNIT_T <= '1';
+   wait for 30 ns;
+   MS_E_CH_SELECT_UNIT_B <= '0';
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'0',testName,"2C"); -- Stand in for +S E Ch Odd Parity Unit
+   MS_E_CH_SELECT_UNIT_B <= '1';
+   wait for 30 ns;
+   MS_E_CH_SELECT_UNIT_F <= '0';
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'0',testName,"2D"); -- Stand in for +S E Ch Odd Parity Unit
+   MS_E_CH_SELECT_UNIT_F <= '1';
+   wait for 30 ns;
+   MS_E_CH_SEL_ODD_PARITY_STAR_1412_19 <= '0';
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'0',testName,"2E"); -- Stand in for +S E Ch Odd Parity Unit
+   MS_E_CH_SEL_ODD_PARITY_STAR_1412_19 <= '1';
+   wait for 30 ns;
+   MS_E_CH_SELECT_UNIT_K <= '0';
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'0',testName,"2F"); -- Stand in for +S E Ch Odd Parity Unit
+   MS_E_CH_SELECT_UNIT_K <= '1';
+   wait for 30 ns;
+   check1(MS_ODD_PARITY_CYCLE,'1',testName,"2G"); -- Stand in for +S E Ch Odd Parity Unit
+   
+   PS_E_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_SELECT_7_BIT_UNIT,'0',testName,"3A");
+   MS_E_CH_SELECT_UNIT_B <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_SELECT_7_BIT_UNIT,'1',testName,"3B");
+   MS_E_CH_SELECT_UNIT_B <= '1';
+   wait for 30 ns;
+   MS_E_CH_SELECT_UNIT_U <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_SELECT_7_BIT_UNIT,'1',testName,"3C");
+   MS_E_CH_SELECT_UNIT_U <= '1';
+   wait for 30 ns;
+   PS_E_CH_SELECT_7_BIT_UNIT_STAR_SIF <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_SELECT_7_BIT_UNIT,'1',testName,"3D");
+   wait for 30 ns;
+   PS_E_CH_SELECT_7_BIT_UNIT_STAR_SIF <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_SELECT_7_BIT_UNIT,'0',testName,"3E");
+
+   testName := "13.60.04.1        ";
+   
+   MS_IN_PROCESS_RESET <= '0';
+   wait for 90 ns;
+   MS_IN_PROCESS_RESET <= '1';
+   wait for 30 ns;
+      
+   check1(LAMP_15A1H14,'0',testName,"1A");
+   check1(PS_E_CH_OVLP_IN_PROCESS,'0',testName,"1B");
+   check1(MS_E_CH_OVLP_IN_PROCESS,'1',testName,"1C");
+   check1(PS_E_CH_IN_PROCESS,'0',testName,"1D");
+   check1(MS_E_CH_IN_PROCESS,'1',testName,"1DA");
+   PS_E_CH_NO_STATUS_ON <= '1';
+   wait for 30 ns;
+   check1(LAMP_15A1H14,'0',testName,"1E");
+   check1(PS_E_CH_OVLP_IN_PROCESS,'0',testName,"1F");
+   check1(MS_E_CH_OVLP_IN_PROCESS,'1',testName,"1G");
+   check1(PS_E_CH_IN_PROCESS,'0',testName,"1H");
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   wait for 30 ns;
+   check1(LAMP_15A1H14,'0',testName,"1I");
+   check1(PS_E_CH_OVLP_IN_PROCESS,'0',testName,"1J");
+   check1(MS_E_CH_OVLP_IN_PROCESS,'1',testName,"1K");
+   check1(PS_E_CH_IN_PROCESS,'0',testName,"1L");
+   PS_I_O_COML_AT_LATCH <= '1';
+   -- Latch should set now
+   wait for 90 ns;
+   PS_E_CH_NO_STATUS_ON <= '0';
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   PS_I_O_COML_AT_LATCH <= '0';
+   -- Latch should still be set   
+   check1(LAMP_15A1H14,'1',testName,"1M");
+   check1(PS_E_CH_OVLP_IN_PROCESS,'1',testName,"1N");
+   check1(MS_E_CH_OVLP_IN_PROCESS,'0',testName,"1O");
+   check1(PS_E_CH_IN_PROCESS,'1',testName,"1P");
+   check1(MS_E_CH_IN_PROCESS,'0',testName,"1PA");
+   -- Then reset the latch
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 90 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   wait for 30 ns;
+   check1(LAMP_15A1H14,'0',testName,"1Q");
+   check1(PS_E_CH_OVLP_IN_PROCESS,'0',testName,"1R");
+   check1(MS_E_CH_OVLP_IN_PROCESS,'1',testName,"1S");
+   check1(PS_E_CH_IN_PROCESS,'0',testName,"1T");
+
+
+   check1(LAMP_15A1K14,'0',testName,"2A");
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'0',testName,"2B");
+   check1(MS_E_CH_UNOVLP_IN_PROCESS,'1',testName,"2C");
+   check1(PS_E_CH_IN_PROCESS,'0',testName,"2D");
+   PS_I_O_PERCENT_LATCH <= '1';
+   wait for 30 ns;
+   check1(LAMP_15A1K14,'0',testName,"2E");
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'0',testName,"2F");
+   check1(MS_E_CH_UNOVLP_IN_PROCESS,'1',testName,"2G");
+   check1(PS_E_CH_IN_PROCESS,'0',testName,"2H");
+   PS_E_CH_NO_STATUS_ON <= '1';
+   wait for 30 ns;
+   check1(LAMP_15A1K14,'0',testName,"2I");
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'0',testName,"2J");
+   check1(MS_E_CH_UNOVLP_IN_PROCESS,'1',testName,"2K");
+   check1(PS_E_CH_IN_PROCESS,'0',testName,"2L");
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   wait for 90 ns;
+   -- Latch should be set
+   PS_I_O_PERCENT_LATCH <= '0';
+   PS_E_CH_NO_STATUS_ON <= '0';
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   wait for 30 ns;
+   check1(LAMP_15A1K14,'1',testName,"2M");
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'1',testName,"2N");
+   check1(MS_E_CH_UNOVLP_IN_PROCESS,'0',testName,"2O");
+   check1(PS_E_CH_IN_PROCESS,'1',testName,"2P");
+   -- Then reset the latch
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 90 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   wait for 30 ns;
+   check1(LAMP_15A1K14,'0',testName,"2Q");
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'0',testName,"2R");
+   check1(MS_E_CH_UNOVLP_IN_PROCESS,'1',testName,"2S");
+   check1(PS_E_CH_IN_PROCESS,'0',testName,"2T");
+
+   -- Same latch, different conditions for test 3
+   
+   PS_1401_CARD_PRINT_IN_PROC <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'0',testName,"3A");
+   PS_1ST_I_O_CYCLE_CONTROL <= '1';
+   wait for 90 ns;
+   -- Latch should be set
+   PS_1401_CARD_PRINT_IN_PROC <= '0';
+   PS_1ST_I_O_CYCLE_CONTROL <= '0';
+   -- Latch should still be set
+   wait for 30 ns;
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'1',testName,"3B");
+   -- Then reset the latch
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 90 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'0',testName,"3C");
+ 
+   -- Same latch, different conditions, for test 4
+   -- In this case, some signals inhibit setting the latch
+   PS_1401_CARD_PRINT_IN_PROC <= '1';
+   PS_E_CH_SECOND_SAMPLE_B <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'0',testName,"4A");
+   -- Normally the three signals below would set the latch, but not now
+   PS_I_O_PERCENT_LATCH <= '1';
+   PS_E_CH_NO_STATUS_ON <= '1';
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   wait for 90 ns;
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'0',testName,"4B");
+   -- Now remove the constraint (either signal should do...)
+   PS_E_CH_SECOND_SAMPLE_B <= '0';
+   wait for 90 ns;
+   check1(PS_E_CH_UNOVLP_IN_PROCESS,'1',testName,"4C");
+   PS_E_CH_SECOND_SAMPLE_B <= '0';
 
    wait;
    end process;
