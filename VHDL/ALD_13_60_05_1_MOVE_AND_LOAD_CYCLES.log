@@ -1,0 +1,49 @@
+Generating HDL for page 13.60.05.1 MOVE AND LOAD CYCLES at 7/30/2020 1:53:04 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_60_05_1_MOVE_AND_LOAD_CYCLES_tb.vhdl, generating default test bench code.
+Removed 2 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1A to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PS_E_CH_2ND_ADDR_TRF,PS_E_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_P
+	and inputs of OUT_4A_G,OUT_4B_C
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PS_F_CH_2ND_ADDR_TRF,PS_F_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4C_G,OUT_4D_G
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of PS_E_CH_MOVE_MODE,PS_E_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PS_F_CH_MOVE_MODE,PS_F_CYCLE
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_R
+	and inputs of OUT_2E_D
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_E
+	and inputs of PS_E_CH_LOAD_MODE,PS_E_CYCLE,MS_E_CH_2ND_ADDR_TRF
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_NoPin
+	and inputs of OUT_4E_E,OUT_4F_D
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D, OUT_2E_D
+	and inputs of OUT_3E_NoPin
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of PS_F_CH_LOAD_MODE,PS_F_CYCLE,MS_F_CH_2ND_ADDR_TRF
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_3A_P,OUT_3B_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_LOAD_CYCLE
+	from gate output OUT_1D_R
+Generating output sheet edge signal assignment to 
+	signal MS_LOAD_CYCLE
+	from gate output OUT_2E_D
+Generating output sheet edge signal assignment to 
+	signal PS_MOVE_CYCLE
+	from gate output OUT_DOT_1A

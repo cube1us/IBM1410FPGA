@@ -1,0 +1,101 @@
+Generating HDL for page 13.60.04.1 E CH IN PROCESS-ACC at 7/30/2020 1:52:31 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_60_04_1_E_CH_IN_PROCESS_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5B
+Found combinatorial loop (need D FF) at output of gate at 4B
+Found combinatorial loop (need D FF) at output of gate at 5D
+Found combinatorial loop (need D FF) at output of gate at 4D
+Ignoring Logic Block 4E with symbol R
+Removed 2 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5E to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 18 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 8 outputs from Gate at 1H to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1H14
+Added LAMP signal LAMP_15A1K14
+Generating Statement for block at 4A with output pin(s) of OUT_4A_D
+	and inputs of PS_I_O_COML_AT_LATCH,PS_E_CH_NO_STATUS_ON,PS_E_CH_STATUS_SAMPLE_A_DELAY
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_E
+	and inputs of OUT_3B_D
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of 
+	and inputs of OUT_2A_E
+	and logic function of Lamp
+Generating Statement for block at 5B with *latched* output pin(s) of OUT_5B_E_Latch, OUT_5B_E_Latch
+	and inputs of OUT_4B_C,MS_IN_PROCESS_RESET,MS_E_CH_STATUS_SAMPLE_B_DELAY
+	and logic function of NAND
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_C_Latch, OUT_4B_C_Latch
+	and inputs of OUT_4A_D,OUT_5B_E
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D, OUT_3B_D, OUT_3B_D
+	and inputs of OUT_4B_C
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of PS_E_CH_NO_STATUS_ON,PS_I_O_PERCENT_LATCH,PS_E_CH_STATUS_SAMPLE_A_DELAY
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_B
+	and inputs of OUT_5B_E
+	and logic function of NOT
+Generating Statement for block at 5D with *latched* output pin(s) of OUT_5D_P_Latch
+	and inputs of MS_IN_PROCESS_RESET,MS_E_CH_STATUS_SAMPLE_B_DELAY,OUT_4D_NoPin
+	and logic function of NAND
+Generating Statement for block at 4D with *latched* output pin(s) of OUT_4D_NoPin_Latch, OUT_4D_NoPin_Latch
+	and inputs of OUT_5C_C,OUT_DOT_5D,OUT_5E_G
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_B, OUT_3D_B, OUT_3D_B
+	and inputs of OUT_4D_NoPin
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_3D_B
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of 
+	and inputs of OUT_2D_C
+	and logic function of Lamp
+Generating Statement for block at 5E with output pin(s) of OUT_5E_G
+	and inputs of PS_1401_CARD_PRINT_IN_PROC,PS_1ST_I_O_CYCLE_CONTROL
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of OUT_DOT_5D
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_G
+	and inputs of PS_1401_CARD_PRINT_IN_PROC,PS_E_CH_SECOND_SAMPLE_B
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_F
+	and inputs of OUT_5F_G
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of OUT_1F_A, OUT_1F_A
+	and inputs of OUT_3D_B,OUT_2G_F
+	and logic function of Special
+Generating Statement for block at 2G with output pin(s) of OUT_2G_F
+	and inputs of OUT_3B_D
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of OUT_1H_R
+	and inputs of OUT_1F_A
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D, OUT_DOT_5D
+	and inputs of OUT_5D_P,OUT_4F_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_OVLP_IN_PROCESS
+	from gate output OUT_3B_D
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_OVLP_IN_PROCESS
+	from gate output OUT_4C_B
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_UNOVLP_IN_PROCESS
+	from gate output OUT_3D_B
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_UNOVLP_IN_PROCESS
+	from gate output OUT_3E_C
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_IN_PROCESS
+	from gate output OUT_1F_A
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_IN_PROCESS
+	from gate output OUT_1H_R
+Generating D Flip Flop for block at 5B
+Generating D Flip Flop for block at 4B
+Generating D Flip Flop for block at 5D
+Generating D Flip Flop for block at 4D

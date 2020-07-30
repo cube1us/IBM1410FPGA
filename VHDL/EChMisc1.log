@@ -1,0 +1,82 @@
+Generating HDL for group named EChMisc1at 7/30/2020 1:55:03 PM containing pages: 
+	13.60.02.1, 13.60.03.1, 13.60.04.1, 13.60.05.1, 13.60.06.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\EChMisc1_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 5 pages...
+Found 8 signals on page 13.60.02.1
+Found 15 signals on page 13.60.03.1
+Found 15 signals on page 13.60.04.1
+Found 13 signals on page 13.60.05.1
+Found 11 signals on page 13.60.06.1
+Found 39 unique input signals and 19 unique output signals, (57 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S F CYCLE originates outside the group.
+INFO:  Signal +S E CH SELECT UNIT U originates outside the group.
+INFO:  Signal +S E CYCLE originates outside the group.
+INFO:  Signal +S F CH SELECT UNIT U originates outside the group.
+INFO:  Signal +S E CH SELECT ODD PARITY UNIT originates inside the group.
+INFO:  Signal +S F CH SELECT ODD PARITY UNIT originates outside the group.
+INFO:  Signal -S E CH SELECT UNIT 1 originates outside the group.
+INFO:  Signal -S E CH SELECT UNIT 2 originates outside the group.
+INFO:  Signal -S E CH SELECT UNIT 4 originates outside the group.
+INFO:  Signal -S E CH SELECT UNIT T originates outside the group.
+INFO:  Signal +S E CH BUFFER SELECT originates outside the group.
+INFO:  Signal -S E CH SELECT UNIT K originates outside the group.
+INFO:  Signal -S E CH SELECT UNIT U originates outside the group.
+INFO:  Signal -S E CH SELECT UNIT B originates outside the group.
+INFO:  Signal -S E CH SELECT UNIT F originates outside the group.
+INFO:  Signal -S E CH SEL ODD PARITY*1412-19 originates outside the group.
+INFO:  Signal +S E CH SELECT 7 BIT UNIT *SIF originates outside the group.
+INFO:  Signal -S IN PROCESS RESET originates outside the group.
+INFO:  Signal +S I-O PERCENT LATCH originates outside the group.
+INFO:  Signal +S I-O COML AT LATCH originates outside the group.
+INFO:  Signal +S E CH NO STATUS ON originates outside the group.
+INFO:  Signal +S E CH STATUS SAMPLE A DELAY originates outside the group.
+INFO:  Signal -S E CH STATUS SAMPLE B DELAY originates outside the group.
+INFO:  Signal +S 1401 CARD PRINT IN PROC originates outside the group.
+INFO:  Signal +S 1ST I-O CYCLE CONTROL originates outside the group.
+INFO:  Signal +S E CH SECOND SAMPLE B originates outside the group.
+INFO:  Signal +S E CH 2ND ADDR TRF originates outside the group.
+INFO:  Signal +S F CH 2ND ADDR TRF originates outside the group.
+INFO:  Signal +S E CH MOVE MODE originates outside the group.
+INFO:  Signal +S F CH MOVE MODE originates outside the group.
+INFO:  Signal +S E CH LOAD MODE originates outside the group.
+INFO:  Signal -S E CH 2ND ADDR TRF originates outside the group.
+INFO:  Signal +S F CH LOAD MODE originates outside the group.
+INFO:  Signal -S F CH 2ND ADDR TRF originates outside the group.
+INFO:  Signal -S CONTROL REG DISABLE originates outside the group.
+INFO:  Signal +S E CH INPUT MODE originates outside the group.
+INFO:  Signal +S F CH INPUT MODE originates outside the group.
+INFO:  Signal +S E CH OUTPUT MODE originates outside the group.
+INFO:  Signal +S F CH OUTPUT MODE originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S EVEN PARITY CYCLE is used outside the group.
+INFO:  Signal -S ODD PARITY CYCLE is used outside the group.
+INFO:  Signal -S E CH SELECT ANY BUFFER is used outside the group.
+INFO:  Signal +S E CH SELECT ODD PARITY UNIT is used only inside the group.
+INFO:  Signal +S E CH SELECT ANY BUFFER is used outside the group.
+INFO:  Signal +S E CH SELECT 7 BIT UNIT is used outside the group.
+INFO:  Signal -S E CH IN PROCESS is used outside the group.
+INFO:  Signal +S E CH UNOVLP IN PROCESS is used outside the group.
+INFO:  Signal +S E CH OVLP IN PROCESS is used outside the group.
+INFO:  Signal -S E CH UNOVLP IN PROCESS is used outside the group.
+INFO:  Signal +S E CH IN PROCESS is used outside the group.
+INFO:  Signal -S E CH OVLP IN PROCESS is used outside the group.
+INFO:  Signal +S MOVE CYCLE is used outside the group.
+INFO:  Signal +S LOAD CYCLE is used outside the group.
+INFO:  Signal -S LOAD CYCLE is used outside the group.
+INFO:  Signal -S INPUT CYCLE is used outside the group.
+INFO:  Signal -S OUTPUT CYCLE is used outside the group.
+INFO:  Signal +S INPUT CYCLE is used outside the group.
+INFO:  Signal +S OUTPUT CYCLE is used outside the group.
+Removing 1 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Page 13.60.04.1 generates Lamp Output LAMP_15A1H14
+Page 13.60.04.1 generates Lamp Output LAMP_15A1K14
+Generating list of internal signals/wires ...
+1 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.60.02.1 (ODD.EVEN PARITY MODES)
+Generating HDL associated with page 13.60.03.1 (EVEN-ODD PARITY UNIT)
+Generating HDL associated with page 13.60.04.1 (E CH IN PROCESS-ACC)
+Generating HDL associated with page 13.60.05.1 (MOVE AND LOAD CYCLES)
+Generating HDL associated with page 13.60.06.1 (INPUT AND OUTPUT CYCLES-ACC)

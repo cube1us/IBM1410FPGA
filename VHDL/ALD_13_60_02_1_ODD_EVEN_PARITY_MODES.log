@@ -1,0 +1,31 @@
+Generating HDL for page 13.60.02.1 ODD.EVEN PARITY MODES at 7/30/2020 1:52:09 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_60_02_1_ODD_EVEN_PARITY_MODES_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PS_E_CYCLE,PS_E_CH_SELECT_UNIT_U
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of OUT_4B_C,OUT_4C_C
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_F_CYCLE,PS_F_CH_SELECT_UNIT_U
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of PS_E_CYCLE,PS_E_CH_SELECT_ODD_PARITY_UNIT
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_NoPin
+	and inputs of OUT_4F_D,OUT_4G_C
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D
+	and inputs of OUT_3F_NoPin
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of PS_F_CYCLE,PS_F_CH_SELECT_ODD_PARITY_UNIT
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_EVEN_PARITY_CYCLE
+	from gate output OUT_3B_D
+Generating output sheet edge signal assignment to 
+	signal MS_ODD_PARITY_CYCLE
+	from gate output OUT_2F_D

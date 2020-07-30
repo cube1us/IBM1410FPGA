@@ -1,0 +1,46 @@
+Generating HDL for page 13.60.03.1 EVEN-ODD PARITY UNIT at 7/30/2020 1:52:23 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_60_03_1_EVEN_ODD_PARITY_UNIT_tb.vhdl, generating default test bench code.
+Removed 6 outputs from Gate at 4A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_E
+	and inputs of MS_E_CH_SELECT_UNIT_1,MS_E_CH_SELECT_UNIT_2,MS_E_CH_SELECT_UNIT_4
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_D, OUT_4A_D, OUT_4A_D, OUT_4A_D
+	and inputs of OUT_DOT_5A
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4A_D
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_G
+	and inputs of OUT_4A_D,MS_E_CH_SELECT_UNIT_B,MS_E_CH_SELECT_UNIT_T
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_G
+	and inputs of MS_E_CH_SELECT_UNIT_F,MS_E_CH_SEL_ODD_PARITY_STAR_1412_19,MS_E_CH_SELECT_UNIT_K
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_R
+	and inputs of OUT_4A_D,MS_E_CH_SELECT_UNIT_B
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of MS_E_CH_SELECT_UNIT_U
+	and logic function of NAND
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
+	and inputs of OUT_5A_E,PS_E_CH_BUFFER_SELECT
+	and logic function of OR
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_2C_G,OUT_2D_G
+	and logic function of OR
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E
+	and inputs of OUT_2E_R,PS_E_CH_SELECT_7_BIT_UNIT_STAR_SIF,OUT_2F_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_SELECT_ANY_BUFFER
+	from gate output OUT_4A_D
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_SELECT_ANY_BUFFER
+	from gate output OUT_3B_C
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_SELECT_ODD_PARITY_UNIT
+	from gate output OUT_DOT_1C
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_SELECT_7_BIT_UNIT
+	from gate output OUT_DOT_2E
