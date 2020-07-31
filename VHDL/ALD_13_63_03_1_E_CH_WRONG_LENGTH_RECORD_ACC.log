@@ -1,4 +1,4 @@
-Generating HDL for page 13.63.03.1 E CH WRONG LENGTH RECORD-ACC at 7/31/2020 9:31:01 AM
+Generating HDL for page 13.63.03.1 E CH WRONG LENGTH RECORD-ACC at 7/31/2020 9:58:33 AM
 No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_63_03_1_E_CH_WRONG_LENGTH_RECORD_ACC_tb.vhdl, generating default test bench code.
 Found combinatorial loop (need D FF) at output of gate at 4C
 Found combinatorial loop (need D FF) at output of gate at 2C
