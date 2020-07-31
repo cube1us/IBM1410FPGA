@@ -1,0 +1,99 @@
+Generating HDL for page 13.63.01.1 E CH END OF REC+END OF TRANS-ACC at 7/31/2020 9:30:56 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_63_01_1_E_CH_END_OF_REC_END_OF_TRANS_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 2F
+Found combinatorial loop (need D FF) at output of gate at 3H
+Found combinatorial loop (need D FF) at output of gate at 2H
+Removed 2 outputs from Gate at 1H to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2I to ignored block(s) or identical signal names
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of MS_E_CH_LAST_INPUT_CYCLE,PS_WRAP_AROUND_CONDITIONS,PS_E_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of PS_2ND_CLOCK_PULSE_2,PS_LOGIC_GATE_F_OR_W
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_R
+	and inputs of PS_E_CYCLE,PS_B_CH_GROUP_MARK_DOT_WM
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_E
+	and inputs of MS_R_SYMBOL_OP_MODIFIER,MS_E_CH_2ND_ADDR_TRF,MS_W_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of PS_LOGIC_GATE_F_1,OUT_DOT_4E,MS_1401_CARD_PRINT_IN_PROC
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_P
+	and inputs of OUT_5G_K,OUT_4F_E
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_D
+	and inputs of PS_LOGIC_GATE_F_OR_W,PS_E_CH_LAST_INPUT_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E, OUT_4F_E
+	and inputs of PS_B_CH_GROUP_MARK_DOT_WM,PS_E_CYCLE,PS_LOGIC_GATE_W
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_E_Latch, OUT_3F_E_Latch
+	and inputs of OUT_DOT_2E,MS_E_CH_END_OF_2ND_ADDR_TRF,MS_E_CH_RESET
+	and logic function of NAND
+Generating Statement for block at 2F with *latched* output pin(s) of OUT_2F_D_Latch
+	and inputs of OUT_3F_E,OUT_DOT_3E,OUT_DOT_3F
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_3F_E
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_K, OUT_5G_K
+	and inputs of PS_UNIT_CTRL_OP_CODE,PS_E_CH_STATUS_SAMPLE_A
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of OUT_5G_K
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_4F_E,OUT_DOT_3F,OUT_DOT_3E
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_C
+	and inputs of PS_E_CH_EXT_END_OF_TRANSFER,PS_E_CH_OUTPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 3H with *latched* output pin(s) of OUT_3H_C_Latch, OUT_3H_C_Latch
+	and inputs of MS_E_CH_END_OF_2ND_ADDR_TRF,OUT_DOT_3G,MS_E_CH_RESET
+	and logic function of NAND
+Generating Statement for block at 2H with *latched* output pin(s) of OUT_2H_C_Latch
+	and inputs of OUT_5F_D,OUT_3H_C,OUT_DOT_5H
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_R
+	and inputs of OUT_DOT_3G
+	and logic function of NOT
+Generating Statement for block at 5I with output pin(s) of OUT_5I_E
+	and inputs of PS_2ND_CLOCK_PULSE_2,PS_E1_REG_FULL,PS_E2_REG_FULL
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_B
+	and inputs of OUT_3H_C
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4E_E,PS_E_CH_SIF_SENSE_OR_CONTROL
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E, OUT_DOT_3E
+	and inputs of OUT_3D_R,OUT_3E_C
+	and logic function of OR
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E
+	and inputs of OUT_2E_P,PS_END_OF_RECORD_STAR_1311,OUT_2F_D
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G, OUT_DOT_3G
+	and inputs of OUT_3G_P,OUT_2G_C,PS_INT_END_OF_XFER_STAR_1311,OUT_2H_C
+	and logic function of OR
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F, OUT_DOT_3F
+	and inputs of OUT_3B_G,OUT_3C_G
+	and logic function of OR
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of OUT_5H_C,OUT_5I_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_END_OF_RECORD_LATCH
+	from gate output OUT_1F_C
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_INT_END_OF_TRANSFER
+	from gate output OUT_1H_R
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_INT_END_OF_TRANSFER
+	from gate output OUT_2I_B
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 2F
+Generating D Flip Flop for block at 3H
+Generating D Flip Flop for block at 2H
