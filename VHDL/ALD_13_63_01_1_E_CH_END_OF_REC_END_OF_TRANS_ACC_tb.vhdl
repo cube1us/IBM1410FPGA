@@ -192,7 +192,264 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.63.01.1        ";
+   
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"1A");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"1B");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"1C");
+   PS_E_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"1D");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"1E");
+   PS_B_CH_GROUP_MARK_DOT_WM <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"1F");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"1G");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"1H");
+   PS_LOGIC_GATE_W <= '1';
+   wait for 30 ns;
+   -- Latches should be set
+   PS_E_CYCLE <= '0';
+   PS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   PS_LOGIC_GATE_W <= '0';
+   wait for 30 ns;
+   -- Latches should still be set
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'1',testName,"1I");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'1',testName,"1J");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'0',testName,"1K");
 
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"1L");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"1M");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"1N");
+   
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"2A");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"2B");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"2C");
+   PS_E_CH_STATUS_SAMPLE_A <= '1';
+   wait for 30 ns;  -- Latches should set
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   PS_E_CH_STATUS_SAMPLE_A <= '0';
+   wait for 30 ns; -- Latches should still be set
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'1',testName,"2D");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'1',testName,"2E");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'0',testName,"2F");
+   
+   -- Reset a different way
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '0';
+   wait for 90 ns;
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"2G");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"2H");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"2I");
+   
+   MS_1401_CARD_PRINT_IN_PROC <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"3A");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3B");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"3C");
+   PS_B_CH_GROUP_MARK_DOT_WM <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"3D");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3E");
+   PS_LOGIC_GATE_F_1 <= '1';   
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"3F");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3G");
+   PS_E_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"3H");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3J");
+   MS_1401_CARD_PRINT_IN_PROC <= '0';
+   MS_R_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"3K");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3L");
+   MS_1401_CARD_PRINT_IN_PROC <= '1';
+   wait for 30 ns; -- Latches should set
+   MS_R_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns; -- Latches should still be set
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'1',testName,"3M");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'1',testName,"3N");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3O");
+   -- Reset, but leave most of the signals still active
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"3P");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3Q");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"3R");
+   MS_W_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns; -- Latches should be set
+   MS_W_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns; -- Latches should still be set
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'1',testName,"3S");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'1',testName,"3T");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3U");
+   -- Reset, but leave most of the signals still active
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"3V");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3W");
+   MS_E_CH_2ND_ADDR_TRF <= '0';
+   wait for 30 ns; -- Set the latches   
+   MS_E_CH_2ND_ADDR_TRF <= '1';
+   wait for 30 ns; -- Latches should still be set   
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'1',testName,"3X");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'1',testName,"3Y");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3Z");
+   -- Reset
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"3AA");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3AB");
+   PS_E_CH_SIF_SENSE_OR_CONTROL <= '1'; -- Set the latches
+   wait for 30 ns;
+   PS_E_CH_SIF_SENSE_OR_CONTROL <= '0'; -- Latches should still be set
+   wait for 30 ns;   
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'1',testName,"3AC");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'1',testName,"3AD");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3AE");   
+   -- Reset
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   MS_1401_CARD_PRINT_IN_PROC <= '1';
+   PS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   PS_LOGIC_GATE_F_1 <= '0';   
+   PS_E_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"3AF");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"3AG");
+   
+   MS_E_CH_LAST_INPUT_CYCLE <= '0';
+   PS_E_CYCLE <= '1';
+   PS_WRAP_AROUND_CONDITIONS <= '1';
+   PS_LOGIC_GATE_F_OR_W <=  '1';
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"4A");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"4B");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"4C");
+   MS_E_CH_LAST_INPUT_CYCLE <= '1';
+   wait for 30 ns;  -- Latches should set
+   PS_E_CYCLE <= '0';
+   PS_WRAP_AROUND_CONDITIONS <= '0';
+   PS_LOGIC_GATE_F_OR_W <=  '0';
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;  -- Latches should still be set
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'1',testName,"4D");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'1',testName,"4E");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'0',testName,"4F");
+   -- Reset
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"4G");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"4H");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"4I");
+      
+   -- This one sets JUST the end of record latch
+   
+   PS_END_OF_RECORD_STAR_1311 <= '1';
+   wait for 30 ns;
+   PS_END_OF_RECORD_STAR_1311 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'1',testName,"5A");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"5B");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"5C");
+   -- Reset
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"5D");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"5E");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"5F");
+   
+   --  The following set JUST the Int End of Transfer Latch
+   
+   PS_E_CH_LAST_INPUT_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"6A");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"6B");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"6C");
+   PS_LOGIC_GATE_F_OR_W <= '1';
+   wait for 30 ns;  -- Latch is set
+   PS_LOGIC_GATE_F_OR_W <= '0';
+   PS_E_CH_LAST_INPUT_CYCLE <= '0';
+   wait for 30 ns;  -- Latch is still set
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"6D");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'1',testName,"6E");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'0',testName,"6F");
+   -- Reset
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"6G");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"6H");
+
+   PS_E_CH_OUTPUT_MODE <= '1';
+   PS_E_CH_EXT_END_OF_TRANSFER <= '1';
+   PS_E1_REG_FULL <= '1';
+   PS_E2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"7A");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"7B");
+   PS_2ND_CLOCK_PULSE_2 <= '1'; -- Sets the latch
+   wait for 30 ns;
+   PS_E_CH_OUTPUT_MODE <= '0';
+   PS_E_CH_EXT_END_OF_TRANSFER <= '0';
+   PS_E1_REG_FULL <= '0';
+   PS_E2_REG_FULL <= '0';
+   PS_2ND_CLOCK_PULSE_2 <= '0'; -- Latch should stay set
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"7C");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'1',testName,"7D");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'0',testName,"7E");
+   -- Reset
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"7F");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"7G");
+   
+   PS_INT_END_OF_XFER_STAR_1311 <= '1';
+   wait for 30 ns;
+   PS_INT_END_OF_XFER_STAR_1311 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_END_OF_RECORD_LATCH,'0',testName,"8A");
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'1',testName,"8B");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'0',testName,"8C");
+   -- Reset
+   MS_E_CH_RESET <= '0';
+   wait for 90 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_INT_END_OF_TRANSFER,'0',testName,"8D");
+   check1(MS_E_CH_INT_END_OF_TRANSFER,'1',testName,"8E");
+   
    wait;
    end process;
 
