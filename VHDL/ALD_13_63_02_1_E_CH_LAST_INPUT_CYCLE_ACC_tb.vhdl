@@ -150,6 +150,69 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.63.02.1        ";
+   
+   PS_INPUT_CYCLE <= '0';  -- This is a latch reset when 0
+   wait for 30 ns;
+   PS_INPUT_CYCLE <= '1';
+   wait for 30 ns;
+   
+   check1(PS_E_CH_LAST_INPUT_CYCLE,'0',testName,"1A");
+   check1(MS_E_CH_LAST_INPUT_CYCLE,'1',testName,"1B");
+   check1(PS_ANY_LAST_INPUT_CYCLE,'0',testName,"1C");
+   check1(MS_ANY_LAST_INPUT_CYCLE,'1',testName,"1D");
+   PS_E_CH_EXT_END_OF_TRANSFER <= '1';
+   MS_E1_REG_FULL <= '0';
+   MS_E2_REG_FULL <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_LAST_INPUT_CYCLE,'0',testName,"1E");
+   check1(MS_E_CH_LAST_INPUT_CYCLE,'1',testName,"1F");
+   check1(PS_ANY_LAST_INPUT_CYCLE,'0',testName,"1G");
+   check1(MS_ANY_LAST_INPUT_CYCLE,'1',testName,"1H");
+   MS_E1_REG_FULL <= '1';
+   MS_E2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_LAST_INPUT_CYCLE,'0',testName,"1I");
+   check1(MS_E_CH_LAST_INPUT_CYCLE,'1',testName,"1J");
+   check1(PS_ANY_LAST_INPUT_CYCLE,'0',testName,"1K");
+   check1(MS_ANY_LAST_INPUT_CYCLE,'1',testName,"1L");
+   PS_E_CYCLE <= '1';
+   PS_E_CH_INPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_LAST_INPUT_CYCLE,'0',testName,"1M");
+   check1(MS_E_CH_LAST_INPUT_CYCLE,'1',testName,"1N");
+   check1(PS_ANY_LAST_INPUT_CYCLE,'0',testName,"1O");
+   check1(MS_ANY_LAST_INPUT_CYCLE,'1',testName,"1P");
+   PS_LOGIC_GATE_C_OR_T <= '1'; -- Sets latch
+   wait for 30 ns;
+   PS_LOGIC_GATE_C_OR_T <= '0'; -- Latch should stay set
+   PS_E_CH_EXT_END_OF_TRANSFER <= '0';
+   MS_E1_REG_FULL <= '0';
+   MS_E2_REG_FULL <= '0';
+   PS_E_CYCLE <= '0';
+   PS_E_CH_INPUT_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_LAST_INPUT_CYCLE,'1',testName,"1Q");
+   check1(MS_E_CH_LAST_INPUT_CYCLE,'0',testName,"1R");
+   check1(PS_ANY_LAST_INPUT_CYCLE,'1',testName,"1S");
+   check1(MS_ANY_LAST_INPUT_CYCLE,'0',testName,"1T");
+   -- Reset the other way
+   MS_LOGIC_GATE_B_OR_S <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_LAST_INPUT_CYCLE,'0',testName,"1U");
+   check1(MS_E_CH_LAST_INPUT_CYCLE,'1',testName,"1V");
+   check1(PS_ANY_LAST_INPUT_CYCLE,'0',testName,"1W");
+   check1(MS_ANY_LAST_INPUT_CYCLE,'1',testName,"1X");
+   
+   MS_F_CH_LAST_INPUT_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_LAST_INPUT_CYCLE,'0',testName,"2A");
+   check1(MS_E_CH_LAST_INPUT_CYCLE,'1',testName,"2B");
+   check1(PS_ANY_LAST_INPUT_CYCLE,'1',testName,"2C");
+   check1(MS_ANY_LAST_INPUT_CYCLE,'0',testName,"2D");
 
    wait;
    end process;
