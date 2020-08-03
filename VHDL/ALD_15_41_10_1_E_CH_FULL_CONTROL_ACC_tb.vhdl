@@ -150,6 +150,148 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "15.41.10.1        ";
+   
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   
+   check1(PS_E1_REG_FULL,'0',testName,"1A");
+   check1(MS_E1_REG_FULL,'1',testName,"1B");
+   check1(PS_E2_REG_FULL,'0',testName,"1C");
+   check1(MS_E2_REG_FULL,'1',testName,"1D");
+   
+   -- Set E1 Reg Full
+   
+   MS_SET_E1_REG <= '0';
+   wait for 30 ns;
+   MS_SET_E1_REG <= '1';
+   wait for 30 ns;
+   check1(PS_E1_REG_FULL,'1',testName,"1E");
+   check1(MS_E1_REG_FULL,'0',testName,"1F");
+   check1(PS_E2_REG_FULL,'0',testName,"1G");
+   check1(MS_E2_REG_FULL,'1',testName,"1H");
+   
+   -- Reset E1 Reg Full if Set E2 Reg AND NOT E1 W/S (this also sets E2 Full)
+   
+   MS_E1_REG_WORD_SEPARATOR <= '1';  -- is already 1
+   PS_SET_E2_REG <= '1';
+   wait for 30 ns;
+   PS_SET_E2_REG <= '0';
+   wait for 30 ns;
+   check1(PS_E1_REG_FULL,'0',testName,"1I");
+   check1(MS_E1_REG_FULL,'1',testName,"1J");
+   check1(PS_E2_REG_FULL,'1',testName,"1K");
+   check1(MS_E2_REG_FULL,'0',testName,"1L");
+   
+   -- Then Reset E2 Reg Full
+   
+   MS_RESET_E2_FULL_LATCH <= '0';
+   wait for 30 ns;
+   MS_RESET_E2_FULL_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_E1_REG_FULL,'0',testName,"1M");
+   check1(MS_E1_REG_FULL,'1',testName,"1N");
+   check1(PS_E2_REG_FULL,'0',testName,"1O");
+   check1(MS_E2_REG_FULL,'1',testName,"1P");
+   
+   -- Set E1 Reg Full again 
+   
+   MS_SET_E1_REG <= '0';
+   wait for 30 ns;
+   MS_SET_E1_REG <= '1';
+   wait for 30 ns;
+   check1(PS_E1_REG_FULL,'1',testName,"2A");
+   check1(MS_E1_REG_FULL,'0',testName,"2B");
+   check1(PS_E2_REG_FULL,'0',testName,"2C");
+   check1(MS_E2_REG_FULL,'1',testName,"2D");
+   
+   -- Reset E1 Reg Full if Set E2 Reg Full AND E2 W/S (also sets E2 Reg Full again)
+   
+   MS_E1_REG_WORD_SEPARATOR <= '0';  -- Set to not repeat test 1
+   
+   PS_SET_E2_REG <= '1';
+   wait for 30 ns;
+   check1(PS_E1_REG_FULL,'1',testName,"2E");
+   check1(MS_E1_REG_FULL,'0',testName,"2F");
+   check1(PS_E2_REG_FULL,'0',testName,"2G");
+   check1(MS_E2_REG_FULL,'1',testName,"2H");
+   PS_E2_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns; -- Latch should be reset
+   PS_E2_REG_WORD_SEPARATOR <= '0';
+   PS_SET_E2_REG <= '0'; -- Latch should still be reset
+   
+   check1(PS_E1_REG_FULL,'0',testName,"2E");
+   check1(MS_E1_REG_FULL,'1',testName,"2F");
+   check1(PS_E2_REG_FULL,'1',testName,"2G");
+   check1(MS_E2_REG_FULL,'0',testName,"2H");
+
+-- Then Reset E2 Reg Full
+   
+   MS_RESET_E2_FULL_LATCH <= '0';
+   wait for 30 ns;
+   MS_RESET_E2_FULL_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_E1_REG_FULL,'0',testName,"2I");
+   check1(MS_E1_REG_FULL,'1',testName,"2J");
+   check1(PS_E2_REG_FULL,'0',testName,"2K");
+   check1(MS_E2_REG_FULL,'1',testName,"2L");
+
+   -- Set E1 Reg Full again 
+   
+   MS_SET_E1_REG <= '0';
+   wait for 30 ns;
+   MS_SET_E1_REG <= '1';
+   wait for 30 ns;
+   check1(PS_E1_REG_FULL,'1',testName,"3A");
+   check1(MS_E1_REG_FULL,'0',testName,"3B");
+   check1(PS_E2_REG_FULL,'0',testName,"3C");
+   check1(MS_E2_REG_FULL,'1',testName,"3D");
+
+   -- Reset E1 Reg Full via E CH INPUT MODE and SET E2 REG
+   -- This should NOT set E2
+
+   MS_E1_REG_WORD_SEPARATOR <= '0';  -- Set to not repeat test 1
+   PS_E_CH_INPUT_MODE <= '1';
+   wait for 30 ns;   
+   check1(PS_E1_REG_FULL,'1',testName,"3E");
+   check1(MS_E1_REG_FULL,'0',testName,"3F");
+   check1(PS_E2_REG_FULL,'0',testName,"3G");
+   check1(MS_E2_REG_FULL,'1',testName,"3H");
+   PS_SET_E2_REG <= '1';
+   wait for 30 ns; -- Latch is reset
+   PS_SET_E2_REG <= '0';
+   PS_E_CH_INPUT_MODE <= '0';
+   wait for 30 ns;  -- Latch is still reset
+   check1(PS_E1_REG_FULL,'0',testName,"3E");
+   check1(MS_E1_REG_FULL,'1',testName,"3F");
+   check1(PS_E2_REG_FULL,'0',testName,"3G");
+   check1(MS_E2_REG_FULL,'1',testName,"3H");
+
+   -- Set E2 Reg Full and E1 Reg Full, Starting with E1
+   
+   PS_SET_E2_REG <= '1';
+   MS_SET_E1_REG <= '0';
+   wait for 30 ns;
+   check1(PS_E1_REG_FULL,'1',testName,"4A");
+   check1(MS_E1_REG_FULL,'0',testName,"4B");
+   check1(PS_E2_REG_FULL,'0',testName,"4C");
+   check1(MS_E2_REG_FULL,'1',testName,"4D");   
+   PS_E_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns; -- Latch should be set
+   PS_SET_E2_REG <= '0';
+   PS_E_CH_OUTPUT_MODE <= '0';
+   wait for 30 ns; -- Latch should still be set
+   check1(PS_E1_REG_FULL,'1',testName,"4E");
+   check1(MS_E1_REG_FULL,'0',testName,"4F");
+   check1(PS_E2_REG_FULL,'1',testName,"4G");
+   check1(MS_E2_REG_FULL,'0',testName,"4H");
+   
+   
+   
+    
 
    wait;
    end process;
