@@ -289,10 +289,6 @@ uut_process: process
    check1(PS_E2_REG_FULL,'1',testName,"4G");
    check1(MS_E2_REG_FULL,'0',testName,"4H");
    
-   
-   
-    
-
    wait;
    end process;
 
