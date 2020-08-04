@@ -148,6 +148,145 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "13.64.03.1        ";
+   
+   MS_F_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   
+   check1(PS_F1_REG_FULL,'0',testName,"1A");
+   check1(MS_F1_REG_FULL,'1',testName,"1B");
+ check1(PS_F2_REG_FULL,'0',testName,"1C");
+   check1(MS_F2_REG_FULL,'1',testName,"1D");
+   
+   -- Set F1 Reg Full
+   
+   MS_SET_F1_REG <= '0';
+   wait for 30 ns;
+   MS_SET_F1_REG <= '1';
+   wait for 30 ns;
+   check1(PS_F1_REG_FULL,'1',testName,"1E");
+   check1(MS_F1_REG_FULL,'0',testName,"1F");
+   check1(PS_F2_REG_FULL,'0',testName,"1G");
+   check1(MS_F2_REG_FULL,'1',testName,"1H");
+   
+   -- Reset F1 Reg Full if Set F2 Reg AND NOT F1 W/S (this also sets F2 Full)
+   
+   MS_F1_REG_WORD_SEPARATOR <= '1';  -- is already 1
+   PS_SET_F2_REG <= '1';
+   wait for 30 ns;
+   PS_SET_F2_REG <= '0';
+   wait for 30 ns;
+   check1(PS_F1_REG_FULL,'0',testName,"1I");
+   check1(MS_F1_REG_FULL,'1',testName,"1J");
+   check1(PS_F2_REG_FULL,'1',testName,"1K");
+   check1(MS_F2_REG_FULL,'0',testName,"1L");
+   
+   -- Then Reset F2 Reg Full
+   
+   MS_RESET_F2_FULL_LATCH <= '0';
+   wait for 30 ns;
+   MS_RESET_F2_FULL_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_F1_REG_FULL,'0',testName,"1M");
+   check1(MS_F1_REG_FULL,'1',testName,"1N");
+   check1(PS_F2_REG_FULL,'0',testName,"1O");
+   check1(MS_F2_REG_FULL,'1',testName,"1P");
+   
+   -- Set F1 Reg Full again 
+   
+   MS_SET_F1_REG <= '0';
+   wait for 30 ns;
+   MS_SET_F1_REG <= '1';
+   wait for 30 ns;
+   check1(PS_F1_REG_FULL,'1',testName,"2A");
+   check1(MS_F1_REG_FULL,'0',testName,"2B");
+   check1(PS_F2_REG_FULL,'0',testName,"2C");
+   check1(MS_F2_REG_FULL,'1',testName,"2D");
+   
+   -- Reset F1 Reg Full if Set F2 Reg Full AND F2 W/S (also sets F2 Reg Full again)
+   
+   MS_F1_REG_WORD_SEPARATOR <= '0';  -- Set to not repeat test 1
+   
+   PS_SET_F2_REG <= '1';
+   wait for 30 ns;
+   check1(PS_F1_REG_FULL,'1',testName,"2E");
+   check1(MS_F1_REG_FULL,'0',testName,"2F");
+   check1(PS_F2_REG_FULL,'0',testName,"2G");
+   check1(MS_F2_REG_FULL,'1',testName,"2H");
+   PS_F2_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns; -- Latch should be reset
+   PS_F2_REG_WORD_SEPARATOR <= '0';
+   PS_SET_F2_REG <= '0'; -- Latch should still be reset
+   
+   check1(PS_F1_REG_FULL,'0',testName,"2E");
+   check1(MS_F1_REG_FULL,'1',testName,"2F");
+   check1(PS_F2_REG_FULL,'1',testName,"2G");
+   check1(MS_F2_REG_FULL,'0',testName,"2H");
+
+-- Then Reset F2 Reg Full
+   
+   MS_RESET_F2_FULL_LATCH <= '0';
+   wait for 30 ns;
+   MS_RESET_F2_FULL_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_F1_REG_FULL,'0',testName,"2I");
+   check1(MS_F1_REG_FULL,'1',testName,"2J");
+   check1(PS_F2_REG_FULL,'0',testName,"2K");
+   check1(MS_F2_REG_FULL,'1',testName,"2L");
+
+   -- Set F1 Reg Full again 
+   
+   MS_SET_F1_REG <= '0';
+   wait for 30 ns;
+   MS_SET_F1_REG <= '1';
+   wait for 30 ns;
+   check1(PS_F1_REG_FULL,'1',testName,"3A");
+   check1(MS_F1_REG_FULL,'0',testName,"3B");
+   check1(PS_F2_REG_FULL,'0',testName,"3C");
+   check1(MS_F2_REG_FULL,'1',testName,"3D");
+
+   -- Reset F1 Reg Full via F CH INPUT MODE and SET F2 REG
+   -- This should NOT set F2
+
+   MS_F1_REG_WORD_SEPARATOR <= '0';  -- Set to not repeat test 1
+   PS_F_CH_INPUT_MODE <= '1';
+   wait for 30 ns;   
+   check1(PS_F1_REG_FULL,'1',testName,"3E");
+   check1(MS_F1_REG_FULL,'0',testName,"3F");
+   check1(PS_F2_REG_FULL,'0',testName,"3G");
+   check1(MS_F2_REG_FULL,'1',testName,"3H");
+   PS_SET_F2_REG <= '1';
+   wait for 30 ns; -- Latch is reset
+   PS_SET_F2_REG <= '0';
+   PS_F_CH_INPUT_MODE <= '0';
+   wait for 30 ns;  -- Latch is still reset
+   check1(PS_F1_REG_FULL,'0',testName,"3E");
+   check1(MS_F1_REG_FULL,'1',testName,"3F");
+   check1(PS_F2_REG_FULL,'0',testName,"3G");
+   check1(MS_F2_REG_FULL,'1',testName,"3H");
+
+   -- Set F2 Reg Full and F1 Reg Full, Starting with F1
+   
+   PS_SET_F2_REG <= '1';
+   MS_SET_F1_REG <= '0';
+   wait for 30 ns;
+   check1(PS_F1_REG_FULL,'1',testName,"4A");
+   check1(MS_F1_REG_FULL,'0',testName,"4B");
+   check1(PS_F2_REG_FULL,'0',testName,"4C");
+   check1(MS_F2_REG_FULL,'1',testName,"4D");   
+   PS_F_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns; -- Latch should be set
+   PS_SET_F2_REG <= '0';
+   PS_F_CH_OUTPUT_MODE <= '0';
+   wait for 30 ns; -- Latch should still be set
+   check1(PS_F1_REG_FULL,'1',testName,"4E");
+   check1(MS_F1_REG_FULL,'0',testName,"4F");
+   check1(PS_F2_REG_FULL,'1',testName,"4G");
+   check1(MS_F2_REG_FULL,'0',testName,"4H");
+
+
    wait;
    end process;
 

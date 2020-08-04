@@ -1,5 +1,5 @@
-Generating HDL for page 13.64.03.1 F CH FULL CONTROL-ACC at 8/4/2020 9:50:48 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_64_03_1_F_CH_FULL_CONTROL_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 13.64.03.1 F CH FULL CONTROL-ACC at 8/4/2020 10:35:03 AM
+Old test bench file ALD_13_64_03_1_F_CH_FULL_CONTROL_ACC_tb.vhdl 55 lines preserved and 32 declaration lines preserved
 Ignoring Logic Block 4A with symbol L
 Found combinatorial loop (need D FF) at output of gate at 4B
 Found combinatorial loop (need D FF) at output of gate at 3B
@@ -39,9 +39,6 @@ Generating Statement for block at 3D with output pin(s) of OUT_3D_R
 	and logic function of NOT
 Generating Statement for block at 5E with output pin(s) of OUT_5E_B
 	and inputs of PS_SET_F2_REG
-	and logic function of NOT
-Generating Statement for block at 4E with output pin(s) of OUT_4E_C
-	and inputs of MS_F1_REG_WORD_SEPARATOR
 	and logic function of NOT
 Generating Statement for block at 3E with output pin(s) of OUT_3E_D
 	and inputs of OUT_DOT_4E
@@ -90,8 +87,10 @@ Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
 	and logic function of OR
 WARNING: Input connection from edge connection named +S F2 REG WORD SEPARATOR to a DOT function on page 13.64.03.1 coordinate 4E is also used as input to other page(s):
     13.66.04.1 
+WARNING: Input connection from edge connection named -S F1 REG WORD SEPARATOR to a DOT function on page 13.64.03.1 coordinate 4E is also used as input to other page(s):
+    12.12.64.1 13.66.04.1 
 Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
-	and inputs of OUT_4E_C,PS_F2_REG_WORD_SEPARATOR
+	and inputs of PS_F2_REG_WORD_SEPARATOR,MS_F1_REG_WORD_SEPARATOR
 	and logic function of OR
 Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E, OUT_DOT_3E
 	and inputs of OUT_5E_B,OUT_3E_D
