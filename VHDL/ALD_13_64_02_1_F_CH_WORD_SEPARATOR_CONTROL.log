@@ -1,0 +1,27 @@
+Generating HDL for page 13.64.02.1 F CH WORD SEPARATOR CONTROL at 8/4/2020 2:04:51 PM
+Removed 15 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C, OUT_3F_C
+	and inputs of OUT_DOT_4H
+	and logic function of Special
+Generating Statement for block at 5H with output pin(s) of OUT_5H_D, OUT_5H_D
+	and inputs of PS_LOGIC_GATE_C_OR_D,PS_I_RING_4_TIME,PS_LOZENGE_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of OUT_5H_D,MS_COMPUTER_RESET_1
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of OUT_3F_C
+	and logic function of EQUAL
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H
+	and inputs of OUT_4H_G,PS_F_CH_RESET_STAR_1414
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_RESET
+	from gate output OUT_3F_C
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_RESET_CORR_REC_LENGTH
+	from gate output OUT_5H_D
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_RESET_1
+	from gate output OUT_3H_C

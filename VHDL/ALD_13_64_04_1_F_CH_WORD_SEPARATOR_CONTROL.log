@@ -1,0 +1,95 @@
+Generating HDL for page 13.64.04.1 F CH WORD SEPARATOR CONTROL at 8/4/2020 2:04:57 PM
+Found combinatorial loop (need D FF) at output of gate at 3A
+Found combinatorial loop (need D FF) at output of gate at 2A
+Found combinatorial loop (need D FF) at output of gate at 4F
+Found combinatorial loop (need D FF) at output of gate at 3F
+Removed 1 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 3A to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of MS_F1_INPUT_WM_BIT,PS_F_CH_NOT_WORD_SEPARATOR
+	and logic function of NAND
+Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_F_Latch
+	and inputs of OUT_DOT_2A
+	and logic function of NOT
+Generating Statement for block at 2A with *latched* output pin(s) of OUT_2A_B_Latch
+	and inputs of OUT_DOT_3A
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_F
+	and inputs of PS_SET_F1_REG
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_R
+	and inputs of OUT_DOT_4B
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_DOT_4C
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_R
+	and inputs of PS_SET_F1_REG
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of MS_F_CH_RESET
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_B
+	and inputs of PS_F_CH_WORD_SEPARATOR_MODE
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_F_CH_NOT_WORD_SEPARATOR,MS_F1_INPUT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of OUT_5E_C
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_K
+	and inputs of PS_SET_F1_REG,PS_F_CH_OUTPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 4F with *latched* output pin(s) of OUT_4F_F_Latch
+	and inputs of OUT_5F_K,OUT_5G_P,OUT_3F_NoPin
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_NoPin_Latch, OUT_3F_NoPin_Latch
+	and inputs of OUT_DOT_4F,OUT_5H_C
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_E
+	and inputs of OUT_3F_NoPin
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_P
+	and inputs of PS_RESET_F2_FULL_LATCH,PS_F_CH_INPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of MS_F_CH_RESET
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_D
+	and inputs of OUT_DOT_4F
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_C
+	and inputs of OUT_DOT_2A,PS_SET_F2_REG_DELAYED,PS_F_CH_WORD_SEPARATOR_MODE
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A, OUT_DOT_3A
+	and inputs of OUT_3A_F,OUT_3B_R,OUT_3C_C
+	and logic function of OR
+Generating Statement for block at 2A with output pin(s) of OUT_DOT_2A, OUT_DOT_2A, OUT_DOT_2A
+	and inputs of OUT_2A_B,OUT_2B_D
+	and logic function of OR
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_4A_G,OUT_4B_F
+	and logic function of OR
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_R,OUT_4D_B,OUT_4E_D
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F, OUT_DOT_4F
+	and inputs of OUT_4F_F,OUT_4G_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_F2_REG_WORD_SEPARATOR
+	from gate output OUT_2F_E
+Generating output sheet edge signal assignment to 
+	signal PS_F2_REG_WORD_SEPARATOR
+	from gate output OUT_2G_D
+Generating output sheet edge signal assignment to 
+	signal MS_F1_REG_WORD_SEPARATOR
+	from gate output OUT_DOT_3A
+Generating output sheet edge signal assignment to 
+	signal PS_F1_REG_WORD_SEPARATOR
+	from gate output OUT_DOT_2A
+Generating D Flip Flop for block at 3A
+Generating D Flip Flop for block at 2A
+Generating D Flip Flop for block at 4F
+Generating D Flip Flop for block at 3F
