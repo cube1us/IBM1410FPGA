@@ -183,7 +183,146 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.64.08.1        ";
+      
+      MS_IN_PROCESS_RESET <= '0';
+      wait for 90 ns;
+      MS_IN_PROCESS_RESET <= '1';
+      wait for 30 ns;
+         
+      check1(LAMP_15A1H15,'0',testName,"1A");
+      check1(PS_F_CH_OVLP_IN_PROCESS,'0',testName,"1B");
+      check1(MS_F_CH_OVLP_IN_PROCESS,'1',testName,"1C");
+      check1(PS_F_CH_IN_PROCESS,'0',testName,"1D");
+      check1(MS_F_CH_IN_PROCESS,'1',testName,"1DA");
+      PS_F_CH_NO_STATUS_ON <= '1';
+      wait for 30 ns;
+      check1(LAMP_15A1H15,'0',testName,"1E");
+      check1(PS_F_CH_OVLP_IN_PROCESS,'0',testName,"1F");
+      check1(MS_F_CH_OVLP_IN_PROCESS,'1',testName,"1G");
+      check1(PS_F_CH_IN_PROCESS,'0',testName,"1H");
+      PS_F_CH_STATUS_SAMPLE_A_DELAY <= '1';
+      wait for 30 ns;
+      check1(LAMP_15A1H15,'0',testName,"1I");
+      check1(PS_F_CH_OVLP_IN_PROCESS,'0',testName,"1J");
+      check1(MS_F_CH_OVLP_IN_PROCESS,'1',testName,"1K");
+      check1(PS_F_CH_IN_PROCESS,'0',testName,"1L");
+      PS_I_O_ASTERISK_LATCH <= '1';
+      -- Latch should set now
+      wait for 90 ns;
+      PS_F_CH_NO_STATUS_ON <= '0';
+      PS_F_CH_STATUS_SAMPLE_A_DELAY <= '0';
+      PS_I_O_ASTERISK_LATCH <= '0';
+      -- Latch should still be set   
+      check1(LAMP_15A1H15,'1',testName,"1M");
+      check1(PS_F_CH_OVLP_IN_PROCESS,'1',testName,"1N");
+      check1(MS_F_CH_OVLP_IN_PROCESS,'0',testName,"1O");
+      check1(PS_F_CH_IN_PROCESS,'1',testName,"1P");
+      check1(MS_F_CH_IN_PROCESS,'0',testName,"1PA");
+      -- Then reset the latch
+      MS_F_CH_STATUS_SAMPLE_B_DELAY <= '0';
+      wait for 90 ns;
+      MS_F_CH_STATUS_SAMPLE_B_DELAY <= '1';
+      wait for 30 ns;
+      check1(LAMP_15A1H15,'0',testName,"1Q");
+      check1(PS_F_CH_OVLP_IN_PROCESS,'0',testName,"1R");
+      check1(MS_F_CH_OVLP_IN_PROCESS,'1',testName,"1S");
+      check1(PS_F_CH_IN_PROCESS,'0',testName,"1T");
+   
+   
+      check1(LAMP_15A1K15,'0',testName,"2A");
+      check1(PS_F_CH_UNOVLP_IN_PROCESS,'0',testName,"2B");
+      check1(MS_F_CH_UNOVLP_IN_PROCESS,'1',testName,"2C");
+      check1(PS_F_CH_IN_PROCESS,'0',testName,"2D");
+      PS_I_O_LOZENGE_LATCH <= '1';
+      wait for 30 ns;
+      check1(LAMP_15A1K15,'0',testName,"2E");
+      check1(PS_F_CH_UNOVLP_IN_PROCESS,'0',testName,"2F");
+      check1(MS_F_CH_UNOVLP_IN_PROCESS,'1',testName,"2G");
+      check1(PS_F_CH_IN_PROCESS,'0',testName,"2H");
+      PS_F_CH_NO_STATUS_ON <= '1';
+      wait for 30 ns;
+      check1(LAMP_15A1K15,'0',testName,"2I");
+      check1(PS_F_CH_UNOVLP_IN_PROCESS,'0',testName,"2J");
+      check1(MS_F_CH_UNOVLP_IN_PROCESS,'1',testName,"2K");
+      check1(PS_F_CH_IN_PROCESS,'0',testName,"2L");
+      PS_F_CH_STATUS_SAMPLE_A_DELAY <= '1';
+      wait for 90 ns;
+      -- Latch should be set
+      PS_I_O_LOZENGE_LATCH <= '0';
+      PS_F_CH_NO_STATUS_ON <= '0';
+      PS_F_CH_STATUS_SAMPLE_A_DELAY <= '0';
+      wait for 30 ns;
+      check1(LAMP_15A1K15,'1',testName,"2M");
+      check1(PS_F_CH_UNOVLP_IN_PROCESS,'1',testName,"2N");
+      check1(MS_F_CH_UNOVLP_IN_PROCESS,'0',testName,"2O");
+      check1(PS_F_CH_IN_PROCESS,'1',testName,"2P");
+      -- Then reset the latch
+      MS_F_CH_STATUS_SAMPLE_B_DELAY <= '0';
+      wait for 90 ns;
+      MS_F_CH_STATUS_SAMPLE_B_DELAY <= '1';
+      wait for 30 ns;
+      check1(LAMP_15A1K15,'0',testName,"2Q");
+      check1(PS_F_CH_UNOVLP_IN_PROCESS,'0',testName,"2R");
+      check1(MS_F_CH_UNOVLP_IN_PROCESS,'1',testName,"2S");
+      check1(PS_F_CH_IN_PROCESS,'0',testName,"2T");
 
+   testName := "13.64.09.1        ";
+   
+   check1(PS_F_CH_SELECT_ODD_PARITY_UNIT,'0',testName,"1A");   
+   MS_F_CH_SELECT_UNIT_F <= '0';   
+   wait for 30 ns;               
+   check1(PS_F_CH_SELECT_ODD_PARITY_UNIT,'1',testName,"1B");
+   MS_F_CH_SELECT_UNIT_F <= '1';   
+   wait for 30 ns;               
+   MS_F_CH_SELECT_UNIT_B <= '0';   
+   wait for 30 ns;               
+   check1(PS_F_CH_SELECT_ODD_PARITY_UNIT,'1',testName,"1C");
+   MS_F_CH_SELECT_UNIT_B <= '1';   
+   wait for 30 ns;               
+   PS_F_CH_SEL_ODD_PARITY_UNIT_STAR_SIF <= '1';      
+   wait for 30 ns;               
+   check1(PS_F_CH_SELECT_ODD_PARITY_UNIT,'1',testName,"1D");
+   PS_F_CH_SEL_ODD_PARITY_UNIT_STAR_SIF <= '0';      
+   wait for 30 ns;
+   PS_F_CH_SELECT_ODD_PARITY_STAR_1414 <= '1';      
+   wait for 30 ns;               
+   check1(PS_F_CH_SELECT_ODD_PARITY_UNIT,'1',testName,"1E");
+   PS_F_CH_SELECT_ODD_PARITY_STAR_1414 <= '0';      
+   wait for 30 ns;
+   PS_F_CH_SEL_ODD_PARITY_UNIT_STAR_2_9 <= '1';      
+   wait for 30 ns;               
+   check1(PS_F_CH_SELECT_ODD_PARITY_UNIT,'1',testName,"1F");
+   PS_F_CH_SEL_ODD_PARITY_UNIT_STAR_2_9 <= '0';      
+   wait for 30 ns;
+   check1(PS_F_CH_SELECT_ODD_PARITY_UNIT,'0',testName,"1G");
+                  
+   check1(PS_F_CH_SELECT_7_BIT_UNIT,'0',testName,"2A");
+   MS_F_CH_SELECT_UNIT_B <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_SELECT_7_BIT_UNIT,'1',testName,"2B");
+   MS_F_CH_SELECT_UNIT_B <= '1';
+   wait for 30 ns;
+   MS_F_CH_SELECT_UNIT_U <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_SELECT_7_BIT_UNIT,'1',testName,"2C");
+   MS_F_CH_SELECT_UNIT_U <= '1';
+   wait for 30 ns;
+   PS_F_CH_SELECT_7_BIT_UNIT_STAR_SIF <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_SELECT_7_BIT_UNIT,'1',testName,"2D");
+   PS_F_CH_SELECT_7_BIT_UNIT_STAR_SIF <= '0';
+   wait for 30 ns;
+   PS_F_CH_SELECT_7_BIT_UNIT_STAR_1414 <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_SELECT_7_BIT_UNIT,'1',testName,"2E");
+   PS_F_CH_SELECT_7_BIT_UNIT_STAR_1414 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_SELECT_7_BIT_UNIT,'0',testName,"2F");
+   
+   
+      
    wait;
    end process;
 
