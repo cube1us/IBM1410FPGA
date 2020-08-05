@@ -150,6 +150,87 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"1A");
+   MS_F_CYCLE_REQUIRED <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'1',testName,"1B");
+   MS_F_CYCLE_REQUIRED <= '1';
+   wait for 30 ns;
+   MS_F_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'1',testName,"1C");
+   MS_F_CH_UNOVLP_IN_PROCESS <= '1';
+   wait for 30 ns;
+   MS_COMP_DSBLE_F_CH <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'1',testName,"1D");
+   MS_COMP_DSBLE_F_CH <= '1';
+   wait for 30 ns;
+   
+   PS_F_CH_IN_PROCESS <= '1';
+   PS_I_RING_5_TIME <= '1';
+   wait for 30 ns;   
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"2A");
+   PS_BRANCH_ON_STATUS_CH_2 <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'1',testName,"2B");
+   PS_I_RING_5_TIME <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"2C");
+   PS_I_RING_5_TIME <= '1';
+   wait for 30 ns;
+   PS_F_CH_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"2D");
+   PS_I_RING_5_TIME <= '0';
+   PS_BRANCH_ON_STATUS_CH_2 <= '0';
+   
+   PS_F_CH_OVLP_IN_PROCESS <= '1';
+   PS_F1_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"3A");
+   PS_F_CH_INPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'1',testName,"3B");
+   PS_F1_REG_FULL <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"3C");
+   PS_F1_REG_FULL <= '1';
+   wait for 30 ns;
+   PS_F_CH_OVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"3D");
+   PS_F1_REG_FULL <= '0';
+   PS_F_CH_OVLP_IN_PROCESS <= '0';
+   
+   MS_F2_REG_FULL <= '1';
+   PS_F_CH_OVLP_IN_PROCESS <= '1';
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"4A");
+   PS_F_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'1',testName,"4B");
+   MS_F2_REG_FULL <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"4C");
+   MS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   PS_F_CH_OVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"4D");
+   PS_F_CH_OVLP_IN_PROCESS <= '1';
+   wait for 30 ns;
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '0';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'0',testName,"4E");
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '1';
+   wait for 30 ns;
+   check1(PS_COMP_DISABLE_CYCLE_JRJ,'1',testName,"4F");
+   
+   
 
    wait;
    end process;
