@@ -1,0 +1,40 @@
+Generating HDL for group named FChMisc1at 8/5/2020 11:06:21 AM containing pages: 
+	13.64.08.1, 13.64.09.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\FChMisc1_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 12 signals on page 13.64.08.1
+Found 10 signals on page 13.64.09.1
+Found 14 unique input signals and 8 unique output signals, (22 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S IN PROCESS RESET originates outside the group.
+INFO:  Signal +S I-O LOZENGE LATCH originates outside the group.
+INFO:  Signal +S I-O ASTERISK LATCH originates outside the group.
+INFO:  Signal +S F CH STATUS SAMPLE A DELAY originates outside the group.
+INFO:  Signal +S F CH NO STATUS ON originates outside the group.
+INFO:  Signal -S F CH STATUS SAMPLE B DELAY originates outside the group.
+INFO:  Signal -S F CH SELECT UNIT U originates outside the group.
+INFO:  Signal -S F CH SELECT UNIT B originates outside the group.
+INFO:  Signal -S F CH SELECT UNIT F originates outside the group.
+INFO:  Signal +S F CH SELECT ODD PARITY*1414 originates outside the group.
+INFO:  Signal +S F CH SEL ODD PARITY UNIT*SIF originates outside the group.
+INFO:  Signal +S F CH SEL ODD PARITY UNIT*2-9 originates outside the group.
+INFO:  Signal +S F CH SELECT 7 BIT UNIT *SIF originates outside the group.
+INFO:  Signal +S F CH SELECT 7 BIT UNIT*1414 originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S F CH IN PROCESS is used outside the group.
+INFO:  Signal +S F CH UNOVLP IN PROCESS is used outside the group.
+INFO:  Signal +S F CH OVLP IN PROCESS is used outside the group.
+INFO:  Signal -S F CH UNOVLP IN PROCESS is used outside the group.
+INFO:  Signal -S F CH OVLP IN PROCESS is used outside the group.
+INFO:  Signal +S F CH IN PROCESS is used outside the group.
+INFO:  Signal +S F CH SELECT ODD PARITY UNIT is used outside the group.
+INFO:  Signal +S F CH SELECT 7 BIT UNIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Page 13.64.08.1 generates Lamp Output LAMP_15A1K15
+Page 13.64.08.1 generates Lamp Output LAMP_15A1H15
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.64.08.1 (IN PROCESS LATCHES)
+Generating HDL associated with page 13.64.09.1 (7-8 BIT EVEN-DD PARITY UNIT)

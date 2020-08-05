@@ -1,0 +1,87 @@
+Generating HDL for page 13.64.08.1 IN PROCESS LATCHES at 8/5/2020 11:05:15 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_64_08_1_IN_PROCESS_LATCHES_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5B
+Found combinatorial loop (need D FF) at output of gate at 4B
+Found combinatorial loop (need D FF) at output of gate at 5E
+Found combinatorial loop (need D FF) at output of gate at 4E
+Removed 2 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 13 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3F to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1K15
+Added LAMP signal LAMP_15A1H15
+Generating Statement for block at 5A with output pin(s) of OUT_5A_D
+	and inputs of PS_I_O_LOZENGE_LATCH,PS_F_CH_STATUS_SAMPLE_A_DELAY,PS_F_CH_NO_STATUS_ON
+	and logic function of NAND
+Generating Statement for block at 5B with *latched* output pin(s) of OUT_5B_F_Latch, OUT_5B_F_Latch
+	and inputs of MS_IN_PROCESS_RESET,MS_F_CH_STATUS_SAMPLE_B_DELAY,OUT_4B_NoPin
+	and logic function of NAND
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_NoPin_Latch, OUT_4B_NoPin_Latch
+	and inputs of OUT_5A_D,OUT_5B_F
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_E, OUT_3B_E, OUT_3B_E
+	and inputs of OUT_4B_NoPin
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_B
+	and inputs of OUT_3B_E
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of 
+	and inputs of OUT_2B_B
+	and logic function of Lamp
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of OUT_5B_F
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C, OUT_2C_C
+	and inputs of OUT_3B_E,OUT_2D_R
+	and logic function of Special
+Generating Statement for block at 5D with output pin(s) of OUT_5D_E
+	and inputs of PS_F_CH_NO_STATUS_ON,PS_F_CH_STATUS_SAMPLE_A_DELAY,PS_I_O_ASTERISK_LATCH
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_R
+	and inputs of OUT_3E_E
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_D
+	and inputs of OUT_2C_C
+	and logic function of NOT
+Generating Statement for block at 5E with *latched* output pin(s) of OUT_5E_F_Latch, OUT_5E_F_Latch
+	and inputs of MS_IN_PROCESS_RESET,MS_F_CH_STATUS_SAMPLE_B_DELAY,OUT_4E_NoPin
+	and logic function of NAND
+Generating Statement for block at 4E with *latched* output pin(s) of OUT_4E_NoPin_Latch, OUT_4E_NoPin_Latch
+	and inputs of OUT_5D_E,OUT_5E_F
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E, OUT_3E_E, OUT_3E_E
+	and inputs of OUT_4E_NoPin
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of OUT_3E_E
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of 
+	and inputs of OUT_2E_A
+	and logic function of Lamp
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of OUT_5E_F
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_UNOVLP_IN_PROCESS
+	from gate output OUT_3B_E
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_UNOVLP_IN_PROCESS
+	from gate output OUT_3C_D
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_IN_PROCESS
+	from gate output OUT_2C_C
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_IN_PROCESS
+	from gate output OUT_1D_D
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_OVLP_IN_PROCESS
+	from gate output OUT_3E_E
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_OVLP_IN_PROCESS
+	from gate output OUT_3F_D
+Generating D Flip Flop for block at 5B
+Generating D Flip Flop for block at 4B
+Generating D Flip Flop for block at 5E
+Generating D Flip Flop for block at 4E

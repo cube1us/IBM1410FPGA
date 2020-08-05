@@ -1,0 +1,20 @@
+Generating HDL for page 13.64.09.1 7-8 BIT EVEN-DD PARITY UNIT at 8/5/2020 11:05:25 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_64_09_1_7_8_BIT_EVEN_DD_PARITY_UNIT_tb.vhdl, generating default test bench code.
+Generating Statement for block at 3D with output pin(s) of OUT_3D_P
+	and inputs of MS_F_CH_SELECT_UNIT_F,MS_F_CH_SELECT_UNIT_B
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of MS_F_CH_SELECT_UNIT_B,MS_F_CH_SELECT_UNIT_U
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3D_P,PS_F_CH_SEL_ODD_PARITY_UNIT_STAR_SIF,PS_F_CH_SELECT_ODD_PARITY_STAR_1414,PS_F_CH_SEL_ODD_PARITY_UNIT_STAR_2_9
+	and logic function of OR
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F
+	and inputs of OUT_3F_C,PS_F_CH_SELECT_7_BIT_UNIT_STAR_SIF,PS_F_CH_SELECT_7_BIT_UNIT_STAR_1414
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_SELECT_ODD_PARITY_UNIT
+	from gate output OUT_DOT_3D
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_SELECT_7_BIT_UNIT
+	from gate output OUT_DOT_3F
