@@ -126,6 +126,8 @@ procedure check1(
 
 
    -- Your test bench declarations go here
+   
+   signal PS_F_CH_U_SEL_REG_BUS: STD_LOGIC_VECTOR(7 downto 0);
 
 -- END USER TEST BENCH DECLARATIONS
    
@@ -202,6 +204,20 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+   PS_F_CH_U_SEL_REG_NOT_C_BIT <= NOT PS_F_CH_U_SEL_REG_BUS(7);
+   PS_F_CH_U_SEL_REG_NOT_B_BIT <= NOT PS_F_CH_U_SEL_REG_BUS(5);
+   PS_F_CH_U_SEL_REG_NOT_8_BIT <= NOT PS_F_CH_U_SEL_REG_BUS(3);
+   PS_F_CH_U_SEL_REG_NOT_4_BIT <= NOT PS_F_CH_U_SEL_REG_BUS(2);
+   PS_F_CH_U_SEL_REG_NOT_2_BIT <= NOT PS_F_CH_U_SEL_REG_BUS(1);
+   PS_F_CH_U_SEL_REG_NOT_1_BIT <= NOT PS_F_CH_U_SEL_REG_BUS(0);
+   
+   PS_F_CH_U_SEL_REG_C_BIT <= PS_F_CH_U_SEL_REG_BUS(7);
+   PS_F_CH_U_SEL_REG_B_BIT <= PS_F_CH_U_SEL_REG_BUS(5);
+   PS_F_CH_U_SEL_REG_A_BIT <= PS_F_CH_U_SEL_REG_BUS(4);
+   PS_F_CH_U_SEL_REG_4_BIT <= PS_F_CH_U_SEL_REG_BUS(2);
+   PS_F_CH_U_SEL_REG_2_BIT <= PS_F_CH_U_SEL_REG_BUS(1);
+
+
 uut_process: process
 
    variable testName: string(1 to 18);
@@ -210,6 +226,120 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   -- Reset the F Ch Sel Unit Latch
+   
+   testName := "13.64.05.1        "; 
+            
+   MS_F_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 30 ns;
+   MS_F_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   PS_F_CH_U_SEL_REG_BUS <= "10000000";
+   wait for 30 ns;
+   
+   check1(PS_F_CH_SELECT_UNIT_U,'0',testName,"SA");
+   check1(MS_F_CH_SELECT_UNIT_U,'1',testName,"SB");
+   check1(PS_F_CH_U_SEL_A_DOT_NOT_8_DOT_NOT_1,'0',testname,"SC");
+   check1(PS_F_CH_SELECT_TAPE,'0',testName,"SD");
+   check1(MS_F_CH_SELECT_TAPE,'1',testName,"SE");
+   check1(PS_F_CH_SELECT_UNIT_B,'0',testName,"SF");
+   check1(MS_F_CH_SELECT_UNIT_B,'1',testName,"SG");
+   check1(MC_ODD_PARITY_TO_TAPE_STAR_F_CH,'1',testName,"SH");
+   check1(PS_F_CH_SELECT_UNIT_F,'0',testName,"SI");
+   check1(MS_F_CH_SELECT_UNIT_F,'1',testName,"SJ");
+   check1(PS_F_CH_SELECT_UNIT_F_LN_2,'0',testName,"SK");
+   check1(MS_F_CH_SELECT_UNIT_F_A,'1',testName,"SL");
+   check1(MC_UNIT_SEL_F_F_CH_1301,'1',testName,"SM");
+   check1(MC_UNIT_SELECT_F_STAR_F_CH_1405,'1',testName,"SN");
+   check1(PS_F_CH_SEL_UNIT_F_LATCHED,'0',testName,"SO");
+   
+   PS_F_CH_U_SEL_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_U);
+   wait for 30 ns;
+   
+   check1(PS_F_CH_SELECT_UNIT_U,'1',testName,"1A");
+   check1(MS_F_CH_SELECT_UNIT_U,'0',testName,"1B");
+   check1(PS_F_CH_U_SEL_A_DOT_NOT_8_DOT_NOT_1,'1',testname,"1C");
+   check1(PS_F_CH_SELECT_TAPE,'1',testName,"1D");
+   check1(MS_F_CH_SELECT_TAPE,'0',testName,"1E");
+   check1(PS_F_CH_SELECT_UNIT_B,'0',testName,"1F");
+   check1(MS_F_CH_SELECT_UNIT_B,'1',testName,"1G");
+   check1(MC_ODD_PARITY_TO_TAPE_STAR_F_CH,'1',testName,"1H");
+   check1(PS_F_CH_SELECT_UNIT_F,'0',testName,"1I");
+   check1(MS_F_CH_SELECT_UNIT_F,'1',testName,"1J");
+   check1(PS_F_CH_SELECT_UNIT_F_LN_2,'0',testName,"1K");
+   check1(MS_F_CH_SELECT_UNIT_F_A,'1',testName,"1L");
+   check1(MC_UNIT_SEL_F_F_CH_1301,'1',testName,"1M");
+   check1(MC_UNIT_SELECT_F_STAR_F_CH_1405,'1',testName,"1N");
+   check1(PS_F_CH_SEL_UNIT_F_LATCHED,'0',testName,"1O");
+   
+   PS_F_CH_U_SEL_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_B);
+   wait for 30 ns;
+   
+   check1(PS_F_CH_SELECT_UNIT_U,'0',testName,"2A");
+   check1(MS_F_CH_SELECT_UNIT_U,'1',testName,"2B");
+   check1(PS_F_CH_U_SEL_A_DOT_NOT_8_DOT_NOT_1,'1',testname,"2C");
+   check1(PS_F_CH_SELECT_TAPE,'1',testName,"2D");
+   check1(MS_F_CH_SELECT_TAPE,'0',testName,"2E");
+   check1(PS_F_CH_SELECT_UNIT_B,'1',testName,"2F");
+   check1(MS_F_CH_SELECT_UNIT_B,'0',testName,"2G");
+   check1(MC_ODD_PARITY_TO_TAPE_STAR_F_CH,'0',testName,"2H");
+   check1(PS_F_CH_SELECT_UNIT_F,'0',testName,"2I");
+   check1(MS_F_CH_SELECT_UNIT_F,'1',testName,"2J");
+   check1(PS_F_CH_SELECT_UNIT_F_LN_2,'0',testName,"2K");
+   check1(MS_F_CH_SELECT_UNIT_F_A,'1',testName,"2L");
+   check1(MC_UNIT_SEL_F_F_CH_1301,'1',testName,"2M");
+   check1(MC_UNIT_SELECT_F_STAR_F_CH_1405,'1',testName,"2N");
+   check1(PS_F_CH_SEL_UNIT_F_LATCHED,'0',testName,"2O");
+
+   PS_F_CH_U_SEL_REG_BUS <= BCD.bcd_to_slv8_odd_parity(BCD.BCD_F);
+   wait for 30 ns;
+
+   check1(PS_F_CH_SELECT_UNIT_U,'0',testName,"3A");
+   check1(MS_F_CH_SELECT_UNIT_U,'1',testName,"3B");
+   check1(PS_F_CH_U_SEL_A_DOT_NOT_8_DOT_NOT_1,'1',testname,"3C");
+   check1(PS_F_CH_SELECT_TAPE,'0',testName,"3D");
+   check1(MS_F_CH_SELECT_TAPE,'1',testName,"3E");
+   check1(PS_F_CH_SELECT_UNIT_B,'0',testName,"3F");
+   check1(MS_F_CH_SELECT_UNIT_B,'1',testName,"3G");
+   check1(MC_ODD_PARITY_TO_TAPE_STAR_F_CH,'1',testName,"3H");
+   check1(PS_F_CH_SELECT_UNIT_F,'1',testName,"3I");
+   check1(MS_F_CH_SELECT_UNIT_F,'0',testName,"3J");
+   check1(PS_F_CH_SELECT_UNIT_F_LN_2,'1',testName,"3K");
+   check1(MS_F_CH_SELECT_UNIT_F_A,'0',testName,"3L");
+   check1(MC_UNIT_SEL_F_F_CH_1301,'1',testName,"3M");
+   check1(MC_UNIT_SELECT_F_STAR_F_CH_1405,'1',testName,"3N");
+   check1(PS_F_CH_SEL_UNIT_F_LATCHED,'0',testName,"3O");
+   
+            -- Set the Unit F Latch
+   
+   PS_I_RING_5_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_SEL_UNIT_F_LATCHED,'0',testName,"+S F Latch 1");
+   PS_LOZENGE_OR_ASTERISK <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_SEL_UNIT_F_LATCHED,'1',testName,"+S F Latch 2");
+   -- Should stay latched
+   PS_I_RING_5_TIME <= '0';
+   PS_LOZENGE_OR_ASTERISK <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_SEL_UNIT_F_LATCHED,'1',testName,"+S F Latch 3");
+   MS_F_CH_RBCI_ON <= '0';
+   wait for 30 ns;
+   check1(MC_UNIT_SEL_F_F_CH_1301,'1',testName,"-C F*1301 1");
+   check1(MC_UNIT_SELECT_F_STAR_F_CH_1405,'1',testName,"-C F*1405 1");
+   MS_F_CH_RBCI_ON <= '1';
+   wait for 30 ns;
+   check1(MC_UNIT_SEL_F_F_CH_1301,'0',testName,"-C F*1301 2");
+   check1(MC_UNIT_SELECT_F_STAR_F_CH_1405,'0',testName,"-C F*1405 2");
+               
+   -- Reset the latch  ;)
+   
+   PS_F_CH_ANY_STATUS_ON <= '1';
+   PS_F_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   wait for 30 ns;
+   PS_F_CH_ANY_STATUS_ON <= '0';
+   PS_F_CH_STATUS_SAMPLE_A_DELAY <= '0';
+
 
    wait;
    end process;
