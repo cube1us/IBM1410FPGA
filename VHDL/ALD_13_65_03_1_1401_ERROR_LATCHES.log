@@ -1,0 +1,14 @@
+Generating HDL for page 13.65.03.1 1401 ERROR LATCHES at 8/5/2020 12:59:22 PM
+Found combinatorial loop (need D FF) at output of gate at 3G
+Found combinatorial loop (need D FF) at output of gate at 1G
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_C_Latch
+	and inputs of MS_PROGRAM_RESET_2,OUT_1G_C,MS_RESET_PROCESS_CK_LAT
+	and logic function of NAND
+Generating Statement for block at 1G with *latched* output pin(s) of OUT_1G_C_Latch, OUT_1G_C_Latch
+	and inputs of OUT_3G_C,MS_MASTER_ERROR
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_1401_PROCESS_CHECK
+	from gate output OUT_1G_C
+Generating D Flip Flop for block at 3G
+Generating D Flip Flop for block at 1G

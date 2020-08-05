@@ -1,0 +1,49 @@
+Generating HDL for group named I1401ErrorLatchesat 8/5/2020 1:00:04 PM containing pages: 
+	13.65.01.1, 13.65.02.1, 13.65.03.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\I1401ErrorLatches_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 8 signals on page 13.65.01.1
+Found 22 signals on page 13.65.02.1
+Found 4 signals on page 13.65.03.1
+Found 21 unique input signals and 9 unique output signals, (30 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S RESET READER ERROR LATCH originates outside the group.
+INFO:  Signal +S E CH CHECK BUS originates outside the group.
+INFO:  Signal -S PROGRAM RESET 2 originates outside the group.
+INFO:  Signal -V 1401 MODE originates outside the group.
+INFO:  Signal +S 1401 READ TRIGGER originates outside the group.
+INFO:  Signal +S E CH STATUS SAMPLE B originates outside the group.
+INFO:  Signal +S LOGIC GATE E 1 originates outside the group.
+INFO:  Signal +S I RING 9 TIME originates outside the group.
+INFO:  Signal -S E CH READY BUS originates outside the group.
+INFO:  Signal +S E CH BUSY BUS originates outside the group.
+INFO:  Signal +S E CH CONDITION BUS originates outside the group.
+INFO:  Signal +S 1401 MODE originates outside the group.
+INFO:  Signal +S E CH SELECT UNIT F originates outside the group.
+INFO:  Signal +S E CH WRONG LENGTH REC COND originates outside the group.
+INFO:  Signal +S FILE WRONG LENGTH ADDR CON originates outside the group.
+INFO:  Signal +S E CH WLR*1311-1401 originates outside the group.
+INFO:  Signal +S FILE OP originates outside the group.
+INFO:  Signal +S FILE OP.D CY.EXTENSION originates outside the group.
+INFO:  Signal -C FILE INVALID ADDRESS 1405 originates outside the group.
+INFO:  Signal -S RESET PROCESS CK LAT originates outside the group.
+INFO:  Signal -S MASTER ERROR originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S 1401 READ ERROR is used outside the group.
+INFO:  Signal -S 1401 I-O CHECK RESET is used outside the group.
+INFO:  Signal +S FILE INVALID ADDRESS is used outside the group.
+INFO:  Signal +S 1401 FILE VALIDITY CK is used outside the group.
+INFO:  Signal +S 1401 FILE WRONG LENG REC is used outside the group.
+INFO:  Signal +S 1401 FILE ADDR COMPARE is used outside the group.
+INFO:  Signal +S 1401 ANY FILE CHECK is used outside the group.
+INFO:  Signal +S FILE BUSY LATCH is used outside the group.
+INFO:  Signal +S 1401 PROCESS CHECK is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S I RING 9 TIME replaced by Bus signal +S I RING HDL BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.65.01.1 (1401 ERROR LATCHES)
+Generating HDL associated with page 13.65.02.1 (1401 ERROR LATCHES ACC)
+Generating HDL associated with page 13.65.03.1 (1401 ERROR LATCHES)

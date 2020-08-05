@@ -1,0 +1,35 @@
+Generating HDL for page 13.65.01.1 1401 ERROR LATCHES at 8/5/2020 12:58:47 PM
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 1B
+Ignoring Logic Block 3H with symbol L
+Ignoring Logic Block 3I with symbol CAP
+Removed 3 outputs from Gate at 4I to ignored block(s) or identical signal names
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_P_Latch
+	and inputs of OUT_1B_G,MS_RESET_READER_ERROR_LATCH
+	and logic function of NAND
+Generating Statement for block at 1B with *latched* output pin(s) of OUT_1B_G_Latch, OUT_1B_G_Latch
+	and inputs of OUT_DOT_3B,OUT_5C_D
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_D
+	and inputs of PS_1401_READ_TRIGGER,PS_E_CH_CHECK_BUS,PS_E_CH_STATUS_SAMPLE_B
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of MS_PROGRAM_RESET_2,OUT_4I_X
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_T
+	and inputs of MV_1401_MODE
+	and logic function of Switch
+Generating Statement for block at 4I with output pin(s) of OUT_4I_X, OUT_4I_X
+	and inputs of OUT_5I_T
+	and logic function of Resistor
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_3B_P,OUT_3G_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_1401_READ_ERROR
+	from gate output OUT_1B_G
+Generating output sheet edge signal assignment to 
+	signal MS_1401_I_O_CHECK_RESET
+	from gate output OUT_4I_X
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 1B
