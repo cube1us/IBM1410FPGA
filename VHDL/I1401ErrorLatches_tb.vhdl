@@ -203,7 +203,201 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "12.65.01.1        ";
+   
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '0'; 
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '1'; 
+   
+   check1(PS_1401_READ_ERROR,'0',testName,"1A");
+   PS_E_CH_CHECK_BUS <= '1';
+   PS_1401_READ_TRIGGER <= '1';
+   wait for 30 ns;
+   check1(PS_1401_READ_ERROR,'0',testName,"1B");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns; -- Latch should set
+   PS_E_CH_CHECK_BUS <= '0';
+   PS_1401_READ_TRIGGER <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns; -- Latch should still be set
+   check1(PS_1401_READ_ERROR,'1',testName,"1C");
+   MS_RESET_READER_ERROR_LATCH <= '0'; 
+   wait for 30 ns;  -- Reset Latch
+   MS_RESET_READER_ERROR_LATCH <= '1'; 
+   wait for 30 ns;  -- Latch should stay reset
+   check1(PS_1401_READ_ERROR,'0',testName,"1D");
+   -- Set the latch again
+   PS_E_CH_CHECK_BUS <= '1';
+   PS_1401_READ_TRIGGER <= '1';
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns; -- Latch should set
+   PS_E_CH_CHECK_BUS <= '0';
+   PS_1401_READ_TRIGGER <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns; -- Latch should still be set
+   check1(PS_1401_READ_ERROR,'1',testName,"1E");
+   -- Reset it another way
+   SWITCH_MOM_IO_CHK_RST <= '1';  -- Switch Output is NOT this value.
+   wait for 30 ns;
+   check1(PS_1401_READ_ERROR,'0',testName,"1F");
+   SWITCH_MOM_IO_CHK_RST <= '0';  -- Switch Output is NOT this value.
+   wait for 30 ns;
+   check1(PS_1401_READ_ERROR,'0',testName,"1G");
+   
+   testName := "13.65.02.1        ";
 
+   PS_E_CH_SELECT_UNIT_F <= '1';  -- Needed for most tests on this page
+   MS_E_CH_READY_BUS <= '0';  -- Ready -- for now
+   
+   check1(PS_1401_FILE_VALIDITY_CK,'0',testName,"1A");
+   check1(PS_1401_ANY_FILE_CHECK,'0',testName,"1A1");
+   PS_E_CH_CHECK_BUS <= '1';
+   wait for 30 ns;
+   check1(PS_1401_FILE_VALIDITY_CK,'0',testName,"1B");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;  -- Should set latch
+   PS_E_CH_CHECK_BUS <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns; -- Should still be set
+   check1(PS_1401_FILE_VALIDITY_CK,'1',testName,"1C");
+   check1(PS_1401_ANY_FILE_CHECK,'1',testName,"1C1");
+   PS_FILE_OP <= '1';
+   wait for 30 ns;
+   check1(PS_1401_FILE_VALIDITY_CK,'1',testName,"1D");
+   PS_I_RING_HDL_BUS(9) <= '1';
+   wait for 30 ns; -- Should reset
+   check1(PS_1401_FILE_VALIDITY_CK,'0',testName,"1E");
+   PS_FILE_OP <= '0';
+   PS_I_RING_HDL_BUS(9) <= '0';
+   wait for 30 ns; -- Should still be reset
+   check1(PS_1401_FILE_VALIDITY_CK,'0',testName,"1F");
+   
+   PS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '1';
+   PS_FILE_WRONG_LENGTH_ADDR_CON <= '1';
+   wait for 30 ns;
+   check1(PS_1401_FILE_WRONG_LENG_REC,'0',testName,"2A");   
+   check1(PS_1401_ANY_FILE_CHECK,'0',testName,"2A1");
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns; -- Latch should set
+   PS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '0';
+   PS_FILE_WRONG_LENGTH_ADDR_CON <= '0';
+   PS_LOGIC_GATE_E_1 <= '0';
+   wait for 30 ns; -- Should still be set
+   check1(PS_1401_FILE_WRONG_LENG_REC,'1',testName,"2B");
+   check1(PS_1401_ANY_FILE_CHECK,'1',testName,"2B1");
+   MS_PROGRAM_RESET_2 <= '0';
+   wait for 30 ns; -- Latch should reset
+   MS_PROGRAM_RESET_2 <= '1';
+   wait for 30 ns;  -- Latch should stay reset
+   check1(PS_1401_FILE_WRONG_LENG_REC,'0',testName,"2C");
+   PS_E_CH_WRONG_LENGTH_REC_COND <= '1';
+   wait for 30 ns;
+   check1(PS_1401_FILE_WRONG_LENG_REC,'0',testName,"2D");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;  -- Latch should set
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   PS_E_CH_WRONG_LENGTH_REC_COND <= '0';
+   wait for 30 ns; -- Latchs should stay set
+   check1(PS_1401_FILE_WRONG_LENG_REC,'1',testName,"2E");
+   PS_FILE_OP <= '1';
+   PS_I_RING_HDL_BUS(9) <= '1';
+   wait for 30 ns; -- Latch should reset
+   PS_FILE_OP <= '0';
+   PS_I_RING_HDL_BUS(9) <= '0';
+   wait for 30 ns; -- And stay reset
+   check1(PS_1401_FILE_WRONG_LENG_REC,'0',testName,"2G");
+   
+   check1(PS_1401_FILE_ADDR_COMPARE,'0',testname,"3A");
+   check1(PS_1401_ANY_FILE_CHECK,'0',testName,"3A1");
+   PS_E_CH_CONDITION_BUS <= '1';
+   wait for 30 ns;
+   check1(PS_1401_FILE_ADDR_COMPARE,'0',testname,"3B");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns; -- Latch should set      
+   PS_E_CH_CONDITION_BUS <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns;  -- Latch should stay set
+   check1(PS_1401_FILE_ADDR_COMPARE,'1',testname,"3C");
+   check1(PS_1401_ANY_FILE_CHECK,'1',testName,"3C1");
+   PS_FILE_OP <= '1';
+   PS_I_RING_HDL_BUS(9) <= '1';
+   wait for 30 ns; -- Latch should reset
+   PS_FILE_OP <= '0';
+   PS_I_RING_HDL_BUS(9) <= '0';
+   wait for 30 ns; -- And stay reset
+   check1(PS_1401_FILE_ADDR_COMPARE,'0',testname,"3D");
+   
+   check1(PS_FILE_INVALID_ADDRESS,'0',testName,"4A");
+   check1(PS_1401_ANY_FILE_CHECK,'0',testName,"4A1");
+   MC_FILE_INVALID_ADDRESS_1405 <= '0';
+   wait for 30 ns; -- Latch should set (collector pullover)
+   MC_FILE_INVALID_ADDRESS_1405 <= '1';
+   wait for 30 ns; -- Latch should stay set
+   check1(PS_FILE_INVALID_ADDRESS,'1',testName,"4B");
+   check1(PS_1401_ANY_FILE_CHECK,'1',testName,"4B1");
+   PS_FILE_OP <= '1';
+   PS_I_RING_HDL_BUS(9) <= '1';
+   wait for 30 ns; -- Latch should reset
+   PS_FILE_OP <= '0';
+   PS_I_RING_HDL_BUS(9) <= '0';
+   wait for 30 ns; -- And stay reset
+   check1(PS_FILE_INVALID_ADDRESS,'0',testName,"4C");
+   MS_E_CH_READY_BUS <= '1'; -- NOT ready
+   wait for 30 ns;
+   check1(PS_FILE_INVALID_ADDRESS,'0',testName,"4D");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns; -- Latch should set
+   MS_E_CH_READY_BUS <= '0';  -- Back to our normal testing state
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns; -- And stay set
+   check1(PS_FILE_INVALID_ADDRESS,'1',testName,"4E");
+   wait for 30 ns; -- Reset
+   MS_PROGRAM_RESET_2 <= '0'; 
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '1'; 
+   wait for 30 ns;
+   check1(PS_FILE_INVALID_ADDRESS,'0',testName,"4F");
+   
+   check1(PS_FILE_BUSY_LATCH,'0',testName,"5A");
+   check1(PS_1401_ANY_FILE_CHECK,'0',testName,"5B");
+   PS_1401_MODE <= '1';
+   PS_E_CH_BUSY_BUS <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_BUSY_LATCH,'0',testName,"5C");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns; -- Latch should set
+   PS_1401_MODE <= '0';
+   PS_E_CH_BUSY_BUS <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns; -- Latch should stay set
+   check1(PS_FILE_BUSY_LATCH,'1',testName,"5D");
+   check1(PS_1401_ANY_FILE_CHECK,'1',testName,"5E");
+   wait for 30 ns; -- Reset
+   MS_PROGRAM_RESET_2 <= '0'; 
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '1'; 
+   wait for 30 ns;
+   check1(PS_FILE_BUSY_LATCH,'0',testName,"5F");
+   check1(PS_1401_ANY_FILE_CHECK,'0',testName,"5G");
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   
+   testName := "13.65.03.1        ";
+   
+   check1(PS_1401_PROCESS_CHECK,'0',testName,"1A");
+   MS_MASTER_ERROR <= '0';
+   wait for 30 ns;      
+   MS_MASTER_ERROR <= '1';
+   wait for 30 ns; -- Latch should still be set
+   check1(PS_1401_PROCESS_CHECK,'1',testName,"1B");
+   MS_RESET_PROCESS_CK_LAT <= '0';
+   wait for 30 ns;
+   MS_RESET_PROCESS_CK_LAT <= '1';
+   wait for 30 ns;
+   check1(PS_1401_PROCESS_CHECK,'0',testName,"1C");
+        
+      
    wait;
    end process;
 
