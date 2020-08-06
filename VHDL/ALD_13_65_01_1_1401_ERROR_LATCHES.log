@@ -1,4 +1,4 @@
-Generating HDL for page 13.65.01.1 1401 ERROR LATCHES at 8/5/2020 12:58:47 PM
+Generating HDL for page 13.65.01.1 1401 ERROR LATCHES at 8/6/2020 12:35:58 PM
 Found combinatorial loop (need D FF) at output of gate at 3B
 Found combinatorial loop (need D FF) at output of gate at 1B
 Ignoring Logic Block 3H with symbol L
