@@ -150,6 +150,101 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.65.04.1        ";
+   
+   wait for 30 ns;
+   check1(PS_I_O_END_OF_STG_STOP_CTRL,'0',testName,"1A");
+   PS_F_CH_UNOVLP_IN_PROCESS <= '1';
+   PS_F_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_END_OF_STG_STOP_CTRL,'0',testName,"1B");
+   PS_DOLLAR_SIGN_SYM_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_END_OF_STG_STOP_CTRL,'1',testName,"1C");
+   PS_DOLLAR_SIGN_SYM_OP_MODIFIER <= '0';
+   PS_F_CH_UNOVLP_IN_PROCESS <= '0';
+   PS_F_CYCLE <= '0';
+   PS_E_CH_UNOVLP_IN_PROCESS <= '1';
+   PS_E_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_END_OF_STG_STOP_CTRL,'0',testName,"1D");
+   PS_DOLLAR_SIGN_SYM_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_END_OF_STG_STOP_CTRL,'1',testName,"1E");
+   PS_E_CH_UNOVLP_IN_PROCESS <= '0';
+   PS_E_CYCLE <= '0';
+   PS_DOLLAR_SIGN_SYM_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_END_OF_STG_STOP_CTRL,'0',testName,"1F");
+   MS_1401_READ_TRIGGER <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_END_OF_STG_STOP_CTRL,'1',testName,"1G");
+   MS_1401_READ_TRIGGER <= '1';
+   
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'0',testName,"2A");
+   PS_E_CH_OVLP_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'0',testName,"2B");
+   PS_E_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'1',testName,"2C");
+   PS_E_CH_OVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'0',testName,"2D");
+   PS_E_CYCLE <= '0';
+   
+   PS_E_CH_UNOVLP_IN_PROCESS <= '1';
+   PS_E_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'0',testName,"3A");
+   MS_E_CH_U_SEL_K_DOT_S_OP_MOD <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'1',testName,"3B");
+   MS_E_CH_U_SEL_K_DOT_S_OP_MOD <= '1';
+   wait for 30 ns;
+   PS_R_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'1',testName,"3C");
+   PS_E_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'0',testName,"3D");
+   PS_E_CYCLE <= '0';
+   PS_R_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_F_CH_UNOVLP_IN_PROCESS <= '1';
+   PS_F_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'0',testName,"4A");
+   MS_F_CH_U_SEL_K_DOT_S_OP_MOD <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'1',testName,"4B");
+   MS_F_CH_U_SEL_K_DOT_S_OP_MOD <= '1';
+   wait for 30 ns;
+   PS_R_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'1',testName,"4C");
+   PS_F_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'0',testName,"4D");
+   PS_F_CYCLE <= '0';
+   PS_R_SYMBOL_OP_MODIFIER <= '0';
+  
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'0',testName,"5A");
+   PS_F_CH_OVLP_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'0',testName,"5B");
+   PS_F_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'1',testName,"5C");
+   PS_F_CH_OVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_GRP_MK_WM_STOP_CTRL,'0',testName,"5D");
+   PS_F_CYCLE <= '0';
+   
+   
+   
+   
 
    wait;
    end process;
