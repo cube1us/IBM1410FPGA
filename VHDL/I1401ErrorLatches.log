@@ -1,11 +1,12 @@
-Generating HDL for group named I1401ErrorLatchesat 8/6/2020 12:38:07 PM containing pages: 
-	13.65.01.1, 13.65.02.1, 13.65.03.1
-Old test bench file I1401ErrorLatches_tb.vhdl 55 lines preserved and 32 declaration lines preserved
-Building lists of signals on 3 pages...
+Generating HDL for group named I1401ErrorLatchesat 8/7/2020 3:41:17 PM containing pages: 
+	13.65.01.1, 13.65.02.1, 13.65.03.1, 13.65.08.1
+Old test bench file I1401ErrorLatches_tb.vhdl 249 lines preserved and 32 declaration lines preserved
+Building lists of signals on 4 pages...
 Found 8 signals on page 13.65.01.1
 Found 22 signals on page 13.65.02.1
 Found 4 signals on page 13.65.03.1
-Found 21 unique input signals and 9 unique output signals, (30 total unique signals)
+Found 11 signals on page 13.65.08.1
+Found 29 unique input signals and 10 unique output signals, (39 total unique signals)
 Determining sources for all input signals...
 INFO:  Signal -S RESET READER ERROR LATCH originates outside the group.
 INFO:  Signal +S E CH CHECK BUS originates outside the group.
@@ -28,6 +29,14 @@ INFO:  Signal +S FILE OP.D CY.EXTENSION originates outside the group.
 INFO:  Signal -C FILE INVALID ADDRESS 1405 originates outside the group.
 INFO:  Signal -S RESET PROCESS CK LAT originates outside the group.
 INFO:  Signal -S MASTER ERROR originates outside the group.
+INFO:  Signal -S RESET INQUIRY ERROR originates outside the group.
+INFO:  Signal -S CONS CANCEL KEY RESET originates outside the group.
+INFO:  Signal +S CONSOLE READ OP originates outside the group.
+INFO:  Signal +S A CH INVALID originates outside the group.
+INFO:  Signal +S ERROR SAMPLE originates outside the group.
+INFO:  Signal +S CONSOLE WRITE OP originates outside the group.
+INFO:  Signal +S CONS DATA CHECK originates outside the group.
+INFO:  Signal +S E2 REG FULL originates outside the group.
 Determining destinations for all output signals...
 INFO:  Signal +S 1401 READ ERROR is used outside the group.
 INFO:  Signal -S 1401 I-O CHECK RESET is used outside the group.
@@ -38,6 +47,7 @@ INFO:  Signal +S 1401 FILE ADDR COMPARE is used outside the group.
 INFO:  Signal +S 1401 ANY FILE CHECK is used outside the group.
 INFO:  Signal +S FILE BUSY LATCH is used outside the group.
 INFO:  Signal +S 1401 PROCESS CHECK is used outside the group.
+INFO:  Signal +S 1401 INQUIRY ERROR is used outside the group.
 Removing 0 output signals that do not have destinations outside the group...
 Removing 0 input signals that originate inside the group...
 Input Signal +S I RING 9 TIME replaced by Bus signal +S I RING HDL BUS
@@ -47,3 +57,4 @@ Generating HDL prefixes...
 Generating HDL associated with page 13.65.01.1 (1401 ERROR LATCHES)
 Generating HDL associated with page 13.65.02.1 (1401 ERROR LATCHES ACC)
 Generating HDL associated with page 13.65.03.1 (1401 ERROR LATCHES)
+Generating HDL associated with page 13.65.08.1 (1401 ERROR LATCHES)
