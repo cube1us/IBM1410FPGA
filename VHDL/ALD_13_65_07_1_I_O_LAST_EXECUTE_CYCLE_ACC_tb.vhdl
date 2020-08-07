@@ -177,7 +177,201 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.65.07.1        ";
+   
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"1A");
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"1B");
+   
+   MS_1401_MODE <= '0';
+   PS_2_CHAR_ONLY_OP_CODES <= '1';
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"1C");
+   MS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"1D");
+   PS_2_CHAR_ONLY_OP_CODES <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"1E");
+   PS_2_CHAR_ONLY_OP_CODES <= '1';
+   wait for 30 ns;
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"1F");
+   wait for 30 ns;
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"1G");
+   PS_2_CHAR_ONLY_OP_CODES <= '0';
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   wait for 30 ns;
+   
+   PS_F_CH_ANY_STATUS_ON <= '1';
+   PS_I_O_LOZENGE_LATCH <= '1';
+   MS_FILE_OP_STAR_1405 <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"2A");
+   MS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"2B");
+   MS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '1';
+   MS_FILE_OP_STAR_1405 <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"2D");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"2E");
+   MS_FILE_OP_STAR_1405 <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"2F");
+   MS_FILE_OP_STAR_1405 <= '1';
+   wait for 30 ns;
+   PS_F_CH_ANY_STATUS_ON <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"2G");
+   PS_F_CH_ANY_STATUS_ON <= '1';
+   wait for 30 ns;
+   PS_I_O_LOZENGE_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"2H");
+   PS_I_O_LOZENGE_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"2I");
+   PS_F_CH_ANY_STATUS_ON <= '0';
+   PS_I_O_LOZENGE_LATCH <= '0';
+   
+   -- At this point, NOT 1405 File Op AND Last Insn RO Cycle both on
+   
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"3A");
+   PS_COML_AT_OR_ASTERISK <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"3B");
+   PS_LAST_INSN_RO_CYCLE <= '0';   
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"3C");
+   MS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"3D");
+   MS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '1';
+   PS_COML_AT_OR_ASTERISK <= '0';
+   wait for 30 ns;
+   
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"4A");
+   PS_I_O_PERCENT_LATCH <= '1';
+   PS_E_CH_ANY_STATUS_ON <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"4B");
+   MS_FILE_OP_STAR_1405 <= '1';
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"4C");
+   PS_I_O_PERCENT_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"4D");
+   PS_I_O_PERCENT_LATCH <= '1';
+   PS_E_CH_ANY_STATUS_ON <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"4E");
+   PS_E_CH_ANY_STATUS_ON <= '1';
+   wait for 30 ns;
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   wait for 30 ns;   
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"4F");
+   MS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"4G");
+   MS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '1';
+   PS_I_O_PERCENT_LATCH <= '0';
+   PS_E_CH_ANY_STATUS_ON <= '0';
+   
+   wait for 30 ns;   
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"5A");
+   MS_PROGRAM_RESET_2 <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"5B");
+   MS_PROGRAM_RESET_2 <= '1';
+      
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"6A");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   MS_1401_CARD_OR_PRINT_OP_CODE <= '1';
+   PS_E_CH_UNOVLP_IN_PROCESS <= '1';
+   PS_BLOCK_IO_LAST_EXECUTE <= '1'; -- Keps from setting
+   wait for 30 ns;
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"6B");
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   PS_BLOCK_IO_LAST_EXECUTE <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"6C");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   MS_1401_CARD_OR_PRINT_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"6D");
+   MS_1401_CARD_OR_PRINT_OP_CODE <= '1';
+   PS_E_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"6E");
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"6F");
+   PS_E_CH_UNOVLP_IN_PROCESS <= '1';
+   wait for 30 ns; -- Latch sets
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   MS_1401_CARD_OR_PRINT_OP_CODE <= '1';
+   PS_E_CH_UNOVLP_IN_PROCESS <= '0';
+   PS_BLOCK_IO_LAST_EXECUTE <= '1';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_I_O_LAST_EX_CYCLE,'1',testName,"6G");
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"6H");
+   -- Reset
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"6I");
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"6J");
+   
+   PS_F_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"7A");
+   PS_F_CH_UNOVLP_IN_PROCESS <= '1';
+   wait for 30 ns; -- Sets latch
+   PS_F_CH_STATUS_SAMPLE_B <= '0';
+   PS_F_CH_UNOVLP_IN_PROCESS <= '0';
+   wait for 30 ns; -- Latchs stays set
+   check1(PS_I_O_LAST_EX_CYCLE,'1',testName,"7B");
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"7C");
+   -- Reset
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"7D");
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"7E");
 
+   PS_1401_I_O_END <= '1';
+   MS_1401_BRANCH_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"8A");
+   MS_1401_BRANCH_LATCH <= '1';
+   wait for 30 ns; -- Sets latch
+   MS_1401_BRANCH_LATCH <= '0';
+   PS_1401_I_O_END <= '1';
+   wait for 30 ns; -- Latchs stays set
+   check1(PS_I_O_LAST_EX_CYCLE,'1',testName,"8B");
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'1',testName,"8C");
+   -- Reset
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_I_O_LAST_EX_CYCLE,'0',testName,"8D");
+   check1(PS_LAST_EXECUTE_CYCLE_STAR_I_O,'0',testName,"8E");
+   
    wait;
    end process;
 
