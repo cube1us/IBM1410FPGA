@@ -1,0 +1,93 @@
+Generating HDL for page 13.65.07.1 I-O LAST EXECUTE CYCLE-ACC at 8/7/2020 2:20:06 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_65_07_1_I_O_LAST_EXECUTE_CYCLE_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 4H
+Found combinatorial loop (need D FF) at output of gate at 3H
+Generating Statement for block at 5A with output pin(s) of OUT_5A_D
+	and inputs of MS_1401_MODE,PS_LAST_INSN_RO_CYCLE,PS_2_CHAR_ONLY_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of OUT_DOT_4D,PS_COML_AT_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of PS_E_CH_ANY_STATUS_ON
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_K
+	and inputs of OUT_DOT_4D,PS_I_O_PERCENT_LATCH
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_5A_D
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_D
+	and inputs of MS_FILE_OP_STAR_1405
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of OUT_DOT_5D
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_F
+	and inputs of OUT_DOT_4D
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_P
+	and inputs of OUT_3A_G,OUT_DOT_3D
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_R
+	and inputs of PS_LAST_INSN_RO_CYCLE
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_B
+	and inputs of MS_FILE_OP_DOT_D_CY_DOT_EXTENSION
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_R
+	and inputs of PS_F_CH_ANY_STATUS_ON
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_DOT_3C,MS_PROGRAM_RESET_2,OUT_4H_C
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E
+	and inputs of PS_E_CH_STATUS_SAMPLE_B,MS_1401_CARD_OR_PRINT_OP_CODE,PS_E_CH_UNOVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of PS_I_O_LOZENGE_LATCH
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_K
+	and inputs of PS_F_CH_STATUS_SAMPLE_B,PS_F_CH_UNOVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of OUT_5H_K
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_K
+	and inputs of PS_1401_I_O_END,MS_1401_BRANCH_LATCH
+	and logic function of NAND
+Generating Statement for block at 4H with *latched* output pin(s) of OUT_4H_C_Latch, OUT_4H_C_Latch
+	and inputs of MS_LOGIC_GATE_B_1,OUT_DOT_3G
+	and logic function of NAND
+Generating Statement for block at 3H with *latched* output pin(s) of OUT_3H_C_Latch
+	and inputs of OUT_4G_K,OUT_4H_C,OUT_DOT_4F
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3B_F,OUT_3C_K
+	and logic function of OR
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_1C_C,OUT_1D_P,OUT_1E_C
+	and logic function of OR
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of OUT_5D_D,OUT_5E_R
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D, OUT_DOT_4D, OUT_DOT_4D
+	and inputs of OUT_4D_C,OUT_4E_B
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3D_F,OUT_3E_R,OUT_3F_D
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
+	and inputs of OUT_4F_E,PS_BLOCK_IO_LAST_EXECUTE
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G, OUT_DOT_3G
+	and inputs of OUT_3G_P,OUT_3H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_EXECUTE_CYCLE_STAR_I_O
+	from gate output OUT_DOT_1C
+Generating output sheet edge signal assignment to 
+	signal PS_I_O_LAST_EX_CYCLE
+	from gate output OUT_DOT_3G
+Generating D Flip Flop for block at 4H
+Generating D Flip Flop for block at 3H
