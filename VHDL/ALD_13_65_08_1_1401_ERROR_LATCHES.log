@@ -1,0 +1,29 @@
+Generating HDL for page 13.65.08.1 1401 ERROR LATCHES at 8/7/2020 3:40:43 PM
+Found combinatorial loop (need D FF) at output of gate at 4C
+Found combinatorial loop (need D FF) at output of gate at 3C
+Generating Statement for block at 4C with *latched* output pin(s) of OUT_4C_D_Latch
+	and inputs of OUT_DOT_2C,MS_PROGRAM_RESET_2,MS_RESET_INQUIRY_ERROR
+	and logic function of NAND
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_C_Latch
+	and inputs of OUT_4C_D,MS_CONS_CANCEL_KEY_RESET,OUT_5D_C
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_CONSOLE_READ_OP,PS_A_CH_INVALID,PS_ERROR_SAMPLE
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of PS_CONSOLE_WRITE_OP,PS_CONS_DATA_CHECK
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_F
+	and inputs of OUT_5E_NoPin,OUT_5F_NoPin
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PS_E2_REG_FULL,PS_E_CH_STATUS_SAMPLE_B
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C, OUT_DOT_2C
+	and inputs of OUT_3C_C,OUT_3E_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_1401_INQUIRY_ERROR
+	from gate output OUT_DOT_2C
+Generating D Flip Flop for block at 4C
+Generating D Flip Flop for block at 3C
