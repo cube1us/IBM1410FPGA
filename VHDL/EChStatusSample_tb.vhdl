@@ -213,7 +213,416 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.65.05.1        ";
+   
+   MS_E_CH_RESET <= '0';
+   MS_PROGRAM_RESET_2 <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '1';
+   
+   check1(PS_E_CH_INT_END_OF_TRF_DELAYED,'0',testName,"1A");
+   check1(MS_E_CH_INT_END_OF_XFER_DELAYED,'1',testName,"1B");
+   PS_E_CH_INT_END_OF_TRANSFER <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_INT_END_OF_TRF_DELAYED,'0',testName,"1C");
+   check1(MS_E_CH_INT_END_OF_XFER_DELAYED,'1',testName,"1D");
+   PS_LOGIC_GATE_Z <= '1';
+   wait for 30 ns; -- Sets latch
+   PS_E_CH_INT_END_OF_TRANSFER <= '0';
+   PS_LOGIC_GATE_Z <= '0';
+   wait for 30 ns;  -- Latch stays set
+   check1(PS_E_CH_INT_END_OF_TRF_DELAYED,'1',testName,"1E");
+   check1(MS_E_CH_INT_END_OF_XFER_DELAYED,'0',testName,"1F");
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '0';
+   wait for 30 ns;
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '1';
+   wait for 30 ns; -- Latch stays reset
+   check1(PS_E_CH_INT_END_OF_TRF_DELAYED,'0',testName,"1G");
+   check1(MS_E_CH_INT_END_OF_XFER_DELAYED,'1',testName,"1H");
+   
+   
+   -- Set the latch again, for later tests
+   
+   PS_E_CH_INT_END_OF_TRANSFER <= '1';
+   PS_LOGIC_GATE_Z <= '1';
+   wait for 30 ns; -- Sets latch
+   PS_E_CH_INT_END_OF_TRANSFER <= '0';
+   PS_LOGIC_GATE_Z <= '0';
+   wait for 30 ns;  -- Latch stays set
+   check1(PS_E_CH_INT_END_OF_TRF_DELAYED,'1',testName,"1I");
+   
+     
+   check1(PS_E_CH_STATUS_SAMPLE_B,'0',testname,"2A");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'1',testname,"2B");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'0',testname,"2C");
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"2D");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"2E");
+   
+   PS_E_CH_IN_PROCESS <= '1'; -- To prevent reset
+   PS_E_CH_EXT_END_OF_TRANSFER <= '1';
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns; -- Not Yet
+   check1(PS_E_CH_STATUS_SAMPLE_B,'0',testname,"2F");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'1',testname,"2G");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'0',testname,"2H");
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"2I");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"2J");
 
+   PS_LOGIC_GATE_Z <= '1';
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns; -- Now, first one should be set
+   PS_LOGIC_GATE_Z <= '0';
+   PS_E_CH_EXT_END_OF_TRANSFER <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B,'1',testname,"2K");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'0',testname,"2L");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'0',testname,"2M");
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"2N");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"2O");
+   
+   -- Test Reset of Status Sample B
+   
+   PS_E_CH_IN_PROCESS <= '0';
+   wait for 30 ns;
+   PS_E_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B,'0',testname,"2P");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'1',testname,"2Q");
+   
+   -- Then set it again for the next test
+   
+   PS_LOGIC_GATE_Z <= '1';
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   PS_E_CH_EXT_END_OF_TRANSFER <= '1';
+   wait for 30 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns; -- Now, first one should be set again
+   PS_LOGIC_GATE_Z <= '0';
+   PS_E_CH_EXT_END_OF_TRANSFER <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B,'1',testname,"2R");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'0',testname,"2S");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'0',testname,"2T");
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"2U");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"2V");
+   
+   -- On the next clock, it should shift down one
+
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B,'0',testname,"3A");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'1',testname,"3B");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'1',testname,"3C");
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"3D");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"3E");
+   
+   -- And then the next one
+   
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B,'0',testname,"4A");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'1',testname,"4B");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'0',testname,"4C");
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"4D");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"4E");
+   
+   MS_RECOVER_LATCH_STAR_1311 <= '0'; -- Special case, affects only the -S signal
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"4F");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"4G");
+   MS_RECOVER_LATCH_STAR_1311 <= '1';      
+         
+   -- Then back to square one
+
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B,'0',testname,"5A");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'1',testname,"5B");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'0',testname,"5C");
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"5D");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"5E");
+   
+   -- And it should stay that way
+
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B,'0',testname,"5A");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'1',testname,"5B");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'0',testname,"5C");
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"5D");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"5E");
+   
+   -- One last test - so set it again
+   
+   PS_LOGIC_GATE_Z <= '1';
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   PS_E_CH_EXT_END_OF_TRANSFER <= '1';
+   wait for 30 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns; -- Now, first one should be set again
+   PS_LOGIC_GATE_Z <= '0';
+   PS_E_CH_EXT_END_OF_TRANSFER <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B,'1',testname,"6A");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'0',testname,"6B");
+ 
+   -- And to the next one...
+   
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B,'0',testname,"6C");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'1',testname,"6D");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'1',testname,"6E");
+   
+   -- And the last one
+   
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_B,'0',testname,"6F");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'1',testname,"6G");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'0',testname,"6H");
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'1',testname,"6I");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"6J");
+
+   PS_GT_OFF_E_CH_ST_SPL_DLY <= '1'; -- Gates +S E Ch Status Sample B Delay off (and just +S)
+   wait for 30 ns;  
+   check1(PS_E_CH_STATUS_SAMPLE_B,'0',testname,"6K");
+   check1(MS_E_CH_STATUS_SAMPLE_B,'1',testname,"6L");
+   check1(PS_E_CH_SECOND_SAMPLE_B,'0',testname,"6M");
+   check1(PS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"6N");
+   check1(MS_E_CH_STATUS_SAMPLE_B_DELAY,'0',testname,"6O");
+   
+   testName := "13.65.06.1        ";
+   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"1A");
+   MS_E_CH_SELECT_UNIT_F_A <= '0';
+   PS_M_OR_L_OP_CODES <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_I_CYCLE_1 <= '1';
+   PS_I_RING_HDL_BUS(12) <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"1B");
+   MS_E_CH_SELECT_UNIT_F_A <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"1C");
+   PS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'1',testName,"1D");
+   
+   PS_LOGIC_GATE_D_1 <= '1';  -- Leave on for a while
+   
+   MS_E_CH_SELECT_UNIT_F_A <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"1E");
+   MS_E_CH_SELECT_UNIT_F_A <= '1';
+   wait for 30 ns;   
+   PS_M_OR_L_OP_CODES <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"1F");
+   PS_M_OR_L_OP_CODES <= '1';
+   wait for 30 ns;
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"1G");
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;   
+   PS_I_CYCLE_1 <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"1H");
+   PS_I_CYCLE_1 <= '1';
+   wait for 30 ns;   
+   PS_I_RING_HDL_BUS(12) <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"1I");
+   PS_I_RING_HDL_BUS(12) <= '1';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'1',testName,"1J");
+   PS_M_OR_L_OP_CODES <= '0';
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_HDL_BUS(12) <= '0';
+   wait for 30 ns;
+   
+   PS_LOGIC_GATE_D_1 <= '1';  -- Leave on for a while
+   PS_E_CH_2_CHAR_ONLY_OP_CODES <= '1';
+   PS_I_CYCLE_1 <= '1';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"2A");
+   PS_I_RING_HDL_BUS(2) <= '1';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'1',testName,"2B");
+   PS_I_CYCLE_1 <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"2C");
+   PS_I_CYCLE_1 <= '1';
+   wait for 30 ns;   
+   PS_E_CH_2_CHAR_ONLY_OP_CODES <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"2D");
+   PS_E_CH_2_CHAR_ONLY_OP_CODES <= '1';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'1',testName,"2E");
+   PS_E_CH_2_CHAR_ONLY_OP_CODES <= '0';
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_HDL_BUS(2) <= '0';
+   wait for 30 ns;
+
+   PS_LOGIC_GATE_D_1 <= '1';  -- Leave on for a while
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_I_CYCLE_1 <= '1';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"3A");
+   PS_I_RING_HDL_BUS(7) <= '1';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'1',testName,"3B");
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"3C");
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;   
+   PS_I_CYCLE_1 <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"3D");
+   PS_I_CYCLE_1 <= '1';
+   wait for 30 ns;   
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"3E");
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;   
+   PS_I_RING_HDL_BUS(7) <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'0',testName,"3F");
+   PS_I_RING_HDL_BUS(7) <= '1';
+   wait for 30 ns;
+   
+   -- Test, and leave this signal set for the next test
+      
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'1',testName,"3G");
+   
+   -- Convenient time to test part of another signal here
+   
+   check1(PS_E_CH_STATUS_SAMPLE_A,'1',testName,"4A");
+   MS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A,'0',testName,"4B");
+   MS_1401_MODE <= '1';
+   
+   PS_LOGIC_GATE_D_1 <= '0';
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_HDL_BUS(7) <= '0';
+
+   MS_1401_MODE <= '0';
+   PS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A,'0',testName,"5A");
+   MS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A,'1',testName,"5B");
+   PS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A,'0',testName,"5C");
+   PS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '1';
+   wait for 30 ns;
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A,'0',testName,"5D");
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;
+   PS_LOGIC_GATE_E_1 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A,'0',testName,"5E");
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A,'1',testName,"5F");
+   PS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '0';
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_LOGIC_GATE_E_1 <= '0';
+
+   
+   -- Turn Ungated Sample A back on
+   
+   PS_E_CH_2_CHAR_ONLY_OP_CODES <= '1';
+   PS_I_RING_HDL_BUS(2) <= '1';
+   PS_LOGIC_GATE_D_1 <= '1';
+   PS_I_CYCLE_1 <= '1';
+   wait for 30 ns; 
+   check1(PS_E_CH_UNGATED_SAMPLE_A,'1',testName,"6A");
+   PS_LOGIC_GATE_D_1 <= '0'; -- Don't need this part now - it would get in the way   
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'0',testName,"6B");
+   PS_B_CH_WM_BIT_1 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'0',testName,"6C");
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'1',testName,"6D");
+   PS_B_CH_WM_BIT_1 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'0',testName,"6E");
+   PS_B_CH_WM_BIT_1 <= '1';
+   wait for 30 ns;   
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'1',testName,"6F");
+   PS_E_CH_2_CHAR_ONLY_OP_CODES <= '0';
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_HDL_BUS(2) <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'0',testName,"6G");      
+   PS_B_CH_WM_BIT_1 <= '0';
+   PS_LOGIC_GATE_E_1 <= '0';
+   wait for 30 ns;   
+   
+   PS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;   
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'0',testName,"7A");
+   PS_LOGIC_GATE_F_1 <= '1';      
+   wait for 30 ns;   
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'1',testName,"7B");
+   PS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'0',testName,"7C");
+   PS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '1';
+   wait for 30 ns;   
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'0',testName,"7D");
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;   
+   check1(PS_E_CH_STATUS_SAMPLE_A_DELAY,'1',testName,"7E");
+   PS_FILE_OP_DOT_D_CY_DOT_EXTENSION <= '0';
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_LOGIC_GATE_F_1 <= '0';      
+   
+   
+   
+   
+   
+         
    wait;
    end process;
 
