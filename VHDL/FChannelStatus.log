@@ -1,0 +1,84 @@
+Generating HDL for group named FChannelStatusat 8/7/2020 4:57:24 PM containing pages: 
+	13.66.01.1, 13.66.05.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\FChannelStatus_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 36 signals on page 13.66.01.1
+Found 30 signals on page 13.66.05.1
+Found 45 unique input signals and 15 unique output signals, (58 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S F CYCLE originates outside the group.
+INFO:  Signal -S F CH RESET originates outside the group.
+INFO:  Signal +S F CH SELECT TAPE originates outside the group.
+INFO:  Signal -S F CH SELECT TAPE originates outside the group.
+INFO:  Signal -S F CH SELECT UNIT F originates outside the group.
+INFO:  Signal +S F CH STATUS SAMPLE A originates outside the group.
+INFO:  Signal +S FILE OP originates outside the group.
+INFO:  Signal -S F CH CON LAT SET*1414* originates outside the group.
+INFO:  Signal -S FILE OP originates outside the group.
+INFO:  Signal +S F CH READY BUS originates inside the group.
+INFO:  Signal -C 1301 ERROR F CH originates outside the group.
+INFO:  Signal -C 1405 ERROR F CH originates outside the group.
+INFO:  Signal +S I-O CHECK originates outside the group.
+INFO:  Signal +S F CH CHECK *SIF originates outside the group.
+INFO:  Signal -C TAPE ERROR originates outside the group.
+INFO:  Signal +S ERROR SAMPLE originates outside the group.
+INFO:  Signal +S F CH CHECK BUS *1414* originates outside the group.
+INFO:  Signal -C RBC ERROR 1405 F CH originates outside the group.
+INFO:  Signal +S F CH CHECK *1412-19 originates outside the group.
+INFO:  Signal +S F CH STATUS SAMPLE B originates outside the group.
+INFO:  Signal -S F CH COND LATCH *SIF originates outside the group.
+INFO:  Signal TW RBC ERROR 1405 F CH originates outside the group.
+INFO:  Signal -C 1301 F CH CONDITION originates outside the group.
+INFO:  Signal -C 1405 CONDITION F CH originates outside the group.
+INFO:  Signal -C SEL+TI ON CH 2 originates outside the group.
+INFO:  Signal +S F CH COND BUS*1414* originates outside the group.
+INFO:  Signal -S SET F CH CON LATCH*1414* originates outside the group.
+INFO:  Signal -S F CH BUSY BUS originates inside the group.
+INFO:  Signal +S LOGIC GATE C 1 originates outside the group.
+INFO:  Signal -S I RING 5 TIME originates outside the group.
+INFO:  Signal +S I RING 5 TIME originates outside the group.
+INFO:  Signal +S LOZENGE OR ASTERISK originates outside the group.
+INFO:  Signal -C 1301 READY F CH originates outside the group.
+INFO:  Signal -C 1405 READY F CH originates outside the group.
+INFO:  Signal +S F CH READY BUS *1414* originates outside the group.
+INFO:  Signal +S F CH READY BUS *1412-19 originates outside the group.
+INFO:  Signal +S F CH READY BUS *SIF originates outside the group.
+INFO:  Signal -C TAPE READY originates outside the group.
+INFO:  Signal +S F CH 2ND ADDR TRF originates outside the group.
+INFO:  Signal -C SELECT AND REWIND *F CH originates outside the group.
+INFO:  Signal +S F CH BUSY BUS*1414* originates outside the group.
+INFO:  Signal +S F CH BUSY BUS *1412-19 originates outside the group.
+INFO:  Signal -C 1301 BUSY F CH originates outside the group.
+INFO:  Signal -C 1405 BUSY F CH originates outside the group.
+INFO:  Signal -C TAPE BUSY originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S F CH CHECK is used outside the group.
+INFO:  Signal +S F CH CONDITION is used outside the group.
+INFO:  Signal -S F CH TAPE INDICATOR is used outside the group.
+INFO:  Signal -S F CH CHECK is used outside the group.
+INFO:  Signal -S F CH FILE SET CHECK AT A is used outside the group.
+INFO:  Signal -S F CH CHECK BUS is used outside the group.
+INFO:  Signal -S F CH CONDITION is used outside the group.
+INFO:  Signal +S F CH TAPE INDICATOR is used outside the group.
+INFO:  Signal +S F CH NOT READY is used outside the group.
+INFO:  Signal +S F CH BUSY is used outside the group.
+INFO:  Signal +S F CH READY BUS is used outside the group.
+INFO:  Signal -S F CH BUSY BUS is used outside the group.
+INFO:  Signal -S F CH READY BUS is used outside the group.
+INFO:  Signal -S F CH NOT READY is used outside the group.
+INFO:  Signal -S F CH BUSY is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 2 input signals that originate inside the group...
+Signal +S F CH READY BUS is output from the group, but also used as an input inside the group.
+Signal -S F CH BUSY BUS is output from the group, but also used as an input inside the group.
+Input Signal -S I RING 5 TIME replaced by Bus signal -S I RING HDL BUS
+Input Signal +S I RING 5 TIME replaced by Bus signal +S I RING HDL BUS
+Page 13.66.01.1 generates Lamp Output LAMP_15A1E17
+Page 13.66.01.1 generates Lamp Output LAMP_15A1F17
+Page 13.66.05.1 generates Lamp Output LAMP_15A1A17
+Page 13.66.05.1 generates Lamp Output LAMP_15A1C17
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.66.01.1 (F CH CHECK AND CONDITION)
+Generating HDL associated with page 13.66.05.1 (F CH NOT READY BUSY)
