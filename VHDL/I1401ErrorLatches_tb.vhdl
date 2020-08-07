@@ -423,7 +423,84 @@ uut_process: process
    MS_RESET_PROCESS_CK_LAT <= '1';
    wait for 30 ns;
    check1(PS_1401_PROCESS_CHECK,'0',testName,"1C");
-        
+   
+   testname := "13.65.08.1        ";
+   
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"1A");
+   MS_CONS_CANCEL_KEY_RESET <= '0';
+   wait for 30 ns; -- Sets latch
+   MS_CONS_CANCEL_KEY_RESET <= '1';
+   wait for 30 ns; -- Latch still set
+   check1(PS_1401_INQUIRY_ERROR,'1',testName,"1B");
+   MS_RESET_INQUIRY_ERROR <= '0';
+   wait for 30 ns;
+   MS_RESET_INQUIRY_ERROR <= '1';
+   wait for 30 ns;
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"1C");
+   
+   PS_CONSOLE_READ_OP <= '1';   
+   PS_A_CH_INVALID <= '1';
+   wait for 30 ns;     
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"2A");
+   PS_CONSOLE_READ_OP <= '0';   
+   PS_ERROR_SAMPLE <= '1';
+   wait for 30 ns;
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"2B");
+   PS_CONSOLE_READ_OP <= '1';   
+   PS_A_CH_INVALID <= '0';
+   wait for 30 ns;
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"2C");
+   PS_A_CH_INVALID <= '1';
+   wait for 30 ns; -- Sets latch
+   PS_CONSOLE_READ_OP <= '0';   
+   PS_A_CH_INVALID <= '0';
+   PS_ERROR_SAMPLE <= '0';   
+   wait for 30 ns; -- latch still set
+   check1(PS_1401_INQUIRY_ERROR,'1',testName,"2D");
+   MS_RESET_INQUIRY_ERROR <= '0';
+   wait for 30 ns;
+   MS_RESET_INQUIRY_ERROR <= '1';
+   wait for 30 ns;
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"2E");
+   
+   PS_CONSOLE_WRITE_OP <= '1';
+   wait for 30 ns;
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"3A");
+   PS_CONSOLE_WRITE_OP <= '0';
+   PS_CONS_DATA_CHECK <= '1';
+   wait for 30 ns;
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"3B");
+   PS_CONSOLE_WRITE_OP <= '1';
+   wait for 30 ns; -- Sets latch
+   PS_CONS_DATA_CHECK <= '0';
+   PS_CONS_DATA_CHECK <= '0';
+   wait for 30 ns; -- latch still set
+   check1(PS_1401_INQUIRY_ERROR,'1',testName,"3C");
+   MS_RESET_INQUIRY_ERROR <= '0';
+   wait for 30 ns;
+   MS_RESET_INQUIRY_ERROR <= '1';
+   wait for 30 ns;
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"3D");
+   
+   PS_E2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"4A");
+   PS_E2_REG_FULL <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"4B");
+   PS_E2_REG_FULL <= '1';
+   wait for 30 ns; -- Sets latch
+   PS_E2_REG_FULL <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns; -- Latch still set
+   check1(PS_1401_INQUIRY_ERROR,'1',testName,"4C");
+   MS_RESET_INQUIRY_ERROR <= '0';
+   wait for 30 ns;
+   MS_RESET_INQUIRY_ERROR <= '1';
+   wait for 30 ns;
+   check1(PS_1401_INQUIRY_ERROR,'0',testName,"4D");
+   
       
    wait;
    end process;
