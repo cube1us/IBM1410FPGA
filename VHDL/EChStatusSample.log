@@ -1,0 +1,55 @@
+Generating HDL for group named EChStatusSampleat 8/6/2020 8:35:49 PM containing pages: 
+	13.65.05.1, 13.65.06.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\EChStatusSample_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 17 signals on page 13.65.05.1
+Found 19 signals on page 13.65.06.1
+Found 25 unique input signals and 11 unique output signals, (36 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S 2ND CLOCK PULSE 2 originates outside the group.
+INFO:  Signal +S LOGIC GATE Z originates outside the group.
+INFO:  Signal -S PROGRAM RESET 2 originates outside the group.
+INFO:  Signal +S E CH EXT END OF TRANSFER originates outside the group.
+INFO:  Signal +S E CH IN PROCESS originates outside the group.
+INFO:  Signal +S E CH INT END OF TRANSFER originates outside the group.
+INFO:  Signal -S E CH RESET originates outside the group.
+INFO:  Signal -S E CH END OF 2ND ADDR TRF originates outside the group.
+INFO:  Signal -S RECOVER LATCH*1311 originates outside the group.
+INFO:  Signal +S GT OFF E CH ST SPL DLY originates outside the group.
+INFO:  Signal +S LOGIC GATE D 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE E 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE F 1 originates outside the group.
+INFO:  Signal +S I RING 2 TIME originates outside the group.
+INFO:  Signal +S I RING 7 TIME originates outside the group.
+INFO:  Signal +S I RING 12 TIME originates outside the group.
+INFO:  Signal +S I CYCLE 1 originates outside the group.
+INFO:  Signal -S 1401 MODE originates outside the group.
+INFO:  Signal +S UNIT CTRL OP CODE originates outside the group.
+INFO:  Signal +S M OR L OP CODES originates outside the group.
+INFO:  Signal +S E CH 2 CHAR ONLY OP CODES originates outside the group.
+INFO:  Signal +S PERCENT OR COML AT originates outside the group.
+INFO:  Signal -S E CH SELECT UNIT F A originates outside the group.
+INFO:  Signal +S FILE OP.D CY.EXTENSION originates outside the group.
+INFO:  Signal +S B CH WM BIT 1 originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S E CH INT END OF XFER DELAYED is used outside the group.
+INFO:  Signal +S E CH STATUS SAMPLE B is used outside the group.
+INFO:  Signal +S E CH INT END OF TRF DELAYED is used outside the group.
+INFO:  Signal -S E CH STATUS SAMPLE B DELAY is used outside the group.
+INFO:  Signal +S E CH SECOND SAMPLE B is used outside the group.
+INFO:  Signal -S E CH STATUS SAMPLE B is used outside the group.
+INFO:  Signal +S E CH STATUS SAMPLE B DELAY is used outside the group.
+INFO:  Signal +S E CH STATUS SAMPLE A is used outside the group.
+INFO:  Signal +S E CH STATUS SAMPLE A DELAY is used outside the group.
+INFO:  Signal +S E CH UNGATED SAMPLE A is used outside the group.
+INFO:  Signal -S E CH STATUS SAMPLE A DELAY is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S I RING 2 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 7 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 12 TIME replaced by Bus signal +S I RING HDL BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.65.05.1 (E CH STATUS SAMPLE-ACC)
+Generating HDL associated with page 13.65.06.1 (E CH STATUS SAMPLE)
