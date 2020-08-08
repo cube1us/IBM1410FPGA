@@ -180,6 +180,146 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.66.02.1        ";
+   
+   MS_F_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   
+   check1(MS_MAR_WRAP_AROUND,'1',testName,"SA");
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'1',testName,"SB");
+   check1(MS_F_CH_STATUS_SPL_A_DOT_U_OP_CODE,'1',testName,"SC");
+   check1(MS_F_CH_OVERLAP_END_OF_RECORD,'1',testname,"SD");
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'0',testName,"SE");
+   check1(MS_F_CH_END_OF_RECORD_LATCH,'1',testName,"SF");
+   
+   PS_F_CYCLE <= '1';
+   PS_WRAP_AROUND_CONDITIONS <= '1';
+   MS_F_CH_LAST_INPUT_CYCLE <= '1';
+   PS_LOGIC_GATE_F_OR_W <= '1';
+   wait for 30 ns;
+   check1(MS_MAR_WRAP_AROUND,'1',testName,"1A");
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'0',testName,"1B");
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns; -- Sets latch 
+   check1(MS_MAR_WRAP_AROUND,'0',testName,"1C");
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   PS_F_CYCLE <= '0';
+   PS_WRAP_AROUND_CONDITIONS <= '0';
+   MS_F_CH_LAST_INPUT_CYCLE <= '0';
+   PS_LOGIC_GATE_F_OR_W <= '0';
+   wait for 30 ns;  -- Latch still set
+   check1(MS_MAR_WRAP_AROUND,'1',testName,"1D");
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'1',testName,"1E");
+   check1(MS_F_CH_END_OF_RECORD_LATCH,'0',testName,"1G");
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '0';
+   wait for 30 ns; -- Resets
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '1';
+   wait for 30 ns; -- Should stay reset
+   check1(MS_MAR_WRAP_AROUND,'1',testName,"1H");
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'0',testName,"1I");
+   check1(MS_F_CH_END_OF_RECORD_LATCH,'1',testName,"1J");
+   
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'1',testname,"2A");
+   PS_F_CYCLE <= '1';
+   PS_B_CH_GROUP_MARK_DOT_WM <= '1';
+   MS_R_SYMBOL_OP_MODIFIER <= '0';
+   PS_LOGIC_GATE_F_1 <= '1';
+   MS_1401_CARD_PRINT_IN_PROC <= '0';
+   wait for 30 ns;
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'1',testname,"2B");
+   MS_1401_CARD_PRINT_IN_PROC <= '1';
+   wait for 30 ns; -- Also, latch sets
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'0',testname,"2C");
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'1',testName,"2D");   
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'1',testname,"2E");
+   PS_LOGIC_GATE_F_1 <= '1';
+   wait for 30 ns;
+   MS_R_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'1',testname,"2F");
+   wait for 30 ns;
+   MS_W_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'0',testname,"2G");
+   MS_W_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   MS_F_CH_2ND_ADDR_TRF <= '0';
+   wait for 30 ns;
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'0',testname,"2H");
+   MS_F_CH_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'1',testname,"2I");
+   MS_F_CH_2ND_ADDR_TRF <= '0';
+   wait for 30 ns;
+   PS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   wait for 30 ns;
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'1',testname,"2J");
+   PS_B_CH_GROUP_MARK_DOT_WM <= '1';
+   wait for 30 ns;
+   PS_F_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'1',testname,"2K");
+   PS_F_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'0',testname,"2L");
+   
+   PS_F_CYCLE <= '0';
+   PS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   PS_LOGIC_GATE_F_1 <= '0';
+   MS_1401_CARD_PRINT_IN_PROC <= '1';
+   wait for 30 ns;
+   check1(MS_I_O_GRP_MK_END_OF_RECORD,'1',testname,"2M");
+
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '0';
+   wait for 30 ns; -- Resets
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '1';
+   wait for 30 ns; -- Should stay reset
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'0',testName,"2N");   
+   
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_STATUS_SPL_A_DOT_U_OP_CODE,'1',testName,"3A");
+   PS_F_CH_STATUS_SAMPLE_A <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_STATUS_SPL_A_DOT_U_OP_CODE,'0',testName,"3B");
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'1',testName,"3C"); -- Sets by Collector pullover
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   PS_F_CH_STATUS_SAMPLE_A <= '0';
+   wait for 30 ns;   
+   check1(MS_F_CH_STATUS_SPL_A_DOT_U_OP_CODE,'1',testName,"3C");
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'1',testName,"3D"); -- Still Set
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '0';
+   wait for 30 ns; -- Resets
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '1';
+   wait for 30 ns; -- Should stay reset
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'0',testName,"3E");   
+      
+   PS_F_CYCLE <= '1';
+   PS_B_CH_GROUP_MARK_DOT_WM <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'0',testName,"4A");
+   check1(MS_F_CH_OVERLAP_END_OF_RECORD,'1',testName,"4B");
+   PS_LOGIC_GATE_W <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'1',testName,"4C");
+   check1(MS_F_CH_OVERLAP_END_OF_RECORD,'0',testName,"4D");
+   PS_LOGIC_GATE_W <= '0';      
+   PS_F_CYCLE <= '0';
+   PS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'1',testName,"4E");
+   check1(MS_F_CH_OVERLAP_END_OF_RECORD,'1',testName,"4F");
+   
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '0';
+   wait for 30 ns; -- Resets
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '1';
+   wait for 30 ns; -- Should stay reset
+   check1(PS_F_CH_END_OF_RECORD_LATCH,'0',testName,"4G");   
 
    wait;
    end process;
