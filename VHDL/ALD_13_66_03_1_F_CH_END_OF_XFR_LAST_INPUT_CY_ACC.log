@@ -1,0 +1,82 @@
+Generating HDL for page 13.66.03.1 F CH END OF XFR LAST INPUT CY-ACC at 8/8/2020 2:08:48 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_66_03_1_F_CH_END_OF_XFR_LAST_INPUT_CY_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5C
+Found combinatorial loop (need D FF) at output of gate at 4C
+Found combinatorial loop (need D FF) at output of gate at 5G
+Found combinatorial loop (need D FF) at output of gate at 3G
+Removed 2 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_G
+	and inputs of PS_F_CH_EXT_END_OF_TRANSFER,MS_F1_REG_FULL,MS_F2_REG_FULL
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G
+	and inputs of PS_F_CYCLE,PS_F_CH_INPUT_MODE,PS_LOGIC_GATE_C_OR_T
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C
+	and inputs of PS_LOGIC_GATE_F_OR_W,OUT_2C_D
+	and logic function of NAND
+Generating Statement for block at 5C with *latched* output pin(s) of OUT_5C_F_Latch, OUT_5C_F_Latch
+	and inputs of PS_INPUT_CYCLE,MS_LOGIC_GATE_B_OR_S,OUT_4C_NoPin
+	and logic function of NAND
+Generating Statement for block at 4C with *latched* output pin(s) of OUT_4C_NoPin_Latch, OUT_4C_NoPin_Latch
+	and inputs of OUT_5C_F,OUT_DOT_5B
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of OUT_4C_NoPin
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of OUT_5C_F
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_P
+	and inputs of MS_F_CH_STATUS_SPL_A_DOT_U_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_G
+	and inputs of PS_F_CH_EXT_END_OF_TRANSFER,PS_F_CH_OUTPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_G
+	and inputs of PS_F1_REG_FULL,PS_2ND_CLOCK_PULSE_2,PS_F2_REG_FULL
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of MS_MAR_WRAP_AROUND,MS_I_O_GRP_MK_END_OF_RECORD,MS_F_CH_OVERLAP_END_OF_RECORD
+	and logic function of NAND
+Generating Statement for block at 5G with *latched* output pin(s) of OUT_5G_NoPin_Latch, OUT_5G_NoPin_Latch
+	and inputs of OUT_DOT_3G,MS_F_CH_RESET,MS_F_CH_END_OF_2ND_ADDR_TRF
+	and logic function of NAND
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_P_Latch
+	and inputs of OUT_1B_C,OUT_5G_NoPin,OUT_DOT_5F
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_B
+	and inputs of OUT_5G_NoPin
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_R
+	and inputs of MS_F_CH_END_OF_2ND_ADDR_TRF
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_C
+	and inputs of OUT_DOT_3G
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
+	and inputs of OUT_5A_G,OUT_5B_G
+	and logic function of OR
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
+	and inputs of OUT_5E_G,OUT_5F_G
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G, OUT_DOT_3G
+	and inputs of OUT_3D_P,OUT_3F_D,OUT_3G_P
+	and logic function of OR
+Generating Statement for block at 1I with output pin(s) of OUT_DOT_1I
+	and inputs of OUT_4I_R,OUT_2I_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_LAST_INPUT_CYCLE
+	from gate output OUT_3C_E
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_INT_END_OF_TRANSFER
+	from gate output OUT_2H_B
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_INT_END_OF_TRANSFER
+	from gate output OUT_DOT_1I
+Generating D Flip Flop for block at 5C
+Generating D Flip Flop for block at 4C
+Generating D Flip Flop for block at 5G
+Generating D Flip Flop for block at 3G
