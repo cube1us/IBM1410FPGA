@@ -1,0 +1,72 @@
+Generating HDL for page 13.66.04.1 F CH DATA FLOW CONTROL at 8/9/2020 9:52:47 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_66_04_1_F_CH_DATA_FLOW_CONTROL_tb.vhdl, generating default test bench code.
+Removed 5 outputs from Gate at 4A to ignored block(s) or identical signal names
+Removed 7 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_H
+	and inputs of PS_F1_REG_WORD_SEPARATOR,OUT_4B_F
+	and logic function of Special
+Generating Statement for block at 4B with output pin(s) of OUT_4B_F
+	and inputs of MS_F2_REG_WORD_SEPARATOR
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D
+	and inputs of PS_SET_F2_REG,PS_F1_REG_WORD_SEPARATOR,MS_F2_REG_WORD_SEPARATOR
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_B
+	and inputs of OUT_4C_D
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_E
+	and inputs of PS_F_CH_INPUT_MODE,MS_F1_REG_WORD_SEPARATOR,PS_F2_REG_WORD_SEPARATOR
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_4D_E
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P
+	and inputs of PS_F1_REG_WORD_SEPARATOR,PS_F2_REG_WORD_SEPARATOR
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_R
+	and inputs of OUT_DOT_4E
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_K
+	and inputs of PS_F1_REG_WM_BIT,PS_F_CH_OUTPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of PS_F1_REG_WORD_SEPARATOR,PS_F2_REG_WORD_SEPARATOR,PS_F1_REG_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_4G_G
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of MS_F2_REG_WORD_SEPARATOR,PS_F_CH_INPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_B
+	and inputs of OUT_4H_C
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_G
+	and inputs of MS_F1_REG_WORD_SEPARATOR,PS_F_CH_OUTPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_F
+	and inputs of OUT_4I_G
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_2D_C,OUT_2E_R
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4E_P,OUT_4F_K
+	and logic function of OR
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_2G_C,OUT_2H_B,OUT_2I_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_COPY_F1_BCD_TO_F2_REG
+	from gate output OUT_4A_H
+Generating output sheet edge signal assignment to 
+	signal MS_SET_F2_WORD_SEPARATOR
+	from gate output OUT_2C_B
+Generating output sheet edge signal assignment to 
+	signal PS_COPY_INV_F1_WM_DOT_C_BIT
+	from gate output OUT_DOT_1D
+Generating output sheet edge signal assignment to 
+	signal PS_COPY_F1_WM_DOT_C_BIT
+	from gate output OUT_DOT_1G
