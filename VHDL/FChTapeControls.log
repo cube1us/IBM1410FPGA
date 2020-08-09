@@ -1,0 +1,74 @@
+Generating HDL for group named FChTapeControlsat 8/9/2020 1:43:04 PM containing pages: 
+	13.66.07.1, 13.66.08.1, 13.66.09.1, 13.66.10.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\FChTapeControls_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 4 pages...
+Found 15 signals on page 13.66.07.1
+Found 21 signals on page 13.66.08.1
+Found 15 signals on page 13.66.09.1
+Found 9 signals on page 13.66.10.1
+Found 37 unique input signals and 16 unique output signals, (52 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LOGIC GATE F 1 originates outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE originates outside the group.
+INFO:  Signal -S PROGRAM RESET 2 originates outside the group.
+INFO:  Signal -S E SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S Q+V SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S UNIT CTRL OP CODE originates outside the group.
+INFO:  Signal +S LOZENGE OR ASTERISK originates outside the group.
+INFO:  Signal +S F CH SELECT TAPE originates outside the group.
+INFO:  Signal -S F CH NOT READY originates outside the group.
+INFO:  Signal -S F CH BUSY originates outside the group.
+INFO:  Signal -S F CH BUSY BUS originates outside the group.
+INFO:  Signal -C SELECT AT LOAD POINT*F CH originates outside the group.
+INFO:  Signal +S B+R+U SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S I RING 7 TIME originates outside the group.
+INFO:  Signal +S U SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S B SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S E SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S R SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S M SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S A SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S DOLLAR SIGN+R SYMBOL OP MOD originates outside the group.
+INFO:  Signal +S W+X SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S M OR L OP CODES originates outside the group.
+INFO:  Signal +S F CH TAPE CALL originates inside the group.
+INFO:  Signal +S LOGIC GATE C 1 originates outside the group.
+INFO:  Signal +S I RING 6+1401 AND 8 TIME originates outside the group.
+INFO:  Signal +S LAST LOGIC GATE 1 originates outside the group.
+INFO:  Signal -S RESET END OF REEL IND originates outside the group.
+INFO:  Signal +S F CH TAPE INDICATOR originates outside the group.
+INFO:  Signal -C WRITE CONDITION *F CH originates outside the group.
+INFO:  Signal +S F CH DISCON LATCH originates outside the group.
+INFO:  Signal +S F CH SECOND SAMPLE B originates outside the group.
+INFO:  Signal -S CONTROL REG DISABLE originates outside the group.
+INFO:  Signal +S F CH SELECT UNIT F originates outside the group.
+INFO:  Signal +S F CH INPUT MODE originates outside the group.
+INFO:  Signal +S F CH OUTPUT MODE originates outside the group.
+INFO:  Signal +S ASSEMBLY TO F CH *1414* originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S F CH TAPE CALL is used outside the group.
+INFO:  Signal +S F CH TAPE CALL is used only inside the group.
+INFO:  Signal -C READ TAPE CALL * F CH is used outside the group.
+INFO:  Signal -C WRITE TAPE CALL * F CH is used outside the group.
+INFO:  Signal -C WRITE TAPE MK CALL * F CH is used outside the group.
+INFO:  Signal -C ERASE CALL * F CH is used outside the group.
+INFO:  Signal -C REWIND UNLOAD * F CH is used outside the group.
+INFO:  Signal -C REWIND CALL * F CH is used outside the group.
+INFO:  Signal -C BACKSPACE CALL * F CH is used outside the group.
+INFO:  Signal -C DISCONNECT CALL * F CH is used outside the group.
+INFO:  Signal -C TURN OFF TI * F CH is used outside the group.
+INFO:  Signal -C RESET TAPE SEL REG * CH F is used outside the group.
+INFO:  Signal -C SET TAPE SEL REG * CH F is used outside the group.
+INFO:  Signal -S FILE TO F CH is used outside the group.
+INFO:  Signal +S ASSEMBLY TO F CH is used outside the group.
+INFO:  Signal -S TAPE TO F CH is used outside the group.
+Removing 1 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Input Signal +S I RING 7 TIME replaced by Bus signal +S I RING HDL BUS
+Generating list of internal signals/wires ...
+1 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.66.07.1 (F CH TAPE CONTROLS)
+Generating HDL associated with page 13.66.08.1 (F CH TAPE CONTROLS)
+Generating HDL associated with page 13.66.09.1 (F CH TAPE CONTROLS)
+Generating HDL associated with page 13.66.10.1 (F CH INPUT GATE CONTROL)

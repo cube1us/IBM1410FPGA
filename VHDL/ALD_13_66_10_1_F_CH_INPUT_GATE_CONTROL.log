@@ -1,0 +1,41 @@
+Generating HDL for page 13.66.10.1 F CH INPUT GATE CONTROL at 8/9/2020 1:42:11 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_66_10_1_F_CH_INPUT_GATE_CONTROL_tb.vhdl, generating default test bench code.
+Removed 7 outputs from Dot Function at 1A to ignored block(s) or identical signal names
+Removed 7 outputs from Dot Function at 1E to ignored block(s) or identical signal names
+Removed 6 outputs from Dot Function at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C
+	and inputs of PS_F_CH_SELECT_UNIT_F
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_B
+	and inputs of PS_F_CH_INPUT_MODE
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P
+	and inputs of PS_F_CH_OUTPUT_MODE,MS_CONTROL_REG_DISABLE
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_4E_P
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_R
+	and inputs of PS_F_CH_INPUT_MODE
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_B
+	and inputs of PS_F_CH_SELECT_TAPE
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_3A_C,OUT_3B_B
+	and logic function of OR
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E
+	and inputs of OUT_3E_D,PS_ASSEMBLY_TO_F_CH_STAR_1414_STAR
+	and logic function of OR
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_3F_R,OUT_3G_B
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_FILE_TO_F_CH
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal PS_ASSEMBLY_TO_F_CH
+	from gate output OUT_DOT_1E
+Generating output sheet edge signal assignment to 
+	signal MS_TAPE_TO_F_CH
+	from gate output OUT_DOT_1F

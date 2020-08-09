@@ -1,0 +1,63 @@
+Generating HDL for page 13.66.09.1 F CH TAPE CONTROLS at 8/9/2020 1:42:06 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_66_09_1_F_CH_TAPE_CONTROLS_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 3E
+Found combinatorial loop (need D FF) at output of gate at 2E
+Generating Statement for block at 5B with output pin(s) of OUT_5B_A
+	and inputs of MC_WRITE_CONDITION_STAR_F_CH
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of OUT_5B_A,PS_F_CH_DISCON_LATCH,PS_F_CH_SELECT_TAPE
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_H
+	and inputs of OUT_3C_D
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of PS_F_CH_SELECT_TAPE,PS_F_CH_SECOND_SAMPLE_B
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_K_Latch, OUT_3E_K_Latch
+	and inputs of PS_F_CH_TAPE_INDICATOR,OUT_2E_C
+	and logic function of NAND
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_C_Latch
+	and inputs of OUT_4D_C,OUT_3E_K,MS_RESET_END_OF_REEL_IND
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PS_I_RING_6_OR_1401_AND_8_TIME,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_H
+	and inputs of OUT_3E_K
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of PS_F_CH_SELECT_TAPE,MS_F_CH_BUSY,PS_LOZENGE_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A
+	and inputs of OUT_DOT_4G
+	and logic function of EQUAL
+Generating Statement for block at 4H with output pin(s) of OUT_4H_E
+	and inputs of PS_LOZENGE_OR_ASTERISK,MS_F_CH_BUSY,PS_F_CH_SELECT_TAPE
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E
+	and inputs of OUT_DOT_4H
+	and logic function of EQUAL
+Generating Statement for block at 4I with output pin(s) of OUT_4I_G
+	and inputs of PS_I_RING_6_OR_1401_AND_8_TIME,PS_LAST_LOGIC_GATE_1
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G
+	and inputs of OUT_4F_C,OUT_4G_D
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H
+	and inputs of OUT_4H_E,OUT_4I_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MC_DISCONNECT_CALL_STAR_F_CH
+	from gate output OUT_1C_H
+Generating output sheet edge signal assignment to 
+	signal MC_TURN_OFF_TI_STAR_F_CH
+	from gate output OUT_2F_H
+Generating output sheet edge signal assignment to 
+	signal MC_RESET_TAPE_SEL_REG_STAR_CH_F
+	from gate output OUT_2G_A
+Generating output sheet edge signal assignment to 
+	signal MC_SET_TAPE_SEL_REG_STAR_CH_F
+	from gate output OUT_2H_E
+Generating D Flip Flop for block at 3E
+Generating D Flip Flop for block at 2E

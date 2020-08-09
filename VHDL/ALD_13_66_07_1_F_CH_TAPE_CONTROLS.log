@@ -1,0 +1,44 @@
+Generating HDL for page 13.66.07.1 F CH TAPE CONTROLS at 8/9/2020 1:41:47 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_66_07_1_F_CH_TAPE_CONTROLS_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 3D
+Found combinatorial loop (need D FF) at output of gate at 2D
+Ignoring Logic Block 5E with symbol R
+Removed 1 outputs from Gate at 5G to ignored block(s) or identical signal names
+Generating Statement for block at 1C with output pin(s) of OUT_1C_D
+	and inputs of OUT_3D_D
+	and logic function of NOT
+Generating Statement for block at 3D with *latched* output pin(s) of OUT_3D_D_Latch, OUT_3D_D_Latch
+	and inputs of MS_PROGRAM_RESET_2,MS_F_CH_BUSY_BUS,OUT_2D_K
+	and logic function of NAND
+Generating Statement for block at 2D with *latched* output pin(s) of OUT_2D_K_Latch, OUT_2D_K_Latch
+	and inputs of OUT_3D_D,OUT_DOT_3E
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C
+	and inputs of OUT_2D_K
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E
+	and inputs of MS_E_SYMBOL_OP_MODIFIER,PS_F_CH_SELECT_TAPE,PS_LOGIC_GATE_F_1
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of PS_LAST_INSN_RO_CYCLE,PS_LOZENGE_OR_ASTERISK,OUT_4G_D
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of MC_SELECT_AT_LOAD_POINT_STAR_F_CH
+	and logic function of NOR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of OUT_5G_C,PS_UNIT_CTRL_OP_CODE,PS_B_OR_R_OR_U_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_E
+	and inputs of MS_F_CH_BUSY,MS_F_CH_NOT_READY,MS_Q_OR_V_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_3E_E,OUT_3F_C,OUT_3H_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_TAPE_CALL
+	from gate output OUT_1C_D
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_TAPE_CALL
+	from gate output OUT_1D_C
+Generating D Flip Flop for block at 3D
+Generating D Flip Flop for block at 2D
