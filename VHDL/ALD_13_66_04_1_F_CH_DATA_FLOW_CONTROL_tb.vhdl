@@ -150,6 +150,144 @@ uut_process: process
    begin
 
    -- Your test bench code
+  
+   testName := "13.66.04.1        ";
+   
+   PS_F1_REG_WORD_SEPARATOR <= '1';
+   MS_F2_REG_WORD_SEPARATOR <= '1';   
+   wait for 30 ns;
+   check1(PS_COPY_F1_BCD_TO_F2_REG,'0',testName,"1A");
+   PS_F1_REG_WORD_SEPARATOR <= '0';
+   wait for 30 ns;
+   check1(PS_COPY_F1_BCD_TO_F2_REG,'1',testName,"1B");
+   PS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   MS_F2_REG_WORD_SEPARATOR <= '0';   
+   wait for 30 ns;
+   check1(PS_COPY_F1_BCD_TO_F2_REG,'1',testName,"1C");
+   MS_F2_REG_WORD_SEPARATOR <= '1';   
+   PS_F1_REG_WORD_SEPARATOR <= '0';
+   wait for 30 ns;
+   
+   MS_F2_REG_WORD_SEPARATOR <= '1';
+   PS_SET_F2_REG <= '1';
+   wait for 30 ns;
+   check1(MS_SET_F2_WORD_SEPARATOR,'1',testName,"2A");
+   PS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(MS_SET_F2_WORD_SEPARATOR,'0',testName,"2B");
+   PS_SET_F2_REG <= '0';
+   wait for 30 ns;
+   check1(MS_SET_F2_WORD_SEPARATOR,'1',testName,"2C");
+   PS_SET_F2_REG <= '1';
+   wait for 30 ns;
+   MS_F2_REG_WORD_SEPARATOR <= '0';
+   wait for 30 ns;
+   check1(MS_SET_F2_WORD_SEPARATOR,'1',testName,"2D");
+   MS_F2_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(MS_SET_F2_WORD_SEPARATOR,'0',testName,"2E");
+   PS_SET_F2_REG <= '0';
+   PS_F1_REG_WORD_SEPARATOR <= '0';
+   
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'0',testName,"3A");
+   PS_F_CH_INPUT_MODE <= '1';
+   MS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'0',testName,"3B");
+   PS_F2_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'1',testName,"3C");
+   MS_F1_REG_WORD_SEPARATOR <= '0';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'0',testName,"3D");
+   MS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   PS_F_CH_INPUT_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'0',testName,"3E");
+   PS_F_CH_INPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'1',testName,"3F");
+   PS_F_CH_INPUT_MODE <= '0';
+   PS_F2_REG_WORD_SEPARATOR <= '0';
+   
+   PS_F1_REG_WORD_SEPARATOR <= '1';
+   PS_F2_REG_WORD_SEPARATOR <= '1';
+   PS_F1_REG_WM_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'0',testName,"4A");
+   PS_F_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'1',testName,"4B");
+   PS_F1_REG_WORD_SEPARATOR <= '0';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'0',testName,"4C");
+   PS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   PS_F2_REG_WORD_SEPARATOR <= '0';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'0',testName,"4D");
+   PS_F2_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   PS_F1_REG_WM_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'0',testName,"4E");
+   PS_F1_REG_WM_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_INV_F1_WM_DOT_C_BIT,'1',testName,"4F");
+   PS_F1_REG_WORD_SEPARATOR <= '0';
+   PS_F2_REG_WORD_SEPARATOR <= '0';
+   PS_F1_REG_WM_BIT <= '0';
+   PS_F_CH_OUTPUT_MODE <= '0';
+   
+   
+   PS_F1_REG_WORD_SEPARATOR <= '1';
+   PS_F2_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'0',testName,"5A");
+   PS_F1_REG_NOT_WM_BIT <= '1';   
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'1',testName,"5B");
+   PS_F1_REG_WORD_SEPARATOR <= '0';
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'0',testName,"5C");
+   PS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   PS_F2_REG_WORD_SEPARATOR <= '0';
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'0',testName,"5D");
+   PS_F2_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'1',testName,"5E");
+   PS_F1_REG_WORD_SEPARATOR <= '0';
+   PS_F2_REG_WORD_SEPARATOR <= '0';
+   PS_F1_REG_NOT_WM_BIT <= '0';   
+
+   MS_F2_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'0',testName,"6A");
+   PS_F_CH_INPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'1',testName,"6B");
+   MS_F2_REG_WORD_SEPARATOR <= '0';
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'0',testName,"6C");
+   PS_F_CH_INPUT_MODE <= '0';
+   MS_F2_REG_WORD_SEPARATOR <= '1';
+   
+   MS_F1_REG_WORD_SEPARATOR <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'0',testName,"7A");
+   PS_F_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'1',testName,"7B");
+   MS_F1_REG_WORD_SEPARATOR <= '0';
+   wait for 30 ns;
+   check1(PS_COPY_F1_WM_DOT_C_BIT,'0',testName,"7C");
+   PS_F_CH_OUTPUT_MODE <= '0';
+   MS_F1_REG_WORD_SEPARATOR <= '1';
+  
 
    wait;
    end process;
