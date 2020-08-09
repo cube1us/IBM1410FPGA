@@ -214,6 +214,267 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "13.66.06.1        ";
+   
+   MS_F_CH_RESET <= '0';   
+   wait for 30 ns;
+   MS_F_CH_RESET <= '1';
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '0';
+   wait for 30 ns;    
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '1';
+   wait for 30 ns;
+   
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"SB");
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"SC");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"SD");
+   check1(MS_F_CH_FILE_SET_W_DOT_L_DOT_ADDR,'1',testName,"SE");
+   check1(MC_W_DOT_L_DOT_R_DOT_TO_FILE_STAR_F_CH,'1',testName,"SF");
+   
+   PS_Q_OR_V_SYMBOL_OP_MODIFIER <= '1';
+   MS_F_CH_SELECT_UNIT_F <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"1B");
+   PS_F_CH_STATUS_SAMPLE_A <= '1';
+   wait for 30 ns;
+   PS_F_CH_STATUS_SAMPLE_A <= '0';
+   PS_Q_OR_V_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns; -- Latch should remain set
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"1D");
+   -- Reset
+   PS_RESET_F_CH_CLR_LAT_STAR_1414_STAR <= '1';
+   wait for 30 ns;
+   PS_RESET_F_CH_CLR_LAT_STAR_1414_STAR <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"1F");
+   
+   MS_F1_REG_FULL <= '1'; -- Not E1 Full
+   MS_F2_REG_FULL <= '1'; -- Not E2 Full
+   MS_F_CH_STROBE_TRIGGER <= '1'; -- Not strobe trigger
+   PS_F_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"2B");
+   PS_F_CH_END_OF_RECORD_LATCH <= '1'; 
+   wait for 30 ns; -- Set latch
+   PS_F_CH_END_OF_RECORD_LATCH <= '0'; 
+   PS_F_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns; -- Latch still set
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"2D");
+   -- Reset
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '0';   
+   wait for 30 ns;
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"2F");
+   
+   -- If WLR latch NOT set, the Program Reset SETS correct length record
+   PS_PROGRAM_RESET <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"3B");
+   MS_F_CH_RESET <= '0';
+   wait for 30 ns; -- Reset WLR Latch
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"3D");
+   -- Reset   
+   PS_PROGRAM_RESET <= '0';
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '0';   
+   wait for 30 ns;
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"3F");
+
+   MS_FILE_SET_F_CH_NO_TRF_B <= '0';
+   wait for 30 ns;
+   MS_FILE_SET_F_CH_NO_TRF_B <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"4B");
+   -- Reset   
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '0';   
+   wait for 30 ns;
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"4D");
+   
+   -- WLR clear at this point
+   
+   PS_F_CH_ANY_STATUS_ON <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"6B");
+   PS_F_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   wait for 30 ns;  -- Latch set
+   PS_F_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   PS_F_CH_ANY_STATUS_ON <= '0';
+   wait for 30 ns; -- Latch still set
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"6D");
+   -- Reset   
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '0';   
+   wait for 30 ns;
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"6F");
+
+   MS_M_SYMBOL_OP_MODIFIER <= '1';  -- Not
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"8B");
+   PS_F_CH_STATUS_SAMPLE_A <= '1';
+   wait for 30 ns;  -- Sets latch
+   PS_F_CH_STATUS_SAMPLE_A <= '0';
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;  -- Latch should remain set
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"8D");
+   -- Reset   
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '0';   
+   wait for 30 ns;
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"8F");   
+
+   MS_Q_OR_V_SYMBOL_OP_MODIFIER <= '0';
+   PS_FILE_OP <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"9B");
+   PS_B_CH_GROUP_MARK_DOT_WM <= '1';   
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"9C");
+   PS_FILE_RING_7_LATCH <= '1';
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"9D");
+   wait for 30 ns;
+   PS_F_CH_STATUS_SAMPLE_A <= '1';
+   wait for 30 ns;  -- Set the latch
+   PS_F_CH_STATUS_SAMPLE_A <= '0';
+   MS_Q_OR_V_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;  -- Latch should remain set
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"9I");
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '0';   
+   wait for 30 ns;
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"9L");   
+   PS_F_CH_STATUS_SAMPLE_A <= '1';
+   PS_FILE_OP <= '0';
+   MS_F_CH_CHECK_BUS <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"9M");
+   PS_FILE_OP <= '1';
+   wait for 30 ns; -- Set the latch
+   PS_FILE_OP <= '0';
+   MS_F_CH_CHECK_BUS <= '1';
+   wait for 30 ns;  -- Latch should still be set
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"9O");
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '0';   
+   wait for 30 ns;
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"9Q");
+   PS_FILE_OP <= '1';      
+   PS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   MS_F_CH_UNIT_NUMBER_0 <= '0';
+   wait for 30 ns;   
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"9S");
+   PS_B_CH_GROUP_MARK_DOT_WM <= '1';
+   wait for 30 ns;  -- Sets latch
+   MS_F_CH_UNIT_NUMBER_0 <= '1';   
+   wait for 30 ns; -- Latch should remain set
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"9U");
+   PS_FILE_OP <= '1';
+   PS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   PS_FILE_RING_7_LATCH <= '0';
+   PS_F_CH_STATUS_SAMPLE_A <= '0';
+   wait for 30 ns; -- Latch should remain set
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"9W");
+   -- Reset the latch
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '0';   
+   wait for 30 ns;
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"9Z");
+   
+   PS_F_CH_CLR_LATCH_STAR_1414_STAR <= '1';
+   wait for 30 ns;
+   PS_F_CH_CLR_LATCH_STAR_1414_STAR <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'0',testName,"10A");
+   -- Reset the latch
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '0';   
+   wait for 30 ns;
+   MS_F_CH_RESET_CORR_REC_LENGTH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"10B");
+   
+   -- Leave +S File Wrong Length Addr Con set for next test
+
+   PS_FILE_WRONG_LENGTH_ADDR_CON <= '1';
+   
+   MS_F_CH_FILE_DOT_NO_TRANSFER_BUS <= '1';
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"11A");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"11B");
+   check1(LAMP_15A1H17,'0',testName,"11C");
+   MS_F_CH_FILE_DOT_NO_TRANSFER_BUS <= '0';
+   PS_F_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"11D");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"11E");
+   check1(LAMP_15A1H17,'0',testName,"11F");
+   MS_F_CH_FILE_DOT_NO_TRANSFER_BUS <= '1'; -- Set the latch
+   wait for 30 ns;
+   PS_F_CH_STATUS_SAMPLE_B <= '0';
+   -- Latch should stay set   
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"11G");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"11H");
+   check1(MS_F_CH_CORRECT_LENGTH_RECORD,'1',testName,"11I");
+   check1(LAMP_15A1H17,'1',testName,"11C");
+   MS_F_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"11J");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"11K");
+   check1(LAMP_15A1H17,'0',testName,"11L");
+   
+   check1(MS_F_CH_FILE_SET_W_DOT_L_DOT_ADDR,'1',testName,"12B");
+   
+   PS_FILE_OP <= '1';
+   MS_F_CH_BUSY_BUS <= '0';
+   PS_F_CH_READY_BUS <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"12C");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"12D");
+   check1(MS_F_CH_FILE_SET_W_DOT_L_DOT_ADDR,'1',testName,"12E");
+   MS_F_CH_BUSY_BUS <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"12F");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"12G");
+   check1(MS_F_CH_FILE_SET_W_DOT_L_DOT_ADDR,'1',testName,"12H");
+   PS_F_CH_STATUS_SAMPLE_A <= '1';
+   wait for 30 ns; -- Latch is set   
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"12I");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"12J");
+   check1(MS_F_CH_FILE_SET_W_DOT_L_DOT_ADDR,'0',testName,"12K");
+   MS_F_CH_BUSY_BUS <= '0';
+   wait for 30 ns; -- Latch is still set   
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"12L");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"12M");
+   check1(MS_F_CH_FILE_SET_W_DOT_L_DOT_ADDR,'1',testName,"12N"); -- But NOT this one
+   MS_F_CH_BUSY_BUS <= '1';
+   PS_F_CH_READY_BUS <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"12O");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"12P");
+   check1(MS_F_CH_FILE_SET_W_DOT_L_DOT_ADDR,'1',testName,"12Q");
+   PS_F_CH_READY_BUS <= '1';
+   PS_FILE_OP <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"12Q");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"12R");
+   check1(MS_F_CH_FILE_SET_W_DOT_L_DOT_ADDR,'1',testName,"12S");
+   PS_FILE_OP <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_WRONG_LENGTH_RECORD,'1',testName,"12T");
+   check1(MS_F_CH_WRONG_LENGTH_RECORD,'0',testName,"12U");
+   check1(MS_F_CH_FILE_SET_W_DOT_L_DOT_ADDR,'0',testName,"12V"); -- Now it should be back
+
+
    wait;
    end process;
 
