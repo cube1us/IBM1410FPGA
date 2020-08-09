@@ -1,0 +1,115 @@
+Generating HDL for page 13.66.06.1 F CH WRONG LENGTH RECORD at 8/9/2020 12:23:53 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_66_06_1_F_CH_WRONG_LENGTH_RECORD_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 3E
+Found combinatorial loop (need D FF) at output of gate at 2E
+Found combinatorial loop (need D FF) at output of gate at 3G
+Found combinatorial loop (need D FF) at output of gate at 1G
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2G to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1H17
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PS_F_CH_STATUS_SAMPLE_A,PS_FILE_OP,PS_B_CH_GROUP_MARK_DOT_WM
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_D
+	and inputs of PS_F_CH_STATUS_SAMPLE_A,PS_Q_OR_V_SYMBOL_OP_MODIFIER,MS_F_CH_SELECT_UNIT_F
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_D
+	and inputs of MS_F_CH_CHECK_BUS,MS_Q_OR_V_SYMBOL_OP_MODIFIER,MS_F_CH_UNIT_NUMBER_0
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of OUT_5B_D,PS_FILE_RING_7_LATCH
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_3A_D,MS_FILE_SET_F_CH_NO_TRF_B
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_F_CH_STATUS_SAMPLE_A_DELAY,PS_F_CH_ANY_STATUS_ON,OUT_2G_Q
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_E
+	and inputs of PS_F_CH_STATUS_SAMPLE_A,PS_UNIT_CTRL_OP_CODE,MS_M_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of OUT_4C_C,OUT_4D_E,OUT_DOT_4B
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P
+	and inputs of PS_F_CH_END_OF_RECORD_LATCH,PS_F_CH_STATUS_SAMPLE_B
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_R_Latch
+	and inputs of MS_F_CH_RESET_CORR_REC_LENGTH,OUT_DOT_2D
+	and logic function of NAND
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_E_Latch
+	and inputs of OUT_3F_C,OUT_DOT_4E,OUT_DOT_3E
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of MS_F1_REG_FULL,MS_F_CH_STROBE_TRIGGER,MS_F2_REG_FULL
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of PS_PROGRAM_RESET,OUT_2G_Q
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_L
+	and inputs of OUT_DOT_3E
+	and logic function of EQUAL
+Generating Statement for block at 1F with output pin(s) of 
+	and inputs of OUT_2H_A
+	and logic function of Lamp
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_K_Latch, OUT_3G_K_Latch
+	and inputs of MS_F_CH_RESET,OUT_1G_E
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_Q, OUT_2G_Q, OUT_2G_Q, OUT_2G_Q, OUT_2G_Q
+	and inputs of OUT_3G_K
+	and logic function of EQUAL
+Generating Statement for block at 1G with *latched* output pin(s) of OUT_1G_E_Latch, OUT_1G_E_Latch
+	and inputs of OUT_3G_K,OUT_DOT_2I,OUT_4H_D
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_E
+	and inputs of MS_F2_REG_FULL,MS_F_CH_STROBE_TRIGGER,PS_F_CH_END_OF_RECORD_LATCH
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_D
+	and inputs of OUT_5H_E,PS_F_CH_STATUS_SAMPLE_B,MS_F_CH_FILE_DOT_NO_TRANSFER_BUS
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_E
+	and inputs of PS_F_CH_STATUS_SAMPLE_A,PS_FILE_OP,PS_FILE_WRONG_LENGTH_ADDR_CON
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_A
+	and inputs of OUT_2G_Q
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of OUT_1H_A
+	and inputs of OUT_2G_Q
+	and logic function of EQUAL
+Generating Statement for block at 2I with output pin(s) of OUT_2I_K
+	and inputs of PS_F_CH_READY_BUS,MS_F_CH_BUSY_BUS
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_4A_G,OUT_4B_G
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2B_C,OUT_2D_D,PS_F_CH_CLR_LATCH_STAR_1414_STAR,OUT_2E_E
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4E_P,OUT_4F_C
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E, OUT_DOT_3E
+	and inputs of OUT_3E_R,PS_RESET_F_CH_CLR_LAT_STAR_1414_STAR
+	and logic function of OR
+Generating Statement for block at 2I with output pin(s) of OUT_DOT_2I, OUT_DOT_2I
+	and inputs of OUT_3H_E,OUT_2I_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_CORRECT_LENGTH_RECORD
+	from gate output OUT_2F_L
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_WRONG_LENGTH_RECORD
+	from gate output OUT_2G_Q
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_WRONG_LENGTH_RECORD
+	from gate output OUT_1G_E
+Generating output sheet edge signal assignment to 
+	signal MC_W_DOT_L_DOT_R_DOT_TO_FILE_STAR_F_CH
+	from gate output OUT_1H_A
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_FILE_SET_W_DOT_L_DOT_ADDR
+	from gate output OUT_DOT_2I
+Generating D Flip Flop for block at 3E
+Generating D Flip Flop for block at 2E
+Generating D Flip Flop for block at 3G
+Generating D Flip Flop for block at 1G
