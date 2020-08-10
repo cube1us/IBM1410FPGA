@@ -1,0 +1,137 @@
+Generating HDL for page 13.67.03.1 F CH EXT END OF TRF AND DISC LATC at 8/10/2020 1:42:44 PM
+Old test bench file ALD_13_67_03_1_F_CH_EXT_END_OF_TRF_AND_DISC_LATC_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+NOTE: DOT Function at 5H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 4C
+Found combinatorial loop (need D FF) at output of gate at 4E
+Found combinatorial loop (need D FF) at output of gate at 3E
+Processing extension from block at 2E (Database ID=229165) to 2F (Database ID=229166)
+Copied connection to extension input pin P to master block at 2E
+Copied connection from extension output pin B to master block at 2E
+Copied mapped pin A from extension 2F to master block at 2E
+Copied mapped pin E from extension 2F to master block at 2E
+Copied mapped pin F from extension 2F to master block at 2E
+Copied mapped pin X from extension 2F to master block at 2E
+Moved connection from extension 2F pin B to be from master at 2E
+WARNING: During sheet edge merge, Logic block at 3C pin A outputs to two different signal names: -C F CH DISCON TO 1405 vs. -C F CH DISCON TO 1301
+Removed 2 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 3 outputs from Dot Function at 1D to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_G
+	and inputs of PS_F_CH_OUTPUT_MODE,PS_F_CH_INT_END_OF_XFER_DELAYED,MS_F1_REG_FULL
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PS_F_CH_INT_END_OF_XFER_DELAYED,MS_F1_REG_FULL,PS_F_CH_2ND_ADDR_TRF
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C
+	and inputs of PS_F2_REG_FULL,PS_F_CH_2ND_ADDR_TRF,OUT_5C_A
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_G
+	and inputs of OUT_3A_C,OUT_DOT_4A
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G
+	and inputs of MS_F2_REG_FULL,PS_2ND_CLOCK_PULSE_2,MS_F_CH_FILE_ADDRESS_TRF
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of MS_F2_REG_FULL,PS_2ND_CLOCK_PULSE_2,PS_F_CH_STROBE_TRIGGER
+	and logic function of NAND
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_E_Latch
+	and inputs of OUT_4C_D,MS_MASTER_ERROR,OUT_DOT_5B
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_A, OUT_5C_A
+	and inputs of MC_1301_END_ADDR_TRF_F_CH
+	and logic function of NOR
+Generating Statement for block at 4C with *latched* output pin(s) of OUT_4C_D_Latch, OUT_4C_D_Latch
+	and inputs of OUT_DOT_1D,MS_F_CH_END_OF_2ND_ADDR_TRF,MS_F_CH_RESET
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A, OUT_3C_A
+	and inputs of OUT_4C_D
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_F_CH_IN_PROCESS,PS_F_CH_SELECT_TAPE,OUT_5E_B
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_P
+	and inputs of PS_F_CH_INT_END_OF_XFER_DELAYED,PS_F_CH_INPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_K
+	and inputs of PS_F_CH_SELECT_UNIT_F_LN_2
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C
+	and inputs of OUT_DOT_2D
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_B, OUT_5E_B
+	and inputs of MC_TAPE_IN_PROCESS
+	and logic function of NOR
+Generating Statement for block at 4E with *latched* output pin(s) of OUT_4E_NoPin_Latch
+	and inputs of MS_F_CH_RESET,OUT_3E_C
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_C_Latch, OUT_3E_C_Latch
+	and inputs of OUT_4D_NoPin,OUT_4E_NoPin
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_F, OUT_2E_B
+	and inputs of OUT_DOT_2G,PS_1ST_CLOCK_PULSE_21,MS_F_CH_RESET
+	and logic function of Trigger
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D
+	and inputs of OUT_2E_F
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of 
+	and inputs of OUT_DOT_2G
+	and logic function of Clamp
+	ERROR: Block has no outputs.
+Generating Statement for block at 4F with output pin(s) of OUT_4F_F
+	and inputs of OUT_5E_B
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_B
+	and inputs of OUT_3E_C,OUT_4F_F,PS_F_CH_SELECT_TAPE
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_2E_B
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_E
+	and inputs of PS_F_CH_IN_PROCESS,MS_1401_MODE,MS_F_CH_READY_BUS
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_K
+	and inputs of OUT_3F_B,OUT_4G_E
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_A
+	and inputs of OUT_DOT_5H,MS_F_CH_SELECT_UNIT_F
+	and logic function of NOR
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
+	and inputs of OUT_5A_G,OUT_5B_G
+	and logic function of OR
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_4A_G,OUT_4B_G
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D, OUT_DOT_1D
+	and inputs of OUT_2A_G,OUT_3B_E,OUT_1D_C
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_3D_P,OUT_2D_K
+	and logic function of OR
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of MC_1301_END_OF_OP_STAR_F_CH,MC_1405_END_OF_OP_STAR_F_CH
+	and logic function of AND
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G, OUT_DOT_2G
+	and inputs of OUT_2G_K,PS_SET_F_CH_EXT_END_TRF_STAR_SIF,PS_F_CH_EXT_END_OF_TRF_BUS_STAR_1414,PS_SET_F_CH_EXT_END_TRF_STAR_1412_19,OUT_2H_A
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_END_ADDR_TRF_1301
+	from gate output OUT_5C_A
+Generating output sheet edge signal assignment to 
+	signal MC_F_CH_DISCON_TO_1301
+	from gate output OUT_3C_A
+Generating output sheet edge signal assignment to 
+	signal MC_F_CH_DISCON_TO_1405
+	from gate output OUT_3C_A
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_EXT_END_OF_TRANSFER
+	from gate output OUT_1E_D
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_EXT_END_OF_TRANSFER
+	from gate output OUT_1F_C
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_DISCON_LATCH
+	from gate output OUT_DOT_1D
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 4C
+Generating D Flip Flop for block at 4E
+Generating D Flip Flop for block at 3E
