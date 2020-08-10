@@ -210,6 +210,328 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "13.42.11.1        ";
+   
+   -- Reset the latches
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"1A");
+   check1(PS_F_CH_END_ADDR_TRF_1301,'0',testName,"1C");
+   
+   MC_1301_END_ADDR_TRF_F_CH <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"1D");
+   check1(PS_F_CH_END_ADDR_TRF_1301,'1',testName,"1F");
+   check1(MC_F_CH_DISCON_TO_1301,'1',testName,"1G");
+   check1(MC_F_CH_DISCON_TO_1405,'1',testName,"1H");
+   PS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"1I");
+   PS_F_CH_2ND_ADDR_TRF <= '1';   
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'1',testName,"1K");
+   check1(MC_F_CH_DISCON_TO_1301,'0',testName,"1M");
+   check1(MC_F_CH_DISCON_TO_1405,'0',testName,"1N");
+   -- In spite of what the ILD says, this does latch, apparently
+   MC_1301_END_ADDR_TRF_F_CH <= '1';
+   PS_F2_REG_FULL <= '0';
+   PS_F_CH_2ND_ADDR_TRF <= '0';   
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'1',testName,"1O");
+   
+   -- Reset the latches
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   MS_F1_REG_FULL <= '0';
+   MS_F2_REG_FULL <= '0';
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"2A");
+   PS_F_CH_2ND_ADDR_TRF <= '1';   
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"2C");
+   MS_F1_REG_FULL <= '1';  -- NOT E1 reg full   
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"2D");
+   MS_F2_REG_FULL <= '1'; -- NOT E2 reg Full
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"2E");
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"2F");
+   PS_F_CH_STROBE_TRIGGER <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"2G");
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'1',testName,"2H");
+   MS_F1_REG_FULL <= '0';
+   MS_F2_REG_FULL <= '0';
+   PS_F_CH_2ND_ADDR_TRF <= '0';   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   PS_F_CH_STROBE_TRIGGER <= '0';
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '0';
+   -- Should stay latched
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'1',testName,"2I");
+   
+   -- Reset the latches
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"3A");
+   PS_F_CH_INPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"3B");
+   PS_F_CH_SELECT_UNIT_F_LN_2 <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'1',testName,"3C");
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '0';
+   PS_F_CH_INPUT_MODE <= '0';
+   PS_F_CH_SELECT_UNIT_F_LN_2 <= '0';
+   -- Should stay latched
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'1',testName,"3D");
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '0';  -- Different reset this time
+   wait for 30 ns;
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"3E");
+   
+   MS_F_CH_FILE_ADDRESS_TRF <= '0';
+   MS_F1_REG_FULL <= '0';
+   MS_F2_REG_FULL <= '0';
+
+   PS_F_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"4A");
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"4B");
+   MS_F_CH_FILE_ADDRESS_TRF <= '1'; -- NOT ...
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"4C");
+   MS_F1_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"4D");
+   MS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'0',testName,"4E");
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'1',testName,"4F");
+   MS_F_CH_FILE_ADDRESS_TRF <= '0';
+   MS_F1_REG_FULL <= '0';
+   MS_F2_REG_FULL <= '0';
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '0';
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   PS_F_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;
+   -- Should stay latched   
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'1',testName,"4G");
+
+   -- Reset the latches
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   MS_MASTER_ERROR <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'1',testName,"5A");
+   MS_MASTER_ERROR <= '1';   
+   wait for 30 ns;
+   check1(PS_F_CH_DISCON_LATCH,'1',testName,"5B");
+
+   -- Leave latch set for beginning of next test  
+   
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"6A"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"6B");
+
+   MS_F_CH_READY_BUS <= '0';
+   MS_1401_MODE <= '0';
+   PS_F_CH_IN_PROCESS <= '1';   
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"8A"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"8B");
+   MS_F_CH_READY_BUS <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"8B"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"8C");
+   MS_1401_MODE <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"8D"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"8E");
+   MS_F_CH_READY_BUS <= '0';
+   MS_1401_MODE <= '0';
+   PS_F_CH_IN_PROCESS <= '0';   
+   -- Reset the latches
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"8F"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"8G");
+
+   PS_SET_F_CH_EXT_END_TRF_STAR_SIF <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   PS_SET_F_CH_EXT_END_TRF_STAR_SIF <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"9A"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"9B");
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"9C"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"9D");
+
+   PS_F_CH_EXT_END_OF_TRF_BUS_STAR_1414 <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   PS_F_CH_EXT_END_OF_TRF_BUS_STAR_1414 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"9E"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"9F");
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"9G"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"9H");
+
+   PS_SET_F_CH_EXT_END_TRF_STAR_1412_19 <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   PS_SET_F_CH_EXT_END_TRF_STAR_1412_19 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"9I"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"9J");
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"9K"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"9L");
+
+   MC_1405_END_OF_OP_STAR_F_CH <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"10A"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"10B");
+   MS_F_CH_SELECT_UNIT_F <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"10C"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"10D");
+   MC_1405_END_OF_OP_STAR_F_CH <= '1';
+   -- Reset the latches
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"10E"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"10F");
+   MC_1301_END_OF_OP_STAR_F_CH <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   MC_1301_END_OF_OP_STAR_F_CH <= '1';
+   MS_F_CH_SELECT_UNIT_F <= '1';   
+   wait for 90 ns;
+   -- Should still be set
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"10G"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"10H");
+   -- Reset the latches
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"10I"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"10J");
+   
+   PS_F_CH_SELECT_TAPE <= '1';
+   -- Note that MC_TAPE_IN_PROCESS is already active
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"11A"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"11B");
+   PS_F_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   -- Should not set because Ext End of Trf Ctrl Latch not yet set
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"11C"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"11D");
+   MC_TAPE_IN_PROCESS <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   -- Now, the Ext End of Trf Ctrl latch is set, BUT we now need
+   -- NOT tape in process to set the Ext End of Transfer Latch
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"11E"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"11F");
+   MC_TAPE_IN_PROCESS <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_21 <= '1';
+   wait for 90 ns;  -- Should set trigger   
+   PS_1ST_CLOCK_PULSE_21 <= '0';
+   wait for 30 ns;
+   PS_F_CH_SELECT_TAPE <= '0';
+   PS_F_CH_IN_PROCESS <= '0';
+   wait for 30 ns;  -- Latch should stay set
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"11G"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"11H");
+   -- Reset the latches
+   MS_F_CH_RESET <= '0';
+   wait for 60 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_EXT_END_OF_TRANSFER,'0',testname,"10I"); 
+   check1(MS_F_CH_EXT_END_OF_TRANSFER,'1',testname,"10J");
+  
    wait;
    end process;
 
