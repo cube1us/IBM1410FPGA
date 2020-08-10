@@ -1,0 +1,130 @@
+Generating HDL for page 13.67.02.1 F CH STATUS SAMPLE-ACC at 8/9/2020 8:33:41 PM
+DOT Function at 3D has one output from a Trigger, one output from Non-Trigger
+   Trigger block pin B located at 3D, Non-trigger is located at 3E Output is to 2D
+   Using Trigger faux pin T as input side of pin B
+Found combinatorial loop (need D FF) at output of gate at 5A
+Found combinatorial loop (need D FF) at output of gate at 4A
+Ignoring Logic Block 4F with symbol L
+Processing extension from block at 3C (Database ID=228994) to 3D (Database ID=228995)
+Copied connection to extension input pin E to master block at 3C
+Copied connection to extension input pin A to master block at 3C
+Copied connection to extension input pin T to master block at 3C
+Copied connection from extension output pin B to master block at 3C
+Copied mapped pin B from extension 3D to master block at 3C
+Copied mapped pin K from extension 3D to master block at 3C
+Copied mapped pin P from extension 3D to master block at 3C
+Copied mapped pin T from extension 3D to master block at 3C
+Moved connection from extension 3D pin B to be from master at 3C
+Processing extension from block at 3F (Database ID=229003) to 3G (Database ID=229005)
+Copied connection to extension input pin E to master block at 3F
+Copied connection to extension input pin A to master block at 3F
+Copied connection to extension input pin P to master block at 3F
+Copied connection from extension output pin B to master block at 3F
+Copied mapped pin B from extension 3G to master block at 3F
+Copied mapped pin K from extension 3G to master block at 3F
+Copied mapped pin P from extension 3G to master block at 3F
+Copied mapped pin T from extension 3G to master block at 3F
+Moved connection from extension 3G pin B to be from master at 3F
+Processing extension from block at 3H (Database ID=229007) to 3I (Database ID=229009)
+Copied connection to extension input pin A to master block at 3H
+Copied connection to extension input pin E to master block at 3H
+Copied connection to extension input pin P to master block at 3H
+Copied connection from extension output pin B to master block at 3H
+Copied mapped pin A from extension 3I to master block at 3H
+Copied mapped pin E from extension 3I to master block at 3H
+Copied mapped pin F from extension 3I to master block at 3H
+Copied mapped pin X from extension 3I to master block at 3H
+Moved connection from extension 3I pin B to be from master at 3H
+Removed 2 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with *latched* output pin(s) of OUT_5A_NoPin_Latch
+	and inputs of OUT_4A_C,MS_F_CH_END_OF_2ND_ADDR_TRF,MS_F_CH_RESET
+	and logic function of NAND
+Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_C_Latch, OUT_4A_C_Latch, OUT_4A_C_Latch, OUT_4A_C_Latch
+	and inputs of OUT_5A_NoPin,OUT_5B_NoPin
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_K
+	and inputs of OUT_4A_C
+	and logic function of EQUAL
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_LOGIC_GATE_Z,PS_F_CH_INT_END_OF_TRANSFER
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4A_C
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_2C_D
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_B
+	and inputs of OUT_4A_C,OUT_2C_D,PS_F_CH_EXT_END_OF_TRANSFER
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_A
+	and inputs of OUT_DOT_5C
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_F, OUT_3C_B
+	and inputs of OUT_4C_A,OUT_5F_C,OUT_2D_C,OUT_5F_C,OUT_3E_E
+	and logic function of Trigger
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D, OUT_2C_D, OUT_2C_D
+	and inputs of OUT_3C_F
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_P
+	and inputs of PS_LOGIC_GATE_Z,OUT_2F_D
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C, OUT_2D_C, OUT_2D_C
+	and inputs of OUT_3C_B
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E
+	and inputs of PS_F_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C, OUT_5F_C, OUT_5F_C, OUT_5F_C, OUT_5F_C, OUT_5F_C
+	and inputs of PS_2ND_CLOCK_PULSE_2
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_F, OUT_3F_B
+	and inputs of OUT_2D_C,OUT_5F_C,OUT_2C_D,OUT_5F_C,MS_F_CH_RESET
+	and logic function of Trigger
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D, OUT_2F_D
+	and inputs of OUT_3F_F
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C, OUT_2G_C
+	and inputs of OUT_3F_B
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_F, OUT_3H_B
+	and inputs of OUT_5F_C,OUT_2G_C,OUT_5F_C,OUT_2F_D,MS_F_CH_RESET
+	and logic function of Trigger
+Generating Statement for block at 2H with output pin(s) of OUT_2H_D
+	and inputs of OUT_3H_F
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_C
+	and inputs of OUT_3H_B
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
+	and inputs of OUT_5C_B,OUT_5D_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_INT_END_OF_XFER_DELAYED
+	from gate output OUT_3A_K
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_INT_END_OF_XFER_DELAYED
+	from gate output OUT_3B_C
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_STATUS_SAMPLE_B_1
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_STATUS_SAMPLE_B
+	from gate output OUT_2D_C
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_SECOND_SAMPLE_B
+	from gate output OUT_2G_C
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_STATUS_SAMPLE_B_DELAY
+	from gate output OUT_2H_D
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_STATUS_SAMPLE_B_DELAY
+	from gate output OUT_2I_C
+Generating D Flip Flop for block at 5A
+Generating D Flip Flop for block at 4A

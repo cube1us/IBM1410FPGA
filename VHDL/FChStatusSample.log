@@ -1,0 +1,48 @@
+Generating HDL for group named FChStatusSampleat 8/9/2020 8:35:22 PM containing pages: 
+	13.67.01.1, 13.67.02.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\FChStatusSample_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 16 signals on page 13.67.01.1
+Found 14 signals on page 13.67.02.1
+Found 20 unique input signals and 10 unique output signals, (30 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LOGIC GATE D 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE E 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE F 1 originates outside the group.
+INFO:  Signal +S I RING 7 TIME originates outside the group.
+INFO:  Signal +S I RING 12 TIME originates outside the group.
+INFO:  Signal +S I CYCLE 1 originates outside the group.
+INFO:  Signal +S UNIT CTRL OP CODE originates outside the group.
+INFO:  Signal +S I-O MOVE+I-O LOAD OP CODE originates outside the group.
+INFO:  Signal +S LOZENGE OR ASTERISK originates outside the group.
+INFO:  Signal -S F CH SELECT UNIT F A originates outside the group.
+INFO:  Signal +S FILE OP.D CY.EXTENSION originates outside the group.
+INFO:  Signal +S B CH WM BIT 1 originates outside the group.
+INFO:  Signal +S GATE F CH ST SAMPLE A*1414* originates outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 2 originates outside the group.
+INFO:  Signal +S LOGIC GATE Z originates outside the group.
+INFO:  Signal -S F CH RESET originates outside the group.
+INFO:  Signal +S F CH IN PROCESS originates outside the group.
+INFO:  Signal +S F CH INT END OF TRANSFER originates outside the group.
+INFO:  Signal -S F CH END OF 2ND ADDR TRF originates outside the group.
+INFO:  Signal +S F CH EXT END OF TRANSFER originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S F CH STATUS SAMPLE A DELAY is used outside the group.
+INFO:  Signal +S F CH STATUS SAMPLE A is used outside the group.
+INFO:  Signal -S F CH STATUS SAMPLE A DELAY is used outside the group.
+INFO:  Signal -S F CH STATUS SAMPLE B DELAY is used outside the group.
+INFO:  Signal +S F CH INT END OF XFER DELAYED is used outside the group.
+INFO:  Signal +S F CH STATUS SAMPLE B is used outside the group.
+INFO:  Signal +S F CH SECOND SAMPLE B is used outside the group.
+INFO:  Signal +S F CH STATUS SAMPLE B 1 is used outside the group.
+INFO:  Signal -S F CH INT END OF XFER DELAYED is used outside the group.
+INFO:  Signal +S F CH STATUS SAMPLE B DELAY is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S I RING 7 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 12 TIME replaced by Bus signal +S I RING HDL BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.67.01.1 (F CH STATUS SAMPLE)
+Generating HDL associated with page 13.67.02.1 (F CH STATUS SAMPLE-ACC)

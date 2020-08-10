@@ -1,0 +1,70 @@
+Generating HDL for page 13.67.01.1 F CH STATUS SAMPLE at 8/9/2020 8:33:36 PM
+Removed 1 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 8 outputs from Dot Function at 1B to ignored block(s) or identical signal names
+Removed 5 outputs from Dot Function at 1D to ignored block(s) or identical signal names
+Generating Statement for block at 2B with output pin(s) of OUT_2B_E
+	and inputs of PS_FILE_OP_DOT_D_CY_DOT_EXTENSION,PS_LOZENGE_OR_ASTERISK,PS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_R
+	and inputs of OUT_2B_E
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_D
+	and inputs of PS_I_O_MOVE_OR_I_O_LOAD_OP_CODE,MS_F_CH_SELECT_UNIT_F_A,PS_I_RING_12_TIME
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_NoPin
+	and inputs of PS_LOGIC_GATE_D_1,OUT_DOT_4E
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_R
+	and inputs of OUT_2C_NoPin
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_G
+	and inputs of PS_LOZENGE_OR_ASTERISK,PS_I_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of PS_FILE_OP_DOT_D_CY_DOT_EXTENSION,PS_LOZENGE_OR_ASTERISK,PS_LOGIC_GATE_F_1
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_B
+	and inputs of OUT_2D_D
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_R
+	and inputs of OUT_DOT_5D,OUT_DOT_5F
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_NoPin
+	and inputs of OUT_DOT_4E,PS_LOGIC_GATE_E_1,PS_B_CH_WM_BIT_1
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D
+	and inputs of OUT_2E_NoPin
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_P
+	and inputs of PS_UNIT_CTRL_OP_CODE,PS_I_RING_7_TIME
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_K
+	and inputs of OUT_DOT_1D
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_P
+	and inputs of PS_I_CYCLE_1,PS_LOZENGE_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_1B_R,OUT_1C_R
+	and logic function of OR
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of OUT_5C_D,OUT_5D_G
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D, OUT_DOT_1D
+	and inputs of OUT_1D_B,OUT_1E_D
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E, OUT_DOT_4E
+	and inputs of OUT_4E_R,PS_GATE_F_CH_ST_SAMPLE_A_STAR_1414_STAR
+	and logic function of OR
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
+	and inputs of OUT_5F_P,OUT_5G_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_STATUS_SAMPLE_A_DELAY
+	from gate output OUT_1F_K
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_STATUS_SAMPLE_A
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_STATUS_SAMPLE_A_DELAY
+	from gate output OUT_DOT_1D
