@@ -186,7 +186,182 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.70.01.1        ";
+   
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '1';
+   wait for 30 ns;
 
+   check1(PS_1401_PRINT_TRIGGER,'0',testName,"SA");
+   check1(MS_1401_PRINT_TRIGGER,'1',testName,"SB");
+   check1(PS_1401_READ_TRIGGER,'0',testName,"SC");
+   check1(MS_1401_READ_TRIGGER,'1',testName,"SD");
+   check1(PS_1401_PUNCH_TRIGGER,'0',testName,"SE");
+   check1(MS_1401_PUNCH_TRIGGER,'1',testName,"SF");
+   check1(PS_1401_I_O_END,'0',testName,"SE");
+   check1(MS_1401_I_O_END,'1',testName,"SF");
+   check1(MS_1401_I_O_RING_ADVANCE,'1',testName,"SG");
+   check1(PS_1401_CARD_PRINT_IN_PROC,'0',testName,"SH");
+   check1(MS_1401_CARD_PRINT_IN_PROC,'1',testName,"SI");
+   
+   PS_1401_CARD_OR_PRINT_OP_CODE <= '0';
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   PS_LOGIC_GATE_E_1 <= '1';
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 30 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';      
+   wait for 90 ns;
+   check1(PS_1401_PRINT_TRIGGER,'0',testName,"1A");
+   check1(MS_1401_I_O_RING_ADVANCE,'1',testName,"1B");
+   check1(PS_1401_CARD_PRINT_IN_PROC,'0',testName,"1C");
+   PS_1401_CARD_OR_PRINT_OP_CODE <= '1';
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 30 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';      
+   wait for 90 ns;
+   check1(PS_1401_PRINT_TRIGGER,'0',testName,"1D");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   PS_LOGIC_GATE_E_1 <= '0';
+   wait for 30 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 30 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';      
+   wait for 90 ns;
+   check1(PS_1401_PRINT_TRIGGER,'0',testName,"1C");   
+   PS_LOGIC_GATE_E_1 <= '1';
+   wait for 30 ns;
+   check1(PS_1401_PRINT_TRIGGER,'1',testName,"1D");
+   check1(MS_1401_I_O_RING_ADVANCE,'1',testName,"1E");
+   check1(PS_1401_CARD_PRINT_IN_PROC,'1',testName,"1F");
+   check1(MS_1401_CARD_PRINT_IN_PROC,'0',testName,"1G");   
+  
+   check1(PS_1401_READ_TRIGGER,'0',testName,"1J");
+   check1(MS_1401_READ_TRIGGER,'1',testName,"1K");
+   check1(PS_1401_PUNCH_TRIGGER,'0',testName,"1L");
+   check1(MS_1401_PUNCH_TRIGGER,'1',testName,"1M");
+   check1(PS_1401_I_O_END,'0',testName,"1N");
+   check1(MS_1401_I_O_END,'1',testName,"1O");
+
+   -- Advance the ring using the other signal
+
+   MS_NOT_1401_CARD_OR_PRTR_MODE <= '1';
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';   
+   wait for 30 ns;
+   check1(MS_1401_I_O_RING_ADVANCE,'1',testName,"1P");
+   MS_NOT_1401_CARD_OR_PRTR_MODE <= '0';
+   wait for 30 ns;
+   check1(MS_1401_I_O_RING_ADVANCE,'0',testName,"1Q");
+   MS_NOT_1401_CARD_OR_PRTR_MODE <= '1';
+   wait for 90 ns;
+   check1(MS_1401_I_O_RING_ADVANCE,'1',testName,"1R");
+                     
+   check1(PS_1401_PRINT_TRIGGER,'0',testName,"2A");   
+   check1(MS_1401_PRINT_TRIGGER,'1',testName,"2B");
+   check1(PS_1401_READ_TRIGGER,'1',testName,"2C");
+   check1(MS_1401_READ_TRIGGER,'0',testName,"2D");
+   check1(PS_1401_PUNCH_TRIGGER,'0',testName,"2E");
+   check1(MS_1401_PUNCH_TRIGGER,'1',testName,"2F");
+   check1(PS_1401_I_O_END,'0',testName,"2G");
+   check1(MS_1401_I_O_END,'1',testName,"2H");
+   check1(PS_1401_CARD_PRINT_IN_PROC,'1',testName,"2I");
+   check1(MS_1401_CARD_PRINT_IN_PROC,'0',testName,"2J");   
+      
+   -- Advance the ring again
+   
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 30 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   wait for 30 ns;
+
+   check1(PS_1401_PRINT_TRIGGER,'0',testName,"3A");   
+   check1(MS_1401_PRINT_TRIGGER,'1',testName,"3B");
+   check1(PS_1401_READ_TRIGGER,'0',testName,"3C");
+   check1(MS_1401_READ_TRIGGER,'1',testName,"3D");
+   check1(PS_1401_PUNCH_TRIGGER,'1',testName,"3E");
+   check1(MS_1401_PUNCH_TRIGGER,'0',testName,"3F");
+   check1(PS_1401_I_O_END,'0',testName,"3G");
+   check1(MS_1401_I_O_END,'1',testName,"3H");
+   check1(PS_1401_CARD_PRINT_IN_PROC,'1',testName,"3I");
+   check1(MS_1401_CARD_PRINT_IN_PROC,'0',testName,"3J");   
+
+   PS_1401_BRANCH_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_1401_I_O_SET_BRANCH_CNDS,'1',testName,"3K");      
+
+   -- Advance the ring again - to the end
+   
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 30 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   wait for 30 ns;   
+
+   check1(PS_1401_PRINT_TRIGGER,'0',testName,"3A");   
+   check1(MS_1401_PRINT_TRIGGER,'1',testName,"3B");
+   check1(PS_1401_READ_TRIGGER,'0',testName,"3C");
+   check1(MS_1401_READ_TRIGGER,'1',testName,"3D");
+   check1(PS_1401_PUNCH_TRIGGER,'0',testName,"3E");
+   check1(MS_1401_PUNCH_TRIGGER,'1',testName,"3F");
+   check1(PS_1401_I_O_END,'1',testName,"3G");
+   check1(MS_1401_I_O_END,'0',testName,"3H");
+   check1(PS_1401_CARD_PRINT_IN_PROC,'1',testName,"3I");
+   check1(MS_1401_CARD_PRINT_IN_PROC,'0',testName,"3J");   
+
+   wait for 30 ns;
+   check1(MS_1401_I_O_SET_BRANCH_CNDS,'0',testName,"3L");      
+   PS_1401_BRANCH_LATCH <= '0';
+   wait for 30 ns;
+   check1(MS_1401_I_O_SET_BRANCH_CNDS,'1',testName,"3M");      
+   
+   -- Advance the ring again - off the end
+   
+   PS_LOGIC_GATE_E_1 <= '0'; -- remove DC set on In process latch
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 30 ns;
+   MS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   wait for 30 ns;
+
+   check1(PS_1401_PRINT_TRIGGER,'0',testName,"4A");   
+   check1(MS_1401_PRINT_TRIGGER,'1',testName,"4B");
+   check1(PS_1401_READ_TRIGGER,'0',testName,"4C");
+   check1(MS_1401_READ_TRIGGER,'1',testName,"4D");
+   check1(PS_1401_PUNCH_TRIGGER,'0',testName,"4E");
+   check1(MS_1401_PUNCH_TRIGGER,'1',testName,"4F");
+   check1(PS_1401_I_O_END,'0',testName,"4G");
+   check1(MS_1401_I_O_END,'1',testName,"4H");
+   check1(PS_1401_CARD_PRINT_IN_PROC,'0',testName,"4I");
+   check1(MS_1401_CARD_PRINT_IN_PROC,'1',testName,"4J");   
+
+   testName := "13.72.02.1        ";
+   
+   MC_I_O_PRINTER_READY <= '0';
+   wait for 30 ns;
+   check1(PS_1403_PRINT_BUFFER_BUSY,'0',testName,"1A");
+   check1(MS_1403_PRINT_BUFFER_BUSY,'1',testName,"1B");          
+   check1(PS_FORMS_OR_1403_PRT_BUFF_BUSY,'0',testName,"1C");
+   MC_1403_PRINT_BUFFER_BUSY <= '0';
+   wait for 30 ns;
+   check1(PS_1403_PRINT_BUFFER_BUSY,'1',testName,"1D");
+   check1(MS_1403_PRINT_BUFFER_BUSY,'0',testName,"1E");          
+   check1(PS_FORMS_OR_1403_PRT_BUFF_BUSY,'1',testName,"1F");
+   MC_1403_PRINT_BUFFER_BUSY <= '1';
+   wait for 30 ns;
+   MC_I_O_PRINTER_READY <= '1';
+   wait for 30 ns;
+   check1(PS_1403_PRINT_BUFFER_BUSY,'0',testName,"1G");
+   check1(MS_1403_PRINT_BUFFER_BUSY,'1',testName,"1H");          
+   check1(PS_FORMS_OR_1403_PRT_BUFF_BUSY,'1',testName,"1I");
+   MC_I_O_PRINTER_READY <= '0';
+   wait for 30 ns;
+   MS_PRT_CARR_BUSY <= '0';
+   wait for 30 ns;
+   check1(PS_1403_PRINT_BUFFER_BUSY,'0',testName,"1J");
+   check1(MS_1403_PRINT_BUFFER_BUSY,'1',testName,"1K");          
+   check1(PS_FORMS_OR_1403_PRT_BUFF_BUSY,'1',testName,"1L");
+      
    wait;
    end process;
 

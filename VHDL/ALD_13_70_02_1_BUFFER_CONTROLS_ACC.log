@@ -1,5 +1,5 @@
-Generating HDL for page 13.70.02.1 BUFFER CONTROLS-ACC at 8/10/2020 4:13:31 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_70_02_1_BUFFER_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 13.70.02.1 BUFFER CONTROLS-ACC at 8/11/2020 10:54:28 AM
+NOTE: Special signal LOGIC ZERO removed from sheet inputs list.
 Processing extension from block at 4A (Database ID=229462) to 4B (Database ID=229463)
 Copied connection to extension input pin E to master block at 4A
 Copied connection to extension input pin A to master block at 4A
@@ -57,7 +57,7 @@ Generating Statement for block at 4E with output pin(s) of OUT_4E_B, OUT_4E_B
 	and inputs of MC_1403_PRINT_BUFFER_BUSY
 	and logic function of NOR
 Generating Statement for block at 3E with output pin(s) of OUT_3E_D, OUT_3E_C
-	and inputs of MS_1401_SET_CD_PRINT_IN_PROC,OUT_2D_C,PS_1401_I_O_RING_ADVANCE,MS_PROGRAM_RESET_2
+	and inputs of MS_1401_SET_CD_PRINT_IN_PROC,'0',OUT_2D_C,PS_1401_I_O_RING_ADVANCE,MS_PROGRAM_RESET_2
 	and logic function of Trigger
 Generating Statement for block at 2E with output pin(s) of OUT_2E_D
 	and inputs of OUT_3E_D

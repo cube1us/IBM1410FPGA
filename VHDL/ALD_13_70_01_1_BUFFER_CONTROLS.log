@@ -1,5 +1,5 @@
-Generating HDL for page 13.70.01.1 BUFFER CONTROLS at 8/10/2020 4:13:24 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_70_01_1_BUFFER_CONTROLS_tb.vhdl, generating default test bench code.
+Generating HDL for page 13.70.01.1 BUFFER CONTROLS at 8/11/2020 10:51:36 AM
+NOTE: Special signal LOGIC ONE removed from sheet inputs list.
 Ignoring Logic Block 4G with symbol L
 Processing extension from block at 2A (Database ID=229297) to 2B (Database ID=229298)
 Copied connection to extension input pin E to master block at 2A
@@ -32,7 +32,7 @@ Generating Statement for block at 4A with output pin(s) of OUT_4A_C
 	and inputs of OUT_5A_E
 	and logic function of NOT
 Generating Statement for block at 2A with output pin(s) of OUT_2A_F, OUT_2A_B
-	and inputs of OUT_4A_C,OUT_1B_C,OUT_DOT_4G,MS_PROGRAM_RESET_2
+	and inputs of OUT_4A_C,'1',OUT_1B_C,OUT_DOT_4G,MS_PROGRAM_RESET_2
 	and logic function of Trigger
 Generating Statement for block at 1A with output pin(s) of OUT_1A_D, OUT_1A_D
 	and inputs of OUT_2A_F
