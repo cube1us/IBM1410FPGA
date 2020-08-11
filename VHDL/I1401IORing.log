@@ -1,9 +1,11 @@
-Generating HDL for group named I1401IORingat 8/10/2020 4:14:31 PM containing pages: 
+Generating HDL for group named I1401IORingat 8/11/2020 1:18:45 PM containing pages: 
 	13.70.01.1, 13.70.02.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\I1401IORing_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file I1401IORing_tb.vhdl 230 lines preserved and 32 declaration lines preserved
 Building lists of signals on 2 pages...
-Found 13 signals on page 13.70.01.1
-Found 19 signals on page 13.70.02.1
+Found 14 signals on page 13.70.01.1
+Note: Special signal LOGIC ONE ignored for group generation.
+Found 20 signals on page 13.70.02.1
+Note: Special signal LOGIC ZERO ignored for group generation.
 Found 14 unique input signals and 17 unique output signals, (27 total unique signals)
 Determining sources for all input signals...
 INFO:  Signal +S LOGIC GATE E 1 originates outside the group.
@@ -45,5 +47,7 @@ Signal +S 1401 READ TRIGGER is output from the group, but also used as an input 
 Generating list of internal signals/wires ...
 2 internal signals/wires found.
 Generating HDL prefixes...
+Note: Special signal LOGIC ONE ignored for page declaration.
 Generating HDL associated with page 13.70.01.1 (BUFFER CONTROLS)
+Note: Special signal LOGIC ZERO ignored for page declaration.
 Generating HDL associated with page 13.70.02.1 (BUFFER CONTROLS-ACC)
