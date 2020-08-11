@@ -1,0 +1,84 @@
+Generating HDL for page 13.70.01.1 BUFFER CONTROLS at 8/10/2020 4:13:24 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_70_01_1_BUFFER_CONTROLS_tb.vhdl, generating default test bench code.
+Ignoring Logic Block 4G with symbol L
+Processing extension from block at 2A (Database ID=229297) to 2B (Database ID=229298)
+Copied connection to extension input pin E to master block at 2A
+Copied connection to extension input pin A to master block at 2A
+Copied connection to extension input pin P to master block at 2A
+Copied connection from extension output pin B to master block at 2A
+Copied mapped pin B from extension 2B to master block at 2A
+Copied mapped pin K from extension 2B to master block at 2A
+Copied mapped pin P from extension 2B to master block at 2A
+Copied mapped pin T from extension 2B to master block at 2A
+Moved connection from extension 2B pin B to be from master at 2A
+Processing extension from block at 2D (Database ID=229301) to 2E (Database ID=229302)
+Copied connection to extension input pin E to master block at 2D
+Copied connection to extension input pin A to master block at 2D
+Copied connection to extension input pin P to master block at 2D
+Copied connection from extension output pin B to master block at 2D
+Copied mapped pin B from extension 2E to master block at 2D
+Copied mapped pin K from extension 2E to master block at 2D
+Copied mapped pin P from extension 2E to master block at 2D
+Copied mapped pin T from extension 2E to master block at 2D
+Moved connection from extension 2E pin B to be from master at 2D
+Removed 2 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1E to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 4G to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_E, OUT_5A_E
+	and inputs of PS_1401_CARD_OR_PRINT_OP_CODE,PS_LAST_INSN_RO_CYCLE,PS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C
+	and inputs of OUT_5A_E
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of OUT_2A_F, OUT_2A_B
+	and inputs of OUT_4A_C,OUT_1B_C,OUT_DOT_4G,MS_PROGRAM_RESET_2
+	and logic function of Trigger
+Generating Statement for block at 1A with output pin(s) of OUT_1A_D, OUT_1A_D
+	and inputs of OUT_2A_F
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C, OUT_1B_C, OUT_1B_C
+	and inputs of OUT_2A_B
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_F, OUT_2D_B
+	and inputs of OUT_1B_C,OUT_DOT_4G,OUT_1A_D,OUT_DOT_4G,MS_PROGRAM_RESET_2
+	and logic function of Trigger
+Generating Statement for block at 1D with output pin(s) of OUT_1D_D
+	and inputs of OUT_2D_F
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_2D_B
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_DOT_4G
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_B
+	and inputs of MS_E_CH_STATUS_SAMPLE_B_DELAY
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_F
+	and inputs of MS_NOT_1401_CARD_OR_PRTR_MODE
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G, OUT_DOT_4G, OUT_DOT_4G, OUT_DOT_4G, OUT_DOT_4G
+	and inputs of OUT_5G_B,OUT_5H_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_1401_SET_CD_PRINT_IN_PROC
+	from gate output OUT_5A_E
+Generating output sheet edge signal assignment to 
+	signal MS_1401_PRINT_TRIGGER
+	from gate output OUT_1A_D
+Generating output sheet edge signal assignment to 
+	signal PS_1401_PRINT_TRIGGER
+	from gate output OUT_1B_C
+Generating output sheet edge signal assignment to 
+	signal MS_1401_READ_TRIGGER
+	from gate output OUT_1D_D
+Generating output sheet edge signal assignment to 
+	signal PS_1401_READ_TRIGGER
+	from gate output OUT_1E_C
+Generating output sheet edge signal assignment to 
+	signal MS_1401_I_O_RING_ADVANCE
+	from gate output OUT_1F_C
+Generating output sheet edge signal assignment to 
+	signal PS_1401_I_O_RING_ADVANCE
+	from gate output OUT_DOT_4G

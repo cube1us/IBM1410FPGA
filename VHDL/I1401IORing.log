@@ -1,0 +1,49 @@
+Generating HDL for group named I1401IORingat 8/10/2020 4:14:31 PM containing pages: 
+	13.70.01.1, 13.70.02.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\I1401IORing_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 13 signals on page 13.70.01.1
+Found 19 signals on page 13.70.02.1
+Found 14 unique input signals and 17 unique output signals, (27 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LOGIC GATE E 1 originates outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE originates outside the group.
+INFO:  Signal -S PROGRAM RESET 2 originates outside the group.
+INFO:  Signal +S 1401 CARD OR PRINT OP CODE originates outside the group.
+INFO:  Signal -S E CH STATUS SAMPLE B DELAY originates outside the group.
+INFO:  Signal -S NOT 1401 CARD+PRTR MODE originates outside the group.
+INFO:  Signal +S 1401 BRANCH LATCH originates outside the group.
+INFO:  Signal -S PRT CARR BUSY originates outside the group.
+INFO:  Signal -S 1401 SET CD-PRINT IN PROC originates inside the group.
+INFO:  Signal -S 1401 READ TRIGGER originates inside the group.
+INFO:  Signal +S 1401 READ TRIGGER originates inside the group.
+INFO:  Signal +S 1401 I-O RING ADVANCE originates inside the group.
+INFO:  Signal -C 1403 PRINT BUFFER BUSY originates outside the group.
+INFO:  Signal -C I-O PRINTER READY originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S 1401 READ TRIGGER is used outside the group.
+INFO:  Signal -S 1401 PRINT TRIGGER is used outside the group.
+INFO:  Signal +S 1401 READ TRIGGER is used outside the group.
+INFO:  Signal -S 1401 SET CD-PRINT IN PROC is used only inside the group.
+INFO:  Signal +S 1401 PRINT TRIGGER is used outside the group.
+INFO:  Signal -S 1401 I-O RING ADVANCE is used outside the group.
+INFO:  Signal +S 1401 I-O RING ADVANCE is used only inside the group.
+INFO:  Signal -S 1401 I-O SET BRANCH CNDS is used outside the group.
+INFO:  Signal +S 1401 CARD PRINT IN PROC is used outside the group.
+INFO:  Signal +S FORMS + 1403 PRT BUFF BUSY is used outside the group.
+INFO:  Signal -S 1401 CARD PRINT IN PROC is used outside the group.
+INFO:  Signal -S 1403 PRINT BUFFER BUSY is used outside the group.
+INFO:  Signal +S 1403 PRINT BUFFER BUSY is used outside the group.
+INFO:  Signal -S 1401 PUNCH TRIGGER is used outside the group.
+INFO:  Signal +S 1401 I-O END is used outside the group.
+INFO:  Signal +S 1401 PUNCH TRIGGER is used outside the group.
+INFO:  Signal -S 1401 I-O END is used outside the group.
+Removing 2 output signals that do not have destinations outside the group...
+Removing 4 input signals that originate inside the group...
+Signal -S 1401 READ TRIGGER is output from the group, but also used as an input inside the group.
+Signal +S 1401 READ TRIGGER is output from the group, but also used as an input inside the group.
+Generating list of internal signals/wires ...
+2 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.70.01.1 (BUFFER CONTROLS)
+Generating HDL associated with page 13.70.02.1 (BUFFER CONTROLS-ACC)

@@ -1,0 +1,109 @@
+Generating HDL for page 13.70.02.1 BUFFER CONTROLS-ACC at 8/10/2020 4:13:31 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_70_02_1_BUFFER_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Processing extension from block at 4A (Database ID=229462) to 4B (Database ID=229463)
+Copied connection to extension input pin E to master block at 4A
+Copied connection to extension input pin A to master block at 4A
+Copied connection to extension input pin P to master block at 4A
+Copied connection from extension output pin B to master block at 4A
+Copied mapped pin B from extension 4B to master block at 4A
+Copied mapped pin K from extension 4B to master block at 4A
+Copied mapped pin P from extension 4B to master block at 4A
+Copied mapped pin T from extension 4B to master block at 4A
+Moved connection from extension 4B pin B to be from master at 4A
+Processing extension from block at 4C (Database ID=229466) to 4D (Database ID=229467)
+Copied connection to extension input pin E to master block at 4C
+Copied connection to extension input pin A to master block at 4C
+Copied connection to extension input pin P to master block at 4C
+Copied connection from extension output pin B to master block at 4C
+Copied mapped pin A from extension 4D to master block at 4C
+Copied mapped pin E from extension 4D to master block at 4C
+Copied mapped pin F from extension 4D to master block at 4C
+Copied mapped pin X from extension 4D to master block at 4C
+Moved connection from extension 4D pin B to be from master at 4C
+Processing extension from block at 3E (Database ID=229471) to 3F (Database ID=229473)
+Copied connection to extension input pin L to master block at 3E
+Copied connection to extension input pin R to master block at 3E
+Copied connection to extension input pin P to master block at 3E
+Copied connection from extension output pin C to master block at 3E
+Copied mapped pin C from extension 3F to master block at 3E
+Copied mapped pin P from extension 3F to master block at 3E
+Copied mapped pin Q from extension 3F to master block at 3E
+Copied mapped pin U from extension 3F to master block at 3E
+Moved connection from extension 3F pin C to be from master at 3E
+Removed 1 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_F, OUT_4A_B
+	and inputs of PS_1401_READ_TRIGGER,PS_1401_I_O_RING_ADVANCE,MS_1401_READ_TRIGGER,PS_1401_I_O_RING_ADVANCE,MS_PROGRAM_RESET_2
+	and logic function of Trigger
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D, OUT_2A_D
+	and inputs of OUT_4A_F
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C, OUT_2B_C
+	and inputs of OUT_4A_B
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F, OUT_4C_B
+	and inputs of OUT_2B_C,PS_1401_I_O_RING_ADVANCE,OUT_2A_D,PS_1401_I_O_RING_ADVANCE,MS_PROGRAM_RESET_2
+	and logic function of Trigger
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of OUT_4C_F
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C, OUT_2D_C, OUT_2D_C
+	and inputs of OUT_4C_B
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_B, OUT_4E_B
+	and inputs of MC_1403_PRINT_BUFFER_BUSY
+	and logic function of NOR
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D, OUT_3E_C
+	and inputs of MS_1401_SET_CD_PRINT_IN_PROC,OUT_2D_C,PS_1401_I_O_RING_ADVANCE,MS_PROGRAM_RESET_2
+	and logic function of Trigger
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of OUT_3E_D
+	and logic function of NOT
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of OUT_3E_C
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_E
+	and inputs of MS_PRT_CARR_BUSY,OUT_4H_L,OUT_2H_P
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_C
+	and inputs of OUT_2D_C,PS_1401_BRANCH_LATCH
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_L
+	and inputs of MC_I_O_PRINTER_READY
+	and logic function of NOR
+Generating Statement for block at 2H with output pin(s) of OUT_2H_P, OUT_2H_P
+	and inputs of OUT_4E_B
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_1401_PUNCH_TRIGGER
+	from gate output OUT_2A_D
+Generating output sheet edge signal assignment to 
+	signal PS_1401_PUNCH_TRIGGER
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal MS_1401_I_O_END
+	from gate output OUT_2C_D
+Generating output sheet edge signal assignment to 
+	signal PS_1401_I_O_END
+	from gate output OUT_2D_C
+Generating output sheet edge signal assignment to 
+	signal PS_1403_PRINT_BUFFER_BUSY
+	from gate output OUT_4E_B
+Generating output sheet edge signal assignment to 
+	signal MS_1401_CARD_PRINT_IN_PROC
+	from gate output OUT_2E_D
+Generating output sheet edge signal assignment to 
+	signal PS_1401_CARD_PRINT_IN_PROC
+	from gate output OUT_2F_C
+Generating output sheet edge signal assignment to 
+	signal PS_FORMS_OR_1403_PRT_BUFF_BUSY
+	from gate output OUT_2G_E
+Generating output sheet edge signal assignment to 
+	signal MS_1401_I_O_SET_BRANCH_CNDS
+	from gate output OUT_1G_C
+Generating output sheet edge signal assignment to 
+	signal MS_1403_PRINT_BUFFER_BUSY
+	from gate output OUT_2H_P
