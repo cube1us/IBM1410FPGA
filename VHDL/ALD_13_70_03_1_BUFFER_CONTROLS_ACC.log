@@ -1,5 +1,6 @@
-Generating HDL for page 13.70.03.1 BUFFER CONTROLS-ACC at 8/11/2020 3:58:09 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_70_03_1_BUFFER_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 13.70.03.1 BUFFER CONTROLS-ACC at 8/11/2020 4:26:52 PM
+Old test bench file ALD_13_70_03_1_BUFFER_CONTROLS_ACC_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+NOTE: Special signal LOGIC ZERO removed from sheet inputs list.
 DOT Function at 2B has one output from a Trigger, one output from Non-Trigger
    Trigger block pin B located at 2B, Non-trigger is located at 2C Output is to 1B
    Using Trigger faux pin T as input side of pin B
@@ -11,6 +12,7 @@ DOT Function at 2F has one output from a Trigger, one output from Non-Trigger
    Using Trigger faux pin W as input side of pin E
 Processing extension from block at 2A (Database ID=229568) to 2B (Database ID=229569)
 Copied connection to extension input pin P to master block at 2A
+Copied connection to extension input pin E to master block at 2A
 Copied connection to extension input pin T to master block at 2A
 Copied connection from extension output pin B to master block at 2A
 Copied mapped pin B from extension 2B to master block at 2A
@@ -29,6 +31,7 @@ Copied mapped pin T from extension 5E to master block at 5D
 Moved connection from extension 5E pin B to be from master at 5D
 Processing extension from block at 2E (Database ID=229584) to 2F (Database ID=229588)
 Copied connection to extension input pin B to master block at 2E
+Copied connection to extension input pin F to master block at 2E
 Copied connection to extension input pin W to master block at 2E
 Copied connection from extension output pin E to master block at 2E
 Copied mapped pin A from extension 2F to master block at 2E
@@ -50,7 +53,7 @@ Generating Statement for block at 3A with output pin(s) of OUT_3A_G
 	and inputs of OUT_4A_L,OUT_4C_A,OUT_4B_B
 	and logic function of NAND
 Generating Statement for block at 2A with output pin(s) of OUT_2A_F, OUT_2A_B
-	and inputs of OUT_3A_G,PS_1ST_CLOCK_PULSE_CLAMPED,MS_PROGRAM_RESET_2,OUT_2C_C
+	and inputs of OUT_3A_G,PS_1ST_CLOCK_PULSE_CLAMPED,MS_PROGRAM_RESET_2,'0',OUT_2C_C
 	and logic function of Trigger
 Generating Statement for block at 1A with output pin(s) of OUT_1A_D
 	and inputs of OUT_2A_F
@@ -86,7 +89,7 @@ Generating Statement for block at 4E with output pin(s) of OUT_4E_C, OUT_4E_C, O
 	and inputs of OUT_5D_B
 	and logic function of NOT
 Generating Statement for block at 2E with output pin(s) of OUT_2E_H, OUT_2E_E
-	and inputs of OUT_4E_C,PS_1ST_CLOCK_PULSE_CLAMPED,MS_PROGRAM_RESET_2,OUT_2G_E
+	and inputs of OUT_4E_C,PS_1ST_CLOCK_PULSE_CLAMPED,MS_PROGRAM_RESET_2,'0',OUT_2G_E
 	and logic function of Trigger
 Generating Statement for block at 1E with output pin(s) of OUT_1E_F, OUT_1E_F
 	and inputs of OUT_2E_H

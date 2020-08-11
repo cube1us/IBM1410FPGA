@@ -196,6 +196,60 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "13.70.03.1        ";
+   
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '0';
+   wait for 90 ns;
+   MS_PROGRAM_RESET_2 <= '1';
+   wait for 90 ns;
+   
+   check1(MS_1401_PUNCH,'1',testName,"SA");
+   check1(MS_1401_READ,'1',testName,"SB");
+   check1(MS_1401_PRINT,'1',testName,"SC");
+   check1(PS_1401_CARD_PR_ERR_SAMPLE,'0',testName,"SD");
+   check1(MS_1401_CARD_PR_ERR_SAMPLE,'1',testName,"SD");
+   check1(PS_1ST_I_O_CYCLE_CONTROL,'0',testName,"SE");
+   check1(MS_1ST_I_O_CYCLE_CONTROL,'1',testName,"SF");
+   check1(MS_1401_PUNCH_PRINT_ERROR,'1',testName,"SG");
+   check1(MS_1401_CARD_PRINT_ERROR,'1',testName,"SH");
+   check1(MS_NOT_1401_CARD_OR_PRTR_MODE,'1',testName,"SI");
+   
+   PS_1401_PRINT_TRIGGER <= '1';
+   wait for 30 ns;
+   check1(MS_1401_PRINT,'1',testName,"1A");
+   PS_1401_PRINT_TRIGGER <= '0';
+   PS_OP_REG_2_BIT <= '1';
+   wait for 30 ns;
+   check1(MS_1401_PRINT,'1',testName,"1B");
+   PS_1401_PRINT_TRIGGER <= '1';
+   wait for 30 ns;
+   check1(MS_1401_PRINT,'0',testName,"1C");
+   check1(PS_1401_CARD_PR_ERR_SAMPLE,'0',testName,"1D");   
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
+   wait for 30 ns;  -- Sets PRINT RD PCH Latch, triggers SS
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
+   wait for 90 ns;
+   wait for 6 us;  -- SS expires
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
+   wait for 30 ns;  -- Sets Card PR Err Sample, Which resets PRINT RD PCH Latch
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
+   wait for 90 ns;   
+   check1(PS_1401_CARD_PR_ERR_SAMPLE,'1',testName,"1E");
+   check1(MS_1401_CARD_PR_ERR_SAMPLE,'0',testName,"1F");
+
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
+   wait for 30 ns; 
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
+   wait for 90 ns;   
+      
+   check1(PS_1ST_I_O_CYCLE_CONTROL,'1',testName,"1G");
+   check1(MS_1ST_I_O_CYCLE_CONTROL,'0',testName,"1H");
+      
+   
+   
+   
+
    wait;
    end process;
 
