@@ -227,10 +227,10 @@ uut_process: process
    check1(MS_1401_PRINT,'0',testName,"1C");
    check1(PS_1401_CARD_PR_ERR_SAMPLE,'0',testName,"1D");   
    PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
-   wait for 30 ns;  -- Sets PRINT RD PCH Latch, triggers SS
+   wait for 30 ns;  -- Sets PRINT RD PCH Trigger, triggers SS
    PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
    wait for 90 ns;
-   wait for 6 us;  -- SS expires
+   wait for 6 us;  -- SS expires (Don't know why this is)
    PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
    wait for 30 ns;  -- Sets Card PR Err Sample, Which resets PRINT RD PCH Latch
    PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
@@ -246,9 +246,95 @@ uut_process: process
    check1(PS_1ST_I_O_CYCLE_CONTROL,'1',testName,"1G");
    check1(MS_1ST_I_O_CYCLE_CONTROL,'0',testName,"1H");
       
+   -- Reset with LGD
+   
+   PS_1401_PRINT_TRIGGER <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   PS_OP_REG_2_BIT <= '0';
+   
+   check1(MS_1401_PUNCH,'1',testName,"1I");
+   check1(MS_1401_READ,'1',testName,"1J");
+   check1(MS_1401_PRINT,'1',testName,"1K");
+   check1(PS_1401_CARD_PR_ERR_SAMPLE,'0',testName,"1L");
+   check1(MS_1401_CARD_PR_ERR_SAMPLE,'1',testName,"1M");
+   check1(PS_1ST_I_O_CYCLE_CONTROL,'0',testName,"1N");
+   check1(MS_1ST_I_O_CYCLE_CONTROL,'1',testName,"1O");
+   check1(MS_1401_PUNCH_PRINT_ERROR,'1',testName,"1P");
+   check1(MS_1401_CARD_PRINT_ERROR,'1',testName,"1Q");
+   check1(MS_NOT_1401_CARD_OR_PRTR_MODE,'1',testName,"1R");
+   
+   -- Next test the read cycle, but this time let the channel appear to go active
+
+   PS_1401_READ_TRIGGER <= '1';
+   wait for 30 ns;
+   check1(MS_1401_READ,'1',testName,"2A");
+   PS_1401_READ_TRIGGER <= '0';
+   PS_OP_REG_1_BIT <= '1';
+   wait for 30 ns;
+   check1(MS_1401_READ,'1',testName,"2B");
+   PS_1401_READ_TRIGGER <= '1';
+   wait for 30 ns;
+   check1(MS_1401_READ,'0',testName,"2C");
+   check1(PS_1401_CARD_PR_ERR_SAMPLE,'0',testName,"2D"); 
+   
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
+   wait for 30 ns; -- Sets Print/Read/Punch Trigger
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
+   wait for 90 ns;   
+
+   wait for 6 us;  -- Wish I new what the SS was for
+   wait for 90 ns;
+   
+   MS_E_CH_BUSY_BUS <= '0';  -- Pretend Channel is busy  
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
+   wait for 90 ns;   
+   check1(PS_1401_CARD_PR_ERR_SAMPLE,'0',testName,"2E"); 
+
+   MS_E_CH_BUSY_BUS <= '1';  -- Not busy any more
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
+   wait for 30 ns; 
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
+   wait for 90 ns;   
+   check1(PS_1401_CARD_PR_ERR_SAMPLE,'1',testName,"2F"); 
+   
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
+   wait for 30 ns; 
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
+   wait for 90 ns;   
+   check1(PS_1401_CARD_PR_ERR_SAMPLE,'0',testName,"2G"); 
+   check1(PS_1ST_I_O_CYCLE_CONTROL,'1',testName,"2H");
+
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
+   wait for 30 ns; 
+   PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
+   wait for 90 ns;   
+   check1(PS_1ST_I_O_CYCLE_CONTROL,'1',testName,"2H");
+   
+      -- Reset with LGD
+   
+   PS_1401_PRINT_TRIGGER <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   PS_OP_REG_1_BIT <= '0';
+   
+
+   -- This time reset, but with an error (hmmm: This has to happen during error sample)
+   
+   check1(MS_1401_PUNCH_PRINT_ERROR,'1',testName,"2I");
+   PS_E_CH_CONDITION <= '1';
+   PS_1401_I_O_CK_STOP_SW <= '1';
+   wait for 30 ns;
+   check1(MS_1401_PUNCH_PRINT_ERROR,'0',testName,"2J");
    
    
+
    
+
 
    wait;
    end process;
