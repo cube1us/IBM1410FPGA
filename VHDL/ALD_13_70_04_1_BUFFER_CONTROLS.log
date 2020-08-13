@@ -1,0 +1,153 @@
+Generating HDL for page 13.70.04.1 BUFFER CONTROLS at 8/13/2020 3:50:25 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_70_04_1_BUFFER_CONTROLS_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 2C
+Ignoring Logic Block 3I with symbol L
+Removed 1 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_R
+	and inputs of PS_E_CH_CORRECT_LENGTH_RECORD,MS_E_CH_CHECK
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_P
+	and inputs of PS_E_CH_SECOND_SAMPLE_B,PS_E_CH_SELECT_ANY_BUFFER
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of OUT_DOT_4A,OUT_4C_C
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_C
+	and inputs of OUT_3A_G
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_A
+	and inputs of OUT_2A_C
+	and logic function of EQUAL
+Generating Statement for block at 5B with output pin(s) of OUT_5B_D
+	and inputs of PS_E_CH_SELECT_ANY_BUFFER,PS_E_CH_SECOND_SAMPLE_B,OUT_5D_R
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_E
+	and inputs of PS_E_CH_CONDITION,PS_E_CH_SELECT_ANY_BUFFER,PS_E_CH_STATUS_SAMPLE_A_DELAY
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4B_E,OUT_4E_C,OUT_DOT_5B
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_K
+	and inputs of OUT_DOT_3B,MS_E_CH_BUSY
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_E
+	and inputs of OUT_2B_K
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C, OUT_4C_C
+	and inputs of PS_E_CH_STATUS_SAMPLE_B,PS_E_CH_SELECT_ANY_BUFFER,PS_1401_MODE
+	and logic function of NAND
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_D_Latch
+	and inputs of MS_E_CH_INPUT_MODE,MS_E_CYCLE_DOT_ANY_LAST_GATE,OUT_DOT_2C
+	and logic function of NAND
+Generating Statement for block at 2C with *latched* output pin(s) of OUT_2C_K_Latch
+	and inputs of OUT_3C_D,PS_E_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_G
+	and inputs of OUT_DOT_2C
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_R
+	and inputs of MS_E_CH_CHECK,MS_E_CH_WRONG_LENGTH_RECORD
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_K
+	and inputs of PS_E_CH_SELECT_ANY_BUFFER,MS_MASTER_ERROR
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_G
+	and inputs of MS_1401_I_O_CHECK_RESET,MS_RES_PUNCH_OR_PRINT_ERROR
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_H
+	and inputs of MS_1401_MODE
+	and logic function of EQUAL
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of PS_E_CH_SELECT_ANY_BUFFER,PS_E_CH_STATUS_SAMPLE_A_DELAY,PS_E_CH_NO_TRANSFER_LATCH
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_A
+	and inputs of MS_E_CH_STACKER_SEL_OP_CODE
+	and logic function of EQUAL
+Generating Statement for block at 5F with output pin(s) of OUT_5F_P
+	and inputs of MS_1401_PUNCH,MS_1401_PRINT
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_E
+	and inputs of MS_E_CH_FORMS_CTRL_OP_CODE
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of PS_LAST_INSN_RO_CYCLE,PS_LOGIC_GATE_E_1,PS_E_CH_2_CHAR_ONLY_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of OUT_DOT_4G
+	and logic function of SS
+	INFO: SingleShot at 3G pulse time: 20000 ns, Clock Period is 10 ns
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A, OUT_2G_A
+	and inputs of OUT_3G_P
+	and logic function of EQUAL
+Generating Statement for block at 1G with output pin(s) of OUT_1G_G
+	and inputs of OUT_2G_A
+	and logic function of EQUAL
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of MS_E_CH_NOT_READY,MS_E_CH_BUSY,MS_E_CH_NO_TRANSFER_LATCH
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of PS_OP_MOD_REG_NOT_A_BIT,PS_OP_MOD_REG_NOT_B_BIT
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_B
+	and inputs of OUT_3H_C
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of OUT_1H_F
+	and inputs of OUT_DOT_2H
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_P
+	and inputs of PS_E_CH_SELECT_ANY_BUFFER,PS_E_CH_STACKER_SEL_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_5A_R,OUT_4A_P
+	and logic function of OR
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C, OUT_DOT_2C
+	and inputs of OUT_2C_K,OUT_4D_K
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G
+	and inputs of OUT_4G_D,OUT_4H_C,OUT_1H_F
+	and logic function of OR
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
+	and inputs of OUT_5B_D,OUT_5F_P
+	and logic function of OR
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_3B_C,OUT_3D_G
+	and logic function of OR
+Generating Statement for block at 2H with output pin(s) of OUT_DOT_2H
+	and inputs of OUT_2H_B,OUT_2I_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MC_CORRECT_TRANS_TO_BUFFER
+	from gate output OUT_1A_A
+Generating output sheet edge signal assignment to 
+	signal MC_RESET_SELECT_BUFFER_LATCHES
+	from gate output OUT_1B_E
+Generating output sheet edge signal assignment to 
+	signal MS_1401_CARD_PR_SAMPLE_B
+	from gate output OUT_4C_C
+Generating output sheet edge signal assignment to 
+	signal MC_READY_TO_BUFFER
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal MC_1401_MODE_TO_BUFFER
+	from gate output OUT_1D_H
+Generating output sheet edge signal assignment to 
+	signal MC_STACK_SELECT_TO_BUFFER
+	from gate output OUT_1E_A
+Generating output sheet edge signal assignment to 
+	signal MC_FORMS_CTRL_TO_BUFFER
+	from gate output OUT_1F_E
+Generating output sheet edge signal assignment to 
+	signal MS_FORMS_STACKER_GO
+	from gate output OUT_2G_A
+Generating output sheet edge signal assignment to 
+	signal MC_FORMS_STACKER_GO
+	from gate output OUT_1G_G
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 2C
