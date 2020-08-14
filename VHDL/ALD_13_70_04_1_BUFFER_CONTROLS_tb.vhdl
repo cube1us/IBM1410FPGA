@@ -229,6 +229,295 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "13.70.04.1        ";
+   
+   wait for 30 ns;   
+   check1(MC_CORRECT_TRANS_TO_BUFFER,'1',testName,"1A");
+   PS_E_CH_CORRECT_LENGTH_RECORD <= '0';
+   MS_E_CH_CHECK <= '1';
+   PS_E_CH_SECOND_SAMPLE_B <= '1';
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   wait for 30 ns;   
+   check1(MC_CORRECT_TRANS_TO_BUFFER,'1',testName,"1B");
+   PS_E_CH_CORRECT_LENGTH_RECORD <= '1';
+   MS_E_CH_CHECK <= '0';
+   wait for 30 ns;   
+   check1(MC_CORRECT_TRANS_TO_BUFFER,'1',testName,"1C");
+   MS_E_CH_CHECK <= '1';
+   PS_E_CH_SECOND_SAMPLE_B <= '0';
+   wait for 30 ns;   
+   check1(MC_CORRECT_TRANS_TO_BUFFER,'1',testName,"1D");
+   PS_E_CH_SECOND_SAMPLE_B <= '1';
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   wait for 30 ns;   
+   check1(MC_CORRECT_TRANS_TO_BUFFER,'1',testName,"1D");
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   wait for 30 ns;   
+   check1(MC_CORRECT_TRANS_TO_BUFFER,'0',testName,"1E");
+
+   PS_E_CH_CORRECT_LENGTH_RECORD <= '0';
+   MS_E_CH_CHECK <= '1';
+   PS_E_CH_SECOND_SAMPLE_B <= '0';
+   
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   PS_1401_MODE <= '1';
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;   
+   check1(MC_CORRECT_TRANS_TO_BUFFER,'1',testName,"2A");
+   check1(MS_1401_CARD_PR_SAMPLE_B,'1',testName,"2B");
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   PS_1401_MODE <= '0';
+   wait for 30 ns;   
+   check1(MC_CORRECT_TRANS_TO_BUFFER,'1',testName,"2C");
+   check1(MS_1401_CARD_PR_SAMPLE_B,'1',testName,"2D");
+   PS_1401_MODE <= '1';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns;   
+   check1(MC_CORRECT_TRANS_TO_BUFFER,'1',testName,"2E");
+   check1(MS_1401_CARD_PR_SAMPLE_B,'1',testName,"2F");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;   
+   check1(MC_CORRECT_TRANS_TO_BUFFER,'0',testName,"2G");
+   check1(MS_1401_CARD_PR_SAMPLE_B,'0',testName,"2H");
+
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   PS_1401_MODE <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   
+   -- Since E Ch In process was 0, E Ch Ready trigger already reaset
+   
+   check1(MC_READY_TO_BUFFER,'1',testName,"3A");
+   PS_E_CH_IN_PROCESS <= '1';
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   MS_MASTER_ERROR <= '1';
+   wait for 30 ns;
+   check1(MC_READY_TO_BUFFER,'1',testName,"3B");
+   MS_E_CH_INPUT_MODE <= '0';
+   wait for 30 ns; -- Sets latch
+   MS_E_CH_INPUT_MODE <= '1';
+   wait for 30 ns; -- Latch still set
+   check1(MC_READY_TO_BUFFER,'0',testName,"3C");
+   PS_E_CH_IN_PROCESS <= '0';
+   wait for 30 ns; -- Reset Latch 
+   PS_E_CH_IN_PROCESS <= '1';
+   wait for 30 ns; -- Latch still reset 
+   check1(MC_READY_TO_BUFFER,'1',testName,"3D");
+   
+   MS_E_CYCLE_DOT_ANY_LAST_GATE <= '0';
+   wait for 30 ns; -- Sets latch
+   MS_E_CYCLE_DOT_ANY_LAST_GATE <= '1';
+   wait for 30 ns; -- Latch still set
+   check1(MC_READY_TO_BUFFER,'0',testName,"3E");
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   wait for 30 ns; -- Reset Latch 
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   wait for 30 ns; -- Latch still reset 
+   check1(MC_READY_TO_BUFFER,'1',testName,"3F");
+   
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"4A");
+   MS_E_CH_BUSY <= '0';
+   MS_1401_I_O_CHECK_RESET <= '0';
+   MS_RES_PUNCH_OR_PRINT_ERROR <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"4B");
+   MS_E_CH_BUSY <= '1';
+   MS_1401_I_O_CHECK_RESET <= '1';
+   MS_RES_PUNCH_OR_PRINT_ERROR <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"4C");
+   MS_1401_I_O_CHECK_RESET <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'0',testName,"4D");
+   MS_1401_I_O_CHECK_RESET <= '1';
+   wait for 30 ns;
+   MS_RES_PUNCH_OR_PRINT_ERROR <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'0',testName,"4E");
+   MS_1401_I_O_CHECK_RESET <= '1';
+   MS_RES_PUNCH_OR_PRINT_ERROR <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"4F");
+   
+   MS_E_CH_BUSY <= '1'; -- Leave for the following tests
+   
+   PS_E_CH_CONDITION <= '0';
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"5A");
+   PS_E_CH_CONDITION <= '1';
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"5B");
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"5C");
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'0',testName,"5D");
+   MS_E_CH_BUSY <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"5E");
+   MS_E_CH_BUSY <= '1';
+   PS_E_CH_CONDITION <= '0';
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   PS_E_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"6A");
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"6B");
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   PS_E_CH_NO_TRANSFER_LATCH <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"6C");
+   PS_E_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'0',testName,"6D");
+   MS_E_CH_BUSY <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"6E");
+   MS_E_CH_BUSY <= '1';
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   PS_E_CH_NO_TRANSFER_LATCH <= '0';
+   
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   PS_E_CH_SECOND_SAMPLE_B <= '1';
+   MS_E_CH_CHECK <= '0';
+   MS_1401_PUNCH <= '1';
+   MS_1401_PRINT <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"7A");
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   PS_E_CH_SECOND_SAMPLE_B <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"7B");
+   PS_E_CH_SECOND_SAMPLE_B <= '1';
+   MS_1401_PUNCH <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"7C");
+   MS_1401_PUNCH <= '1';
+   MS_1401_PRINT <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"7D");
+   MS_1401_PRINT <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'0',testName,"7E");
+   MS_E_CH_CHECK <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"7F");
+   MS_E_CH_WRONG_LENGTH_RECORD <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'0',testName,"7G");
+   MS_E_CH_BUSY <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_SELECT_BUFFER_LATCHES,'1',testName,"7H");
+   MS_E_CH_BUSY <= '1';
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   PS_E_CH_SECOND_SAMPLE_B <= '0';
+   MS_E_CH_CHECK <= '1';
+   MS_1401_PUNCH <= '1';
+   MS_1401_PRINT <= '1';
+
+   check1(MC_1401_MODE_TO_BUFFER,'1',testName,"8A");
+   MS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(MC_1401_MODE_TO_BUFFER,'0',testName,"8B");
+   MS_1401_MODE <= '1';
+   
+   check1(MC_STACK_SELECT_TO_BUFFER,'1',testName,"9A");
+   MS_E_CH_STACKER_SEL_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MC_STACK_SELECT_TO_BUFFER,'0',testName,"9B");
+   MS_E_CH_STACKER_SEL_OP_CODE <= '0';
+   
+   check1(MC_FORMS_CTRL_TO_BUFFER,'1',testName,"10A");
+   MS_E_CH_FORMS_CTRL_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MC_FORMS_CTRL_TO_BUFFER,'0',testName,"10B");
+   MS_E_CH_FORMS_CTRL_OP_CODE <= '0';
+   
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   PS_LOGIC_GATE_E_1 <= '1';
+   PS_E_CH_2_CHAR_ONLY_OP_CODES <= '1';
+   MS_E_CH_NOT_READY <= '1';
+   MS_E_CH_BUSY <= '1';
+   MS_E_CH_NO_TRANSFER_LATCH <= '1';
+   
+   PS_OP_MOD_REG_NOT_A_BIT <= '0';
+   PS_OP_MOD_REG_NOT_B_BIT <= '0';
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   PS_E_CH_STACKER_SEL_OP_CODE <= '1';
+   
+   wait for 90 ns;
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11A");
+   check1(MC_FORMS_STACKER_GO,'1',testName,"11B");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   PS_LOGIC_GATE_E_1 <= '0';
+   wait for 90 ns;
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11C");
+   PS_LOGIC_GATE_E_1 <= '1';
+   PS_E_CH_2_CHAR_ONLY_OP_CODES <= '0';
+   wait for 90 ns;
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11D");
+   PS_E_CH_2_CHAR_ONLY_OP_CODES <= '1';
+   MS_E_CH_NOT_READY <= '0';
+   wait for 90 ns;
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11E");
+   MS_E_CH_NOT_READY <= '1';
+   MS_E_CH_BUSY <= '0';
+   wait for 90 ns;
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11F");
+   MS_E_CH_BUSY <= '1';
+   MS_E_CH_NO_TRANSFER_LATCH <= '0';
+   wait for 90 ns;
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11G");
+   MS_E_CH_NO_TRANSFER_LATCH <= '1';   
+   wait for 90 ns;
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11H");
+   check1(MC_FORMS_STACKER_GO,'1',testName,"11I");
+   PS_E_CH_SELECT_ANY_BUFFER <= '0';
+   wait for 90 ns; -- Trigger SS
+   check1(MS_FORMS_STACKER_GO,'0',testName,"11J");
+   check1(MC_FORMS_STACKER_GO,'0',testName,"11K");
+   PS_E_CH_SELECT_ANY_BUFFER <= '1';
+   wait for 21us; -- wait for SS to time out
+
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11L");   
+   check1(MC_FORMS_STACKER_GO,'1',testName,"11M");
+   PS_E_CH_STACKER_SEL_OP_CODE <= '0';
+   wait for 90 ns; -- Trigger SS
+   check1(MS_FORMS_STACKER_GO,'0',testName,"11N");
+   PS_E_CH_STACKER_SEL_OP_CODE <= '1';
+   wait for 21us; -- wait for SS to time out
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11O");
+
+   PS_OP_MOD_REG_NOT_A_BIT <= '0';
+   PS_OP_MOD_REG_NOT_B_BIT <= '0';
+   wait for 90 ns;
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11P");   
+   PS_OP_MOD_REG_NOT_A_BIT <= '0';
+   PS_OP_MOD_REG_NOT_B_BIT <= '1';
+   wait for 90 ns;
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11Q");   
+   PS_OP_MOD_REG_NOT_A_BIT <= '1';
+   PS_OP_MOD_REG_NOT_B_BIT <= '0';
+   wait for 90 ns;
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11R");   
+   PS_OP_MOD_REG_NOT_A_BIT <= '1';
+   PS_OP_MOD_REG_NOT_B_BIT <= '1';
+   wait for 90 ns; -- Triger SS   
+   check1(MS_FORMS_STACKER_GO,'0',testName,"11R");   
+   wait for 21us; -- wait for SS to time out
+   check1(MS_FORMS_STACKER_GO,'1',testName,"11S");
+       
    wait;
    end process;
 
