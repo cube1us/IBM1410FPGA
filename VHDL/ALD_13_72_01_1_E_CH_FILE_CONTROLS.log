@@ -1,4 +1,5 @@
-Generating HDL for page 13.72.01.1 E CH FILE CONTROLS at 8/14/2020 4:40:19 PM
+Generating HDL for page 13.72.01.1 E CH FILE CONTROLS at 8/14/2020 4:42:16 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_72_01_1_E_CH_FILE_CONTROLS_tb.vhdl, generating default test bench code.
 DOT Function at 3H has one output from a Trigger, one output from Non-Trigger
    Trigger block pin F located at 3H, Non-trigger is located at 3G Output is to 1H
    Using Trigger faux pin X as input side of pin F
