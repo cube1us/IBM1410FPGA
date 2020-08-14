@@ -1,0 +1,75 @@
+Generating HDL for group named EChTapeControlsat 8/14/2020 11:11:50 AM containing pages: 
+	13.71.04.1, 13.71.05.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\EChTapeControls_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 36 signals on page 13.71.04.1
+Found 25 signals on page 13.71.05.1
+Found 39 unique input signals and 17 unique output signals, (55 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LOGIC GATE F 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE C 1 originates outside the group.
+INFO:  Signal +S I RING 6 TIME originates outside the group.
+INFO:  Signal +S I RING 8 TIME originates outside the group.
+INFO:  Signal +S I RING 10 TIME originates outside the group.
+INFO:  Signal +S I RING 6+1401 AND 8 TIME originates outside the group.
+INFO:  Signal +S LAST LOGIC GATE 1 originates outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE originates outside the group.
+INFO:  Signal -S RESET END OF REEL IND originates outside the group.
+INFO:  Signal -S E CH NOT READY originates outside the group.
+INFO:  Signal -S E CH BUSY BUS originates outside the group.
+INFO:  Signal +S E CH BUSY BUS originates outside the group.
+INFO:  Signal -S E CH BUSY originates outside the group.
+INFO:  Signal +S E CH TAPE INDICATOR originates outside the group.
+INFO:  Signal -S PROGRAM RESET 2 originates outside the group.
+INFO:  Signal +S 1401 MODE originates outside the group.
+INFO:  Signal -S 1401 MODE originates outside the group.
+INFO:  Signal -S B SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S E SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S R SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal -S Q+V SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S UNIT CTRL OP CODE originates outside the group.
+INFO:  Signal +S M OR L OP CODES originates outside the group.
+INFO:  Signal +S PERCENT OR COML AT originates outside the group.
+INFO:  Signal +S E CH SELECT TAPE DATA originates outside the group.
+INFO:  Signal +S E CH SECOND SAMPLE B originates outside the group.
+INFO:  Signal -C SELECT AT LOAD POINT*E CH originates outside the group.
+INFO:  Signal +S I RING 7+1401 6+8 originates outside the group.
+INFO:  Signal +S U SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S B SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S E SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S R SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S M SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S A SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S DOLLAR SIGN+R SYMBOL OP MOD originates outside the group.
+INFO:  Signal +S W+X SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S E CH DISCON LATCH originates outside the group.
+INFO:  Signal +S E CH TAPE CALL originates inside the group.
+INFO:  Signal -C WRITE CONDITION *E CH originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S E CH TAPE CALL is used outside the group.
+INFO:  Signal -S UNIT CONTROL INST RO DELAY is used outside the group.
+INFO:  Signal -S 1401 UNIT CTRL DELAY is used outside the group.
+INFO:  Signal -S 1401 M+L TAPE DELAY is used outside the group.
+INFO:  Signal +S B+R+U SYMBOL OP MODIFIER is used outside the group.
+INFO:  Signal -C TURN OFF TAPE IND * E CH is used outside the group.
+INFO:  Signal +S E CH TAPE CALL is used only inside the group.
+INFO:  Signal -C RESET TAPE SEL REG * E CH is used outside the group.
+INFO:  Signal -C SET TAPE SEL REG * E CH is used outside the group.
+INFO:  Signal -C DISCONNECT CALL * E CH is used outside the group.
+INFO:  Signal -C READ TAPE CALL * E CH is used outside the group.
+INFO:  Signal -C WRITE TAPE CALL * E CH is used outside the group.
+INFO:  Signal -C WRITE TAPE MK CALL * E CH is used outside the group.
+INFO:  Signal -C ERASE CALL * E CH is used outside the group.
+INFO:  Signal -C REWIND UNLOAD * E CH is used outside the group.
+INFO:  Signal -C REWIND CALL * E CH is used outside the group.
+INFO:  Signal -C BACKSPACE CALL * E CH is used outside the group.
+Removing 1 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Input Signal +S I RING 6 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 8 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 10 TIME replaced by Bus signal +S I RING HDL BUS
+Generating list of internal signals/wires ...
+1 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 13.71.04.1 (E CH TAPE CONTROLS)
+Generating HDL associated with page 13.71.05.1 (E CH TAPE CONTROLS)
