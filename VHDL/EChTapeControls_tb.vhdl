@@ -268,6 +268,556 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "13.71.04.1        ";
+   
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_2 <= '1';
+   wait for 30 ns;
+   
+   
+   check1(PS_B_OR_R_OR_U_SYMBOL_OP_MODIFIER,'0',testName,"0A");
+   MS_B_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_B_OR_R_OR_U_SYMBOL_OP_MODIFIER,'1',testName,"0B");
+   MS_B_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   MS_R_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(PS_B_OR_R_OR_U_SYMBOL_OP_MODIFIER,'1',testName,"0C");
+   MS_B_SYMBOL_OP_MODIFIER <= '1';
+   MS_R_SYMBOL_OP_MODIFIER <= '1';
+   
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1A");
+   
+   MS_E_SYMBOL_OP_MODIFIER <= '0'; -- Prevents setting
+   
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   PS_LOGIC_GATE_F_1 <= '1';
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   MC_SELECT_AT_LOAD_POINT_STAR_E_CH <= '0';
+   MS_B_SYMBOL_OP_MODIFIER <= '0';  -- Sets B+R+U Op Mod
+   
+   MS_E_CH_BUSY <= '1';   
+   MS_E_CH_NOT_READY <= '1';
+   MS_Q_OR_V_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1B");
+   
+   MS_E_SYMBOL_OP_MODIFIER <= '1';   
+   PS_E_CH_SELECT_TAPE_DATA <= '0';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1C");
+   
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1D");
+   
+   PS_LOGIC_GATE_F_1 <= '1';
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1E");
+   
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1F");
+   
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1G");
+   
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   MS_E_CH_BUSY <= '0';   
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1H");
+
+   MS_E_CH_BUSY <= '1';   
+   MS_E_CH_NOT_READY <= '0';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1I");
+
+   MS_E_CH_NOT_READY <= '1';
+   MS_Q_OR_V_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1J");
+
+   MS_Q_OR_V_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns; -- Sets Latch
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'0',testName,"1K");
+   MS_E_CH_BUSY_BUS <= '0';
+   wait for 30 ns; -- Reset Latch
+   MS_E_CH_BUSY_BUS <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1L");
+
+   MC_SELECT_AT_LOAD_POINT_STAR_E_CH <= '1';
+   wait for 30 ns; -- Sets Latch
+   MC_SELECT_AT_LOAD_POINT_STAR_E_CH <= '0';
+   check1(MS_E_CH_TAPE_CALL,'0',testName,"1M");
+   MS_E_CH_BUSY_BUS <= '0';
+   wait for 30 ns; -- Reset Latch
+   MS_E_CH_BUSY_BUS <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1N");
+
+   MS_B_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns; -- Sets Latch
+   MS_B_SYMBOL_OP_MODIFIER <= '0';
+   check1(MS_E_CH_TAPE_CALL,'0',testName,"1O");
+   MS_E_CH_BUSY_BUS <= '0';
+   wait for 30 ns; -- Reset Latch
+   MS_E_CH_BUSY_BUS <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"1P");
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   
+   testName := "13.71.05.1        ";
+
+   -- Set tape call again for the following tests
+
+   MS_B_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_TAPE_CALL,'0',testName,"SA");
+   
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"SB");
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"SC");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"SD");
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"SE");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"SF");
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"SG");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"1H");
+   
+   -- Set the various calls one at a time
+   
+   PS_DOLLAR_SIGN_OR_R_SYMBOL_OP_MOD <= '1';
+   PS_A_SYMBOL_OP_MODIFIER <= '1'; -- Two for one test sale. ;)
+   
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"1A");
+   PS_DOLLAR_SIGN_OR_R_SYMBOL_OP_MOD <= '0';
+   PS_M_OR_L_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"1AA");
+   PS_DOLLAR_SIGN_OR_R_SYMBOL_OP_MOD <= '1';
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'0',testName,"1B");
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"1C");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"1D");
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"1E");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"1F");
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"1G");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"1H");
+
+   PS_DOLLAR_SIGN_OR_R_SYMBOL_OP_MOD <= '0';
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"1I");
+   
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'0',testName,"1J");
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"1K");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"1L");
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"1M");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"1N");
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"1O");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"1P");
+
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"1Q");
+   PS_A_SYMBOL_OP_MODIFIER <= '0';
+   PS_DOLLAR_SIGN_OR_R_SYMBOL_OP_MOD <= '0';
+      
+   PS_M_OR_L_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"2A");
+   PS_M_OR_L_OP_CODES <= '0';
+   PS_W_OR_X_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"2AA");
+   PS_M_OR_L_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'0',testName,"2B");
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"2C");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"2D");
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"2E");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"2F");
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"2G");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"2H");
+   PS_M_OR_L_OP_CODES <= '0';
+   PS_W_OR_X_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_M_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"3A");
+   PS_M_SYMBOL_OP_MODIFIER <= '0';
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"3AA");
+   PS_M_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"3B");
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"3C");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'0',testName,"3D");
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"3E");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"3F");
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"3G");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"3H");
+   PS_M_SYMBOL_OP_MODIFIER <= '0';
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   
+   PS_I_RING_7_OR_1401_6_OR_8 <= '1';
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   PS_E_SYMBOL_OP_MODIFIER <= '1';
+   MS_E_CH_BUSY_BUS <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"4B");
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"4C");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"4D");
+   check1(MC_ERASE_CALL_STAR_E_CH,'0',testName,"4E");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"4F");
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"4G");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"4H");
+   PS_I_RING_7_OR_1401_6_OR_8 <= '0';
+   wait for 30 ns;      
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"4I");
+   PS_I_RING_7_OR_1401_6_OR_8 <= '1';
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;      
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"4J");
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   PS_E_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;      
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"4K");
+   PS_E_SYMBOL_OP_MODIFIER <= '1';
+   MS_E_CH_BUSY_BUS <= '0';
+   wait for 30 ns;      
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"4L");
+   MS_E_CH_BUSY_BUS <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;      
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"4M");
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;      
+   check1(MC_ERASE_CALL_STAR_E_CH,'0',testName,"4N");
+   PS_I_RING_HDL_BUS(7) <= '0';
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   PS_E_SYMBOL_OP_MODIFIER <= '0';
+   MS_E_CH_BUSY_BUS <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';
+
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"5A");
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;
+   PS_U_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"5AA");
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"5B");
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"5C");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"5D");
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"5E");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'0',testName,"5F");
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"5G");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"5H");
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   PS_U_SYMBOL_OP_MODIFIER <= '0';
+   
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"6A");
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;
+   PS_R_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"6AA");
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"6B");
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"6C");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"6D");
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"6E");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"6F");
+   check1(MC_REWIND_CALL_STAR_E_CH,'0',testName,"6G");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"6H");
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   PS_R_SYMBOL_OP_MODIFIER <= '0';
+
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"7A");
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   wait for 30 ns;
+   PS_B_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"7AA");
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"7B");
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"7C");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"7D");
+   check1(MC_ERASE_CALL_STAR_E_CH,'1',testName,"7E");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"7F");
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"7G");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'0',testName,"7H");
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   PS_B_SYMBOL_OP_MODIFIER <= '0';
+
+   -- Turn them ALL on (which could never really happen, of course)
+
+   PS_DOLLAR_SIGN_OR_R_SYMBOL_OP_MOD <= '1';
+   PS_M_OR_L_OP_CODES <= '1';
+   PS_A_SYMBOL_OP_MODIFIER <= '1';
+   PS_W_OR_X_SYMBOL_OP_MODIFIER <= '1';
+   PS_M_SYMBOL_OP_MODIFIER <= '1';
+   MS_E_CH_BUSY_BUS <= '1';
+   PS_I_RING_7_OR_1401_6_OR_8 <= '1';
+   PS_E_SYMBOL_OP_MODIFIER <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_U_SYMBOL_OP_MODIFIER <= '1';
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   PS_R_SYMBOL_OP_MODIFIER <= '1';
+   PS_B_SYMBOL_OP_MODIFIER <= '1';
+   wait for 30 ns;
+
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'0',testName,"8A");
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'0',testName,"8C");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'0',testName,"8D");
+   check1(MC_ERASE_CALL_STAR_E_CH,'0',testName,"8E");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'0',testName,"8F");
+   check1(MC_REWIND_CALL_STAR_E_CH,'0',testName,"8G");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'0',testName,"8H");
+   
+   -- Then turn off Tape Call and all be Erase should turn off
+   
+   PS_E_CH_SELECT_TAPE_DATA <= '0';
+   PS_LOGIC_GATE_F_1 <= '0';
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   PS_B_SYMBOL_OP_MODIFIER <= '0';
+   MS_E_CH_BUSY_BUS <= '0';
+   wait for 30 ns;      
+   MS_E_CH_BUSY_BUS <= '1';
+   wait for 30 ns;      
+   check1(MS_E_CH_TAPE_CALL,'1',testName,"9A");
+   check1(MC_READ_TAPE_CALL_STAR_E_CH,'1',testName,"9B");
+   check1(MC_WRITE_TAPE_CALL_STAR_E_CH,'1',testName,"9C");
+   check1(MC_WRITE_TAPE_MK_CALL_STAR_E_CH,'1',testName,"9D");
+   check1(MC_ERASE_CALL_STAR_E_CH,'0',testName,"9E");
+   check1(MC_REWIND_UNLOAD_STAR_E_CH,'1',testName,"9F");
+   check1(MC_REWIND_CALL_STAR_E_CH,'1',testName,"9G");
+   check1(MC_BACKSPACE_CALL_STAR_E_CH,'1',testName,"9H");
+   PS_B_SYMBOL_OP_MODIFIER <= '0';
+   
+   check1(MC_DISCONNECT_CALL_STAR_E_CH,'1',testName,"10A");
+   MC_WRITE_CONDITION_STAR_E_CH <= '1';
+   PS_E_CH_DISCON_LATCH <= '1';
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   wait for 30 ns;
+   check1(MC_DISCONNECT_CALL_STAR_E_CH,'1',testName,"1B");
+   MC_WRITE_CONDITION_STAR_E_CH <= '0';
+   PS_E_CH_DISCON_LATCH <= '0';
+   wait for 30 ns;
+   check1(MC_DISCONNECT_CALL_STAR_E_CH,'1',testName,"1C");
+   PS_E_CH_DISCON_LATCH <= '1';
+   PS_E_CH_SELECT_TAPE_DATA <= '0';
+   wait for 30 ns;
+   check1(MC_DISCONNECT_CALL_STAR_E_CH,'1',testName,"1D");
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   wait for 30 ns;
+   check1(MC_DISCONNECT_CALL_STAR_E_CH,'0',testName,"1E");
+   MC_WRITE_CONDITION_STAR_E_CH <= '1';
+   PS_E_CH_DISCON_LATCH <= '0';
+   PS_E_CH_SELECT_TAPE_DATA <= '0';
+   
+   testName := "13.74.04.1 PART 2 ";
+   
+   PS_E_CH_TAPE_INDICATOR <= '0'; -- Reset Latch
+   wait for 30 ns;
+   PS_E_CH_TAPE_INDICATOR <= '1';
+   wait for 30 ns;      
+   check1(MC_TURN_OFF_TAPE_IND_STAR_E_CH,'1',testName,"2A");
+   PS_E_CH_SECOND_SAMPLE_B <= '0';
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   MS_1401_MODE <= '1';
+   wait for 30 ns;   
+   check1(MC_TURN_OFF_TAPE_IND_STAR_E_CH,'1',testName,"2B");
+   PS_E_CH_SECOND_SAMPLE_B <= '1';
+   PS_E_CH_SELECT_TAPE_DATA <= '0';
+   wait for 30 ns;   
+   check1(MC_TURN_OFF_TAPE_IND_STAR_E_CH,'1',testName,"2C");
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   MS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(MC_TURN_OFF_TAPE_IND_STAR_E_CH,'1',testName,"2E");
+   MS_1401_MODE <= '1';
+   wait for 30 ns;      
+   check1(MC_TURN_OFF_TAPE_IND_STAR_E_CH,'0',testName,"2F");
+   PS_E_CH_SELECT_TAPE_DATA <= '0'; -- Remove set criteria
+   PS_E_CH_SECOND_SAMPLE_B <= '0';
+   -- Reset
+   PS_E_CH_TAPE_INDICATOR <= '0';
+   wait for 30 ns;
+   PS_E_CH_TAPE_INDICATOR <= '1';
+   wait for 30 ns;   
+   check1(MC_TURN_OFF_TAPE_IND_STAR_E_CH,'1',testName,"2G");
+   MS_RESET_END_OF_REEL_IND <= '0';
+   wait for 30 ns;   
+   MS_RESET_END_OF_REEL_IND <= '1';
+   wait for 30 ns;   
+   check1(MC_TURN_OFF_TAPE_IND_STAR_E_CH,'0',testName,"2H");
+   PS_E_CH_TAPE_INDICATOR <= '0';
+   wait for 30 ns;   
+   PS_E_CH_TAPE_INDICATOR <= '1';
+   wait for 30 ns;
+   check1(MC_TURN_OFF_TAPE_IND_STAR_E_CH,'1',testName,"2I");
+      
+   check1(MC_RESET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"3A");
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"3B");
+   PS_LOGIC_GATE_C_1 <= '0';
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"3C");
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"3D");
+   
+   PS_E_CH_SELECT_TAPE_DATA <= '0';
+   MS_E_CH_BUSY <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';   
+   PS_LOGIC_GATE_C_1 <= '1';
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '1';
+   wait for 30 ns;
+   check1(MC_RESET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"3E");
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   MS_E_CH_BUSY <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"3F");
+   MS_E_CH_BUSY <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"3G");
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"3H");
+   PS_LOGIC_GATE_C_1 <= '1';
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '0';
+   wait for 30 ns;
+   check1(MC_RESET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"3I");
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '1';
+   wait for 30 ns;   
+   check1(MC_RESET_TAPE_SEL_REG_STAR_E_CH,'0',testName,"3J");
+   PS_E_CH_SELECT_TAPE_DATA <= '0';
+   MS_E_CH_BUSY <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_LOGIC_GATE_C_1 <= '0';
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '0';
+         
+   check1(MC_SET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"4A");
+   PS_PERCENT_OR_COML_AT <= '0';
+   MS_E_CH_BUSY <= '1';
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '1';
+   PS_LAST_LOGIC_GATE_1 <= '1';
+   wait for 30 ns;
+   check1(MC_SET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"4B");
+   PS_PERCENT_OR_COML_AT <= '1';
+   MS_E_CH_BUSY <= '0';
+   wait for 30 ns;
+   check1(MC_SET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"4C");
+   MS_E_CH_BUSY <= '1';
+   PS_E_CH_SELECT_TAPE_DATA <= '0';
+   wait for 30 ns;
+   check1(MC_SET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"4E");
+   PS_E_CH_SELECT_TAPE_DATA <= '1';
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '0';
+   wait for 30 ns;
+   check1(MC_SET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"4F");
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '1';
+   PS_LAST_LOGIC_GATE_1 <= '0';
+   wait for 30 ns;
+   check1(MC_SET_TAPE_SEL_REG_STAR_E_CH,'1',testName,"4H");
+   PS_LAST_LOGIC_GATE_1 <= '1';
+   wait for 30 ns;
+   check1(MC_SET_TAPE_SEL_REG_STAR_E_CH,'0',testName,"4I");
+   PS_PERCENT_OR_COML_AT <= '0';
+   MS_E_CH_BUSY <= '0';
+   PS_E_CH_SELECT_TAPE_data <= '0';
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '0';
+   PS_LAST_LOGIC_GATE_1 <= '0';
+   
+   check1(MS_UNIT_CONTROL_INST_RO_DELAY,'1',testName,"5A");
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   PS_I_RING_HDL_BUS(6) <= '1';
+   wait for 90 ns;
+   check1(MS_UNIT_CONTROL_INST_RO_DELAY,'1',testName,"5B");
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   PS_I_RING_HDL_BUS(6) <= '0';
+   wait for 90 ns;
+   check1(MS_UNIT_CONTROL_INST_RO_DELAY,'1',testName,"5C");
+   PS_I_RING_HDL_BUS(6) <= '1';
+   wait for 90 ns; -- Trigger SS
+   check1(MS_UNIT_CONTROL_INST_RO_DELAY,'0',testName,"5D");
+   wait for 26 us; -- Wait for SS to time out
+   check1(MS_UNIT_CONTROL_INST_RO_DELAY,'1',testName,"5E");
+   PS_UNIT_CTRL_OP_CODE <= '0';
+   PS_I_RING_HDL_BUS(6) <= '0';
+   
+   MC_SELECT_AT_LOAD_POINT_STAR_E_CH <= '0';
+   MS_B_SYMBOL_OP_MODIFIER <= '1';
+   MS_R_SYMBOL_OP_MODIFIER <= '1';
+   PS_UNIT_CTRL_OP_CODE <= '1';
+   
+   PS_M_OR_L_OP_CODES <= '0';
+   PS_I_RING_HDL_BUS(10) <= '1';
+   MS_B_SYMBOL_OP_MODIFIER <= '1';
+   PS_E_CH_BUSY_BUS <= '1';
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_M_OR_L_TAPE_DELAY,'1',testName,"6A");
+   PS_M_OR_L_OP_CODES <= '1';
+   PS_I_RING_HDL_BUS(10) <= '0';
+   wait for 30 ns;
+   check1(MS_1401_M_OR_L_TAPE_DELAY,'1',testName,"6B");
+   PS_I_RING_HDL_BUS(10) <= '1';
+   MS_B_SYMBOL_OP_MODIFIER <= '0'; -- Want 4B E at 0 now
+   wait for 30 ns;
+   check1(MS_1401_M_OR_L_TAPE_DELAY,'1',testName,"6C");
+   MS_B_SYMBOL_OP_MODIFIER <= '1'; -- 4B E Back to 1
+   PS_E_CH_BUSY_BUS <= '0';
+   wait for 30 ns;
+   check1(MS_1401_M_OR_L_TAPE_DELAY,'1',testName,"6D");
+   PS_E_CH_BUSY_BUS <= '1';
+   PS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(MS_1401_M_OR_L_TAPE_DELAY,'1',testName,"6E");
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_M_OR_L_TAPE_DELAY,'0',testName,"6F");
+   PS_M_OR_L_OP_CODES <= '0';
+   PS_I_RING_HDL_BUS(10) <= '0';
+   MS_B_SYMBOL_OP_MODIFIER <= '1';
+   PS_E_CH_BUSY_BUS <= '0';
+   PS_1401_MODE <= '0';
+   
+      
+
+
    wait;
    end process;
 
