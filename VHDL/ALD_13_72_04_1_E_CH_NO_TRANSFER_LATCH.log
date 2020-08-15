@@ -1,0 +1,99 @@
+Generating HDL for page 13.72.04.1 E CH NO TRANSFER LATCH at 8/15/2020 4:45:39 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_72_04_1_E_CH_NO_TRANSFER_LATCH_tb.vhdl, generating default test bench code.
+NOTE: DOT Function at 5D is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Found combinatorial loop (need D FF) at output of gate at 5A
+Found combinatorial loop (need D FF) at output of gate at 4A
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 2C
+Removed 2 outputs from Gate at 4B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1D to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1K16
+Generating Statement for block at 5A with *latched* output pin(s) of OUT_5A_D_Latch, OUT_5A_D_Latch, OUT_5A_D_Latch, OUT_5A_D_Latch
+	and inputs of MS_E_CH_END_OF_2ND_ADDR_TRF,MS_E_CH_RESET,OUT_4A_K
+	and logic function of NAND
+Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_K_Latch
+	and inputs of OUT_5A_D,MS_E_CH_STROBE_TRIGGER
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of OUT_5A_D,PS_E_CH_SELECT_UNIT_F
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_1C_C
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of 
+	and inputs of OUT_2B_D
+	and logic function of Lamp
+Generating Statement for block at 4C with output pin(s) of OUT_4C_E, OUT_4C_E
+	and inputs of OUT_5A_D,PS_E_CH_SELECT_UNIT_F,PS_E_CH_STATUS_SAMPLE_B
+	and logic function of NAND
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_NoPin_Latch, OUT_3C_NoPin_Latch
+	and inputs of OUT_DOT_2C,MS_E_CH_RESET
+	and logic function of NAND
+Generating Statement for block at 2C with *latched* output pin(s) of OUT_2C_P_Latch
+	and inputs of OUT_4C_E,OUT_3C_NoPin,MS_E_CH_FILE_SET_CHECK_AT_A
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C, OUT_1C_C
+	and inputs of OUT_DOT_2C
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_A, OUT_5D_A
+	and inputs of OUT_DOT_5D,MS_E_CH_SELECT_ANY_BUFFER
+	and logic function of NOR
+Generating Statement for block at 3D with output pin(s) of OUT_3D_E
+	and inputs of OUT_5D_A,OUT_4H_C,PS_E_CH_STATUS_SAMPLE_B
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_3D_E,MS_E_CH_FILE_SET_W_DOT_L_DOT_ADDR,OUT_DOT_2E
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_B
+	and inputs of OUT_3C_NoPin
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of MS_CONS_INQUIRY_REQUEST,PS_E_CH_SELECT_UNIT_T_DOT_INPUT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_R
+	and inputs of OUT_5D_A,OUT_5H_G
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_K
+	and inputs of OUT_5E_C,OUT_4E_R
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_K
+	and inputs of OUT_3E_K,PS_E_CH_STATUS_SAMPLE_A
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_P
+	and inputs of PS_E_CH_READY_BUS,MS_E_CH_BUSY_BUS
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_G, OUT_5H_G
+	and inputs of PS_E_CH_SELECT_UNIT_1,MS_E_CH_STACKER_SEL_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of OUT_5H_G
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C, OUT_DOT_2C
+	and inputs of OUT_2C_P,PS_SET_E_CH_NO_TRANS_LAT_STAR_SIF,PS_E_CH_NO_TRF_STAR_7631_INHIBIT,PS_SET_E_CH_NO_TRANS_LAT_STAR_12_19,OUT_2D_C
+	and logic function of OR
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E
+	and inputs of OUT_2E_K,OUT_2F_P
+	and logic function of OR
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of MC_BUFFER_NO_TRANS_COND,MC_BUFFER_NO_TRANS_COND_JRJ
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal MS_1ST_DATA_STROBE_LATCH
+	from gate output OUT_5A_D
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_FILE_DOT_NO_TRANSFER_BUS
+	from gate output OUT_4B_C
+Generating output sheet edge signal assignment to 
+	signal MS_FILE_SET_E_CH_NO_TRANS_B
+	from gate output OUT_4C_E
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_NO_TRANSFER_LATCH
+	from gate output OUT_1C_C
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_NO_TRANSFER_LATCH
+	from gate output OUT_1D_B
+Generating D Flip Flop for block at 5A
+Generating D Flip Flop for block at 4A
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 2C
