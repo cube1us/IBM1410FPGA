@@ -186,6 +186,189 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.72.03.1        ";
+   
+   MS_COMPUTER_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_COMPUTER_RESET_1 <= '1';
+   wait for 30 ns;
+   
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '0';
+   MS_E_CH_1ST_ADDR_TRANSFER <= '1';
+   MS_E_CH_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;   
+   check1(MS_E_CH_FILE_ADDR_TRANSFER,'1',testName,"1A");
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '1';
+   MS_E_CH_1ST_ADDR_TRANSFER <= '1';
+   wait for 30 ns;   
+   check1(MS_E_CH_FILE_ADDR_TRANSFER,'1',testName,"1B");
+   MS_E_CH_1ST_ADDR_TRANSFER <= '0';
+   wait for 30 ns;   
+   check1(MS_E_CH_FILE_ADDR_TRANSFER,'0',testName,"1C");
+   MS_E_CH_1ST_ADDR_TRANSFER <= '0';
+   wait for 30 ns;   
+   MS_E_CH_2ND_ADDR_TRF <= '0';
+   wait for 30 ns;   
+   check1(MS_E_CH_FILE_ADDR_TRANSFER,'0',testName,"1D");
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '1';
+   MS_E_CH_1ST_ADDR_TRANSFER <= '1';
+   MS_E_CH_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;   
+   check1(MS_E_CH_FILE_ADDR_TRANSFER,'1',testName,"1E");
+   
+   MS_E_CH_1ST_ADDR_TRANSFER <= '0';
+   
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   MS_E_CH_UNIT_NUMBER_3 <= '1';
+   PS_E_CH_OUTPUT_MODE <= '1';
+   PS_WR_INHIBIT_STAR_7631_STAR_E_CH <= '1';
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '0'; -- Standing in for -S E Ch File Addr Tfr
+   PS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   MS_E_CH_CHECK <= '1';
+   MS_E_CH_CONDITION <= '1';
+   MS_E_CH_WRONG_LENGTH_RECORD <= '1';
+   MS_E_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2A");
+   check1(MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON,'1',testName,"2B");
+   check1(LAMP_15A1A14,'0',testName,"2BA");
+   check1(MS_E_CH_SELECT_AND_R_B_C_ON,'1',testName,"2C");
+   PS_E_CH_SELECT_UNIT_F <= '1';
+   MS_E_CH_UNIT_NUMBER_3 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2D");
+   MS_E_CH_UNIT_NUMBER_3 <= '1';
+   PS_E_CH_OUTPUT_MODE <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2E");
+   PS_E_CH_OUTPUT_MODE <= '1';
+   PS_WR_INHIBIT_STAR_7631_STAR_E_CH <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2F");
+   PS_WR_INHIBIT_STAR_7631_STAR_E_CH <= '1';
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '1'; -- Standing in for -S E Ch File Addr Tfr
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2G");
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '0'; -- Standing in for -S E Ch File Addr Tfr
+   PS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2H");
+   PS_E_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   MS_E_CH_UNIT_NUMBER_4 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2I");
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   MS_E_CH_CHECK <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2J");
+   MS_E_CH_CHECK <= '1';
+   MS_E_CH_CONDITION <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2K");
+   MS_E_CH_CONDITION <= '1';
+   MS_E_CH_WRONG_LENGTH_RECORD <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2L");
+   MS_E_CH_WRONG_LENGTH_RECORD <= '1';
+   MS_E_CH_NO_TRANSFER_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2M");
+   MS_E_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'1',testName,"2N");
+   check1(MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON,'0',testName,"2O");
+   check1(LAMP_15A1A14,'1',testName,"2OA");
+   check1(MS_E_CH_SELECT_AND_R_B_C_ON,'1',testName,"2P");
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   MS_E_CH_UNIT_NUMBER_3 <= '1';
+   PS_E_CH_OUTPUT_MODE <= '0';
+   PS_WR_INHIBIT_STAR_7631_STAR_E_CH <= '0';
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '1'; -- Standing in for -S E Ch File Addr Tfr
+   PS_E_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   MS_E_CH_CHECK <= '1';
+   MS_E_CH_CONDITION <= '1';
+   MS_E_CH_WRONG_LENGTH_RECORD <= '1';
+   MS_E_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRF_STAR_7631_INHIBIT,'0',testName,"2Q");
+   check1(MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON,'0',testName,"2R");
+   check1(LAMP_15A1A14,'1',testName,"2SA");
+   check1(MS_E_CH_SELECT_AND_R_B_C_ON,'1',testName,"2T");
+       
+   
+   MS_E_CH_UNIT_NUMBER_3 <= '0';
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_SELECT_AND_R_B_C_ON,'1',testName,"2U");
+   MS_E_CH_UNIT_NUMBER_3 <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;
+   check1(MS_E_CH_SELECT_AND_R_B_C_ON,'1',testName,"2V");
+   MS_E_CH_UNIT_NUMBER_3 <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_SELECT_AND_R_B_C_ON,'0',testName,"2W");
+
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_FILE_OP <= '1';
+   PS_I_RING_6_TIME <= '1';
+   MS_E_CH_UNIT_NUMBER_3 <= '1';   
+   -- With RBC On, this should not activiate
+   check1(MC_E_CH_RBCI_RESET_1405,'1',testName,"2X");
+  
+   -- RBC On Reset Test
+   
+   PS_I_RING_6_TIME <= '0';
+   PS_LOGIC_GATE_C_1 <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_FILE_OP <= '1';
+   PS_E_CH_UNIT_NUMBER_3 <= '1';
+   wait for 30 ns; 
+   check1(MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON,'0',testName,"3A");
+   PS_I_RING_6_TIME <= '1';
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns; 
+   check1(MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON,'0',testName,"3B");
+   PS_LOGIC_GATE_C_1 <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns; 
+   check1(MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON,'0',testName,"3C");   
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_FILE_OP <= '0';
+   wait for 30 ns; 
+   check1(MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON,'0',testName,"3D");
+   PS_FILE_OP <= '1';
+   PS_E_CH_UNIT_NUMBER_3 <= '0';
+   wait for 30 ns; 
+   check1(MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON,'0',testName,"3E");
+   PS_E_CH_UNIT_NUMBER_3 <= '1';
+   wait for 30 ns; 
+   check1(MS_E_CH_R_DOT_B_DOT_C_DOT_I_DOT_ON,'1',testName,"3F");
+   check1(MS_E_CH_SELECT_AND_R_B_C_ON,'1',testName,"3G");
+   
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;
+   check1(MC_E_CH_RBCI_RESET_1405,'1',testName,"4A");
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_FILE_OP <= '0';
+   wait for 30 ns;
+   check1(MC_E_CH_RBCI_RESET_1405,'1',testName,"4B");
+   PS_FILE_OP <= '1';
+   PS_I_RING_6_TIME <= '0';
+   wait for 30 ns;
+   check1(MC_E_CH_RBCI_RESET_1405,'1',testName,"4C");
+   PS_I_RING_6_TIME <= '1';
+   MS_E_CH_UNIT_NUMBER_3 <= '0';
+   wait for 30 ns;
+   check1(MC_E_CH_RBCI_RESET_1405,'1',testName,"4D");
+   MS_E_CH_UNIT_NUMBER_3 <= '1';
+   wait for 30 ns;
+   wait for 30 ns;
+   check1(MC_E_CH_RBCI_RESET_1405,'0',testName,"4E");
+   
 
    wait;
    end process;
