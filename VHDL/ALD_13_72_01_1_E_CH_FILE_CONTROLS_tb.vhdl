@@ -201,7 +201,125 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.72.01.1        ";
+   
+   wait for 30 ns;
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   MS_E_CH_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET_1 <= '1';
+   wait for 30 ns;
+   
+   check1(MC_1405_START_GATE_STAR_E_CH,'1',testName,"1A");
+   check1(MC_1301_START_GATE_STAR_E_CH,'1',testName,"1B");
 
+   MS_MASTER_ERROR <= '1';
+   MS_1ST_DATA_STROBE_LATCH <= '1';
+   wait for 30 ns;
+   PS_BLOCK_E_CH_FILE_START_GT <= '0';
+   wait for 30 ns;
+   MS_E2_REG_FULL <= '1';
+   MS_E_CH_UNIT_NUMBER_9 <= '1';
+   wait for 30 ns;
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   wait for 30 ns;
+   PS_E_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;   
+   PS_E_CH_IN_PROCESS <= '1'; 
+   wait for 30 ns;
+   PS_E_CH_SELECT_UNIT_F <= '1';
+   wait for 30 ns;   
+   check1(MC_1405_START_GATE_STAR_E_CH,'1',testName,"1C");
+   MS_E_CH_UNIT_NUMBER_9 <= '0';
+   wait for 30 ns;
+   MS_E_CH_UNIT_NUMBER_9 <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_E_CH,'0',testName,"1D");
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   wait for 30 ns;
+   PS_E_CH_SELECT_UNIT_F <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_E_CH,'1',testName,"1E");
+   MS_E_CH_UNIT_NUMBER_4 <= '0';
+   wait for 30 ns;
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_E_CH,'0',testName,"1F");
+   MS_MASTER_ERROR <= '0';
+   wait for 30 ns;
+   MS_MASTER_ERROR <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_E_CH,'1',testName,"1G");
+   PS_E_CH_OUTPUT_MODE <= '0';
+   wait for 30 ns;
+   PS_E_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_E_CH,'0',testName,"1H");
+   PS_E_CH_IN_PROCESS <= '0';
+   wait for 30 ns;
+   PS_E_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_E_CH,'1',testName,"1I");
+   MS_E2_REG_FULL <= '0';
+   wait for 30 ns;
+   MS_E2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_E_CH,'0',testName,"1J");
+   MS_1ST_DATA_STROBE_LATCH <= '0';
+   wait for 30 ns;
+   MS_1ST_DATA_STROBE_LATCH <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_E_CH,'1',testName,"1K");
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   PS_E_CH_IN_PROCESS <= '0';
+   PS_E_CH_OUTPUT_MODE <= '0';
+   
+   check1(PS_1ST_CLOCK_PULSE_CLAMPED,'1',testName,"2A");
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_1ST_CLOCK_PULSE_CLAMPED,'0',testName,"2B");
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   
+   check1(PS_2ND_CLOCK_PULSE_CLAMPED,'1',testName,"3A");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for 30 ns;
+   check1(PS_2ND_CLOCK_PULSE_CLAMPED,'0',testName,"3B");
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for 30 ns;
+   
+   -- Test E Ch 2nd Addr TRF
+   
+   -- Clock once to reset End of 2nd Addr TRF
+   
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+      
+   
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   PS_E_CH_NO_STATUS_ON <= '1';
+   PS_E_CH_SELECT_UNIT_F <= '1';
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_2ND_ADDR_TRF,'0',testname,"4A");
+   check1(MS_E_CH_2ND_ADDR_TRF,'1',testname,"4B");
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   PS_E_CH_NO_STATUS_ON <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_2ND_ADDR_TRF,'0',testname,"4C");
+   PS_E_CH_NO_STATUS_ON <= '1';
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_2ND_ADDR_TRF,'0',testname,"4D");
+   PS_E_CH_SELECT_UNIT_F <= '1';
+   MS_E_CH_UNIT_NUMBER_4 <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_2ND_ADDR_TRF,'0',testname,"4E");
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"4F");
+   check1(MS_E_CH_2ND_ADDR_TRF,'1',testname,"4G");
+   
    wait;
    end process;
 
