@@ -289,12 +289,7 @@ uut_process: process
    wait for 30 ns;
    
    -- Test E Ch 2nd Addr TRF
-   
-   -- Clock once to reset End of 2nd Addr TRF
-   
-   PS_2ND_CLOCK_PULSE_2 <= '1';
       
-   
    PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
    PS_E_CH_NO_STATUS_ON <= '1';
    PS_E_CH_SELECT_UNIT_F <= '1';
@@ -317,7 +312,124 @@ uut_process: process
    MS_E_CH_UNIT_NUMBER_4 <= '1';
    wait for 30 ns;
    check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"4F");
-   check1(MS_E_CH_2ND_ADDR_TRF,'1',testname,"4G");
+   check1(MS_E_CH_2ND_ADDR_TRF,'0',testname,"4G");
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   wait for 30 ns;   
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"4H");
+   check1(MS_E_CH_2ND_ADDR_TRF,'0',testname,"4I");
+   
+   -- Test E Ch 1st Char 2nd Addr
+ 
+   PS_LOGIC_GATE_E_OR_V <= '0';
+   PS_E_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_1ST_CHAR_2ND_ADDR,'1',testName,"5A");
+   PS_LOGIC_GATE_E_OR_V <= '1';
+   PS_E_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_E_CH_1ST_CHAR_2ND_ADDR,'1',testName,"5B");
+   PS_E_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_1ST_CHAR_2ND_ADDR,'0',testName,"5C");  
+   PS_LOGIC_GATE_E_OR_V <= '0'; 
+   
+   -- Reset the latch output 3D pin P
+   
+   PS_ANY_LAST_GATE <= '1';
+   wait for 30 ns;       
+   PS_ANY_LAST_GATE <= '0';
+   wait for 30 ns;       
+   check1(MS_E_CH_1ST_CHAR_2ND_ADDR,'0',testName,"5D");   
+   
+   -- Now reset 1st Char 2nd Addr Latch
+   
+   MS_LOGIC_GATE_B_OR_S <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_1ST_CHAR_2ND_ADDR,'1',testName,"5E");   
+   
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '1';
+         
+   PS_GATE_ON_E_CH_END_ADDR_TRF <= '1';
+   wait for 30 ns;      
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"6A");
+
+   -- Test 1301 end of 2nd addr transfer
+   
+   PS_E_CH_END_ADDR_TRF_STAR_1301_STAR <= '1';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   PS_E_CH_END_ADDR_TRF_STAR_1301_STAR <= '0';
+   wait for 30 ns;
+   PS_GATE_ON_E_CH_END_ADDR_TRF <= '0';
+   wait for 30 ns;
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'0',testName,"6B");  
+   check1(PS_E_CH_2ND_ADDR_TRF,'0',testname,"6C");
+    
+   -- Reset
+   
+   MS_E_CH_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET_1 <= '1';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+
+   -- Test the various other ways to end 2nd addr trf
+   
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   PS_E_CH_NO_STATUS_ON <= '1';
+   PS_E_CH_SELECT_UNIT_F <= '1';
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   wait for 90 ns;
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7A");
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7B");
+
+   PS_GATE_ON_E_CH_END_ADDR_TRF <= '1';
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   
+
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '0'; -- This ends 2nd Addr Trf too
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7C");
+         
+
+            
+
    
    wait;
    end process;
