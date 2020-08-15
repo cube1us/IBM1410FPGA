@@ -174,6 +174,138 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.72.02.1        ";
+   
+   MS_E_CH_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET_1 <= '1';
+   wait for 30 ns;
+      
+   check1(MC_SEEK_TEST_OP_STAR_E_CH_TO_1405,'1',testName,"1A");
+   check1(MC_SEEK_TEST_OP_STAR_E_CH_TO_1301,'1',testName,"1B");   
+   PS_FILE_OP <= '0';
+   PS_Q_OR_V_SYMBOL_OP_MODIFIER <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_I_RING_12_TIME <= '1';
+   wait for 30 ns;
+   check1(MC_SEEK_TEST_OP_STAR_E_CH_TO_1405,'1',testName,"1C");
+   PS_FILE_OP <= '1';
+   PS_Q_OR_V_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(MC_SEEK_TEST_OP_STAR_E_CH_TO_1405,'1',testName,"1D");
+   PS_Q_OR_V_SYMBOL_OP_MODIFIER <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;
+   check1(MC_SEEK_TEST_OP_STAR_E_CH_TO_1405,'1',testName,"1E");
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_I_RING_12_TIME <= '0';
+   wait for 30 ns;
+   check1(MC_SEEK_TEST_OP_STAR_E_CH_TO_1405,'1',testName,"1F");
+   PS_I_RING_12_TIME <= '1';
+   wait for 30 ns;
+   check1(MC_SEEK_TEST_OP_STAR_E_CH_TO_1405,'0',testName,"1G");
+   check1(MC_SEEK_TEST_OP_STAR_E_CH_TO_1301,'0',testName,"1H");   
+   PS_FILE_OP <= '0';
+   PS_Q_OR_V_SYMBOL_OP_MODIFIER <= '0';
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_I_RING_12_TIME <= '0';
+   
+   PS_B_TO_LAST_LOGIC_GATE <= '0';
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '1';
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;
+   check1(MC_FILE_STROBE_1ST_ADDR_STAR_E_CH,'1',testName,"2A");
+   PS_B_TO_LAST_LOGIC_GATE <= '1';
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '0';
+   wait for 30 ns;
+   check1(MC_FILE_STROBE_1ST_ADDR_STAR_E_CH,'1',testName,"2B");
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;
+   check1(MC_FILE_STROBE_1ST_ADDR_STAR_E_CH,'1',testName,"2C");
+   PS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;
+   check1(MC_FILE_STROBE_1ST_ADDR_STAR_E_CH,'0',testName,"2D");
+   PS_B_TO_LAST_LOGIC_GATE <= '0';
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '0';
+   PS_PERCENT_OR_COML_AT <= '0';
+   
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '1';
+   PS_LOGIC_GATE_F_1 <= '1';
+   wait for 30 ns;   
+   check1(MC_FILE_STROBE_2ND_ADDR_STAR_E_CH,'1',testName,"3A");
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '0';
+   wait for 30 ns;   
+   check1(MC_FILE_STROBE_2ND_ADDR_STAR_E_CH,'1',testName,"3B");
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '1';
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns;   
+   check1(MC_FILE_STROBE_2ND_ADDR_STAR_E_CH,'1',testName,"3C");
+   PS_LOGIC_GATE_F_1 <= '1';
+   wait for 30 ns; -- Latch should set
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '0';
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns; -- Latch should stay set   
+   check1(MC_FILE_STROBE_2ND_ADDR_STAR_E_CH,'0',testName,"3D");
+   MS_LOGIC_GATE_C_OR_T <= '0';
+   wait for 30 ns; -- Latch Reset
+   MS_LOGIC_GATE_C_OR_T <= '1';
+   wait for 30 ns; -- Latch Should stay Reset
+   check1(MC_FILE_STROBE_2ND_ADDR_STAR_E_CH,'1',testName,"3E");
+
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_BODY_LATCH <= '1';
+   PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '1';
+   wait for 30 ns;
+   check1(MC_FILE_DIGIT_ADVANCE_STAR_E_CH,'1',testName,"4A");
+   check1(MS_E_CH_DIGIT_ADVANCE,'1',testName,"4B");   
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_BODY_LATCH <= '0';
+   wait for 30 ns;
+   check1(MC_FILE_DIGIT_ADVANCE_STAR_E_CH,'1',testName,"4B");
+   PS_BODY_LATCH <= '1';
+   PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '0';
+   wait for 30 ns;
+   check1(MC_FILE_DIGIT_ADVANCE_STAR_E_CH,'1',testName,"4C");
+   PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '1';
+   wait for 30 ns;
+   check1(MC_FILE_DIGIT_ADVANCE_STAR_E_CH,'0',testName,"4D");
+   check1(MS_E_CH_DIGIT_ADVANCE,'0',testName,"4E");   
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_BODY_LATCH <= '0';
+   PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '0';
+   
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '1';
+   PS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   check1(MC_FILE_ADDR_TRF_GATE_STAR_E_CH,'1',testName,"5A");
+   check1(MS_E_CH_1ST_ADDR_TRANSFER,'1',testName,"5B");
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '0';
+   wait for 30 ns;
+   check1(MC_FILE_ADDR_TRF_GATE_STAR_E_CH,'1',testName,"5C");
+   PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '1';
+   PS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MC_FILE_ADDR_TRF_GATE_STAR_E_CH,'1',testName,"5D");
+   PS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;  -- Set Latch
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '0';
+   PS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;  -- Latch should stay set
+   check1(MC_FILE_ADDR_TRF_GATE_STAR_E_CH,'0',testName,"5E");
+   check1(MS_E_CH_1ST_ADDR_TRANSFER,'0',testName,"5F");
+   MS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   wait for 30 ns; -- Reset latch
+   MS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   wait for 30 ns; -- Latch should stay reset
+   check1(MC_FILE_ADDR_TRF_GATE_STAR_E_CH,'1',testName,"5G");
 
    wait;
    end process;
