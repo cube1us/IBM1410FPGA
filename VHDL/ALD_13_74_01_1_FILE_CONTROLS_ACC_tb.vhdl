@@ -202,6 +202,234 @@ uut_process: process
 
    -- Your test bench code
 
+   
+   testName := "13.74.01.1        ";
+   
+   -- First test *without* file op set - nothing should go on
+   
+   wait for 30 ns;
+   check1(PS_FILE_OP,'0',testName,"SAA");
+   check1(MS_FILE_OP,'1',testName,"SAB");
+   check1(MS_FILE_OP_STAR_1405,'1',testName,"SAC");
+   
+   PS_NO_SCAN <= '1';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN,'0',testName,"SA");
+   PS_NO_SCAN <= '0';
+   PS_D_CYCLE <= '0';
+   
+   PS_B_CH_NOT_GROUP_MARK_WM <= '1';
+   MS_FILE_RING_7_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_TAKE_2ND_SCAN_CYCLE,'1',testName,"SB");   
+   PS_B_CH_NOT_GROUP_MARK_WM <= '0';
+   
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   check1(MS_FILE_OP_DOT_LAST_INSN_RO_CYCLE,'1',testName,"SC");
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   
+   MS_FILE_RING_7_LATCH <= '0';
+   MS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   PS_UNITS_OR_BODY_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_TAKE_EXTENSION_CYCLE,'1',testName,"SD");
+   MS_FILE_RING_7_LATCH <= '1';
+   MS_B_CH_GROUP_MARK_DOT_WM <= '1';
+   PS_UNITS_OR_BODY_LATCH <= '0';
+   wait for 30 ns;
+   
+   PS_UNITS_OR_BODY_LATCH <= '1';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_DOT_D_CY_DOT_U_OR_Y,'1',testName,"SE");
+   PS_UNITS_OR_BODY_LATCH <= '0';
+   PS_D_CYCLE <= '0';
+   wait for 30 ns;
+   
+   PS_NO_OR_1ST_OR_2ND_SCAN <= '1';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_DOT_D_CYCLE,'1',testName,"SF");
+   PS_NO_OR_1ST_OR_2ND_SCAN <= '1';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   
+   PS_D_CYCLE <= '1';
+   PS_2ND_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,'0',testName,"SG");
+   check1(MS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,'1',testName,"SH");
+   PS_D_CYCLE <= '0';
+   PS_2ND_SCAN <= '0';
+   wait for 30 ns;
+   
+   PS_D_CYCLE <= '1';
+   PS_EXTENSION_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_EXTENSION,'0',testName,"SI");
+   check1(MS_FILE_OP_DOT_D_CY_DOT_EXTENSION,'1',testName,"SJ");
+   PS_D_CYCLE <= '1';
+   PS_EXTENSION_LATCH <= '1';
+   
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_M_OR_L_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP,'0',testName,"1A");
+   PS_E_CH_SELECT_UNIT_F <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns;
+   check1(PS_FILE_OP,'0',testName,"1B");
+   PS_PERCENT_OR_COML_AT <= '1';
+   PS_M_OR_L_OP_CODES <= '0';
+   wait for 30 ns;
+   check1(PS_FILE_OP,'0',testName,"1C");
+   PS_M_OR_L_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP,'1',testName,"1D");
+   check1(MS_FILE_OP,'0',testName,"1E");
+   check1(MS_FILE_OP_STAR_1405,'0',testName,"1F");
+   
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   PS_PERCENT_OR_COML_AT <= '0';
+   PS_F_CH_SELECT_UNIT_F <= '0';
+   PS_LOZENGE_OR_ASTERISK <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP,'0',testName,"1G");
+   PS_F_CH_SELECT_UNIT_F <= '1';
+   PS_LOZENGE_OR_ASTERISK <= '0';
+   wait for 30 ns;
+   check1(PS_FILE_OP,'0',testName,"1H");
+   PS_LOZENGE_OR_ASTERISK <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP,'1',testName,"1I");
+   
+   -- Leave this gate on for the remaining tests - we already
+   -- tested with it false, above.
+   
+   PS_NO_SCAN <= '0';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN,'0',testName,"2A");
+   PS_NO_SCAN <= '1';
+   PS_D_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN,'0',testName,"2B");
+   PS_NO_SCAN <= '1';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN,'1',testName,"2C");
+   
+   -- Also leave this gate on for the remaining tests, for the
+   -- same reasons.
+   
+   PS_B_CH_NOT_GROUP_MARK_WM <= '0';
+   MS_FILE_RING_7_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_TAKE_2ND_SCAN_CYCLE,'1',testName,"3A");
+   PS_B_CH_NOT_GROUP_MARK_WM <= '1';
+   MS_FILE_RING_7_LATCH <= '0';
+   wait for 30 ns;
+   check1(MS_FILE_OP_TAKE_2ND_SCAN_CYCLE,'1',testName,"3B");
+   PS_B_CH_NOT_GROUP_MARK_WM <= '1';
+   MS_FILE_RING_7_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_TAKE_2ND_SCAN_CYCLE,'0',testName,"3C");
+   PS_B_CH_NOT_GROUP_MARK_WM <= '0';
+   MS_FILE_RING_7_LATCH <= '1';
+   
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_FILE_OP_DOT_LAST_INSN_RO_CYCLE,'1',testName,"4A");
+   PS_LAST_INSN_RO_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_DOT_LAST_INSN_RO_CYCLE,'0',testName,"4B");
+   PS_LAST_INSN_RO_CYCLE <= '0';
+   
+   MS_FILE_RING_7_LATCH <= '1';
+   MS_B_CH_GROUP_MARK_DOT_WM <= '1';
+   PS_UNITS_OR_BODY_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_TAKE_EXTENSION_CYCLE,'1',testName,"5A");
+   MS_FILE_RING_7_LATCH <= '0';
+   MS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   PS_UNITS_OR_BODY_LATCH <= '0';
+   wait for 30 ns;
+   check1(MS_FILE_OP_TAKE_EXTENSION_CYCLE,'1',testName,"5B");
+   MS_FILE_RING_7_LATCH <= '1';
+   MS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   PS_UNITS_OR_BODY_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_TAKE_EXTENSION_CYCLE,'0',testName,"5C");
+   MS_FILE_RING_7_LATCH <= '1';
+   MS_B_CH_GROUP_MARK_DOT_WM <= '0';
+   wait for 30 ns;
+   check1(MS_FILE_OP_TAKE_EXTENSION_CYCLE,'0',testName,"5D");
+   MS_FILE_RING_7_LATCH <= '1';
+   MS_B_CH_GROUP_MARK_DOT_WM <= '1';
+   PS_UNITS_OR_BODY_LATCH <= '0';
+   
+   PS_UNITS_OR_BODY_LATCH <= '0';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_DOT_D_CY_DOT_U_OR_Y,'1',testName,"6A");
+   PS_UNITS_OR_BODY_LATCH <= '1';
+   PS_D_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_FILE_OP_DOT_D_CY_DOT_U_OR_Y,'1',testName,"6A");
+   PS_UNITS_OR_BODY_LATCH <= '1';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_DOT_D_CY_DOT_U_OR_Y,'0',testName,"6C");
+   PS_UNITS_OR_BODY_LATCH <= '0';
+   
+   PS_NO_OR_1ST_OR_2ND_SCAN <= '0';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_DOT_D_CYCLE,'1',testName,"7A");
+   PS_NO_OR_1ST_OR_2ND_SCAN <= '1';
+   PS_D_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_FILE_OP_DOT_D_CYCLE,'1',testName,"7B");
+   PS_NO_OR_1ST_OR_2ND_SCAN <= '1';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_OP_DOT_D_CYCLE,'0',testName,"7C");
+   PS_NO_OR_1ST_OR_2ND_SCAN <= '0';
+   
+   PS_D_CYCLE <= '0';
+   PS_2ND_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,'0',testName,"8A");
+   check1(MS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,'1',testName,"8B");   
+   PS_D_CYCLE <= '1';
+   PS_2ND_SCAN <= '0';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,'0',testName,"8C");
+   check1(MS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,'1',testName,"8D");   
+   PS_D_CYCLE <= '1';
+   PS_2ND_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,'1',testName,"8E");
+   check1(MS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,'0',testName,"8F");
+   
+   PS_D_CYCLE <= '0';
+   PS_EXTENSION_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_EXTENSION,'0',testName,"9A");      
+   check1(MS_FILE_OP_DOT_D_CY_DOT_EXTENSION,'1',testName,"9B");      
+   PS_D_CYCLE <= '1';
+   PS_EXTENSION_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_EXTENSION,'0',testName,"9C");      
+   check1(MS_FILE_OP_DOT_D_CY_DOT_EXTENSION,'1',testName,"9D");      
+   PS_D_CYCLE <= '1';
+   PS_EXTENSION_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_OP_DOT_D_CY_DOT_EXTENSION,'1',testName,"9E");      
+   check1(MS_FILE_OP_DOT_D_CY_DOT_EXTENSION,'0',testName,"9F");         
+   
    wait;
    end process;
 
