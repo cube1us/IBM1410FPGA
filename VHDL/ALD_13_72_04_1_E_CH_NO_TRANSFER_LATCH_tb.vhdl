@@ -189,7 +189,232 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.72.04.1        ";
+   
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   
+   check1(MS_1ST_DATA_STROBE_LATCH,'1',testName,"1A");
+   MS_E_CH_STROBE_TRIGGER <= '0';
+   wait for 30 ns;  -- Sets latch
+   MS_E_CH_STROBE_TRIGGER <= '1';
+   wait for 30 ns;  -- Latch should stay set
+   check1(MS_1ST_DATA_STROBE_LATCH,'0',testName,"1B");
 
+   -- Leave set for the beginning of the next test
+   
+   PS_E_CH_SELECT_UNIT_F <= '1';
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   check1(MS_FILE_SET_E_CH_NO_TRANS_B,'1',testName,"2A");
+   PS_E_CH_SELECT_UNIT_F <= '0';   
+   -- Reset the previous latch...
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '0';
+   wait for 30 ns; -- Resets latch
+   MS_E_CH_END_OF_2ND_ADDR_TRF <= '1';
+   wait for 30 ns; -- Should stay reset
+   check1(MS_1ST_DATA_STROBE_LATCH,'1',testName,"2B");   
+   check1(MS_FILE_SET_E_CH_NO_TRANS_B,'1',testName,"2C");
+   PS_E_CH_SELECT_UNIT_F <= '1';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns;   
+   check1(MS_FILE_SET_E_CH_NO_TRANS_B,'1',testName,"2D");
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"2E");
+   check1(MS_E_CH_NO_TRANSFER_LATCH,'1',testname,"2F");
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;   
+   check1(MS_FILE_SET_E_CH_NO_TRANS_B,'0',testName,"2G");
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'1',testname,"2H");
+   check1(MS_E_CH_NO_TRANSFER_LATCH,'0',testname,"2I");
+   
+   PS_E_CH_SELECT_UNIT_F <= '0';
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(MS_FILE_SET_E_CH_NO_TRANS_B,'1',testName,"2J");
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"2K");
+   check1(MS_E_CH_NO_TRANSFER_LATCH,'1',testname,"2L");
+
+   PS_SET_E_CH_NO_TRANS_LAT_STAR_12_19 <= '1';
+   wait for 30 ns; -- Set latch
+   PS_SET_E_CH_NO_TRANS_LAT_STAR_12_19 <= '0';
+   wait for 30 ns; -- Stays set
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'1',testname,"3A");
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   
+   PS_SET_E_CH_NO_TRANS_LAT_STAR_SIF <= '1';
+   wait for 30 ns; -- Set latch
+   PS_SET_E_CH_NO_TRANS_LAT_STAR_SIF <= '0';
+   wait for 30 ns; -- Stays set
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'1',testname,"3B");
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+
+   PS_E_CH_NO_TRF_STAR_7631_INHIBIT <= '1';
+   wait for 30 ns; -- Set latch
+   PS_E_CH_NO_TRF_STAR_7631_INHIBIT <= '0';
+   wait for 30 ns; -- Stays set
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'1',testname,"3C");
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   
+   MS_E_CH_FILE_SET_W_DOT_L_DOT_ADDR <= '0';
+   wait for 30 ns; -- Set latch
+   MS_E_CH_FILE_SET_W_DOT_L_DOT_ADDR <= '1';
+   wait for 30 ns; -- Stays set
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'1',testname,"3D");
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   
+   MS_E_CH_FILE_SET_CHECK_AT_A <= '0';
+   wait for 30 ns; -- Set latch
+   MS_E_CH_FILE_SET_CHECK_AT_A <= '1';
+   wait for 30 ns; -- Stays set
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'1',testname,"3E");
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"3F");
+   
+   PS_E_CH_SELECT_UNIT_T_DOT_INPUT <= '0';
+   MS_CONS_INQUIRY_REQUEST <= '1';
+   PS_E_CH_READY_BUS <= '1';
+   MS_E_CH_BUSY_BUS <= '1';
+   PS_E_CH_STATUS_SAMPLE_A <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"4A");
+   PS_E_CH_SELECT_UNIT_T_DOT_INPUT <= '1';
+   MS_CONS_INQUIRY_REQUEST <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"4B");
+   MS_CONS_INQUIRY_REQUEST <= '1';
+   PS_E_CH_READY_BUS <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"4C");
+   PS_E_CH_READY_BUS <= '1';
+   MS_E_CH_BUSY_BUS <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"4D");
+   MS_E_CH_BUSY_BUS <= '1';
+   PS_E_CH_STATUS_SAMPLE_A <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"4E");
+   PS_E_CH_STATUS_SAMPLE_A <= '1';   
+   wait for 30 ns; -- Sets latch
+   PS_E_CH_SELECT_UNIT_T_DOT_INPUT <= '0';
+   MS_CONS_INQUIRY_REQUEST <= '1';
+   PS_E_CH_READY_BUS <= '0';
+   MS_E_CH_BUSY_BUS <= '1';
+   PS_E_CH_STATUS_SAMPLE_A <= '0';      
+   wait for 30 ns; -- Latch should stay set
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'1',testname,"4E");
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"4F");
+   
+   PS_E_CH_SELECT_UNIT_1 <= '1';         
+   
+   PS_E_CH_STATUS_SAMPLE_A <= '0';
+   MS_E_CH_STACKER_SEL_OP_CODE <= '0';
+   PS_E_CH_READY_BUS <= '1';
+   MS_E_CH_BUSY_BUS <= '1';
+   MC_BUFFER_NO_TRANS_COND <= '0';
+   MS_E_CH_SELECT_ANY_BUFFER <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"5A");
+   PS_E_CH_STATUS_SAMPLE_A <= '1';
+   MS_E_CH_STACKER_SEL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"5B");
+   MS_E_CH_STACKER_SEL_OP_CODE <= '0';
+   PS_E_CH_READY_BUS <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"5C");
+   PS_E_CH_READY_BUS <= '1';
+   MS_E_CH_BUSY_BUS <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"5D");
+   MS_E_CH_BUSY_BUS <= '1';
+   MC_BUFFER_NO_TRANS_COND <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"5E");
+   MC_BUFFER_NO_TRANS_COND <= '0';
+   MS_E_CH_SELECT_ANY_BUFFER <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"5F");
+   MS_E_CH_SELECT_ANY_BUFFER <= '0';
+   wait for 30 ns; -- Latch sets
+   MS_E_CH_SELECT_ANY_BUFFER <= '1';
+   wait for 30 ns; -- Latch should stay set
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'1',testname,"5G");
+   MS_E_CH_STACKER_SEL_OP_CODE <= '1'; -- Disable for next test
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"5H");
+   MS_E_CH_SELECT_ANY_BUFFER <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"5I");
+   PS_E_CH_SELECT_UNIT_1 <= '0';         
+   wait for 30 ns; -- Latch Sets
+   PS_E_CH_SELECT_UNIT_1 <= '1';         
+   wait for 30 ns; -- Latch should stay set
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'1',testname,"5J");   
+   MC_BUFFER_NO_TRANS_COND <= '1'; -- Disable for next test
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"5K");
+   MC_BUFFER_NO_TRANS_COND_JRJ <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"5L");
+   PS_E_CH_STATUS_SAMPLE_A <= '0';
+   MS_E_CH_STACKER_SEL_OP_CODE <= '1';
+   PS_E_CH_READY_BUS <= '0';
+   MS_E_CH_BUSY_BUS <= '1';
+   MC_BUFFER_NO_TRANS_COND <= '1';
+   MS_E_CH_SELECT_ANY_BUFFER <= '1';
+   
+
+   MS_E_CH_SELECT_ANY_BUFFER <= '1';
+   MC_BUFFER_NO_TRANS_COND_JRJ <= '0';
+   PS_E_CH_SELECT_UNIT_1 <= '1';
+   MS_E_CH_STACKER_SEL_OP_CODE <= '1';               
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"6A");
+   MS_E_CH_SELECT_ANY_BUFFER <= '0';
+   MS_E_CH_STACKER_SEL_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"6B");
+   MS_E_CH_STACKER_SEL_OP_CODE <= '1';               
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'0',testname,"6C");   
+   PS_E_CH_STATUS_SAMPLE_B <= '1';
+   wait for 30 ns;
+   PS_E_CH_STATUS_SAMPLE_B <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_TRANSFER_LATCH,'1',testname,"6D");
+      
    wait;
    end process;
 
