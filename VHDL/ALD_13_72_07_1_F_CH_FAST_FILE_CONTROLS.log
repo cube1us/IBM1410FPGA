@@ -1,0 +1,51 @@
+Generating HDL for page 13.72.07.1 F CH FAST FILE CONTROLS at 8/16/2020 7:54:49 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_72_07_1_F_CH_FAST_FILE_CONTROLS_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 2G
+Found combinatorial loop (need D FF) at output of gate at 1G
+Generating Statement for block at 4C with output pin(s) of OUT_4C_K
+	and inputs of OUT_5D_B
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of OUT_4C_K,MC_ADDR_COMP_TRUE_F_CH
+	and logic function of NOR
+Generating Statement for block at 5D with output pin(s) of OUT_5D_B, OUT_5D_B, OUT_5D_B
+	and inputs of MC_FAST_FILE_ON_LINE_F_CH
+	and logic function of NOR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of OUT_5D_B,PS_PERCENT_OR_COML_AT
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_P
+	and inputs of OUT_4D_G
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of OUT_5D_B,PS_E_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_K
+	and inputs of OUT_DOT_3D,PS_LOGIC_GATE_E_OR_V
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_G
+	and inputs of PS_F_CH_DISCON_LATCH
+	and logic function of NAND
+Generating Statement for block at 2G with *latched* output pin(s) of OUT_2G_E_Latch
+	and inputs of OUT_5G_G,PS_F_CH_SEL_UNIT_F_LATCHED,OUT_1G_P
+	and logic function of NAND
+Generating Statement for block at 1G with *latched* output pin(s) of OUT_1G_P_Latch
+	and inputs of OUT_2F_K,OUT_DOT_1H
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_C
+	and inputs of MS_PROGRAM_RESET
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3C_C,OUT_3D_P
+	and logic function of OR
+Generating Statement for block at 1H with output pin(s) of OUT_DOT_1H, OUT_DOT_1H
+	and inputs of OUT_2G_E,OUT_1H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_BLOCK_F_CH_FILE_START_GT
+	from gate output OUT_4E_C
+Generating output sheet edge signal assignment to 
+	signal MS_COMP_DSBLE_F_CH
+	from gate output OUT_DOT_1H
+Generating D Flip Flop for block at 2G
+Generating D Flip Flop for block at 1G
