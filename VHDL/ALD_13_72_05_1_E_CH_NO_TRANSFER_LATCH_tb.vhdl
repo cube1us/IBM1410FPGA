@@ -135,6 +135,75 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.72.05.1        ";
+   
+   MS_E_CH_NOT_READY <= '1';
+   MS_E_CH_BUSY <= '1';
+   MS_E_CH_CONDITION <= '1';
+   MS_E_CH_NO_TRANSFER_LATCH <= '1';
+   MS_E_CH_WRONG_LENGTH_RECORD <= '1';
+   MS_E_CH_CORRECT_LENGTH_RECORD <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_ANY_STATUS_ON,'0',testName,"1A");
+   MS_E_CH_NOT_READY <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_ANY_STATUS_ON,'1',testName,"1B");
+   MS_E_CH_NOT_READY <= '1';
+   MS_E_CH_BUSY <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_ANY_STATUS_ON,'1',testName,"1C");
+   MS_E_CH_BUSY <= '1';
+   MS_E_CH_CONDITION <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_ANY_STATUS_ON,'1',testName,"1D");
+   MS_E_CH_CONDITION <= '1';
+   MS_E_CH_NO_TRANSFER_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_ANY_STATUS_ON,'1',testName,"1E");
+   MS_E_CH_NO_TRANSFER_LATCH <= '1';
+   MS_E_CH_WRONG_LENGTH_RECORD <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_ANY_STATUS_ON,'1',testName,"1F");
+   MS_E_CH_WRONG_LENGTH_RECORD <= '1';
+   MS_E_CH_CORRECT_LENGTH_RECORD <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_ANY_STATUS_ON,'1',testName,"1G");
+   MS_E_CH_CORRECT_LENGTH_RECORD <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_ANY_STATUS_ON,'0',testName,"1H");
+
+   MS_E_CH_NOT_READY <= '0';
+   MS_E_CH_BUSY <= '1';
+   MS_E_CH_CONDITION <= '1';
+   MS_E_CH_NO_TRANSFER_LATCH <= '1';
+   MS_E_CH_WRONG_LENGTH_RECORD <= '1';
+   MS_E_CH_CORRECT_LENGTH_RECORD <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_STATUS_ON,'0',testName,"2A");
+   MS_E_CH_NOT_READY <= '1';
+   MS_E_CH_BUSY <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_STATUS_ON,'0',testName,"2B");
+   MS_E_CH_BUSY <= '1';
+   MS_E_CH_CONDITION <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_STATUS_ON,'0',testName,"2C");
+   MS_E_CH_CONDITION <= '1';
+   MS_E_CH_NO_TRANSFER_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_STATUS_ON,'0',testName,"2D");
+   MS_E_CH_NO_TRANSFER_LATCH <= '1';
+   MS_E_CH_WRONG_LENGTH_RECORD <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_STATUS_ON,'0',testName,"2E");
+   MS_E_CH_WRONG_LENGTH_RECORD <= '1';
+   MS_E_CH_CORRECT_LENGTH_RECORD <= '0';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_STATUS_ON,'0',testName,"2F");
+   MS_E_CH_CORRECT_LENGTH_RECORD <= '1';
+   wait for 30 ns;
+   check1(PS_E_CH_NO_STATUS_ON,'1',testName,"2G");
 
    wait;
    end process;
