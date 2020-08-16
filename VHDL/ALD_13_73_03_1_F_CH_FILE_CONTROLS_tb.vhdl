@@ -186,7 +186,188 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.73.03.1        ";
+   
+   MS_COMPUTER_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_COMPUTER_RESET_1 <= '1';
+   wait for 30 ns;
+   
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '0';
+   MS_F_CH_1ST_ADDR_TRANSFER <= '1';
+   MS_F_CH_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;   
+   check1(MS_F_CH_FILE_ADDRESS_TRF,'1',testName,"1A");
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '1';
+   MS_F_CH_1ST_ADDR_TRANSFER <= '1';
+   wait for 30 ns;   
+   check1(MS_F_CH_FILE_ADDRESS_TRF,'1',testName,"1B");
+   MS_F_CH_1ST_ADDR_TRANSFER <= '0';
+   wait for 30 ns;   
+   check1(MS_F_CH_FILE_ADDRESS_TRF,'0',testName,"1C");
+   MS_F_CH_1ST_ADDR_TRANSFER <= '0';
+   wait for 30 ns;   
+   MS_F_CH_2ND_ADDR_TRF <= '0';
+   wait for 30 ns;   
+   check1(MS_F_CH_FILE_ADDRESS_TRF,'0',testName,"1D");
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '1';
+   MS_F_CH_1ST_ADDR_TRANSFER <= '1';
+   MS_F_CH_2ND_ADDR_TRF <= '1';
+   wait for 30 ns;   
+   check1(MS_F_CH_FILE_ADDRESS_TRF,'1',testName,"1E");
+   
+   MS_F_CH_1ST_ADDR_TRANSFER <= '0';
+   
+   PS_F_CH_SELECT_UNIT_F <= '0';
+   MS_F_CH_UNIT_NUMBER_3 <= '1';
+   PS_F_CH_OUTPUT_MODE <= '1';
+   PS_WR_INHIBIT_STAR_7631_STAR_F_CH <= '1';
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '0'; -- Standing in for -S E Ch File Addr Tfr
+   PS_F_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   MS_F_CH_CHECK <= '1';
+   MS_F_CH_CONDITION <= '1';
+   MS_F_CH_WRONG_LENGTH_RECORD <= '1';
+   MS_F_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2A");
+   check1(MS_F_CH_RBCI_ON,'1',testName,"2B");
+   check1(LAMP_15A1C15,'0',testName,"2BA");
+   check1(MS_F_CH_SELECT_AND_RBC_ON,'1',testName,"2C");
+   PS_F_CH_SELECT_UNIT_F <= '1';
+   MS_F_CH_UNIT_NUMBER_3 <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2D");
+   MS_F_CH_UNIT_NUMBER_3 <= '1';
+   PS_F_CH_OUTPUT_MODE <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2E");
+   PS_F_CH_OUTPUT_MODE <= '1';
+   PS_WR_INHIBIT_STAR_7631_STAR_F_CH <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2F");
+   PS_WR_INHIBIT_STAR_7631_STAR_F_CH <= '1';
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '1'; -- Standing in for -S E Ch File Addr Tfr
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2G");
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '0'; -- Standing in for -S E Ch File Addr Tfr
+   PS_F_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2H");
+   PS_F_CH_STATUS_SAMPLE_B_DELAY <= '1';
+   MS_F_CH_UNIT_NUMBER_4 <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2I");
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   MS_F_CH_CHECK <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2J");
+   MS_F_CH_CHECK <= '1';
+   MS_F_CH_CONDITION <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2K");
+   MS_F_CH_CONDITION <= '1';
+   MS_F_CH_WRONG_LENGTH_RECORD <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2L");
+   MS_F_CH_WRONG_LENGTH_RECORD <= '1';
+   MS_F_CH_NO_TRANSFER_LATCH <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2M");
+   MS_F_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'0',testName,"2N");
+   check1(MS_F_CH_RBCI_ON,'0',testName,"2O");
+   check1(LAMP_15A1C15,'1',testName,"2OA");
+   check1(MS_F_CH_SELECT_AND_RBC_ON,'1',testName,"2P");
+   PS_F_CH_SELECT_UNIT_F <= '0';
+   MS_F_CH_UNIT_NUMBER_3 <= '1';
+   PS_F_CH_OUTPUT_MODE <= '0';
+   PS_WR_INHIBIT_STAR_7631_STAR_F_CH <= '0';
+   MS_F_CH_END_OF_2ND_ADDR_TRF <= '1'; -- Standing in for -S E Ch File Addr Tfr
+   PS_F_CH_STATUS_SAMPLE_B_DELAY <= '0';
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   MS_F_CH_CHECK <= '1';
+   MS_F_CH_CONDITION <= '1';
+   MS_F_CH_WRONG_LENGTH_RECORD <= '1';
+   MS_F_CH_NO_TRANSFER_LATCH <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_WRITE_INHIBIT,'1',testName,"2Q");
+   check1(MS_F_CH_RBCI_ON,'0',testName,"2R");
+   check1(LAMP_15A1C15,'1',testName,"2SA");
+   check1(MS_F_CH_SELECT_AND_RBC_ON,'1',testName,"2T");
+       
+   
+   MS_F_CH_UNIT_NUMBER_3 <= '0';
+   PS_LOZENGE_OR_ASTERISK <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_SELECT_AND_RBC_ON,'1',testName,"2U");
+   MS_F_CH_UNIT_NUMBER_3 <= '1';
+   PS_LOZENGE_OR_ASTERISK <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_SELECT_AND_RBC_ON,'1',testName,"2V");
+   MS_F_CH_UNIT_NUMBER_3 <= '1';
+   PS_LOZENGE_OR_ASTERISK <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_SELECT_AND_RBC_ON,'0',testName,"2W");
 
+   PS_LOZENGE_OR_ASTERISK <= '0';
+   PS_FILE_OP <= '1';
+   PS_I_RING_6_TIME <= '1';
+   MS_F_CH_UNIT_NUMBER_3 <= '1';   
+   -- With RBC On, this should not activiate
+   check1(MC_F_CH_RBCI_RESET_1405,'1',testName,"2X");
+  
+   -- RBC On Reset Test
+   
+   PS_I_RING_6_TIME <= '0';
+   PS_LOGIC_GATE_C_1 <= '1';
+   PS_LOZENGE_OR_ASTERISK <= '1';
+   PS_FILE_OP <= '1';
+   PS_F_CH_UNIT_NUMBER_3 <= '1';
+   wait for 30 ns; 
+   check1(MS_F_CH_RBCI_ON,'0',testName,"3A");
+   PS_I_RING_6_TIME <= '1';
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns; 
+   check1(MS_F_CH_RBCI_ON,'0',testName,"3B");
+   PS_LOGIC_GATE_C_1 <= '1';
+   PS_LOZENGE_OR_ASTERISK <= '0';
+   wait for 30 ns; 
+   check1(MS_F_CH_RBCI_ON,'0',testName,"3C");   
+   PS_LOZENGE_OR_ASTERISK <= '1';
+   PS_FILE_OP <= '0';
+   wait for 30 ns; 
+   check1(MS_F_CH_RBCI_ON,'0',testName,"3D");
+   PS_FILE_OP <= '1';
+   PS_F_CH_UNIT_NUMBER_3 <= '0';
+   wait for 30 ns; 
+   check1(MS_F_CH_RBCI_ON,'0',testName,"3E");
+   PS_F_CH_UNIT_NUMBER_3 <= '1';
+   wait for 30 ns; 
+   check1(MS_F_CH_RBCI_ON,'1',testName,"3F");
+   check1(MS_F_CH_SELECT_AND_RBC_ON,'1',testName,"3G");
+   
+   PS_LOZENGE_OR_ASTERISK <= '0';
+   wait for 30 ns;
+   check1(MC_F_CH_RBCI_RESET_1405,'1',testName,"4A");
+   PS_LOZENGE_OR_ASTERISK <= '1';
+   PS_FILE_OP <= '0';
+   wait for 30 ns;
+   check1(MC_F_CH_RBCI_RESET_1405,'1',testName,"4B");
+   PS_FILE_OP <= '1';
+   PS_I_RING_6_TIME <= '0';
+   wait for 30 ns;
+   check1(MC_F_CH_RBCI_RESET_1405,'1',testName,"4C");
+   PS_I_RING_6_TIME <= '1';
+   MS_F_CH_UNIT_NUMBER_3 <= '0';
+   wait for 30 ns;
+   check1(MC_F_CH_RBCI_RESET_1405,'1',testName,"4D");
+   MS_F_CH_UNIT_NUMBER_3 <= '1';
+   wait for 30 ns;
+   check1(MC_F_CH_RBCI_RESET_1405,'0',testName,"4E");
+   
    wait;
    end process;
 
