@@ -1,0 +1,83 @@
+Generating HDL for page 13.73.02.1 F CH FILE CONTROLS at 8/16/2020 9:19:53 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_73_02_1_F_CH_FILE_CONTROLS_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5D
+Found combinatorial loop (need D FF) at output of gate at 4D
+Found combinatorial loop (need D FF) at output of gate at 5H
+Found combinatorial loop (need D FF) at output of gate at 4H
+WARNING: During sheet edge merge, Logic block at 2A pin H outputs to two different signal names: -C SEEK TEST OP*F CH TO 1405 vs. -C SEEK TEST OP*F CH TO 1301
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C
+	and inputs of PS_I_RING_12_TIME
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_E
+	and inputs of PS_FILE_OP,PS_Q_OR_V_SYMBOL_OP_MODIFIER,PS_LOZENGE_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_H, OUT_2A_H
+	and inputs of OUT_DOT_4A
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_B_TO_LAST_LOGIC_GATE,PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,PS_LOZENGE_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_A
+	and inputs of OUT_4B_D
+	and logic function of EQUAL
+Generating Statement for block at 5C with output pin(s) of OUT_5C_E
+	and inputs of PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,PS_LOGIC_GATE_F_1,PS_LOZENGE_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_E
+	and inputs of OUT_5D_C
+	and logic function of EQUAL
+Generating Statement for block at 5D with *latched* output pin(s) of OUT_5D_C_Latch, OUT_5D_C_Latch
+	and inputs of MS_LOGIC_GATE_C_OR_T,MS_F_CH_RESET_1,OUT_4D_G
+	and logic function of NAND
+Generating Statement for block at 4D with *latched* output pin(s) of OUT_4D_G_Latch
+	and inputs of OUT_5C_E,OUT_5D_C
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of PS_BODY_LATCH,PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN,PS_LOZENGE_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_G
+	and inputs of OUT_4F_D
+	and logic function of EQUAL
+Generating Statement for block at 5G with output pin(s) of OUT_5G_E
+	and inputs of PS_LOZENGE_OR_ASTERISK,PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN,PS_LOGIC_GATE_D_1
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_H
+	and inputs of OUT_3H_D
+	and logic function of EQUAL
+Generating Statement for block at 5H with *latched* output pin(s) of OUT_5H_C_Latch
+	and inputs of MS_F_CH_RESET_1,MS_F_CH_STATUS_SAMPLE_A_DELAY,OUT_4H_C
+	and logic function of NAND
+Generating Statement for block at 4H with *latched* output pin(s) of OUT_4H_C_Latch, OUT_4H_C_Latch
+	and inputs of OUT_5G_E,OUT_5H_C
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D, OUT_3H_D
+	and inputs of OUT_4H_C
+	and logic function of NOT
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_5A_C,OUT_4A_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MC_SEEK_TEST_OP_STAR_F_CH_TO_1301
+	from gate output OUT_2A_H
+Generating output sheet edge signal assignment to 
+	signal MC_SEEK_TEST_OP_STAR_F_CH_TO_1405
+	from gate output OUT_2A_H
+Generating output sheet edge signal assignment to 
+	signal MC_FILE_STROBE_1ST_ADDR_STAR_F_CH
+	from gate output OUT_2B_A
+Generating output sheet edge signal assignment to 
+	signal MC_FILE_STROBE_2ND_ADDR_STAR_F_CH
+	from gate output OUT_2C_E
+Generating output sheet edge signal assignment to 
+	signal MC_FILE_DIGIT_ADVANCE_STAR_F_CH
+	from gate output OUT_2F_G
+Generating output sheet edge signal assignment to 
+	signal MC_FILE_ADDR_TRF_GATE_STAR_F_CH
+	from gate output OUT_2G_H
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_1ST_ADDR_TRANSFER
+	from gate output OUT_3H_D
+Generating D Flip Flop for block at 5D
+Generating D Flip Flop for block at 4D
+Generating D Flip Flop for block at 5H
+Generating D Flip Flop for block at 4H
