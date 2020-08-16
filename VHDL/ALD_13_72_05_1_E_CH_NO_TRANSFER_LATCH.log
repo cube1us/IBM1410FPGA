@@ -1,0 +1,31 @@
+Generating HDL for page 13.72.05.1 E CH NO TRANSFER LATCH at 8/15/2020 8:01:43 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_72_05_1_E_CH_NO_TRANSFER_LATCH_tb.vhdl, generating default test bench code.
+Removed 2 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 3A to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_D
+	and inputs of MS_E_CH_WRONG_LENGTH_RECORD,MS_E_CH_BUSY,MS_E_CH_CORRECT_LENGTH_RECORD
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of MS_E_CH_NOT_READY,MS_E_CH_NO_TRANSFER_LATCH,MS_E_CH_CONDITION
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C
+	and inputs of OUT_DOT_3C
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of MS_E_CH_WRONG_LENGTH_RECORD,MS_E_CH_BUSY,MS_E_CH_CORRECT_LENGTH_RECORD
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of MS_E_CH_NOT_READY,MS_E_CH_NO_TRANSFER_LATCH,MS_E_CH_CONDITION
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A
+	and inputs of OUT_3A_D,OUT_3B_C
+	and logic function of OR
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3C_E,OUT_3D_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_NO_STATUS_ON
+	from gate output OUT_1B_C
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_ANY_STATUS_ON
+	from gate output OUT_DOT_3A
