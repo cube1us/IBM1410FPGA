@@ -141,6 +141,81 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.72.07.1        ";
+   
+   MS_PROGRAM_RESET <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET <= '1';
+   wait for 30 ns;
+   
+   PS_E_CH_IN_PROCESS <= '0';
+   MC_FAST_FILE_ON_LINE_F_CH <= '0';
+   wait for 30 ns;
+   check1(MS_BLOCK_F_CH_FILE_START_GT,'1',testName,"1A");
+   PS_E_CH_IN_PROCESS <= '1';
+   MC_FAST_FILE_ON_LINE_F_CH <= '1';
+   wait for 30 ns;
+   check1(MS_BLOCK_F_CH_FILE_START_GT,'1',testName,"1G");
+   MC_FAST_FILE_ON_LINE_F_CH <= '0';
+   wait for 30 ns;
+   check1(MS_BLOCK_F_CH_FILE_START_GT,'0',testName,"1H");
+   PS_E_CH_IN_PROCESS <= '0';
+   MC_FAST_FILE_ON_LINE_F_CH <= '1';
+   
+   PS_F_CH_SEL_UNIT_F_LATCHED <= '1';
+
+   PS_LOGIC_GATE_E_OR_V <= '0';
+   MC_FAST_FILE_ON_LINE_F_CH <= '0';
+   MC_ADDR_COMP_TRUE_F_CH <= '0';   
+   wait for 30 ns;
+   check1(MS_COMP_DSBLE_F_CH,'1',testName,"2A");
+   PS_LOGIC_GATE_E_OR_V <= '1';
+   MC_FAST_FILE_ON_LINE_F_CH <= '1';
+   wait for 30 ns;
+   check1(MS_COMP_DSBLE_F_CH,'1',testName,"2B");
+   MC_FAST_FILE_ON_LINE_F_CH <= '0';
+   MC_ADDR_COMP_TRUE_F_CH <= '1';   
+   wait for 30 ns;
+   check1(MS_COMP_DSBLE_F_CH,'1',testName,"2C");
+   MC_ADDR_COMP_TRUE_F_CH <= '0';   
+   wait for 30 ns; -- Latch should set
+   PS_LOGIC_GATE_E_OR_V <= '0';
+   MC_FAST_FILE_ON_LINE_F_CH <= '1';
+   MC_ADDR_COMP_TRUE_F_CH <= '1';   
+   wait for 30 ns; -- Latch should stay set
+   check1(MS_COMP_DSBLE_F_CH,'0',testName,"2D");
+   PS_F_CH_SEL_UNIT_F_LATCHED <= '0';
+   wait for 30 ns; -- Reset
+   PS_F_CH_SEL_UNIT_F_LATCHED <= '1';
+   wait for 30 ns; -- Should stay reset
+   check1(MS_COMP_DSBLE_F_CH,'1',testName,"2E");
+   
+   PS_LOGIC_GATE_E_OR_V <= '0';
+   MC_FAST_FILE_ON_LINE_F_CH <= '0';
+   PS_PERCENT_OR_COML_AT <= '1';   
+   wait for 30 ns;
+   check1(MS_COMP_DSBLE_F_CH,'1',testName,"3A");
+   PS_LOGIC_GATE_E_OR_V <= '1';
+   MC_FAST_FILE_ON_LINE_F_CH <= '1';
+   wait for 30 ns;
+   check1(MS_COMP_DSBLE_F_CH,'1',testName,"3B");
+   MC_FAST_FILE_ON_LINE_F_CH <= '0';
+   PS_PERCENT_OR_COML_AT <= '0';   
+   wait for 30 ns;
+   check1(MS_COMP_DSBLE_F_CH,'1',testName,"3C");
+   PS_PERCENT_OR_COML_AT <= '1';   
+   wait for 30 ns; -- Latch should set
+   PS_LOGIC_GATE_E_OR_V <= '0';
+   MC_FAST_FILE_ON_LINE_F_CH <= '1';
+   PS_PERCENT_OR_COML_AT <= '0';   
+   wait for 30 ns; -- Latch should stay set
+   check1(MS_COMP_DSBLE_F_CH,'0',testName,"3D");
+   PS_F_CH_DISCON_LATCH <= '1';
+   wait for 30 ns; -- Reset
+   PS_F_CH_DISCON_LATCH <= '0';
+   wait for 30 ns; -- Should stay reset
+   check1(MS_COMP_DSBLE_F_CH,'1',testName,"2E");
 
    wait;
    end process;
