@@ -1,5 +1,5 @@
-Generating HDL for page 13.73.01.1 F CH FILE CONTROLS at 8/17/2020 4:41:02 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_73_01_1_F_CH_FILE_CONTROLS_tb.vhdl, generating default test bench code.
+Generating HDL for page 13.73.01.1 F CH FILE CONTROLS at 8/17/2020 5:28:30 PM
+Old test bench file ALD_13_73_01_1_F_CH_FILE_CONTROLS_tb.vhdl 404 lines preserved and 32 declaration lines preserved
 DOT Function at 3H has one output from a Trigger, one output from Non-Trigger
    Trigger block pin B located at 3H, Non-trigger is located at 3G Output is to 2H
    Using Trigger faux pin T as input side of pin B
@@ -16,6 +16,7 @@ Found combinatorial loop (need D FF) at output of gate at 1F
 Processing extension from block at 3H (Database ID=230956) to 3I (Database ID=230957)
 Copied connection to extension input pin K to master block at 3H
 Copied connection to extension input pin H to master block at 3H
+Copied connection to extension input pin P to master block at 3H
 Copied connection from extension output pin F to master block at 3H
 Copied mapped pin A from extension 3I to master block at 3H
 Copied mapped pin E from extension 3I to master block at 3H
@@ -108,7 +109,7 @@ Generating Statement for block at 4H with output pin(s) of OUT_4H_C
 	and inputs of OUT_DOT_5H,MS_1311_F_CH_END_ADDR_TRF
 	and logic function of NAND
 Generating Statement for block at 3H with output pin(s) of OUT_3H_B, OUT_3H_F
-	and inputs of OUT_2H_C,PS_1ST_CLOCK_PULSE_CLAMPED_A,OUT_3G_F,OUT_2I_D,PS_1ST_CLOCK_PULSE_CLAMPED_A
+	and inputs of OUT_2H_C,PS_1ST_CLOCK_PULSE_CLAMPED_A,OUT_3G_F,OUT_2I_D,PS_1ST_CLOCK_PULSE_CLAMPED_A,MS_F_CH_RESET
 	and logic function of Trigger
 Generating Statement for block at 2H with output pin(s) of OUT_2H_C, OUT_2H_C
 	and inputs of OUT_3H_B
