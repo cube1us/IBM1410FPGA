@@ -208,6 +208,355 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "13.72.01.1        ";
+   
+   wait for 30 ns;
+   PS_F_CH_SELECT_UNIT_F <= '0';
+   MS_F_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_F_CH_RESET <= '1';
+   wait for 30 ns;
+   
+   check1(MC_1405_START_GATE_STAR_F_CH,'1',testName,"1A");
+   check1(MC_1301_START_GATE_STAR_F_CH,'1',testName,"1B");
+
+   MS_MASTER_ERROR <= '1';
+   MS_1ST_DATA_STROBE_LATCH_CH_F <= '1';
+   wait for 30 ns;
+   MS_BLOCK_F_CH_FILE_START_GT <= '1';
+   wait for 30 ns;
+   MS_F2_REG_FULL <= '1';
+   MS_F_CH_UNIT_NUMBER_9 <= '1';
+   wait for 30 ns;
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   wait for 30 ns;
+   MS_F_CH_INPUT_MODE_STAR_1301_STAR <= '1';
+   wait for 30 ns;   
+   PS_F_CH_IN_PROCESS <= '1'; 
+   wait for 30 ns;
+   PS_F_CH_SELECT_UNIT_F <= '1';
+   wait for 30 ns;   
+   check1(MC_1405_START_GATE_STAR_F_CH,'1',testName,"1C");
+   
+   MS_F_CH_UNIT_NUMBER_9 <= '0';
+   wait for 30 ns;
+   MS_F_CH_UNIT_NUMBER_9 <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_F_CH,'0',testName,"1D");
+   PS_F_CH_SELECT_UNIT_F <= '0';
+   wait for 30 ns;
+   PS_F_CH_SELECT_UNIT_F <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_F_CH,'1',testName,"1E");
+   
+   MS_F_CH_UNIT_NUMBER_4 <= '0';
+   wait for 30 ns;
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_F_CH,'0',testName,"1F");
+   MS_MASTER_ERROR <= '0';
+   wait for 30 ns;
+   MS_MASTER_ERROR <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_F_CH,'1',testName,"1G");
+   
+   -- Need to set both of them...
+   MS_F_CH_INPUT_MODE_STAR_1301_STAR <= '0';
+   MS_F_CH_INPUT_MODE_STAR_1311_STAR <= '0';
+   wait for 30 ns;
+   MS_F_CH_INPUT_MODE_STAR_1301_STAR <= '1';
+   MS_F_CH_INPUT_MODE_STAR_1311_STAR <= '1';   
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_F_CH,'0',testName,"1H");
+   PS_F_CH_IN_PROCESS <= '0';
+   wait for 30 ns;
+   PS_F_CH_IN_PROCESS <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_F_CH,'1',testName,"1I");
+   
+   MS_F2_REG_FULL <= '0';
+   wait for 30 ns;
+   MS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_F_CH,'0',testName,"1J");
+   MS_1ST_DATA_STROBE_LATCH_CH_F <= '0';
+   wait for 30 ns;
+   MS_1ST_DATA_STROBE_LATCH_CH_F <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_F_CH,'1',testName,"1K");
+
+   MS_F2_REG_FULL <= '0';
+   wait for 30 ns;
+   MS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_F_CH,'0',testName,"1J");
+   MS_BLOCK_F_CH_FILE_START_GT <= '0';
+   wait for 30 ns;
+   MS_BLOCK_F_CH_FILE_START_GT <= '1';
+   wait for 30 ns;
+   check1(MC_1405_START_GATE_STAR_F_CH,'1',testName,"1K");
+
+   PS_F_CH_SELECT_UNIT_F <= '0';
+   PS_F_CH_IN_PROCESS <= '0';
+   MS_F_CH_INPUT_MODE_STAR_1301_STAR <= '0';
+      
+   -- Test E Ch 2nd Addr TRF
+      
+   PS_F_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   PS_F_CH_NO_STATUS_ON <= '1';
+   PS_F_CH_SELECT_UNIT_F <= '1';
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   wait for 30 ns;
+   check1(PS_F_CH_2ND_ADDR_TRF,'0',testname,"4A");
+   check1(MS_F_CH_2ND_ADDR_TRF,'1',testname,"4B");
+   PS_F_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   PS_F_CH_NO_STATUS_ON <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_2ND_ADDR_TRF,'0',testname,"4C");
+   PS_F_CH_NO_STATUS_ON <= '1';
+   PS_F_CH_SELECT_UNIT_F <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_2ND_ADDR_TRF,'0',testname,"4D");
+   PS_F_CH_SELECT_UNIT_F <= '1';
+   MS_F_CH_UNIT_NUMBER_4 <= '0';
+   wait for 30 ns;
+   check1(PS_F_CH_2ND_ADDR_TRF,'0',testname,"4E");
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   wait for 30 ns; -- Set latch
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"4F");
+   check1(MS_F_CH_2ND_ADDR_TRF,'0',testname,"4G");
+   PS_F_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"4H");
+   check1(MS_F_CH_2ND_ADDR_TRF,'0',testname,"4I");
+   
+   -- Test E Ch 1st Char 2nd Addr
+ 
+   PS_LOGIC_GATE_E_OR_V <= '0';
+   PS_F_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_1ST_CHAR_2ND_ADDR,'1',testName,"5A");
+   PS_LOGIC_GATE_E_OR_V <= '1';
+   PS_F_CYCLE <= '0';
+   wait for 30 ns;
+   check1(MS_F_CH_1ST_CHAR_2ND_ADDR,'1',testName,"5B");
+   PS_F_CYCLE <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_1ST_CHAR_2ND_ADDR,'0',testName,"5C");  
+   PS_LOGIC_GATE_E_OR_V <= '0'; 
+   
+   -- Reset the latch output 3D pin P
+   
+   PS_ANY_LAST_GATE <= '1';
+   wait for 30 ns;       
+   PS_ANY_LAST_GATE <= '0';
+   wait for 30 ns;       
+   check1(MS_F_CH_1ST_CHAR_2ND_ADDR,'0',testName,"5D");   
+   
+   -- Now reset 1st Char 2nd Addr Latch
+   
+   MS_LOGIC_GATE_B_OR_S <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_OR_S <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_1ST_CHAR_2ND_ADDR,'1',testName,"5E");   
+   
+   wait for 30 ns;      
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 30 ns;
+   wait for 30 ns;      
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 30 ns;
+   
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"6A");
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"6B");   
+   
+   -- Test 1311 (I think) end of 2nd address transfer   
+   
+   MS_1311_F_CH_END_ADDR_TRF <= '0';   
+   wait for 30 ns;      
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'0',testName,"6C");
+   check1(PS_F_CH_2ND_ADDR_TRF,'0',testname,"6D");   
+   
+   -- Because the End of Addr TRF signal from the 1311 is
+   -- NOT qualified by 2ND ADDR TRF, it has to be released
+   -- or END 2nd Addr TRF just bounces up and down
+   
+   MS_1311_F_CH_END_ADDR_TRF <= '1';   
+
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"6E");
+   check1(PS_F_CH_2ND_ADDR_TRF,'0',testname,"6F");  
+   
+   -- Set 2nd Addr TRF again
+   
+   PS_F_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   PS_F_CH_NO_STATUS_ON <= '1';
+   PS_F_CH_SELECT_UNIT_F <= '1';
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   wait for 30 ns;
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7A");
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"7B");
+   PS_F_CH_STATUS_SAMPLE_A_DELAY <= '0';     
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7C");
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"7D");  
+
+   -- Test 1301 End of transfer.  First test with it not present
+   
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '1';
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   MS_F1_REG_FULL <= '1';
+   MS_F2_REG_FULL <= '1';
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7E");
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"7F");  
+
+   -- Now change all but the 1301 signal to 0, and turn that on
+   -- (NOT sufficient to end 2nd addr trf - that just STARTS the process
+   -- to end the 2nd Addr TRF)               
+
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '0';
+   MS_F_CH_UNIT_NUMBER_4 <= '0';
+   MS_F1_REG_FULL <= '0';
+   MS_F2_REG_FULL <= '0';
+   PS_F_CH_END_ADDR_TRF_1301 <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_F_CH_END_ADDR_TRF_1301 <= '0';
+   wait for 90 ns;
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7G");
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"7H");  
+
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '0';
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   MS_F1_REG_FULL <= '1';
+   MS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7I");
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"7J");  
+
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '1';
+   MS_F_CH_UNIT_NUMBER_4 <= '0';
+   MS_F1_REG_FULL <= '1';
+   MS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7K");
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"7L");
+   
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '1';
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   MS_F1_REG_FULL <= '0';
+   MS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7M");
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"7N");
+   
+   PS_F_CH_INT_END_OF_XFER_DELAYED <= '1';
+   MS_F_CH_UNIT_NUMBER_4 <= '1';
+   MS_F1_REG_FULL <= '1';
+   MS_F2_REG_FULL <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7O");
+   check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"7P");  
+
+   -- NOW let it reset     
+
+   MS_F2_REG_FULL <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7Q");
+   check1(PS_F_CH_2ND_ADDR_TRF,'0',testname,"7R");  
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+   wait for 90 ns;   
+
+
    wait;
    end process;
 
