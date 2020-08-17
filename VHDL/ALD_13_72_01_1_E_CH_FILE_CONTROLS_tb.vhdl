@@ -310,11 +310,11 @@ uut_process: process
    wait for 30 ns;
    check1(PS_E_CH_2ND_ADDR_TRF,'0',testname,"4E");
    MS_E_CH_UNIT_NUMBER_4 <= '1';
-   wait for 30 ns;
+   wait for 30 ns; -- Set latch
    check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"4F");
    check1(MS_E_CH_2ND_ADDR_TRF,'0',testname,"4G");
    PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
-   wait for 30 ns;   
+   wait for 30 ns; -- Latch stays set
    check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"4H");
    check1(MS_E_CH_2ND_ADDR_TRF,'0',testname,"4I");
    
@@ -349,88 +349,202 @@ uut_process: process
    wait for 30 ns;
    check1(MS_E_CH_1ST_CHAR_2ND_ADDR,'1',testName,"5E");   
    
-   PS_E_CH_INT_END_OF_TRF_DELAYED <= '1';
-         
-   PS_GATE_ON_E_CH_END_ADDR_TRF <= '1';
    wait for 30 ns;      
    PS_2ND_CLOCK_PULSE_2 <= '0';
    wait for 30 ns;
    PS_2ND_CLOCK_PULSE_2 <= '1';
    wait for 30 ns;
+   wait for 30 ns;      
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 30 ns;
+   
    check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"6A");
-
-   -- Test 1301 end of 2nd addr transfer
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"6B");   
    
-   PS_E_CH_END_ADDR_TRF_STAR_1301_STAR <= '1';
-   wait for 30 ns;
-   PS_2ND_CLOCK_PULSE_2 <= '0';
-   wait for 30 ns;
-   PS_2ND_CLOCK_PULSE_2 <= '1';
-   wait for 30 ns;
-   PS_E_CH_END_ADDR_TRF_STAR_1301_STAR <= '0';
-   wait for 30 ns;
-   PS_GATE_ON_E_CH_END_ADDR_TRF <= '0';
-   wait for 30 ns;
-   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'0',testName,"6B");  
-   check1(PS_E_CH_2ND_ADDR_TRF,'0',testname,"6C");
-    
-   -- Reset
+   -- Test 1311 (I think) end of 2nd address transfer   
    
-   MS_E_CH_RESET_1 <= '0';
-   wait for 30 ns;
-   MS_E_CH_RESET_1 <= '1';
-   wait for 30 ns;
+   PS_GATE_ON_E_CH_END_ADDR_TRF <= '1';   
+   wait for 30 ns;      
    PS_2ND_CLOCK_PULSE_2 <= '0';
    wait for 30 ns;
    PS_2ND_CLOCK_PULSE_2 <= '1';
-   wait for 30 ns;
-   PS_2ND_CLOCK_PULSE_2 <= '0';
-   wait for 30 ns;
-   PS_2ND_CLOCK_PULSE_2 <= '1';
-   wait for 30 ns;
+   wait for 90 ns;
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'0',testName,"6C");
+   check1(PS_E_CH_2ND_ADDR_TRF,'0',testname,"6D");   
+   
+   -- Because the End of Addr TRF signal from the 1311 is
+   -- NOT qualified by 2ND ADDR TRF, it has to be released
+   -- or END 2nd Addr TRF just bounces up and down
+   
+   PS_GATE_ON_E_CH_END_ADDR_TRF <= '0';   
 
-   -- Test the various other ways to end 2nd addr trf
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"6E");
+   check1(PS_E_CH_2ND_ADDR_TRF,'0',testname,"6F");  
+   
+   -- Set 2nd Addr TRF again
    
    PS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
    PS_E_CH_NO_STATUS_ON <= '1';
    PS_E_CH_SELECT_UNIT_F <= '1';
    MS_E_CH_UNIT_NUMBER_4 <= '1';
-   wait for 90 ns;
-   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7A");
-   PS_2ND_CLOCK_PULSE_2 <= '0';
    wait for 30 ns;
-   PS_2ND_CLOCK_PULSE_2 <= '1';
-   wait for 30 ns;
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7A");
    check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7B");
+   PS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';     
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7C");
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7D");  
 
-   PS_GATE_ON_E_CH_END_ADDR_TRF <= '1';
-   PS_2ND_CLOCK_PULSE_2 <= '0';
-   wait for 30 ns;
-   PS_2ND_CLOCK_PULSE_2 <= '1';
-   wait for 30 ns;
-   PS_2ND_CLOCK_PULSE_2 <= '0';
-   wait for 30 ns;
-   PS_2ND_CLOCK_PULSE_2 <= '1';
-   wait for 30 ns;
-   PS_2ND_CLOCK_PULSE_2 <= '0';
-   wait for 30 ns;
-   PS_2ND_CLOCK_PULSE_2 <= '1';
-   wait for 30 ns;
+   -- Test 1301 End of transfer.  First test with it not present
    
-
-   PS_E_CH_INT_END_OF_TRF_DELAYED <= '0'; -- This ends 2nd Addr Trf too
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '1';
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   MS_E1_REG_FULL <= '1';
+   MS_E2_REG_FULL <= '1';
    PS_2ND_CLOCK_PULSE_2 <= '0';
    wait for 30 ns;
    PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
    wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7E");
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7F");  
+
+   -- Now change all but the 1301 signal to 0, and turn that on
+   -- (NOT sufficient to end 2nd addr trf - that just STARTS the process
+   -- to end the 2nd Addr TRF)               
+
    PS_E_CH_INT_END_OF_TRF_DELAYED <= '0';
+   MS_E_CH_UNIT_NUMBER_4 <= '0';
+   MS_E1_REG_FULL <= '0';
+   MS_E2_REG_FULL <= '0';
+   PS_E_CH_END_ADDR_TRF_STAR_1301_STAR <= '1';
    wait for 30 ns;
-   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7C");
-         
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_E_CH_END_ADDR_TRF_STAR_1301_STAR <= '0';
+   wait for 90 ns;
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7G");
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7H");  
 
-            
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '0';
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   MS_E1_REG_FULL <= '1';
+   MS_E2_REG_FULL <= '1';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7I");
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7J");  
 
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '1';
+   MS_E_CH_UNIT_NUMBER_4 <= '0';
+   MS_E1_REG_FULL <= '1';
+   MS_E2_REG_FULL <= '1';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7K");
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7L");
    
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '1';
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   MS_E1_REG_FULL <= '0';
+   MS_E2_REG_FULL <= '1';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7M");
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7N");
+   
+   PS_E_CH_INT_END_OF_TRF_DELAYED <= '1';
+   MS_E_CH_UNIT_NUMBER_4 <= '1';
+   MS_E1_REG_FULL <= '1';
+   MS_E2_REG_FULL <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7O");
+   check1(PS_E_CH_2ND_ADDR_TRF,'1',testname,"7P");  
+
+   -- NOW let it reset     
+
+   MS_E2_REG_FULL <= '1';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   check1(MS_E_CH_END_OF_2ND_ADDR_TRF,'1',testName,"7Q");
+   check1(PS_E_CH_2ND_ADDR_TRF,'0',testname,"7R");  
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+   PS_2ND_CLOCK_PULSE_2 <= '1';
+   wait for 90 ns;   
+  
+       
    wait;
    end process;
 
