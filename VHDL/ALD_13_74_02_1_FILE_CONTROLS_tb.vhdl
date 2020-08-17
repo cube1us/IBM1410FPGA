@@ -165,7 +165,116 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "13.74.02.1        ";
+   
+   wait for 30 ns;
+   check1(MS_RBC_INLK_CHECK,'1',testName,"1A");
+   check1(LAMP_15A1E21,'0',testName,"1B");
+   
+   PS_ERROR_SAMPLE <= '0';
+   PS_FILE_OP <= '1';
+   PS_I_RING_6_TIME <= '1';
+   MS_E_CH_SELECT_AND_R_B_C_ON <= '0';
+   MS_F_CH_SELECT_AND_RBC_ON <= '0';
+   wait for 30 ns;
+   check1(MS_RBC_INLK_CHECK,'1',testName,"1C");
+   PS_ERROR_SAMPLE <= '1';
+   PS_FILE_OP <= '0';
+   wait for 30 ns;
+   check1(MS_RBC_INLK_CHECK,'1',testName,"1D");
+   PS_FILE_OP <= '1';
+   PS_I_RING_6_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_RBC_INLK_CHECK,'1',testName,"1E");
+   PS_I_RING_6_TIME <= '1';
+   MS_E_CH_SELECT_AND_R_B_C_ON <= '1';
+   MS_F_CH_SELECT_AND_RBC_ON <= '1';
+   wait for 30 ns;
+   check1(MS_RBC_INLK_CHECK,'1',testName,"1F");
+   MS_E_CH_SELECT_AND_R_B_C_ON <= '0';
+   MS_F_CH_SELECT_AND_RBC_ON <= '1';
+   wait for 30 ns;
+   check1(MS_RBC_INLK_CHECK,'0',testName,"1G");
+   check1(LAMP_15A1E21,'1',testName,"1H");
+   MS_E_CH_SELECT_AND_R_B_C_ON <= '1';
+   MS_F_CH_SELECT_AND_RBC_ON <= '0';
+   wait for 30 ns;
+   check1(MS_RBC_INLK_CHECK,'0',testName,"1I");
+   PS_ERROR_SAMPLE <= '0';
+   PS_FILE_OP <= '0';
+   PS_I_RING_6_TIME <= '0';
+   MS_E_CH_SELECT_AND_R_B_C_ON <= '1';
+   MS_F_CH_SELECT_AND_RBC_ON <= '1';
+   
+   MS_PROGRAM_RESET_3 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_3 <= '1';
+   wait for 30 ns;   
+   check1(PS_FILE_RING_7_LATCH,'0',testName,"2A");
+   check1(MS_FILE_RING_7_LATCH,'1',testName,"2B");
+   
+   PS_LOGIC_GATE_F_1 <= '0';
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '1';
+   MC_E_CH_FILE_DIGIT_RING_7 <= '0';
+   MS_PERCENT_OR_COML_AT <= '0';
+   MC_F_CH_FILE_DIGIT_RING_7 <= '1';
+   MS_LOZENGE_OR_ASTERISK <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_RING_7_LATCH,'0',testName,"2C");
+   PS_LOGIC_GATE_F_1 <= '1';
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '0';
+   wait for 30 ns;
+   check1(PS_FILE_RING_7_LATCH,'0',testName,"2D");
+   PS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN <= '1';
+   MC_E_CH_FILE_DIGIT_RING_7 <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_RING_7_LATCH,'0',testName,"2E");
+   MC_E_CH_FILE_DIGIT_RING_7 <= '0';
+   MS_PERCENT_OR_COML_AT <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_RING_7_LATCH,'0',testName,"2F");
+   MC_E_CH_FILE_DIGIT_RING_7 <= '0';
+   MS_PERCENT_OR_COML_AT <= '0';
+   wait for 30 ns; -- Latch should set
+   MC_E_CH_FILE_DIGIT_RING_7 <= '1';
+   MS_PERCENT_OR_COML_AT <= '1';   
+   wait for 30 ns; -- Latch stays set
+   check1(PS_FILE_RING_7_LATCH,'1',testName,"2G");
+   check1(MS_FILE_RING_7_LATCH,'0',testName,"2H");
 
+   MS_E_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   wait for 30 ns; -- Latch resets   
+   MS_E_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   wait for 30 ns; -- Latch stays reset
+   check1(PS_FILE_RING_7_LATCH,'0',testName,"2I");
+
+   MC_F_CH_FILE_DIGIT_RING_7 <= '1';
+   MS_LOZENGE_OR_ASTERISK <= '1';   
+   wait for 30 ns;
+   check1(PS_FILE_RING_7_LATCH,'0',testName,"2J");
+   MC_F_CH_FILE_DIGIT_RING_7 <= '0';
+   MS_LOZENGE_OR_ASTERISK <= '1';
+   wait for 30 ns;
+   check1(PS_FILE_RING_7_LATCH,'0',testName,"2K");
+   MC_F_CH_FILE_DIGIT_RING_7 <= '1';
+   MS_LOZENGE_OR_ASTERISK <= '0';
+   wait for 30 ns;
+   check1(PS_FILE_RING_7_LATCH,'0',testName,"2L");
+   MC_F_CH_FILE_DIGIT_RING_7 <= '0';
+   MS_LOZENGE_OR_ASTERISK <= '0';
+   wait for 30 ns; -- Latch should set
+   MC_F_CH_FILE_DIGIT_RING_7 <= '1';
+   MS_LOZENGE_OR_ASTERISK <= '1';   
+   wait for 30 ns; -- Latch stays set
+   check1(PS_FILE_RING_7_LATCH,'1',testName,"2M");
+   
+   MS_F_CH_STATUS_SAMPLE_A_DELAY <= '0';
+   wait for 30 ns; -- Latch resets
+   MS_F_CH_STATUS_SAMPLE_A_DELAY <= '1';
+   wait for 30 ns; -- Latch stays reset
+   check1(PS_FILE_RING_7_LATCH,'0',testName,"2N");
+   
    wait;
    end process;
 
