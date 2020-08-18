@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -245,6 +246,7 @@ uut_process: process
       PS_RO_B_AR <= '0';      
             
    end loop;
+
 
    --   Test the Hundreds position
    

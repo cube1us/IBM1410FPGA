@@ -1,4 +1,4 @@
-Generating HDL for page 14.11.02.1 B ADDRESS REGISTER TENS POS at 8/18/2020 1:27:21 PM
+Generating HDL for page 14.11.02.1 B ADDRESS REGISTER TENS POS at 8/18/2020 1:51:15 PM
 Found combinatorial loop (need D FF) at output of gate at 3A
 Found combinatorial loop (need D FF) at output of gate at 2A
 Found combinatorial loop (need D FF) at output of gate at 3C
@@ -46,7 +46,7 @@ Generating Statement for block at 1E with output pin(s) of OUT_1E_9
 	and inputs of OUT_2E_NoPin,PS_RO_B_AR
 	and logic function of NAND
 Generating Statement for block at 5G with output pin(s) of OUT_5G_NoPin
-	and inputs of PS_SET_B_AR,PS_SET_AR_T_POS,PS_SET_B_AR
+	and inputs of PS_ADDR_CH_4_B_1,PS_SET_AR_T_POS,PS_SET_B_AR
 	and logic function of NAND
 Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_NoPin_Latch
 	and inputs of MS_RESET_B_AR,OUT_2G_NoPin
