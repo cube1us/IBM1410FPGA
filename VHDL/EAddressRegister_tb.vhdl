@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -88,6 +89,19 @@ procedure check1(
 
 
    -- Your test bench declarations go here
+   
+procedure checkAddressReg(
+    testName: string;
+    test: string;
+    testVal: STD_LOGIC_VECTOR(4 downto 0);
+    reg: STD_LOGIC_VECTOR(4 downto 0)) is
+    begin
+    for i in 0 to 4 loop
+       check1(reg(i),testVal(i),testName,test);
+    end loop;
+    end procedure;   
+
+signal testValue: STD_LOGIC_VECTOR(4 downto 0);
 
 -- END USER TEST BENCH DECLARATIONS
    
@@ -153,6 +167,192 @@ uut_process: process
    begin
 
    -- Your test bench code
+
+
+   testName := "14.14.1%.%        ";
+   
+      
+   --   Test the units position
+   
+   for i in 0 to 31 loop
+      testValue <= std_logic_vector(to_unsigned(i,testValue'length));
+      wait for 30 ns;
+
+      -- Have to reset, as bits will not "unset"
+      
+      MS_RESET_E_AR <= '0';
+      wait for 30ns;
+      MS_RESET_E_AR <= '1';
+      wait for 30 ns;
+      
+      -- Set the test value
+      PS_ADDR_CH_BUS_1 <= testValue;
+      PS_RO_E_AR <= '0';
+      PS_SET_E_AR <= '1';
+      PS_SET_AR_U_POS <= '1';      
+      wait for 30 ns;
+      PS_SET_AR_U_POS <= '0';
+      PS_SET_E_AR <= '0';
+            
+      PS_RO_E_AR <= '1';
+      wait for 30 ns;
+      -- Register under test should match
+      checkAddressReg(testName,"UA",MS_E_AR_GT_OUT_UP_BUS,NOT testValue);
+      -- Others should be unchanged
+      checkAddressReg(testName,"UB",MS_E_AR_GT_OUT_TP_BUS,NOT "00000");
+      checkAddressReg(testName,"UC",MS_E_AR_GT_OUT_HP_BUS,NOT "00000");
+      checkAddressReg(testName,"UD",MS_E_AR_GT_OUT_THP_BUS,NOT "00000");
+      checkAddressReg(testName,"UE",MS_E_AR_GT_OUT_TTHP_BUS,NOT "00000");      
+      
+      PS_RO_E_AR <= '0'; -- Should inhibit read out
+      wait for 30 ns;
+      checkAddressReg(testName,"UA",MS_E_AR_GT_OUT_UP_BUS,"11111");
+      checkAddressReg(testName,"UB",MS_E_AR_GT_OUT_TP_BUS,"11111");
+      checkAddressReg(testName,"UC",MS_E_AR_GT_OUT_HP_BUS,"11111");
+      checkAddressReg(testName,"UD",MS_E_AR_GT_OUT_THP_BUS,"11111");
+      checkAddressReg(testName,"UE",MS_E_AR_GT_OUT_TTHP_BUS,"11111");
+            
+   end loop;
+
+   --   Test the tens position
+   
+   for i in 0 to 31 loop
+      testValue <= std_logic_vector(to_unsigned(i,testValue'length));
+      wait for 30 ns;
+
+      -- Have to reset, as bits will not "unset"
+      
+      MS_RESET_E_AR <= '0';
+      wait for 30ns;
+      MS_RESET_E_AR <= '1';
+      wait for 30 ns;
+      
+      -- Set the test value
+      PS_ADDR_CH_BUS_1 <= testValue;
+      PS_RO_E_AR <= '0';
+      PS_SET_E_AR <= '1';
+      PS_SET_AR_T_POS <= '1';      
+      wait for 30 ns;
+      PS_SET_AR_T_POS <= '0';
+      PS_SET_E_AR <= '0';
+
+      PS_RO_E_AR <= '1';
+      wait for 30 ns;
+      -- Register under test should match
+      checkAddressReg(testName,"TA",MS_E_AR_GT_OUT_TP_BUS,NOT testValue);
+      -- Others should be unchanged
+      checkAddressReg(testName,"TB",MS_E_AR_GT_OUT_UP_BUS,NOT "00000");
+      checkAddressReg(testName,"TC",MS_E_AR_GT_OUT_HP_BUS,NOT "00000");
+      checkAddressReg(testName,"TD",MS_E_AR_GT_OUT_THP_BUS,NOT "00000");
+      checkAddressReg(testName,"TE",MS_E_AR_GT_OUT_TTHP_BUS,NOT "00000");
+      PS_RO_E_AR <= '0';      
+            
+   end loop;
+
+   --   Test the Hundreds position
+   
+   for i in 0 to 31 loop
+      testValue <= std_logic_vector(to_unsigned(i,testValue'length));
+      wait for 30 ns;
+
+      -- Have to reset, as bits will not "unset"
+      
+      MS_RESET_E_AR <= '0';
+      wait for 30ns;
+      MS_RESET_E_AR <= '1';
+      wait for 30 ns;
+      
+      -- Set the test value
+      PS_ADDR_CH_BUS_1 <= testValue;
+      PS_RO_E_AR <= '0';
+      PS_SET_E_AR <= '1';
+      PS_SET_AR_H_POS <= '1';      
+      wait for 30 ns;
+      PS_SET_AR_H_POS <= '0';
+      PS_SET_E_AR <= '0';
+
+      PS_RO_E_AR <= '1';
+      wait for 30 ns;
+      -- Register under test should match
+      checkAddressReg(testName,"HA",MS_E_AR_GT_OUT_HP_BUS,NOT testValue);
+      -- Others should be unchanged
+      checkAddressReg(testName,"HB",MS_E_AR_GT_OUT_UP_BUS,NOT "00000");
+      checkAddressReg(testName,"HC",MS_E_AR_GT_OUT_TP_BUS,NOT "00000");
+      checkAddressReg(testName,"HD",MS_E_AR_GT_OUT_THP_BUS,NOT "00000");
+      checkAddressReg(testName,"HE",MS_E_AR_GT_OUT_TTHP_BUS,NOT "00000");
+      PS_RO_E_AR <= '0';      
+            
+   end loop;
+
+   --   Test the Thousands position
+   
+   for i in 0 to 31 loop
+      testValue <= std_logic_vector(to_unsigned(i,testValue'length));
+      wait for 30 ns;
+
+      -- Have to reset, as bits will not "unset"
+      
+      MS_RESET_E_AR <= '0';
+      wait for 30ns;
+      MS_RESET_E_AR <= '1';
+      wait for 30 ns;
+      
+      -- Set the test value
+      PS_ADDR_CH_BUS_1 <= testValue;
+      PS_RO_E_AR <= '0';
+      PS_SET_E_AR <= '1';
+      PS_SET_AR_TH_POS <= '1';      
+      wait for 30 ns;
+      PS_SET_AR_TH_POS <= '0';
+      PS_SET_E_AR <= '0';
+
+      PS_RO_E_AR <= '1';
+      wait for 30 ns;
+      -- Register under test should match
+      checkAddressReg(testName,"THA",MS_E_AR_GT_OUT_THP_BUS,NOT testValue);
+      -- Others should be unchanged
+      checkAddressReg(testName,"THB",MS_E_AR_GT_OUT_UP_BUS,NOT "00000");
+      checkAddressReg(testName,"THC",MS_E_AR_GT_OUT_TP_BUS,NOT "00000");
+      checkAddressReg(testName,"THD",MS_E_AR_GT_OUT_HP_BUS,NOT "00000");
+      checkAddressReg(testName,"THE",MS_E_AR_GT_OUT_TTHP_BUS,NOT "00000");
+      PS_RO_E_AR <= '0';      
+            
+   end loop;
+
+   --   Test the Ten Thousands position
+   
+   for i in 0 to 31 loop
+      testValue <= std_logic_vector(to_unsigned(i,testValue'length));
+      wait for 30 ns;
+
+      -- Have to reset, as bits will not "unset"
+      
+      MS_RESET_E_AR <= '0';
+      wait for 30ns;
+      MS_RESET_E_AR <= '1';
+      wait for 30 ns;
+      
+      -- Set the test value
+      PS_ADDR_CH_BUS_1 <= testValue;
+      PS_RO_E_AR <= '0';
+      PS_SET_E_AR <= '1';
+      PS_SET_AR_TTH_POS <= '1';      
+      wait for 30 ns;
+      PS_SET_AR_TTH_POS <= '0';
+      PS_SET_E_AR <= '0';
+
+      PS_RO_E_AR <= '1';
+      wait for 30 ns;
+      -- Register under test should match
+      checkAddressReg(testName,"TTHA",MS_E_AR_GT_OUT_TTHP_BUS,NOT testValue);
+      -- Others should be unchanged
+      checkAddressReg(testName,"TTHB",MS_E_AR_GT_OUT_UP_BUS,NOT "00000");
+      checkAddressReg(testName,"TTHC",MS_E_AR_GT_OUT_TP_BUS,NOT "00000");
+      checkAddressReg(testName,"TTHD",MS_E_AR_GT_OUT_HP_BUS,NOT "00000");
+      checkAddressReg(testName,"TTHE",MS_E_AR_GT_OUT_THP_BUS,NOT "00000");
+      PS_RO_E_AR <= '0';      
+            
+   end loop;
 
    wait;
    end process;
