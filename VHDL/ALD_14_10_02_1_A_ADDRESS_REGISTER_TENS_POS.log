@@ -1,0 +1,96 @@
+Generating HDL for page 14.10.02.1 A ADDRESS REGISTER TENS POS at 8/18/2020 11:13:22 AM
+Found combinatorial loop (need D FF) at output of gate at 3A
+Found combinatorial loop (need D FF) at output of gate at 2A
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 2C
+Found combinatorial loop (need D FF) at output of gate at 3E
+Found combinatorial loop (need D FF) at output of gate at 2E
+Found combinatorial loop (need D FF) at output of gate at 3G
+Found combinatorial loop (need D FF) at output of gate at 2G
+Found combinatorial loop (need D FF) at output of gate at 3I
+Found combinatorial loop (need D FF) at output of gate at 2I
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_ADDR_CH_0_B_1,PS_SET_AR_T_POS,PS_SET_A_AR
+	and logic function of NAND
+Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_NoPin_Latch
+	and inputs of MS_RESET_A_AR,OUT_2A_NoPin
+	and logic function of NAND
+Generating Statement for block at 2A with *latched* output pin(s) of OUT_2A_NoPin_Latch, OUT_2A_NoPin_Latch
+	and inputs of OUT_5A_NoPin,OUT_3A_NoPin
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_9
+	and inputs of OUT_2A_NoPin,PS_RO_A_AR
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_ADDR_CH_1_B_1,PS_SET_AR_T_POS,PS_SET_A_AR
+	and logic function of NAND
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_NoPin_Latch
+	and inputs of MS_RESET_A_AR,OUT_2C_NoPin
+	and logic function of NAND
+Generating Statement for block at 2C with *latched* output pin(s) of OUT_2C_NoPin_Latch, OUT_2C_NoPin_Latch
+	and inputs of OUT_5C_NoPin,OUT_3C_NoPin
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_4
+	and inputs of OUT_2C_NoPin,PS_RO_A_AR
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of PS_ADDR_CH_2_B_1,PS_SET_AR_T_POS,PS_SET_A_AR
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_NoPin_Latch
+	and inputs of MS_RESET_A_AR,OUT_2E_NoPin
+	and logic function of NAND
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_NoPin_Latch, OUT_2E_NoPin_Latch
+	and inputs of OUT_5E_NoPin,OUT_3E_NoPin
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_9
+	and inputs of OUT_2E_NoPin,PS_RO_A_AR
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_NoPin
+	and inputs of PS_ADDR_CH_4_B_1,PS_SET_AR_T_POS,PS_SET_A_AR
+	and logic function of NAND
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_NoPin_Latch
+	and inputs of MS_RESET_A_AR,OUT_2G_NoPin
+	and logic function of NAND
+Generating Statement for block at 2G with *latched* output pin(s) of OUT_2G_NoPin_Latch, OUT_2G_NoPin_Latch
+	and inputs of OUT_5G_NoPin,OUT_3G_NoPin
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_4
+	and inputs of OUT_2G_NoPin,PS_RO_A_AR
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_NoPin
+	and inputs of PS_ADDR_CH_8_B_1,PS_SET_AR_T_POS,PS_SET_A_AR
+	and logic function of NAND
+Generating Statement for block at 3I with *latched* output pin(s) of OUT_3I_NoPin_Latch
+	and inputs of MS_RESET_A_AR,OUT_2I_NoPin
+	and logic function of NAND
+Generating Statement for block at 2I with *latched* output pin(s) of OUT_2I_NoPin_Latch, OUT_2I_NoPin_Latch
+	and inputs of OUT_5I_NoPin,OUT_3I_NoPin
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_9
+	and inputs of OUT_2I_NoPin,PS_RO_A_AR
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_A_AR_GT_OUT_TP0B
+	from gate output OUT_1A_9
+Generating output sheet edge signal assignment to 
+	signal MS_A_AR_GT_OUT_TP1B
+	from gate output OUT_1C_4
+Generating output sheet edge signal assignment to 
+	signal MS_A_AR_GT_OUT_TP2B
+	from gate output OUT_1E_9
+Generating output sheet edge signal assignment to 
+	signal MS_A_AR_GT_OUT_TP4B
+	from gate output OUT_1G_4
+Generating output sheet edge signal assignment to 
+	signal MS_A_AR_GT_OUT_TP8B
+	from gate output OUT_1I_9
+Generating D Flip Flop for block at 3A
+Generating D Flip Flop for block at 2A
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 2C
+Generating D Flip Flop for block at 3E
+Generating D Flip Flop for block at 2E
+Generating D Flip Flop for block at 3G
+Generating D Flip Flop for block at 2G
+Generating D Flip Flop for block at 3I
+Generating D Flip Flop for block at 2I
