@@ -1,0 +1,37 @@
+Generating HDL for page 14.15.04.1 AR BUS TENS POS 0 AND 1 BITS at 8/19/2020 9:19:42 AM
+Generating Statement for block at 3A with output pin(s) of OUT_3A_A
+	and inputs of MS_A_AR_GT_OUT_TP0B,MS_C_AR_GT_OUT_TP0B,MS_I_AR_GT_OUT_TP0B
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A
+	and inputs of MS_B_AR_GT_OUT_TP0B,MS_ADDR_GEN_T_POS_2_DIGIT,MS_E_AR_GT_OUT_TP0B
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A
+	and inputs of MS_D_AR_GT_OUT_TP0B,MS_ADDR_GEN_TP_08_BIT,MS_ADDR_GEN_T_POS_4_DIGIT
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of MS_F_AR_GT_OUT_TP0B
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of MS_A_AR_GT_OUT_TP1B,MS_C_AR_GT_OUT_TP1B,MS_I_AR_GT_OUT_TP1B
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of MS_B_AR_GT_OUT_TP1B,MS_ADDR_GEN_T_POS_3_DIGIT,MS_E_AR_GT_OUT_TP1B
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D
+	and inputs of MS_D_AR_GT_OUT_TP1B,MS_ADDR_GEN_TP_18_BIT,MS_ADDR_GEN_T_POS_5_DIGIT
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_A
+	and inputs of MS_F_AR_GT_OUT_TP1B
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_3A_A,OUT_3B_A,OUT_3C_A,OUT_3D_D
+	and logic function of OR
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_3F_D,OUT_3G_D,OUT_3H_D,OUT_3I_A
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_AR_BUS_TP0B
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal PS_AR_BUS_TP1B
+	from gate output OUT_DOT_1F

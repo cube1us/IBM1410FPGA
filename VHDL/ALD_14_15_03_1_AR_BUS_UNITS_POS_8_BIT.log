@@ -1,0 +1,19 @@
+Generating HDL for page 14.15.03.1 AR BUS UNITS POS 8 BIT at 8/19/2020 9:19:39 AM
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of MS_A_AR_GT_OUT_UP8B,MS_C_AR_GT_OUT_UP8B,MS_I_AR_GT_OUT_UP8B
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of MS_B_AR_GT_OUT_UP8B,MS_ADDR_GEN_U_POS_0_DIGIT,MS_ADDR_GEN_UP_48_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of MS_D_AR_GT_OUT_UP8B,MS_ADDR_GEN_UP_18_BIT,MS_ADDR_GEN_UP_08_BIT
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of MS_E_AR_GT_OUT_UP8B,MS_F_AR_GT_OUT_UP8B
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_3C_D,OUT_3D_D,OUT_3E_D,OUT_3F_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_AR_BUS_UP8B
+	from gate output OUT_DOT_1C

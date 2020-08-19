@@ -1,0 +1,31 @@
+Generating HDL for page 14.15.11.1 AR BUS THOUSANDS POS 4 AND 8 BITS at 8/19/2020 9:19:55 AM
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of MS_A_AR_GT_OUT_THP4B,MS_C_AR_GT_OUT_THP4B,MS_I_AR_GT_OUT_THP4B
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of MS_D_AR_GT_OUT_THP4B,MS_F_AR_GT_OUT_THP4B,MS_B_AR_GT_OUT_THP4B
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_A
+	and inputs of MS_E_AR_GT_OUT_THP4B
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_A
+	and inputs of MS_A_AR_GT_OUT_THP8B,MS_C_AR_GT_OUT_THP8B,MS_I_AR_GT_OUT_THP8B
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_A
+	and inputs of MS_B_AR_GT_OUT_THP8B,MS_E_AR_GT_OUT_THP8B,MS_F_AR_GT_OUT_THP8B
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_A
+	and inputs of MS_D_AR_GT_OUT_THP8B,MS_RO_INDEX_AR,MS_RO_FIXED_ADDR
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_3C_D,OUT_3D_A,OUT_3B_D
+	and logic function of OR
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_3F_A,OUT_3G_A,OUT_3H_A
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_AR_BUS_THP4B
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_AR_BUS_THP8B
+	from gate output OUT_DOT_1F

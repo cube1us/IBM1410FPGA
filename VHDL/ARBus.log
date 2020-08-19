@@ -1,0 +1,493 @@
+Generating HDL for group named ARBusat 8/19/2020 9:21:01 AM containing pages: 
+	14.15.01.1, 14.15.02.1, 14.15.03.1, 14.15.04.1, 14.15.05.1
+	14.15.06.1, 14.15.07.1, 14.15.08.1, 14.15.09.1, 14.15.10.1
+	14.15.11.1, 14.15.12.1, 14.15.13.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ARBus_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 13 pages...
+Found 24 signals on page 14.15.01.1
+Found 23 signals on page 14.15.02.1
+Found 12 signals on page 14.15.03.1
+Found 22 signals on page 14.15.04.1
+Found 23 signals on page 14.15.05.1
+Found 12 signals on page 14.15.06.1
+Found 18 signals on page 14.15.07.1
+Found 19 signals on page 14.15.08.1
+Found 10 signals on page 14.15.09.1
+Found 26 signals on page 14.15.10.1
+Found 18 signals on page 14.15.11.1
+Found 26 signals on page 14.15.12.1
+Found 18 signals on page 14.15.13.1
+Found 198 unique input signals and 25 unique output signals, (223 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S A AR GT OUT UP0B originates outside the group.
+INFO:  Signal -S B AR GT OUT UP0B originates outside the group.
+INFO:  Signal -S B AR GT OUT UP1B originates outside the group.
+INFO:  Signal -S C AR GT OUT UP0B originates outside the group.
+INFO:  Signal -S C AR GT OUT UP1B originates outside the group.
+INFO:  Signal -S D AR GT OUT UP0B originates outside the group.
+INFO:  Signal -S D AR GT OUT UP1B originates outside the group.
+INFO:  Signal -S I AR GT OUT UP0B originates outside the group.
+INFO:  Signal -S I AR GT OUT UP1B originates outside the group.
+INFO:  Signal -S E AR GT OUT UP0B originates outside the group.
+INFO:  Signal -S E AR GT OUT UP1B originates outside the group.
+INFO:  Signal -S A AR GT OUT UP1B originates outside the group.
+INFO:  Signal -S F AR GT OUT UP0B originates outside the group.
+INFO:  Signal -S F AR GT OUT UP1B originates outside the group.
+INFO:  Signal -S ADDR GEN UP 04 BIT originates outside the group.
+INFO:  Signal -S ADDR GEN UP 08 BIT originates outside the group.
+INFO:  Signal -S ADDR GEN UP 02 BIT originates outside the group.
+INFO:  Signal -S RO FIXED ADDR originates outside the group.
+INFO:  Signal -S ADDR GEN UP 18 BIT originates outside the group.
+INFO:  Signal -S ADDR GEN UP 12 BIT originates outside the group.
+INFO:  Signal -S ADDR GEN U POS 5 DIGIT originates outside the group.
+INFO:  Signal -S ADDR GEN UP 01 BIT originates outside the group.
+INFO:  Signal -S B AR GT OUT UP2B originates outside the group.
+INFO:  Signal -S B AR GT OUT UP4B originates outside the group.
+INFO:  Signal -S C AR GT OUT UP2B originates outside the group.
+INFO:  Signal -S C AR GT OUT UP4B originates outside the group.
+INFO:  Signal -S D AR GT OUT UP2B originates outside the group.
+INFO:  Signal -S D AR GT OUT UP4B originates outside the group.
+INFO:  Signal -S I AR GT OUT UP2B originates outside the group.
+INFO:  Signal -S I AR GT OUT UP4B originates outside the group.
+INFO:  Signal -S E AR GT OUT UP2B originates outside the group.
+INFO:  Signal -S E AR GT OUT UP4B originates outside the group.
+INFO:  Signal -S A AR GT OUT UP2B originates outside the group.
+INFO:  Signal -S A AR GT OUT UP4B originates outside the group.
+INFO:  Signal -S F AR GT OUT UP2B originates outside the group.
+INFO:  Signal -S F AR GT OUT UP4B originates outside the group.
+INFO:  Signal -S ADDR GEN U POS 0 DIGIT originates outside the group.
+INFO:  Signal -S ADDR GEN UP 24 BIT originates outside the group.
+INFO:  Signal -S ADDR GEN UP 48 BIT originates outside the group.
+INFO:  Signal -S B AR GT OUT UP8B originates outside the group.
+INFO:  Signal -S C AR GT OUT UP8B originates outside the group.
+INFO:  Signal -S D AR GT OUT UP8B originates outside the group.
+INFO:  Signal -S I AR GT OUT UP8B originates outside the group.
+INFO:  Signal -S E AR GT OUT UP8B originates outside the group.
+INFO:  Signal -S A AR GT OUT UP8B originates outside the group.
+INFO:  Signal -S F AR GT OUT UP8B originates outside the group.
+INFO:  Signal -S A AR GT OUT TP0B originates outside the group.
+INFO:  Signal -S A AR GT OUT TP1B originates outside the group.
+INFO:  Signal -S B AR GT OUT TP0B originates outside the group.
+INFO:  Signal -S B AR GT OUT TP1B originates outside the group.
+INFO:  Signal -S C AR GT OUT TP0B originates outside the group.
+INFO:  Signal -S C AR GT OUT TP1B originates outside the group.
+INFO:  Signal -S D AR GT OUT TP0B originates outside the group.
+INFO:  Signal -S D AR GT OUT TP1B originates outside the group.
+INFO:  Signal -S I AR GT OUT TP0B originates outside the group.
+INFO:  Signal -S I AR GT OUT TP1B originates outside the group.
+INFO:  Signal -S E AR GT OUT TP0B originates outside the group.
+INFO:  Signal -S E AR GT OUT TP1B originates outside the group.
+INFO:  Signal -S F AR GT OUT TP0B originates outside the group.
+INFO:  Signal -S F AR GT OUT TP1B originates outside the group.
+INFO:  Signal -S ADDR GEN T POS 2 DIGIT originates outside the group.
+INFO:  Signal -S ADDR GEN TP 08 BIT originates outside the group.
+INFO:  Signal -S ADDR GEN T POS 4 DIGIT originates outside the group.
+INFO:  Signal -S ADDR GEN T POS 3 DIGIT originates outside the group.
+INFO:  Signal -S ADDR GEN TP 18 BIT originates outside the group.
+INFO:  Signal -S ADDR GEN T POS 5 DIGIT originates outside the group.
+INFO:  Signal -S A AR GT OUT TP2B originates outside the group.
+INFO:  Signal -S A AR GT OUT TP4B originates outside the group.
+INFO:  Signal -S B AR GT OUT TP2B originates outside the group.
+INFO:  Signal -S B AR GT OUT TP4B originates outside the group.
+INFO:  Signal -S C AR GT OUT TP2B originates outside the group.
+INFO:  Signal -S C AR GT OUT TP4B originates outside the group.
+INFO:  Signal -S D AR GT OUT TP2B originates outside the group.
+INFO:  Signal -S D AR GT OUT TP4B originates outside the group.
+INFO:  Signal -S I AR GT OUT TP2B originates outside the group.
+INFO:  Signal -S I AR GT OUT TP4B originates outside the group.
+INFO:  Signal -S E AR GT OUT TP2B originates outside the group.
+INFO:  Signal -S E AR GT OUT TP4B originates outside the group.
+INFO:  Signal -S F AR GT OUT TP2B originates outside the group.
+INFO:  Signal -S F AR GT OUT TP4B originates outside the group.
+INFO:  Signal -S ADDR GEN TP 24 BIT originates outside the group.
+INFO:  Signal -S ADDR GEN TP 48 BIT originates outside the group.
+INFO:  Signal -S A AR GT OUT TP8B originates outside the group.
+INFO:  Signal -S B AR GT OUT TP8B originates outside the group.
+INFO:  Signal -S C AR GT OUT TP8B originates outside the group.
+INFO:  Signal -S D AR GT OUT TP8B originates outside the group.
+INFO:  Signal -S I AR GT OUT TP8B originates outside the group.
+INFO:  Signal -S E AR GT OUT TP8B originates outside the group.
+INFO:  Signal -S F AR GT OUT TP8B originates outside the group.
+INFO:  Signal -S A AR GT OUT HP0B originates outside the group.
+INFO:  Signal -S A AR GT OUT HP1B originates outside the group.
+INFO:  Signal -S B AR GT OUT HP0B originates outside the group.
+INFO:  Signal -S B AR GT OUT HP1B originates outside the group.
+INFO:  Signal -S C AR GT OUT HP0B originates outside the group.
+INFO:  Signal -S C AR GT OUT HP1B originates outside the group.
+INFO:  Signal -S D AR GT OUT HP0B originates outside the group.
+INFO:  Signal -S D AR GT OUT HP1B originates outside the group.
+INFO:  Signal -S I AR GT OUT HP0B originates outside the group.
+INFO:  Signal -S I AR GT OUT HP1B originates outside the group.
+INFO:  Signal -S E AR GT OUT HP0B originates outside the group.
+INFO:  Signal -S E AR GT OUT HP1B originates outside the group.
+INFO:  Signal -S F AR GT OUT HP0B originates outside the group.
+INFO:  Signal -S F AR GT OUT HP1B originates outside the group.
+INFO:  Signal -S RO 00201 INDEX ADDR originates outside the group.
+INFO:  Signal -S RO 00101 INDEX ADDR originates outside the group.
+INFO:  Signal -S A AR GT OUT HP2B originates outside the group.
+INFO:  Signal -S A AR GT OUT HP4B originates outside the group.
+INFO:  Signal -S B AR GT OUT HP2B originates outside the group.
+INFO:  Signal -S B AR GT OUT HP4B originates outside the group.
+INFO:  Signal -S C AR GT OUT HP2B originates outside the group.
+INFO:  Signal -S C AR GT OUT HP4B originates outside the group.
+INFO:  Signal -S D AR GT OUT HP2B originates outside the group.
+INFO:  Signal -S D AR GT OUT HP4B originates outside the group.
+INFO:  Signal -S I AR GT OUT HP2B originates outside the group.
+INFO:  Signal -S I AR GT OUT HP4B originates outside the group.
+INFO:  Signal -S E AR GT OUT HP2B originates outside the group.
+INFO:  Signal -S E AR GT OUT HP4B originates outside the group.
+INFO:  Signal -S F AR GT OUT HP2B originates outside the group.
+INFO:  Signal -S F AR GT OUT HP4B originates outside the group.
+INFO:  Signal -S RO INDEX AR originates outside the group.
+INFO:  Signal -S RO 00001 INDEX ADDR originates outside the group.
+INFO:  Signal -S A AR GT OUT HP8B originates outside the group.
+INFO:  Signal -S B AR GT OUT HP8B originates outside the group.
+INFO:  Signal -S C AR GT OUT HP8B originates outside the group.
+INFO:  Signal -S D AR GT OUT HP8B originates outside the group.
+INFO:  Signal -S I AR GT OUT HP8B originates outside the group.
+INFO:  Signal -S E AR GT OUT HP8B originates outside the group.
+INFO:  Signal -S F AR GT OUT HP8B originates outside the group.
+INFO:  Signal -S A AR GT OUT THP0B originates outside the group.
+INFO:  Signal -S A AR GT OUT THP1B originates outside the group.
+INFO:  Signal -S A AR GT OUT THP2B originates outside the group.
+INFO:  Signal -S B AR GT OUT THP0B originates outside the group.
+INFO:  Signal -S B AR GT OUT THP1B originates outside the group.
+INFO:  Signal -S B AR GT OUT THP2B originates outside the group.
+INFO:  Signal -S C AR GT OUT THP0B originates outside the group.
+INFO:  Signal -S C AR GT OUT THP1B originates outside the group.
+INFO:  Signal -S C AR GT OUT THP2B originates outside the group.
+INFO:  Signal -S D AR GT OUT THP0B originates outside the group.
+INFO:  Signal -S D AR GT OUT THP1B originates outside the group.
+INFO:  Signal -S D AR GT OUT THP2B originates outside the group.
+INFO:  Signal -S I AR GT OUT THP0B originates outside the group.
+INFO:  Signal -S I AR GT OUT THP1B originates outside the group.
+INFO:  Signal -S I AR GT OUT THP2B originates outside the group.
+INFO:  Signal -S E AR GT OUT THP0B originates outside the group.
+INFO:  Signal -S E AR GT OUT THP1B originates outside the group.
+INFO:  Signal -S E AR GT OUT THP2B originates outside the group.
+INFO:  Signal -S F AR GT OUT THP0B originates outside the group.
+INFO:  Signal -S F AR GT OUT THP1B originates outside the group.
+INFO:  Signal -S F AR GT OUT THP2B originates outside the group.
+INFO:  Signal -S A AR GT OUT THP4B originates outside the group.
+INFO:  Signal -S A AR GT OUT THP8B originates outside the group.
+INFO:  Signal -S B AR GT OUT THP4B originates outside the group.
+INFO:  Signal -S B AR GT OUT THP8B originates outside the group.
+INFO:  Signal -S C AR GT OUT THP4B originates outside the group.
+INFO:  Signal -S C AR GT OUT THP8B originates outside the group.
+INFO:  Signal -S D AR GT OUT THP4B originates outside the group.
+INFO:  Signal -S D AR GT OUT THP8B originates outside the group.
+INFO:  Signal -S I AR GT OUT THP4B originates outside the group.
+INFO:  Signal -S I AR GT OUT THP8B originates outside the group.
+INFO:  Signal -S E AR GT OUT THP4B originates outside the group.
+INFO:  Signal -S E AR GT OUT THP8B originates outside the group.
+INFO:  Signal -S F AR GT OUT THP4B originates outside the group.
+INFO:  Signal -S F AR GT OUT THP8B originates outside the group.
+INFO:  Signal -S A AR GT OUT TTHP0B originates outside the group.
+INFO:  Signal -S A AR GT OUT TTHP1B originates outside the group.
+INFO:  Signal -S A AR GT OUT TTHP2B originates outside the group.
+INFO:  Signal -S B AR GT OUT TTHP0B originates outside the group.
+INFO:  Signal -S B AR GT OUT TTHP1B originates outside the group.
+INFO:  Signal -S B AR GT OUT TTHP2B originates outside the group.
+INFO:  Signal -S C AR GT OUT TTHP0B originates outside the group.
+INFO:  Signal -S C AR GT OUT TTHP1B originates outside the group.
+INFO:  Signal -S C AR GT OUT TTHP2B originates outside the group.
+INFO:  Signal -S D AR GT OUT TTHP0B originates outside the group.
+INFO:  Signal -S D AR GT OUT TTHP1B originates outside the group.
+INFO:  Signal -S D AR GT OUT TTHP2B originates outside the group.
+INFO:  Signal -S I AR GT OUT TTHP0B originates outside the group.
+INFO:  Signal -S I AR GT OUT TTHP1B originates outside the group.
+INFO:  Signal -S I AR GT OUT TTHP2B originates outside the group.
+INFO:  Signal -S E AR GT OUT TTHP0B originates outside the group.
+INFO:  Signal -S E AR GT OUT TTHP1B originates outside the group.
+INFO:  Signal -S E AR GT OUT TTHP2B originates outside the group.
+INFO:  Signal -S F AR GT OUT TTHP0B originates outside the group.
+INFO:  Signal -S F AR GT OUT TTHP1B originates outside the group.
+INFO:  Signal -S F AR GT OUT TTHP2B originates outside the group.
+INFO:  Signal -S A AR GT OUT TTHP4B originates outside the group.
+INFO:  Signal -S A AR GT OUT TTHP8B originates outside the group.
+INFO:  Signal -S B AR GT OUT TTHP4B originates outside the group.
+INFO:  Signal -S B AR GT OUT TTHP8B originates outside the group.
+INFO:  Signal -S C AR GT OUT TTHP4B originates outside the group.
+INFO:  Signal -S C AR GT OUT TTHP8B originates outside the group.
+INFO:  Signal -S D AR GT OUT TTHP4B originates outside the group.
+INFO:  Signal -S D AR GT OUT TTHP8B originates outside the group.
+INFO:  Signal -S I AR GT OUT TTHP8B originates outside the group.
+INFO:  Signal -S I AR GT OUT TTHP4B originates outside the group.
+INFO:  Signal -S E AR GT OUT TTHP4B originates outside the group.
+INFO:  Signal -S E AR GT OUT TTHP8B originates outside the group.
+INFO:  Signal -S F AR GT OUT TTHP4B originates outside the group.
+INFO:  Signal -S F AR GT OUT TTHP8B originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S AR BUS UP0B is used outside the group.
+INFO:  Signal +S AR BUS UP1B is used outside the group.
+INFO:  Signal +S AR BUS UP2B is used outside the group.
+INFO:  Signal +S AR BUS UP4B is used outside the group.
+INFO:  Signal +S AR BUS UP8B is used outside the group.
+INFO:  Signal +S AR BUS TP0B is used outside the group.
+INFO:  Signal +S AR BUS TP1B is used outside the group.
+INFO:  Signal +S AR BUS TP2B is used outside the group.
+INFO:  Signal +S AR BUS TP4B is used outside the group.
+INFO:  Signal +S AR BUS TP8B is used outside the group.
+INFO:  Signal +S AR BUS HP0B is used outside the group.
+INFO:  Signal +S AR BUS HP1B is used outside the group.
+INFO:  Signal +S AR BUS HP2B is used outside the group.
+INFO:  Signal +S AR BUS HP4B is used outside the group.
+INFO:  Signal +S AR BUS HP8B is used outside the group.
+INFO:  Signal +S AR BUS THP0B is used outside the group.
+INFO:  Signal +S AR BUS THP1B is used outside the group.
+INFO:  Signal +S AR BUS THP2B is used outside the group.
+INFO:  Signal +S AR BUS THP4B is used outside the group.
+INFO:  Signal +S AR BUS THP8B is used outside the group.
+INFO:  Signal +S AR BUS TTHP0B is used outside the group.
+INFO:  Signal +S AR BUS TTHP1B is used outside the group.
+INFO:  Signal +S AR BUS TTHP2B is used outside the group.
+INFO:  Signal +S AR BUS TTHP4B is used outside the group.
+INFO:  Signal +S AR BUS TTHP8B is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal -S A AR GT OUT UP0B replaced by Bus signal -S A AR GT OUT UP BUS
+Input Signal -S B AR GT OUT UP0B replaced by Bus signal -S B AR GT OUT UP BUS
+Input Signal -S B AR GT OUT UP1B replaced by Bus signal -S B AR GT OUT UP BUS
+Input Signal -S C AR GT OUT UP0B replaced by Bus signal -S C AR GT OUT UP BUS
+Input Signal -S C AR GT OUT UP1B replaced by Bus signal -S C AR GT OUT UP BUS
+Input Signal -S D AR GT OUT UP0B replaced by Bus signal -S D AR GT OUT UP BUS
+Input Signal -S D AR GT OUT UP1B replaced by Bus signal -S D AR GT OUT UP BUS
+Input Signal -S I AR GT OUT UP0B replaced by Bus signal -S I AR GT OUT UP BUS
+Input Signal -S I AR GT OUT UP1B replaced by Bus signal -S I AR GT OUT UP BUS
+Input Signal -S E AR GT OUT UP0B replaced by Bus signal -S E AR GT OUT UP BUS
+Input Signal -S E AR GT OUT UP1B replaced by Bus signal -S E AR GT OUT UP BUS
+Input Signal -S A AR GT OUT UP1B replaced by Bus signal -S A AR GT OUT UP BUS
+Input Signal -S F AR GT OUT UP0B replaced by Bus signal -S F AR GT OUT UP BUS
+Input Signal -S F AR GT OUT UP1B replaced by Bus signal -S F AR GT OUT UP BUS
+Input Signal -S B AR GT OUT UP2B replaced by Bus signal -S B AR GT OUT UP BUS
+Input Signal -S B AR GT OUT UP4B replaced by Bus signal -S B AR GT OUT UP BUS
+Input Signal -S C AR GT OUT UP2B replaced by Bus signal -S C AR GT OUT UP BUS
+Input Signal -S C AR GT OUT UP4B replaced by Bus signal -S C AR GT OUT UP BUS
+Input Signal -S D AR GT OUT UP2B replaced by Bus signal -S D AR GT OUT UP BUS
+Input Signal -S D AR GT OUT UP4B replaced by Bus signal -S D AR GT OUT UP BUS
+Input Signal -S I AR GT OUT UP2B replaced by Bus signal -S I AR GT OUT UP BUS
+Input Signal -S I AR GT OUT UP4B replaced by Bus signal -S I AR GT OUT UP BUS
+Input Signal -S E AR GT OUT UP2B replaced by Bus signal -S E AR GT OUT UP BUS
+Input Signal -S E AR GT OUT UP4B replaced by Bus signal -S E AR GT OUT UP BUS
+Input Signal -S A AR GT OUT UP2B replaced by Bus signal -S A AR GT OUT UP BUS
+Input Signal -S A AR GT OUT UP4B replaced by Bus signal -S A AR GT OUT UP BUS
+Input Signal -S F AR GT OUT UP2B replaced by Bus signal -S F AR GT OUT UP BUS
+Input Signal -S F AR GT OUT UP4B replaced by Bus signal -S F AR GT OUT UP BUS
+Input Signal -S B AR GT OUT UP8B replaced by Bus signal -S B AR GT OUT UP BUS
+Input Signal -S C AR GT OUT UP8B replaced by Bus signal -S C AR GT OUT UP BUS
+Input Signal -S D AR GT OUT UP8B replaced by Bus signal -S D AR GT OUT UP BUS
+Input Signal -S I AR GT OUT UP8B replaced by Bus signal -S I AR GT OUT UP BUS
+Input Signal -S E AR GT OUT UP8B replaced by Bus signal -S E AR GT OUT UP BUS
+Input Signal -S A AR GT OUT UP8B replaced by Bus signal -S A AR GT OUT UP BUS
+Input Signal -S F AR GT OUT UP8B replaced by Bus signal -S F AR GT OUT UP BUS
+Input Signal -S A AR GT OUT TP0B replaced by Bus signal -S A AR GT OUT TP BUS
+Input Signal -S A AR GT OUT TP1B replaced by Bus signal -S A AR GT OUT TP BUS
+Input Signal -S B AR GT OUT TP0B replaced by Bus signal -S B AR GT OUT TP BUS
+Input Signal -S B AR GT OUT TP1B replaced by Bus signal -S B AR GT OUT TP BUS
+Input Signal -S C AR GT OUT TP0B replaced by Bus signal -S C AR GT OUT TP BUS
+Input Signal -S C AR GT OUT TP1B replaced by Bus signal -S C AR GT OUT TP BUS
+Input Signal -S D AR GT OUT TP0B replaced by Bus signal -S D AR GT OUT TP BUS
+Input Signal -S D AR GT OUT TP1B replaced by Bus signal -S D AR GT OUT TP BUS
+Input Signal -S I AR GT OUT TP0B replaced by Bus signal -S I AR GT OUT TP BUS
+Input Signal -S I AR GT OUT TP1B replaced by Bus signal -S I AR GT OUT TP BUS
+Input Signal -S E AR GT OUT TP0B replaced by Bus signal -S E AR GT OUT TP BUS
+Input Signal -S E AR GT OUT TP1B replaced by Bus signal -S E AR GT OUT TP BUS
+Input Signal -S F AR GT OUT TP0B replaced by Bus signal -S F AR GT OUT TP BUS
+Input Signal -S F AR GT OUT TP1B replaced by Bus signal -S F AR GT OUT TP BUS
+Input Signal -S A AR GT OUT TP2B replaced by Bus signal -S A AR GT OUT TP BUS
+Input Signal -S A AR GT OUT TP4B replaced by Bus signal -S A AR GT OUT TP BUS
+Input Signal -S B AR GT OUT TP2B replaced by Bus signal -S B AR GT OUT TP BUS
+Input Signal -S B AR GT OUT TP4B replaced by Bus signal -S B AR GT OUT TP BUS
+Input Signal -S C AR GT OUT TP2B replaced by Bus signal -S C AR GT OUT TP BUS
+Input Signal -S C AR GT OUT TP4B replaced by Bus signal -S C AR GT OUT TP BUS
+Input Signal -S D AR GT OUT TP2B replaced by Bus signal -S D AR GT OUT TP BUS
+Input Signal -S D AR GT OUT TP4B replaced by Bus signal -S D AR GT OUT TP BUS
+Input Signal -S I AR GT OUT TP2B replaced by Bus signal -S I AR GT OUT TP BUS
+Input Signal -S I AR GT OUT TP4B replaced by Bus signal -S I AR GT OUT TP BUS
+Input Signal -S E AR GT OUT TP2B replaced by Bus signal -S E AR GT OUT TP BUS
+Input Signal -S E AR GT OUT TP4B replaced by Bus signal -S E AR GT OUT TP BUS
+Input Signal -S F AR GT OUT TP2B replaced by Bus signal -S F AR GT OUT TP BUS
+Input Signal -S F AR GT OUT TP4B replaced by Bus signal -S F AR GT OUT TP BUS
+Input Signal -S A AR GT OUT TP8B replaced by Bus signal -S A AR GT OUT TP BUS
+Input Signal -S B AR GT OUT TP8B replaced by Bus signal -S B AR GT OUT TP BUS
+Input Signal -S C AR GT OUT TP8B replaced by Bus signal -S C AR GT OUT TP BUS
+Input Signal -S D AR GT OUT TP8B replaced by Bus signal -S D AR GT OUT TP BUS
+Input Signal -S I AR GT OUT TP8B replaced by Bus signal -S I AR GT OUT TP BUS
+Input Signal -S E AR GT OUT TP8B replaced by Bus signal -S E AR GT OUT TP BUS
+Input Signal -S F AR GT OUT TP8B replaced by Bus signal -S F AR GT OUT TP BUS
+Input Signal -S A AR GT OUT HP0B replaced by Bus signal -S A AR GT OUT HP BUS
+Input Signal -S A AR GT OUT HP1B replaced by Bus signal -S A AR GT OUT HP BUS
+Input Signal -S B AR GT OUT HP0B replaced by Bus signal -S B AR GT OUT HP BUS
+Input Signal -S B AR GT OUT HP1B replaced by Bus signal -S B AR GT OUT HP BUS
+Input Signal -S C AR GT OUT HP0B replaced by Bus signal -S C AR GT OUT HP BUS
+Input Signal -S C AR GT OUT HP1B replaced by Bus signal -S C AR GT OUT HP BUS
+Input Signal -S D AR GT OUT HP0B replaced by Bus signal -S D AR GT OUT HP BUS
+Input Signal -S D AR GT OUT HP1B replaced by Bus signal -S D AR GT OUT HP BUS
+Input Signal -S I AR GT OUT HP0B replaced by Bus signal -S I AR GT OUT HP BUS
+Input Signal -S I AR GT OUT HP1B replaced by Bus signal -S I AR GT OUT HP BUS
+Input Signal -S E AR GT OUT HP0B replaced by Bus signal -S E AR GT OUT HP BUS
+Input Signal -S E AR GT OUT HP1B replaced by Bus signal -S E AR GT OUT HP BUS
+Input Signal -S F AR GT OUT HP0B replaced by Bus signal -S F AR GT OUT HP BUS
+Input Signal -S F AR GT OUT HP1B replaced by Bus signal -S F AR GT OUT HP BUS
+Input Signal -S A AR GT OUT HP2B replaced by Bus signal -S A AR GT OUT HP BUS
+Input Signal -S A AR GT OUT HP4B replaced by Bus signal -S A AR GT OUT HP BUS
+Input Signal -S B AR GT OUT HP2B replaced by Bus signal -S B AR GT OUT HP BUS
+Input Signal -S B AR GT OUT HP4B replaced by Bus signal -S B AR GT OUT HP BUS
+Input Signal -S C AR GT OUT HP2B replaced by Bus signal -S C AR GT OUT HP BUS
+Input Signal -S C AR GT OUT HP4B replaced by Bus signal -S C AR GT OUT HP BUS
+Input Signal -S D AR GT OUT HP2B replaced by Bus signal -S D AR GT OUT HP BUS
+Input Signal -S D AR GT OUT HP4B replaced by Bus signal -S D AR GT OUT HP BUS
+Input Signal -S I AR GT OUT HP2B replaced by Bus signal -S I AR GT OUT HP BUS
+Input Signal -S I AR GT OUT HP4B replaced by Bus signal -S I AR GT OUT HP BUS
+Input Signal -S E AR GT OUT HP2B replaced by Bus signal -S E AR GT OUT HP BUS
+Input Signal -S E AR GT OUT HP4B replaced by Bus signal -S E AR GT OUT HP BUS
+Input Signal -S F AR GT OUT HP2B replaced by Bus signal -S F AR GT OUT HP BUS
+Input Signal -S F AR GT OUT HP4B replaced by Bus signal -S F AR GT OUT HP BUS
+Input Signal -S A AR GT OUT HP8B replaced by Bus signal -S A AR GT OUT HP BUS
+Input Signal -S B AR GT OUT HP8B replaced by Bus signal -S B AR GT OUT HP BUS
+Input Signal -S C AR GT OUT HP8B replaced by Bus signal -S C AR GT OUT HP BUS
+Input Signal -S D AR GT OUT HP8B replaced by Bus signal -S D AR GT OUT HP BUS
+Input Signal -S I AR GT OUT HP8B replaced by Bus signal -S I AR GT OUT HP BUS
+Input Signal -S E AR GT OUT HP8B replaced by Bus signal -S E AR GT OUT HP BUS
+Input Signal -S F AR GT OUT HP8B replaced by Bus signal -S F AR GT OUT HP BUS
+Input Signal -S A AR GT OUT THP0B replaced by Bus signal -S A AR GT OUT THP BUS
+Input Signal -S A AR GT OUT THP1B replaced by Bus signal -S A AR GT OUT THP BUS
+Input Signal -S A AR GT OUT THP2B replaced by Bus signal -S A AR GT OUT THP BUS
+Input Signal -S B AR GT OUT THP0B replaced by Bus signal -S B AR GT OUT THP BUS
+Input Signal -S B AR GT OUT THP1B replaced by Bus signal -S B AR GT OUT THP BUS
+Input Signal -S B AR GT OUT THP2B replaced by Bus signal -S B AR GT OUT THP BUS
+Input Signal -S C AR GT OUT THP0B replaced by Bus signal -S C AR GT OUT THP BUS
+Input Signal -S C AR GT OUT THP1B replaced by Bus signal -S C AR GT OUT THP BUS
+Input Signal -S C AR GT OUT THP2B replaced by Bus signal -S C AR GT OUT THP BUS
+Input Signal -S D AR GT OUT THP0B replaced by Bus signal -S D AR GT OUT THP BUS
+Input Signal -S D AR GT OUT THP1B replaced by Bus signal -S D AR GT OUT THP BUS
+Input Signal -S D AR GT OUT THP2B replaced by Bus signal -S D AR GT OUT THP BUS
+Input Signal -S I AR GT OUT THP0B replaced by Bus signal -S I AR GT OUT THP BUS
+Input Signal -S I AR GT OUT THP1B replaced by Bus signal -S I AR GT OUT THP BUS
+Input Signal -S I AR GT OUT THP2B replaced by Bus signal -S I AR GT OUT THP BUS
+Input Signal -S E AR GT OUT THP0B replaced by Bus signal -S E AR GT OUT THP BUS
+Input Signal -S E AR GT OUT THP1B replaced by Bus signal -S E AR GT OUT THP BUS
+Input Signal -S E AR GT OUT THP2B replaced by Bus signal -S E AR GT OUT THP BUS
+Input Signal -S F AR GT OUT THP0B replaced by Bus signal -S F AR GT OUT THP BUS
+Input Signal -S F AR GT OUT THP1B replaced by Bus signal -S F AR GT OUT THP BUS
+Input Signal -S F AR GT OUT THP2B replaced by Bus signal -S F AR GT OUT THP BUS
+Input Signal -S A AR GT OUT THP4B replaced by Bus signal -S A AR GT OUT THP BUS
+Input Signal -S A AR GT OUT THP8B replaced by Bus signal -S A AR GT OUT THP BUS
+Input Signal -S B AR GT OUT THP4B replaced by Bus signal -S B AR GT OUT THP BUS
+Input Signal -S B AR GT OUT THP8B replaced by Bus signal -S B AR GT OUT THP BUS
+Input Signal -S C AR GT OUT THP4B replaced by Bus signal -S C AR GT OUT THP BUS
+Input Signal -S C AR GT OUT THP8B replaced by Bus signal -S C AR GT OUT THP BUS
+Input Signal -S D AR GT OUT THP4B replaced by Bus signal -S D AR GT OUT THP BUS
+Input Signal -S D AR GT OUT THP8B replaced by Bus signal -S D AR GT OUT THP BUS
+Input Signal -S I AR GT OUT THP4B replaced by Bus signal -S I AR GT OUT THP BUS
+Input Signal -S I AR GT OUT THP8B replaced by Bus signal -S I AR GT OUT THP BUS
+Input Signal -S E AR GT OUT THP4B replaced by Bus signal -S E AR GT OUT THP BUS
+Input Signal -S E AR GT OUT THP8B replaced by Bus signal -S E AR GT OUT THP BUS
+Input Signal -S F AR GT OUT THP4B replaced by Bus signal -S F AR GT OUT THP BUS
+Input Signal -S F AR GT OUT THP8B replaced by Bus signal -S F AR GT OUT THP BUS
+Input Signal -S A AR GT OUT TTHP0B replaced by Bus signal -S A AR GT OUT TTHP BUS
+Input Signal -S A AR GT OUT TTHP1B replaced by Bus signal -S A AR GT OUT TTHP BUS
+Input Signal -S A AR GT OUT TTHP2B replaced by Bus signal -S A AR GT OUT TTHP BUS
+Input Signal -S B AR GT OUT TTHP0B replaced by Bus signal -S B AR GT OUT TTHP BUS
+Input Signal -S B AR GT OUT TTHP1B replaced by Bus signal -S B AR GT OUT TTHP BUS
+Input Signal -S B AR GT OUT TTHP2B replaced by Bus signal -S B AR GT OUT TTHP BUS
+Input Signal -S C AR GT OUT TTHP0B replaced by Bus signal -S C AR GT OUT TTHP BUS
+Input Signal -S C AR GT OUT TTHP1B replaced by Bus signal -S C AR GT OUT TTHP BUS
+Input Signal -S C AR GT OUT TTHP2B replaced by Bus signal -S C AR GT OUT TTHP BUS
+Input Signal -S D AR GT OUT TTHP0B replaced by Bus signal -S D AR GT OUT TTHP BUS
+Input Signal -S D AR GT OUT TTHP1B replaced by Bus signal -S D AR GT OUT TTHP BUS
+Input Signal -S D AR GT OUT TTHP2B replaced by Bus signal -S D AR GT OUT TTHP BUS
+Input Signal -S I AR GT OUT TTHP0B replaced by Bus signal -S I AR GT OUT TTHP BUS
+Input Signal -S I AR GT OUT TTHP1B replaced by Bus signal -S I AR GT OUT TTHP BUS
+Input Signal -S I AR GT OUT TTHP2B replaced by Bus signal -S I AR GT OUT TTHP BUS
+Input Signal -S E AR GT OUT TTHP0B replaced by Bus signal -S E AR GT OUT TTHP BUS
+Input Signal -S E AR GT OUT TTHP1B replaced by Bus signal -S E AR GT OUT TTHP BUS
+Input Signal -S E AR GT OUT TTHP2B replaced by Bus signal -S E AR GT OUT TTHP BUS
+Input Signal -S F AR GT OUT TTHP0B replaced by Bus signal -S F AR GT OUT TTHP BUS
+Input Signal -S F AR GT OUT TTHP1B replaced by Bus signal -S F AR GT OUT TTHP BUS
+Input Signal -S F AR GT OUT TTHP2B replaced by Bus signal -S F AR GT OUT TTHP BUS
+Input Signal -S A AR GT OUT TTHP4B replaced by Bus signal -S A AR GT OUT TTHP BUS
+Input Signal -S A AR GT OUT TTHP8B replaced by Bus signal -S A AR GT OUT TTHP BUS
+Input Signal -S B AR GT OUT TTHP4B replaced by Bus signal -S B AR GT OUT TTHP BUS
+Input Signal -S B AR GT OUT TTHP8B replaced by Bus signal -S B AR GT OUT TTHP BUS
+Input Signal -S C AR GT OUT TTHP4B replaced by Bus signal -S C AR GT OUT TTHP BUS
+Input Signal -S C AR GT OUT TTHP8B replaced by Bus signal -S C AR GT OUT TTHP BUS
+Input Signal -S D AR GT OUT TTHP4B replaced by Bus signal -S D AR GT OUT TTHP BUS
+Input Signal -S D AR GT OUT TTHP8B replaced by Bus signal -S D AR GT OUT TTHP BUS
+Input Signal -S I AR GT OUT TTHP8B replaced by Bus signal -S I AR GT OUT TTHP BUS
+Input Signal -S I AR GT OUT TTHP4B replaced by Bus signal -S I AR GT OUT TTHP BUS
+Input Signal -S E AR GT OUT TTHP4B replaced by Bus signal -S E AR GT OUT TTHP BUS
+Input Signal -S E AR GT OUT TTHP8B replaced by Bus signal -S E AR GT OUT TTHP BUS
+Input Signal -S F AR GT OUT TTHP4B replaced by Bus signal -S F AR GT OUT TTHP BUS
+Input Signal -S F AR GT OUT TTHP8B replaced by Bus signal -S F AR GT OUT TTHP BUS
+DEBUG: Tentative bus +S AR BUS UP BUS identified based on signal +S AR BUS UP0B
+DEBUG: Added signal +S AR BUS UP1B to bus +S AR BUS UP BUS
+DEBUG: Added signal +S AR BUS UP2B to bus +S AR BUS UP BUS
+DEBUG: Added signal +S AR BUS UP4B to bus +S AR BUS UP BUS
+DEBUG: Added signal +S AR BUS UP8B to bus +S AR BUS UP BUS
+DEBUG: Tentative bus +S AR BUS TP BUS identified based on signal +S AR BUS TP0B
+DEBUG: Added signal +S AR BUS TP1B to bus +S AR BUS TP BUS
+DEBUG: Added signal +S AR BUS TP2B to bus +S AR BUS TP BUS
+DEBUG: Added signal +S AR BUS TP4B to bus +S AR BUS TP BUS
+DEBUG: Added signal +S AR BUS TP8B to bus +S AR BUS TP BUS
+DEBUG: Tentative bus +S AR BUS HP BUS identified based on signal +S AR BUS HP0B
+DEBUG: Added signal +S AR BUS HP1B to bus +S AR BUS HP BUS
+DEBUG: Added signal +S AR BUS HP2B to bus +S AR BUS HP BUS
+DEBUG: Added signal +S AR BUS HP4B to bus +S AR BUS HP BUS
+DEBUG: Added signal +S AR BUS HP8B to bus +S AR BUS HP BUS
+DEBUG: Tentative bus +S AR BUS THP BUS identified based on signal +S AR BUS THP0B
+DEBUG: Added signal +S AR BUS THP1B to bus +S AR BUS THP BUS
+DEBUG: Added signal +S AR BUS THP2B to bus +S AR BUS THP BUS
+DEBUG: Added signal +S AR BUS THP4B to bus +S AR BUS THP BUS
+DEBUG: Added signal +S AR BUS THP8B to bus +S AR BUS THP BUS
+DEBUG: Tentative bus +S AR BUS TTHP BUS identified based on signal +S AR BUS TTHP0B
+DEBUG: Added signal +S AR BUS TTHP1B to bus +S AR BUS TTHP BUS
+DEBUG: Added signal +S AR BUS TTHP2B to bus +S AR BUS TTHP BUS
+DEBUG: Added signal +S AR BUS TTHP4B to bus +S AR BUS TTHP BUS
+DEBUG: Added signal +S AR BUS TTHP8B to bus +S AR BUS TTHP BUS
+INFO: Bus +S AR BUS UP BUS identified 
+INFO: Bus +S AR BUS TP BUS identified 
+INFO: Bus +S AR BUS HP BUS identified 
+INFO: Bus +S AR BUS THP BUS identified 
+INFO: Bus +S AR BUS TTHP BUS identified 
+Output signal +S AR BUS UP0B replaced by bus +S AR BUS UP BUS
+Output signal +S AR BUS UP1B replaced by bus +S AR BUS UP BUS
+Output signal +S AR BUS UP2B replaced by bus +S AR BUS UP BUS
+Output signal +S AR BUS UP4B replaced by bus +S AR BUS UP BUS
+Output signal +S AR BUS UP8B replaced by bus +S AR BUS UP BUS
+Output signal +S AR BUS TP0B replaced by bus +S AR BUS TP BUS
+Output signal +S AR BUS TP1B replaced by bus +S AR BUS TP BUS
+Output signal +S AR BUS TP2B replaced by bus +S AR BUS TP BUS
+Output signal +S AR BUS TP4B replaced by bus +S AR BUS TP BUS
+Output signal +S AR BUS TP8B replaced by bus +S AR BUS TP BUS
+Output signal +S AR BUS HP0B replaced by bus +S AR BUS HP BUS
+Output signal +S AR BUS HP1B replaced by bus +S AR BUS HP BUS
+Output signal +S AR BUS HP2B replaced by bus +S AR BUS HP BUS
+Output signal +S AR BUS HP4B replaced by bus +S AR BUS HP BUS
+Output signal +S AR BUS HP8B replaced by bus +S AR BUS HP BUS
+Output signal +S AR BUS THP0B replaced by bus +S AR BUS THP BUS
+Output signal +S AR BUS THP1B replaced by bus +S AR BUS THP BUS
+Output signal +S AR BUS THP2B replaced by bus +S AR BUS THP BUS
+Output signal +S AR BUS THP4B replaced by bus +S AR BUS THP BUS
+Output signal +S AR BUS THP8B replaced by bus +S AR BUS THP BUS
+Output signal +S AR BUS TTHP0B replaced by bus +S AR BUS TTHP BUS
+Output signal +S AR BUS TTHP1B replaced by bus +S AR BUS TTHP BUS
+Output signal +S AR BUS TTHP2B replaced by bus +S AR BUS TTHP BUS
+Output signal +S AR BUS TTHP4B replaced by bus +S AR BUS TTHP BUS
+Output signal +S AR BUS TTHP8B replaced by bus +S AR BUS TTHP BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.15.01.1 (AR BUS UNITS POS 0 AND 1 BITS)
+Generating HDL associated with page 14.15.02.1 (AR BUS UNITS POS 2 AND 4 BITS)
+Generating HDL associated with page 14.15.03.1 (AR BUS UNITS POS 8 BIT)
+Generating HDL associated with page 14.15.04.1 (AR BUS TENS POS 0 AND 1 BITS)
+Generating HDL associated with page 14.15.05.1 (AR BUS TENS POS 2 AND 4 BITS)
+Generating HDL associated with page 14.15.06.1 (AR BUS TENS POS 8 BIT)
+Generating HDL associated with page 14.15.07.1 (AR BUS HUNDREDS POS 0 AND 1 BITS)
+Generating HDL associated with page 14.15.08.1 (AR BUS HUNDREDS POS 2 AND 4 BITS)
+Generating HDL associated with page 14.15.09.1 (AR BUS HUNDREDS POS 8 BIT)
+Generating HDL associated with page 14.15.10.1 (AR BUS THOUSANDS POS 0 1 AND 2 BI)
+Generating HDL associated with page 14.15.11.1 (AR BUS THOUSANDS POS 4 AND 8 BITS)
+Generating HDL associated with page 14.15.12.1 (AR BUS TEN THOUSANDS 0 1 AND 2 BI)
+Generating HDL associated with page 14.15.13.1 (AR BUS TEN THOUSANDS 4 AND 8 BITS)
