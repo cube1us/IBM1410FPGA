@@ -296,13 +296,521 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable test: string(1 to 4);
+   variable bitNum: integer;
 
    begin
 
    -- Your test bench code
 
+   testName := "14.15.0%.1        ";
+  
+   test := "UP  ";
+   for bitnum in 0 to 4 loop
+       wait for 30 ns;
+       check1(PS_AR_BUS_UP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitNum) & " S");
+       MS_A_AR_GT_OUT_UP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " A");
+       MS_A_AR_GT_OUT_UP_BUS(bitNum) <= '1';
+       MS_B_AR_GT_OUT_UP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " B");
+       MS_B_AR_GT_OUT_UP_BUS(bitNum) <= '1';
+       MS_C_AR_GT_OUT_UP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " C");
+       MS_C_AR_GT_OUT_UP_BUS(bitNum) <= '1';
+       MS_D_AR_GT_OUT_UP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " D");
+       MS_D_AR_GT_OUT_UP_BUS(bitNum) <= '1';
+       MS_E_AR_GT_OUT_UP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " E");
+       MS_E_AR_GT_OUT_UP_BUS(bitNum) <= '1';
+       MS_F_AR_GT_OUT_UP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " F");
+       MS_F_AR_GT_OUT_UP_BUS(bitNum) <= '1';
+       MS_I_AR_GT_OUT_UP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & "I");
+       MS_I_AR_GT_OUT_UP_BUS(bitNum) <= '1';
+   end loop;
+   
+   -- Specials
+   
+   bitNum := 0;
+   test := "UP  ";
+   
+   MS_ADDR_GEN_UP_04_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG04");
+   MS_ADDR_GEN_UP_04_BIT <= '1';
+   MS_ADDR_GEN_UP_08_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG08");
+   MS_ADDR_GEN_UP_08_BIT <= '1';
+   MS_ADDR_GEN_UP_02_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG02");
+   MS_ADDR_GEN_UP_02_BIT <= '1';
+   MS_ADDR_GEN_UP_01_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG01");
+   MS_ADDR_GEN_UP_01_BIT <= '1';
+   MS_RO_FIXED_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " ROFA");
+   MS_RO_FIXED_ADDR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+   
+   test := "UP  ";
+   bitNum := 1;
+   MS_ADDR_GEN_UP_01_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG01");
+   MS_ADDR_GEN_UP_01_BIT <= '1';
+   MS_ADDR_GEN_UP_18_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG18");
+   MS_ADDR_GEN_UP_18_BIT <= '1';
+   MS_ADDR_GEN_UP_12_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG12");
+   MS_ADDR_GEN_UP_12_BIT <= '1';
+   MS_ADDR_GEN_U_POS_5_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 5 Digit");
+   MS_ADDR_GEN_U_POS_5_DIGIT <= '1';
+   MS_RO_FIXED_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " ROFA");
+   MS_RO_FIXED_ADDR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   test := "UP  ";
+   bitNum := 2;
+   MS_ADDR_GEN_UP_12_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG12");
+   MS_ADDR_GEN_UP_12_BIT <= '1';
+   MS_ADDR_GEN_UP_24_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG24");
+   MS_ADDR_GEN_UP_24_BIT <= '1';
+   MS_ADDR_GEN_UP_02_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG02");
+   MS_ADDR_GEN_UP_02_BIT <= '1';
+   MS_ADDR_GEN_U_POS_0_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 0 Digit");
+   MS_ADDR_GEN_U_POS_0_DIGIT <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   test := "UP  ";
+   bitNum := 3;
+   MS_ADDR_GEN_UP_04_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG04");
+   MS_ADDR_GEN_UP_04_BIT <= '1';
+   MS_ADDR_GEN_UP_48_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG48");
+   MS_ADDR_GEN_UP_48_BIT <= '1';
+   MS_ADDR_GEN_UP_24_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG24");
+   MS_ADDR_GEN_UP_24_BIT <= '1';
+   MS_ADDR_GEN_U_POS_5_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 5 Digit");
+   MS_ADDR_GEN_U_POS_5_DIGIT <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   test := "UP  ";
+   bitNum := 4;
+   MS_ADDR_GEN_UP_18_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG18");
+   MS_ADDR_GEN_UP_18_BIT <= '1';
+   MS_ADDR_GEN_UP_48_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG48");
+   MS_ADDR_GEN_UP_48_BIT <= '1';
+   MS_ADDR_GEN_UP_08_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG08");
+   MS_ADDR_GEN_UP_08_BIT <= '1';
+   MS_ADDR_GEN_U_POS_0_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 0 Digit");
+   MS_ADDR_GEN_U_POS_0_DIGIT <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_UP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   -- TENS position
+
+   test := "TP  ";
+   for bitnum in 0 to 4 loop
+       wait for 30 ns;
+       check1(PS_AR_BUS_TP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " S");
+       MS_A_AR_GT_OUT_TP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " A");
+       MS_A_AR_GT_OUT_TP_BUS(bitNum) <= '1';
+       MS_B_AR_GT_OUT_TP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " B");
+       MS_B_AR_GT_OUT_TP_BUS(bitNum) <= '1';
+       MS_C_AR_GT_OUT_TP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " C");
+       MS_C_AR_GT_OUT_TP_BUS(bitNum) <= '1';
+       MS_D_AR_GT_OUT_TP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " D");
+       MS_D_AR_GT_OUT_TP_BUS(bitNum) <= '1';
+       MS_E_AR_GT_OUT_TP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " E");
+       MS_E_AR_GT_OUT_TP_BUS(bitNum) <= '1';
+       MS_F_AR_GT_OUT_TP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " F");
+       MS_F_AR_GT_OUT_TP_BUS(bitNum) <= '1';
+       MS_I_AR_GT_OUT_TP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & "I");
+       MS_I_AR_GT_OUT_TP_BUS(bitNum) <= '1';
+   end loop;
+
+   test := "TP  ";
+   bitNum := 0;
+   MS_ADDR_GEN_TP_08_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG08");
+   MS_ADDR_GEN_TP_08_BIT <= '1';
+   MS_ADDR_GEN_T_POS_4_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 4 Digit");
+   MS_ADDR_GEN_T_POS_4_DIGIT <= '1';
+   MS_ADDR_GEN_T_POS_2_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 2 Digit");
+   MS_ADDR_GEN_T_POS_2_DIGIT <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   test := "TP  ";
+   bitNum := 1;
+   MS_ADDR_GEN_TP_18_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG18");
+   MS_ADDR_GEN_TP_18_BIT <= '1';
+   MS_ADDR_GEN_T_POS_3_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 3 Digit");
+   MS_ADDR_GEN_T_POS_3_DIGIT <= '1';
+   MS_ADDR_GEN_T_POS_5_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 5 Digit");
+   MS_ADDR_GEN_T_POS_5_DIGIT <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+   
+   test := "TP  ";
+   bitNum := 2;
+   MS_ADDR_GEN_TP_24_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG24");
+   MS_ADDR_GEN_TP_24_BIT <= '1';
+   MS_ADDR_GEN_T_POS_3_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 3 Digit");
+   MS_ADDR_GEN_T_POS_3_DIGIT <= '1';
+   MS_ADDR_GEN_T_POS_2_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 2 Digit");
+   MS_ADDR_GEN_T_POS_2_DIGIT <= '1';
+   MS_RO_FIXED_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " ROFA");
+   MS_RO_FIXED_ADDR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   test := "TP  ";
+   bitNum := 3;
+   MS_ADDR_GEN_TP_48_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG48");
+   MS_ADDR_GEN_TP_48_BIT <= '1';
+   MS_ADDR_GEN_T_POS_4_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 4 Digit");
+   MS_ADDR_GEN_T_POS_4_DIGIT <= '1';
+   MS_ADDR_GEN_T_POS_5_DIGIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " 5 Digit");
+   MS_ADDR_GEN_T_POS_5_DIGIT <= '1';
+   MS_ADDR_GEN_TP_24_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG24");
+   MS_ADDR_GEN_TP_24_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   test := "TP  ";
+   bitNum := 4;
+   MS_ADDR_GEN_TP_48_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG48");
+   MS_ADDR_GEN_TP_48_BIT <= '1';
+   MS_ADDR_GEN_TP_18_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG18");
+   MS_ADDR_GEN_TP_18_BIT <= '1';
+   MS_ADDR_GEN_TP_08_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " AG08");
+   MS_ADDR_GEN_TP_08_BIT <= '1';
+   MS_RO_FIXED_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " ROFA");
+   MS_RO_FIXED_ADDR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+
+   -- HUNDREDS position
+
+   test := "HP  ";
+   for bitnum in 0 to 4 loop
+       wait for 30 ns;
+       check1(PS_AR_BUS_HP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " S");
+       MS_A_AR_GT_OUT_HP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " A");
+       MS_A_AR_GT_OUT_HP_BUS(bitNum) <= '1';
+       MS_B_AR_GT_OUT_HP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " B");
+       MS_B_AR_GT_OUT_HP_BUS(bitNum) <= '1';
+       MS_C_AR_GT_OUT_HP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " C");
+       MS_C_AR_GT_OUT_HP_BUS(bitNum) <= '1';
+       MS_D_AR_GT_OUT_HP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " D");
+       MS_D_AR_GT_OUT_HP_BUS(bitNum) <= '1';
+       MS_E_AR_GT_OUT_HP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " E");
+       MS_E_AR_GT_OUT_HP_BUS(bitNum) <= '1';
+       MS_F_AR_GT_OUT_HP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " F");
+       MS_F_AR_GT_OUT_HP_BUS(bitNum) <= '1';
+       MS_I_AR_GT_OUT_HP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & "I");
+       MS_I_AR_GT_OUT_HP_BUS(bitNum) <= '1';
+   end loop;
+
+   test := "HP  ";
+   bitNum := 0;
+   MS_RO_00201_INDEX_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO 0201");
+   MS_RO_00201_INDEX_ADDR <= '1';
+   MS_RO_00101_INDEX_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO 0101");
+   MS_RO_00101_INDEX_ADDR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   test := "HP  ";
+   bitNum := 1;
+   MS_RO_00101_INDEX_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO 0101");
+   MS_RO_00101_INDEX_ADDR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   test := "HP  ";
+   bitNum := 2;
+   MS_RO_00201_INDEX_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO 0201");
+   MS_RO_00201_INDEX_ADDR <= '1';
+   MS_RO_00001_INDEX_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO 0001");
+   MS_RO_00001_INDEX_ADDR <= '1';
+   MS_RO_INDEX_AR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO INDEX");
+   MS_RO_INDEX_AR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   -- Note: NO specials for HP 3rd bit
+
+   test := "HP  ";
+   bitNum := 4;
+   MS_RO_00001_INDEX_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO 0001");
+   MS_RO_00001_INDEX_ADDR <= '1';
+   MS_RO_INDEX_AR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO INDEX");
+   MS_RO_INDEX_AR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_HP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+
+   -- THOUSANDS position
+
+   test := "THP ";
+   for bitnum in 0 to 4 loop
+       wait for 30 ns;
+       check1(PS_AR_BUS_THP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " S");
+       MS_A_AR_GT_OUT_THP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " A");
+       MS_A_AR_GT_OUT_THP_BUS(bitNum) <= '1';
+       MS_B_AR_GT_OUT_THP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " B");
+       MS_B_AR_GT_OUT_THP_BUS(bitNum) <= '1';
+       MS_C_AR_GT_OUT_THP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " C");
+       MS_C_AR_GT_OUT_THP_BUS(bitNum) <= '1';
+       MS_D_AR_GT_OUT_THP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " D");
+       MS_D_AR_GT_OUT_THP_BUS(bitNum) <= '1';
+       MS_E_AR_GT_OUT_THP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " E");
+       MS_E_AR_GT_OUT_THP_BUS(bitNum) <= '1';
+       MS_F_AR_GT_OUT_THP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " F");
+       MS_F_AR_GT_OUT_THP_BUS(bitNum) <= '1';
+       MS_I_AR_GT_OUT_THP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & "I");
+       MS_I_AR_GT_OUT_THP_BUS(bitNum) <= '1';
+   end loop;
+
+   -- NOTE:  NO specials for Thousands Position bits 0, 1 and 4
+
+   test := "THP ";
+   bitNum := 2;
+   MS_RO_FIXED_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO FIXED");
+   MS_RO_FIXED_ADDR <= '1';
+   MS_RO_INDEX_AR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO INDEX");
+   MS_RO_INDEX_AR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_THP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   test := "THP ";
+   bitNum := 4;
+   MS_RO_FIXED_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO FIXED");
+   MS_RO_FIXED_ADDR <= '1';
+   MS_RO_INDEX_AR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_THP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO INDEX");
+   MS_RO_INDEX_AR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_THP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   -- TEN THOUSANDS position
+
+   test := "TTHP";
+   for bitnum in 0 to 4 loop
+       wait for 30 ns;
+       check1(PS_AR_BUS_TTHP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " S");
+       MS_A_AR_GT_OUT_TTHP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " A");
+       MS_A_AR_GT_OUT_TTHP_BUS(bitNum) <= '1';
+       MS_B_AR_GT_OUT_TTHP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " B");
+       MS_B_AR_GT_OUT_TTHP_BUS(bitNum) <= '1';
+       MS_C_AR_GT_OUT_TTHP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " C");
+       MS_C_AR_GT_OUT_TTHP_BUS(bitNum) <= '1';
+       MS_D_AR_GT_OUT_TTHP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " D");
+       MS_D_AR_GT_OUT_TTHP_BUS(bitNum) <= '1';
+       MS_E_AR_GT_OUT_TTHP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " E");
+       MS_E_AR_GT_OUT_TTHP_BUS(bitNum) <= '1';
+       MS_F_AR_GT_OUT_TTHP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " F");
+       MS_F_AR_GT_OUT_TTHP_BUS(bitNum) <= '1';
+       MS_I_AR_GT_OUT_TTHP_BUS(bitNum) <= '0';
+       wait for 30 ns;
+       check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & "I");
+       MS_I_AR_GT_OUT_TTHP_BUS(bitNum) <= '1';
+   end loop;
+
+   -- NOTE: No specials for Ten Thousands bits 0, 1 or 4
+
+   test := "TTHP";
+   bitNum := 2;
+   MS_RO_FIXED_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO FIXED");
+   MS_RO_FIXED_ADDR <= '1';
+   MS_RO_INDEX_AR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO INDEX");
+   MS_RO_INDEX_AR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TTHP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
+   test := "TTHP";
+   bitNum := 4;
+   MS_RO_FIXED_ADDR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO FIXED");
+   MS_RO_FIXED_ADDR <= '1';
+   MS_RO_INDEX_AR <= '0';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TTHP_BUS(bitNum),'1',testName,test & INTEGER'IMAGE(bitnum) & " RO INDEX");
+   MS_RO_INDEX_AR <= '1';
+   wait for 30 ns;
+   check1(PS_AR_BUS_TTHP_BUS(bitNum),'0',testName,test & INTEGER'IMAGE(bitnum) & " END");
+
    wait;
    end process;
+
 
 -- The following is needed for older VHDL simulations to
 -- terminate the simulation process.  If your environment
