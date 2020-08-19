@@ -1,0 +1,81 @@
+Generating HDL for page 14.15.21.1 REAL TIME CLOCK TERMINATION at 8/19/2020 3:11:20 PM
+Ignoring Logic Block 4A with symbol R
+Ignoring Logic Block 4B with symbol R
+Ignoring Logic Block 4C with symbol R
+Ignoring Logic Block 4D with symbol R
+Ignoring Logic Block 4E with symbol R
+Ignoring Logic Block 4F with symbol R
+Ignoring Logic Block 4G with symbol R
+Ignoring Logic Block 2G with symbol R
+Ignoring Logic Block 4H with symbol R
+Ignoring Logic Block 4I with symbol R
+Removed 1 outputs from Gate at 5A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5H to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_G
+	and inputs of PS_REAL_TIME_CLOCK_0_DEC,PS_GATE_REAL_TIME_CLOCK
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_C
+	and inputs of PS_REAL_TIME_CLOCK_1_DEC,PS_GATE_REAL_TIME_CLOCK
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_K
+	and inputs of PS_REAL_TIME_CLOCK_2_DEC,PS_GATE_REAL_TIME_CLOCK
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_P
+	and inputs of PS_REAL_TIME_CLOCK_3_DEC,PS_GATE_REAL_TIME_CLOCK
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_G
+	and inputs of PS_REAL_TIME_CLOCK_4_DEC,PS_GATE_REAL_TIME_CLOCK
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of PS_REAL_TIME_CLOCK_5_DEC,PS_GATE_REAL_TIME_CLOCK
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_K
+	and inputs of PS_REAL_TIME_CLOCK_6_DEC,PS_GATE_REAL_TIME_CLOCK
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_P
+	and inputs of PS_REAL_TIME_CLOCK_7_DEC,PS_GATE_REAL_TIME_CLOCK
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of PS_REAL_TIME_CLOCK_9_DEC,PS_GATE_REAL_TIME_CLOCK
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_G
+	and inputs of PS_REAL_TIME_CLOCK_8_DEC,PS_GATE_REAL_TIME_CLOCK
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_REAL_TIME_CLOCK_0_DIGIT
+	from gate output OUT_5A_G
+Generating output sheet edge signal assignment to 
+	signal MS_REAL_TIME_CLOCK_1_DIGIT
+	from gate output OUT_5B_C
+Generating output sheet edge signal assignment to 
+	signal MS_REAL_TIME_CLOCK_2_DIGIT
+	from gate output OUT_5C_K
+Generating output sheet edge signal assignment to 
+	signal MS_REAL_TIME_CLOCK_3_DIGIT
+	from gate output OUT_5D_P
+Generating output sheet edge signal assignment to 
+	signal MS_REAL_TIME_CLOCK_4_DIGIT
+	from gate output OUT_5E_G
+Generating output sheet edge signal assignment to 
+	signal MS_REAL_TIME_CLOCK_5_DIGIT
+	from gate output OUT_5F_C
+Generating output sheet edge signal assignment to 
+	signal MS_REAL_TIME_CLOCK_6_DIGIT
+	from gate output OUT_5G_K
+Generating output sheet edge signal assignment to 
+	signal MS_REAL_TIME_CLOCK_7_DIGIT
+	from gate output OUT_5H_P
+Generating output sheet edge signal assignment to 
+	signal MS_REAL_TIME_CLOCK_9_DIGIT
+	from gate output OUT_2H_C
+Generating output sheet edge signal assignment to 
+	signal MS_REAL_TIME_CLOCK_8_DIGIT
+	from gate output OUT_5I_G

@@ -1,0 +1,72 @@
+Generating HDL for group named RealTimeClockat 8/19/2020 4:54:20 PM containing pages: 
+	14.15.20.1, 14.15.21.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\RealTimeClock_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 14 signals on page 14.15.20.1
+Found 21 signals on page 14.15.21.1
+Found 15 unique input signals and 20 unique output signals, (25 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S REAL TIME CLOCK GATE A originates outside the group.
+INFO:  Signal -S REAL TIME CLOCK GATE B originates outside the group.
+INFO:  Signal -S REAL TIME CLOCK GATE C originates outside the group.
+INFO:  Signal -S REAL TIME CLOCK GATE D originates outside the group.
+INFO:  Signal +S REAL TIME CLOCK 0 DEC originates inside the group.
+INFO:  Signal +S REAL TIME CLOCK 2 DEC originates inside the group.
+INFO:  Signal +S REAL TIME CLOCK 3 DEC originates inside the group.
+INFO:  Signal +S REAL TIME CLOCK 5 DEC originates inside the group.
+INFO:  Signal +S REAL TIME CLOCK 7 DEC originates inside the group.
+INFO:  Signal +S REAL TIME CLOCK 8 DEC originates inside the group.
+INFO:  Signal +S REAL TIME CLOCK 1 DEC originates inside the group.
+INFO:  Signal +S REAL TIME CLOCK 4 DEC originates inside the group.
+INFO:  Signal +S REAL TIME CLOCK 6 DEC originates inside the group.
+INFO:  Signal +S REAL TIME CLOCK 9 DEC originates inside the group.
+INFO:  Signal +S GATE REAL TIME CLOCK originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S REAL TIME CLOCK 0 DEC is used only inside the group.
+INFO:  Signal +S REAL TIME CLOCK 2 DEC is used only inside the group.
+INFO:  Signal +S REAL TIME CLOCK 3 DEC is used only inside the group.
+INFO:  Signal +S REAL TIME CLOCK 5 DEC is used only inside the group.
+INFO:  Signal +S REAL TIME CLOCK 7 DEC is used only inside the group.
+INFO:  Signal +S REAL TIME CLOCK 8 DEC is used only inside the group.
+INFO:  Signal +S REAL TIME CLOCK 1 DEC is used only inside the group.
+INFO:  Signal +S REAL TIME CLOCK 4 DEC is used only inside the group.
+INFO:  Signal +S REAL TIME CLOCK 6 DEC is used only inside the group.
+INFO:  Signal +S REAL TIME CLOCK 9 DEC is used only inside the group.
+INFO:  Signal -S REAL TIME CLOCK 0 DIGIT is used outside the group.
+INFO:  Signal -S REAL TIME CLOCK 1 DIGIT is used outside the group.
+INFO:  Signal -S REAL TIME CLOCK 2 DIGIT is used outside the group.
+INFO:  Signal -S REAL TIME CLOCK 3 DIGIT is used outside the group.
+INFO:  Signal -S REAL TIME CLOCK 4 DIGIT is used outside the group.
+INFO:  Signal -S REAL TIME CLOCK 5 DIGIT is used outside the group.
+INFO:  Signal -S REAL TIME CLOCK 6 DIGIT is used outside the group.
+INFO:  Signal -S REAL TIME CLOCK 9 DIGIT is used outside the group.
+INFO:  Signal -S REAL TIME CLOCK 7 DIGIT is used outside the group.
+INFO:  Signal -S REAL TIME CLOCK 8 DIGIT is used outside the group.
+Removing 10 output signals that do not have destinations outside the group...
+Removing 10 input signals that originate inside the group...
+DEBUG: Tentative bus -S REAL TIME CLOCK DIGIT BUS identified based on signal -S REAL TIME CLOCK 0 DIGIT
+DEBUG: Added signal -S REAL TIME CLOCK 1 DIGIT to bus -S REAL TIME CLOCK DIGIT BUS
+DEBUG: Added signal -S REAL TIME CLOCK 2 DIGIT to bus -S REAL TIME CLOCK DIGIT BUS
+DEBUG: Added signal -S REAL TIME CLOCK 3 DIGIT to bus -S REAL TIME CLOCK DIGIT BUS
+DEBUG: Added signal -S REAL TIME CLOCK 4 DIGIT to bus -S REAL TIME CLOCK DIGIT BUS
+DEBUG: Added signal -S REAL TIME CLOCK 5 DIGIT to bus -S REAL TIME CLOCK DIGIT BUS
+DEBUG: Added signal -S REAL TIME CLOCK 6 DIGIT to bus -S REAL TIME CLOCK DIGIT BUS
+DEBUG: Added signal -S REAL TIME CLOCK 9 DIGIT to bus -S REAL TIME CLOCK DIGIT BUS
+DEBUG: Added signal -S REAL TIME CLOCK 7 DIGIT to bus -S REAL TIME CLOCK DIGIT BUS
+DEBUG: Added signal -S REAL TIME CLOCK 8 DIGIT to bus -S REAL TIME CLOCK DIGIT BUS
+INFO: Bus -S REAL TIME CLOCK DIGIT BUS identified 
+Output signal -S REAL TIME CLOCK 0 DIGIT replaced by bus -S REAL TIME CLOCK DIGIT BUS
+Output signal -S REAL TIME CLOCK 1 DIGIT replaced by bus -S REAL TIME CLOCK DIGIT BUS
+Output signal -S REAL TIME CLOCK 2 DIGIT replaced by bus -S REAL TIME CLOCK DIGIT BUS
+Output signal -S REAL TIME CLOCK 3 DIGIT replaced by bus -S REAL TIME CLOCK DIGIT BUS
+Output signal -S REAL TIME CLOCK 4 DIGIT replaced by bus -S REAL TIME CLOCK DIGIT BUS
+Output signal -S REAL TIME CLOCK 5 DIGIT replaced by bus -S REAL TIME CLOCK DIGIT BUS
+Output signal -S REAL TIME CLOCK 6 DIGIT replaced by bus -S REAL TIME CLOCK DIGIT BUS
+Output signal -S REAL TIME CLOCK 9 DIGIT replaced by bus -S REAL TIME CLOCK DIGIT BUS
+Output signal -S REAL TIME CLOCK 7 DIGIT replaced by bus -S REAL TIME CLOCK DIGIT BUS
+Output signal -S REAL TIME CLOCK 8 DIGIT replaced by bus -S REAL TIME CLOCK DIGIT BUS
+Generating list of internal signals/wires ...
+10 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.15.20.1 (REAL TIME CLOCK)
+Generating HDL associated with page 14.15.21.1 (REAL TIME CLOCK TERMINATION)

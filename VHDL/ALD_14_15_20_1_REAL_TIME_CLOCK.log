@@ -1,0 +1,101 @@
+Generating HDL for page 14.15.20.1 REAL TIME CLOCK at 8/19/2020 3:07:51 PM
+WARNING: Diagram block at coordinate 3B has 3 different output pins: A,K,D
+WARNING: Diagram block at coordinate 2C has 3 different output pins: F,H,J
+WARNING: Diagram block at coordinate 3D has 5 different output pins: B,A,K,D,E
+WARNING: Diagram block at coordinate 2E has 5 different output pins: F,G,H,J,L
+WARNING: Diagram block at coordinate 3F has 5 different output pins: A,B,K,D,E
+WARNING: Diagram block at coordinate 2G has 5 different output pins: F,G,H,J,L
+WARNING: Diagram block at coordinate 3H has 3 different output pins: A,B,D
+Generating Statement for block at 4B with output pin(s) of OUT_4B_F, OUT_4B_F
+	and inputs of MS_REAL_TIME_CLOCK_GATE_A
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A, OUT_3B_K, OUT_3B_D
+	and inputs of OUT_4B_F
+	and logic function of Switch
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F, OUT_2C_H, OUT_2C_J
+	and inputs of OUT_4B_F
+	and logic function of Switch
+Generating Statement for block at 4D with output pin(s) of OUT_4D_R, OUT_4D_R
+	and inputs of MS_REAL_TIME_CLOCK_GATE_B
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_B, OUT_3D_A, OUT_3D_K, OUT_3D_D, OUT_3D_E
+	and inputs of OUT_4D_R
+	and logic function of Switch
+Generating Statement for block at 2E with output pin(s) of OUT_2E_F, OUT_2E_G, OUT_2E_H, OUT_2E_J, OUT_2E_L
+	and inputs of OUT_4D_R
+	and logic function of Switch
+Generating Statement for block at 4F with output pin(s) of OUT_4F_B, OUT_4F_B
+	and inputs of MS_REAL_TIME_CLOCK_GATE_C
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_A, OUT_3F_B, OUT_3F_K, OUT_3F_D, OUT_3F_E
+	and inputs of OUT_4F_B
+	and logic function of Switch
+Generating Statement for block at 2G with output pin(s) of OUT_2G_F, OUT_2G_G, OUT_2G_H, OUT_2G_J, OUT_2G_L
+	and inputs of OUT_4F_B
+	and logic function of Switch
+Generating Statement for block at 4H with output pin(s) of OUT_4H_F
+	and inputs of MS_REAL_TIME_CLOCK_GATE_D
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_A, OUT_3H_B, OUT_3H_D
+	and inputs of OUT_4H_F
+	and logic function of Switch
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A
+	and inputs of OUT_3B_A,OUT_3D_A,OUT_3F_A,OUT_3H_A
+	and logic function of OR
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_3B_K,OUT_3D_K,OUT_3F_K,OUT_3H_D
+	and logic function of OR
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3B_D,OUT_3D_D,OUT_3F_D
+	and logic function of OR
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2C_F,OUT_2E_F,OUT_2G_F
+	and logic function of OR
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_2C_H,OUT_2E_H,OUT_2G_H
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_2C_J,OUT_2E_J,OUT_2G_J
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3D_B,OUT_3F_B,OUT_3H_B
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_3D_E,OUT_3F_E
+	and logic function of OR
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E
+	and inputs of OUT_2E_G,OUT_2G_G
+	and logic function of OR
+Generating Statement for block at 2F with output pin(s) of OUT_DOT_2F
+	and inputs of OUT_2E_L,OUT_2G_L
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_REAL_TIME_CLOCK_0_DEC
+	from gate output OUT_DOT_3A
+Generating output sheet edge signal assignment to 
+	signal PS_REAL_TIME_CLOCK_2_DEC
+	from gate output OUT_DOT_3B
+Generating output sheet edge signal assignment to 
+	signal PS_REAL_TIME_CLOCK_3_DEC
+	from gate output OUT_DOT_3C
+Generating output sheet edge signal assignment to 
+	signal PS_REAL_TIME_CLOCK_5_DEC
+	from gate output OUT_DOT_2B
+Generating output sheet edge signal assignment to 
+	signal PS_REAL_TIME_CLOCK_7_DEC
+	from gate output OUT_DOT_2C
+Generating output sheet edge signal assignment to 
+	signal PS_REAL_TIME_CLOCK_8_DEC
+	from gate output OUT_DOT_1D
+Generating output sheet edge signal assignment to 
+	signal PS_REAL_TIME_CLOCK_1_DEC
+	from gate output OUT_DOT_3D
+Generating output sheet edge signal assignment to 
+	signal PS_REAL_TIME_CLOCK_4_DEC
+	from gate output OUT_DOT_3E
+Generating output sheet edge signal assignment to 
+	signal PS_REAL_TIME_CLOCK_6_DEC
+	from gate output OUT_DOT_2E
+Generating output sheet edge signal assignment to 
+	signal PS_REAL_TIME_CLOCK_9_DEC
+	from gate output OUT_DOT_2F
