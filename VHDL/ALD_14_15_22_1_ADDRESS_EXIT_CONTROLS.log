@@ -1,0 +1,52 @@
+Generating HDL for page 14.15.22.1 ADDRESS EXIT CONTROLS at 8/20/2020 4:28:38 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_15_22_1_ADDRESS_EXIT_CONTROLS_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3I to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_E
+	and inputs of PS_A_RING_6_TIME,MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,MS_CONS_ADDR_REG_EXIT_GATE
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of PS_CONS_ADDR_REG_EXIT_GATE,PS_CONS_MX_Y1_POS
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_P
+	and inputs of OUT_3A_E,OUT_3B_C
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of MS_CONS_ADDR_REG_EXIT_GATE,PS_A_RING_OFF_TIME
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of MS_REAL_TIME_CLOCK_0_DIGIT,OUT_DOT_3E,OUT_DOT_3C
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_P
+	and inputs of MS_STORE_AR_SET_C_CYCLE_CTRL_B,MS_STORE_AR_SET_A_CYCLE_CTRL_A
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_R
+	and inputs of OUT_DOT_1D
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_G
+	and inputs of PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,PS_A_RING_6_TIME
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_P
+	and inputs of MS_RTC_BUSY,MS_CONS_ADDR_REG_EXIT_GATE
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_B
+	and inputs of MS_STORE_AR_SET_C_CYCLE_CTRL_B
+	and logic function of NOT
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,PS_RTC_BUSY,MS_CONS_ADDR_REG_EXIT_GATE
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3C_E,OUT_3D_P
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_1B_P,OUT_1C_C,OUT_1E_B
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_5E_G,OUT_3E_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_EXIT_0_INSERT
+	from gate output OUT_1D_R
+Generating output sheet edge signal assignment to 
+	signal MS_RTC_BUSY_9_INSERT
+	from gate output OUT_3I_D
