@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -87,6 +88,19 @@ procedure check1(
 
    -- Your test bench declarations go here
 
+procedure checkRTCReg(
+       testName: string;
+       test: string;
+       testVal: STD_LOGIC_VECTOR(9 downto 0);
+       reg: STD_LOGIC_VECTOR(9 downto 0)) is
+       begin
+       for i in 0 to 9 loop
+          check1(reg(i),testVal(i),testName,test);
+       end loop;
+       end procedure;   
+   
+   signal testValue: STD_LOGIC_VECTOR(9 downto 0);
+
 -- END USER TEST BENCH DECLARATIONS
    
 
@@ -139,17 +153,189 @@ fpga_clk_process: process
 --
 -- End of TestBenchFPGAClock.vhdl
 --   
-
+    
 -- Place your test bench code in the uut_process
 
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable switchVal: STD_LOGIC_VECTOR(11 downto 0);
+   variable testVal: STD_LOGIC_VECTOR(9 downto 0);
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.15.2%.1        ";
+   
+   wait for 30 ns;
+   checkRTCReg(testName,"SA",MS_REAL_TIME_CLOCK_DIGIT_BUS,"1111111111");   
+   
+   MS_REAL_TIME_CLOCK_GATE_A <= '0';
+   wait for 30 ns;
+   checkRTCReg(testName,"SB",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+   
+   PS_GATE_REAL_TIME_CLOCK <= '1';
+   wait for 30 ns;
+   checkRTCReg(testName,"SC",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+   
+   -- Try an actual value
+   
+   SWITCH_ROT_M_RTC_023 <= "000000001000";    
+   wait for 30 ns;
+   checkRTCReg(testName,"1A",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000100");
+
+   -- Turn off the gates one at a time to make sure they work
+   
+   PS_GATE_REAL_TIME_CLOCK <= '0';
+   wait for 30 ns;
+   checkRTCReg(testName,"1B",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+   
+   PS_GATE_REAL_TIME_CLOCK <= '0';
+   MS_REAL_TIME_CLOCK_GATE_A <= '1';
+   wait for 30 ns;
+   checkRTCReg(testName,"1C",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+
+   PS_GATE_REAL_TIME_CLOCK <= '1';
+   MS_REAL_TIME_CLOCK_GATE_A <= '0';
+   wait for 30 ns;
+
+   -- Then try each individual switch position on each portion of each switch
+   -- Starting with the hundredths of an hour position (least significant digit)
+
+   MS_REAL_TIME_CLOCK_GATE_A <= '0';
+   
+   SWITCH_ROT_M_RTC_023 <= "000000000010";    
+   wait for 30 ns;
+   checkRTCReg(testName,"1D",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000001");
+   
+   SWITCH_ROT_M_RTC_023 <= "000000010000";    
+   wait for 30 ns;
+   checkRTCReg(testName,"1E",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000001000");
+
+   -- Switches 023 and 578 are really the same switch, so the following test
+   -- is not realistic...
+   
+   SWITCH_ROT_M_RTC_578 <= "000001000000";
+   wait for 30 ns;
+   checkRTCReg(testName,"2A",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000101000");
+   
+   SWITCH_ROT_M_RTC_023 <= "000000000000";    
+   SWITCH_ROT_M_RTC_578 <= "000100000000";  
+   wait for 30 ns;
+   checkRTCReg(testName,"2B",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0010000000");
+
+   SWITCH_ROT_M_RTC_578 <= "001000000000";  
+   wait for 30 ns;
+   checkRTCReg(testName,"2C",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0100000000");      
+
+   -- Turn off Gate A and it should not read any digits
+   
+   MS_REAL_TIME_CLOCK_GATE_A <= '1';
+   wait for 30 ns;
+   checkRTCReg(testName,"2D",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+   
+   -- Second switch (tenths of an hour), positions 01234
+   
+   MS_REAL_TIME_CLOCK_GATE_B <= '1';
+   wait for 30 ns;
+   checkRTCReg(testName,"3A",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+
+   MS_REAL_TIME_CLOCK_GATE_B <= '0';
+   
+   switchVal := "000000000010";
+   testVal := "0000000001";
+   
+   for i in 0 to 4 loop
+      SWITCH_ROT_MRTC_01234 <= switchVal;
+      wait for 30 ns;
+      checkRTCReg(testName,"3B " & INTEGER'IMAGE(i),MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT testVal);
+      switchVal := switchVal(10 downto 0) & "0";    
+      testVal := testVal(8 downto 0) & "0";
+   end loop; 
+   
+   -- Again, these are really the same switch, so zero on the first one, and continue on
+   -- with the second one of the pair, positions 56789, continuing on with the loop values.
+   -- (Had I moved one of the pair over, I could have used the "extension" capability, 
+   -- and made them a single switch - might do that later)
+   
+   SWITCH_ROT_MRTC_01234 <= "000000000000";   
+
+   for i in 5 to 9 loop
+      SWITCH_ROT_MRTC_56789 <= switchVal;
+      wait for 30 ns;
+      checkRTCReg(testName,"3C " & INTEGER'IMAGE(i),MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT testVal);
+      switchVal := switchVal(10 downto 0) & "0";    
+      testVal := testVal(8 downto 0) & "0";
+   end loop; 
+
+   SWITCH_ROT_MRTC_01234 <= "000000001000";
+   MS_REAL_TIME_CLOCK_GATE_B <= '1';
+   wait for 30 ns;
+   checkRTCReg(testName,"3D",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+      
+   -- Third switch (hours), positions 01234
+   
+   MS_REAL_TIME_CLOCK_GATE_C <= '1';
+   wait for 30 ns;
+   checkRTCReg(testName,"4A",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+
+   MS_REAL_TIME_CLOCK_GATE_C <= '0';
+   
+   switchVal := "000000000010";
+   testVal := "0000000001";
+   
+   for i in 0 to 4 loop
+      SWITCH_ROT_HRTC_01234 <= switchVal;
+      wait for 30 ns;
+      checkRTCReg(testName,"4B " & INTEGER'IMAGE(i),MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT testVal);
+      switchVal := switchVal(10 downto 0) & "0";    
+      testVal := testVal(8 downto 0) & "0";
+   end loop; 
+   
+   -- Again, these are really the same switch, so zero on the first one, and continue on
+   -- with the second one of the pair, positions 56789, continuing on with the loop values.
+   
+   SWITCH_ROT_HRTC_01234 <= "000000000000";   
+
+   for i in 5 to 9 loop
+      SWITCH_ROT_HRTC_56789 <= switchVal;
+      wait for 30 ns;
+      checkRTCReg(testName,"4C " & INTEGER'IMAGE(i),MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT testVal);
+      switchVal := switchVal(10 downto 0) & "0";    
+      testVal := testVal(8 downto 0) & "0";
+   end loop; 
+
+   SWITCH_ROT_HRTC_01234 <= "000000001000";
+   MS_REAL_TIME_CLOCK_GATE_C <= '1';
+   wait for 30 ns;
+   checkRTCReg(testName,"4D",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+
+   -- Fourth switch (tens of hours), positions 012
+   
+   MS_REAL_TIME_CLOCK_GATE_D <= '1';
+   wait for 30 ns;
+   checkRTCReg(testName,"5A",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+
+   MS_REAL_TIME_CLOCK_GATE_D <= '0';
+   
+   switchVal := "000000000010";
+   testVal := "0000000001";
+   
+   for i in 0 to 2 loop
+      SWITCH_ROT_HRTC_012 <= switchVal;
+      wait for 30 ns;
+      checkRTCReg(testName,"5B " & INTEGER'IMAGE(i),MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT testVal);
+      switchVal := switchVal(10 downto 0) & "0";    
+      testVal := testVal(8 downto 0) & "0";
+   end loop; 
+
+   MS_REAL_TIME_CLOCK_GATE_D <= '1';
+   wait for 30 ns;
+   checkRTCReg(testName,"5C",MS_REAL_TIME_CLOCK_DIGIT_BUS,NOT "0000000000");
+
+
 
    wait;
    end process;
