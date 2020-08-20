@@ -153,6 +153,143 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.15.22.1        ";
+   
+   -- 1E
+   
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"1A");
+   MS_STORE_AR_SET_C_CYCLE_CTRL_B <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'0',testName,"1B");
+   MS_STORE_AR_SET_C_CYCLE_CTRL_B <= '1';
+   
+   -- 1C H input
+   
+   MS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   PS_A_RING_OFF_TIME <= '1';
+   MS_STORE_AR_SET_C_CYCLE_CTRL_B <= '1';
+   MS_STORE_AR_SET_A_CYCLE_CTRL_A <= '1';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"2A");
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   PS_A_RING_OFF_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"2B");
+   PS_A_RING_OFF_TIME <= '1';
+   MS_STORE_AR_SET_C_CYCLE_CTRL_B <= '1'; -- Has to stay at 1 in this test
+   MS_STORE_AR_SET_A_CYCLE_CTRL_A <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"2C");
+   MS_STORE_AR_SET_A_CYCLE_CTRL_A <= '1';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'0',testName,"2D");
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   PS_A_RING_OFF_TIME <= '0';
+   MS_STORE_AR_SET_C_CYCLE_CTRL_B <= '1';
+   MS_STORE_AR_SET_A_CYCLE_CTRL_A <= '1';
+   
+   -- 1C G Input
+   
+   MS_RTC_BUSY <= '0';
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '1';
+   MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '0'; -- Needed for this test
+   PS_A_RING_6_TIME <= '1';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"3A");
+   MS_RTC_BUSY <= '1';
+   MS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"3B");
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"3C");
+   PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '1';
+   PS_A_RING_6_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"3D");
+   PS_A_RING_6_TIME <= '1';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'0',testName,"3E");
+   PS_A_RING_6_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"3E");
+
+   -- 1C E input
+
+   MS_RTC_BUSY <= '1';
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '0';
+   MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '1';
+   PS_A_RING_6_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"4A");
+   MS_REAL_TIME_CLOCK_0_DIGIT <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'0',testName,"4B");
+   MS_REAL_TIME_CLOCK_0_DIGIT <= '1';
+   
+   -- 1B H input
+   
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   PS_CONS_MX_Y1_POS <= '1';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"5A");
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   PS_CONS_MX_Y1_POS <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"5B");
+   PS_CONS_MX_Y1_POS <= '1';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'0',testName,"5C");
+   PS_CONS_MX_Y1_POS <= '0';
+
+   -- 1B A Input
+   
+   PS_A_RING_6_TIME <= '0';
+   MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '1';
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"6A");
+   PS_A_RING_6_TIME <= '1';
+   MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"6B");
+   MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '1';
+   MS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'1',testName,"6C");
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(MS_ADDR_EXIT_0_INSERT,'0',testName,"6D");
+   PS_A_RING_6_TIME <= '0';
+   MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '1';
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   
+   PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '0';
+   PS_RTC_BUSY <= '1';
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(MS_RTC_BUSY_9_INSERT,'1',testName,"7A");
+   PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '1';
+   PS_RTC_BUSY <= '0';
+   wait for 30 ns;
+   check1(MS_RTC_BUSY_9_INSERT,'1',testName,"7B");
+   PS_RTC_BUSY <= '1';
+   MS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   check1(MS_RTC_BUSY_9_INSERT,'1',testName,"7C");
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(MS_RTC_BUSY_9_INSERT,'0',testName,"7D");
+   PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '0';
+   PS_RTC_BUSY <= '1';
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   
 
    wait;
    end process;
