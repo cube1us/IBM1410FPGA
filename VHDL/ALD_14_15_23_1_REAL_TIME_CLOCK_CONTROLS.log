@@ -1,0 +1,76 @@
+Generating HDL for page 14.15.23.1 REAL TIME CLOCK CONTROLS at 8/20/2020 5:22:58 PM
+Old test bench file ALD_14_15_23_1_REAL_TIME_CLOCK_CONTROLS_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+Ignoring Logic Block 4I with symbol CAP
+Found combinatorial loop (need D FF) at output of gate at 3I
+Found combinatorial loop (need D FF) at output of gate at 2I
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5H to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_E, OUT_3A_E
+	and inputs of PS_STORE_ADDR_REGS_OP_CODE,PS_T_SYMBOL_OP_MODIFIER,PS_C_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of MS_REAL_TIME_CLOCK_0_DIGIT,MS_REAL_TIME_CLOCK_1_DIGIT,MS_REAL_TIME_CLOCK_2_DIGIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of MS_REAL_TIME_CLOCK_3_DIGIT,MS_REAL_TIME_CLOCK_4_DIGIT,MS_REAL_TIME_CLOCK_5_DIGIT
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D, OUT_2C_D
+	and inputs of OUT_3A_E
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of MS_REAL_TIME_CLOCK_6_DIGIT,MS_REAL_TIME_CLOCK_7_DIGIT,MS_REAL_TIME_CLOCK_8_DIGIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_2C_D,MS_REAL_TIME_CLOCK_9_DIGIT,MS_A_RING_6_TIME
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_F
+	and inputs of PS_LOGIC_GATE_C_1
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of PS_I_RING_7_TIME,PS_I_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_R
+	and inputs of OUT_DOT_3F
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_X
+	and inputs of OUT_5I_N
+	and logic function of Resistor
+Generating Statement for block at 3H with output pin(s) of OUT_3H_G
+	and inputs of OUT_5H_X,PS_STORE_ADDR_REGS_OP_CODE,PS_LOGIC_GATE_F_1
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_N
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 3I with *latched* output pin(s) of OUT_3I_C_Latch
+	and inputs of MS_I_RING_6_TIME,OUT_DOT_2G
+	and logic function of NAND
+Generating Statement for block at 2I with *latched* output pin(s) of OUT_2I_R_Latch
+	and inputs of OUT_3I_C,OUT_DOT_3H
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_B
+	and inputs of OUT_DOT_2G
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F
+	and inputs of OUT_3B_D,OUT_3C_E,OUT_3D_C,OUT_3E_D,OUT_3F_F
+	and logic function of OR
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G, OUT_DOT_2G, OUT_DOT_2G
+	and inputs of OUT_2G_R,OUT_2I_R
+	and logic function of OR
+Generating Statement for block at 3H with output pin(s) of OUT_DOT_3H
+	and inputs of OUT_3G_G,OUT_3H_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY
+	from gate output OUT_3A_E
+Generating output sheet edge signal assignment to 
+	signal PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY
+	from gate output OUT_2C_D
+Generating output sheet edge signal assignment to 
+	signal MS_RTC_BUSY
+	from gate output OUT_1I_B
+Generating output sheet edge signal assignment to 
+	signal PS_RTC_BUSY
+	from gate output OUT_DOT_2G
+Generating D Flip Flop for block at 3I
+Generating D Flip Flop for block at 2I
