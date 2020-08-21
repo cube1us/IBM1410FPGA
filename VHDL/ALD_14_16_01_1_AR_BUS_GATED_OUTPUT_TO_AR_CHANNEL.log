@@ -1,0 +1,67 @@
+Generating HDL for page 14.16.01.1 AR BUS GATED OUTPUT TO AR CHANNEL at 8/21/2020 1:29:16 PM
+WARNING: During sheet edge merge, Logic block at 2E pin B outputs to two different signal names: +S AR CH 1 BIT *TRANSLATOR* vs. +S AR CH 1 BIT *VAL CHK*
+WARNING: During sheet edge merge, Logic block at 2H pin A outputs to two different signal names: +S AR CH 2 BIT *VAL CHK* vs. +S AR CH 2 BIT *TRANSLATOR*
+Removed 1 outputs from Gate at 2B to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of MS_AR_BUS_GTD_OUT_THP0B,MS_AR_BUS_GTD_OUT_HP0B,MS_AR_BUS_GTD_OUT_TTHP0B
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of MS_REAL_TIME_CLOCK_1_DIGIT,MS_AR_BUS_GTD_OUT_TP0B,MS_AR_BUS_GTD_OUT_UP0B
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_L
+	and inputs of OUT_DOT_3B
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D
+	and inputs of MS_REAL_TIME_CLOCK_2_DIGIT,MS_REAL_TIME_CLOCK_4_DIGIT,MS_REAL_TIME_CLOCK_8_DIGIT
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of MS_AR_BUS_GTD_OUT_HP1B,MS_AR_BUS_GTD_OUT_THP1B,MS_AR_BUS_GTD_OUT_TTHP1B
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of MS_REAL_TIME_CLOCK_1_DIGIT,MS_AR_BUS_GTD_OUT_UP1B,MS_AR_BUS_GTD_OUT_TP1B
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_B, OUT_2E_B
+	and inputs of OUT_DOT_3E
+	and logic function of EQUAL
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E
+	and inputs of MS_REAL_TIME_CLOCK_3_DIGIT,MS_REAL_TIME_CLOCK_5_DIGIT,MS_REAL_TIME_CLOCK_9_DIGIT
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_R
+	and inputs of MS_RTC_BUSY_9_INSERT
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of MS_AR_BUS_GTD_OUT_TTHP2B,MS_AR_BUS_GTD_OUT_HP2B,MS_AR_BUS_GTD_OUT_THP2B
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of MS_ADDR_EXIT_0_INSERT,MS_AR_BUS_GTD_OUT_UP2B,MS_AR_BUS_GTD_OUT_TP2B
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_A, OUT_2H_A
+	and inputs of OUT_DOT_3G
+	and logic function of EQUAL
+Generating Statement for block at 4I with output pin(s) of OUT_4I_C
+	and inputs of MS_REAL_TIME_CLOCK_2_DIGIT,MS_REAL_TIME_CLOCK_3_DIGIT,MS_REAL_TIME_CLOCK_6_DIGIT
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_4A_G,OUT_4C_D,OUT_4B_G
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_4D_G,OUT_4E_G,OUT_4F_E,OUT_3F_R
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G
+	and inputs of OUT_4G_G,OUT_4H_G,OUT_4I_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_AR_CH_0_BIT_STAR_VAL_CHK
+	from gate output OUT_2B_L
+Generating output sheet edge signal assignment to 
+	signal PS_AR_CH_1_BIT_STAR_VAL_CHK_STAR
+	from gate output OUT_2E_B
+Generating output sheet edge signal assignment to 
+	signal PS_AR_CH_1_BIT_STAR_TRANSLATOR_STAR
+	from gate output OUT_2E_B
+Generating output sheet edge signal assignment to 
+	signal PS_AR_CH_2_BIT_STAR_TRANSLATOR_STAR
+	from gate output OUT_2H_A
+Generating output sheet edge signal assignment to 
+	signal PS_AR_CH_2_BIT_STAR_VAL_CHK_STAR
+	from gate output OUT_2H_A
