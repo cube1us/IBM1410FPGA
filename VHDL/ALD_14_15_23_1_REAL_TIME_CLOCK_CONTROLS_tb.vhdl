@@ -110,6 +110,8 @@ procedure check1(
 
 
    -- Your test bench declarations go here
+   
+   signal RTCDigits: std_logic_vector(9 downto 0);
 
 -- END USER TEST BENCH DECLARATIONS
 
@@ -177,6 +179,17 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+MS_REAL_TIME_CLOCK_0_DIGIT <= RTCDigits(0);
+MS_REAL_TIME_CLOCK_1_DIGIT <= RTCDigits(1);
+MS_REAL_TIME_CLOCK_2_DIGIT <= RTCDigits(2);
+MS_REAL_TIME_CLOCK_3_DIGIT <= RTCDigits(3);
+MS_REAL_TIME_CLOCK_4_DIGIT <= RTCDigits(4);
+MS_REAL_TIME_CLOCK_5_DIGIT <= RTCDigits(5);
+MS_REAL_TIME_CLOCK_6_DIGIT <= RTCDigits(6);
+MS_REAL_TIME_CLOCK_7_DIGIT <= RTCDigits(7);
+MS_REAL_TIME_CLOCK_8_DIGIT <= RTCDigits(8);
+MS_REAL_TIME_CLOCK_9_DIGIT <= RTCDigits(9);
+
 uut_process: process
 
    variable testName: string(1 to 18);
@@ -184,8 +197,110 @@ uut_process: process
 
    begin
 
+   testName := "14.15.23.1        ";
+
    -- Your test bench code
 
+   wait for 30 ns;
+   
+   PS_T_SYMBOL_OP_MODIFIER <= '0';
+   PS_STORE_ADDR_REGS_OP_CODE <= '1';
+   PS_C_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,'0',testName,"1A");
+   check1(MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,'1',testName,"1B");   
+   PS_T_SYMBOL_OP_MODIFIER <= '1';
+   PS_STORE_ADDR_REGS_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,'0',testName,"1C");
+   PS_STORE_ADDR_REGS_OP_CODE <= '1';
+   PS_C_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,'0',testName,"1D");
+   PS_C_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,'1',testName,"1E");
+   check1(MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,'0',testName,"1F");
+   PS_C_CYCLE <= '0';  -- Will use as a stand in for signal tested here.
+   
+   MS_I_RING_6_TIME <= '0';
+   wait for 30 ns;
+   MS_I_RING_6_TIME <= '1';
+   wait for 30 ns;
+   
+   PS_STORE_ADDR_REGS_OP_CODE <= '0';
+   PS_LOGIC_GATE_F_1 <= '1';
+   SWITCH_REL_RTC_BUSY <= '0'; -- Switch is active low, ON is NOT busy
+   PS_I_RING_7_TIME <= '1';
+   PS_I_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'0',testName,"2A");
+   check1(MS_RTC_BUSY,'1',testName,"2B");
+   PS_STORE_ADDR_REGS_OP_CODE <= '1';
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'0',testName,"2C");
+   PS_LOGIC_GATE_F_1 <= '1';
+   SWITCH_REL_RTC_BUSY <= '1';
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'0',testName,"2D");
+   SWITCH_REL_RTC_BUSY <= '0';
+   PS_I_RING_7_TIME <= '0';
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'0',testName,"2E");
+   PS_I_RING_7_TIME <= '1';
+   PS_I_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'0',testName,"2F");
+   PS_I_CYCLE <= '1';
+   wait for 30 ns; -- Latch Sets
+   PS_STORE_ADDR_REGS_OP_CODE <= '0';
+   PS_LOGIC_GATE_F_1 <= '0';
+   SWITCH_REL_RTC_BUSY <= '1'; -- Switch is active low, ON is NOT busy
+   PS_I_RING_7_TIME <= '0';
+   PS_I_CYCLE <= '0';   
+   -- Latch stays set
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'1',testName,"2G");
+   check1(MS_RTC_BUSY,'0',testName,"2H");
+   
+   MS_I_RING_6_TIME <= '0';
+   wait for 30 ns;
+   MS_I_RING_6_TIME <= '1';
+   wait for 30 ns;
+
+   RTCDigits <= "1111111111";
+   PS_STORE_ADDR_REGS_OP_CODE <= '0';
+   PS_C_CYCLE <= '1';  -- Stand in for Store Addr Regs.OP.T.C CY
+   MS_A_RING_6_TIME <= '1';
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'0',testName,"3A");
+   PS_STORE_ADDR_REGS_OP_CODE <= '1';
+   PS_C_CYCLE <= '0';  -- Stand in for Store Addr Regs.OP.T.C CY
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'0',testName,"3B");
+   PS_C_CYCLE <= '1';  -- Stand in for Store Addr Regs.OP.T.C CY
+   MS_A_RING_6_TIME <= '0';
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'0',testName,"3C");
+   MS_A_RING_6_TIME <= '1';
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'0',testName,"3D");
+   PS_LOGIC_GATE_C_1 <= '1';
+   RTCDigits <= "1111111110";
+   
+   for i in 0 to 9 loop
+      wait for 30 ns;
+      check1(PS_RTC_BUSY,'0',testName,"3E " & INTEGER'IMAGE(i));
+      RTCDigits <= RTCDigits(8 downto 0) & "1";  -- Shift in ONES
+   end loop;
+
+   RTCDigits <= "1111111111";   
+   wait for 30 ns;
+   check1(PS_RTC_BUSY,'1',testName,"3F");
+      
    wait;
    end process;
 
