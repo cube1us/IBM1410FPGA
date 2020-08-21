@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -91,6 +92,9 @@ procedure check1(
 
    -- Your test bench declarations go here
 
+   signal cbitNum: integer;
+   signal carbusbit: integer;
+
 -- END USER TEST BENCH DECLARATIONS
    
 
@@ -156,6 +160,315 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.16.01.1        ";
+   
+   wait for 30 ns;
+   
+   -- Iterate through each of the AR CH Validity check / translator bits
+   for bitNum in 0 to 4 loop 
+   
+      cbitNum <= bitNum;
+      
+      -- With nothing on, they should all be 0.
+      
+      -- Translator bus does not have a bit 0, and validity check 
+      -- 0 bit is not rolled up into a bus
+      
+      check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'0',testname,
+        "T1 Bits " & INTEGER'IMAGE(bitNum) & "0");
+      
+      -- Check the validity check and translator bits are all 0 at this point
+      
+      for bit2 in 0 to 3 loop
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bit2),'0',testName,
+            "T2 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(bit2+1));
+         check1(PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(bit2),'0',testName,
+            "T3 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(bit2+1));
+      end loop;
+      
+      -- Now iterate through each of the bits coming in from the address register bus
+      
+      for arbusbit in 0 to 4 loop
+      
+         carBusBit <= arbusbit;
+      
+         -- Check each of the AR BUS GTD OUT digits (units through ten thousands)
+         
+         -- First, the units position
+
+         MS_AR_BUS_GTD_OUT_UP_BUS <= NOT "00000";
+         MS_AR_BUS_GTD_OUT_UP_BUS(arbusbit) <= '0';
+         wait for 30 ns;
+         
+         -- If the bits are the same bit, then they should match, otherwise, not so much
+         -- (match is inverted because there is a gate in between)
+         
+         if bitnum = arbusbit then
+             if bitNum = 0 then
+                check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,NOT MS_AR_BUS_GTD_OUT_UP_BUS(arbusbit),testName,
+                   "U4 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));            
+             else
+                check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bitNum-1),
+                   NOT MS_AR_BUS_GTD_OUT_UP_BUS(arbusbit),testName,
+                   "U5 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));                          
+             end if;
+         else
+             if bitNum = 0 then
+                check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,MS_AR_BUS_GTD_OUT_UP_BUS(arbusbit),testName,
+                   "U6 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));            
+             else
+                check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bitNum-1),
+                   MS_AR_BUS_GTD_OUT_UP_BUS(arbusbit),testName,
+                   "U7 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));                          
+             end if;
+         end if;
+
+         MS_AR_BUS_GTD_OUT_UP_BUS <= NOT "00000";
+         wait for 30 ns;
+                  
+         -- Then the tens
+
+         MS_AR_BUS_GTD_OUT_TP_BUS <= NOT "00000";
+         MS_AR_BUS_GTD_OUT_TP_BUS(arbusbit) <= '0';
+         wait for 30 ns;
+         
+         -- If the bits are the same bit, then they should match, otherwise, not so much
+         -- (match is inverted because there is a gate in between)
+         
+         if bitnum = arbusbit then
+             if bitNum = 0 then
+                check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,NOT MS_AR_BUS_GTD_OUT_TP_BUS(arbusbit),testName,
+                   "T4 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));            
+             else
+                check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bitNum-1),
+                   NOT MS_AR_BUS_GTD_OUT_TP_BUS(arbusbit),testName,
+                   "T5 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));                          
+             end if;
+         else
+             if bitNum = 0 then
+                check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,MS_AR_BUS_GTD_OUT_TP_BUS(arbusbit),testName,
+                   "T6 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));            
+             else
+                check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bitNum-1),
+                   MS_AR_BUS_GTD_OUT_TP_BUS(arbusbit),testName,
+                   "T7 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));                          
+             end if;
+         end if;
+
+         MS_AR_BUS_GTD_OUT_TP_BUS <= NOT "00000";
+         wait for 30 ns;
+
+         -- Then the hundreds
+
+         MS_AR_BUS_GTD_OUT_HP_BUS <= NOT "00000";
+         MS_AR_BUS_GTD_OUT_HP_BUS(arbusbit) <= '0';
+         wait for 30 ns;
+         
+         -- If the bits are the same bit, then they should match, otherwise, not so much
+         -- (match is inverted because there is a gate in between)
+         
+         if bitnum = arbusbit then
+             if bitNum = 0 then
+                check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,NOT MS_AR_BUS_GTD_OUT_HP_BUS(arbusbit),testName,
+                   "H4 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));            
+             else
+                check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bitNum-1),
+                   NOT MS_AR_BUS_GTD_OUT_HP_BUS(arbusbit),testName,
+                   "H5 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));                          
+             end if;
+         else
+             if bitNum = 0 then
+                check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,MS_AR_BUS_GTD_OUT_HP_BUS(arbusbit),testName,
+                   "H6 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));            
+             else
+                check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bitNum-1),
+                   MS_AR_BUS_GTD_OUT_HP_BUS(arbusbit),testName,
+                   "H7 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));                          
+             end if;
+         end if;
+
+         MS_AR_BUS_GTD_OUT_HP_BUS <= NOT "00000";
+         wait for 30 ns;
+
+         -- Then the Thousands
+
+         MS_AR_BUS_GTD_OUT_THP_BUS <= NOT "00000";
+         MS_AR_BUS_GTD_OUT_THP_BUS(arbusbit) <= '0';
+         wait for 30 ns;
+         
+         -- If the bits are the same bit, then they should match, otherwise, not so much
+         -- (match is inverted because there is a gate in between)
+         
+         if bitnum = arbusbit then
+             if bitNum = 0 then
+                check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,NOT MS_AR_BUS_GTD_OUT_THP_BUS(arbusbit),testName,
+                   "TH4 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));            
+             else
+                check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bitNum-1),
+                   NOT MS_AR_BUS_GTD_OUT_THP_BUS(arbusbit),testName,
+                   "TH5 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));                          
+             end if;
+         else
+             if bitNum = 0 then
+                check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,MS_AR_BUS_GTD_OUT_THP_BUS(arbusbit),testName,
+                   "TH6 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));            
+             else
+                check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bitNum-1),
+                   MS_AR_BUS_GTD_OUT_THP_BUS(arbusbit),testName,
+                   "TH7 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));                          
+             end if;
+         end if;
+
+         MS_AR_BUS_GTD_OUT_THP_BUS <= NOT "00000";
+         wait for 30 ns;
+
+         -- Then And Ten Thousands position
+
+         MS_AR_BUS_GTD_OUT_TTHP_BUS <= NOT "00000";
+         MS_AR_BUS_GTD_OUT_TTHP_BUS(arbusbit) <= '0';
+         wait for 30 ns;
+         
+         -- If the bits are the same bit, then they should match, otherwise, not so much
+         -- (match is inverted because there is a gate in between)
+         
+         if bitnum = arbusbit then
+             if bitNum = 0 then
+                check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,NOT MS_AR_BUS_GTD_OUT_TTHP_BUS(arbusbit),testName,
+                   "TTH4 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));            
+             else
+                check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bitNum-1),
+                   NOT MS_AR_BUS_GTD_OUT_TTHP_BUS(arbusbit),testName,
+                   "TTH5 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));                          
+             end if;
+         else
+             if bitNum = 0 then
+                check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,MS_AR_BUS_GTD_OUT_TTHP_BUS(arbusbit),testName,
+                   "TTH6 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));            
+             else
+                check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(bitNum-1),
+                   MS_AR_BUS_GTD_OUT_TTHP_BUS(arbusbit),testName,
+                   "TTH7 Bits " & INTEGER'IMAGE(bitNum) &  ", " & INTEGER'IMAGE(arbusbit));                          
+             end if;
+         end if;
+
+         MS_AR_BUS_GTD_OUT_TTHP_BUS <= NOT "00000";
+         wait for 30 ns;                 
+      end loop;      
+               
+   end loop;
+   
+         -- Next, test the special stuff
+   
+   for rtcbit in 0 to 9 loop
+      MS_REAL_TIME_CLOCK_DIGIT_BUS <= NOT "0000000000";
+      MS_REAL_TIME_CLOCK_DIGIT_BUS(rtcbit) <= '0';
+      wait for 30 ns;
+      case rtcbit is
+      when 0 =>
+         check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'0',testname,"RTC " & INTEGER'IMAGE(rtcbit) & ", 0");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 1");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 2");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 4");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 8");
+      when 1 =>
+         check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'1',testname,"RTC " & INTEGER'IMAGE(rtcbit) & ", 0");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 1");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 2");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 4");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 8");
+      when 2 =>
+         check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'1',testname,"RTC " & INTEGER'IMAGE(rtcbit) & ", 0");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 1");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 2");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 4");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 8");
+      when 3 =>
+         check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'0',testname,"RTC " & INTEGER'IMAGE(rtcbit) & ", 0");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 1");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 2");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 4");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 8");
+      when 4 =>
+         check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'1',testname,"RTC " & INTEGER'IMAGE(rtcbit) & ", 0");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 1");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 2");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 4");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 8");
+      when 5 =>
+         check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'0',testname,"RTC " & INTEGER'IMAGE(rtcbit) & ", 0");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 1");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 2");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 4");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 8");            
+      when 6 =>
+         check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'0',testname,"RTC " & INTEGER'IMAGE(rtcbit) & ", 0");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 1");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 2");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 4");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 8");            
+      when 7 =>
+         check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'0',testname,"RTC " & INTEGER'IMAGE(rtcbit) & ", 0");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 1");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 2");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 4");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 8");            
+      when 8 =>
+         check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'1',testname,"RTC " & INTEGER'IMAGE(rtcbit) & ", 0");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 1");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 2");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 4");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 8");
+      when 9 =>
+         check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'0',testname,"RTC " & INTEGER'IMAGE(rtcbit) & ", 0");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 1");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 2");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'0',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 4");
+         check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'1',testName,"RTC " & INTEGER'IMAGE(rtcbit) & ", 8");
+      end case;         
+   end loop;
+   
+   MS_REAL_TIME_CLOCK_DIGIT_BUS <= NOT "0000000000";
+   wait for 30 ns;
+   
+   MS_RTC_BUSY_9_INSERT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'0',testname,"RTC INSERT 9 0");
+   check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'1',testName,"RTC INSERT 9 1");
+   check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'0',testName,"RTC INSERT 9 2");
+   check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'0',testName,"RTC INSERT 9 4");
+   check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'1',testName,"RTC INSERT 9 8");
+   MS_RTC_BUSY_9_INSERT <= '1';
+   wait for 30 ns;
+   
+   MS_ADDR_EXIT_0_INSERT <= '0';
+   wait for 30 ns;
+   check1(PS_AR_CH_0_BIT_STAR_VAL_CHK,'0',testname,"AR EXIT 0 INSERT 0");
+   check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0),'0',testName,"AR EXIT 0 INSERT 1");
+   check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1),'1',testName,"AR EXIT 0 INSERT 2");
+   check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2),'0',testName,"AR EXIT 0 INSERT 4");
+   check1(PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3),'1',testName,"AR EXIT 0 INSERT 8");
+   MS_ADDR_EXIT_0_INSERT <= '1';
+   wait for 30 ns;
+   
+   MS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '1';
+   MS_RTC_BUSY <= '1';
+   wait for 30 ns;
+   check1(PS_GATE_REAL_TIME_CLOCK,'0',testName,"GRTC A");
+   MS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '0';
+   wait for 30 ns;
+   check1(PS_GATE_REAL_TIME_CLOCK,'0',testName,"GRTC B");
+   PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY <= '1';
+   MS_RTC_BUSY <= '0';
+   wait for 30 ns;
+   check1(PS_GATE_REAL_TIME_CLOCK,'0',testName,"GRTC C");
+   MS_RTC_BUSY <= '1';
+   wait for 30 ns;
+   check1(PS_GATE_REAL_TIME_CLOCK,'1',testName,"GRTC D");
+   
+   
 
    wait;
    end process;
