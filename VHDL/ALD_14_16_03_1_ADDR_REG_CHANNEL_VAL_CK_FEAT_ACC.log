@@ -1,0 +1,74 @@
+Generating HDL for page 14.16.03.1 ADDR REG CHANNEL VAL CK FEAT-ACC at 8/21/2020 4:40:18 PM
+Removed 1 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C
+	and inputs of PS_AR_CH_1_BIT_STAR_VAL_CHK_STAR,PS_AR_CH_0_BIT_STAR_VAL_CHK
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_R
+	and inputs of PS_AR_CH_1_BIT_STAR_VAL_CHK_STAR,PS_AR_CH_4_BIT_STAR_VAL_CHK_STAR
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of OUT_3A_C,OUT_3B_R,OUT_3C_C
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C, OUT_3C_C
+	and inputs of PS_AR_CH_4_BIT_STAR_VAL_CHK_STAR,PS_AR_CH_8_BIT_STAR_VAL_CHK_STAR
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_R
+	and inputs of PS_AR_CH_8_BIT_STAR_VAL_CHK_STAR,PS_AR_CH_2_BIT_STAR_VAL_CHK_STAR
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_G
+	and inputs of OUT_3D_R,OUT_3E_C,MV_1ST_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of PS_AR_CH_2_BIT_STAR_VAL_CHK_STAR,PS_AR_CH_0_BIT_STAR_VAL_CHK
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of MV_1ST_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_R
+	and inputs of PS_AR_CH_4_BIT_STAR_VAL_CHK_STAR,PS_AR_CH_0_BIT_STAR_VAL_CHK
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_K
+	and inputs of MV_2ND_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of PS_AR_CH_4_BIT_STAR_VAL_CHK_STAR,PS_AR_CH_2_BIT_STAR_VAL_CHK_STAR
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_G
+	and inputs of OUT_3F_R,OUT_3G_C,OUT_3H_R
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_R
+	and inputs of PS_AR_CH_2_BIT_STAR_VAL_CHK_STAR,PS_AR_CH_1_BIT_STAR_VAL_CHK_STAR
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_G
+	and inputs of OUT_3I_C,OUT_2I_R,MV_1ST_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_C
+	and inputs of PS_AR_CH_1_BIT_STAR_VAL_CHK_STAR,PS_AR_CH_8_BIT_STAR_VAL_CHK_STAR
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_R
+	and inputs of PS_AR_CH_8_BIT_STAR_VAL_CHK_STAR,PS_AR_CH_0_BIT_STAR_VAL_CHK
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_2B_G,OUT_2D_G
+	and logic function of OR
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_2G_G,OUT_2H_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_AR_CH_VC_48_BIT
+	from gate output OUT_3C_C
+Generating output sheet edge signal assignment to 
+	signal PY_1ST_CHECK_TEST_STAR_SEE_NOTE_STAR
+	from gate output OUT_2E_C
+Generating output sheet edge signal assignment to 
+	signal PY_2ND_CHECK_TEST_STAR_SEE_NOTE_STAR
+	from gate output OUT_1F_K
+Generating output sheet edge signal assignment to 
+	signal PS_AR_CH_VC_GROUP_ONE
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_AR_CH_VC_GROUP_TWO
+	from gate output OUT_DOT_1G

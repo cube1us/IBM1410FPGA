@@ -1,0 +1,54 @@
+Generating HDL for group named AddrRegAndExitat 8/21/2020 4:41:07 PM containing pages: 
+	14.16.03.1, 14.16.04.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddrRegAndExit_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 12 signals on page 14.16.03.1
+Found 10 signals on page 14.16.04.1
+Found 12 unique input signals and 9 unique output signals, (20 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S AR CH 0 BIT *VAL CHK originates outside the group.
+INFO:  Signal +S AR CH 1 BIT *VAL CHK* originates outside the group.
+INFO:  Signal +S AR CH 2 BIT *VAL CHK* originates outside the group.
+INFO:  Signal +S AR CH 4 BIT *VAL CHK* originates outside the group.
+INFO:  Signal +S AR CH 8 BIT *VAL CHK* originates outside the group.
+INFO:  Signal -V 1ST CHECK TEST SWITCH originates outside the group.
+INFO:  Signal -V 2ND CHECK TEST SWITCH originates outside the group.
+INFO:  Signal +S AR CH 2 BIT *TRANSLATOR* originates outside the group.
+INFO:  Signal +S AR CH 1 BIT *TRANSLATOR* originates outside the group.
+INFO:  Signal +S AR CH 4 BIT *TRANSLATOR* originates outside the group.
+INFO:  Signal +S AR CH 8 BIT *TRANSLATOR* originates outside the group.
+INFO:  Signal -S AR CH VC 48 BIT originates inside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S AR CH VC GROUP ONE is used outside the group.
+INFO:  Signal -S AR CH VC 48 BIT is used only inside the group.
+INFO:  Signal +Y 1ST CHECK TEST*SEE NOTE* is used outside the group.
+INFO:  Signal +Y 2ND CHECK TEST*SEE NOTE* is used outside the group.
+INFO:  Signal +S AR CH VC GROUP TWO is used outside the group.
+INFO:  Signal +S AR EXIT CH 1 BIT is used outside the group.
+INFO:  Signal +S AR EXIT CH 2 BIT is used outside the group.
+INFO:  Signal +S AR EXIT CH 8 BIT is used outside the group.
+INFO:  Signal +S AR EXIT CH C BIT is used outside the group.
+Removing 1 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Input Signal +S AR CH 1 BIT *VAL CHK* replaced by Bus signal +S AR CH *VAL CHK* BUS
+Input Signal +S AR CH 2 BIT *VAL CHK* replaced by Bus signal +S AR CH *VAL CHK* BUS
+Input Signal +S AR CH 4 BIT *VAL CHK* replaced by Bus signal +S AR CH *VAL CHK* BUS
+Input Signal +S AR CH 8 BIT *VAL CHK* replaced by Bus signal +S AR CH *VAL CHK* BUS
+Input Signal +S AR CH 2 BIT *TRANSLATOR* replaced by Bus signal +S AR CH *TRANSLATOR* BUS
+Input Signal +S AR CH 1 BIT *TRANSLATOR* replaced by Bus signal +S AR CH *TRANSLATOR* BUS
+Input Signal +S AR CH 4 BIT *TRANSLATOR* replaced by Bus signal +S AR CH *TRANSLATOR* BUS
+Input Signal +S AR CH 8 BIT *TRANSLATOR* replaced by Bus signal +S AR CH *TRANSLATOR* BUS
+DEBUG: Tentative bus +S AR EXIT CH BUS identified based on signal +S AR EXIT CH 1 BIT
+DEBUG: Added signal +S AR EXIT CH 2 BIT to bus +S AR EXIT CH BUS
+DEBUG: Added signal +S AR EXIT CH 8 BIT to bus +S AR EXIT CH BUS
+DEBUG: Added signal +S AR EXIT CH C BIT to bus +S AR EXIT CH BUS
+INFO: Bus +S AR EXIT CH BUS identified 
+Output signal +S AR EXIT CH 1 BIT replaced by bus +S AR EXIT CH BUS
+Output signal +S AR EXIT CH 2 BIT replaced by bus +S AR EXIT CH BUS
+Output signal +S AR EXIT CH 8 BIT replaced by bus +S AR EXIT CH BUS
+Output signal +S AR EXIT CH C BIT replaced by bus +S AR EXIT CH BUS
+Generating list of internal signals/wires ...
+1 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.16.03.1 (ADDR REG CHANNEL VAL CK FEAT-ACC)
+Generating HDL associated with page 14.16.04.1 (ADDRESS EXIT CHANNEL-ACC)

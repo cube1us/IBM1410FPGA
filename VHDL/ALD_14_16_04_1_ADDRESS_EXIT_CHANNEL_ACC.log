@@ -1,0 +1,56 @@
+Generating HDL for page 14.16.04.1 ADDRESS EXIT CHANNEL-ACC at 8/21/2020 4:40:25 PM
+Removed 3 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2H to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_AR_CH_1_BIT_STAR_TRANSLATOR_STAR
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of OUT_5A_NoPin,MS_AR_CH_VC_48_BIT
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_L
+	and inputs of OUT_3A_G
+	and logic function of EQUAL
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_AR_CH_2_BIT_STAR_TRANSLATOR_STAR
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_5B_NoPin,MS_AR_CH_VC_48_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_B
+	and inputs of OUT_3B_F
+	and logic function of EQUAL
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of PS_AR_CH_8_BIT_STAR_TRANSLATOR_STAR,OUT_4F_C
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of OUT_3E_C
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PS_AR_CH_8_BIT_STAR_TRANSLATOR_STAR,PS_AR_CH_4_BIT_STAR_TRANSLATOR_STAR
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of PS_AR_CH_8_BIT_STAR_TRANSLATOR_STAR,PS_AR_CH_4_BIT_STAR_TRANSLATOR_STAR
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of PS_AR_CH_0_BIT_STAR_VAL_CHK
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_K
+	and inputs of OUT_4G_G,OUT_4H_C
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_3H_K
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_AR_EXIT_CH_1_BIT
+	from gate output OUT_2A_L
+Generating output sheet edge signal assignment to 
+	signal PS_AR_EXIT_CH_2_BIT
+	from gate output OUT_2B_B
+Generating output sheet edge signal assignment to 
+	signal PS_AR_EXIT_CH_8_BIT
+	from gate output OUT_2E_C
+Generating output sheet edge signal assignment to 
+	signal PS_AR_EXIT_CH_C_BIT
+	from gate output OUT_2H_C
