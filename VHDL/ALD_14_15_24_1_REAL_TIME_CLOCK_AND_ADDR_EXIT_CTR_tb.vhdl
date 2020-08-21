@@ -153,7 +153,139 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.15.24.1        ";
+   
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_1 <= '1';
+   wait for 30 ns;
+   
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"SA");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'1',testName,"SB");
+   check1(MS_REAL_TIME_CLOCK_GATE_C,'1',testName,"SC");
+   check1(MS_REAL_TIME_CLOCK_GATE_D,'1',testName,"SD");
+         
+   PS_I_RING_7_TIME <= '0';
+   PS_STORE_ADDR_REGS_OP_CODE <= '1';
+   PS_T_SYMBOL_OP_MODIFIER <= '1';
+   MS_RTC_BUSY <= '1';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"1A");
+   PS_I_RING_7_TIME <= '1';
+   PS_STORE_ADDR_REGS_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"1B");
+   PS_STORE_ADDR_REGS_OP_CODE <= '1';
+   PS_T_SYMBOL_OP_MODIFIER <= '0';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"1C");
+   PS_T_SYMBOL_OP_MODIFIER <= '1';
+   MS_RTC_BUSY <= '0';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"1D");
+   MS_RTC_BUSY <= '1';
+   wait for 30 ns; -- Set the latch
+   PS_I_RING_7_TIME <= '0';
+   wait for 30 ns; -- Latch should stay set
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'0',testName,"1F");
+   
+   --  Advance to the second digit
+   
+   PS_A_RING_2_TIME <= '0';
+   PS_LOGIC_GATE_F_1 <= '1';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'0',testName,"2A");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'1',testName,"2B");      
+   PS_A_RING_2_TIME <= '1';
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'0',testName,"2C");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'1',testName,"2D");      
+   PS_LOGIC_GATE_F_1 <= '1';
+   wait for 30 ns; -- Sets the latch
+   PS_A_RING_2_TIME <= '0';
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns; -- latch should stay set
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"2E");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'0',testName,"2F");      
+   
+   --  Advance to the third digit
+   
+   PS_A_RING_3_TIME <= '0';
+   PS_LOGIC_GATE_F_1 <= '1';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"3A");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'0',testName,"3B");      
+   check1(MS_REAL_TIME_CLOCK_GATE_C,'1',testName,"3C");
+   PS_A_RING_3_TIME <= '1';
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"3D");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'0',testName,"3E");      
+   check1(MS_REAL_TIME_CLOCK_GATE_C,'1',testName,"3F");
+   PS_LOGIC_GATE_F_1 <= '1';
+   wait for 30 ns;  -- Set the latch
+   PS_A_RING_3_TIME <= '0';
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns; -- Latch should stay set
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"3G");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'1',testName,"3H");      
+   check1(MS_REAL_TIME_CLOCK_GATE_C,'0',testName,"3I");
 
+   --  Advance to the fourth and final digit
+   
+   PS_A_RING_4_TIME <= '0';
+   PS_LOGIC_GATE_F_1 <= '1';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"4A");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'1',testName,"4B");      
+   check1(MS_REAL_TIME_CLOCK_GATE_C,'0',testName,"4C");
+   check1(MS_REAL_TIME_CLOCK_GATE_D,'1',testName,"4D");
+   PS_A_RING_4_TIME <= '1';
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"4E");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'1',testName,"4F");      
+   check1(MS_REAL_TIME_CLOCK_GATE_C,'0',testName,"4G");
+   check1(MS_REAL_TIME_CLOCK_GATE_D,'1',testName,"4H");
+   PS_LOGIC_GATE_F_1 <= '1';
+   wait for 30 ns;  -- Set the latch
+   PS_A_RING_4_TIME <= '0';
+   PS_LOGIC_GATE_F_1 <= '0';
+   wait for 30 ns; -- Latch should stay set
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"4I");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'1',testName,"4J");      
+   check1(MS_REAL_TIME_CLOCK_GATE_C,'1',testName,"4K");
+   check1(MS_REAL_TIME_CLOCK_GATE_D,'0',testName,"4L");
+   
+   -- On the 5th "address" digit, last gate resets
+   
+   PS_LOGIC_GATE_F_1 <= '0';
+   PS_ADDR_SCNR_5_POS <= '1';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"5A");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'1',testName,"5B");      
+   check1(MS_REAL_TIME_CLOCK_GATE_C,'1',testName,"5C");
+   check1(MS_REAL_TIME_CLOCK_GATE_D,'0',testName,"5D");
+   PS_LOGIC_GATE_F_1 <= '1';
+   PS_ADDR_SCNR_5_POS <= '0';
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"5E");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'1',testName,"5F");      
+   check1(MS_REAL_TIME_CLOCK_GATE_C,'1',testName,"5G");
+   check1(MS_REAL_TIME_CLOCK_GATE_D,'0',testName,"5H");
+   PS_LOGIC_GATE_F_1 <= '1';
+   PS_ADDR_SCNR_5_POS <= '1';
+   wait for 30 ns; -- Latch Resets
+   PS_LOGIC_GATE_F_1 <= '0';
+   -- Latch should stay reset
+   wait for 30 ns;
+   check1(MS_REAL_TIME_CLOCK_GATE_A,'1',testName,"5I");
+   check1(MS_REAL_TIME_CLOCK_GATE_B,'1',testName,"5J");      
+   check1(MS_REAL_TIME_CLOCK_GATE_C,'1',testName,"5K");
+   check1(MS_REAL_TIME_CLOCK_GATE_D,'1',testName,"5L");
+   
    wait;
    end process;
 
