@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -255,6 +256,355 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "MAR Units Position";
+   
+   for marBit in 0 to 3 loop
+      -- Reset / test with bit 0
+      PS_AR_BUS_UP_BUS(marBit) <= '0';
+      PS_SET_MEM_AR_2_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_2_GATED <= '0';
+      wait for 30 ns;
+      check1(MY_MEM_AR_UP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " A");
+      check1(MY_MEM_AR_NOT_UP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " B");
+      check1(LAMPS_MAR_UP(marBit),'0',testname,"Bit " & INTEGER'IMAGE(marBit) & " C");
+      MY_LOGIC_GATE_B_OR_S <= '0';
+      wait for 30 ns;
+      check1(PY_MEM_AR_UP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " D");
+      MY_LOGIC_GATE_B_OR_S <= '1';
+      wait for 30 ns;
+      check1(PY_MEM_AR_UP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " E");
+      PS_ADDR_SCNR_2_POS <= '0';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_UP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " F");
+      PS_ADDR_SCNR_2_POS <= '1';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_UP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " G");
+      PS_SET_MEM_AR_TO_I_AR <= '0';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_UP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " H");
+      PS_SET_MEM_AR_TO_I_AR <= '1';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_UP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " I");      
+
+      -- Set / test with bit 1
+      PS_AR_BUS_UP_BUS(marBit) <= '1';
+      PS_SET_MEM_AR_1_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_1_GATED <= '0';
+      wait for 30 ns;
+      check1(MY_MEM_AR_UP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " J");
+      check1(MY_MEM_AR_NOT_UP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " K");
+      check1(LAMPS_MAR_UP(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " L");
+      MY_LOGIC_GATE_B_OR_S <= '0';
+      wait for 30 ns;
+      check1(PY_MEM_AR_UP_TO_ADDR_MOD_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " M");
+      MY_LOGIC_GATE_B_OR_S <= '1';
+      wait for 30 ns;
+      check1(PY_MEM_AR_UP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " N");
+      PS_ADDR_SCNR_2_POS <= '0';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_UP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " O");
+      PS_ADDR_SCNR_2_POS <= '1';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_UP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " P");
+      PS_SET_MEM_AR_TO_I_AR <= '0';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_UP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " Q");
+      PS_SET_MEM_AR_TO_I_AR <= '1';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_UP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " R");   
+      
+      -- Reset to prevent testing issues later
+      
+      PS_AR_BUS_UP_BUS(marBit) <= '0';
+      PS_SET_MEM_AR_2_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_2_GATED <= '0';
+      wait for 30 ns;               
+   end loop;
+
+   testName := "MAR Tens Position ";
+   
+   for marBit in 0 to 3 loop
+      -- Reset / test with bit 0
+      PS_AR_BUS_TP_BUS(marBit) <= '0';
+      PS_SET_MEM_AR_2_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_2_GATED <= '0';
+      wait for 30 ns;
+      check1(MY_MEM_AR_TP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " A");
+      check1(MY_MEM_AR_NOT_TP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " B");
+      check1(LAMPS_MAR_TP(marBit),'0',testname,"Bit " & INTEGER'IMAGE(marBit) & " C");
+      MY_LOGIC_GATE_C_OR_T <= '0';
+      wait for 30 ns;
+      check1(PY_MEM_AR_TP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " D");
+      MY_LOGIC_GATE_C_OR_T <= '1';
+      wait for 30 ns;
+      check1(PY_MEM_AR_TP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " E");
+      PS_ADDR_SCNR_3_POS <= '0';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_TP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " F");
+      PS_ADDR_SCNR_3_POS <= '1';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_TP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " G");
+      PS_SET_MEM_AR_TO_I_AR <= '0';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_TP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " H");
+      PS_SET_MEM_AR_TO_I_AR <= '1';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_TP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " I");      
+
+      -- Set / test with bit 1
+      PS_AR_BUS_TP_BUS(marBit) <= '1';
+      PS_SET_MEM_AR_1_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_1_GATED <= '0';
+      wait for 30 ns;
+      check1(MY_MEM_AR_TP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " J");
+      check1(MY_MEM_AR_NOT_TP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " K");
+      check1(LAMPS_MAR_TP(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " L");
+      MY_LOGIC_GATE_C_OR_T <= '0';
+      wait for 30 ns;
+      check1(PY_MEM_AR_TP_TO_ADDR_MOD_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " M");
+      MY_LOGIC_GATE_C_OR_T <= '1';
+      wait for 30 ns;
+      check1(PY_MEM_AR_TP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " N");
+      PS_ADDR_SCNR_3_POS <= '0';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_TP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " O");
+      PS_ADDR_SCNR_3_POS <= '1';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_TP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " P");
+      PS_SET_MEM_AR_TO_I_AR <= '0';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_TP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " Q");
+      PS_SET_MEM_AR_TO_I_AR <= '1';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_TP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " R");      
+
+      -- Reset to prevent testing issues later
+      
+      PS_AR_BUS_TP_BUS(marBit) <= '0';
+      PS_SET_MEM_AR_2_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_2_GATED <= '0';
+      wait for 30 ns;               
+   end loop;
+
+   testName := "MAR Hndrd Position";
+   
+   for marBit in 0 to 3 loop
+      -- Reset / test with bit 0
+      PS_AR_BUS_HP_BUS(marBit) <= '0';
+      PS_SET_MEM_AR_2_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_2_GATED <= '0';
+      wait for 30 ns;
+      check1(MY_MEM_AR_HP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " A");
+      check1(MY_MEM_AR_NOT_HP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " B");
+      check1(LAMPS_MAR_HP(marBit),'0',testname,"Bit " & INTEGER'IMAGE(marBit) & " C");
+      MY_LOGIC_GATE_D_OR_U <= '0';
+      wait for 30 ns;
+      check1(PY_MEM_AR_HP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " D");
+      MY_LOGIC_GATE_D_OR_U <= '1';
+      wait for 30 ns;
+      check1(PY_MEM_AR_HP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " E");
+      PS_ADDR_SCNR_4_POS <= '0';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_HP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " F");
+      PS_ADDR_SCNR_4_POS <= '1';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_HP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " G");
+      PS_SET_MEM_AR_TO_I_AR <= '0';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_HP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " H");
+      PS_SET_MEM_AR_TO_I_AR <= '1';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_HP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " I");      
+
+      -- Set / test with bit 1
+      PS_AR_BUS_HP_BUS(marBit) <= '1';
+      PS_SET_MEM_AR_1_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_1_GATED <= '0';
+      wait for 30 ns;
+      check1(MY_MEM_AR_HP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " J");
+      check1(MY_MEM_AR_NOT_HP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " K");
+      check1(LAMPS_MAR_HP(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " L");
+      MY_LOGIC_GATE_D_OR_U <= '0';
+      wait for 30 ns;
+      check1(PY_MEM_AR_HP_TO_ADDR_MOD_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " M");
+      MY_LOGIC_GATE_D_OR_U <= '1';
+      wait for 30 ns;
+      check1(PY_MEM_AR_HP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " N");
+      PS_ADDR_SCNR_4_POS <= '0';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_HP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " O");
+      PS_ADDR_SCNR_4_POS <= '1';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_HP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " P");
+      PS_SET_MEM_AR_TO_I_AR <= '0';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_HP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " Q");
+      PS_SET_MEM_AR_TO_I_AR <= '1';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_HP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " R");      
+
+      -- Reset to prevent testing issues later
+      
+      PS_AR_BUS_HP_BUS(marBit) <= '0';
+      PS_SET_MEM_AR_2_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_2_GATED <= '0';
+      wait for 30 ns;               
+
+   end loop;
+
+   testName := "MAR Thous Position";
+   
+   for marBit in 0 to 3 loop
+      -- Reset / test with bit 0
+      PS_AR_BUS_THP_BUS(marBit) <= '0';
+      PS_SET_MEM_AR_2_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_2_GATED <= '0';
+      wait for 30 ns;
+      check1(MY_MEM_AR_THP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " A");
+      check1(MY_MEM_AR_NOT_THP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " B");
+      check1(LAMPS_MAR_THP(marBit),'0',testname,"Bit " & INTEGER'IMAGE(marBit) & " C");
+      MY_LOGIC_GATE_E_OR_V <= '0';
+      wait for 30 ns;
+      check1(PY_MEM_AR_THP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " D");
+      MY_LOGIC_GATE_E_OR_V <= '1';
+      wait for 30 ns;
+      check1(PY_MEM_AR_THP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " E");
+      PS_ADDR_SCNR_5_POS <= '0';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_THP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " F");
+      PS_ADDR_SCNR_5_POS <= '1';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_THP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " G");
+      PS_SET_MEM_AR_TO_I_AR <= '0';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_THP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " H");
+      PS_SET_MEM_AR_TO_I_AR <= '1';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_THP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " I");      
+
+      -- Set / test with bit 1
+      PS_AR_BUS_THP_BUS(marBit) <= '1';
+      PS_SET_MEM_AR_1_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_1_GATED <= '0';
+      wait for 30 ns;
+      check1(MY_MEM_AR_THP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " J");
+      check1(MY_MEM_AR_NOT_THP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " K");
+      check1(LAMPS_MAR_THP(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " L");
+      MY_LOGIC_GATE_E_OR_V <= '0';
+      wait for 30 ns;
+      check1(PY_MEM_AR_THP_TO_ADDR_MOD_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " M");
+      MY_LOGIC_GATE_E_OR_V <= '1';
+      wait for 30 ns;
+      check1(PY_MEM_AR_THP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " N");
+      PS_ADDR_SCNR_5_POS <= '0';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_THP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " O");
+      PS_ADDR_SCNR_5_POS <= '1';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_THP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " P");
+      PS_SET_MEM_AR_TO_I_AR <= '0';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_THP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " Q");
+      PS_SET_MEM_AR_TO_I_AR <= '1';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_THP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " R");      
+
+      -- Reset to prevent testing issues later
+      
+      PS_AR_BUS_THP_BUS(marBit) <= '0';
+      PS_SET_MEM_AR_2_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_2_GATED <= '0';
+      wait for 30 ns;               
+
+   end loop;
+
+
+   testName := "MAR TenTH Position";
+   
+   for marBit in 0 to 3 loop
+      -- Reset / test with bit 0
+      PS_AR_BUS_TTHP_BUS(marBit) <= '0';
+      PS_SET_MEM_AR_2_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_2_GATED <= '0';
+      wait for 30 ns;
+      check1(MY_MEM_AR_TTHP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " A");
+      if marBit = 3 then
+         check1(MY_MEM_AR_NOT_TTPH4B,'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " B");
+      end if;
+      check1(LAMPS_MAR_TTHP(marBit),'0',testname,"Bit " & INTEGER'IMAGE(marBit) & " C");
+      MY_LOGIC_GATE_F_OR_W <= '0';
+      wait for 30 ns;
+      check1(PY_MEM_AR_TTHP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " D");
+      MY_LOGIC_GATE_F_OR_W <= '1';
+      wait for 30 ns;
+      check1(PY_MEM_AR_TTHP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " E");
+      PS_ADDR_SCNR_6_POS <= '0';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_TTHP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " F");
+      PS_ADDR_SCNR_6_POS <= '1';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_TTHP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " G");
+      PS_SET_MEM_AR_TO_I_AR <= '0';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_TTHP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " H");
+      PS_SET_MEM_AR_TO_I_AR <= '1';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_TTHP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " I");      
+
+      -- Set / test with bit 1
+      PS_AR_BUS_TTHP_BUS(marBit) <= '1';
+      PS_SET_MEM_AR_1_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_1_GATED <= '0';
+      wait for 30 ns;
+      check1(MY_MEM_AR_TTHP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " J");
+      if marBit = 3 then
+         check1(MY_MEM_AR_NOT_TTPH4B,'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " K");
+      end if;
+      check1(LAMPS_MAR_TTHP(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " L");
+      MY_LOGIC_GATE_F_OR_W <= '0';
+      wait for 30 ns;
+      check1(PY_MEM_AR_TTHP_TO_ADDR_MOD_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " M");
+      MY_LOGIC_GATE_F_OR_W <= '1';
+      wait for 30 ns;
+      check1(PY_MEM_AR_TTHP_TO_ADDR_MOD_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " N");
+      PS_ADDR_SCNR_6_POS <= '0';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_TTHP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " O");
+      PS_ADDR_SCNR_6_POS <= '1';
+      wait for 30 ns;
+      check1(MS_AR_BUS_GTD_OUT_TTHP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " P");
+      PS_SET_MEM_AR_TO_I_AR <= '0';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_TTHP_BUS(marBit),'1',testName,"Bit " & INTEGER'IMAGE(marBit) & " Q");
+      PS_SET_MEM_AR_TO_I_AR <= '1';
+      wait for 30 ns;
+      check1(MS_MEM_AR_TO_I_AR_TTHP_BUS(marBit),'0',testName,"Bit " & INTEGER'IMAGE(marBit) & " R");      
+
+      -- Reset to prevent testing issues later
+      
+      PS_AR_BUS_TTHP_BUS(marBit) <= '0';
+      PS_SET_MEM_AR_2_GATED <= '1';
+      wait for 30 ns;
+      PS_SET_MEM_AR_2_GATED <= '0';
+      wait for 30 ns;               
+
+   end loop;
+
 
    wait;
    end process;
