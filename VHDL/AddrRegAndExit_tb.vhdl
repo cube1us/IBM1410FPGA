@@ -225,6 +225,165 @@ uut_process: process
    PS_AR_CH_0_BIT_STAR_VAL_CHK <= '0';
    PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1) <= '0';
 
+   PS_AR_CH_0_BIT_STAR_VAL_CHK <= '0';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'0',testName,"6A");
+   PS_AR_CH_0_BIT_STAR_VAL_CHK <= '1';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'0',testName,"6B");
+   PS_AR_CH_0_BIT_STAR_VAL_CHK <= '1';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'1',testName,"6C");
+   PS_AR_CH_0_BIT_STAR_VAL_CHK <= '0';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2) <= '0';
+
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1) <= '0';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'0',testName,"7A");
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1) <= '1';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'0',testName,"7B");
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1) <= '1';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'1',testName,"7C");
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1) <= '0';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(2) <= '0';
+
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1) <= '0';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'0',testName,"8A");
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1) <= '1';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'0',testName,"8B");
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1) <= '1';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'1',testName,"8C");
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(1) <= '0';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0) <= '0';
+
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3) <= '0';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'0',testName,"9A");
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3) <= '1';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'0',testName,"9B");
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3) <= '1';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'1',testName,"9C");
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3) <= '0';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(0) <= '0';
+
+   PS_AR_CH_0_BIT_STAR_VAL_CHK <= '0';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'0',testName,"10A");
+   PS_AR_CH_0_BIT_STAR_VAL_CHK <= '1';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'0',testName,"10B");
+   PS_AR_CH_0_BIT_STAR_VAL_CHK <= '1';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_TWO,'1',testName,"10C");
+   PS_AR_CH_0_BIT_STAR_VAL_CHK <= '0';
+   PS_AR_CH_STAR_VAL_CHK_STAR_BUS(3) <= '0';
+
+   MV_1ST_CHECK_TEST_SWITCH <= '0';
+   wait for 30 ns;
+   check1(PS_AR_CH_VC_GROUP_ONE,'1',testName,"11A");
+   check1(PS_AR_CH_VC_GROUP_TWO,'1',testName,"10B");
+   check1(PY_1ST_CHECK_TEST_STAR_SEE_NOTE_STAR,'1',testName,"10C");
+   MV_1ST_CHECK_TEST_SWITCH <= '1';
+   
+   MV_2ND_CHECK_TEST_SWITCH <= '0';
+   wait for 30 ns;
+   check1(PY_2ND_CHECK_TEST_STAR_SEE_NOTE_STAR,'1',testName,"10D");
+   MV_2ND_CHECK_TEST_SWITCH <= '1';
+   
+   testName := "16.14.04.1        ";
+   
+   -- Note: We already tested the VC 48 bit input in the above tests
+   
+   check1(PS_AR_EXIT_CH_BUS(HDL_1_BIT),'0',testName,"1A");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(0) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_1_BIT),'1',testName,"1B");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(0) <= '0';
+
+   check1(PS_AR_EXIT_CH_BUS(HDL_2_BIT),'0',testName,"2A");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(1) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_2_BIT),'1',testName,"2B");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(1) <= '0';
+   
+   check1(PS_AR_EXIT_CH_BUS(HDL_8_BIT),'0',testName,"3A");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '0';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_8_BIT),'0',testName,"3B");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '0';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_8_BIT),'1',testName,"3C");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '1';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_8_BIT),'0',testName,"3D");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '1';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_8_BIT),'0',testName,"3E");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '0';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '0';
+   
+   PS_AR_CH_0_BIT_STAR_VAL_CHK <= '1';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '0';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_C_BIT),'0',testName,"4A");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '1';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_C_BIT),'0',testName,"4B");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '0';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_C_BIT),'0',testName,"4C");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '1';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_C_BIT),'0',testName,"4D");
+
+   PS_AR_CH_0_BIT_STAR_VAL_CHK <= '0';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '0';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_C_BIT),'1',testName,"4E");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '1';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '0';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_C_BIT),'1',testName,"4F");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '0';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_C_BIT),'1',testName,"4G");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '1';
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(3) <= '1';
+   wait for 30 ns;
+   check1(PS_AR_EXIT_CH_BUS(HDL_C_BIT),'0',testName,"4H");
+
 
    wait;
    end process;
