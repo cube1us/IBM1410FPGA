@@ -1,6 +1,6 @@
-Generating HDL for group named AddrRegAndExitat 8/21/2020 4:41:07 PM containing pages: 
+Generating HDL for group named AddrRegAndexitat 8/22/2020 11:18:42 AM containing pages: 
 	14.16.03.1, 14.16.04.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddrRegAndExit_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file AddrRegAndexit_tb.vhdl 140 lines preserved and 32 declaration lines preserved
 Building lists of signals on 2 pages...
 Found 12 signals on page 14.16.03.1
 Found 10 signals on page 14.16.04.1
