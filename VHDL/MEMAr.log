@@ -1,0 +1,572 @@
+Generating HDL for group named MEMArat 8/22/2020 3:48:55 PM containing pages: 
+	14.17.01.1, 14.17.02.1, 14.17.03.1, 14.17.04.1, 14.17.05.1
+	14.17.06.1, 14.17.07.1, 14.17.08.1, 14.17.09.1, 14.17.10.1
+	14.17.11.1, 14.17.12.1, 14.17.13.1, 14.17.14.1, 14.17.15.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\MEMAr_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 15 pages...
+Found 17 signals on page 14.17.01.1
+Found 17 signals on page 14.17.02.1
+Found 11 signals on page 14.17.03.1
+Found 17 signals on page 14.17.04.1
+Found 17 signals on page 14.17.05.1
+Found 11 signals on page 14.17.06.1
+Found 17 signals on page 14.17.07.1
+Found 17 signals on page 14.17.08.1
+Found 11 signals on page 14.17.09.1
+Found 17 signals on page 14.17.10.1
+Found 17 signals on page 14.17.11.1
+Found 11 signals on page 14.17.12.1
+Found 15 signals on page 14.17.13.1
+Found 16 signals on page 14.17.14.1
+Found 10 signals on page 14.17.15.1
+Found 38 unique input signals and 121 unique output signals, (159 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -Y LOGIC GATE B OR S originates outside the group.
+INFO:  Signal +S AR BUS UP0B originates outside the group.
+INFO:  Signal +S AR BUS UP1B originates outside the group.
+INFO:  Signal +S SET MEM AR TO I AR originates outside the group.
+INFO:  Signal +S SET MEM AR 1 GATED originates outside the group.
+INFO:  Signal +S ADDR SCNR 2 POS originates outside the group.
+INFO:  Signal +S SET MEM AR 2 GATED originates outside the group.
+INFO:  Signal +S AR BUS UP2B originates outside the group.
+INFO:  Signal +S AR BUS UP4B originates outside the group.
+INFO:  Signal +S AR BUS UP8B originates outside the group.
+INFO:  Signal -Y LOGIC GATE C OR T originates outside the group.
+INFO:  Signal +S AR BUS TP0B originates outside the group.
+INFO:  Signal +S AR BUS TP1B originates outside the group.
+INFO:  Signal +S ADDR SCNR 3 POS originates outside the group.
+INFO:  Signal +S AR BUS TP2B originates outside the group.
+INFO:  Signal +S AR BUS TP4B originates outside the group.
+INFO:  Signal +S AR BUS TP8B originates outside the group.
+INFO:  Signal -Y LOGIC GATE D OR U originates outside the group.
+INFO:  Signal +S AR BUS HP0B originates outside the group.
+INFO:  Signal +S AR BUS HP1B originates outside the group.
+INFO:  Signal +S ADDR SCNR 4 POS originates outside the group.
+INFO:  Signal +S AR BUS HP2B originates outside the group.
+INFO:  Signal +S AR BUS HP4B originates outside the group.
+INFO:  Signal +S AR BUS HP8B originates outside the group.
+INFO:  Signal -Y LOGIC GATE E OR V originates outside the group.
+INFO:  Signal +S AR BUS THP0B originates outside the group.
+INFO:  Signal +S AR BUS THP1B originates outside the group.
+INFO:  Signal +S ADDR SCNR 5 POS originates outside the group.
+INFO:  Signal +S AR BUS THP2B originates outside the group.
+INFO:  Signal +S AR BUS THP4B originates outside the group.
+INFO:  Signal +S AR BUS THP8B originates outside the group.
+INFO:  Signal -Y LOGIC GATE F OR W originates outside the group.
+INFO:  Signal +S AR BUS TTHP0B originates outside the group.
+INFO:  Signal +S AR BUS TTHP1B originates outside the group.
+INFO:  Signal +S ADDR SCNR 6 POS originates outside the group.
+INFO:  Signal +S AR BUS TTHP2B originates outside the group.
+INFO:  Signal +S AR BUS TTHP4B originates outside the group.
+INFO:  Signal +S AR BUS TTHP8B originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S MEM AR TO I AR UP0B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR UP1B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT UP0B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT UP1B is used outside the group.
+INFO:  Signal -Y MEM AR NOT UP0B is used outside the group.
+INFO:  Signal +Y MEM AR UP0B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR UP0B is used outside the group.
+INFO:  Signal -Y MEM AR UP1B is used outside the group.
+INFO:  Signal -Y MEM AR NOT UP1B is used outside the group.
+INFO:  Signal +Y MEM AR UP1B TO ADDR MOD is used outside the group.
+INFO:  Signal -S MEM AR TO I AR UP2B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR UP4B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT UP2B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT UP4B is used outside the group.
+INFO:  Signal -Y MEM AR NOT UP2B is used outside the group.
+INFO:  Signal +Y MEM AR UP2B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR UP2B is used outside the group.
+INFO:  Signal -Y MEM AR NOT UP4B is used outside the group.
+INFO:  Signal +Y MEM AR UP4B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR UP4B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR UP8B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT UP8B is used outside the group.
+INFO:  Signal -Y MEM AR NOT UP8B is used outside the group.
+INFO:  Signal +Y MEM AR UP8B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR UP8B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR TP0B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR TP1B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT TP0B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT TP1B is used outside the group.
+INFO:  Signal -Y MEM AR NOT TP0B is used outside the group.
+INFO:  Signal +Y MEM AR TP0B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR TP0B is used outside the group.
+INFO:  Signal -Y MEM AR NOT TP1B is used outside the group.
+INFO:  Signal +Y MEM AR TP1B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR TP1B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR TP2B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR TP4B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT TP2B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT TP4B is used outside the group.
+INFO:  Signal -Y MEM AR NOT TP2B is used outside the group.
+INFO:  Signal +Y MEM AR TP2B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR TP2B is used outside the group.
+INFO:  Signal -Y MEM AR NOT TP4B is used outside the group.
+INFO:  Signal +Y MEM AR TP4B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR TP4B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR TP8B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT TP8B is used outside the group.
+INFO:  Signal -Y MEM AR NOT TP8B is used outside the group.
+INFO:  Signal +Y MEM AR TP8B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR TP8B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR HP0B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR HP1B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT HP0B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT HP1B is used outside the group.
+INFO:  Signal -Y MEM AR NOT HP0B is used outside the group.
+INFO:  Signal +Y MEM AR HP0B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR HP0B is used outside the group.
+INFO:  Signal -Y MEM AR NOT HP1B is used outside the group.
+INFO:  Signal +Y MEM AR HP1B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR HP1B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR HP2B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR HP4B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT HP2B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT HP4B is used outside the group.
+INFO:  Signal -Y MEM AR NOT HP2B is used outside the group.
+INFO:  Signal +Y MEM AR HP2B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR HP2B is used outside the group.
+INFO:  Signal -Y MEM AR NOT HP4B is used outside the group.
+INFO:  Signal +Y MEM AR HP4B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR HP4B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR HP8B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT HP8B is used outside the group.
+INFO:  Signal -Y MEM AR NOT HP8B is used outside the group.
+INFO:  Signal +Y MEM AR HP8B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR HP8B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR THP0B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR THP1B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT THP0B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT THP1B is used outside the group.
+INFO:  Signal -Y MEM AR NOT THP0B is used outside the group.
+INFO:  Signal +Y MEM AR THP0B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR THP0B is used outside the group.
+INFO:  Signal -Y MEM AR NOT THP1B is used outside the group.
+INFO:  Signal +Y MEM AR THP1B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR THP1B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR THP2B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR THP4B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT THP2B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT THP4B is used outside the group.
+INFO:  Signal -Y MEM AR NOT THP2B is used outside the group.
+INFO:  Signal +Y MEM AR THP2B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR THP2B is used outside the group.
+INFO:  Signal -Y MEM AR NOT THP4B is used outside the group.
+INFO:  Signal +Y MEM AR THP4B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR THP4B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR THP8B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT THP8B is used outside the group.
+INFO:  Signal -Y MEM AR NOT THP8B is used outside the group.
+INFO:  Signal +Y MEM AR THP8B TO ADDR MOD is used outside the group.
+INFO:  Signal -Y MEM AR THP8B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR TTHP0B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR TTHP1B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT TTHP0B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT TTHP1B is used outside the group.
+INFO:  Signal +Y MEM AR TTHP0B TO MOD is used outside the group.
+INFO:  Signal -Y MEM AR TTHP0B is used outside the group.
+INFO:  Signal +Y MEM AR TTHP1B TO MOD is used outside the group.
+INFO:  Signal -Y MEM AR TTHP1B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR TTHP2B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR TTHP4B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT TTHP2B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT TTHP4B is used outside the group.
+INFO:  Signal +Y MEM AR TTHP2B TO MOD is used outside the group.
+INFO:  Signal -Y MEM AR TTHP2B is used outside the group.
+INFO:  Signal -Y MEM AR NOT TTPH4B is used outside the group.
+INFO:  Signal +Y MEM AR TTHP4B TO MOD is used outside the group.
+INFO:  Signal -Y MEM AR TTHP4B is used outside the group.
+INFO:  Signal -S MEM AR TO I AR TTHP8B is used outside the group.
+INFO:  Signal -S AR BUS GTD OUT TTHP8B is used outside the group.
+INFO:  Signal +Y MEM AR TTHP8B TO MOD is used outside the group.
+INFO:  Signal -Y MEM AR TTHP8B is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S AR BUS UP0B replaced by Bus signal +S AR BUS UP BUS
+Input Signal +S AR BUS UP1B replaced by Bus signal +S AR BUS UP BUS
+Input Signal +S AR BUS UP2B replaced by Bus signal +S AR BUS UP BUS
+Input Signal +S AR BUS UP4B replaced by Bus signal +S AR BUS UP BUS
+Input Signal +S AR BUS UP8B replaced by Bus signal +S AR BUS UP BUS
+Input Signal +S AR BUS TP0B replaced by Bus signal +S AR BUS TP BUS
+Input Signal +S AR BUS TP1B replaced by Bus signal +S AR BUS TP BUS
+Input Signal +S AR BUS TP2B replaced by Bus signal +S AR BUS TP BUS
+Input Signal +S AR BUS TP4B replaced by Bus signal +S AR BUS TP BUS
+Input Signal +S AR BUS TP8B replaced by Bus signal +S AR BUS TP BUS
+Input Signal +S AR BUS HP0B replaced by Bus signal +S AR BUS HP BUS
+Input Signal +S AR BUS HP1B replaced by Bus signal +S AR BUS HP BUS
+Input Signal +S AR BUS HP2B replaced by Bus signal +S AR BUS HP BUS
+Input Signal +S AR BUS HP4B replaced by Bus signal +S AR BUS HP BUS
+Input Signal +S AR BUS HP8B replaced by Bus signal +S AR BUS HP BUS
+Input Signal +S AR BUS THP0B replaced by Bus signal +S AR BUS THP BUS
+Input Signal +S AR BUS THP1B replaced by Bus signal +S AR BUS THP BUS
+Input Signal +S AR BUS THP2B replaced by Bus signal +S AR BUS THP BUS
+Input Signal +S AR BUS THP4B replaced by Bus signal +S AR BUS THP BUS
+Input Signal +S AR BUS THP8B replaced by Bus signal +S AR BUS THP BUS
+Input Signal +S AR BUS TTHP0B replaced by Bus signal +S AR BUS TTHP BUS
+Input Signal +S AR BUS TTHP1B replaced by Bus signal +S AR BUS TTHP BUS
+Input Signal +S AR BUS TTHP2B replaced by Bus signal +S AR BUS TTHP BUS
+Input Signal +S AR BUS TTHP4B replaced by Bus signal +S AR BUS TTHP BUS
+Input Signal +S AR BUS TTHP8B replaced by Bus signal +S AR BUS TTHP BUS
+Page 14.17.01.1 generates Lamp Output LAMP_11C8K01
+Page 14.17.01.1 generates Lamp Output LAMP_11C8J01
+Page 14.17.02.1 generates Lamp Output LAMP_11C8H01
+Page 14.17.02.1 generates Lamp Output LAMP_11C8G01
+Page 14.17.03.1 generates Lamp Output LAMP_11C8F01
+Page 14.17.04.1 generates Lamp Output LAMP_11C8K02
+Page 14.17.04.1 generates Lamp Output LAMP_11C8J02
+Page 14.17.05.1 generates Lamp Output LAMP_11C8H02
+Page 14.17.05.1 generates Lamp Output LAMP_11C8G02
+Page 14.17.06.1 generates Lamp Output LAMP_11C8F02
+Page 14.17.07.1 generates Lamp Output LAMP_11C8K03
+Page 14.17.07.1 generates Lamp Output LAMP_11C8J03
+Page 14.17.08.1 generates Lamp Output LAMP_11C8H03
+Page 14.17.08.1 generates Lamp Output LAMP_11C8G03
+Page 14.17.09.1 generates Lamp Output LAMP_11C8F03
+Page 14.17.10.1 generates Lamp Output LAMP_11C8K04
+Page 14.17.10.1 generates Lamp Output LAMP_11C8J04
+Page 14.17.11.1 generates Lamp Output LAMP_11C8H04
+Page 14.17.11.1 generates Lamp Output LAMP_11C8G04
+Page 14.17.12.1 generates Lamp Output LAMP_11C8F04
+Page 14.17.13.1 generates Lamp Output LAMP_11C8K05
+Page 14.17.13.1 generates Lamp Output LAMP_11C8J05
+Page 14.17.14.1 generates Lamp Output LAMP_11C8H05
+Page 14.17.14.1 generates Lamp Output LAMP_11C8G05
+Page 14.17.15.1 generates Lamp Output LAMP_11C8F05
+DEBUG: Tentative bus -S MEM AR TO I AR UP BUS identified based on signal -S MEM AR TO I AR UP0B
+DEBUG: Added signal -S MEM AR TO I AR UP1B to bus -S MEM AR TO I AR UP BUS
+DEBUG: Tentative bus -S AR BUS GTD OUT UP BUS identified based on signal -S AR BUS GTD OUT UP0B
+DEBUG: Added signal -S AR BUS GTD OUT UP1B to bus -S AR BUS GTD OUT UP BUS
+DEBUG: Tentative bus -Y MEM AR NOT UP BUS identified based on signal -Y MEM AR NOT UP0B
+DEBUG: Tentative bus +Y MEM AR UP TO ADDR MOD BUS identified based on signal +Y MEM AR UP0B TO ADDR MOD
+DEBUG: Tentative bus -Y MEM AR UP BUS identified based on signal -Y MEM AR UP0B
+DEBUG: Added signal -Y MEM AR UP1B to bus -Y MEM AR UP BUS
+DEBUG: Added signal -Y MEM AR NOT UP1B to bus -Y MEM AR NOT UP BUS
+DEBUG: Added signal +Y MEM AR UP1B TO ADDR MOD to bus +Y MEM AR UP TO ADDR MOD BUS
+DEBUG: Added signal -S MEM AR TO I AR UP2B to bus -S MEM AR TO I AR UP BUS
+DEBUG: Added signal -S MEM AR TO I AR UP4B to bus -S MEM AR TO I AR UP BUS
+DEBUG: Added signal -S AR BUS GTD OUT UP2B to bus -S AR BUS GTD OUT UP BUS
+DEBUG: Added signal -S AR BUS GTD OUT UP4B to bus -S AR BUS GTD OUT UP BUS
+DEBUG: Added signal -Y MEM AR NOT UP2B to bus -Y MEM AR NOT UP BUS
+DEBUG: Added signal +Y MEM AR UP2B TO ADDR MOD to bus +Y MEM AR UP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR UP2B to bus -Y MEM AR UP BUS
+DEBUG: Added signal -Y MEM AR NOT UP4B to bus -Y MEM AR NOT UP BUS
+DEBUG: Added signal +Y MEM AR UP4B TO ADDR MOD to bus +Y MEM AR UP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR UP4B to bus -Y MEM AR UP BUS
+DEBUG: Added signal -S MEM AR TO I AR UP8B to bus -S MEM AR TO I AR UP BUS
+DEBUG: Added signal -S AR BUS GTD OUT UP8B to bus -S AR BUS GTD OUT UP BUS
+DEBUG: Added signal -Y MEM AR NOT UP8B to bus -Y MEM AR NOT UP BUS
+DEBUG: Added signal +Y MEM AR UP8B TO ADDR MOD to bus +Y MEM AR UP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR UP8B to bus -Y MEM AR UP BUS
+DEBUG: Tentative bus -S MEM AR TO I AR TP BUS identified based on signal -S MEM AR TO I AR TP0B
+DEBUG: Added signal -S MEM AR TO I AR TP1B to bus -S MEM AR TO I AR TP BUS
+DEBUG: Tentative bus -S AR BUS GTD OUT TP BUS identified based on signal -S AR BUS GTD OUT TP0B
+DEBUG: Added signal -S AR BUS GTD OUT TP1B to bus -S AR BUS GTD OUT TP BUS
+DEBUG: Tentative bus -Y MEM AR NOT TP BUS identified based on signal -Y MEM AR NOT TP0B
+DEBUG: Tentative bus +Y MEM AR TP TO ADDR MOD BUS identified based on signal +Y MEM AR TP0B TO ADDR MOD
+DEBUG: Tentative bus -Y MEM AR TP BUS identified based on signal -Y MEM AR TP0B
+DEBUG: Added signal -Y MEM AR NOT TP1B to bus -Y MEM AR NOT TP BUS
+DEBUG: Added signal +Y MEM AR TP1B TO ADDR MOD to bus +Y MEM AR TP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR TP1B to bus -Y MEM AR TP BUS
+DEBUG: Added signal -S MEM AR TO I AR TP2B to bus -S MEM AR TO I AR TP BUS
+DEBUG: Added signal -S MEM AR TO I AR TP4B to bus -S MEM AR TO I AR TP BUS
+DEBUG: Added signal -S AR BUS GTD OUT TP2B to bus -S AR BUS GTD OUT TP BUS
+DEBUG: Added signal -S AR BUS GTD OUT TP4B to bus -S AR BUS GTD OUT TP BUS
+DEBUG: Added signal -Y MEM AR NOT TP2B to bus -Y MEM AR NOT TP BUS
+DEBUG: Added signal +Y MEM AR TP2B TO ADDR MOD to bus +Y MEM AR TP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR TP2B to bus -Y MEM AR TP BUS
+DEBUG: Added signal -Y MEM AR NOT TP4B to bus -Y MEM AR NOT TP BUS
+DEBUG: Added signal +Y MEM AR TP4B TO ADDR MOD to bus +Y MEM AR TP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR TP4B to bus -Y MEM AR TP BUS
+DEBUG: Added signal -S MEM AR TO I AR TP8B to bus -S MEM AR TO I AR TP BUS
+DEBUG: Added signal -S AR BUS GTD OUT TP8B to bus -S AR BUS GTD OUT TP BUS
+DEBUG: Added signal -Y MEM AR NOT TP8B to bus -Y MEM AR NOT TP BUS
+DEBUG: Added signal +Y MEM AR TP8B TO ADDR MOD to bus +Y MEM AR TP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR TP8B to bus -Y MEM AR TP BUS
+DEBUG: Tentative bus -S MEM AR TO I AR HP BUS identified based on signal -S MEM AR TO I AR HP0B
+DEBUG: Added signal -S MEM AR TO I AR HP1B to bus -S MEM AR TO I AR HP BUS
+DEBUG: Tentative bus -S AR BUS GTD OUT HP BUS identified based on signal -S AR BUS GTD OUT HP0B
+DEBUG: Added signal -S AR BUS GTD OUT HP1B to bus -S AR BUS GTD OUT HP BUS
+DEBUG: Tentative bus -Y MEM AR NOT HP BUS identified based on signal -Y MEM AR NOT HP0B
+DEBUG: Tentative bus +Y MEM AR HP TO ADDR MOD BUS identified based on signal +Y MEM AR HP0B TO ADDR MOD
+DEBUG: Tentative bus -Y MEM AR HP BUS identified based on signal -Y MEM AR HP0B
+DEBUG: Added signal -Y MEM AR NOT HP1B to bus -Y MEM AR NOT HP BUS
+DEBUG: Added signal +Y MEM AR HP1B TO ADDR MOD to bus +Y MEM AR HP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR HP1B to bus -Y MEM AR HP BUS
+DEBUG: Added signal -S MEM AR TO I AR HP2B to bus -S MEM AR TO I AR HP BUS
+DEBUG: Added signal -S MEM AR TO I AR HP4B to bus -S MEM AR TO I AR HP BUS
+DEBUG: Added signal -S AR BUS GTD OUT HP2B to bus -S AR BUS GTD OUT HP BUS
+DEBUG: Added signal -S AR BUS GTD OUT HP4B to bus -S AR BUS GTD OUT HP BUS
+DEBUG: Added signal -Y MEM AR NOT HP2B to bus -Y MEM AR NOT HP BUS
+DEBUG: Added signal +Y MEM AR HP2B TO ADDR MOD to bus +Y MEM AR HP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR HP2B to bus -Y MEM AR HP BUS
+DEBUG: Added signal -Y MEM AR NOT HP4B to bus -Y MEM AR NOT HP BUS
+DEBUG: Added signal +Y MEM AR HP4B TO ADDR MOD to bus +Y MEM AR HP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR HP4B to bus -Y MEM AR HP BUS
+DEBUG: Added signal -S MEM AR TO I AR HP8B to bus -S MEM AR TO I AR HP BUS
+DEBUG: Added signal -S AR BUS GTD OUT HP8B to bus -S AR BUS GTD OUT HP BUS
+DEBUG: Added signal -Y MEM AR NOT HP8B to bus -Y MEM AR NOT HP BUS
+DEBUG: Added signal +Y MEM AR HP8B TO ADDR MOD to bus +Y MEM AR HP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR HP8B to bus -Y MEM AR HP BUS
+DEBUG: Tentative bus -S MEM AR TO I AR THP BUS identified based on signal -S MEM AR TO I AR THP0B
+DEBUG: Added signal -S MEM AR TO I AR THP1B to bus -S MEM AR TO I AR THP BUS
+DEBUG: Tentative bus -S AR BUS GTD OUT THP BUS identified based on signal -S AR BUS GTD OUT THP0B
+DEBUG: Added signal -S AR BUS GTD OUT THP1B to bus -S AR BUS GTD OUT THP BUS
+DEBUG: Tentative bus -Y MEM AR NOT THP BUS identified based on signal -Y MEM AR NOT THP0B
+DEBUG: Tentative bus +Y MEM AR THP TO ADDR MOD BUS identified based on signal +Y MEM AR THP0B TO ADDR MOD
+DEBUG: Tentative bus -Y MEM AR THP BUS identified based on signal -Y MEM AR THP0B
+DEBUG: Added signal -Y MEM AR NOT THP1B to bus -Y MEM AR NOT THP BUS
+DEBUG: Added signal +Y MEM AR THP1B TO ADDR MOD to bus +Y MEM AR THP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR THP1B to bus -Y MEM AR THP BUS
+DEBUG: Added signal -S MEM AR TO I AR THP2B to bus -S MEM AR TO I AR THP BUS
+DEBUG: Added signal -S MEM AR TO I AR THP4B to bus -S MEM AR TO I AR THP BUS
+DEBUG: Added signal -S AR BUS GTD OUT THP2B to bus -S AR BUS GTD OUT THP BUS
+DEBUG: Added signal -S AR BUS GTD OUT THP4B to bus -S AR BUS GTD OUT THP BUS
+DEBUG: Added signal -Y MEM AR NOT THP2B to bus -Y MEM AR NOT THP BUS
+DEBUG: Added signal +Y MEM AR THP2B TO ADDR MOD to bus +Y MEM AR THP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR THP2B to bus -Y MEM AR THP BUS
+DEBUG: Added signal -Y MEM AR NOT THP4B to bus -Y MEM AR NOT THP BUS
+DEBUG: Added signal +Y MEM AR THP4B TO ADDR MOD to bus +Y MEM AR THP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR THP4B to bus -Y MEM AR THP BUS
+DEBUG: Added signal -S MEM AR TO I AR THP8B to bus -S MEM AR TO I AR THP BUS
+DEBUG: Added signal -S AR BUS GTD OUT THP8B to bus -S AR BUS GTD OUT THP BUS
+DEBUG: Added signal -Y MEM AR NOT THP8B to bus -Y MEM AR NOT THP BUS
+DEBUG: Added signal +Y MEM AR THP8B TO ADDR MOD to bus +Y MEM AR THP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR THP8B to bus -Y MEM AR THP BUS
+DEBUG: Tentative bus -S MEM AR TO I AR TTHP BUS identified based on signal -S MEM AR TO I AR TTHP0B
+DEBUG: Added signal -S MEM AR TO I AR TTHP1B to bus -S MEM AR TO I AR TTHP BUS
+DEBUG: Tentative bus -S AR BUS GTD OUT TTHP BUS identified based on signal -S AR BUS GTD OUT TTHP0B
+DEBUG: Added signal -S AR BUS GTD OUT TTHP1B to bus -S AR BUS GTD OUT TTHP BUS
+DEBUG: Tentative bus +Y MEM AR TTHP TO ADDR MOD BUS identified based on signal +Y MEM AR TTHP0B TO MOD
+DEBUG: Tentative bus -Y MEM AR TTHP BUS identified based on signal -Y MEM AR TTHP0B
+DEBUG: Added signal +Y MEM AR TTHP1B TO MOD to bus +Y MEM AR TTHP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR TTHP1B to bus -Y MEM AR TTHP BUS
+DEBUG: Added signal -S MEM AR TO I AR TTHP2B to bus -S MEM AR TO I AR TTHP BUS
+DEBUG: Added signal -S MEM AR TO I AR TTHP4B to bus -S MEM AR TO I AR TTHP BUS
+DEBUG: Added signal -S AR BUS GTD OUT TTHP2B to bus -S AR BUS GTD OUT TTHP BUS
+DEBUG: Added signal -S AR BUS GTD OUT TTHP4B to bus -S AR BUS GTD OUT TTHP BUS
+DEBUG: Added signal +Y MEM AR TTHP2B TO MOD to bus +Y MEM AR TTHP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR TTHP2B to bus -Y MEM AR TTHP BUS
+DEBUG: Added signal +Y MEM AR TTHP4B TO MOD to bus +Y MEM AR TTHP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR TTHP4B to bus -Y MEM AR TTHP BUS
+DEBUG: Added signal -S MEM AR TO I AR TTHP8B to bus -S MEM AR TO I AR TTHP BUS
+DEBUG: Added signal -S AR BUS GTD OUT TTHP8B to bus -S AR BUS GTD OUT TTHP BUS
+DEBUG: Added signal +Y MEM AR TTHP8B TO MOD to bus +Y MEM AR TTHP TO ADDR MOD BUS
+DEBUG: Added signal -Y MEM AR TTHP8B to bus -Y MEM AR TTHP BUS
+DEBUG: Tentative bus LAMPS MAR UP identified based on signal LAMP_11C8K01
+DEBUG: Added signal LAMP_11C8J01 to bus LAMPS MAR UP
+DEBUG: Added signal LAMP_11C8H01 to bus LAMPS MAR UP
+DEBUG: Added signal LAMP_11C8G01 to bus LAMPS MAR UP
+DEBUG: Added signal LAMP_11C8F01 to bus LAMPS MAR UP
+DEBUG: Tentative bus LAMPS MAR TP identified based on signal LAMP_11C8K02
+DEBUG: Added signal LAMP_11C8J02 to bus LAMPS MAR TP
+DEBUG: Added signal LAMP_11C8H02 to bus LAMPS MAR TP
+DEBUG: Added signal LAMP_11C8G02 to bus LAMPS MAR TP
+DEBUG: Added signal LAMP_11C8F02 to bus LAMPS MAR TP
+DEBUG: Tentative bus LAMPS MAR HP identified based on signal LAMP_11C8K03
+DEBUG: Added signal LAMP_11C8J03 to bus LAMPS MAR HP
+DEBUG: Added signal LAMP_11C8H03 to bus LAMPS MAR HP
+DEBUG: Added signal LAMP_11C8G03 to bus LAMPS MAR HP
+DEBUG: Added signal LAMP_11C8F03 to bus LAMPS MAR HP
+DEBUG: Tentative bus LAMPS MAR THP identified based on signal LAMP_11C8K04
+DEBUG: Added signal LAMP_11C8J04 to bus LAMPS MAR THP
+DEBUG: Added signal LAMP_11C8H04 to bus LAMPS MAR THP
+DEBUG: Added signal LAMP_11C8G04 to bus LAMPS MAR THP
+DEBUG: Added signal LAMP_11C8F04 to bus LAMPS MAR THP
+DEBUG: Tentative bus LAMPS MAR TTHP identified based on signal LAMP_11C8K05
+DEBUG: Added signal LAMP_11C8J05 to bus LAMPS MAR TTHP
+DEBUG: Added signal LAMP_11C8H05 to bus LAMPS MAR TTHP
+DEBUG: Added signal LAMP_11C8G05 to bus LAMPS MAR TTHP
+DEBUG: Added signal LAMP_11C8F05 to bus LAMPS MAR TTHP
+INFO: Bus -S MEM AR TO I AR UP BUS identified 
+INFO: Bus -S AR BUS GTD OUT UP BUS identified 
+INFO: Bus -Y MEM AR NOT UP BUS identified 
+INFO: Bus +Y MEM AR UP TO ADDR MOD BUS identified 
+INFO: Bus -Y MEM AR UP BUS identified 
+INFO: Bus -S MEM AR TO I AR TP BUS identified 
+INFO: Bus -S AR BUS GTD OUT TP BUS identified 
+INFO: Bus -Y MEM AR NOT TP BUS identified 
+INFO: Bus +Y MEM AR TP TO ADDR MOD BUS identified 
+INFO: Bus -Y MEM AR TP BUS identified 
+INFO: Bus -S MEM AR TO I AR HP BUS identified 
+INFO: Bus -S AR BUS GTD OUT HP BUS identified 
+INFO: Bus -Y MEM AR NOT HP BUS identified 
+INFO: Bus +Y MEM AR HP TO ADDR MOD BUS identified 
+INFO: Bus -Y MEM AR HP BUS identified 
+INFO: Bus -S MEM AR TO I AR THP BUS identified 
+INFO: Bus -S AR BUS GTD OUT THP BUS identified 
+INFO: Bus -Y MEM AR NOT THP BUS identified 
+INFO: Bus +Y MEM AR THP TO ADDR MOD BUS identified 
+INFO: Bus -Y MEM AR THP BUS identified 
+INFO: Bus -S MEM AR TO I AR TTHP BUS identified 
+INFO: Bus -S AR BUS GTD OUT TTHP BUS identified 
+INFO: Bus +Y MEM AR TTHP TO ADDR MOD BUS identified 
+INFO: Bus -Y MEM AR TTHP BUS identified 
+INFO: Bus LAMPS MAR UP identified 
+INFO: Bus LAMPS MAR TP identified 
+INFO: Bus LAMPS MAR HP identified 
+INFO: Bus LAMPS MAR THP identified 
+INFO: Bus LAMPS MAR TTHP identified 
+Output signal -S MEM AR TO I AR UP0B replaced by bus -S MEM AR TO I AR UP BUS
+Output signal -S MEM AR TO I AR UP1B replaced by bus -S MEM AR TO I AR UP BUS
+Output signal -S AR BUS GTD OUT UP0B replaced by bus -S AR BUS GTD OUT UP BUS
+Output signal -S AR BUS GTD OUT UP1B replaced by bus -S AR BUS GTD OUT UP BUS
+Output signal -Y MEM AR NOT UP0B replaced by bus -Y MEM AR NOT UP BUS
+Output signal +Y MEM AR UP0B TO ADDR MOD replaced by bus +Y MEM AR UP TO ADDR MOD BUS
+Output signal -Y MEM AR UP0B replaced by bus -Y MEM AR UP BUS
+Output signal -Y MEM AR UP1B replaced by bus -Y MEM AR UP BUS
+Output signal -Y MEM AR NOT UP1B replaced by bus -Y MEM AR NOT UP BUS
+Output signal +Y MEM AR UP1B TO ADDR MOD replaced by bus +Y MEM AR UP TO ADDR MOD BUS
+Output signal -S MEM AR TO I AR UP2B replaced by bus -S MEM AR TO I AR UP BUS
+Output signal -S MEM AR TO I AR UP4B replaced by bus -S MEM AR TO I AR UP BUS
+Output signal -S AR BUS GTD OUT UP2B replaced by bus -S AR BUS GTD OUT UP BUS
+Output signal -S AR BUS GTD OUT UP4B replaced by bus -S AR BUS GTD OUT UP BUS
+Output signal -Y MEM AR NOT UP2B replaced by bus -Y MEM AR NOT UP BUS
+Output signal +Y MEM AR UP2B TO ADDR MOD replaced by bus +Y MEM AR UP TO ADDR MOD BUS
+Output signal -Y MEM AR UP2B replaced by bus -Y MEM AR UP BUS
+Output signal -Y MEM AR NOT UP4B replaced by bus -Y MEM AR NOT UP BUS
+Output signal +Y MEM AR UP4B TO ADDR MOD replaced by bus +Y MEM AR UP TO ADDR MOD BUS
+Output signal -Y MEM AR UP4B replaced by bus -Y MEM AR UP BUS
+Output signal -S MEM AR TO I AR UP8B replaced by bus -S MEM AR TO I AR UP BUS
+Output signal -S AR BUS GTD OUT UP8B replaced by bus -S AR BUS GTD OUT UP BUS
+Output signal -Y MEM AR NOT UP8B replaced by bus -Y MEM AR NOT UP BUS
+Output signal +Y MEM AR UP8B TO ADDR MOD replaced by bus +Y MEM AR UP TO ADDR MOD BUS
+Output signal -Y MEM AR UP8B replaced by bus -Y MEM AR UP BUS
+Output signal -S MEM AR TO I AR TP0B replaced by bus -S MEM AR TO I AR TP BUS
+Output signal -S MEM AR TO I AR TP1B replaced by bus -S MEM AR TO I AR TP BUS
+Output signal -S AR BUS GTD OUT TP0B replaced by bus -S AR BUS GTD OUT TP BUS
+Output signal -S AR BUS GTD OUT TP1B replaced by bus -S AR BUS GTD OUT TP BUS
+Output signal -Y MEM AR NOT TP0B replaced by bus -Y MEM AR NOT TP BUS
+Output signal +Y MEM AR TP0B TO ADDR MOD replaced by bus +Y MEM AR TP TO ADDR MOD BUS
+Output signal -Y MEM AR TP0B replaced by bus -Y MEM AR TP BUS
+Output signal -Y MEM AR NOT TP1B replaced by bus -Y MEM AR NOT TP BUS
+Output signal +Y MEM AR TP1B TO ADDR MOD replaced by bus +Y MEM AR TP TO ADDR MOD BUS
+Output signal -Y MEM AR TP1B replaced by bus -Y MEM AR TP BUS
+Output signal -S MEM AR TO I AR TP2B replaced by bus -S MEM AR TO I AR TP BUS
+Output signal -S MEM AR TO I AR TP4B replaced by bus -S MEM AR TO I AR TP BUS
+Output signal -S AR BUS GTD OUT TP2B replaced by bus -S AR BUS GTD OUT TP BUS
+Output signal -S AR BUS GTD OUT TP4B replaced by bus -S AR BUS GTD OUT TP BUS
+Output signal -Y MEM AR NOT TP2B replaced by bus -Y MEM AR NOT TP BUS
+Output signal +Y MEM AR TP2B TO ADDR MOD replaced by bus +Y MEM AR TP TO ADDR MOD BUS
+Output signal -Y MEM AR TP2B replaced by bus -Y MEM AR TP BUS
+Output signal -Y MEM AR NOT TP4B replaced by bus -Y MEM AR NOT TP BUS
+Output signal +Y MEM AR TP4B TO ADDR MOD replaced by bus +Y MEM AR TP TO ADDR MOD BUS
+Output signal -Y MEM AR TP4B replaced by bus -Y MEM AR TP BUS
+Output signal -S MEM AR TO I AR TP8B replaced by bus -S MEM AR TO I AR TP BUS
+Output signal -S AR BUS GTD OUT TP8B replaced by bus -S AR BUS GTD OUT TP BUS
+Output signal -Y MEM AR NOT TP8B replaced by bus -Y MEM AR NOT TP BUS
+Output signal +Y MEM AR TP8B TO ADDR MOD replaced by bus +Y MEM AR TP TO ADDR MOD BUS
+Output signal -Y MEM AR TP8B replaced by bus -Y MEM AR TP BUS
+Output signal -S MEM AR TO I AR HP0B replaced by bus -S MEM AR TO I AR HP BUS
+Output signal -S MEM AR TO I AR HP1B replaced by bus -S MEM AR TO I AR HP BUS
+Output signal -S AR BUS GTD OUT HP0B replaced by bus -S AR BUS GTD OUT HP BUS
+Output signal -S AR BUS GTD OUT HP1B replaced by bus -S AR BUS GTD OUT HP BUS
+Output signal -Y MEM AR NOT HP0B replaced by bus -Y MEM AR NOT HP BUS
+Output signal +Y MEM AR HP0B TO ADDR MOD replaced by bus +Y MEM AR HP TO ADDR MOD BUS
+Output signal -Y MEM AR HP0B replaced by bus -Y MEM AR HP BUS
+Output signal -Y MEM AR NOT HP1B replaced by bus -Y MEM AR NOT HP BUS
+Output signal +Y MEM AR HP1B TO ADDR MOD replaced by bus +Y MEM AR HP TO ADDR MOD BUS
+Output signal -Y MEM AR HP1B replaced by bus -Y MEM AR HP BUS
+Output signal -S MEM AR TO I AR HP2B replaced by bus -S MEM AR TO I AR HP BUS
+Output signal -S MEM AR TO I AR HP4B replaced by bus -S MEM AR TO I AR HP BUS
+Output signal -S AR BUS GTD OUT HP2B replaced by bus -S AR BUS GTD OUT HP BUS
+Output signal -S AR BUS GTD OUT HP4B replaced by bus -S AR BUS GTD OUT HP BUS
+Output signal -Y MEM AR NOT HP2B replaced by bus -Y MEM AR NOT HP BUS
+Output signal +Y MEM AR HP2B TO ADDR MOD replaced by bus +Y MEM AR HP TO ADDR MOD BUS
+Output signal -Y MEM AR HP2B replaced by bus -Y MEM AR HP BUS
+Output signal -Y MEM AR NOT HP4B replaced by bus -Y MEM AR NOT HP BUS
+Output signal +Y MEM AR HP4B TO ADDR MOD replaced by bus +Y MEM AR HP TO ADDR MOD BUS
+Output signal -Y MEM AR HP4B replaced by bus -Y MEM AR HP BUS
+Output signal -S MEM AR TO I AR HP8B replaced by bus -S MEM AR TO I AR HP BUS
+Output signal -S AR BUS GTD OUT HP8B replaced by bus -S AR BUS GTD OUT HP BUS
+Output signal -Y MEM AR NOT HP8B replaced by bus -Y MEM AR NOT HP BUS
+Output signal +Y MEM AR HP8B TO ADDR MOD replaced by bus +Y MEM AR HP TO ADDR MOD BUS
+Output signal -Y MEM AR HP8B replaced by bus -Y MEM AR HP BUS
+Output signal -S MEM AR TO I AR THP0B replaced by bus -S MEM AR TO I AR THP BUS
+Output signal -S MEM AR TO I AR THP1B replaced by bus -S MEM AR TO I AR THP BUS
+Output signal -S AR BUS GTD OUT THP0B replaced by bus -S AR BUS GTD OUT THP BUS
+Output signal -S AR BUS GTD OUT THP1B replaced by bus -S AR BUS GTD OUT THP BUS
+Output signal -Y MEM AR NOT THP0B replaced by bus -Y MEM AR NOT THP BUS
+Output signal +Y MEM AR THP0B TO ADDR MOD replaced by bus +Y MEM AR THP TO ADDR MOD BUS
+Output signal -Y MEM AR THP0B replaced by bus -Y MEM AR THP BUS
+Output signal -Y MEM AR NOT THP1B replaced by bus -Y MEM AR NOT THP BUS
+Output signal +Y MEM AR THP1B TO ADDR MOD replaced by bus +Y MEM AR THP TO ADDR MOD BUS
+Output signal -Y MEM AR THP1B replaced by bus -Y MEM AR THP BUS
+Output signal -S MEM AR TO I AR THP2B replaced by bus -S MEM AR TO I AR THP BUS
+Output signal -S MEM AR TO I AR THP4B replaced by bus -S MEM AR TO I AR THP BUS
+Output signal -S AR BUS GTD OUT THP2B replaced by bus -S AR BUS GTD OUT THP BUS
+Output signal -S AR BUS GTD OUT THP4B replaced by bus -S AR BUS GTD OUT THP BUS
+Output signal -Y MEM AR NOT THP2B replaced by bus -Y MEM AR NOT THP BUS
+Output signal +Y MEM AR THP2B TO ADDR MOD replaced by bus +Y MEM AR THP TO ADDR MOD BUS
+Output signal -Y MEM AR THP2B replaced by bus -Y MEM AR THP BUS
+Output signal -Y MEM AR NOT THP4B replaced by bus -Y MEM AR NOT THP BUS
+Output signal +Y MEM AR THP4B TO ADDR MOD replaced by bus +Y MEM AR THP TO ADDR MOD BUS
+Output signal -Y MEM AR THP4B replaced by bus -Y MEM AR THP BUS
+Output signal -S MEM AR TO I AR THP8B replaced by bus -S MEM AR TO I AR THP BUS
+Output signal -S AR BUS GTD OUT THP8B replaced by bus -S AR BUS GTD OUT THP BUS
+Output signal -Y MEM AR NOT THP8B replaced by bus -Y MEM AR NOT THP BUS
+Output signal +Y MEM AR THP8B TO ADDR MOD replaced by bus +Y MEM AR THP TO ADDR MOD BUS
+Output signal -Y MEM AR THP8B replaced by bus -Y MEM AR THP BUS
+Output signal -S MEM AR TO I AR TTHP0B replaced by bus -S MEM AR TO I AR TTHP BUS
+Output signal -S MEM AR TO I AR TTHP1B replaced by bus -S MEM AR TO I AR TTHP BUS
+Output signal -S AR BUS GTD OUT TTHP0B replaced by bus -S AR BUS GTD OUT TTHP BUS
+Output signal -S AR BUS GTD OUT TTHP1B replaced by bus -S AR BUS GTD OUT TTHP BUS
+Output signal +Y MEM AR TTHP0B TO MOD replaced by bus +Y MEM AR TTHP TO ADDR MOD BUS
+Output signal -Y MEM AR TTHP0B replaced by bus -Y MEM AR TTHP BUS
+Output signal +Y MEM AR TTHP1B TO MOD replaced by bus +Y MEM AR TTHP TO ADDR MOD BUS
+Output signal -Y MEM AR TTHP1B replaced by bus -Y MEM AR TTHP BUS
+Output signal -S MEM AR TO I AR TTHP2B replaced by bus -S MEM AR TO I AR TTHP BUS
+Output signal -S MEM AR TO I AR TTHP4B replaced by bus -S MEM AR TO I AR TTHP BUS
+Output signal -S AR BUS GTD OUT TTHP2B replaced by bus -S AR BUS GTD OUT TTHP BUS
+Output signal -S AR BUS GTD OUT TTHP4B replaced by bus -S AR BUS GTD OUT TTHP BUS
+Output signal +Y MEM AR TTHP2B TO MOD replaced by bus +Y MEM AR TTHP TO ADDR MOD BUS
+Output signal -Y MEM AR TTHP2B replaced by bus -Y MEM AR TTHP BUS
+Output signal +Y MEM AR TTHP4B TO MOD replaced by bus +Y MEM AR TTHP TO ADDR MOD BUS
+Output signal -Y MEM AR TTHP4B replaced by bus -Y MEM AR TTHP BUS
+Output signal -S MEM AR TO I AR TTHP8B replaced by bus -S MEM AR TO I AR TTHP BUS
+Output signal -S AR BUS GTD OUT TTHP8B replaced by bus -S AR BUS GTD OUT TTHP BUS
+Output signal +Y MEM AR TTHP8B TO MOD replaced by bus +Y MEM AR TTHP TO ADDR MOD BUS
+Output signal -Y MEM AR TTHP8B replaced by bus -Y MEM AR TTHP BUS
+Output signal LAMP_11C8K01 replaced by bus LAMPS MAR UP
+Output signal LAMP_11C8J01 replaced by bus LAMPS MAR UP
+Output signal LAMP_11C8H01 replaced by bus LAMPS MAR UP
+Output signal LAMP_11C8G01 replaced by bus LAMPS MAR UP
+Output signal LAMP_11C8F01 replaced by bus LAMPS MAR UP
+Output signal LAMP_11C8K02 replaced by bus LAMPS MAR TP
+Output signal LAMP_11C8J02 replaced by bus LAMPS MAR TP
+Output signal LAMP_11C8H02 replaced by bus LAMPS MAR TP
+Output signal LAMP_11C8G02 replaced by bus LAMPS MAR TP
+Output signal LAMP_11C8F02 replaced by bus LAMPS MAR TP
+Output signal LAMP_11C8K03 replaced by bus LAMPS MAR HP
+Output signal LAMP_11C8J03 replaced by bus LAMPS MAR HP
+Output signal LAMP_11C8H03 replaced by bus LAMPS MAR HP
+Output signal LAMP_11C8G03 replaced by bus LAMPS MAR HP
+Output signal LAMP_11C8F03 replaced by bus LAMPS MAR HP
+Output signal LAMP_11C8K04 replaced by bus LAMPS MAR THP
+Output signal LAMP_11C8J04 replaced by bus LAMPS MAR THP
+Output signal LAMP_11C8H04 replaced by bus LAMPS MAR THP
+Output signal LAMP_11C8G04 replaced by bus LAMPS MAR THP
+Output signal LAMP_11C8F04 replaced by bus LAMPS MAR THP
+Output signal LAMP_11C8K05 replaced by bus LAMPS MAR TTHP
+Output signal LAMP_11C8J05 replaced by bus LAMPS MAR TTHP
+Output signal LAMP_11C8H05 replaced by bus LAMPS MAR TTHP
+Output signal LAMP_11C8G05 replaced by bus LAMPS MAR TTHP
+Output signal LAMP_11C8F05 replaced by bus LAMPS MAR TTHP
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.17.01.1 (MEM AR UNITS POS 0 AND 1 BITS-ACC)
+Generating HDL associated with page 14.17.02.1 (MEM AR UNITS POS 2 AND 4 BITS-ACC)
+Generating HDL associated with page 14.17.03.1 (MEM AR UNITS POS 8 BIT-ACC)
+Generating HDL associated with page 14.17.04.1 (MEM AR TENS POS 0 AND 1 BITS-ACC)
+Generating HDL associated with page 14.17.05.1 (MEM AR TENS POS 2 AND 4 BITS-ACC)
+Generating HDL associated with page 14.17.06.1 (MEM AR TENS POS 8 BIT-ACC)
+Generating HDL associated with page 14.17.07.1 (MEM AR HUNDREDS POS 0+1 BITS-ACC)
+Generating HDL associated with page 14.17.08.1 (MEM AR HUNDREDS POS 2+4 BITS-ACC)
+Generating HDL associated with page 14.17.09.1 (MEM AR HUNDREDS POS 8 BIT-ACC)
+Generating HDL associated with page 14.17.10.1 (MEM AR THOUSANDS POS 0+1 BITS-ACC)
+Generating HDL associated with page 14.17.11.1 (MEM AR THOUS POS 2 AND 4 BITS-ACC)
+Generating HDL associated with page 14.17.12.1 (MEM AR THOUSANDS POS 8 BIT-ACC)
+Generating HDL associated with page 14.17.13.1 (MEM AR TEN THOUS POS 0 AND 1-ACC)
+Generating HDL associated with page 14.17.14.1 (MEM AR TTHP 2 AND 4 BIT FEAT-ACC)
+Generating HDL associated with page 14.17.15.1 (MEM AR TEN THOUS POS 8 BIT-ACC)

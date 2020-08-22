@@ -1,0 +1,62 @@
+Generating HDL for page 14.17.06.1 MEM AR TENS POS 8 BIT-ACC at 8/22/2020 2:17:08 PM
+Found combinatorial loop (need D FF) at output of gate at 3D
+Found combinatorial loop (need D FF) at output of gate at 2D
+Removed 2 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8F02
+Generating Statement for block at 1C with output pin(s) of OUT_1C_D
+	and inputs of PS_SET_MEM_AR_TO_I_AR,OUT_3D_NoPin
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_AR_BUS_TP8B
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of OUT_5D_NoPin,PS_SET_MEM_AR_2_GATED
+	and logic function of AND
+Generating Statement for block at 3D with *latched* output pin(s) of OUT_3D_NoPin_Latch, OUT_3D_NoPin_Latch, OUT_3D_NoPin_Latch
+	and inputs of OUT_4D_NoPin,OUT_2D_K
+	and logic function of NOR
+Generating Statement for block at 2D with *latched* output pin(s) of OUT_2D_K_Latch, OUT_2D_K_Latch, OUT_2D_K_Latch
+	and inputs of OUT_3D_NoPin,OUT_4E_NoPin
+	and logic function of NOR
+Generating Statement for block at 1D with output pin(s) of OUT_1D_E
+	and inputs of OUT_3D_NoPin
+	and logic function of EQUAL
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of PS_AR_BUS_TP8B
+	and logic function of EQUAL
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of OUT_5E_NoPin,PS_SET_MEM_AR_1_GATED
+	and logic function of AND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of OUT_2D_K
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of 
+	and inputs of OUT_2E_A
+	and logic function of Lamp
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of PS_ADDR_SCNR_3_POS,PS_AR_BUS_TP8B
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_R, OUT_2F_R
+	and inputs of OUT_2D_K
+	and logic function of EQUAL
+Generating Statement for block at 1F with output pin(s) of OUT_1F_A
+	and inputs of OUT_2F_R,MY_LOGIC_GATE_C_OR_T
+	and logic function of NOR
+Generating output sheet edge signal assignment to 
+	signal MS_MEM_AR_TO_I_AR_TP8B
+	from gate output OUT_1C_D
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_NOT_TP8B
+	from gate output OUT_1D_E
+Generating output sheet edge signal assignment to 
+	signal MS_AR_BUS_GTD_OUT_TP8B
+	from gate output OUT_5F_C
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_TP8B
+	from gate output OUT_2F_R
+Generating output sheet edge signal assignment to 
+	signal PY_MEM_AR_TP8B_TO_ADDR_MOD
+	from gate output OUT_1F_A
+Generating D Flip Flop for block at 3D
+Generating D Flip Flop for block at 2D
