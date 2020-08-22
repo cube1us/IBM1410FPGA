@@ -1,8 +1,8 @@
-Generating HDL for group named MEMArat 8/22/2020 3:48:55 PM containing pages: 
+Generating HDL for group named MEMArat 8/22/2020 5:29:11 PM containing pages: 
 	14.17.01.1, 14.17.02.1, 14.17.03.1, 14.17.04.1, 14.17.05.1
 	14.17.06.1, 14.17.07.1, 14.17.08.1, 14.17.09.1, 14.17.10.1
 	14.17.11.1, 14.17.12.1, 14.17.13.1, 14.17.14.1, 14.17.15.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\MEMAr_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file MEMAr_tb.vhdl 404 lines preserved and 32 declaration lines preserved
 Building lists of signals on 15 pages...
 Found 17 signals on page 14.17.01.1
 Found 17 signals on page 14.17.02.1
@@ -174,7 +174,7 @@ INFO:  Signal -S AR BUS GTD OUT TTHP2B is used outside the group.
 INFO:  Signal -S AR BUS GTD OUT TTHP4B is used outside the group.
 INFO:  Signal +Y MEM AR TTHP2B TO MOD is used outside the group.
 INFO:  Signal -Y MEM AR TTHP2B is used outside the group.
-INFO:  Signal -Y MEM AR NOT TTPH4B is used outside the group.
+INFO:  Signal -Y MEM AR NOT TTHP4B is used outside the group.
 INFO:  Signal +Y MEM AR TTHP4B TO MOD is used outside the group.
 INFO:  Signal -Y MEM AR TTHP4B is used outside the group.
 INFO:  Signal -S MEM AR TO I AR TTHP8B is used outside the group.

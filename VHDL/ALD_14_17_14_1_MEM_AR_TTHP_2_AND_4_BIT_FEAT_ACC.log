@@ -1,4 +1,4 @@
-Generating HDL for page 14.17.14.1 MEM AR TTHP 2 AND 4 BIT FEAT-ACC at 8/22/2020 2:17:37 PM
+Generating HDL for page 14.17.14.1 MEM AR TTHP 2 AND 4 BIT FEAT-ACC at 8/22/2020 5:28:24 PM
 Found combinatorial loop (need D FF) at output of gate at 3B
 Found combinatorial loop (need D FF) at output of gate at 2B
 Found combinatorial loop (need D FF) at output of gate at 3G
@@ -99,7 +99,7 @@ Generating output sheet edge signal assignment to
 	signal MS_MEM_AR_TO_I_AR_TTHP4B
 	from gate output OUT_1F_D
 Generating output sheet edge signal assignment to 
-	signal MY_MEM_AR_NOT_TTPH4B
+	signal MY_MEM_AR_NOT_TTHP4B
 	from gate output OUT_1G_E
 Generating output sheet edge signal assignment to 
 	signal MS_AR_BUS_GTD_OUT_TTHP4B
