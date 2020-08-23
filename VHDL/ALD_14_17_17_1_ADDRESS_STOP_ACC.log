@@ -1,0 +1,153 @@
+Generating HDL for page 14.17.17.1 ADDRESS STOP-ACC at 8/23/2020 10:22:54 AM
+WARNING: Diagram block at coordinate 5A has 5 different output pins: A,B,K,D,E
+WARNING: Diagram block at coordinate 5B has 5 different output pins: F,G,H,J,L
+WARNING: Diagram block at coordinate 5C has 5 different output pins: A,B,K,D,E
+WARNING: Diagram block at coordinate 5D has 5 different output pins: F,G,H,J,L
+WARNING: Diagram block at coordinate 5F has 5 different output pins: A,B,K,D,E
+WARNING: Diagram block at coordinate 5G has 5 different output pins: F,G,H,J,L
+WARNING: Diagram block at coordinate 5H has 5 different output pins: A,B,K,D,E
+WARNING: Diagram block at coordinate 5I has 5 different output pins: F,G,H,J,L
+NOTE: DOT Function at 5A is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 4A is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5B is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5D is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5C is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 4F is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5F is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5G is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5I is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Processing extension from block at 5A (Database ID=239604) to 5B (Database ID=239605)
+Copied connection from extension output pin F to master block at 5A
+Copied connection from extension output pin G to master block at 5A
+Copied connection from extension output pin H to master block at 5A
+Copied connection from extension output pin J to master block at 5A
+Copied connection from extension output pin L to master block at 5A
+Moved connection from extension 5B pin H to be from master at 5A
+Moved connection from extension 5B pin J to be from master at 5A
+Moved connection from extension 5B pin F to be from master at 5A
+Moved connection from extension 5B pin L to be from master at 5A
+Moved connection from extension 5B pin G to be from master at 5A
+Processing extension from block at 5C (Database ID=239606) to 5D (Database ID=239607)
+Copied connection from extension output pin F to master block at 5C
+Copied connection from extension output pin G to master block at 5C
+Copied connection from extension output pin H to master block at 5C
+Copied connection from extension output pin J to master block at 5C
+Copied connection from extension output pin L to master block at 5C
+Moved connection from extension 5D pin H to be from master at 5C
+Moved connection from extension 5D pin J to be from master at 5C
+Moved connection from extension 5D pin L to be from master at 5C
+Moved connection from extension 5D pin F to be from master at 5C
+Moved connection from extension 5D pin G to be from master at 5C
+Processing extension from block at 5F (Database ID=239611) to 5G (Database ID=239613)
+Copied connection from extension output pin F to master block at 5F
+Copied connection from extension output pin G to master block at 5F
+Copied connection from extension output pin H to master block at 5F
+Copied connection from extension output pin J to master block at 5F
+Copied connection from extension output pin L to master block at 5F
+Moved connection from extension 5G pin H to be from master at 5F
+Moved connection from extension 5G pin J to be from master at 5F
+Moved connection from extension 5G pin F to be from master at 5F
+Moved connection from extension 5G pin L to be from master at 5F
+Moved connection from extension 5G pin G to be from master at 5F
+Processing extension from block at 5H (Database ID=239616) to 5I (Database ID=239617)
+Copied connection from extension output pin F to master block at 5H
+Copied connection from extension output pin G to master block at 5H
+Copied connection from extension output pin H to master block at 5H
+Copied connection from extension output pin J to master block at 5H
+Copied connection from extension output pin L to master block at 5H
+Moved connection from extension 5I pin F to be from master at 5H
+Moved connection from extension 5I pin G to be from master at 5H
+Moved connection from extension 5I pin H to be from master at 5H
+Moved connection from extension 5I pin J to be from master at 5H
+Moved connection from extension 5I pin L to be from master at 5H
+Generating Statement for block at 5A with output pin(s) of OUT_5A_A, OUT_5A_B, OUT_5A_K, OUT_5A_D, OUT_5A_E, OUT_5A_F, OUT_5A_G, OUT_5A_H, OUT_5A_J, OUT_5A_L
+	and inputs of M36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 3A with output pin(s) of OUT_3A_NoPin
+	and inputs of MY_MEM_AR_NOT_TP0B,OUT_DOT_5A
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_NoPin
+	and inputs of OUT_DOT_4A,MY_MEM_AR_NOT_TP1B
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_F
+	and inputs of OUT_3A_NoPin,OUT_3B_NoPin,OUT_3C_NoPin
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_A, OUT_5C_B, OUT_5C_K, OUT_5C_D, OUT_5C_E, OUT_5C_F, OUT_5C_G, OUT_5C_H, OUT_5C_J, OUT_5C_L
+	and inputs of M36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 3C with output pin(s) of OUT_3C_NoPin
+	and inputs of OUT_DOT_5B,MY_MEM_AR_NOT_TP2B
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_DOT_5C,MY_MEM_AR_NOT_TP4B
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_DOT_5D,MY_MEM_AR_NOT_TP8B
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_3D_C,OUT_3E_D,OUT_3F_D
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_A, OUT_5F_B, OUT_5F_K, OUT_5F_D, OUT_5F_E, OUT_5F_F, OUT_5F_G, OUT_5F_H, OUT_5F_J, OUT_5F_L
+	and inputs of M36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of MY_MEM_AR_NOT_UP0B,OUT_DOT_4F
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_NoPin
+	and inputs of OUT_DOT_5F,MY_MEM_AR_NOT_UP1B
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_A, OUT_5H_B, OUT_5H_K, OUT_5H_D, OUT_5H_E, OUT_5H_F, OUT_5H_G, OUT_5H_H, OUT_5H_J, OUT_5H_L
+	and inputs of M36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 3H with output pin(s) of OUT_3H_NoPin
+	and inputs of MY_MEM_AR_NOT_UP2B,OUT_DOT_5G
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_F
+	and inputs of OUT_3G_NoPin,OUT_3H_NoPin,OUT_3I_NoPin
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_NoPin
+	and inputs of OUT_DOT_5H,MY_MEM_AR_NOT_UP4B
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_1
+	and inputs of OUT_DOT_5I,MY_MEM_AR_NOT_UP8B
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_1B_F,OUT_1E_C,OUT_1H_F
+	and logic function of OR
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
+	and inputs of OUT_5A_A,OUT_5A_B,OUT_5A_D,OUT_5A_H
+	and logic function of AND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_5A_K,OUT_5A_E,OUT_5A_J,OUT_5C_A
+	and logic function of AND
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
+	and inputs of OUT_5A_F,OUT_5A_L,OUT_5C_B,OUT_5C_K
+	and logic function of AND
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of OUT_5A_G,OUT_5C_H,OUT_5C_J,OUT_5C_L
+	and logic function of AND
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
+	and inputs of OUT_5C_D,OUT_5C_E,OUT_5C_F,OUT_5C_G
+	and logic function of AND
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
+	and inputs of OUT_5F_A,OUT_5F_B,OUT_5F_D,OUT_5F_H
+	and logic function of AND
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
+	and inputs of OUT_5F_K,OUT_5F_E,OUT_5F_J,OUT_5H_A
+	and logic function of AND
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of OUT_5F_F,OUT_5F_L,OUT_5H_B,OUT_5H_K
+	and logic function of AND
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of OUT_5H_D,OUT_5H_E,OUT_5H_F,OUT_5H_G
+	and logic function of AND
+Generating Statement for block at 5I with output pin(s) of OUT_DOT_5I
+	and inputs of OUT_5F_G,OUT_5H_H,OUT_5H_J,OUT_5H_L
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal PS_UP8B_SYNC_COND
+	from gate output OUT_2I_1
+Generating output sheet edge signal assignment to 
+	signal MS_MAR_SYNC_COND
+	from gate output OUT_DOT_1B

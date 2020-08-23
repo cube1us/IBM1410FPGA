@@ -1,0 +1,62 @@
+Generating HDL for group named AddrStopSwitchesat 8/23/2020 10:33:01 AM containing pages: 
+	14.17.17.1, 14.17.19.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddrStopSwitches_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 13 signals on page 14.17.17.1
+Found 13 signals on page 14.17.19.1
+Found 22 unique input signals and 4 unique output signals, (26 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -Y MEM AR NOT UP0B originates outside the group.
+INFO:  Signal -Y MEM AR NOT UP1B originates outside the group.
+INFO:  Signal -Y MEM AR NOT UP2B originates outside the group.
+INFO:  Signal -Y MEM AR NOT UP4B originates outside the group.
+INFO:  Signal -Y MEM AR NOT UP8B originates outside the group.
+INFO:  Signal -Y MEM AR NOT TP0B originates outside the group.
+INFO:  Signal -Y MEM AR NOT TP1B originates outside the group.
+INFO:  Signal -Y MEM AR NOT TP2B originates outside the group.
+INFO:  Signal -Y MEM AR NOT TP4B originates outside the group.
+INFO:  Signal -Y MEM AR NOT TP8B originates outside the group.
+INFO:  Signal -36 VOLTS originates outside the group.
+INFO:  Signal -Y MEM AR NOT HP0B originates outside the group.
+INFO:  Signal -Y MEM AR NOT HP1B originates outside the group.
+INFO:  Signal -Y MEM AR NOT HP2B originates outside the group.
+INFO:  Signal -Y MEM AR NOT HP4B originates outside the group.
+INFO:  Signal -Y MEM AR NOT HP8B originates outside the group.
+INFO:  Signal -Y MEM AR NOT THP0B originates outside the group.
+INFO:  Signal -Y MEM AR NOT THP1B originates outside the group.
+INFO:  Signal -Y MEM AR NOT THP2B originates outside the group.
+INFO:  Signal -Y MEM AR NOT THP4B originates outside the group.
+INFO:  Signal -Y MEM AR NOT THP8B originates outside the group.
+INFO:  Signal MINUS 36 VOLTS originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S MAR SYNC COND is used outside the group.
+INFO:  Signal +S UP8B SYNC COND is used outside the group.
+INFO:  Signal -S MAR SYNC COND JRJ is used outside the group.
+INFO:  Signal +S HP8B SYNC COND is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal -Y MEM AR NOT UP0B replaced by Bus signal -Y MEM AR NOT UP BUS
+Input Signal -Y MEM AR NOT UP1B replaced by Bus signal -Y MEM AR NOT UP BUS
+Input Signal -Y MEM AR NOT UP2B replaced by Bus signal -Y MEM AR NOT UP BUS
+Input Signal -Y MEM AR NOT UP4B replaced by Bus signal -Y MEM AR NOT UP BUS
+Input Signal -Y MEM AR NOT UP8B replaced by Bus signal -Y MEM AR NOT UP BUS
+Input Signal -Y MEM AR NOT TP0B replaced by Bus signal -Y MEM AR NOT TP BUS
+Input Signal -Y MEM AR NOT TP1B replaced by Bus signal -Y MEM AR NOT TP BUS
+Input Signal -Y MEM AR NOT TP2B replaced by Bus signal -Y MEM AR NOT TP BUS
+Input Signal -Y MEM AR NOT TP4B replaced by Bus signal -Y MEM AR NOT TP BUS
+Input Signal -Y MEM AR NOT TP8B replaced by Bus signal -Y MEM AR NOT TP BUS
+Input Signal -Y MEM AR NOT HP0B replaced by Bus signal -Y MEM AR NOT HP BUS
+Input Signal -Y MEM AR NOT HP1B replaced by Bus signal -Y MEM AR NOT HP BUS
+Input Signal -Y MEM AR NOT HP2B replaced by Bus signal -Y MEM AR NOT HP BUS
+Input Signal -Y MEM AR NOT HP4B replaced by Bus signal -Y MEM AR NOT HP BUS
+Input Signal -Y MEM AR NOT HP8B replaced by Bus signal -Y MEM AR NOT HP BUS
+Input Signal -Y MEM AR NOT THP0B replaced by Bus signal -Y MEM AR NOT THP BUS
+Input Signal -Y MEM AR NOT THP1B replaced by Bus signal -Y MEM AR NOT THP BUS
+Input Signal -Y MEM AR NOT THP2B replaced by Bus signal -Y MEM AR NOT THP BUS
+Input Signal -Y MEM AR NOT THP4B replaced by Bus signal -Y MEM AR NOT THP BUS
+Input Signal -Y MEM AR NOT THP8B replaced by Bus signal -Y MEM AR NOT THP BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.17.17.1 (ADDRESS STOP-ACC)
+Generating HDL associated with page 14.17.19.1 (ADDRESS STOP)
