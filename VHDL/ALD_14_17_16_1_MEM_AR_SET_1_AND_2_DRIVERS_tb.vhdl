@@ -129,6 +129,49 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.17.16.1        ";
+   
+   wait for 30 ns;
+   PS_LOGIC_GATE_A_OR_R <= '0';
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '1';
+   wait for 30 ns;
+   check1(PS_SET_MEM_AR_1_GATED,'0',testName,"1A");
+   check1(PS_SET_MEM_AR_1_GATED,'0',testName,"1B");
+   PS_LOGIC_GATE_A_OR_R <= '1';
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '0';
+   wait for 30 ns;
+   check1(PS_SET_MEM_AR_1_GATED,'0',testName,"1C");
+   check1(PS_SET_MEM_AR_1_GATED,'0',testName,"1D");
+   PS_LOGIC_GATE_A_OR_R <= '1';
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '1';
+   wait for 30 ns;
+   check1(PS_SET_MEM_AR_1_GATED,'1',testName,"1E");
+   check1(PS_SET_MEM_AR_1_GATED,'1',testName,"1F");
+   PS_LOGIC_GATE_A_OR_R <= '0';
+   PS_2ND_CLOCK_PULSE_3_JRJ <= '0';
+   wait for 30 ns;
+
+   MS_CE_ADDR_REG_READ_OUT <= '0';
+   wait for 30 ns;
+   MS_CE_ADDR_REG_READ_OUT <= '1';
+   wait for 20 ms;
+   check1(PS_SET_MEM_AR_1_GATED,'1',testName,"2A");
+   check1(PS_SET_MEM_AR_1_GATED,'1',testName,"2B");
+   wait for 6 ms;
+   check1(PS_SET_MEM_AR_1_GATED,'0',testName,"2C");
+   check1(PS_SET_MEM_AR_1_GATED,'0',testName,"2D");
+   
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_1 <= '1';
+   wait for 20 ms;
+   check1(PS_SET_MEM_AR_1_GATED,'1',testName,"2A");
+   check1(PS_SET_MEM_AR_1_GATED,'1',testName,"2B");
+   wait for 6 ms;
+   check1(PS_SET_MEM_AR_1_GATED,'0',testName,"2C");
+   check1(PS_SET_MEM_AR_1_GATED,'0',testName,"2D");
+      
 
    wait;
    end process;
@@ -139,7 +182,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 100 us;  -- Determines how long your simulation runs
+   wait for 100 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY" severity failure;
    end process;
 
