@@ -1,0 +1,47 @@
+Generating HDL for page 14.17.16.1 MEM AR SET 1 AND 2 DRIVERS at 8/23/2020 9:21:00 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_17_16_1_MEM_AR_SET_1_AND_2_DRIVERS_tb.vhdl, generating default test bench code.
+Removed 14 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 14 outputs from Gate at 2F to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_B
+	and inputs of PS_LOGIC_GATE_A_OR_R
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_2ND_CLOCK_PULSE_3_JRJ
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_A
+	and inputs of OUT_DOT_4B,OUT_2C_F
+	and logic function of Special
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F
+	and inputs of OUT_3H_K
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_R
+	and inputs of PS_LOGIC_GATE_A_OR_R
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PS_2ND_CLOCK_PULSE_3_JRJ
+	and logic function of NOT
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of OUT_DOT_4F,OUT_2G_R
+	and logic function of Special
+Generating Statement for block at 2G with output pin(s) of OUT_2G_R
+	and inputs of OUT_3H_K
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_P
+	and inputs of MS_CE_ADDR_REG_READ_OUT,MS_PROGRAM_RESET_1
+	and logic function of SS
+	INFO: SingleShot at 4H pulse time: 25000000 ns, Clock Period is 10 ns
+Generating Statement for block at 3H with output pin(s) of OUT_3H_K, OUT_3H_K
+	and inputs of OUT_4H_P
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_4A_B,OUT_4B_D
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
+	and inputs of OUT_4E_R,OUT_4F_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_MEM_AR_1_GATED
+	from gate output OUT_2B_A
+Generating output sheet edge signal assignment to 
+	signal PS_SET_MEM_AR_2_GATED
+	from gate output OUT_2F_C
