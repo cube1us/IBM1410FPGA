@@ -7,7 +7,9 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
+use WORK.BCD;
 
 -- End of include from HDLTemplate.vhdl
 
@@ -93,8 +95,6 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
-
-
    -- Your test bench declarations go here
 
 -- END USER TEST BENCH DECLARATIONS
@@ -157,14 +157,110 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+SWITCH_ROT_UNITS_DK1 <= SWITCH_ROT_UNITS_SYNC;
+SWITCH_ROT_TENS_DK1 <= SWITCH_ROT_TENS_SYNC;
+SWITCH_ROT_HUNDS_DK1 <= SWITCH_ROT_HUNDS_SYNC;
+SWITCH_ROT_THOUS_DK1 <= SWITCH_ROT_THOUS_SYNC;
+
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-
+   variable address: integer;
+   type DIGITS is array (3 downto 0) of integer;
+   variable addressDigits: DIGITS;
+   variable addrStop: integer;
+   variable addrStopDigits: DIGITS;   
+   
    begin
 
-   -- Your test bench code
+   testName := "14.17.17.1 TENS   ";
+   
+   for address in 0 to 9999 loop
+      
+      -- Set MAR Bits
+      
+      addressDigits(0) := address mod 10;
+      addressDigits(1) := (address / 10) mod 10;
+      addressDigits(2) := (address / 100) mod 10;
+      addressDigits(3) := (address / 1000) mod 10;
+      
+      -- The NOT address bits are 0 if the bit is NOT on.
+      
+      MY_MEM_AR_NOT_UP_BUS <= BCD.twoOfFive(addressDigits(0));
+      MY_MEM_AR_NOT_TP_BUS <= BCD.twoOfFive(addressDigits(1));      
+      MY_MEM_AR_NOT_HP_BUS <= BCD.twoOfFive(addressDigits(2));
+      MY_MEM_AR_NOT_THP_BUS <= BCD.twoOfFive(addressDigits(3));
+         
+      for addrStop in 0 to 9999 loop
+      
+         -- Set Switches
+         
+         addrStopDigits(0) := addrStop mod 10;
+         addrStopDigits(1) := (addrStop / 10) mod 10;
+         addrStopDigits(2) := (addrStop / 100) mod 10;
+         addrStopDigits(3) := (addrStop / 1000) mod 10;
+         
+         SWITCH_ROT_UNITS_SYNC <= "000000000000";
+         SWITCH_ROT_TENS_SYNC <= "000000000000";
+         SWITCH_ROT_HUNDS_SYNC <= "000000000000";
+         SWITCH_ROT_THOUS_SYNC <= "000000000000";
+         -- wait for 30 ns;
+         
+         if(addrStopDigits(0) = 0) then
+            SWITCH_ROT_UNITS_SYNC(10) <= '1';
+         else
+            SWITCH_ROT_UNITS_SYNC(addrStopDigits(0)) <= '1';
+         end if;
+         
+         if(addrStopDigits(1) = 0) then
+            SWITCH_ROT_TENS_SYNC(10) <= '1';
+         else
+            SWITCH_ROT_TENS_SYNC(addrStopDigits(1)) <= '1';
+         end if;
+
+         if(addrStopDigits(2) = 0) then
+            SWITCH_ROT_HUNDS_SYNC(10) <= '1';
+         else
+            SWITCH_ROT_HUNDS_SYNC(addrStopDigits(2)) <= '1';
+         end if;         
+         
+         if(addrStopDigits(3) = 0) then
+            SWITCH_ROT_THOUS_SYNC(10) <= '1';
+         else
+            SWITCH_ROT_THOUS_SYNC(addrStopDigits(3)) <= '1';
+         end if;
+         
+         wait for 30 ns;
+         
+         if(address mod 100 = addrStop mod 100) then
+            check1(MS_MAR_SYNC_COND,'0',testName,
+                "xxdd match address " & INTEGER'IMAGE(address) & " stop " & INTEGER'IMAGE(addrStop));
+            check1(PS_UP8B_SYNC_COND,'1',testName,
+                "xxdd UP8B match address " & INTEGER'IMAGE(address) & " stop " & INTEGER'IMAGE(addrStop));            
+         else
+            if PS_UP8B_SYNC_COND = '1' then
+                check1(MS_MAR_SYNC_COND,'1',testName,
+                    "xxdd NO match address " & INTEGER'IMAGE(address) & " stop " & INTEGER'IMAGE(addrStop));
+            end if;
+         end if;
+         
+         if(address/100 = addrStop/100) then            
+            check1(MS_MAR_SYNC_COND_JRJ,'0',testName,
+                "ddxx match address " & INTEGER'IMAGE(address) & " stop " & INTEGER'IMAGE(addrStop));
+            check1(PS_HP8B_SYNC_COND,'1',testName,
+                    "xxdd UP8B match address " & INTEGER'IMAGE(address) & " stop " & INTEGER'IMAGE(addrStop));            
+         else
+            if(PS_HP8B_SYNC_COND = '1') then            
+                check1(MS_MAR_SYNC_COND_JRJ,'1',testName,
+                    "ddxx NO match address " & INTEGER'IMAGE(address) & " stop " & INTEGER'IMAGE(addrStop));
+            end if;
+         end if;
+         
+      end loop;
+   end loop;
+   
+   
 
    wait;
    end process;
@@ -175,7 +271,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 100 us;  -- Determines how long your simulation runs
+   wait for 3000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY" severity failure;
    end process;
 
