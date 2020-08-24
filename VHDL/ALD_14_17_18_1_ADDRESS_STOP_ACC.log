@@ -1,0 +1,43 @@
+Generating HDL for page 14.17.18.1 ADDRESS STOP-ACC at 8/24/2020 8:30:31 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_17_18_1_ADDRESS_STOP_ACC_tb.vhdl, generating default test bench code.
+WARNING: Diagram block at coordinate 5B has 4 different output pins: B,K,D,E
+Removed 2 outputs from Gate at 1D to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_NoPin
+	and inputs of OUT_5B_B,MS_NO_SCAN
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of OUT_3A_NoPin,PS_UP8B_SYNC_COND,OUT_3B_NoPin
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_B, OUT_5B_K, OUT_5B_D, OUT_5B_E
+	and inputs of MINUS_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 3B with output pin(s) of OUT_3B_NoPin
+	and inputs of OUT_5B_K,MS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of OUT_5B_D,MS_2ND_SCAN
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_5B_E,MS_3RD_SCAN
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_3C_E,OUT_3D_C,PS_OPTIONAL_SYNC_COND_STAR_CE
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_K
+	and inputs of OUT_DOT_2B
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of PS_HP8B_SYNC_COND,MS_LOGIC_GATE_A_1
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of MS_OPTIONAL_SYNC_COND_A,MS_OPTIONAL_SYNC_COND_B
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2A_D,MS_MAR_SYNC_COND,MS_MAR_SYNC_COND_JRJ,OUT_2D_C,OUT_2E_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_ADDRESS_STOP
+	from gate output OUT_1D_K
+Generating output sheet edge signal assignment to 
+	signal PS_OPTIONAL_SYNC_COND_CE
+	from gate output OUT_3G_D
