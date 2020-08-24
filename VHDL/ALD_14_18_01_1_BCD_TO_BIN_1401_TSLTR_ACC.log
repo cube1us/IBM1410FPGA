@@ -1,0 +1,83 @@
+Generating HDL for page 14.18.01.1 BCD TO BIN 1401 TSLTR-ACC at 8/24/2020 12:47:25 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_01_1_BCD_TO_BIN_1401_TSLTR_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 2C
+Found combinatorial loop (need D FF) at output of gate at 1C
+Found combinatorial loop (need D FF) at output of gate at 3H
+Found combinatorial loop (need D FF) at output of gate at 2H
+Removed 1 outputs from Gate at 1H to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_K
+	and inputs of PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH,PS_B_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_E, OUT_3B_E
+	and inputs of PS_AR_EXIT_CH_1_BIT,PS_1401_STORE_MAR_DOT_UNITS_DOT_C_CY,PS_LOGIC_GATE_E_2
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_B
+	and inputs of OUT_3B_E
+	and logic function of NAND
+Generating Statement for block at 2C with *latched* output pin(s) of OUT_2C_D_Latch
+	and inputs of OUT_DOT_4F,MS_RESET_BIN_REG,OUT_DOT_1B
+	and logic function of NAND
+Generating Statement for block at 1C with *latched* output pin(s) of OUT_1C_E_Latch
+	and inputs of OUT_3A_K,OUT_2C_D,OUT_DOT_4D
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of PS_AR_EXIT_CH_2_BIT,OUT_5H_E,PS_SET_BIN_REG_A_FROM_TH
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P
+	and inputs of MS_BIN_REG_A_8_BIT
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PS_AR_EXIT_CH_2_BIT,OUT_5H_E
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of PS_BIN_REG_A_8_BIT,PS_SET_BIN_REG_A_FROM_TH
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of PS_B_CH_A_BIT,PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_G
+	and inputs of OUT_3G_C,OUT_DOT_4F
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_E, OUT_5H_E
+	and inputs of PS_AR_EXIT_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3H with *latched* output pin(s) of OUT_3H_G_Latch, OUT_3H_G_Latch
+	and inputs of OUT_DOT_2H,MS_RESET_BIN_REG
+	and logic function of NAND
+Generating Statement for block at 2H with *latched* output pin(s) of OUT_2H_K_Latch
+	and inputs of OUT_3H_G,OUT_4I_E
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_L
+	and inputs of OUT_DOT_2H
+	and logic function of EQUAL
+Generating Statement for block at 4I with output pin(s) of OUT_4I_E
+	and inputs of PS_AR_CH_4_BIT_STAR_TRANSLATOR_STAR,PS_SET_BIN_REG_A_FROM_TH
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B, OUT_DOT_1B
+	and inputs of OUT_1B_B,OUT_1C_E
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4D_C,OUT_4E_P
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F, OUT_DOT_4F
+	and inputs of OUT_4F_C,OUT_4G_D
+	and logic function of OR
+Generating Statement for block at 2H with output pin(s) of OUT_DOT_2H, OUT_DOT_2H
+	and inputs of OUT_2G_G,OUT_2H_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_AR_EXIT_CH_1_BIT_GATED
+	from gate output OUT_3B_E
+Generating output sheet edge signal assignment to 
+	signal MS_BIN_REG_A_4_BIT
+	from gate output OUT_3H_G
+Generating output sheet edge signal assignment to 
+	signal PS_BIN_REG_A_4_BIT
+	from gate output OUT_1H_L
+Generating output sheet edge signal assignment to 
+	signal PS_BIN_REG_A_2_BIT
+	from gate output OUT_DOT_1B
+Generating D Flip Flop for block at 2C
+Generating D Flip Flop for block at 1C
+Generating D Flip Flop for block at 3H
+Generating D Flip Flop for block at 2H

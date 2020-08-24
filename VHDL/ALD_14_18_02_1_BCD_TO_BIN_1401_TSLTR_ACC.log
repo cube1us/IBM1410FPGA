@@ -1,0 +1,57 @@
+Generating HDL for page 14.18.02.1 BCD TO BIN 1401 TSLTR-ACC at 8/24/2020 12:47:31 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_02_1_BCD_TO_BIN_1401_TSLTR_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5C
+Found combinatorial loop (need D FF) at output of gate at 4C
+Found combinatorial loop (need D FF) at output of gate at 4G
+Found combinatorial loop (need D FF) at output of gate at 3G
+Removed 1 outputs from Gate at 4G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2G to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C
+	and inputs of PS_AR_EXIT_CH_1_BIT,PS_SET_BIN_REG_A_FROM_TH
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_B_CH_A_BIT,PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH
+	and logic function of NAND
+Generating Statement for block at 5C with *latched* output pin(s) of OUT_5C_D_Latch
+	and inputs of OUT_4C_C,MS_RESET_BIN_REG
+	and logic function of NAND
+Generating Statement for block at 4C with *latched* output pin(s) of OUT_4C_C_Latch, OUT_4C_C_Latch
+	and inputs of OUT_5A_C,OUT_5B_NoPin,OUT_5C_D
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P
+	and inputs of PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH,PS_B_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_K
+	and inputs of OUT_4E_P,MS_AR_EXIT_CH_1_BIT_GATED
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PS_AR_EXIT_CH_8_BIT,OUT_5H_F,PS_SET_BIN_REG_A_FROM_TH
+	and logic function of NAND
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_G_Latch, OUT_4G_G_Latch
+	and inputs of OUT_DOT_3G,MS_RESET_BIN_REG
+	and logic function of NAND
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_C_Latch
+	and inputs of OUT_4F_C,OUT_4G_G
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_B
+	and inputs of OUT_DOT_3G
+	and logic function of EQUAL
+Generating Statement for block at 5H with output pin(s) of OUT_5H_F
+	and inputs of PS_AR_EXIT_CH_2_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G, OUT_DOT_3G
+	and inputs of OUT_3E_K,OUT_3G_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_BIN_REG_A_1_BIT
+	from gate output OUT_4C_C
+Generating output sheet edge signal assignment to 
+	signal MS_BIN_REG_A_8_BIT
+	from gate output OUT_4G_G
+Generating output sheet edge signal assignment to 
+	signal PS_BIN_REG_A_8_BIT
+	from gate output OUT_2G_B
+Generating D Flip Flop for block at 5C
+Generating D Flip Flop for block at 4C
+Generating D Flip Flop for block at 4G
+Generating D Flip Flop for block at 3G
