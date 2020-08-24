@@ -147,7 +147,307 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   -- NOTE:  A better test might have been to set the AR EXIT CH to various
+   -- values and then toggle SET BIN REG A FROM TH and check the results.
+   -- Oh well...
+   
+   testName := "14.18.01.1        ";
+   
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
+   
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"1A");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"1B"); 
+   check1(MS_BIN_REG_A_4_BIT,'1',testName,"1C"); -- No bus - not all bits output
+   
+   PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH <= '0';
+   PS_B_CH_BUS(HDL_B_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"1D");
+   PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH <= '1';
+   PS_B_CH_BUS(HDL_B_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"1E");
+   PS_B_CH_BUS(HDL_B_BIT) <= '1';
+   wait for 30 ns; -- Set latch
+   PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH <= '0';
+   PS_B_CH_BUS(HDL_B_BIT) <= '0';
+   wait for 30 ns; -- Latch stays set   
+   check1(PS_BIN_REG_A_BUS(1),'1',testName,"1F");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"1G");
+   -- Reset
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
 
+   PS_AR_EXIT_CH_BUS(HDL_1_BIT) <= '0';
+   PS_LOGIC_GATE_E_2 <= '1';
+   PS_1401_STORE_MAR_DOT_UNITS_DOT_C_CY <= '1';
+   wait for 30 ns;   
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"2A");
+   PS_AR_EXIT_CH_BUS(HDL_1_BIT) <= '1';
+   PS_LOGIC_GATE_E_2 <= '0';
+   wait for 30 ns;   
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"2B");
+   PS_LOGIC_GATE_E_2 <= '1';
+   PS_1401_STORE_MAR_DOT_UNITS_DOT_C_CY <= '0';
+   wait for 30 ns;   
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"2C");
+   PS_1401_STORE_MAR_DOT_UNITS_DOT_C_CY <= '1';
+   wait for 30 ns; -- Sets Latch   
+   PS_AR_EXIT_CH_BUS(HDL_1_BIT) <= '0';
+   PS_LOGIC_GATE_E_2 <= '0';
+   PS_1401_STORE_MAR_DOT_UNITS_DOT_C_CY <= '0';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_BIN_REG_A_BUS(1),'1',testName,"2D");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"2E");
+   check1(PS_BIN_REG_A_BUS(3),'1',testName,"2F"); -- Also sets A8 Bit
+   -- Reset
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
+   
+   -- MS_BIN_REG_A_8_BIT is '1' due to reset of latches in previous test
+   check1(MS_BIN_REG_A_8_BIT,'1',testName,"3A");   
+
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '0';
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '0';
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"3B");
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '1';
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"3C");
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '0';
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"3D");
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns; -- Sets Latch
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '0';
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '0';
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_BIN_REG_A_BUS(1),'1',testName,"3E");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"3F");
+   
+   -- Do not reset - next test sets 4 bit and clears 2 bit
+   
+   -- Set the BIN Reg 8 bit
+   
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '0';
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '1';
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns; 
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '0';
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '1';
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns; -- Set 8 bit
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '0';
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '0';
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   wait for 30 ns; -- Should stay set
+   check1(PS_BIN_REG_A_BUS(1),'1',testName,"4A");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"4B");
+   check1(PS_BIN_REG_A_BUS(3),'1',testName,"4C");
+   
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'1',testName,"4D");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"4E");
+   check1(PS_BIN_REG_A_BUS(3),'1',testName,"4F");
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'1',testName,"4G");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"4H");
+   check1(PS_BIN_REG_A_BUS(3),'1',testName,"4I");
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'1',testName,"4J");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"4K");
+   check1(PS_BIN_REG_A_BUS(3),'1',testName,"4L");
+   -- With 2 and 8 both set, 2 should reset and 4 should set
+   -- 8 will stay set because nothing resets it
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '1';
+   wait for 30 ns;
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '0';
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"4M");
+   check1(PS_BIN_REG_A_BUS(2),'1',testName,"4N");
+   check1(PS_BIN_REG_A_BUS(3),'1',testName,"4O");
+   check1(MS_BIN_REG_A_4_BIT,'0',testName,"4P");
+   
+   -- Reset
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
+
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"5A");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"5B");
+   check1(PS_BIN_REG_A_BUS(3),'0',testName,"5C");
+   check1(MS_BIN_REG_A_4_BIT,'1',testName,"5D");
+   
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '0';
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"5E");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"5F");
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '1';
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"5G");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"5H");
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns; -- Set the latch
+   PS_AR_CH_STAR_TRANSLATOR_STAR_BUS(2) <= '0';
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   wait for 30 ns; -- Latch stays set   
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"5I");
+   check1(PS_BIN_REG_A_BUS(2),'1',testName,"5J");
+   check1(MS_BIN_REG_A_4_BIT,'0',testName,"5K");
+      
+   -- Reset
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
+
+   PS_B_CH_BUS(HDL_A_BIT) <= '0';
+   PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH <= '1';
+   wait for 30 ns;   
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"6A");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"6B");
+   PS_B_CH_BUS(HDL_A_BIT) <= '1';
+   PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH <= '0';
+   wait for 30 ns;   
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"6C");
+   check1(PS_BIN_REG_A_BUS(2),'0',testName,"6D");
+   PS_B_CH_BUS(HDL_A_BIT) <= '1';
+   PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH <= '1';
+   wait for 30 ns; -- Set the latch   
+   PS_B_CH_BUS(HDL_A_BIT) <= '1';
+   PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH <= '1';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_BIN_REG_A_BUS(1),'0',testName,"6E");
+   check1(PS_BIN_REG_A_BUS(2),'1',testName,"6F");
+
+   -- Reset
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
+   
+   testName := "14.18.02.1        ";
+   
+   PS_AR_EXIT_CH_BUS(HDL_1_BIT) <= '0';
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"1A");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"1B");
+   check1(MS_BIN_REG_A_8_BIT,'1',testname,"1C");   
+   PS_AR_EXIT_CH_BUS(HDL_1_BIT) <= '1';
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"1D");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"1E");
+   PS_AR_EXIT_CH_BUS(HDL_1_BIT) <= '1';
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns;
+   PS_AR_EXIT_CH_BUS(HDL_1_BIT) <= '0';
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(0),'1',testName,"1F");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"1G");
+   
+   -- Reset
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
+   
+   PS_B_CH_BUS(HDL_A_BIT) <= '0';
+   PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"2A");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"2B");
+   PS_B_CH_BUS(HDL_A_BIT) <= '1';
+   PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"2C");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"2D");
+   PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH <= '1';
+   wait for 30 ns;  -- Sets latch
+   PS_B_CH_BUS(HDL_A_BIT) <= '0';
+   PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH <= '0';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_BIN_REG_A_BUS(0),'1',testName,"2E");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"2F");
+   -- Reset
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
+   
+   PS_B_CH_BUS(HDL_B_BIT) <= '0';
+   PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"3A");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"3B");
+   PS_B_CH_BUS(HDL_B_BIT) <= '1';
+   PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"3C");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"3D");
+   PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH <= '1';
+   wait for 30 ns; -- Sets latch
+   PS_B_CH_BUS(HDL_B_BIT) <= '0';
+   PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH <= '0';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"3E");
+   check1(PS_BIN_REG_A_BUS(3),'1',testname,"3F");
+   check1(MS_BIN_REG_A_8_BIT,'0',testName,"3G");   
+   -- Reset
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
+
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '1';
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '1';
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"4A");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"4B");
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '0';
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"4C");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"4D");
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '1';
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"4E");
+   check1(PS_BIN_REG_A_BUS(3),'0',testname,"4F");
+   PS_SET_BIN_REG_A_FROM_TH <= '1';
+   wait for 30 ns; -- Sets latch
+   PS_AR_EXIT_CH_BUS(HDL_2_BIT) <= '0';
+   PS_AR_EXIT_CH_BUS(HDL_8_BIT) <= '0';
+   PS_SET_BIN_REG_A_FROM_TH <= '0';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_BIN_REG_A_BUS(0),'0',testName,"4G");
+   check1(PS_BIN_REG_A_BUS(3),'1',testname,"4H");
+   
+   
    wait;
    end process;
 
