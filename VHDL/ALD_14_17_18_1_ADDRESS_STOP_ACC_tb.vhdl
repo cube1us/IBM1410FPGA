@@ -159,6 +159,242 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.17.18.1        ";
+   
+   SWITCH_ROT_SCAN_GATE <= "000000000010"; -- 1st position is open
+
+   MS_MAR_SYNC_COND <= '1';
+   MS_MAR_SYNC_COND_JRJ <= '0';
+   PS_UP8B_SYNC_COND <= '1';
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '1';
+   MS_NO_SCAN <= '0';
+   MS_1ST_SCAN <= '0';
+   MS_2ND_SCAN <= '0';
+   MS_3RD_SCAN <= '0';
+   MS_LOGIC_GATE_A_1 <= '1';
+   PS_HP8B_SYNC_COND <= '1';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"SA");
+   MS_MAR_SYNC_COND <= '0';
+   MS_MAR_SYNC_COND_JRJ <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"SB");
+   MS_MAR_SYNC_COND_JRJ <= '0';   
+   PS_UP8B_SYNC_COND <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"1A");
+   PS_UP8B_SYNC_COND <= '1';
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"1B");
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '1';
+   MS_NO_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"1C");
+   MS_NO_SCAN <= '0';
+   MS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"1D");
+   MS_1ST_SCAN <= '0';
+   MS_2ND_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"1E");
+   MS_2ND_SCAN <= '0';
+   MS_3RD_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"1F");
+   MS_3RD_SCAN <= '0';
+   MS_LOGIC_GATE_A_1 <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"1G");
+   MS_LOGIC_GATE_A_1 <= '1';
+   PS_HP8B_SYNC_COND <= '0';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"1H");
+   PS_HP8B_SYNC_COND <= '1';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'1',testName,"1I");   
+
+
+   SWITCH_ROT_SCAN_GATE <= "000000000100"; -- 2nd position
+
+   PS_UP8B_SYNC_COND <= '0';
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '1';
+   MS_NO_SCAN <= '1';
+   MS_1ST_SCAN <= '0';
+   MS_2ND_SCAN <= '0';
+   MS_3RD_SCAN <= '0';
+   MS_LOGIC_GATE_A_1 <= '1';
+   PS_HP8B_SYNC_COND <= '1';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"2A");
+   PS_UP8B_SYNC_COND <= '1';
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"2B");
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '1';
+   -- MS_NO_SCAN <= '1';
+   -- wait for 30 ns;
+   -- check1(PS_ADDRESS_STOP,'0',testName,"1C");
+   -- MS_NO_SCAN <= '0';
+   MS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"2C");
+   MS_1ST_SCAN <= '0';
+   MS_2ND_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"2D");
+   MS_2ND_SCAN <= '0';
+   MS_3RD_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"2E");
+   MS_3RD_SCAN <= '0';
+   MS_LOGIC_GATE_A_1 <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"2F");
+   MS_LOGIC_GATE_A_1 <= '1';
+   PS_HP8B_SYNC_COND <= '0';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"2G");
+   PS_HP8B_SYNC_COND <= '1';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'1',testName,"2H");   
+
+
+   SWITCH_ROT_SCAN_GATE <= "000000001000"; -- 3rd position
+
+   PS_UP8B_SYNC_COND <= '0';
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '1';
+   MS_NO_SCAN <= '0';
+   MS_1ST_SCAN <= '1';
+   MS_2ND_SCAN <= '0';
+   MS_3RD_SCAN <= '0';
+   MS_LOGIC_GATE_A_1 <= '1';
+   PS_HP8B_SYNC_COND <= '1';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"3A");
+   PS_UP8B_SYNC_COND <= '1';
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"3B");
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '1';
+   MS_NO_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"3C");
+   MS_NO_SCAN <= '0';
+   -- MS_1ST_SCAN <= '1';
+   -- wait for 30 ns;
+   -- check1(PS_ADDRESS_STOP,'0',testName,"1D");
+   -- MS_1ST_SCAN <= '0';
+   MS_2ND_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"3E");
+   MS_2ND_SCAN <= '0';
+   MS_3RD_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"3F");
+   MS_3RD_SCAN <= '0';
+   MS_LOGIC_GATE_A_1 <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"3G");
+   MS_LOGIC_GATE_A_1 <= '1';
+   PS_HP8B_SYNC_COND <= '0';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"3H");
+   PS_HP8B_SYNC_COND <= '1';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'1',testName,"3I");   
+
+
+   SWITCH_ROT_SCAN_GATE <= "000000010000"; -- 4th position
+
+   PS_UP8B_SYNC_COND <= '0';
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '1';
+   MS_NO_SCAN <= '0';
+   MS_1ST_SCAN <= '0';
+   MS_2ND_SCAN <= '1';
+   MS_3RD_SCAN <= '0';
+   MS_LOGIC_GATE_A_1 <= '1';
+   PS_HP8B_SYNC_COND <= '1';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"4A");
+   PS_UP8B_SYNC_COND <= '1';
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"4B");
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '1';
+   MS_NO_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"4C");
+   MS_NO_SCAN <= '0';
+   MS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"4D");
+   MS_1ST_SCAN <= '0';
+   -- MS_2ND_SCAN <= '1';
+   -- wait for 30 ns;
+   -- check1(PS_ADDRESS_STOP,'0',testName,"1E");
+   -- MS_2ND_SCAN <= '0';
+   MS_3RD_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"4F");
+   MS_3RD_SCAN <= '0';
+   MS_LOGIC_GATE_A_1 <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"4G");
+   MS_LOGIC_GATE_A_1 <= '1';
+   PS_HP8B_SYNC_COND <= '0';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"4H");
+   PS_HP8B_SYNC_COND <= '1';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'1',testName,"4I");   
+
+   SWITCH_ROT_SCAN_GATE <= "000000100000"; -- 5th position
+
+   PS_UP8B_SYNC_COND <= '0';
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '1';
+   MS_NO_SCAN <= '0';
+   MS_1ST_SCAN <= '0';
+   MS_2ND_SCAN <= '0';
+   MS_3RD_SCAN <= '1';
+   MS_LOGIC_GATE_A_1 <= '1';
+   PS_HP8B_SYNC_COND <= '1';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"5A");
+   PS_UP8B_SYNC_COND <= '1';
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"5B");
+   PS_OPTIONAL_SYNC_COND_STAR_CE <= '1';
+   MS_NO_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"5C");
+   MS_NO_SCAN <= '0';
+   MS_1ST_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"5D");
+   MS_1ST_SCAN <= '0';
+   MS_2ND_SCAN <= '1';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"5E");
+   MS_2ND_SCAN <= '0';
+   -- MS_3RD_SCAN <= '1';
+   -- wait for 30 ns;
+   -- check1(PS_ADDRESS_STOP,'0',testName,"1F");
+   -- MS_3RD_SCAN <= '0';
+   MS_LOGIC_GATE_A_1 <= '0';
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"5G");
+   MS_LOGIC_GATE_A_1 <= '1';
+   PS_HP8B_SYNC_COND <= '0';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'0',testName,"5H");
+   PS_HP8B_SYNC_COND <= '1';   
+   wait for 30 ns;
+   check1(PS_ADDRESS_STOP,'1',testName,"5I");   
+
 
    wait;
    end process;
