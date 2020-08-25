@@ -89,7 +89,10 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
-
+function to_std_logic(b: boolean) return std_logic is
+   begin
+   if(b) then return ('1'); else return('0'); end if;
+   end function;
 
    -- Your test bench declarations go here
 
@@ -155,10 +158,97 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-
+   variable results: std_logic;
+   
    begin
 
    -- Your test bench code
+
+   testName := "16.18.03.1        ";
+   subtest := 1;   
+   
+   -- First test with A channel A and B Bits
+   
+   PS_GATE_A_CH_TO_ZONE_ADDER <= '1';
+   PS_GATE_B_CH_TO_ZONE_ADDER <= '1';
+
+   for BChABit in std_logic range '0' to '1' loop
+      PS_B_CH_A_BIT <= BChABit;
+      for BChBBit in std_logic range '0' to '1' loop
+         PS_B_CH_B_BIT <= BChBBIt;
+         for testABit in std_logic range '0' to '1' loop
+            PS_A_CH_A_BIT <= testAbit;
+            for testBBit in std_logic range '0' to '1' loop
+               PS_A_CH_B_BIT <= testBBit;
+               wait for 30 ns;
+               check1(PS_ZONE_ADDER_A_BITS_EVEN,
+                  to_std_logic(BChABit = testABit),testName,"Subtest " & INTEGER'IMAGE(subtest) & "A");                                 
+               check1(PS_ZONE_ADDER_B_BITS_EVEN,
+                  to_std_logic(BChBBit = testBBit),testName,"Subtest " & INTEGER'IMAGE(subtest) & "B");
+               check1(MS_ZONE_ADDER_A_A_DOT_B_A,NOT(BChABit AND testABit),                    
+                  testName,"Subtest " & INTEGER'IMAGE(subtest) & "C");                                 
+               check1(MS_ZONE_ADDER_A_B_DOT_B_B,NOT(BChBBit AND testBBit),                    
+                  testName,"Subtest " & INTEGER'IMAGE(subtest) & "D");                                                                                       
+            end loop;
+         end loop;
+      end loop;   
+   end loop;   
+   
+   -- Next, test with B Ch and BIN REG A 1 Bit
+   
+   PS_GATE_A_CH_TO_ZONE_ADDER <= '0';
+   PS_GATE_BIN_A12_TO_ZONE_ADDER <= '1';
+   PS_GATE_B_CH_TO_ZONE_ADDER <= '1';
+
+   for BChABit in std_logic range '0' to '1' loop
+      PS_B_CH_A_BIT <= BChABit;
+      for BChBBit in std_logic range '0' to '1' loop
+         PS_B_CH_B_BIT <= BChBBIt;
+         for testABit in std_logic range '0' to '1' loop
+            PS_BIN_REG_A_1_BIT <= testAbit;
+            for testBBit in std_logic range '0' to '1' loop
+               PS_BIN_REG_A_2_BIT <= testBBit;
+               wait for 30 ns;
+               check1(PS_ZONE_ADDER_A_BITS_EVEN,
+                  to_std_logic(BChABit = testABit),testName,"Subtest " & INTEGER'IMAGE(subtest) & "A");                                 
+               check1(PS_ZONE_ADDER_B_BITS_EVEN,
+                  to_std_logic(BChBBit = testBBit),testName,"Subtest " & INTEGER'IMAGE(subtest) & "B");
+               check1(MS_ZONE_ADDER_A_A_DOT_B_A,NOT(BChABit AND testABit),                    
+                  testName,"Subtest " & INTEGER'IMAGE(subtest) & "C");                                 
+               check1(MS_ZONE_ADDER_A_B_DOT_B_B,NOT(BChBBit AND testBBit),                    
+                  testName,"Subtest " & INTEGER'IMAGE(subtest) & "D");                                                                                       
+            end loop;
+         end loop;
+      end loop;   
+   end loop;   
+
+   PS_GATE_A_CH_TO_ZONE_ADDER <= '0';
+   PS_GATE_BIN_A12_TO_ZONE_ADDER <= '0';
+   PS_GATE_BIN_A48_TO_ZONE_ADDER <= '1';
+   PS_GATE_B_CH_TO_ZONE_ADDER <= '1';
+
+   for BChABit in std_logic range '0' to '1' loop
+      PS_B_CH_A_BIT <= BChABit;
+      for BChBBit in std_logic range '0' to '1' loop
+         PS_B_CH_B_BIT <= BChBBIt;
+         for testABit in std_logic range '0' to '1' loop
+            PS_BIN_REG_A_4_BIT <= testAbit;
+            for testBBit in std_logic range '0' to '1' loop
+               PS_BIN_REG_A_8_BIT <= testBBit;
+               wait for 30 ns;
+               check1(PS_ZONE_ADDER_A_BITS_EVEN,
+                  to_std_logic(BChABit = testABit),testName,"Subtest " & INTEGER'IMAGE(subtest) & "A");                                 
+               check1(PS_ZONE_ADDER_B_BITS_EVEN,
+                  to_std_logic(BChBBit = testBBit),testName,"Subtest " & INTEGER'IMAGE(subtest) & "B");
+               check1(MS_ZONE_ADDER_A_A_DOT_B_A,NOT(BChABit AND testABit),                    
+                  testName,"Subtest " & INTEGER'IMAGE(subtest) & "C");                                 
+               check1(MS_ZONE_ADDER_A_B_DOT_B_B,NOT(BChBBit AND testBBit),                    
+                  testName,"Subtest " & INTEGER'IMAGE(subtest) & "D");                                                                                       
+            end loop;
+         end loop;
+      end loop;   
+   end loop;   
+   
 
    wait;
    end process;
