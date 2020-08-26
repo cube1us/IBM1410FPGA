@@ -1,0 +1,38 @@
+Generating HDL for page 14.18.07.1 ZONE ADDER.AUX ADDER CONTROLS at 8/26/2020 5:18:18 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_07_1_ZONE_ADDER_AUX_ADDER_CONTROLS_tb.vhdl, generating default test bench code.
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_ADD_OR_SUBT_OP_CODES,PS_BODY_LATCH
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of OUT_5A_NoPin,MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_E
+	and inputs of MS_X_CYCLE,MS_I_CYCLE,MS_H_OR_Q_OP_DOT_A_CY_DOT_A_RING_4_TIME
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_G
+	and inputs of MS_H_OR_Q_OP_DOT_A_CY_DOT_A_RING_2_TIME
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of MS_LB_OP_DOT_B_CY,MS_A_OR_S_DOT_B_CYCLE,MS_X_CYCLE
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_X_CYCLE,PS_1401_MODE
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of OUT_5E_C,MS_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_Y_OR_X_DOT_1401,MS_LB_DOT_B_CYCLE_DOT_EXTENSION_LATCH
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_GATE_A_CH_TO_ZONE_ADDER
+	from gate output OUT_3A_G
+Generating output sheet edge signal assignment to 
+	signal PS_GATE_BIN_A12_TO_ZONE_ADDER
+	from gate output OUT_5B_E
+Generating output sheet edge signal assignment to 
+	signal PS_GATE_BIN_A48_TO_ZONE_ADDER
+	from gate output OUT_5C_G
+Generating output sheet edge signal assignment to 
+	signal PS_GATE_B_CH_TO_ZONE_ADDER
+	from gate output OUT_5D_C
+Generating output sheet edge signal assignment to 
+	signal PS_GATE_ADD_CAR_TO_ZONE_ADDER
+	from gate output OUT_4E_D
