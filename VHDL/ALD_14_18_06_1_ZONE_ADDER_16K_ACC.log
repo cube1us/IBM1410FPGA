@@ -1,0 +1,84 @@
+Generating HDL for page 14.18.06.1 ZONE ADDER 16K-ACC at 8/26/2020 4:26:40 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_06_1_ZONE_ADDER_16K_ACC_tb.vhdl, generating default test bench code.
+Removed 2 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2I to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_R, OUT_5A_R, OUT_5A_R, OUT_5A_R, OUT_5A_R
+	and inputs of PS_ZONE_ADDER_A_BITS_EVEN
+	and logic function of NOT
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C, OUT_4A_C, OUT_4A_C, OUT_4A_C
+	and inputs of OUT_5A_R
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_5A_R,PS_ZONE_ADDER_TWO_BIT,PS_NO_CARRY_FOR_ZONE_ADDER
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_F
+	and inputs of OUT_4A_C,PS_ZONE_ADDER_TWO_BIT,PS_CARRY_FOR_ZONE_ADDER
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_E
+	and inputs of OUT_4A_C,PS_NO_CARRY_FOR_ZONE_ADDER,PS_ZONE_ADDER_TWO_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E
+	and inputs of OUT_5A_R,PS_CARRY_FOR_ZONE_ADDER,PS_ZONE_ADDER_NOT_TWO_BIT
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of OUT_5A_R,PS_NO_CARRY_FOR_ZONE_ADDER,PS_ZONE_ADDER_NOT_TWO_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of OUT_4A_C,PS_CARRY_FOR_ZONE_ADDER,PS_ZONE_ADDER_NOT_TWO_BIT
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of OUT_4A_C,PS_NO_CARRY_FOR_ZONE_ADDER,PS_ZONE_ADDER_NOT_TWO_BIT
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_Q
+	and inputs of OUT_3I_D
+	and logic function of EQUAL
+Generating Statement for block at 4I with output pin(s) of OUT_4I_C, OUT_4I_C
+	and inputs of OUT_5A_R,PS_CARRY_FOR_ZONE_ADDER,PS_ZONE_ADDER_TWO_BIT
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D, OUT_3I_D
+	and inputs of OUT_4I_C,MS_ZONE_ADDER_A_B_DOT_B_B,PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_P
+	and inputs of OUT_3I_D
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_C
+	and inputs of OUT_4I_C
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal MS_ZONE_ADDER_A_DOT_B_DOT_C_1
+	from gate output OUT_3B_F
+Generating output sheet edge signal assignment to 
+	signal MS_ZONE_ADDER_A_DOT_B_DOT_C_2
+	from gate output OUT_3C_F
+Generating output sheet edge signal assignment to 
+	signal MS_ZONE_ADDER_NOT_A_DOT_B_DOT_NOT_C_1
+	from gate output OUT_3D_E
+Generating output sheet edge signal assignment to 
+	signal MS_ZONE_ADDER_NOT_A_DOT_B_DOT_NOT_C_2
+	from gate output OUT_3E_E
+Generating output sheet edge signal assignment to 
+	signal MS_ZONE_ADDER_A_DOT_NOT_B_DOT_NOT_C_1
+	from gate output OUT_3F_D
+Generating output sheet edge signal assignment to 
+	signal MS_ZONE_ADDER_A_DOT_NOT_B_DOT_NOT_C_2
+	from gate output OUT_3G_D
+Generating output sheet edge signal assignment to 
+	signal MS_ZONE_ADDER_NOT_A_DOT_NOT_B_DOT_C_1
+	from gate output OUT_3H_C
+Generating output sheet edge signal assignment to 
+	signal PS_ZONE_ADDER_CARRY
+	from gate output OUT_2H_Q
+Generating output sheet edge signal assignment to 
+	signal MS_ZONE_ADDER_CARRY
+	from gate output OUT_2I_P
+Generating output sheet edge signal assignment to 
+	signal MS_ZONE_ADDER_NOT_A_DOT_NOT_B_DOT_C_2
+	from gate output OUT_1I_C
