@@ -91,6 +91,10 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
+function to_std_logic(b: boolean) return std_logic is
+       begin
+       if(b) then return ('1'); else return('0'); end if;
+       end function;
 
 
    -- Your test bench declarations go here
@@ -154,6 +158,9 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+   PS_ZONE_ADDER_NOT_TWO_BIT <= NOT PS_ZONE_ADDER_TWO_BIT;
+
+
 uut_process: process
 
    variable testName: string(1 to 18);
@@ -162,6 +169,58 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.18.06.1        ";
+   
+   -- The following signal weird - it maches the ALD, but is the inverse of what the ILD shows
+   -- for setting Zone Adder Carry
+   PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN <= '1';
+   
+   for V1 in std_logic range '0' to '1' loop
+      PS_ZONE_ADDER_A_BITS_EVEN <= V1;
+      for V2 in std_logic range '0' to '1' loop
+         PS_NO_CARRY_FOR_ZONE_ADDER <= V2;
+         for V3 in std_logic range '0' to '1' loop
+            PS_CARRY_FOR_ZONE_ADDER <= V3;
+            for V4 in std_logic range '0' to '1' loop
+               PS_ZONE_ADDER_TWO_BIT <= V4;
+               wait for 30 ns;
+               check1(MS_ZONE_ADDER_A_DOT_B_DOT_C_1,NOT(V4 and NOT V1 and V2),testName,"A");
+               check1(MS_ZONE_ADDER_A_DOT_B_DOT_C_2,NOT(V4 and V1 and V3),testName,"B");
+               check1(MS_ZONE_ADDER_NOT_A_DOT_B_DOT_NOT_C_1,NOT(V4 and V1 and V2),testName,"C");
+               check1(MS_ZONE_ADDER_NOT_A_DOT_B_DOT_NOT_C_2,NOT(NOT V4 and NOT V1 and V3),testName,"D");
+               check1(MS_ZONE_ADDER_A_DOT_NOT_B_DOT_NOT_C_1,NOT(NOT V4 and NOT V1 and V2),testName,"E");
+               check1(MS_ZONE_ADDER_A_DOT_NOT_B_DOT_NOT_C_2,NOT(NOT V4 and V1 and V3),testName,"F");
+               check1(MS_ZONE_ADDER_NOT_A_DOT_NOT_B_DOT_C_1,NOT(NOT V4 and V1 and V2),testName,"G");
+               check1(MS_ZONE_ADDER_NOT_A_DOT_NOT_B_DOT_C_2,NOT(V4 and NOT V1 and V3),testName,"H");
+               check1(PS_ZONE_ADDER_CARRY,V4 and NOT V1 and V3,testName,"I");
+               check1(MS_ZONE_ADDER_CARRY,NOT(V4 and NOT V1 and V3),testName,"J");
+            end loop;
+         end loop;
+      end loop;
+   end loop;
+   
+
+   PS_CARRY_FOR_ZONE_ADDER <= '1';
+   wait for 30 ns;
+   check1(PS_ZONE_ADDER_CARRY,'0',testName,"2A");
+   check1(MS_ZONE_ADDER_CARRY,'1',testName,"2B");
+
+   MS_ZONE_ADDER_A_B_DOT_B_B <= '0';
+   wait for 30 ns;
+   check1(PS_ZONE_ADDER_CARRY,'1',testName,"2A");
+   check1(MS_ZONE_ADDER_CARRY,'0',testName,"2B");
+   MS_ZONE_ADDER_A_B_DOT_B_B <= '1';
+
+   -- The following is weird - it maches the ALD, but is the inverse of what the ILD shows
+   -- for setting zone adder carry
+   PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN <= '0';
+   wait for 30 ns;
+   check1(PS_ZONE_ADDER_CARRY,'1',testName,"2C");
+   check1(MS_ZONE_ADDER_CARRY,'0',testName,"2D");
+   PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN <= '1';
+   
+   
 
    wait;
    end process;
