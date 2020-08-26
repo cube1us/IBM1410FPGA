@@ -1,0 +1,59 @@
+Generating HDL for page 14.18.05.1 ZONE ADDR 16K-ACC at 8/26/2020 3:47:15 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_05_1_ZONE_ADDR_16K_ACC_tb.vhdl, generating default test bench code.
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C
+	and inputs of PS_ADDER_CARRY
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_F
+	and inputs of OUT_DOT_5A
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_R
+	and inputs of PS_GATE_ADD_CAR_TO_ZONE_ADDER
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_F
+	and inputs of MS_LB_DOT_B_CYCLE_DOT_3RD_SCAN_DOT_UNITS
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_B
+	and inputs of PS_ADDER_NO_CARRY
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_DOT_5E
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_K
+	and inputs of PS_GATE_ADD_CAR_TO_ZONE_ADDER
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_K
+	and inputs of PS_1401_STORE_AR_OP_CODES,PS_A_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_B
+	and inputs of OUT_4G_K
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_R
+	and inputs of MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN_DOT_UNITS
+	and logic function of NOT
+Generating Statement for block at 5I with output pin(s) of OUT_5I_C, OUT_5I_C
+	and inputs of PS_I_CYCLE_1,PS_I_RING_5_OR_10_TIME,PS_1401_MODE
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_F
+	and inputs of OUT_5I_C
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_3A_F,OUT_3C_F
+	and logic function of OR
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
+	and inputs of OUT_5A_C,OUT_5B_R
+	and logic function of OR
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
+	and inputs of OUT_5E_B,OUT_5F_K
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_3E_D,OUT_3G_B,OUT_3H_R,OUT_4I_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_1401_DOT_I_RING_5_OR_10_TIME_DOT_I_CY
+	from gate output OUT_5I_C
+Generating output sheet edge signal assignment to 
+	signal PS_CARRY_FOR_ZONE_ADDER
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal PS_NO_CARRY_FOR_ZONE_ADDER
+	from gate output OUT_DOT_3E
