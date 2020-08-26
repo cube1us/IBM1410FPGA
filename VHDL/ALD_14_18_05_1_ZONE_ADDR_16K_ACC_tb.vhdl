@@ -150,6 +150,92 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.18.05.1        ";
+   
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_5_OR_10_TIME <= '1';
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_DOT_I_RING_5_OR_10_TIME_DOT_I_CY,'1',testName,"1A");
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'0',testName,"1B");
+   PS_I_CYCLE_1 <= '1';
+   PS_I_RING_5_OR_10_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_1401_DOT_I_RING_5_OR_10_TIME_DOT_I_CY,'1',testName,"1C");
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'0',testName,"1D");
+   PS_I_RING_5_OR_10_TIME <= '1';
+   PS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(MS_1401_DOT_I_RING_5_OR_10_TIME_DOT_I_CY,'1',testName,"1E");
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'0',testName,"1F");
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_DOT_I_RING_5_OR_10_TIME_DOT_I_CY,'0',testName,"1G");
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'1',testName,"1H");
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_5_OR_10_TIME <= '0';
+   PS_1401_MODE <= '0';
+   
+   PS_1401_STORE_AR_OP_CODES <= '0';
+   PS_A_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'0',testName,"2A");
+   PS_1401_STORE_AR_OP_CODES <= '1';
+   PS_A_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'0',testName,"2B");
+   PS_1401_STORE_AR_OP_CODES <= '1';
+   PS_A_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'1',testName,"2C");
+   PS_1401_STORE_AR_OP_CODES <= '0';
+   PS_A_CYCLE <= '0';
+   
+   PS_ADDER_NO_CARRY <= '0';
+   PS_GATE_ADD_CAR_TO_ZONE_ADDER <= '1';
+   wait for 30 ns;
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'0',testName,"3A");
+   PS_ADDER_NO_CARRY <= '1';
+   PS_GATE_ADD_CAR_TO_ZONE_ADDER <= '0';
+   wait for 30 ns;
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'0',testName,"3B");
+   PS_ADDER_NO_CARRY <= '1';
+   PS_GATE_ADD_CAR_TO_ZONE_ADDER <= '1';
+   wait for 30 ns;
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'1',testName,"3C");
+   PS_ADDER_NO_CARRY <= '0';
+   PS_GATE_ADD_CAR_TO_ZONE_ADDER <= '0';
+   wait for 30 ns;
+
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'0',testName,"4A");
+   MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN_DOT_UNITS <= '0';
+   wait for 30 ns;
+   check1(PS_NO_CARRY_FOR_ZONE_ADDER,'1',testName,"4B");
+   MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN_DOT_UNITS <= '1';
+   
+   PS_GATE_ADD_CAR_TO_ZONE_ADDER <= '0';
+   PS_ADDER_CARRY <= '1';
+   wait for 30 ns;
+   check1(PS_CARRY_FOR_ZONE_ADDER,'0',testName,"5A");  
+   PS_GATE_ADD_CAR_TO_ZONE_ADDER <= '1';
+   PS_ADDER_CARRY <= '0';
+   wait for 30 ns;
+   check1(PS_CARRY_FOR_ZONE_ADDER,'0',testName,"5B");  
+   PS_GATE_ADD_CAR_TO_ZONE_ADDER <= '1';
+   PS_ADDER_CARRY <= '1';
+   wait for 30 ns;
+   check1(PS_CARRY_FOR_ZONE_ADDER,'1',testName,"5C");  
+   PS_GATE_ADD_CAR_TO_ZONE_ADDER <= '0';
+   PS_ADDER_CARRY <= '0';
+   wait for 30 ns;
+   
+   check1(PS_CARRY_FOR_ZONE_ADDER,'0',testName,"6A");
+   MS_LB_DOT_B_CYCLE_DOT_3RD_SCAN_DOT_UNITS <= '0';
+   wait for 30 ns;  
+   check1(PS_CARRY_FOR_ZONE_ADDER,'1',testName,"6B");
+   MS_LB_DOT_B_CYCLE_DOT_3RD_SCAN_DOT_UNITS <= '1';
+
 
    wait;
    end process;
