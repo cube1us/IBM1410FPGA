@@ -135,6 +135,69 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.18.20.1        ";
+   
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_B4_BIT,'0',testName,"1A");
+   check1(PS_BIN_REG_NOT_B4_BIT,'1',testName,"1B");
+   check1(PS_BIN_REG_B8_BIT,'0',testName,"1C");
+   check1(PS_BIN_REG_NOT_B8_BIT,'1',testName,"1D");
+   
+   PS_B_CH_A_BIT <= '0';
+   PS_SET_BIN_REG_B4_DOT_B8 <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_B4_BIT,'0',testName,"2A");
+   check1(PS_BIN_REG_NOT_B4_BIT,'1',testName,"2B");
+   check1(PS_BIN_REG_B8_BIT,'0',testName,"2C");
+   check1(PS_BIN_REG_NOT_B8_BIT,'1',testName,"2D");
+   PS_B_CH_A_BIT <= '1';
+   PS_SET_BIN_REG_B4_DOT_B8 <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_B4_BIT,'0',testName,"2E");
+   check1(PS_BIN_REG_NOT_B4_BIT,'1',testName,"2F");
+   check1(PS_BIN_REG_B8_BIT,'0',testName,"2G");
+   check1(PS_BIN_REG_NOT_B8_BIT,'1',testName,"2H");
+   PS_SET_BIN_REG_B4_DOT_B8 <= '1';
+   wait for 30 ns; -- Sets latch
+   PS_B_CH_A_BIT <= '0';
+   PS_SET_BIN_REG_B4_DOT_B8 <= '0';
+   wait for 30 ns; -- Latch should stay set
+   check1(PS_BIN_REG_B4_BIT,'1',testName,"2I");
+   check1(PS_BIN_REG_NOT_B4_BIT,'0',testName,"2J");
+   check1(PS_BIN_REG_B8_BIT,'0',testName,"2K");
+   check1(PS_BIN_REG_NOT_B8_BIT,'1',testName,"2L");
+   
+   PS_B_CH_B_BIT <= '1';
+   PS_SET_BIN_REG_B4_DOT_B8 <= '0';
+   wait for 30 ns;
+   check1(PS_BIN_REG_B4_BIT,'1',testName,"2E");
+   check1(PS_BIN_REG_NOT_B4_BIT,'0',testName,"2F");
+   check1(PS_BIN_REG_B8_BIT,'0',testName,"2G");
+   check1(PS_BIN_REG_NOT_B8_BIT,'1',testName,"2H");
+   PS_SET_BIN_REG_B4_DOT_B8 <= '1';
+   wait for 30 ns; -- Sets latch
+   PS_B_CH_B_BIT <= '0';
+   PS_SET_BIN_REG_B4_DOT_B8 <= '0';
+   wait for 30 ns; -- Latch should stay set
+   check1(PS_BIN_REG_B4_BIT,'1',testName,"2I");
+   check1(PS_BIN_REG_NOT_B4_BIT,'0',testName,"2J");
+   check1(PS_BIN_REG_B8_BIT,'1',testName,"2K");
+   check1(PS_BIN_REG_NOT_B8_BIT,'0',testName,"2L");
+   
+   wait for 120 ns;
+   MS_RESET_BIN_REG <= '0';
+   wait for 30 ns;
+   MS_RESET_BIN_REG <= '1';
+   wait for 30 ns;
+   check1(PS_BIN_REG_B4_BIT,'0',testName,"3A");
+   check1(PS_BIN_REG_NOT_B4_BIT,'1',testName,"3B");
+   check1(PS_BIN_REG_B8_BIT,'0',testName,"3C");
+   check1(PS_BIN_REG_NOT_B8_BIT,'1',testName,"3D");
+   
 
    wait;
    end process;
