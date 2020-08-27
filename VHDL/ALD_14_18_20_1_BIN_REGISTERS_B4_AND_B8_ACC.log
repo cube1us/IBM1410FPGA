@@ -1,0 +1,40 @@
+Generating HDL for page 14.18.20.1 BIN REGISTERS B4 AND B8-ACC at 8/27/2020 5:40:56 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_20_1_BIN_REGISTERS_B4_AND_B8_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 4B
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 4D
+Found combinatorial loop (need D FF) at output of gate at 3D
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_B_CH_A_BIT,PS_SET_BIN_REG_B4_DOT_B8
+	and logic function of NAND
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_A_Latch, OUT_4B_A_Latch
+	and inputs of OUT_3B_G,MS_RESET_BIN_REG
+	and logic function of NAND
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_G_Latch, OUT_3B_G_Latch
+	and inputs of OUT_5A_NoPin,OUT_4B_A
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_G
+	and inputs of PS_SET_BIN_REG_B4_DOT_B8,PS_B_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 4D with *latched* output pin(s) of OUT_4D_K_Latch, OUT_4D_K_Latch
+	and inputs of OUT_3D_C,MS_RESET_BIN_REG
+	and logic function of NAND
+Generating Statement for block at 3D with *latched* output pin(s) of OUT_3D_C_Latch, OUT_3D_C_Latch
+	and inputs of OUT_5C_G,OUT_4D_K
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_BIN_REG_NOT_B4_BIT
+	from gate output OUT_4B_A
+Generating output sheet edge signal assignment to 
+	signal PS_BIN_REG_B4_BIT
+	from gate output OUT_3B_G
+Generating output sheet edge signal assignment to 
+	signal PS_BIN_REG_NOT_B8_BIT
+	from gate output OUT_4D_K
+Generating output sheet edge signal assignment to 
+	signal PS_BIN_REG_B8_BIT
+	from gate output OUT_3D_C
+Generating D Flip Flop for block at 4B
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 4D
+Generating D Flip Flop for block at 3D
