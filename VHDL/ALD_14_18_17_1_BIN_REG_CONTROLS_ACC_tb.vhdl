@@ -172,6 +172,136 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "14.18.17.1        ";
+   
+   wait for 30 ns;
+   check1(MS_RESET_BIN_REG,'1',testName,"1A");
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 30 ns;
+   check1(MS_RESET_BIN_REG,'0',testName,"1B");
+   MS_PROGRAM_RESET_1 <= '1';   
+   wait for 30 ns;
+   MS_I_RING_6_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_RESET_BIN_REG,'0',testName,"1C");
+   MS_I_RING_6_TIME <= '1';   
+   wait for 30 ns;
+   MS_I_RING_1_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_RESET_BIN_REG,'0',testName,"1D");
+   MS_I_RING_1_TIME <= '1';   
+   wait for 30 ns;
+   
+   PS_1401_STORE_AR_OP_CODES <= '0';
+   PS_C_CYCLE <= '1';
+   PS_UNITS_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_1401_STORE_MAR_DOT_UNITS_DOT_C_CY,'0',testName,"2A");
+   PS_1401_STORE_AR_OP_CODES <= '1';
+   PS_C_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_1401_STORE_MAR_DOT_UNITS_DOT_C_CY,'0',testName,"2B");
+   PS_C_CYCLE <= '1';
+   PS_UNITS_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_1401_STORE_MAR_DOT_UNITS_DOT_C_CY,'0',testName,"2C");
+   PS_UNITS_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_1401_STORE_MAR_DOT_UNITS_DOT_C_CY,'1',testName,"2D");
+   check1(MS_RESET_BIN_REG,'1',testName,"2E");
+   PS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   check1(MS_RESET_BIN_REG,'0',testName,"2F");
+   PS_1401_STORE_AR_OP_CODES <= '0';
+   PS_C_CYCLE <= '0';
+   PS_UNITS_LATCH <= '0';
+   PS_LOGIC_GATE_D_1 <= '0';
+   
+   PS_I_RING_3_OR_8_TIME <= '0';
+   PS_I_CYCLE_1 <= '1';
+   PS_LOGIC_GATE_E_2 <= '1';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH,'0',testName,"3A");
+   PS_I_RING_3_OR_8_TIME <= '0';
+   PS_I_CYCLE_1 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH,'0',testName,"3B");
+   PS_I_CYCLE_1 <= '1';
+   PS_LOGIC_GATE_E_2 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH,'0',testName,"3C");
+   PS_LOGIC_GATE_E_2 <= '1';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH,'0',testName,"3D");
+   PS_I_RING_3_OR_8_TIME <= '0';
+   PS_I_CYCLE_1 <= '0';
+   PS_LOGIC_GATE_E_2 <= '0';
+   wait for 30 ns;
+   
+   PS_LOGIC_GATE_E_2 <= '0';
+   PS_I_CYCLE_1 <= '1';
+   PS_I_RING_5_OR_10_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH,'0',testName,"4A");
+   PS_LOGIC_GATE_E_2 <= '1';
+   PS_I_CYCLE_1 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH,'0',testName,"4B");
+   PS_I_CYCLE_1 <= '1';
+   PS_I_RING_5_OR_10_TIME <= '0';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH,'0',testName,"4C");
+   PS_I_RING_5_OR_10_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH,'1',testName,"4D");
+   PS_LOGIC_GATE_E_2 <= '0';
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_5_OR_10_TIME <= '0';
+
+   PS_1401_STORE_AR_OP_CODES <= '0';
+   PS_LOGIC_GATE_E_2 <= '1';
+   PS_C_CYCLE <= '1';
+   PS_BODY_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A_FROM_TH,'0',testName,"5A");
+   PS_1401_STORE_AR_OP_CODES <= '1';
+   PS_LOGIC_GATE_E_2 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A_FROM_TH,'0',testName,"5B");
+   PS_LOGIC_GATE_E_2 <= '1';
+   PS_C_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A_FROM_TH,'0',testName,"5C");
+   PS_C_CYCLE <= '1';
+   PS_BODY_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A_FROM_TH,'0',testName,"5D");
+   PS_BODY_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_A_FROM_TH,'1',testName,"5E");
+   PS_1401_STORE_AR_OP_CODES <= '0';
+   PS_LOGIC_GATE_E_2 <= '0';
+   PS_C_CYCLE <= '0';
+   PS_BODY_LATCH <= '0';
+   
+   PS_LOGIC_GATE_E_2 <= '0';
+   PS_A_RING_2_TIME <= '1';
+   PS_X_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_B4_DOT_B8,'0',testName,"6A");
+   PS_LOGIC_GATE_E_2 <= '1';
+   PS_A_RING_2_TIME <= '0';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_B4_DOT_B8,'0',testName,"6B");
+   PS_A_RING_2_TIME <= '1';
+   PS_X_CYCLE <= '0';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_B4_DOT_B8,'0',testName,"6C");
+   PS_X_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_SET_BIN_REG_B4_DOT_B8,'1',testName,"6D");
+   
+
    wait;
    end process;
 
