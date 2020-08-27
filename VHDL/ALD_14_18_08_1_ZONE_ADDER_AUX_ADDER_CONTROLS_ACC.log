@@ -1,0 +1,55 @@
+Generating HDL for page 14.18.08.1 ZONE ADDER.AUX ADDER CONTROLS-ACC at 8/27/2020 9:43:55 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_08_1_ZONE_ADDER_AUX_ADDER_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Removed 2 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1E to ignored block(s) or identical signal names
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_DOT_2D
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_B
+	and inputs of PS_LOGIC_GATE_J
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_E, OUT_5E_E
+	and inputs of PS_1401_MODE,PS_X_CYCLE,PS_A_RING_4_TIME
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of OUT_4F_G
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_DOT_2D
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G, OUT_4F_G
+	and inputs of OUT_5E_E,OUT_5G_C
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C, OUT_5G_C
+	and inputs of PS_1401_MODE,PS_I_CYCLE_1,PS_I_RING_5_OR_10_TIME
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_R
+	and inputs of OUT_4F_G
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of OUT_1G_D
+	and inputs of OUT_DOT_2G
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_F
+	and inputs of PS_LOGIC_GATE_K
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D, OUT_DOT_2D
+	and inputs of OUT_2D_B,OUT_2E_D
+	and logic function of OR
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_2G_R,OUT_2H_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_TSLT_BINARY_TO_TH_POS_1
+	from gate output OUT_1C_C
+Generating output sheet edge signal assignment to 
+	signal MS_1401_DOT_X_CYCLE_DOT_A_RING_4_TIME
+	from gate output OUT_5E_E
+Generating output sheet edge signal assignment to 
+	signal PS_TSLT_BINARY_TO_TH_POS_2
+	from gate output OUT_1E_C
+Generating output sheet edge signal assignment to 
+	signal MS_1401_DOT_I_CYCLE_DOT_I_RING_5_OR_10
+	from gate output OUT_5G_C
+Generating output sheet edge signal assignment to 
+	signal PS_TSLT_BINARY_TO_TTH_POS
+	from gate output OUT_1G_D
