@@ -1,0 +1,50 @@
+Generating HDL for page 14.18.14.1 1401 FULL BINARY 2-5 TRANS at 8/27/2020 2:35:29 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_14_1_1401_FULL_BINARY_2_5_TRANS_tb.vhdl, generating default test bench code.
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of PS_AUX_BIN_ADDER_8_BIT,PS_AUX_BIN_ADDER_4_BIT
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_R
+	and inputs of MS_ASSEMBLY_CH_B_BIT,PS_TSLT_BINARY_TO_TH_POS_1
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of MS_AUX_BIN_ADDER_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of PS_ASSEMBLY_CH_B_BIT,MS_ASSEMBLY_CH_A_BIT,PS_TSLT_BINARY_TO_TH_POS_1
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_K
+	and inputs of MS_AUX_BIN_ADDER_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_E
+	and inputs of MS_ASSEMBLY_CH_A_BIT,MS_AUX_BIN_ADDER_4_BIT,PS_TSLT_BINARY_TO_TH_POS_1
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_P
+	and inputs of MS_AUX_BIN_ADDER_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_C
+	and inputs of MS_AUX_BIN_ADDER_4_BIT,PS_ASSEMBLY_CH_B_BIT,PS_TSLT_BINARY_TO_TH_POS_1
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_3A_G,OUT_3B_R
+	and logic function of OR
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_3C_C,OUT_3D_D
+	and logic function of OR
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_3F_K,OUT_3G_E
+	and logic function of OR
+Generating Statement for block at 1H with output pin(s) of OUT_DOT_1H
+	and inputs of OUT_3H_P,OUT_3I_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_COMPAT_TSLTR_THP_2_BIT_A
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal MS_COMPAT_TSLTR_THP_2_BIT_B
+	from gate output OUT_DOT_1C
+Generating output sheet edge signal assignment to 
+	signal MS_COMPAT_TSLTR_THP_2_BIT_C
+	from gate output OUT_DOT_1F
+Generating output sheet edge signal assignment to 
+	signal MS_COMPAT_TSLTR_THP_2_BIT_D
+	from gate output OUT_DOT_1H

@@ -1,0 +1,32 @@
+Generating HDL for page 14.18.13.1 1401 FULL BINARY TO 2-5 TRANS at 8/27/2020 2:35:28 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_13_1_1401_FULL_BINARY_TO_2_5_TRANS_tb.vhdl, generating default test bench code.
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of PS_AUX_BIN_ADDER_4_BIT,MS_AUX_BIN_ADDER_8_BIT,PS_TSLT_BINARY_TO_TH_POS_2
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of PS_TSLT_BINARY_TO_TH_POS_2,PS_AUX_BIN_ADDER_4_BIT,PS_ASSEMBLY_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of PS_TSLT_BINARY_TO_TH_POS_2,PS_ASSEMBLY_CH_A_BIT,MS_AUX_BIN_ADDER_4_BIT
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of PS_TSLT_BINARY_TO_TH_POS_2,PS_ASSEMBLY_CH_A_BIT,MS_ASSEMBLY_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of PS_AUX_BIN_ADDER_8_BIT,PS_ASSEMBLY_CH_A_BIT,PS_TSLT_BINARY_TO_TH_POS_1
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_COMPAT_TSLTR_THP_4_BIT_A
+	from gate output OUT_3B_F
+Generating output sheet edge signal assignment to 
+	signal MS_COMPAT_TSLTR_THP_4_BIT_B
+	from gate output OUT_3C_E
+Generating output sheet edge signal assignment to 
+	signal MS_COMPAT_TSLTR_THP_1_BIT_A
+	from gate output OUT_3E_D
+Generating output sheet edge signal assignment to 
+	signal MS_COMPAT_TSLTR_THP_1_BIT_B
+	from gate output OUT_3F_C
+Generating output sheet edge signal assignment to 
+	signal MS_COMPAT_TSLTR_THP_1_BIT_C
+	from gate output OUT_3G_D

@@ -1,0 +1,63 @@
+Generating HDL for group named BinTo2Of5at 8/27/2020 2:36:41 PM containing pages: 
+	14.18.11.1, 14.18.12.1, 14.18.13.1, 14.18.14.1, 14.18.15.1
+	14.18.16.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\BinTo2Of5_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 6 pages...
+Found 11 signals on page 14.18.11.1
+Found 8 signals on page 14.18.12.1
+Found 14 signals on page 14.18.13.1
+Found 12 signals on page 14.18.14.1
+Found 13 signals on page 14.18.15.1
+Found 11 signals on page 14.18.16.1
+Found 11 unique input signals and 23 unique output signals, (34 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S TSLT BINARY TO TH POS 2 originates outside the group.
+INFO:  Signal -S AUX BIN ADDER 4 BIT originates outside the group.
+INFO:  Signal +S AUX BIN ADDER 8 BIT originates outside the group.
+INFO:  Signal -S AUX BIN ADDER 8 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH B BIT originates outside the group.
+INFO:  Signal -S ASSEMBLY CH A BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH A BIT originates outside the group.
+INFO:  Signal -S ASSEMBLY CH B BIT originates outside the group.
+INFO:  Signal +S AUX BIN ADDER 4 BIT originates outside the group.
+INFO:  Signal +S TSLT BINARY TO TH POS 1 originates outside the group.
+INFO:  Signal +S TSLT BINARY TO TTH POS originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT A is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT B is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT C is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT D is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT E is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT F is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 4 BIT A is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 4 BIT B is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 1 BIT A is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 1 BIT B is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 1 BIT C is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 2 BIT A is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 2 BIT B is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 2 BIT C is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 2 BIT D is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 8 BIT A is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 8 BIT B is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 8 BIT C is used outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 2.8 BITS is used outside the group.
+INFO:  Signal -S COMPAT TSLTR TTHP 2.8 BITS A is used outside the group.
+INFO:  Signal -S COMPAT TSLTR TTHP 2.8 BITS B is used outside the group.
+INFO:  Signal -S COMPAT TSLTR TTHP 0.1 BITS A is used outside the group.
+INFO:  Signal -S COMPAT TSLTR TTHP 0.1 BITS B is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S ASSEMBLY CH B BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal -S ASSEMBLY CH A BIT replaced by Bus signal -S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH A BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal -S ASSEMBLY CH B BIT replaced by Bus signal -S ASSEMBLY CH BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.18.11.1 (1401 FULL BINARY TO 2-5 TRANS)
+Generating HDL associated with page 14.18.12.1 (1401 FULL BINARY TO 2-5 TRANS)
+Generating HDL associated with page 14.18.13.1 (1401 FULL BINARY TO 2-5 TRANS)
+Generating HDL associated with page 14.18.14.1 (1401 FULL BINARY 2-5 TRANS)
+Generating HDL associated with page 14.18.15.1 (1401 FULL BINARY TO 2-5 TRANS)
+Generating HDL associated with page 14.18.16.1 (1401 FULL BINARY 2-5 TRANS)
