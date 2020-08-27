@@ -1,0 +1,41 @@
+Generating HDL for page 14.18.09.1 AUXILIARY BINARY ADDER-ACC at 8/27/2020 12:13:14 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_09_1_AUXILIARY_BINARY_ADDER_ACC_tb.vhdl, generating default test bench code.
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G, OUT_4D_G, OUT_4D_G
+	and inputs of PS_BIN_REG_B4_BIT,PS_BIN_REG_A_4_BIT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of MS_BIN_REG_A_4_BIT,PS_BIN_REG_NOT_B4_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_K
+	and inputs of OUT_4D_G,OUT_4E_C
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_NoPin
+	and inputs of OUT_4D_G,OUT_3H_E
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_A
+	and inputs of OUT_2F_NoPin,OUT_2G_NoPin
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_BIN_REG_B8_BIT,PS_BIN_REG_A_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of OUT_4D_G
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_NoPin
+	and inputs of OUT_3G_D,OUT_2H_E
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_E, OUT_3H_E
+	and inputs of OUT_4G_NoPin,OUT_4I_NoPin
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E
+	and inputs of OUT_3H_E
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_NoPin
+	and inputs of MS_BIN_REG_A_8_BIT,PS_BIN_REG_NOT_B8_BIT
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_A4_DOT_B4_EVEN
+	from gate output OUT_3E_K
+Generating output sheet edge signal assignment to 
+	signal PS_BIN_REG_4_DOT_NOT_8_OR_8_DOT_NOT_4
+	from gate output OUT_1F_A
