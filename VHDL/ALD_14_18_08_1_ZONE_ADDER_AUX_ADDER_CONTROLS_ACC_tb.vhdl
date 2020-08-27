@@ -147,6 +147,98 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.18.08.1        ";
+   
+   PS_LOGIC_GATE_J <= '0';
+   PS_LOGIC_GATE_K <= '0';
+   wait for 30 ns;
+   check1(PS_TSLT_BINARY_TO_TH_POS_1,'0',testName,"1A");
+   check1(PS_TSLT_BINARY_TO_TH_POS_2,'0',testName,"1B");
+   check1(PS_TSLT_BINARY_TO_TTH_POS,'0',testName,"1C");
+   PS_LOGIC_GATE_J <= '1';
+   PS_LOGIC_GATE_K <= '1';
+   wait for 30 ns;
+   check1(PS_TSLT_BINARY_TO_TH_POS_1,'0',testName,"1D");
+   check1(PS_TSLT_BINARY_TO_TH_POS_2,'0',testName,"1E");
+   check1(PS_TSLT_BINARY_TO_TTH_POS,'0',testName,"1F");
+   PS_LOGIC_GATE_J <= '0';
+   PS_LOGIC_GATE_K <= '0';
+
+   PS_X_CYCLE <= '0';
+   PS_A_RING_4_TIME <= '1';
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_DOT_X_CYCLE_DOT_A_RING_4_TIME,'1',testName,"1G");
+   PS_X_CYCLE <= '1';
+   PS_A_RING_4_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_1401_DOT_X_CYCLE_DOT_A_RING_4_TIME,'1',testName,"1H");
+   PS_A_RING_4_TIME <= '1';
+   PS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(MS_1401_DOT_X_CYCLE_DOT_A_RING_4_TIME,'1',testName,"1I");
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_DOT_X_CYCLE_DOT_A_RING_4_TIME,'0',testName,"1J");
+   check1(PS_TSLT_BINARY_TO_TH_POS_1,'0',testName,"1K");
+   check1(PS_TSLT_BINARY_TO_TH_POS_2,'0',testName,"1L");
+   check1(PS_TSLT_BINARY_TO_TTH_POS,'0',testName,"1M");
+   PS_LOGIC_GATE_J <= '1';
+   wait for 30 ns;
+   check1(PS_TSLT_BINARY_TO_TH_POS_1,'1',testName,"1N");
+   check1(PS_TSLT_BINARY_TO_TH_POS_2,'1',testName,"1O");
+   check1(PS_TSLT_BINARY_TO_TTH_POS,'0',testName,"1P");
+   PS_LOGIC_GATE_J <= '0';
+   wait for 30 ns;
+   PS_LOGIC_GATE_K <= '1';
+   wait for 30 ns;
+   check1(PS_TSLT_BINARY_TO_TH_POS_1,'0',testName,"1Q");
+   check1(PS_TSLT_BINARY_TO_TH_POS_2,'0',testName,"1R");
+   check1(PS_TSLT_BINARY_TO_TTH_POS,'1',testName,"1S");
+   PS_LOGIC_GATE_K <= '0';
+   PS_X_CYCLE <= '0';
+   PS_A_RING_4_TIME <= '0';
+   PS_1401_MODE <= '0';
+   wait for 30 ns;
+   
+   PS_I_CYCLE_1 <= '0';
+   PS_I_RING_5_OR_10_TIME <= '1';
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(PS_TSLT_BINARY_TO_TH_POS_1,'0',testName,"2A");
+   check1(PS_TSLT_BINARY_TO_TH_POS_2,'0',testName,"2B");
+   check1(PS_TSLT_BINARY_TO_TTH_POS,'0',testName,"2C");
+   check1(MS_1401_DOT_I_CYCLE_DOT_I_RING_5_OR_10,'1',testName,"2D");
+   PS_I_CYCLE_1 <= '1';
+   PS_I_RING_5_OR_10_TIME <= '0';
+   wait for 30 ns;
+   check1(MS_1401_DOT_I_CYCLE_DOT_I_RING_5_OR_10,'1',testName,"2E");
+   PS_I_RING_5_OR_10_TIME <= '1';
+   PS_1401_MODE <= '0';
+   wait for 30 ns;
+   check1(MS_1401_DOT_I_CYCLE_DOT_I_RING_5_OR_10,'1',testName,"2F");
+   PS_1401_MODE <= '1';
+   wait for 30 ns;
+   check1(MS_1401_DOT_I_CYCLE_DOT_I_RING_5_OR_10,'0',testName,"2G");
+         
+   check1(PS_TSLT_BINARY_TO_TH_POS_1,'0',testName,"2H");
+   check1(PS_TSLT_BINARY_TO_TH_POS_2,'0',testName,"2I");
+   check1(PS_TSLT_BINARY_TO_TTH_POS,'0',testName,"2J");
+   PS_LOGIC_GATE_J <= '1';
+   wait for 30 ns;
+   check1(PS_TSLT_BINARY_TO_TH_POS_1,'1',testName,"2K");
+   check1(PS_TSLT_BINARY_TO_TH_POS_2,'1',testName,"2L");
+   check1(PS_TSLT_BINARY_TO_TTH_POS,'0',testName,"2M");
+   PS_LOGIC_GATE_J <= '0';
+   wait for 30 ns;
+   PS_LOGIC_GATE_K <= '1';
+   wait for 30 ns;
+   check1(PS_TSLT_BINARY_TO_TH_POS_1,'0',testName,"2N");
+   check1(PS_TSLT_BINARY_TO_TH_POS_2,'0',testName,"2O");
+   check1(PS_TSLT_BINARY_TO_TTH_POS,'1',testName,"2P");
+   PS_LOGIC_GATE_K <= '0';
+   wait for 30 ns;
 
    wait;
    end process;
