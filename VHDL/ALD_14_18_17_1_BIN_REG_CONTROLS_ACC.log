@@ -1,0 +1,75 @@
+Generating HDL for page 14.18.17.1 BIN REG CONTROLS-ACC at 8/27/2020 4:28:14 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_17_1_BIN_REG_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Removed 2 outputs from Gate at 4A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4F to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_H
+	and inputs of MS_PROGRAM_RESET_1,MS_I_RING_6_TIME,MS_I_RING_1_TIME
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_A
+	and inputs of OUT_DOT_5A
+	and logic function of NOT
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C
+	and inputs of PS_LOGIC_GATE_D_1,OUT_4D_D
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B
+	and inputs of OUT_3A_C
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_E
+	and inputs of PS_I_CYCLE_1,PS_I_RING_3_OR_8_TIME,PS_LOGIC_GATE_E_2
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of OUT_5B_E
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of PS_LOGIC_GATE_E_2,PS_I_CYCLE_1,PS_I_RING_5_OR_10_TIME
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of OUT_5C_C
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_UNITS_LATCH,PS_1401_STORE_AR_OP_CODES,PS_C_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D, OUT_4D_D
+	and inputs of OUT_5D_NoPin
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_G
+	and inputs of PS_BODY_LATCH,PS_C_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of OUT_DOT_5F
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_P
+	and inputs of PS_LOGIC_GATE_E_2,PS_1401_STORE_AR_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_D
+	and inputs of PS_LOGIC_GATE_E_2,PS_A_RING_2_TIME,PS_X_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_K
+	and inputs of OUT_5H_D
+	and logic function of NAND
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
+	and inputs of OUT_5A_H,OUT_2A_B
+	and logic function of OR
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
+	and inputs of OUT_5F_G,OUT_5G_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_BIN_REG
+	from gate output OUT_4A_A
+Generating output sheet edge signal assignment to 
+	signal PS_SET_BIN_REG_A1_DOT_A2_FROM_B_CH
+	from gate output OUT_4B_C
+Generating output sheet edge signal assignment to 
+	signal PS_SET_BIN_REG_A4_DOT_A8_FROM_B_CH
+	from gate output OUT_4C_G
+Generating output sheet edge signal assignment to 
+	signal PS_1401_STORE_MAR_DOT_UNITS_DOT_C_CY
+	from gate output OUT_4D_D
+Generating output sheet edge signal assignment to 
+	signal PS_SET_BIN_REG_A_FROM_TH
+	from gate output OUT_4F_C
+Generating output sheet edge signal assignment to 
+	signal PS_SET_BIN_REG_B4_DOT_B8
+	from gate output OUT_4H_K
