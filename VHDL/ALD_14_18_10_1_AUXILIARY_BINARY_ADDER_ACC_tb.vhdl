@@ -135,6 +135,26 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.18.10.1        ";
+   
+   for Va in std_logic range '0' to '1' loop
+      PS_A4_DOT_B4_EVEN <= Va;
+      for Vc in std_logic range '0' to '1' loop
+         PS_ZONE_ADDER_CARRY <= Vc;
+         MS_ZONE_ADDER_CARRY <= NOT Vc;
+         for Vd in std_logic range '0' to '1' loop
+            PS_BIN_REG_4_DOT_NOT_8_OR_8_DOT_NOT_4 <= Vd;
+            wait for 30 ns;
+            check1(PS_AUX_BIN_ADDER_4_BIT,(Va and Vc) or (NOT Va and NOT Vc),testName,"1A");
+            check1(MS_AUX_BIN_ADDER_4_BIT,NOT PS_AUX_BIN_ADDER_4_BIT,testName,"1B");
+            check1(PS_AUX_BIN_ADDER_8_BIT,
+                (Vd and NOT Va and Vc) or (NOT Vd and Va) or (not Vc and Not Vd),testName,"1C");
+            check1(MS_AUX_BIN_ADDER_8_BIT,NOT PS_AUX_BIN_ADDER_8_BIT,testName,"1D");
+         end loop;
+      end loop;
+   end loop;
+   
 
    wait;
    end process;
