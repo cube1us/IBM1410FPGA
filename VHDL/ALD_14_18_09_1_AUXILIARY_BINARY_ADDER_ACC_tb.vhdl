@@ -67,6 +67,8 @@ architecture behavioral of ALD_14_18_09_1_AUXILIARY_BINARY_ADDER_ACC_tb is
    constant HDL_4_BIT: integer := 2;
    constant HDL_2_BIT: integer := 1;
    constant HDL_1_BIT: integer := 0;
+   
+   signal a8b8ornota8notb8: std_logic;
 
 procedure check1(
     checked: in STD_LOGIC;
@@ -131,6 +133,7 @@ fpga_clk_process: process
 -- End of TestBenchFPGAClock.vhdl
 --   
 
+
 -- Place your test bench code in the uut_process
 
 uut_process: process
@@ -141,6 +144,29 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.18.09.1        ";
+   
+   for a4 in std_logic range '0' to '1' loop
+      PS_BIN_REG_A_4_BIT <= a4;      
+      MS_BIN_REG_A_4_BIT <= NOT a4;
+      for b4 in std_logic range '0' to '1' loop
+         PS_BIN_REG_B4_BIT <= b4;
+         PS_BIN_REG_NOT_B4_BIT <= NOT b4;
+         for a8 in std_logic range '0' to '1' loop
+            PS_BIN_REG_A_8_BIT <= a8;
+            MS_BIN_REG_A_8_BIT <= NOT a8;
+            for b8 in std_logic range '0' to '1' loop
+                PS_BIN_REG_B8_BIT <= b8;
+                PS_BIN_REG_NOT_B8_BIT <= NOT b8;
+                wait for 30 ns;
+                check1(PS_A4_DOT_B4_EVEN,NOT(a4 xor b4),testName,"1A");
+                check1(PS_BIN_REG_4_DOT_NOT_8_OR_8_DOT_NOT_4,
+                   (a4 and b4) xor NOT(a8 xor b8),testName,"1B");
+                end loop;
+         end loop;
+      end loop;
+   end loop;
 
    wait;
    end process;
