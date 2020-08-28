@@ -1,0 +1,73 @@
+Generating HDL for page 14.30.06.1 ADDRESS MODIFICATION FEATURE-ACC at 8/28/2020 4:19:40 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_30_06_1_ADDRESS_MODIFICATION_FEATURE_ACC_tb.vhdl, generating default test bench code.
+Block at coordinate 3F is marked for No HDL Generation -- skipped.
+Ignoring Logic Block 2B with symbol R
+Ignoring Logic Block 1C with symbol R
+Ignoring Logic Block 2D with symbol R
+Removed 2 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 3A to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_4_BIT,PY_BLOCK_TTHP,MY_MEM_AR_TO_ADDR_MOD_8_BIT
+	and logic function of NOR
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B
+	and inputs of OUT_DOT_3A
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_L
+	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_1_BIT,MY_MEM_AR_TO_ADDR_MOD_8_BIT
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_P
+	and inputs of MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_0_BIT,MY_MEM_AR_TO_ADDR_MOD_8_BIT
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_3C_P,OUT_2F_P
+	and logic function of NOR
+Generating Statement for block at 3D with output pin(s) of OUT_3D_L
+	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_2_BIT,MY_MEM_AR_TO_ADDR_MOD_8_BIT
+	and logic function of NOR
+Generating Statement for block at 3E with output pin(s) of OUT_3E_G
+	and inputs of MY_MODIFY_BY_ZERO,MY_MEM_AR_TO_ADDR_MOD_8_BIT
+	and logic function of NOR
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of MY_MODIFY_BY_ZERO,MY_MEM_AR_TO_ADDR_MOD_4_BIT
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_P
+	and inputs of MY_MEM_AR_TO_ADDR_MOD_8_BIT,MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_2_BIT,PY_1401_INSERT_01_BIT,PY_1401_INSERT_14_BIT,PY_1401_INSERT_48_BIT
+	and logic function of NOR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of MY_MODIFY_BY_ZERO,MY_MEM_AR_TO_ADDR_MOD_2_BIT
+	and logic function of NOR
+Generating Statement for block at 4H with output pin(s) of OUT_4H_F
+	and inputs of MY_MODIFY_BY_ZERO,MY_MEM_AR_TO_ADDR_MOD_1_BIT
+	and logic function of NOR
+Generating Statement for block at 4I with output pin(s) of OUT_4I_R
+	and inputs of MY_MEM_AR_TO_ADDR_MOD_0_BIT,MY_MODIFY_BY_ZERO
+	and logic function of NOR
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A
+	and inputs of OUT_3A_G,OUT_3B_L
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_MOD_08_BIT
+	from gate output OUT_2A_B
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_MOD_18_BIT
+	from gate output OUT_2C_C
+Generating output sheet edge signal assignment to 
+	signal PS_MINUS_ONE_28_LINE
+	from gate output OUT_3D_L
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_CH_8_B_STAR_ADDR_MOD
+	from gate output OUT_3E_G
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_CH_4_B_STAR_ADDR_MOD
+	from gate output OUT_4F_G
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_CH_2_B_STAR_ADDR_MOD
+	from gate output OUT_4G_C
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_CH_1_B_STAR_ADDR_MOD
+	from gate output OUT_4H_F
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_CH_0_B_STAR_ADDR_MOD
+	from gate output OUT_4I_R
