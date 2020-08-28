@@ -1,0 +1,100 @@
+Generating HDL for page 14.30.05.1 ADDRESS MODIFICATION FEATURE-ACC at 8/28/2020 2:41:53 PM
+Old test bench file ALD_14_30_05_1_ADDRESS_MODIFICATION_FEATURE_ACC_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+Block at coordinate 2B is marked for No HDL Generation -- skipped.
+Ignoring Logic Block 1B with symbol R
+Ignoring Logic Block 1C with symbol R
+Ignoring Logic Block 2E with symbol R
+Ignoring Logic Block 2G with symbol R
+Ignoring Logic Block 1G with symbol R
+Ignoring Logic Block 2I with symbol R
+Removed 4 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 3D to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 3F to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_P
+	and inputs of MY_WRAP_AROUND_MODE,MY_LOGIC_GATE_F_1
+	and logic function of NOR
+Generating Statement for block at 3A with output pin(s) of OUT_3A_P
+	and inputs of OUT_5A_P,MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_1_BIT,MY_MEM_AR_TO_ADDR_MOD_2_BIT
+	and logic function of NOR
+Generating Statement for block at 2A with output pin(s) of OUT_2A_F
+	and inputs of OUT_DOT_3A
+	and logic function of NOR
+Generating Statement for block at 5B with output pin(s) of OUT_5B_P
+	and inputs of MY_WRAP_AROUND_MODE,MY_LOGIC_GATE_F_1
+	and logic function of NOR
+Generating Statement for block at 3B with output pin(s) of OUT_3B_P, OUT_3B_P
+	and inputs of MY_MEM_AR_TO_ADDR_MOD_2_BIT,MY_MEM_AR_TO_ADDR_MOD_8_BIT,MY_MODIFY_BY_MINUS_ONE,MY_1401_MODE_1,MY_LOGIC_GATE_E,MY_MEM_AR_TTHP8B,MY_MEM_AR_TTHP2B
+	and logic function of NOR
+Generating Statement for block at 5C with output pin(s) of OUT_5C_L
+	and inputs of MY_WRAP_AROUND_MODE,MY_LOGIC_GATE_F_1
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_1_BIT,MY_MEM_AR_TO_ADDR_MOD_4_BIT
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_G, OUT_2C_G
+	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_2_BIT,MY_MEM_AR_TO_ADDR_MOD_8_BIT,MY_1401_MODE_1,MY_LOGIC_GATE_E
+	and logic function of NOR
+Generating Statement for block at 3D with output pin(s) of OUT_3D_L
+	and inputs of MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_0_BIT,MY_MEM_AR_TO_ADDR_MOD_4_BIT
+	and logic function of NOR
+Generating Statement for block at 2D with output pin(s) of OUT_2D_R
+	and inputs of OUT_3B_P,OUT_DOT_3D
+	and logic function of NOR
+Generating Statement for block at 3E with output pin(s) of OUT_3E_P
+	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_2_BIT,MY_MEM_AR_TO_ADDR_MOD_4_BIT
+	and logic function of NOR
+Generating Statement for block at 3F with output pin(s) of OUT_3F_P
+	and inputs of OUT_5B_P,MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_1_BIT,MY_MEM_AR_TO_ADDR_MOD_4_BIT
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of OUT_DOT_3F
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_L
+	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_4_BIT,MY_MEM_AR_TO_ADDR_MOD_8_BIT
+	and logic function of NOR
+Generating Statement for block at 3H with output pin(s) of OUT_3H_P
+	and inputs of MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_2_BIT,MY_MEM_AR_TO_ADDR_MOD_4_BIT
+	and logic function of NOR
+Generating Statement for block at 2H with output pin(s) of OUT_2H_F
+	and inputs of OUT_2C_G,OUT_DOT_3H
+	and logic function of NOR
+Generating Statement for block at 4I with output pin(s) of OUT_4I_C
+	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_0_BIT,MY_MEM_AR_TO_ADDR_MOD_8_BIT
+	and logic function of NOR
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A
+	and inputs of OUT_3A_P,OUT_3C_C
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3D_L,OUT_3E_P
+	and logic function of OR
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F
+	and inputs of OUT_3F_P,OUT_3G_L
+	and logic function of OR
+Generating Statement for block at 3H with output pin(s) of OUT_DOT_3H
+	and inputs of OUT_3H_P,OUT_4I_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_MOD_04_BIT
+	from gate output OUT_2A_F
+Generating output sheet edge signal assignment to 
+	signal PY_1401_INSERT_14_BIT
+	from gate output OUT_3B_P
+Generating output sheet edge signal assignment to 
+	signal PY_BLOCK_TTHP
+	from gate output OUT_5C_L
+Generating output sheet edge signal assignment to 
+	signal PY_1401_INSERT_48_BIT
+	from gate output OUT_2C_G
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_MOD_14_BIT
+	from gate output OUT_2D_R
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_MOD_24_BIT
+	from gate output OUT_2F_C
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_MOD_48_BIT
+	from gate output OUT_2H_F
