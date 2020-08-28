@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -167,10 +168,80 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable marToAddrMod: std_logic_vector(4 downto 0);
+   variable controls: std_logic_vector(6 downto 0);
+   variable b0, b1, b2, b4, b8: std_logic;
+   variable p1, m1, m0: std_logic; -- +1, -1, +0
+   variable btthp, i14, i48, i01: std_logic; -- Block TTHP, 1401 Insert 14, 48, 01
+   variable gate: std_logic_vector(1 to 5);
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.30.06.1        ";
+   
+   for i in 0 to 31 loop
+
+      marToAddrMod := std_logic_vector(to_unsigned(i,marToAddrMod'length));
+      -- Assign bits to some brief names to use in tests later
+      b0 := marToAddrMod(0);
+      b1 := marToAddrMod(1);
+      b2 := marToAddrMod(2);
+      b4 := marToAddrMod(3);
+      b8 := marToAddrMod(4);
+      MY_MEM_AR_TO_ADDR_MOD_0_BIT <= NOT b0;
+      MY_MEM_AR_TO_ADDR_MOD_1_BIT <= NOT b1;        
+      MY_MEM_AR_TO_ADDR_MOD_2_BIT <= NOT b2;        
+      MY_MEM_AR_TO_ADDR_MOD_4_BIT <= NOT b4;        
+      MY_MEM_AR_TO_ADDR_MOD_8_BIT <= NOT b8;        
+      
+      -- Loop through MOD BY +1, -1, Wrap and LGF      
+      
+      for j in 0 to 255 loop
+      
+         controls := std_logic_vector(to_unsigned(j,controls'length));
+         p1 := controls(0);
+         m1 := controls(1);
+         m0 := controls(2);
+         btthp := controls(3);
+         i14 := controls(4);
+         i48 := controls(5);
+         i01 := controls(6);
+                           
+         PY_BLOCK_TTHP <= btthp;
+         MY_MODIFY_BY_ZERO <= not m0;
+         MY_MODIFY_BY_PLUS_ONE <= not p1;
+         MY_MODIFY_BY_MINUS_ONE <= not m1;
+         PY_1401_INSERT_14_BIT <= i14;
+         PY_1401_INSERT_48_BIT <= i48;
+         PY_1401_INSERT_01_BIT <= i01;
+         
+         -- Now down to business
+
+         gate(1) := p1 and b8 and b4 and not btthp;
+         gate(2) := m1 and b8 and b1;
+         gate(3) := p1 and b8 and b0;
+         gate(4):= m1 and b8 and b2;  
+         gate(5) := not i01 and not i14 and not i48 and m1 and b8 and b2;        
+                  
+         wait for 30 ns;
+         
+         check1(MS_ADDR_MOD_08_BIT,not(gate(1) or gate(2)),testName,"1A");
+         check1(PS_MINUS_ONE_28_LINE,gate(4),testName,"2A");
+         check1(MS_ADDR_MOD_18_BIT,not(gate(3) or gate(5)),testName,"3A");
+         
+         check1(PS_ADDR_CH_8_B_STAR_ADDR_MOD,m0 and b8,testName,"4A");
+         check1(PS_ADDR_CH_4_B_STAR_ADDR_MOD,m0 and b4,testName,"5A");
+         check1(PS_ADDR_CH_2_B_STAR_ADDR_MOD,m0 and b2,testName,"6A");
+         check1(PS_ADDR_CH_1_B_STAR_ADDR_MOD,m0 and b1,testName,"7A");
+         check1(PS_ADDR_CH_0_B_STAR_ADDR_MOD,m0 and b0,testName,"8A");
+                  
+      end loop;
+   
+         
+   end loop;
+
 
    wait;
    end process;
@@ -181,7 +252,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 100 us;  -- Determines how long your simulation runs
+   wait for 500 us;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY" severity failure;
    end process;
 
