@@ -1,0 +1,83 @@
+Generating HDL for page 14.18.21.1 POUND SYMBOL COMPATIBILITY-ACC at 8/28/2020 9:35:10 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_21_1_POUND_SYMBOL_COMPATIBILITY_ACC_tb.vhdl, generating default test bench code.
+Removed 3 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_K, OUT_5A_K
+	and inputs of PS_B_CYCLE_1,PS_1401_POUND_SIGN_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_B, OUT_4A_B, OUT_4A_B, OUT_4A_B, OUT_4A_B, OUT_4A_B, OUT_4A_B
+	and inputs of OUT_5A_K
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_4A_B,PS_1ST_SCAN,PS_UNITS_LATCH
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_3B_F
+	and logic function of EQUAL
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of OUT_4A_B,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_L
+	and inputs of OUT_3C_G
+	and logic function of EQUAL
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_4A_B,PS_BODY_LATCH
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_B
+	and inputs of OUT_3D_C
+	and logic function of EQUAL
+Generating Statement for block at 5E with output pin(s) of OUT_5E_P
+	and inputs of PS_1401_POUND_SIGN_OP_CODE,PS_1ST_OR_3RD_SCAN
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_K
+	and inputs of OUT_4A_B,PS_EXTENSION_LATCH
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_E
+	and inputs of OUT_4A_B,PS_3RD_SCAN,PS_UNITS_LATCH
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_A
+	and inputs of OUT_3F_E
+	and logic function of EQUAL
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of OUT_4A_B,PS_EXTENSION_LATCH,PS_ZONE_ADDER_CARRY
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of OUT_4A_B,PS_EXTENSION_LATCH,MS_ZONE_ADDER_CARRY
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_P
+	and inputs of PS_1401_POUND_SIGN_OP_CODE,PS_LAST_INSN_RO_CYCLE_2
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_LB_OP_DOT_B_CY
+	from gate output OUT_5A_K
+Generating output sheet edge signal assignment to 
+	signal MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN_DOT_UNITS
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN
+	from gate output OUT_2C_L
+Generating output sheet edge signal assignment to 
+	signal MS_LB_DOT_B_CYCLE_DOT_BODY_LATCH
+	from gate output OUT_2D_B
+Generating output sheet edge signal assignment to 
+	signal MS_LB_OP_DOT_1ST_OR_3RD_SCAN
+	from gate output OUT_5E_P
+Generating output sheet edge signal assignment to 
+	signal MS_LB_DOT_B_CYCLE_DOT_EXTENSION_LATCH
+	from gate output OUT_3E_K
+Generating output sheet edge signal assignment to 
+	signal MS_LB_DOT_B_CYCLE_DOT_3RD_SCAN_DOT_UNITS
+	from gate output OUT_2F_A
+Generating output sheet edge signal assignment to 
+	signal MS_LB_DOT_B_CYCLE_DOT_EXT_DOT_ZONE_CARRY
+	from gate output OUT_3G_D
+Generating output sheet edge signal assignment to 
+	signal MS_LB_DOT_B_CYCLE_DOT_EXT_DOT_NO_ZONE_CAR
+	from gate output OUT_3H_C
+Generating output sheet edge signal assignment to 
+	signal MS_LB_OP_DOT_LIROC
+	from gate output OUT_3I_P
