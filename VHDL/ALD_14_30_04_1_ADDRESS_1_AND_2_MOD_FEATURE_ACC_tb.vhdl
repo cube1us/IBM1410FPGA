@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -155,10 +156,81 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable marToAddrMod: std_logic_vector(4 downto 0);
+   variable controls: std_logic_vector(4 downto 0);
+   variable b0, b1, b2, b4, b8: std_logic;
+   variable p1, m1, w, f: std_logic; -- +1, -1, Wrap and Logic Gate F
+   variable gate: std_logic_vector(1 to 11);
+   variable g60K: std_logic; -- 60K wrap around NOT on ILD
+   variable g80K: std_logic; -- 80K wrap around ALSO NOT on ILD
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.30.04.1        ";
+   
+   -- Loop through all MAR MOD bits
+   for i in 0 to 31 loop
+
+      marToAddrMod := std_logic_vector(to_unsigned(i,marToAddrMod'length));
+      -- Assign bits to some brief names to use in tests later
+      b0 := marToAddrMod(0);
+      b1 := marToAddrMod(1);
+      b2 := marToAddrMod(2);
+      b4 := marToAddrMod(3);
+      b8 := marToAddrMod(4);
+      MY_MEM_AR_TO_ADDR_MOD_0_BIT <= NOT b0;
+      MY_MEM_AR_TO_ADDR_MOD_1_BIT <= NOT b1;        
+      MY_MEM_AR_TO_ADDR_MOD_2_BIT <= NOT b2;        
+      MY_MEM_AR_TO_ADDR_MOD_4_BIT <= NOT b4;        
+      MY_MEM_AR_TO_ADDR_MOD_8_BIT <= NOT b8;        
+      
+      -- Loop through MOD BY +1, -1, Wrap and LGF      
+      
+      for j in 0 to 31 loop
+      
+         controls := std_logic_vector(to_unsigned(j,controls'length));
+         p1 := controls(0);
+         m1 := controls(1);
+         w := controls(2);
+         f := controls(3);                  
+         MY_LOGIC_GATE_F_1 <= not f;
+         MY_WRAP_AROUND_MODE <= not w;
+         MY_MODIFY_BY_PLUS_ONE <= not p1;
+         MY_MODIFY_BY_MINUS_ONE <= not m1;
+         MY_1401_MODE_1 <= not controls(4);
+         
+         -- Now down to business
+         
+         gate(1) := w and f and p1 and b2 and b1; -- 40K
+         gate(2) := p1 and b8 and b1;
+         gate(3) := m1 and b1 and b0;
+         gate(4) := w and f and p1 and b1 and b0; -- 20K
+         gate(5) := p1 and b8 and b2;
+         gate(6) := m1 and b2 and b0;
+         gate(7) := not(w and f) and p1 and b1 and b0;
+         gate(8) := m1 and b2 and b1;
+         gate(9) := p1 and b2 and b0;
+         gate(10) := m1 and b4 and b0;
+         gate(11) := m1 and not MY_1401_MODE_1 and f and b2 and b8;
+         g60K := p1 and b1 and b4 and f and w; -- 60K
+         g80K := p1 and b4 and b8 and f and w; -- 80K
+         
+         wait for 30 ns;
+         
+         check1(PS_PLUS_ONE_18_LINE,gate(2),testName,"1A");
+         check1(MS_ADDR_MOD_28_BIT,NOT(gate(1) or gate(2) or gate(3) or gate(4) or g60K
+            or g80K),testName,"2A");
+         check1(MS_ADDR_MOD_01_BIT,NOT(gate(5) or gate(6) or gate(11)),testName,"3A"); 
+         check1(MS_ADDR_MOD_02_BIT,NOT(gate(7) or gate(8)),testName,"4A");        
+         check1(MS_ADDR_MOD_12_BIT,NOT(gate(9) or gate(10)),testName,"5A");
+         check1(PY_1401_INSERT_01_BIT,gate(11),testName,"6A");         
+      end loop;
+   
+         
+   end loop;
+   
 
    wait;
    end process;
