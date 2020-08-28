@@ -1,0 +1,63 @@
+Generating HDL for page 14.30.03.1 ADDRESS MODIFICATION at 8/28/2020 10:42:51 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_30_03_1_ADDRESS_MODIFICATION_tb.vhdl, generating default test bench code.
+Ignoring Logic Block 4A with symbol R
+Ignoring Logic Block 4C with symbol R
+Ignoring Logic Block 1D with symbol R
+Ignoring Logic Block 4E with symbol R
+Ignoring Logic Block 4G with symbol R
+Ignoring Logic Block 4I with symbol R
+Removed 2 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2I to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 5A to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 5C to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 5E to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 5G to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 5I to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_A
+	and inputs of OUT_DOT_5A
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_P
+	and inputs of OUT_DOT_5C
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of OUT_DOT_5E
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A
+	and inputs of OUT_DOT_5G
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_D
+	and inputs of OUT_DOT_5I
+	and logic function of NOT
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
+	and inputs of PY_MEM_AR_TTHP0B_TO_MOD,PY_MEM_AR_THP0B_TO_ADDR_MOD,PY_MEM_AR_HP0B_TO_ADDR_MOD,PY_MEM_AR_TP0B_TO_ADDR_MOD,PY_MEM_AR_UP0B_TO_ADDR_MOD
+	and logic function of OR
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
+	and inputs of PY_MEM_AR_TTHP1B_TO_MOD,PY_MEM_AR_THP1B_TO_ADDR_MOD,PY_MEM_AR_HP1B_TO_ADDR_MOD,PY_MEM_AR_TP1B_TO_ADDR_MOD,PY_MEM_AR_UP1B_TO_ADDR_MOD
+	and logic function of OR
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
+	and inputs of PY_MEM_AR_TTHP2B_TO_MOD,PY_MEM_AR_THP2B_TO_ADDR_MOD,PY_MEM_AR_HP2B_TO_ADDR_MOD,PY_MEM_AR_TP2B_TO_ADDR_MOD,PY_MEM_AR_UP2B_TO_ADDR_MOD
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of PY_MEM_AR_TTHP4B_TO_MOD,PY_MEM_AR_THP4B_TO_ADDR_MOD,PY_MEM_AR_HP4B_TO_ADDR_MOD,PY_MEM_AR_TP4B_TO_ADDR_MOD,PY_MEM_AR_UP4B_TO_ADDR_MOD
+	and logic function of OR
+Generating Statement for block at 5I with output pin(s) of OUT_DOT_5I
+	and inputs of PY_MEM_AR_TTHP8B_TO_MOD,PY_MEM_AR_THP8B_TO_ADDR_MOD,PY_MEM_AR_HP8B_TO_ADDR_MOD,PY_MEM_AR_TP8B_TO_ADDR_MOD,PY_MEM_AR_UP8B_TO_ADDR_MOD
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_TO_ADDR_MOD_0_BIT
+	from gate output OUT_2A_A
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_TO_ADDR_MOD_1_BIT
+	from gate output OUT_2C_P
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_TO_ADDR_MOD_2_BIT
+	from gate output OUT_2E_D
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_TO_ADDR_MOD_4_BIT
+	from gate output OUT_2G_A
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_TO_ADDR_MOD_8_BIT
+	from gate output OUT_2I_D
