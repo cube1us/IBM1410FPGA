@@ -197,10 +197,142 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable testVector: std_logic_vector(5 downto 0);
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.30.03.1        ";
+      
+   -- Note: the test vector intentionally as more bits than signals to test
+   -- so that we test the case of all 0's, and leave all the signals 0 after
+   -- a given test
+
+   testVector := "000001";
+   
+   for i in 5 downto 0 loop
+      PY_MEM_AR_TTHP0B_TO_MOD <= testVector(4);
+      PY_MEM_AR_THP0B_TO_ADDR_MOD <= testVector(3);
+      PY_MEM_AR_HP0B_TO_ADDR_MOD <= testVector(2);
+      PY_MEM_AR_TP0B_TO_ADDR_MOD <= testVector(1);
+      PY_MEM_AR_UP0B_TO_ADDR_MOD <= testVector(0);
+      wait for 30 ns;
+      if(i = 0) then
+         check1(MY_MEM_AR_TO_ADDR_MOD_0_BIT,'1',testName,"1A0");
+         check1(MY_MEM_AR_TO_ADDR_MOD_1_BIT,'1',testName,"1A1");
+         check1(MY_MEM_AR_TO_ADDR_MOD_2_BIT,'1',testName,"1A2");
+         check1(MY_MEM_AR_TO_ADDR_MOD_4_BIT,'1',testName,"1A4");
+         check1(MY_MEM_AR_TO_ADDR_MOD_8_BIT,'1',testName,"1A8");
+      else
+         check1(MY_MEM_AR_TO_ADDR_MOD_0_BIT,'0',testName,"1B0");
+         check1(MY_MEM_AR_TO_ADDR_MOD_1_BIT,'1',testName,"1B1");
+         check1(MY_MEM_AR_TO_ADDR_MOD_2_BIT,'1',testName,"1B2");
+         check1(MY_MEM_AR_TO_ADDR_MOD_4_BIT,'1',testName,"1B4");
+         check1(MY_MEM_AR_TO_ADDR_MOD_8_BIT,'1',testName,"1B8");
+      end if;
+      testVector := testVector(4 downto 0) & "0"; -- Shift left
+   end loop;
+   
+   testVector := "000001";
+
+   for i in 5 downto 0 loop
+      PY_MEM_AR_TTHP1B_TO_MOD <= testVector(4);
+      PY_MEM_AR_THP1B_TO_ADDR_MOD <= testVector(3);
+      PY_MEM_AR_HP1B_TO_ADDR_MOD <= testVector(2);
+      PY_MEM_AR_TP1B_TO_ADDR_MOD <= testVector(1);
+      PY_MEM_AR_UP1B_TO_ADDR_MOD <= testVector(0);
+      wait for 30 ns;
+      if(i = 0) then
+         check1(MY_MEM_AR_TO_ADDR_MOD_0_BIT,'1',testName,"2A0");
+         check1(MY_MEM_AR_TO_ADDR_MOD_1_BIT,'1',testName,"2A1");
+         check1(MY_MEM_AR_TO_ADDR_MOD_2_BIT,'1',testName,"2A2");
+         check1(MY_MEM_AR_TO_ADDR_MOD_4_BIT,'1',testName,"2A4");
+         check1(MY_MEM_AR_TO_ADDR_MOD_8_BIT,'1',testName,"2A8");
+      else
+         check1(MY_MEM_AR_TO_ADDR_MOD_0_BIT,'1',testName,"2B0");
+         check1(MY_MEM_AR_TO_ADDR_MOD_1_BIT,'0',testName,"2B1");
+         check1(MY_MEM_AR_TO_ADDR_MOD_2_BIT,'1',testName,"2B2");
+         check1(MY_MEM_AR_TO_ADDR_MOD_4_BIT,'1',testName,"2B4");
+         check1(MY_MEM_AR_TO_ADDR_MOD_8_BIT,'1',testName,"2B8");
+      end if;
+      testVector := testVector(4 downto 0) & "0"; -- Shift left
+   end loop;
+    
+   testVector := "000001";
+
+   for i in 5 downto 0 loop
+      PY_MEM_AR_TTHP2B_TO_MOD <= testVector(4);
+      PY_MEM_AR_THP2B_TO_ADDR_MOD <= testVector(3);
+      PY_MEM_AR_HP2B_TO_ADDR_MOD <= testVector(2);
+      PY_MEM_AR_TP2B_TO_ADDR_MOD <= testVector(1);
+      PY_MEM_AR_UP2B_TO_ADDR_MOD <= testVector(0);
+      wait for 30 ns;
+      if(i = 0) then
+         check1(MY_MEM_AR_TO_ADDR_MOD_0_BIT,'1',testName,"3A0");
+         check1(MY_MEM_AR_TO_ADDR_MOD_1_BIT,'1',testName,"3A1");
+         check1(MY_MEM_AR_TO_ADDR_MOD_2_BIT,'1',testName,"3A2");
+         check1(MY_MEM_AR_TO_ADDR_MOD_4_BIT,'1',testName,"3A4");
+         check1(MY_MEM_AR_TO_ADDR_MOD_8_BIT,'1',testName,"3A8");
+      else
+         check1(MY_MEM_AR_TO_ADDR_MOD_0_BIT,'1',testName,"3B0");
+         check1(MY_MEM_AR_TO_ADDR_MOD_1_BIT,'1',testName,"3B1");
+         check1(MY_MEM_AR_TO_ADDR_MOD_2_BIT,'0',testName,"3B2");
+         check1(MY_MEM_AR_TO_ADDR_MOD_4_BIT,'1',testName,"3B4");
+         check1(MY_MEM_AR_TO_ADDR_MOD_8_BIT,'1',testName,"3B8");
+      end if;
+      testVector := testVector(4 downto 0) & "0"; -- Shift left
+   end loop;
+
+   testVector := "000001";
+
+   for i in 5 downto 0 loop
+      PY_MEM_AR_TTHP4B_TO_MOD <= testVector(4);
+      PY_MEM_AR_THP4B_TO_ADDR_MOD <= testVector(3);
+      PY_MEM_AR_HP4B_TO_ADDR_MOD <= testVector(2);
+      PY_MEM_AR_TP4B_TO_ADDR_MOD <= testVector(1);
+      PY_MEM_AR_UP4B_TO_ADDR_MOD <= testVector(0);
+      wait for 30 ns;
+      if(i = 0) then
+         check1(MY_MEM_AR_TO_ADDR_MOD_0_BIT,'1',testName,"4A0");
+         check1(MY_MEM_AR_TO_ADDR_MOD_1_BIT,'1',testName,"4A1");
+         check1(MY_MEM_AR_TO_ADDR_MOD_2_BIT,'1',testName,"4A2");
+         check1(MY_MEM_AR_TO_ADDR_MOD_4_BIT,'1',testName,"4A4");
+         check1(MY_MEM_AR_TO_ADDR_MOD_8_BIT,'1',testName,"4A8");
+      else
+         check1(MY_MEM_AR_TO_ADDR_MOD_0_BIT,'1',testName,"4B0");
+         check1(MY_MEM_AR_TO_ADDR_MOD_1_BIT,'1',testName,"4B1");
+         check1(MY_MEM_AR_TO_ADDR_MOD_2_BIT,'1',testName,"4B2");
+         check1(MY_MEM_AR_TO_ADDR_MOD_4_BIT,'0',testName,"4B4");
+         check1(MY_MEM_AR_TO_ADDR_MOD_8_BIT,'1',testName,"4B8");
+      end if;
+      testVector := testVector(4 downto 0) & "0"; -- Shift left
+   end loop;
+
+   testVector := "000001";
+
+   for i in 5 downto 0 loop
+      PY_MEM_AR_TTHP8B_TO_MOD <= testVector(4);
+      PY_MEM_AR_THP8B_TO_ADDR_MOD <= testVector(3);
+      PY_MEM_AR_HP8B_TO_ADDR_MOD <= testVector(2);
+      PY_MEM_AR_TP8B_TO_ADDR_MOD <= testVector(1);
+      PY_MEM_AR_UP8B_TO_ADDR_MOD <= testVector(0);
+      wait for 30 ns;
+      if(i = 0) then
+         check1(MY_MEM_AR_TO_ADDR_MOD_0_BIT,'1',testName,"8A0");
+         check1(MY_MEM_AR_TO_ADDR_MOD_1_BIT,'1',testName,"8A1");
+         check1(MY_MEM_AR_TO_ADDR_MOD_2_BIT,'1',testName,"8A2");
+         check1(MY_MEM_AR_TO_ADDR_MOD_4_BIT,'1',testName,"8A4");
+         check1(MY_MEM_AR_TO_ADDR_MOD_8_BIT,'1',testName,"8A8");
+      else
+         check1(MY_MEM_AR_TO_ADDR_MOD_0_BIT,'1',testName,"8B0");
+         check1(MY_MEM_AR_TO_ADDR_MOD_1_BIT,'1',testName,"8B1");
+         check1(MY_MEM_AR_TO_ADDR_MOD_2_BIT,'1',testName,"8B2");
+         check1(MY_MEM_AR_TO_ADDR_MOD_4_BIT,'1',testName,"8B4");
+         check1(MY_MEM_AR_TO_ADDR_MOD_8_BIT,'0',testName,"8B8");
+      end if;
+      testVector := testVector(4 downto 0) & "0"; -- Shift left
+   end loop;
 
    wait;
    end process;
