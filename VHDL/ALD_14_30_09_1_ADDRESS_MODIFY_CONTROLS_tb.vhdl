@@ -145,14 +145,207 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+--  1st and 2nd cp are merely complments of each other....
+
+PS_2ND_CLOCK_PULSE_3_JRJ <= MY_1ST_CLOCK_PULSE;
+-- PS_SET_MODIFY_CTRL_LATCHES <= PY_MODIFY_BY_ZERO;
+
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   constant clockPeriod: time := 100 ns;   
 
    begin
 
    -- Your test bench code
+
+   testName := "14.30.07.1        ";
+   
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   PS_RESET_ADDR_MOD_CTRL_LATCH <= '1';
+   -- run the clocks.  stupid vhdl won't let you assign signals in procedure 8(
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   check1(PY_RESET_ADDR_MOD_LATCHES,'1',testName,"0A");
+   check1(MS_RESET_ADDR_MOD_CTRL_LATCH,'0',testName,"0B");
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   PS_RESET_ADDR_MOD_CTRL_LATCH <= '0';
+   wait for 30 ns;
+   check1(PY_RESET_ADDR_MOD_LATCHES,'0',testName,"0C");
+   check1(MS_RESET_ADDR_MOD_CTRL_LATCH,'1',testName,"0D");
+   wait for 30 ns;
+   
+   -- run the clocks.  stupid vhdl won't let you assign signals in procedure 8(
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"SA");
+   check1(PS_ZERO_LATCH_ON,'0',testName,"SB");
+   check1(MY_MODIFY_BY_ZERO,'1',testName,"SC");
+   -- Also, manually check output of latch at 2B/3B resets
+   
+   -- run the clocks again.  Nothing should change
+   
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"SD");
+   check1(PS_ZERO_LATCH_ON,'0',testName,"SE");
+   check1(MY_MODIFY_BY_ZERO,'1',testName,"SF");
+   
+   PS_LOGIC_GATE_A_1 <= '0';
+   PS_ADDR_MOD_SET_TO_ZERO <= '1';
+   -- Nothing should happen   
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for 100 ns;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for 100 ns;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"1A");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for 100 ns;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for 100 ns;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"1B");
+   
+   PS_LOGIC_GATE_A_1 <= '1';
+   PS_ADDR_MOD_SET_TO_ZERO <= '0';
+   -- Nothing should happen   
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"1C");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"1D");
+
+   PS_LOGIC_GATE_A_1 <= '1';
+   PS_ADDR_MOD_SET_TO_ZERO <= '1';
+   -- This should set the control latch
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"1E");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   -- At this point the -1 28 line and +1 18 line will be 0 
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'1',testName,"1F");
+
+   PS_LOGIC_GATE_A_1 <= '0';
+   PS_ADDR_MOD_SET_TO_ZERO <= '0';
+   -- Will anything change?
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'1',testName,"1G");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'1',testName,"1H");
+   check1(MY_MODIFY_BY_ZERO,'0',testName,"1HA");
+   check1(PS_ZERO_LATCH_ON,'1',testName,"1HB");
+
+   -- If either the -1 28 line or +1 18 line are asserted
+   -- Things would not have set - test the reset
+
+   PS_PLUS_ONE_18_LINE <= '1';
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   PS_ADDR_MOD_SET_TO_ZERO <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'1',testName,"1I");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"1J");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"1K");
+   PS_PLUS_ONE_18_LINE <= '0';
+   
+   -- Now, run the test again, but this time use the -1 28 line
+   -- to keep it from setting
+   
+   PS_LOGIC_GATE_A_1 <= '1';
+   PS_ADDR_MOD_SET_TO_ZERO <= '1';
+   PS_MINUS_ONE_28_LINE <= '1';
+   -- This should try and set the control latch
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   PS_ADDR_MOD_SET_TO_ZERO <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"2A");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   PS_LOGIC_GATE_A_1 <= '0';
+   PS_ADDR_MOD_SET_TO_ZERO <= '0';   
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"2B");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"2C");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"2D");
+
+   -- Now, run the test again, but this time use the +1 18 line
+   -- to keep it from setting
+   
+   PS_LOGIC_GATE_A_1 <= '1';
+   PS_ADDR_MOD_SET_TO_ZERO <= '1';
+   PS_PLUS_ONE_18_LINE <= '1';
+   -- This should try and set the control latch
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   PS_ADDR_MOD_SET_TO_ZERO <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"3A");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   PS_LOGIC_GATE_A_1 <= '0';
+   PS_ADDR_MOD_SET_TO_ZERO <= '0';   
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"3B");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"3C");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for clockPeriod;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_ZERO,'0',testName,"3D");
+
 
    wait;
    end process;
