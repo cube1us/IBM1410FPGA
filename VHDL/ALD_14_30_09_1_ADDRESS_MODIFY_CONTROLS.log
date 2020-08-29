@@ -1,0 +1,102 @@
+Generating HDL for page 14.30.09.1 ADDRESS MODIFY CONTROLS at 8/29/2020 1:50:53 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_30_09_1_ADDRESS_MODIFY_CONTROLS_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 3A
+Found combinatorial loop (need D FF) at output of gate at 2A
+Ignoring Logic Block 1B with symbol R
+Ignoring Logic Block 1C with symbol R
+Ignoring Logic Block 3F with symbol R
+Found combinatorial loop (need D FF) at output of gate at 4G
+Found combinatorial loop (need D FF) at output of gate at 3G
+Ignoring Logic Block 3H with symbol R
+Ignoring Logic Block 1I with symbol R
+Removed 1 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1H to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 4E to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C, OUT_5A_C
+	and inputs of PS_MINUS_ONE_28_LINE
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C
+	and inputs of OUT_5B_C,PS_2ND_CLOCK_PULSE_3_JRJ
+	and logic function of NAND
+Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_D_Latch, OUT_3A_D_Latch
+	and inputs of OUT_4A_C,OUT_2A_E,OUT_DOT_4E
+	and logic function of NAND
+Generating Statement for block at 2A with *latched* output pin(s) of OUT_2A_E_Latch, OUT_2A_E_Latch
+	and inputs of OUT_3A_D,OUT_DOT_3B,OUT_3C_E
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_C
+	and inputs of OUT_5A_C,OUT_5C_R
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_R
+	and inputs of OUT_5A_C,OUT_5C_R
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of PS_2ND_CLOCK_PULSE_3_JRJ,PS_SET_MODIFY_CTRL_LATCHES
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_R, OUT_5C_R
+	and inputs of PS_PLUS_ONE_18_LINE
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of PS_2ND_CLOCK_PULSE_3_JRJ,PS_LOGIC_GATE_A_1,PS_ADDR_MOD_SET_TO_ZERO
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_F
+	and inputs of PS_RESET_ADDR_MOD_CTRL_LATCH
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_R, OUT_2E_R
+	and inputs of OUT_DOT_4E
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_D
+	and inputs of PS_1ST_CLOCK_PULSE_1
+	and logic function of NOT
+Generating Statement for block at 2F with output pin(s) of OUT_2F_B, OUT_2F_B, OUT_2F_B
+	and inputs of PS_1ST_CLOCK_PULSE_1
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of OUT_2A_E,OUT_2F_B
+	and logic function of NOR
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_C_Latch, OUT_4G_C_Latch
+	and inputs of OUT_2E_R,OUT_5G_C,OUT_3G_L
+	and logic function of NOR
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_L_Latch, OUT_3G_L_Latch
+	and inputs of OUT_4G_C,OUT_5H_P
+	and logic function of NOR
+Generating Statement for block at 2G with output pin(s) of OUT_2G_L, OUT_2G_L
+	and inputs of OUT_3G_L
+	and logic function of EQUAL
+Generating Statement for block at 5H with output pin(s) of OUT_5H_P
+	and inputs of OUT_3A_D,OUT_2F_B
+	and logic function of NOR
+Generating Statement for block at 1H with output pin(s) of OUT_1H_P
+	and inputs of OUT_2G_L
+	and logic function of NOR
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_4B_R,OUT_3B_C
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E, OUT_DOT_4E, OUT_DOT_4E
+	and inputs of OUT_5E_F,OUT_5F_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PY_RESET_ADDR_MOD_LATCHES
+	from gate output OUT_2E_R
+Generating output sheet edge signal assignment to 
+	signal MY_1ST_CLOCK_PULSE
+	from gate output OUT_2F_B
+Generating output sheet edge signal assignment to 
+	signal PY_MODIFY_BY_ZERO
+	from gate output OUT_4G_C
+Generating output sheet edge signal assignment to 
+	signal MY_MODIFY_BY_ZERO
+	from gate output OUT_2G_L
+Generating output sheet edge signal assignment to 
+	signal PS_ZERO_LATCH_ON
+	from gate output OUT_1H_P
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_ADDR_MOD_CTRL_LATCH
+	from gate output OUT_DOT_4E
+Generating D Flip Flop for block at 3A
+Generating D Flip Flop for block at 2A
+Generating D Flip Flop for block at 4G
+Generating D Flip Flop for block at 3G
