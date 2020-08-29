@@ -1,0 +1,79 @@
+Generating HDL for page 14.30.08.1 ADDRESS MODIFY CONTROLS at 8/29/2020 12:50:29 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_30_08_1_ADDRESS_MODIFY_CONTROLS_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Ignoring Logic Block 1C with symbol R
+Ignoring Logic Block 1D with symbol R
+Ignoring Logic Block 1E with symbol R
+Found combinatorial loop (need D FF) at output of gate at 4G
+Found combinatorial loop (need D FF) at output of gate at 3G
+Ignoring Logic Block 1H with symbol R
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3I to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 2C to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_G
+	and inputs of PS_MINUS_ONE_28_LINE
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of OUT_5A_G,PS_2ND_CLOCK_PULSE_3_JRJ,PS_SET_MODIFY_CTRL_LATCHES
+	and logic function of NAND
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_D_Latch, OUT_3B_D_Latch
+	and inputs of OUT_4B_C,OUT_DOT_2C,MS_RESET_ADDR_MOD_CTRL_LATCH
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_E_Latch
+	and inputs of OUT_3B_D,OUT_4C_P,OUT_4D_D
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_P
+	and inputs of PS_2ND_CLOCK_PULSE_3_JRJ,PS_MINUS_ONE_28_LINE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of PS_2ND_CLOCK_PULSE_3_JRJ,PS_LOGIC_GATE_A_1,PS_ADDR_MOD_SET_TO_MINUS_ONE
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of PS_2ND_CLOCK_PULSE_3_JRJ,PS_LOGIC_GATE_A_OR_R,PS_ADDR_MOD_SET_TO_1_STAR_1412_19
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_F
+	and inputs of OUT_4F_D
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of OUT_1F_R
+	and inputs of OUT_2H_E
+	and logic function of NOR
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of MY_1ST_CLOCK_PULSE,OUT_DOT_2C
+	and logic function of NOR
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_P_Latch, OUT_4G_P_Latch, OUT_4G_P_Latch
+	and inputs of OUT_5G_C,OUT_3G_P,PY_RESET_ADDR_MOD_LATCHES
+	and logic function of NOR
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_P_Latch, OUT_3G_P_Latch
+	and inputs of OUT_4G_P,OUT_5H_L
+	and logic function of NOR
+Generating Statement for block at 5H with output pin(s) of OUT_5H_L
+	and inputs of OUT_3B_D,MY_1ST_CLOCK_PULSE
+	and logic function of NOR
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E, OUT_2H_E
+	and inputs of OUT_3G_P
+	and logic function of EQUAL
+Generating Statement for block at 3I with output pin(s) of OUT_3I_C
+	and inputs of OUT_4G_P
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C, OUT_DOT_2C
+	and inputs of OUT_2B_E,OUT_3F_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_BORROW_LATCH_ON
+	from gate output OUT_1F_R
+Generating output sheet edge signal assignment to 
+	signal PY_MODIFY_BY_MINUS_ONE
+	from gate output OUT_4G_P
+Generating output sheet edge signal assignment to 
+	signal MY_MODIFY_BY_MINUS_ONE
+	from gate output OUT_2H_E
+Generating output sheet edge signal assignment to 
+	signal MS_MODIFY_BY_MINUS_ONE
+	from gate output OUT_3I_C
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 4G
+Generating D Flip Flop for block at 3G
