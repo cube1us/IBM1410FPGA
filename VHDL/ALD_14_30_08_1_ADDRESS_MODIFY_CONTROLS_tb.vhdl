@@ -145,14 +145,214 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+--  1st and 2nd cp are merely complments of each other....
+
+PS_2ND_CLOCK_PULSE_3_JRJ <= MY_1ST_CLOCK_PULSE;
+
+--  In the real world, this signal wraps around back to reset
+
+PS_SET_MODIFY_CTRL_LATCHES <= PY_MODIFY_BY_MINUS_ONE;
+
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   constant clockPeriod: time := 100 ns;   
+   
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.30.08.1        ";
+   
+   PY_RESET_ADDR_MOD_LATCHES <= '1';
+   wait for 30 ns; -- Ctrl latch does not reset yet
+   MS_RESET_ADDR_MOD_CTRL_LATCH <= '0';
+   wait for 30 ns;
+   PY_RESET_ADDR_MOD_LATCHES <= '0';
+   MS_RESET_ADDR_MOD_CTRL_LATCH <= '1';
+   wait for 30 ns;
+   
+   -- run the clocks.  stupid vhdl won't let you assign signals in procedure 8(
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"SA");
+   check1(PS_BORROW_LATCH_ON,'0',testName,"SB");
+   check1(MY_MODIFY_BY_MINUS_ONE,'1',testName,"SC");
+   check1(MS_MODIFY_BY_MINUS_ONE,'1',testName,"SD");
+   
+   -- Also, manually check output of latch at 2B/3B resets
+   
+   -- run the clocks again.  Nothing should change
+   
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"SE");
+   check1(PS_BORROW_LATCH_ON,'0',testName,"SF");
+   check1(MY_MODIFY_BY_MINUS_ONE,'1',testName,"SG");
+   check1(MS_MODIFY_BY_MINUS_ONE,'1',testName,"SH");
+   
+   PS_LOGIC_GATE_A_1 <= '0';
+   PS_ADDR_MOD_SET_TO_MINUS_ONE <= '1';
+   -- Nothing should happen   
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for 100 ns;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for 100 ns;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"1A");
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for 100 ns;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for 100 ns;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"1B");
+   
+   PS_LOGIC_GATE_A_1 <= '1';
+   PS_ADDR_MOD_SET_TO_MINUS_ONE <= '0';
+   -- Nothing should happen   
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"1C");
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"1D");
+
+   PS_LOGIC_GATE_A_1 <= '1';
+   PS_ADDR_MOD_SET_TO_MINUS_ONE <= '1';
+   -- This should set the latch
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"1E");
+   MY_1ST_CLOCK_PULSE <= '0';
+   -- At this point, the -1 28 line should come up if appropriate
+   -- As it is essentially derived from the Mod by +1 latch
+   PS_MINUS_ONE_28_LINE <= '1';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'1',testName,"1F");
+
+   PS_LOGIC_GATE_A_1 <= '0';
+   PS_ADDR_MOD_SET_TO_MINUS_ONE <= '0';
+   -- Will anything change?
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'1',testName,"1G");
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'1',testName,"1H");
+   check1(MY_MODIFY_BY_MINUS_ONE,'0',testName,"1HA");
+   check1(PS_BORROW_LATCH_ON,'1',testName,"1HB");
+   check1(MS_MODIFY_BY_MINUS_ONE,'0',testName,"1HC");
+   
+   -- With address mod done, the -1 28 line goes away, and things should reset
+
+   PS_MINUS_ONE_28_LINE <= '0';
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'1',testName,"1I");
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"1J");
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"1K");
+   
+   -- Now, run the test again, but this time the 28 line does not set
+   -- that should cause everything to reset right away
+   
+   PS_LOGIC_GATE_A_1 <= '1';
+   PS_ADDR_MOD_SET_TO_MINUS_ONE <= '1';
+   -- This should set the latch
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"2A");
+   MY_1ST_CLOCK_PULSE <= '0';
+   -- But this time, the 18 line is not conditioned
+   PS_MINUS_ONE_28_LINE <= '0';
+   PS_LOGIC_GATE_A_1 <= '0';
+   PS_ADDR_MOD_SET_TO_MINUS_ONE <= '0';   
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'1',testName,"2B");
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"2C");
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"2D");
+   
+   -- Special set for the 1412-19
+   
+   PS_ADDR_MOD_SET_TO_1_STAR_1412_19 <= '1';
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"3A");
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"3B");
+   PS_LOGIC_GATE_A_OR_R <= '1';
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   PS_LOGIC_GATE_A_OR_R <= '0'; -- On to the next logic gate...
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"3C");
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'1',testName,"3D");
+   -- Again, without the 18 Line, it resets
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"3E");
+   MY_1ST_CLOCK_PULSE <= '0';
+   wait for clockPeriod;
+   MY_1ST_CLOCK_PULSE <= '1';
+   wait for clockPeriod;
+   check1(PY_MODIFY_BY_MINUS_ONE,'0',testName,"3E");   
+   
+   assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
    end process;
