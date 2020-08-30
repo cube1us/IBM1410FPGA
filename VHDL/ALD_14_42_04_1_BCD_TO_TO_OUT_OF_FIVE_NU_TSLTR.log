@@ -1,0 +1,54 @@
+Generating HDL for page 14.42.04.1 BCD TO-TO OUT OF FIVE NU TSLTR at 8/30/2020 10:15:42 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_42_04_1_BCD_TO_TO_OUT_OF_FIVE_NU_TSLTR_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Dot Function at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1E to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_F
+	and inputs of PS_ASSEMBLY_CH_NOT_NU_C_BIT,PS_SET_NU_TO_ADDR_CH,MS_ASSEMBLY_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_E
+	and inputs of PS_ASSEMBLY_CH_2_BIT,MS_ASSEMBLY_CH_4_BIT,MS_ASSEMBLY_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of MS_ASSEMBLY_CH_1_BIT,PS_SET_NU_TO_ADDR_CH,PS_ASSEMBLY_CH_NOT_NU_C_BIT
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of MS_ASSEMBLY_CH_8_BIT,MS_ASSEMBLY_CH_2_BIT,PS_ASSEMBLY_CH_4_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of MS_ASSEMBLY_CH_1_BIT,PS_ASSEMBLY_CH_2_BIT,PS_SET_NU_TO_ADDR_CH
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_E
+	and inputs of PS_ASSEMBLY_CH_4_BIT,PS_ASSEMBLY_CH_NU_C_BIT,MS_ASSEMBLY_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of MS_ASSEMBLY_CH_1_BIT,PS_SET_NU_TO_ADDR_CH,PS_ASSEMBLY_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D
+	and inputs of MS_ASSEMBLY_CH_2_BIT,MS_ASSEMBLY_CH_4_BIT,PS_ASSEMBLY_CH_NOT_NU_C_BIT
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_3A_F,OUT_3B_E
+	and logic function of OR
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_3C_E,OUT_4D_C
+	and logic function of OR
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E
+	and inputs of OUT_3E_D,OUT_3F_E
+	and logic function of OR
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_3G_C,OUT_3H_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_CH_NU_TSLTR_2_LINE
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_CH_NU_TSLTR_4_LINE
+	from gate output OUT_DOT_1C
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_CH_NU_TSLTR_6_LINE
+	from gate output OUT_DOT_1E
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_CH_NU_TSLTR_8_LINE
+	from gate output OUT_DOT_1G

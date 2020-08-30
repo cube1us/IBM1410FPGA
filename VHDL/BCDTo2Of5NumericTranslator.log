@@ -1,0 +1,51 @@
+Generating HDL for group named BCDTo2Of5NumericTranslatorat 8/30/2020 10:16:59 AM containing pages: 
+	14.42.03.1, 14.42.04.1, 14.42.05.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\BCDTo2Of5NumericTranslator_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 13 signals on page 14.42.03.1
+Found 14 signals on page 14.42.04.1
+Found 15 signals on page 14.42.05.1
+Found 14 unique input signals and 11 unique output signals, (25 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S ASSEMBLY CH 4 BIT originates outside the group.
+INFO:  Signal -S ASSEMBLY CH 2 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 1 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH NU C BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH NOT NU C BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 2 BIT originates outside the group.
+INFO:  Signal -S ASSEMBLY CH 8 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 4 BIT originates outside the group.
+INFO:  Signal +S SET NU TO ADDR CH originates outside the group.
+INFO:  Signal -S ASSEMBLY CH 1 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 8 BIT originates outside the group.
+INFO:  Signal +S 1ST ADDRESS originates outside the group.
+INFO:  Signal -S 1401 MODE 1 originates outside the group.
+INFO:  Signal -S PERCENT TYPE OP CODES originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S ADDR CH NU TSLTR 1 LINE is used outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 3 LINE is used outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 5 LINE is used outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 7 LINE is used outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 2 LINE is used outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 4 LINE is used outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 6 LINE is used outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 8 LINE is used outside the group.
+INFO:  Signal -S PERCENT CONVERSION is used outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 9 LINE is used outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 0 LINE is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal -S ASSEMBLY CH 4 BIT replaced by Bus signal -S ASSEMBLY CH BUS
+Input Signal -S ASSEMBLY CH 2 BIT replaced by Bus signal -S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH 1 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH 2 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal -S ASSEMBLY CH 8 BIT replaced by Bus signal -S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH 4 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal -S ASSEMBLY CH 1 BIT replaced by Bus signal -S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH 8 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.42.03.1 (BCD TO TWO OUT OF FIVE NU TSLTR)
+Generating HDL associated with page 14.42.04.1 (BCD TO-TO OUT OF FIVE NU TSLTR)
+Generating HDL associated with page 14.42.05.1 (BCD TO TWO OUT OF FIVE TSLTR-ACC)
