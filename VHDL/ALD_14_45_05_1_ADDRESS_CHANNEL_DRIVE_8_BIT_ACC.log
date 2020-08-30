@@ -1,0 +1,49 @@
+Generating HDL for page 14.45.05.1 ADDRESS CHANNEL DRIVE 8 BIT-ACC at 8/30/2020 1:47:33 PM
+Processing extension from block at 1C (Database ID=242497) to 1D (Database ID=242498)
+Removed 35 outputs from Gate at 1C to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8F07
+Generating Statement for block at 4A with output pin(s) of OUT_4A_B
+	and inputs of MS_INSERT_ZERO_ON_ADDR_CH
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of OUT_3C_D
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of 
+	and inputs of OUT_2A_D
+	and logic function of Lamp
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of MS_ADDR_MOD_28_BIT
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_R
+	and inputs of MS_ADDR_CH_NU_TSLTR_8_LINE
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D, OUT_3C_D
+	and inputs of OUT_DOT_4C
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_3C_D
+	and logic function of Special
+Generating Statement for block at 4D with output pin(s) of OUT_4D_E
+	and inputs of MS_ADDR_MOD_48_BIT,MS_ADDR_MOD_08_BIT,MS_ADDR_MOD_18_BIT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_E
+	and inputs of MS_COMPAT_TSLTR_THP_2_DOT_8_BITS,MS_COMPAT_TSLTR_TTHP_2_DOT_8_BITS_A,MS_COMPAT_TSLTR_TTHP_2_DOT_8_BITS_B
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of MS_COMPAT_TSLTR_THP_8_BIT_A,MS_COMPAT_TSLTR_THP_8_BIT_B,MS_COMPAT_TSLTR_THP_8_BIT_C
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_F
+	and inputs of MS_ADDR_CH_NU_TSLTR_7_LINE
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_R
+	and inputs of MS_ADDR_CH_NU_TSLTR_0_LINE
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_F
+	and inputs of MS_ADDR_CH_NU_TSLTR_9_LINE
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4A_B,PS_ADDR_CH_8_B_STAR_ADDR_MOD,OUT_4B_G,OUT_4C_R,OUT_4D_E,OUT_4E_E,OUT_4F_D,OUT_4G_F,OUT_4H_R,OUT_4I_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_CH_8_B_1
+	from gate output OUT_1C_C

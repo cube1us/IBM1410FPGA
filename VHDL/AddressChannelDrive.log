@@ -1,0 +1,93 @@
+Generating HDL for group named AddressChannelDriveat 8/30/2020 1:48:47 PM containing pages: 
+	14.45.01.1, 14.45.02.1, 14.45.03.1, 14.45.04.1, 14.45.05.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddressChannelDrive_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 5 pages...
+Found 19 signals on page 14.45.01.1
+Found 15 signals on page 14.45.02.1
+Found 18 signals on page 14.45.03.1
+Found 13 signals on page 14.45.04.1
+Found 17 signals on page 14.45.05.1
+Found 50 unique input signals and 5 unique output signals, (55 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT A originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT B originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT C originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT D originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT E originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 0 BIT F originates outside the group.
+INFO:  Signal -S COMPAT TSLTR TTHP 0.1 BITS A originates outside the group.
+INFO:  Signal -S COMPAT TSLTR TTHP 0.1 BITS B originates outside the group.
+INFO:  Signal -S ADDR MOD 01 BIT originates outside the group.
+INFO:  Signal -S ADDR MOD 02 BIT originates outside the group.
+INFO:  Signal -S ADDR MOD 04 BIT originates outside the group.
+INFO:  Signal -S ADDR MOD 08 BIT originates outside the group.
+INFO:  Signal +S ADDR CH 0 B*ADDR MOD originates outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 1 LINE originates outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 2 LINE originates outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 4 LINE originates outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 8 LINE originates outside the group.
+INFO:  Signal -S PERCENT CONVERSION originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 1 BIT A originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 1 BIT B originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 1 BIT C originates outside the group.
+INFO:  Signal -S ADDR MOD 12 BIT originates outside the group.
+INFO:  Signal -S ADDR MOD 14 BIT originates outside the group.
+INFO:  Signal -S ADDR MOD 18 BIT originates outside the group.
+INFO:  Signal +S ADDR CH 1 B*ADDR MOD originates outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 3 LINE originates outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 5 LINE originates outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 9 LINE originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 2 BIT A originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 2 BIT B originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 2 BIT C originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 2 BIT D originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 2.8 BITS originates outside the group.
+INFO:  Signal -S COMPAT TSLTR TTHP 2.8 BITS A originates outside the group.
+INFO:  Signal -S COMPAT TSLTR TTHP 2.8 BITS B originates outside the group.
+INFO:  Signal -S ADDR MOD 28 BIT originates outside the group.
+INFO:  Signal -S ADDR MOD 24 BIT originates outside the group.
+INFO:  Signal +S ADDR CH 2 B*ADDR MOD originates outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 6 LINE originates outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 0 LINE originates outside the group.
+INFO:  Signal -S INSERT ZERO ON ADDR CH originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 4 BIT A originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 4 BIT B originates outside the group.
+INFO:  Signal -S ADDR MOD 48 BIT originates outside the group.
+INFO:  Signal +S ADDR CH 4 B*ADDR MOD originates outside the group.
+INFO:  Signal -S ADDR CH NU TSLTR 7 LINE originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 8 BIT A originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 8 BIT B originates outside the group.
+INFO:  Signal -S COMPAT TSLTR THP 8 BIT C originates outside the group.
+INFO:  Signal +S ADDR CH 8 B*ADDR MOD originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S ADDR CH 0 B 1 is used outside the group.
+INFO:  Signal +S ADDR CH 1 B 1 is used outside the group.
+INFO:  Signal +S ADDR CH 2 B 1 is used outside the group.
+INFO:  Signal +S ADDR CH 4 B 1 is used outside the group.
+INFO:  Signal +S ADDR CH 8 B 1 is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Page 14.45.01.1 generates Lamp Output LAMP_11C8K07
+Page 14.45.02.1 generates Lamp Output LAMP_11C8J07
+Page 14.45.03.1 generates Lamp Output LAMP_11C8H07
+Page 14.45.04.1 generates Lamp Output LAMP_11C8G07
+Page 14.45.05.1 generates Lamp Output LAMP_11C8F07
+DEBUG: Tentative bus +S ADDR CH BUS 1 identified based on signal +S ADDR CH 0 B 1
+DEBUG: Added signal +S ADDR CH 1 B 1 to bus +S ADDR CH BUS 1
+DEBUG: Added signal +S ADDR CH 2 B 1 to bus +S ADDR CH BUS 1
+DEBUG: Added signal +S ADDR CH 4 B 1 to bus +S ADDR CH BUS 1
+DEBUG: Added signal +S ADDR CH 8 B 1 to bus +S ADDR CH BUS 1
+INFO: Bus +S ADDR CH BUS 1 identified 
+Output signal +S ADDR CH 0 B 1 replaced by bus +S ADDR CH BUS 1
+Output signal +S ADDR CH 1 B 1 replaced by bus +S ADDR CH BUS 1
+Output signal +S ADDR CH 2 B 1 replaced by bus +S ADDR CH BUS 1
+Output signal +S ADDR CH 4 B 1 replaced by bus +S ADDR CH BUS 1
+Output signal +S ADDR CH 8 B 1 replaced by bus +S ADDR CH BUS 1
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.45.01.1 (ADDRESS CHANNEL DRIVE 0 BIT-ACC)
+Generating HDL associated with page 14.45.02.1 (ADDRESS CHANNEL DRIVE 1 BIT-ACC)
+Generating HDL associated with page 14.45.03.1 (ADDRESS CHANNEL DRIVE 2 BIT-ACC)
+Generating HDL associated with page 14.45.04.1 (ADDRESS CHANNEL DRIVE 4 BIT-ACC)
+Generating HDL associated with page 14.45.05.1 (ADDRESS CHANNEL DRIVE 8 BIT-ACC)

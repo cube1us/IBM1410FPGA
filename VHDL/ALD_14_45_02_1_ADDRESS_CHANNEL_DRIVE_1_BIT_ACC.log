@@ -1,0 +1,43 @@
+Generating HDL for page 14.45.02.1 ADDRESS CHANNEL DRIVE 1 BIT-ACC at 8/30/2020 1:47:26 PM
+Processing extension from block at 1C (Database ID=242254) to 1D (Database ID=242255)
+Removed 35 outputs from Gate at 1C to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8J07
+Generating Statement for block at 4A with output pin(s) of OUT_4A_F
+	and inputs of MS_ADDR_CH_NU_TSLTR_3_LINE
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of OUT_2A_E
+	and inputs of OUT_3C_C
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of 
+	and inputs of OUT_2A_E
+	and logic function of Lamp
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of MS_ADDR_MOD_01_BIT,MS_ADDR_MOD_12_BIT,MS_ADDR_MOD_18_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C, OUT_3C_C
+	and inputs of OUT_DOT_4C
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_3C_C
+	and logic function of Special
+Generating Statement for block at 4D with output pin(s) of OUT_4D_E
+	and inputs of MS_COMPAT_TSLTR_THP_1_BIT_A,MS_COMPAT_TSLTR_THP_1_BIT_B,MS_ADDR_MOD_14_BIT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of MS_COMPAT_TSLTR_TTHP_0_DOT_1_BITS_B,MS_COMPAT_TSLTR_TTHP_0_DOT_1_BITS_A,MS_COMPAT_TSLTR_THP_1_BIT_C
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_R
+	and inputs of MS_ADDR_CH_NU_TSLTR_1_LINE
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_B
+	and inputs of MS_ADDR_CH_NU_TSLTR_5_LINE
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_R
+	and inputs of MS_ADDR_CH_NU_TSLTR_9_LINE
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4A_F,PS_ADDR_CH_1_B_STAR_ADDR_MOD,OUT_4C_C,OUT_4D_E,OUT_4E_C,OUT_4F_R,OUT_4G_B,OUT_4H_R
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_CH_1_B_1
+	from gate output OUT_1C_C
