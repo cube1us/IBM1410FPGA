@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -160,14 +161,81 @@ fpga_clk_process: process
 
 -- Place your test bench code in the uut_process
 
+MS_ASSEMBLY_CH_BUS <= NOT PS_ASSEMBLY_CH_BUS;
+PS_ASSEMBLY_CH_NOT_NU_C_BIT <= NOT PS_ASSEMBLY_CH_NU_C_BIT; 
+
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable testVector: std_logic_vector(8 downto 0);
+   variable s: std_logic;
+   variable ch: std_logic_vector(6 downto 0);
+   variable c: std_logic;
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.42.%%.1        ";
+   
+   for i in 0 to 511 loop
+      testVector := std_logic_vector(to_unsigned(i,testVector'length));
+      ch := testVector(6 downto 0);
+      PS_ASSEMBLY_CH_BUS <= ch;
+      c := testVector(7);
+      PS_ASSEMBLY_CH_NU_C_BIT <= c; 
+      s := testVector(8);
+      PS_SET_NU_TO_ADDR_CH <= s;
+      wait for 30 ns;
+      
+      check1(MS_ADDR_CH_NU_TSLTR_1_LINE,NOT(s and not c and ch(HDL_1_BIT) and not ch(HDL_2_BIT) and 
+         not ch(HDL_4_BIT) and not ch(HDL_8_BIT)),testName,"1 Line");
+
+      check1(MS_ADDR_CH_NU_TSLTR_3_LINE,NOT(s and c and ch(HDL_1_BIT) and ch(HDL_2_BIT) and
+         not ch(HDL_4_BIT) and not ch(HDL_8_BIT)),testName,"3 Line");  
+         
+      check1(MS_ADDR_CH_NU_TSLTR_5_LINE,NOT(s and c and ch(HDL_1_BIT) and NOT ch(HDL_2_BIT) and
+         ch(HDL_4_BIT) and NOT ch(HDL_8_BIT)),testName,"5 Line");
+         
+      check1(MS_ADDR_CH_NU_TSLTR_7_LINE,NOT(s and not c and ch(HDL_1_BIT) and ch(HDL_2_BIT) and
+         ch(HDL_4_BIT) and NOT ch(HDL_8_BIT)),testName,"7 Line");
+         
+      check1(MS_ADDR_CH_NU_TSLTR_2_LINE,NOT(s and not c and not ch(HDL_1_BIT) and ch(HDL_2_BIT) and
+         not ch(HDL_4_BIT) and not ch(HDL_8_BIT)),testName,"2 Line");
+         
+      check1(MS_ADDR_CH_NU_TSLTR_4_LINE,NOT(s and not c and not ch(HDL_1_BIT) and
+         not ch(HDL_2_BIT) and ch(HDL_4_BIT) and not ch(HDL_8_BIT)),testName,"4 line");
+         
+      check1(MS_ADDR_CH_NU_TSLTR_6_LINE,NOT(s and c and not ch(HDL_1_BIT) and ch(HDL_2_BIT) and
+         ch(HDL_4_BIT) and not ch(HDL_8_BIT)),testName,"6 Line");
+         
+      check1(MS_ADDR_CH_NU_TSLTR_8_LINE,NOT(s and not c and NOT ch(HDL_1_BIT) and
+         not ch(HDL_2_BIT) and not ch(HDL_4_BIT) and ch(HDL_8_BIT)),testName,"8 Line");
+         
+      check1(MS_ADDR_CH_NU_TSLTR_9_LINE,NOT(s and c and ch(HDL_1_BIT) and 
+         not ch(HDL_2_BIT) and not ch(HDL_4_BIT) and ch(HDL_8_BIT)),testName,"9 Line");
+         
+      check1(MS_ADDR_CH_NU_TSLTR_0_LINE,NOT(s and c and not ch(HDL_1_BIT) and ch(HDL_2_BIT) and
+         not ch(HDL_4_BIT) and ch(HDL_8_BIT)),testName,"Line 0");
+         
+      for pct in std_logic range '0' to '1' loop
+         MS_PERCENT_TYPE_OP_CODES <= not pct;
+         for i1401 in std_logic range '0' to '1' loop
+            MS_1401_MODE_1 <= not i1401;
+            for fa in std_logic range '0' to '1' loop
+               PS_1ST_ADDRESS <= fa;            
+               wait for 10 ns; -- Shorten test time - this is simple combinatorial
+                  check1(MS_PERCENT_CONVERSION,NOT(s and c and not ch(HDL_1_BIT) and
+                     not ch(HDL_2_BIT) and ch(HDL_4_BIT) and ch(HDL_8_BIT) and fa and
+                     (pct or i1401)),testName,"% Conv");
+            end loop;
+         end loop;   
+      end loop;
+      
+   end loop;
+   
+   assert false report "Simulation Ended NORMALLY(2)" severity failure;
 
    wait;
    end process;
