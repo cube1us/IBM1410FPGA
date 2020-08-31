@@ -180,7 +180,222 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.50.01.1        ";
+   
+   MS_RESET_INDEX_TAG_LATCHES <= '0';
+   wait for 30 ns;
+   MS_RESET_INDEX_TAG_LATCHES <= '1';
+   wait for 30 ns;
 
+   check1(PS_H_POS_C_INDEX_TAG,'0',testName,"1A");
+   check1(MS_H_POS_C_INDEX_TAG,'1',testName,"1B");
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '1';
+   wait for 30 ns;
+   check1(MS_H_POS_C_INDEX_TAG,'1',testName,"1C");
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '0';
+   PS_SET_H_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;
+   check1(MS_H_POS_C_INDEX_TAG,'1',testName,"1D");
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '1';
+   PS_SET_H_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;  -- Set Latch
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '0';
+   PS_SET_H_POS_INDEX_TAGS <= '0';
+   wait for 30 ns;  -- Latch should stay set
+   check1(PS_H_POS_C_INDEX_TAG,'1',testName,"1E");
+   check1(MS_H_POS_C_INDEX_TAG,'0',testName,"1F");   
+   check1(MS_H_POS_B_INDEX_TAG,'1',testName,"1G");
+   check1(MS_H_POS_A_INDEX_TAG,'1',testName,"1H");
+   
+   MS_RESET_INDEX_TAG_LATCHES <= '0';
+   wait for 30 ns;
+   MS_RESET_INDEX_TAG_LATCHES <= '1';
+   wait for 30 ns;
+
+   check1(MS_H_POS_C_INDEX_TAG,'1',testName,"2A");
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '1';
+   wait for 30 ns;
+   check1(MS_H_POS_C_INDEX_TAG,'1',testName,"2B");
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '0';
+   MS_SET_H_POS_INDEX_LAT_B <= '1';
+   wait for 30 ns;
+   check1(MS_H_POS_C_INDEX_TAG,'1',testName,"2C");
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '1';
+   MS_SET_H_POS_INDEX_LAT_B <= '0';
+   wait for 30 ns;  -- Set Latch
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '0';
+   MS_SET_H_POS_INDEX_LAT_B <= '1';
+   wait for 30 ns;  -- Latch should stay set
+   check1(MS_H_POS_C_INDEX_TAG,'0',testName,"2D");
+   check1(MS_H_POS_B_INDEX_TAG,'0',testName,"2E");  -- This line sets both C and B
+   check1(MS_H_POS_A_INDEX_TAG,'1',testName,"2F");
+   
+   MS_RESET_INDEX_TAG_LATCHES <= '0';
+   wait for 30 ns;
+   MS_RESET_INDEX_TAG_LATCHES <= '1';
+   wait for 30 ns;
+
+   check1(PS_H_POS_B_INDEX_TAG,'0',testName,"3A");
+   check1(LAMP_11C8A02,'0',testName,"3AL");
+   check1(MS_H_POS_B_INDEX_TAG,'1',testName,"3B");
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_H_POS_B_INDEX_TAG,'1',testName,"3C");
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '0';
+   PS_SET_H_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;
+   check1(MS_H_POS_B_INDEX_TAG,'1',testName,"3D");
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '1';
+   PS_SET_H_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;  -- Set Latch
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '0';
+   PS_SET_H_POS_INDEX_TAGS <= '0';
+   wait for 30 ns;  -- Latch should stay set
+   check1(PS_H_POS_B_INDEX_TAG,'1',testName,"3E");
+   check1(LAMP_11C8A02,'1',testName,"3EL");
+   check1(MS_H_POS_B_INDEX_TAG,'0',testName,"3F");   
+   check1(MS_H_POS_C_INDEX_TAG,'1',testName,"3G");
+   check1(MS_H_POS_A_INDEX_TAG,'1',testName,"3H");
+   
+   MS_RESET_INDEX_TAG_LATCHES <= '0';
+   wait for 30 ns;
+   MS_RESET_INDEX_TAG_LATCHES <= '1';
+   wait for 30 ns;
+
+   check1(MS_H_POS_B_INDEX_TAG,'1',testName,"4A");
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_H_POS_B_INDEX_TAG,'1',testName,"4B");
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '0';
+   MS_SET_H_POS_INDEX_LAT_A <= '1';
+   wait for 30 ns;
+   check1(MS_H_POS_B_INDEX_TAG,'1',testName,"4C");
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '1';
+   MS_SET_H_POS_INDEX_LAT_A <= '0';
+   wait for 30 ns;  -- Set Latch
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '0';
+   MS_SET_H_POS_INDEX_LAT_A <= '1';
+   wait for 30 ns;  -- Latch should stay set
+   check1(MS_H_POS_B_INDEX_TAG,'0',testName,"4D");
+   check1(MS_H_POS_A_INDEX_TAG,'0',testName,"4E");  -- This line sets both B and A
+   check1(MS_H_POS_C_INDEX_TAG,'1',testName,"4F");
+
+   MS_RESET_INDEX_TAG_LATCHES <= '0';
+   wait for 30 ns;
+   MS_RESET_INDEX_TAG_LATCHES <= '1';
+   wait for 30 ns;
+
+   check1(PS_H_POS_A_INDEX_TAG,'0',testName,"5A");
+   check1(LAMP_11C8B02,'0',testName,"5AL");
+   check1(MS_H_POS_A_INDEX_TAG,'1',testName,"5B");
+   PS_ASSEMBLY_CH_BUS(HDL_A_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_H_POS_A_INDEX_TAG,'1',testName,"5C");
+   PS_ASSEMBLY_CH_BUS(HDL_A_BIT) <= '0';
+   PS_SET_H_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;
+   check1(MS_H_POS_A_INDEX_TAG,'1',testName,"5D");
+   PS_ASSEMBLY_CH_BUS(HDL_A_BIT) <= '1';
+   PS_SET_H_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;  -- Set Latch
+   PS_ASSEMBLY_CH_BUS(HDL_A_BIT) <= '0';
+   PS_SET_H_POS_INDEX_TAGS <= '0';
+   wait for 30 ns;  -- Latch should stay set
+   check1(PS_H_POS_A_INDEX_TAG,'1',testName,"5E");
+   check1(LAMP_11C8B02,'1',testName,"5EL");   
+   check1(MS_H_POS_A_INDEX_TAG,'0',testName,"5F");   
+   check1(MS_H_POS_B_INDEX_TAG,'1',testName,"5G");
+   check1(MS_H_POS_C_INDEX_TAG,'1',testName,"5H");
+   
+   -- We already tested the direct set earlier...
+   
+
+   testName := "14.50.01.2        ";
+   
+   MS_RESET_INDEX_TAG_LATCHES <= '0';
+   wait for 30 ns;
+   MS_RESET_INDEX_TAG_LATCHES <= '1';
+   wait for 30 ns;
+
+   check1(PS_T_POS_C_INDEX_TAG,'0',testName,"1A");
+   check1(MS_T_POS_C_INDEX_TAG,'1',testName,"1B");
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '1';
+   wait for 30 ns;
+   check1(MS_T_POS_C_INDEX_TAG,'1',testName,"1C");
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '0';
+   PS_SET_T_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;
+   check1(MS_T_POS_C_INDEX_TAG,'1',testName,"1D");
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '1';
+   PS_SET_T_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;  -- Set Latch
+   PS_ASSEMBLY_CH_ZONE_C_BIT <= '0';
+   PS_SET_T_POS_INDEX_TAGS <= '0';
+   wait for 30 ns;  -- Latch should stay set
+   check1(PS_T_POS_C_INDEX_TAG,'1',testName,"1E");
+   check1(MS_T_POS_C_INDEX_TAG,'0',testName,"1F");   
+   check1(MS_T_POS_B_INDEX_TAG,'1',testName,"1G");
+   check1(MS_T_POS_A_INDEX_TAG,'1',testName,"1H");
+
+
+   MS_RESET_INDEX_TAG_LATCHES <= '0';
+   wait for 30 ns;
+   MS_RESET_INDEX_TAG_LATCHES <= '1';
+   wait for 30 ns;
+
+   check1(PS_T_POS_B_INDEX_TAG,'0',testName,"3A");
+   check1(LAMP_11C8A01,'0',testName,"3AL");
+   check1(MS_T_POS_B_INDEX_TAG,'1',testName,"3B");
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_T_POS_B_INDEX_TAG,'1',testName,"3C");
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '0';
+   PS_SET_T_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;
+   check1(MS_T_POS_B_INDEX_TAG,'1',testName,"3D");
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '1';
+   PS_SET_T_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;  -- Set Latch
+   PS_ASSEMBLY_CH_BUS(HDL_B_BIT) <= '0';
+   PS_SET_T_POS_INDEX_TAGS <= '0';
+   wait for 30 ns;  -- Latch should stay set
+   check1(PS_T_POS_B_INDEX_TAG,'1',testName,"3E");
+   check1(LAMP_11C8A01,'1',testName,"3EL");
+   check1(MS_T_POS_B_INDEX_TAG,'0',testName,"3F");   
+   check1(MS_T_POS_C_INDEX_TAG,'1',testName,"3G");
+   check1(MS_T_POS_A_INDEX_TAG,'1',testName,"3H");
+
+   MS_RESET_INDEX_TAG_LATCHES <= '0';
+   wait for 30 ns;
+   MS_RESET_INDEX_TAG_LATCHES <= '1';
+   wait for 30 ns;
+
+   check1(PS_T_POS_A_INDEX_TAG,'0',testName,"5A");
+   check1(LAMP_11C8B01,'0',testName,"5AL");
+   check1(MS_T_POS_A_INDEX_TAG,'1',testName,"5B");
+   PS_ASSEMBLY_CH_BUS(HDL_A_BIT) <= '1';
+   wait for 30 ns;
+   check1(MS_T_POS_A_INDEX_TAG,'1',testName,"5C");
+   PS_ASSEMBLY_CH_BUS(HDL_A_BIT) <= '0';
+   PS_SET_T_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;
+   check1(MS_T_POS_A_INDEX_TAG,'1',testName,"5D");
+   PS_ASSEMBLY_CH_BUS(HDL_A_BIT) <= '1';
+   PS_SET_T_POS_INDEX_TAGS <= '1';
+   wait for 30 ns;  -- Set Latch
+   PS_ASSEMBLY_CH_BUS(HDL_A_BIT) <= '0';
+   PS_SET_T_POS_INDEX_TAGS <= '0';
+   wait for 30 ns;  -- Latch should stay set
+   check1(PS_T_POS_A_INDEX_TAG,'1',testName,"5E");
+   check1(LAMP_11C8B01,'1',testName,"5EL");   
+   check1(MS_T_POS_A_INDEX_TAG,'0',testName,"5F");   
+   check1(MS_T_POS_B_INDEX_TAG,'1',testName,"5G");
+   check1(MS_T_POS_C_INDEX_TAG,'1',testName,"5H");
+
+
+   assert false report "Simulation Ended NORMALLY(2)" severity failure;
+   
    wait;
    end process;
 
