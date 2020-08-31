@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -155,10 +156,81 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable achBits: std_logic_vector(4 downto 0);
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.47.01.1        ";
+   
+   wait for 30 ns;
+   check1(PS_WRAP_AROUND_CONDITIONS,'0',testName,"1A");
+   MS_ADDR_MOD_18_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_WRAP_AROUND_CONDITIONS,'1',testName,"1B");
+   MS_ADDR_MOD_18_BIT <= '1';
+   wait for 30 ns;
+   MS_MODIFY_BY_PLUS_ONE_LATCH <= '0';
+   wait for 30 ns;
+   check1(PS_WRAP_AROUND_CONDITIONS,'1',testName,"1C");
+   MS_MODIFY_BY_PLUS_ONE_LATCH <= '1';
+   wait for 30 ns;
+   MS_MODIFY_BY_MINUS_ONE <= '0';
+   wait for 30 ns;
+   check1(PS_WRAP_AROUND_CONDITIONS,'1',testName,"1D");
+   MS_MODIFY_BY_MINUS_ONE <= '1';
+   wait for 30 ns;   
+   MS_ADDR_MOD_02_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_WRAP_AROUND_CONDITIONS,'1',testName,"1E");
+   MS_ADDR_MOD_02_BIT <= '1';
+   wait for 30 ns;
+   MS_ADDR_MOD_04_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_WRAP_AROUND_CONDITIONS,'1',testName,"1F");
+   MS_ADDR_MOD_04_BIT <= '1';
+   wait for 30 ns;
+   MS_ADDR_MOD_24_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_WRAP_AROUND_CONDITIONS,'1',testName,"1G");
+   MS_ADDR_MOD_24_BIT <= '1';
+   wait for 30 ns;
+   MS_ADDR_MOD_08_BIT <= '0';
+   wait for 30 ns;
+   check1(PS_WRAP_AROUND_CONDITIONS,'1',testName,"1H");
+   MS_ADDR_MOD_08_BIT <= '1';
+   wait for 30 ns;
+   check1(PS_WRAP_AROUND_CONDITIONS,'0',testName,"1I");
+
+   check1(PS_ADDR_CH_VC_GROUP_ONE,'0',testName,"2A");
+   check1(PS_ADDR_CH_VC_GROUP_TWO,'0',testName,"2B");
+   MV_1ST_CHECK_TEST_SWITCH <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_CH_VC_GROUP_ONE,'1',testName,"2C");
+   check1(PS_ADDR_CH_VC_GROUP_TWO,'1',testName,"2D");
+   MV_1ST_CHECK_TEST_SWITCH <= '1';
+   
+   for i in 0 to 31 loop
+      achBits := std_logic_vector(to_unsigned(i,achBits'length));
+      PS_ADDR_CH_0_B_1 <= achBits(0);      
+      PS_ADDR_CH_1_B_1 <= achBits(1);      
+      PS_ADDR_CH_2_B_1 <= achBits(2);      
+      PS_ADDR_CH_4_B_1 <= achBits(3);      
+      PS_ADDR_CH_8_B_1 <= achBits(4);
+      wait for 30 ns;
+      check1(PS_ADDR_CH_VC_GROUP_ONE,
+         (achBits(0) and achBits(1)) or (achBits(1) and achBits(2)) or
+         (achBits(2) and achBits(3)) or (achBits(3) and achBits(4)) or
+         (achBits(4) and achBits(0)),testName,"Group One");      
+      check1(PS_ADDR_CH_VC_GROUP_TWO,
+            (achBits(0) and achBits(2)) or (achBits(2) and achBits(4)) or
+            (achBits(4) and achBits(1)) or (achBits(1) and achBits(3)) or
+            (achBits(3) and achBits(0)),testName,"Group Two");      
+   end loop;
+   
+   assert false report "Simulation Ended NORMALLY (2)" severity failure;
+   
 
    wait;
    end process;
