@@ -1,0 +1,101 @@
+Generating HDL for page 14.50.01.1 INDEX TAG LATCHES at 8/31/2020 4:08:00 PM
+Found combinatorial loop (need D FF) at output of gate at 4A
+Found combinatorial loop (need D FF) at output of gate at 3A
+Found combinatorial loop (need D FF) at output of gate at 4D
+Found combinatorial loop (need D FF) at output of gate at 3D
+Found combinatorial loop (need D FF) at output of gate at 4G
+Found combinatorial loop (need D FF) at output of gate at 3G
+Removed 1 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1H to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8A02
+Added LAMP signal LAMP_11C8B02
+Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_P_Latch, OUT_4A_P_Latch
+	and inputs of MS_RESET_INDEX_TAG_LATCHES,OUT_3A_NoPin
+	and logic function of NAND
+Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_NoPin_Latch, OUT_3A_NoPin_Latch
+	and inputs of OUT_4A_P,OUT_5B_B,MS_SET_H_POS_INDEX_LAT_B
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_B
+	and inputs of OUT_3A_NoPin
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_B
+	and inputs of PS_SET_H_POS_INDEX_TAGS,PS_ASSEMBLY_CH_ZONE_C_BIT
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C
+	and inputs of OUT_4A_P
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_K
+	and inputs of OUT_2D_D
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of 
+	and inputs of OUT_2C_K
+	and logic function of Lamp
+Generating Statement for block at 4D with *latched* output pin(s) of OUT_4D_NoPin_Latch, OUT_4D_NoPin_Latch
+	and inputs of OUT_DOT_3D,MS_RESET_INDEX_TAG_LATCHES
+	and logic function of NAND
+Generating Statement for block at 3D with *latched* output pin(s) of OUT_3D_F_Latch
+	and inputs of OUT_4D_NoPin,MS_SET_H_POS_INDEX_LAT_B
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D, OUT_2D_D
+	and inputs of OUT_DOT_3D
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_A
+	and inputs of PS_SET_H_POS_INDEX_TAGS,PS_ASSEMBLY_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_K
+	and inputs of OUT_5E_A,MS_SET_H_POS_INDEX_LAT_A
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_E
+	and inputs of OUT_4D_NoPin
+	and logic function of NOT
+Generating Statement for block at 2F with output pin(s) of OUT_2F_E
+	and inputs of OUT_2G_B
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of 
+	and inputs of OUT_2F_E
+	and logic function of Lamp
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_P_Latch, OUT_4G_P_Latch
+	and inputs of MS_RESET_INDEX_TAG_LATCHES,OUT_3G_NoPin
+	and logic function of NAND
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_NoPin_Latch, OUT_3G_NoPin_Latch
+	and inputs of OUT_4G_P,MS_SET_H_POS_INDEX_LAT_A,OUT_5H_C
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_B, OUT_2G_B
+	and inputs of OUT_3G_NoPin
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_C
+	and inputs of PS_ASSEMBLY_CH_A_BIT,PS_SET_H_POS_INDEX_TAGS
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_C
+	and inputs of OUT_4G_P
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D, OUT_DOT_3D
+	and inputs of OUT_3D_F,OUT_3E_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_H_POS_C_INDEX_TAG
+	from gate output OUT_1A_B
+Generating output sheet edge signal assignment to 
+	signal PS_H_POS_C_INDEX_TAG
+	from gate output OUT_1B_C
+Generating output sheet edge signal assignment to 
+	signal MS_H_POS_B_INDEX_TAG
+	from gate output OUT_2D_D
+Generating output sheet edge signal assignment to 
+	signal PS_H_POS_B_INDEX_TAG
+	from gate output OUT_1E_E
+Generating output sheet edge signal assignment to 
+	signal MS_H_POS_A_INDEX_TAG
+	from gate output OUT_2G_B
+Generating output sheet edge signal assignment to 
+	signal PS_H_POS_A_INDEX_TAG
+	from gate output OUT_1H_C
+Generating D Flip Flop for block at 4A
+Generating D Flip Flop for block at 3A
+Generating D Flip Flop for block at 4D
+Generating D Flip Flop for block at 3D
+Generating D Flip Flop for block at 4G
+Generating D Flip Flop for block at 3G

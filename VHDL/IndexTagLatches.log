@@ -1,0 +1,42 @@
+Generating HDL for group named IndexTagLatchesat 8/31/2020 4:08:41 PM containing pages: 
+	14.50.01.1, 14.50.02.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\IndexTagLatches_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 13 signals on page 14.50.01.1
+Found 11 signals on page 14.50.02.1
+Found 8 unique input signals and 12 unique output signals, (20 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S ASSEMBLY CH ZONE C BIT originates outside the group.
+INFO:  Signal -S SET H POS INDEX LAT B originates outside the group.
+INFO:  Signal -S RESET INDEX TAG LATCHES originates outside the group.
+INFO:  Signal +S SET H POS INDEX TAGS originates outside the group.
+INFO:  Signal +S ASSEMBLY CH B BIT originates outside the group.
+INFO:  Signal -S SET H POS INDEX LAT A originates outside the group.
+INFO:  Signal +S ASSEMBLY CH A BIT originates outside the group.
+INFO:  Signal +S SET T POS INDEX TAGS originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S H POS C INDEX TAG is used outside the group.
+INFO:  Signal +S H POS C INDEX TAG is used outside the group.
+INFO:  Signal -S H POS B INDEX TAG is used outside the group.
+INFO:  Signal +S H POS B INDEX TAG is used outside the group.
+INFO:  Signal -S H POS A INDEX TAG is used outside the group.
+INFO:  Signal +S H POS A INDEX TAG is used outside the group.
+INFO:  Signal -S T POS C INDEX TAG is used outside the group.
+INFO:  Signal +S T POS C INDEX TAG is used outside the group.
+INFO:  Signal -S T POS B INDEX TAG is used outside the group.
+INFO:  Signal +S T POS B INDEX TAG is used outside the group.
+INFO:  Signal -S T POS A INDEX TAG is used outside the group.
+INFO:  Signal +S T POS A INDEX TAG is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S ASSEMBLY CH B BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH A BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Page 14.50.01.1 generates Lamp Output LAMP_11C8A02
+Page 14.50.01.1 generates Lamp Output LAMP_11C8B02
+Page 14.50.02.1 generates Lamp Output LAMP_11C8A01
+Page 14.50.02.1 generates Lamp Output LAMP_11C8B01
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.50.01.1 (INDEX TAG LATCHES)
+Generating HDL associated with page 14.50.02.1 (INDEX TAG LATCHES)
