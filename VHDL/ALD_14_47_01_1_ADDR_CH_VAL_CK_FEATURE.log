@@ -1,0 +1,107 @@
+Generating HDL for page 14.47.01.1 ADDR CH VAL CK FEATURE at 8/31/2020 10:19:13 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_47_01_1_ADDR_CH_VAL_CK_FEATURE_tb.vhdl, generating default test bench code.
+Ignoring Logic Block 3B with symbol R
+Ignoring Logic Block 3C with symbol R
+Ignoring Logic Block 3E with symbol R
+Ignoring Logic Block 3F with symbol R
+Ignoring Logic Block 3G with symbol R
+Ignoring Logic Block 3H with symbol R
+Ignoring Logic Block 1I with symbol R
+Removed 2 outputs from Gate at 5B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5H to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 4A to ignored block(s) or identical signal names
+Removed 3 outputs from Dot Function at 1B to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 2D to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_F
+	and inputs of MV_1ST_CHECK_TEST_SWITCH
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_F, OUT_5B_F, OUT_5B_F, OUT_5B_F
+	and inputs of PS_ADDR_CH_0_B_1
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of OUT_5B_F,OUT_5C_R
+	and logic function of NOR
+Generating Statement for block at 1B with output pin(s) of OUT_1B_F
+	and inputs of MS_MODIFY_BY_PLUS_ONE_LATCH
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_R, OUT_5C_R, OUT_5C_R, OUT_5C_R
+	and inputs of PS_ADDR_CH_1_B_1
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of OUT_5C_R,OUT_5E_B
+	and logic function of NOR
+Generating Statement for block at 1C with output pin(s) of OUT_1C_R
+	and inputs of MS_MODIFY_BY_MINUS_ONE
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_F
+	and inputs of OUT_5E_B,OUT_5F_B
+	and logic function of NOR
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_5B_F,OUT_5E_B
+	and logic function of NOR
+Generating Statement for block at 1D with output pin(s) of OUT_1D_F
+	and inputs of MS_ADDR_MOD_02_BIT
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_B, OUT_5E_B, OUT_5E_B, OUT_5E_B
+	and inputs of PS_ADDR_CH_2_B_1
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_R
+	and inputs of OUT_5F_B,OUT_5H_F
+	and logic function of NOR
+Generating Statement for block at 2E with output pin(s) of OUT_2E_F
+	and inputs of OUT_5E_B,OUT_5H_F
+	and logic function of NOR
+Generating Statement for block at 1E with output pin(s) of OUT_1E_F
+	and inputs of MS_ADDR_MOD_18_BIT
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_B, OUT_5F_B, OUT_5F_B, OUT_5F_B
+	and inputs of PS_ADDR_CH_4_B_1
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of OUT_5B_F,OUT_5H_F
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_R
+	and inputs of OUT_5C_R,OUT_5H_F
+	and logic function of NOR
+Generating Statement for block at 1F with output pin(s) of OUT_1F_F
+	and inputs of MS_ADDR_MOD_04_BIT
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_G
+	and inputs of OUT_5C_R,OUT_5F_B
+	and logic function of NOR
+Generating Statement for block at 1G with output pin(s) of OUT_1G_F
+	and inputs of MS_ADDR_MOD_24_BIT
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_F, OUT_5H_F, OUT_5H_F, OUT_5H_F
+	and inputs of PS_ADDR_CH_8_B_1
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_5B_F,OUT_5F_B
+	and logic function of NOR
+Generating Statement for block at 1H with output pin(s) of OUT_1H_B
+	and inputs of MS_ADDR_MOD_08_BIT
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_R
+	and inputs of MV_1ST_CHECK_TEST_SWITCH
+	and logic function of NOT
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_4A_F,OUT_4B_G,OUT_4C_C,OUT_4D_F,OUT_4E_R,OUT_4F_G
+	and logic function of OR
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_1B_F,OUT_1C_R,OUT_1E_F,OUT_1D_F,OUT_1F_F,OUT_1G_F,OUT_1H_B
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2D_C,OUT_2E_F,OUT_2F_R,OUT_2G_G,OUT_2H_C,OUT_2I_R
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_CH_VC_GROUP_ONE
+	from gate output OUT_DOT_4A
+Generating output sheet edge signal assignment to 
+	signal PS_WRAP_AROUND_CONDITIONS
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_CH_VC_GROUP_TWO
+	from gate output OUT_DOT_2D
