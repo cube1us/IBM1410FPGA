@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -140,10 +141,46 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable a,b,c,d,e,f,g,h,i: std_logic;
+   variable tv: std_logic_vector(8 downto 0);
+   variable g1, g2, g3: std_logic;
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.50.08.1        ";
+   
+   for l in 0 to 511 loop
+      tv := std_logic_vector(to_unsigned(l,tv'length));
+      a := tv(0); 
+      b := tv(1); 
+      c := tv(2); 
+      d := tv(3);
+      e := tv(4); 
+      f := tv(5); 
+      g := tv(6); 
+      h := tv(7); 
+      i := tv(8);
+      MS_H_POS_B_INDEX_TAG <= not b;
+      MS_H_POS_A_INDEX_TAG <= not a;
+      PS_H_POS_C_INDEX_TAG <= c;
+      MS_T_POS_B_INDEX_TAG <= not d;
+      MS_T_POS_A_INDEX_TAG <= not e;
+      PS_NO_INDEX_ON_1ST_ADDR_OPS <= f;
+      PS_1ST_ADDRESS <= g;
+      PS_T_POS_C_INDEX_TAG <= h;
+      PS_1401_MODE_1 <= i;
+      g1 := not a and not b and not d and not e and c and h;
+      -- ILD HAD: g2 := h and not b and not a and i;
+      g2 := not d and not e and h and i;
+      g3 := g and f;
+      wait for 30 ns;
+      
+      check1(PS_INDEX_REQUIRED,a or b or d or e,testName,"Index Required");
+      check1(PS_INDEX_NOT_REQUIRED,g1 or g2 or g3,testName,"Index Not Required");      
+      
+   end loop;
 
    wait;
    end process;
