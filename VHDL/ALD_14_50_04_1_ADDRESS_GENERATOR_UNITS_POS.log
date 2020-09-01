@@ -1,0 +1,69 @@
+Generating HDL for page 14.50.04.1 ADDRESS GENERATOR UNITS POS at 9/1/2020 7:56:26 AM
+Removed 1 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3I to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_F
+	and inputs of PS_A_RING_1_TIME,PS_INDEX_CTRL_NUMBER_TWO,PS_RO_INDEX_AR
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_E
+	and inputs of PS_RO_INDEX_AR,PS_A_RING_1_TIME,PS_INDEX_CTRL_NUMBER_ONE
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of PS_RO_INDEX_AR,PS_ADDR_SCNR_2_POS,PS_INDEX_CTRL_NUMBER_ONE
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_F
+	and inputs of PS_ADDR_SCNR_2_POS,PS_RO_INDEX_AR,PS_INDEX_CTRL_NUMBER_TWO
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of PS_RO_INDEX_AR,PS_ADDR_SCNR_3_POS,PS_INDEX_CTRL_NUMBER_ONE
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E
+	and inputs of PS_INDEX_CTRL_NUMBER_TWO,PS_ADDR_SCNR_3_POS,PS_RO_INDEX_AR
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of PS_ADDR_SCNR_4_POS,PS_INDEX_CTRL_NUMBER_ONE,PS_RO_INDEX_AR
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of PS_INDEX_CTRL_NUMBER_TWO,PS_ADDR_SCNR_4_POS,PS_RO_INDEX_AR
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_E
+	and inputs of PS_ADDR_SCNR_5_POS,PS_INDEX_CTRL_NUMBER_ONE,PS_RO_INDEX_AR
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_C
+	and inputs of PS_INDEX_CTRL_NUMBER_TWO,PS_ADDR_SCNR_5_POS,PS_RO_INDEX_AR
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_UP_04_BIT
+	from gate output OUT_3A_F
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_UP_18_BIT
+	from gate output OUT_2A_E
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_UP_08_BIT
+	from gate output OUT_3B_D
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_UP_12_BIT
+	from gate output OUT_3C_F
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_UP_48_BIT
+	from gate output OUT_3D_C
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_UP_02_BIT
+	from gate output OUT_3E_E
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_UP_24_BIT
+	from gate output OUT_3F_D
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_UP_01_BIT
+	from gate output OUT_3G_D
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_U_POS_5_DIGIT
+	from gate output OUT_3H_E
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_U_POS_0_DIGIT
+	from gate output OUT_3I_C

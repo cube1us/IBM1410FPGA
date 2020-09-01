@@ -1,0 +1,52 @@
+Generating HDL for group named AddrGenUPTPat 9/1/2020 7:57:10 AM containing pages: 
+	14.50.04.1, 14.50.05.1, 14.50.06.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddrGenUPTP_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 18 signals on page 14.50.04.1
+Found 12 signals on page 14.50.05.1
+Found 12 signals on page 14.50.06.1
+Found 16 unique input signals and 18 unique output signals, (34 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S INDEX CTRL NUMBER ONE originates outside the group.
+INFO:  Signal +S INDEX CTRL NUMBER TWO originates outside the group.
+INFO:  Signal +S A RING 1 TIME originates outside the group.
+INFO:  Signal +S ADDR SCNR 2 POS originates outside the group.
+INFO:  Signal +S ADDR SCNR 3 POS originates outside the group.
+INFO:  Signal +S RO INDEX AR originates outside the group.
+INFO:  Signal +S ADDR SCNR 4 POS originates outside the group.
+INFO:  Signal +S ADDR SCNR 5 POS originates outside the group.
+INFO:  Signal -S H POS C INDEX TAG originates outside the group.
+INFO:  Signal +S H POS C INDEX TAG originates outside the group.
+INFO:  Signal -S H POS B INDEX TAG originates outside the group.
+INFO:  Signal -S H POS A INDEX TAG originates outside the group.
+INFO:  Signal +S H POS A INDEX TAG originates outside the group.
+INFO:  Signal -S T POS B INDEX TAG originates outside the group.
+INFO:  Signal +S T POS B INDEX TAG originates outside the group.
+INFO:  Signal +S H POS B INDEX TAG originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S ADDR GEN UP 04 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN UP 08 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN UP 02 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN UP 01 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN UP 18 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN UP 12 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN U POS 5 DIGIT is used outside the group.
+INFO:  Signal -S ADDR GEN U POS 0 DIGIT is used outside the group.
+INFO:  Signal -S ADDR GEN UP 24 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN UP 48 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN T POS 2 DIGIT is used outside the group.
+INFO:  Signal -S ADDR GEN T POS 3 DIGIT is used outside the group.
+INFO:  Signal -S ADDR GEN T POS 5 DIGIT is used outside the group.
+INFO:  Signal -S ADDR GEN T POS 4 DIGIT is used outside the group.
+INFO:  Signal -S ADDR GEN TP 08 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN TP 18 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN TP 24 BIT is used outside the group.
+INFO:  Signal -S ADDR GEN TP 48 BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.50.04.1 (ADDRESS GENERATOR UNITS POS)
+Generating HDL associated with page 14.50.05.1 (ADDRESS GENERATOR TENS POSITION)
+Generating HDL associated with page 14.50.06.1 (ADDRESS GENERATOR TENS POSITION)

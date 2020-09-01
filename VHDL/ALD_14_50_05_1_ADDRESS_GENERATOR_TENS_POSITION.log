@@ -1,0 +1,53 @@
+Generating HDL for page 14.50.05.1 ADDRESS GENERATOR TENS POSITION at 9/1/2020 7:56:32 AM
+Removed 1 outputs from Dot Function at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1E to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PS_H_POS_A_INDEX_TAG,PS_T_POS_B_INDEX_TAG,MS_H_POS_C_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of PS_RO_INDEX_AR,MS_H_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of PS_H_POS_A_INDEX_TAG,MS_H_POS_C_INDEX_TAG,MS_T_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PS_RO_INDEX_AR,MS_H_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of MS_H_POS_A_INDEX_TAG,PS_H_POS_C_INDEX_TAG,PS_T_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of PS_RO_INDEX_AR,MS_H_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of MS_T_POS_B_INDEX_TAG,MS_H_POS_A_INDEX_TAG,PS_H_POS_C_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of PS_RO_INDEX_AR,MS_H_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_4A_G,OUT_4B_G
+	and logic function of OR
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_4C_G,OUT_4D_G
+	and logic function of OR
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E
+	and inputs of OUT_4E_G,OUT_4F_G
+	and logic function of OR
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_4G_G,OUT_4H_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_T_POS_5_DIGIT
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_T_POS_4_DIGIT
+	from gate output OUT_DOT_1C
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_T_POS_3_DIGIT
+	from gate output OUT_DOT_1E
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_GEN_T_POS_2_DIGIT
+	from gate output OUT_DOT_1G
