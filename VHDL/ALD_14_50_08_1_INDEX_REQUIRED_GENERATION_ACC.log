@@ -1,0 +1,45 @@
+Generating HDL for page 14.50.08.1 INDEX REQUIRED GENERATION-ACC at 9/1/2020 1:55:48 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_50_08_1_INDEX_REQUIRED_GENERATION_ACC_tb.vhdl, generating default test bench code.
+Removed 6 outputs from Gate at 3A to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of MS_H_POS_B_INDEX_TAG,MS_H_POS_A_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_E
+	and inputs of OUT_DOT_4A
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_R
+	and inputs of MS_T_POS_A_INDEX_TAG,MS_T_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of MS_H_POS_A_INDEX_TAG,PS_H_POS_C_INDEX_TAG,MS_H_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of PS_T_POS_C_INDEX_TAG,MS_T_POS_A_INDEX_TAG,MS_T_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_P
+	and inputs of PS_NO_INDEX_ON_1ST_ADDR_OPS,PS_1ST_ADDRESS
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of OUT_4F_P,OUT_DOT_4E,OUT_DOT_4G
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of MS_T_POS_B_INDEX_TAG,PS_T_POS_C_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_P
+	and inputs of PS_1401_MODE_1,MS_T_POS_A_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_4A_G,OUT_4B_R
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4D_G,OUT_4E_G
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G
+	and inputs of OUT_4G_G,OUT_4H_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_INDEX_REQUIRED
+	from gate output OUT_3A_E
+Generating output sheet edge signal assignment to 
+	signal PS_INDEX_NOT_REQUIRED
+	from gate output OUT_3F_C
