@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -131,10 +132,38 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable abc: std_logic_vector(0 to 2);
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.50.03.1        ";
+   
+   for i in 0 to 7 loop
+      abc := std_logic_vector(to_unsigned(i,abc'length));
+      PS_T_POS_C_INDEX_TAG <= abc(2);
+      MS_T_POS_C_INDEX_TAG <= not abc(2);
+      PS_T_POS_B_INDEX_TAG <= abc(1);
+      MS_T_POS_B_INDEX_TAG <= not abc(1);
+      PS_T_POS_A_INDEX_TAG <= abc(0);
+      MS_T_POS_A_INDEX_TAG <= not abc(0);
+      wait for 30 ns;
+      check1(PS_INDEX_CTRL_NUMBER_ONE,
+         (abc(2) and abc(1) and abc(0)) or (not abc(2) and not abc(1) and abc(0)),testName,"Index One");
+      check1(PS_INDEX_CTRL_NUMBER_TWO,
+         (abc(2) and not abc(1) and not abc(0)) or (not abc(2) and abc(1) and not abc(0)),testName,"Index Two");
+      
+   end loop;
+   
+   PS_T_POS_C_INDEX_TAG <= '0';
+   MS_T_POS_C_INDEX_TAG <= '1';
+   PS_T_POS_B_INDEX_TAG <= '0';
+   MS_T_POS_B_INDEX_TAG <= '1';
+   PS_T_POS_A_INDEX_TAG <= '0';
+   MS_T_POS_A_INDEX_TAG <= '1';
+   wait for 30 ns;
+   
 
    wait;
    end process;
