@@ -1,0 +1,32 @@
+Generating HDL for page 14.50.03.1 ADDRESS GENERATOR UNITS POSITION at 8/31/2020 9:47:21 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_50_03_1_ADDRESS_GENERATOR_UNITS_POSITION_tb.vhdl, generating default test bench code.
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of PS_T_POS_C_INDEX_TAG,PS_T_POS_B_INDEX_TAG,PS_T_POS_A_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4B_NoPin,OUT_4C_NoPin
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_3B_C
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_T_POS_A_INDEX_TAG,MS_T_POS_C_INDEX_TAG,MS_T_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of MS_T_POS_B_INDEX_TAG,PS_T_POS_C_INDEX_TAG,MS_T_POS_A_INDEX_TAG
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_4D_NoPin,OUT_4E_NoPin
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_Q
+	and inputs of OUT_3D_C
+	and logic function of EQUAL
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of MS_T_POS_C_INDEX_TAG,MS_T_POS_A_INDEX_TAG,PS_T_POS_B_INDEX_TAG
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_INDEX_CTRL_NUMBER_ONE
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal PS_INDEX_CTRL_NUMBER_TWO
+	from gate output OUT_2D_Q
