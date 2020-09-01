@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -209,10 +210,82 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable uptv: std_logic_vector(7 downto 0);
+   variable tptv: std_logic_vector(4 downto 0);
+   variable hc, hb, ha, tb, ro: std_logic;
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.50.04.1        ";
+   
+   for i in 0 to 255 loop
+       uptv := std_logic_vector(to_unsigned(i,uptv'length));
+       PS_A_RING_1_TIME <= uptv(0); -- a
+       PS_INDEX_CTRL_NUMBER_ONE <= uptv(1); -- b
+       PS_ADDR_SCNR_2_POS <= uptv(2); -- c
+       PS_ADDR_SCNR_3_POS <= uptv(3); -- d
+       PS_INDEX_CTRL_NUMBER_TWO <= uptv(4); -- f 
+       PS_ADDR_SCNR_4_POS <= uptv(5); -- g
+       PS_ADDR_SCNR_5_POS <= uptv(6); -- h
+       PS_RO_INDEX_AR <= uptv(7);  -- e
+       wait for 30 ns;
+       check1(MS_ADDR_GEN_UP_18_BIT,NOT(uptv(7) and uptv(0) and uptv(1)),testName,"UP 18");
+       check1(MS_ADDR_GEN_UP_04_BIT,NOT(uptv(7) and uptv(0) and uptv(4)),testName,"UP 04");
+       check1(MS_ADDR_GEN_UP_08_BIT,NOT(uptv(7) and uptv(2) and uptv(1)),testName,"UP 08");
+       check1(MS_ADDR_GEN_UP_12_BIT,NOT(uptv(7) and uptv(2) and uptv(4)),testName,"UP 12");
+       check1(MS_ADDR_GEN_UP_48_BIT,NOT(uptv(7) and uptv(3) and uptv(1)),testName,"UP 48");
+       check1(MS_ADDR_GEN_UP_02_BIT,NOT(uptv(7) and uptv(3) and uptv(4)),testName,"UP 02");
+       check1(MS_ADDR_GEN_UP_24_BIT,NOT(uptv(7) and uptv(5) and uptv(1)),testName,"UP 02");
+       check1(MS_ADDR_GEN_UP_01_BIT,NOT(uptv(7) and uptv(5) and uptv(4)),testName,"UP 02");
+       check1(MS_ADDR_GEN_U_POS_5_DIGIT,NOT(uptv(7) and uptv(6) and uptv(1)),testName,"U 5");
+       check1(MS_ADDR_GEN_U_POS_0_DIGIT,NOT(uptv(7) and uptv(6) and uptv(4)),testName,"U 0");
+       
+   end loop;
+   
+   testName := "14.50.05.1, 06.1  ";
+   
+   for i in 0 to 31 loop
+      tptv := std_logic_vector(to_unsigned(i,tptv'length));
+      hc := tptv(0);
+      hb := tptv(1);
+      ha := tptv(2);
+      tb := tptv(3);
+      ro := tptv(4);
+      
+      PS_H_POS_C_INDEX_TAG <= hc;
+      MS_H_POS_C_INDEX_TAG <= not hc;
+      PS_H_POS_B_INDEX_TAG <= hb;
+      MS_H_POS_B_INDEX_TAG <= not hb;
+      PS_H_POS_A_INDEX_TAG <= ha;
+      MS_H_POS_A_INDEX_TAG <= not ha;
+      PS_T_POS_B_INDEX_TAG <= tb;
+      MS_T_POS_B_INDEX_TAG <= not tb;
+      PS_RO_INDEX_AR <= ro;
+      wait for 30ns;
+      
+      check1(MS_ADDR_GEN_T_POS_2_DIGIT,NOT(ro and hc and not hb and not ha and not tb),
+         testName,"TP 2 Digit");
+      check1(MS_ADDR_GEN_T_POS_3_DIGIT,NOT(ro and hc and not hb and not ha and tb),
+         testName,"TP 3 Digit");
+      check1(MS_ADDR_GEN_T_POS_4_DIGIT,NOT(ro and not hc and not hb and ha and not tb),
+         testName,"TP 4 Digit");
+      check1(MS_ADDR_GEN_T_POS_5_DIGIT,NOT(ro and not hc and not hb and ha and tb),
+         testName,"TP 5 Digit");
+      check1(MS_ADDR_GEN_TP_24_BIT,NOT(ro and not hc and hb and not ha and not tb),
+         testName,"TP 24 BIT");
+      check1(MS_ADDR_GEN_TP_48_BIT,NOT(ro and not hc and hb and not ha and tb),
+         testName,"TP 48 BIT");
+      check1(MS_ADDR_GEN_TP_08_BIT,NOT(ro and hc and hb and ha and not tb),
+         testName,"TP 08 BIT");
+      check1(MS_ADDR_GEN_TP_18_BIT,NOT(ro and hc and hb and ha and tb),
+         testName,"TP 18 BIT");
+         
+         
+         
+   end loop;
+   
 
    wait;
    end process;
