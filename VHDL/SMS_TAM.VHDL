@@ -45,7 +45,7 @@ entity SMS_TAM is
         GATEOFF2: IN STD_LOGIC := '1';    -- Will likely be pulled to gnd outside gate (pin K)
         ACRESET2: IN STD_LOGIC := '0';    -- Inactive if not connected (pin L)
         DCRFORCE: IN STD_LOGIC := '0';    -- Used for Wired OR output being forced (Virtual pin "T")
-	DCSFORCE: IN STD_LOGIC := '0';    -- used for Wired OR output being forced (Virtual pin "X")
+	    DCSFORCE: IN STD_LOGIC := '0';    -- used for Wired OR output being forced (Virtual pin "X")
         OUTOFF:  OUT STD_LOGIC;           -- Pin P
         OUTON:   OUT STD_LOGIC;           -- Pin B
 	GROUND:  OUT STD_LOGIC );
@@ -82,7 +82,7 @@ begin
             RSTAGE1A <= ACRESET1;
             RSTAGE2A <= RSTAGE1A;
             RSTAGE3A <= RSTAGE2A;
-            RSTAGE1B <= ACRESETB;
+            RSTAGE1B <= ACRESET2;
             RSTAGE2B <= RSTAGE1B;
             RSTAGE3B <= RSTAGE2B;
             if(GATEON1 = '1' AND SSTAGE2A = '1' AND 
