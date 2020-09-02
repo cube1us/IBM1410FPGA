@@ -46,8 +46,8 @@ entity SMS_TAM is
         ACRESET2: IN STD_LOGIC := '0';    -- Inactive if not connected (pin L)
         DCRFORCE: IN STD_LOGIC := '0';    -- Used for Wired OR output being forced (Virtual pin "T")
 	    DCSFORCE: IN STD_LOGIC := '0';    -- used for Wired OR output being forced (Virtual pin "X")
-        OUTOFF:  OUT STD_LOGIC;           -- Pin P
-        OUTON:   OUT STD_LOGIC;           -- Pin B
+        OUTOFF:  OUT STD_LOGIC;           -- Pin B
+        OUTON:   OUT STD_LOGIC;           -- Pin P
 	GROUND:  OUT STD_LOGIC );
 end SMS_TAM;
 
