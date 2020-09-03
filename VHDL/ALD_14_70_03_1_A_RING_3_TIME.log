@@ -1,0 +1,51 @@
+Generating HDL for page 14.70.03.1 A RING 3 TIME at 9/2/2020 11:13:18 AM
+Processing extension from block at 5G (Database ID=243330) to 5H (Database ID=243331)
+Copied connection to extension input pin E to master block at 5G
+Copied connection to extension input pin A to master block at 5G
+Copied connection to extension input pin P to master block at 5G
+Copied connection from extension output pin B to master block at 5G
+Copied mapped pin B from extension 5H to master block at 5G
+Copied mapped pin K from extension 5H to master block at 5G
+Copied mapped pin P from extension 5H to master block at 5G
+Copied mapped pin T from extension 5H to master block at 5G
+Moved connection from extension 5H pin B to be from master at 5G
+Removed 3 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4G to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 4H to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1C04
+Generating Statement for block at 3D with output pin(s) of OUT_3D_NoPin
+	and inputs of PS_CONS_ADDR_REG_EXIT_GATE,PS_CONS_MX_Y4_POS
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_A
+	and inputs of OUT_3D_NoPin,OUT_3E_NoPin
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_B
+	and inputs of OUT_2D_A
+	and logic function of EQUAL
+Generating Statement for block at 3E with output pin(s) of OUT_3E_NoPin
+	and inputs of MS_CONS_ADDR_REG_EXIT_GATE,OUT_4H_C
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_B
+	and inputs of OUT_4G_D
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of 
+	and inputs of OUT_2F_B
+	and logic function of Lamp
+Generating Statement for block at 5G with output pin(s) of OUT_5G_F, OUT_5G_B
+	and inputs of PS_A_RING_2_TIME,PS_A_RING_ADV_A,MS_A_RING_2_TIME,PS_A_RING_ADV_B,MS_PROGRAM_RESET_1
+	and logic function of Trigger
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D, OUT_4G_D
+	and inputs of OUT_5G_F
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C, OUT_4H_C
+	and inputs of OUT_5G_B
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_SCNR_3_POS
+	from gate output OUT_1D_B
+Generating output sheet edge signal assignment to 
+	signal MS_A_RING_3_TIME
+	from gate output OUT_4G_D
+Generating output sheet edge signal assignment to 
+	signal PS_A_RING_3_TIME
+	from gate output OUT_4H_C

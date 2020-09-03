@@ -1,0 +1,122 @@
+Generating HDL for group named ARingat 9/2/2020 11:14:14 AM containing pages: 
+	14.70.01.1, 14.70.02.1, 14.70.03.1, 14.70.04.1, 14.70.05.1
+	14.70.06.1, 14.70.07.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ARing_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 7 pages...
+Found 5 signals on page 14.70.01.1
+Found 14 signals on page 14.70.02.1
+Found 11 signals on page 14.70.03.1
+Found 14 signals on page 14.70.04.1
+Found 13 signals on page 14.70.05.1
+Found 12 signals on page 14.70.06.1
+Found 8 signals on page 14.70.07.1
+Found 27 unique input signals and 22 unique output signals, (38 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S PROGRAM RESET 1 originates outside the group.
+INFO:  Signal -S SET A RING 1 TRIG originates outside the group.
+INFO:  Signal +S A RING ADV B originates outside the group.
+INFO:  Signal +S A CYCLE originates outside the group.
+INFO:  Signal +S 1401 STORE AR OP CODES originates outside the group.
+INFO:  Signal -S A RING 1 TIME originates inside the group.
+INFO:  Signal +S A RING 1 TIME originates inside the group.
+INFO:  Signal +S CONS MX Y5 POS originates outside the group.
+INFO:  Signal +S CONS ADDR REG EXIT GATE originates outside the group.
+INFO:  Signal -S CONS ADDR REG EXIT GATE originates outside the group.
+INFO:  Signal +S A RING ADV A originates outside the group.
+INFO:  Signal -S A RING 2 TIME originates inside the group.
+INFO:  Signal +S A RING 2 TIME originates inside the group.
+INFO:  Signal +S CONS MX Y4 POS originates outside the group.
+INFO:  Signal -S A RING 3 TIME originates inside the group.
+INFO:  Signal +S A RING 3 TIME originates inside the group.
+INFO:  Signal +S CONS MX Y3 POS originates outside the group.
+INFO:  Signal -S STORE AR SET A CYCLE CTRL A originates outside the group.
+INFO:  Signal -S 1401 MODE 1 originates outside the group.
+INFO:  Signal -S A RING 4 TIME originates inside the group.
+INFO:  Signal +S A RING 4 TIME originates inside the group.
+INFO:  Signal +S CONS MX Y2 POS originates outside the group.
+INFO:  Signal -S STORE AR SET C CYCLE CTRL B originates outside the group.
+INFO:  Signal -S A RING 5 TIME originates inside the group.
+INFO:  Signal +S A RING 5 TIME originates inside the group.
+INFO:  Signal +S CONS MX Y1 POS originates outside the group.
+INFO:  Signal -S A RING 6 TIME originates inside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S A RING 1 TIME is used outside the group.
+INFO:  Signal -S A RING 1 TIME is used only inside the group.
+INFO:  Signal +S A RING 2 TIME is used outside the group.
+INFO:  Signal +S ADDR SCNR 2 POS is used outside the group.
+INFO:  Signal -S H+Q OP.A CY.A RING 2 TIME is used outside the group.
+INFO:  Signal -S A RING 2 TIME is used only inside the group.
+INFO:  Signal +S A RING 3 TIME is used outside the group.
+INFO:  Signal +S ADDR SCNR 3 POS is used outside the group.
+INFO:  Signal -S A RING 3 TIME is used only inside the group.
+INFO:  Signal +S A RING 4 TIME is used outside the group.
+INFO:  Signal +S ADDR SCNR 4 POS is used outside the group.
+INFO:  Signal -S H+Q OP.A CY.A RING 4 TIME is used outside the group.
+INFO:  Signal -S A RING 4 TIME is used only inside the group.
+INFO:  Signal +S ADDR SCNR 5 POS is used outside the group.
+INFO:  Signal -S A RING 5 TIME is used only inside the group.
+INFO:  Signal +S A RING 5 TIME is used outside the group.
+INFO:  Signal +S A RING 6 TIME is used outside the group.
+INFO:  Signal -S A RING 6 TIME is used outside the group.
+INFO:  Signal +S ADDR SCNR 6 POS is used outside the group.
+INFO:  Signal +S A RING 2 OR 3 TIME is used outside the group.
+INFO:  Signal +S A RING 2+3+4+5 TIME is used outside the group.
+INFO:  Signal +S A RING OFF TIME is used outside the group.
+Removing 5 output signals that do not have destinations outside the group...
+Removing 11 input signals that originate inside the group...
+Signal +S A RING 1 TIME is output from the group, but also used as an input inside the group.
+Signal +S A RING 2 TIME is output from the group, but also used as an input inside the group.
+Signal +S A RING 3 TIME is output from the group, but also used as an input inside the group.
+Signal +S A RING 4 TIME is output from the group, but also used as an input inside the group.
+Signal +S A RING 5 TIME is output from the group, but also used as an input inside the group.
+Signal -S A RING 6 TIME is output from the group, but also used as an input inside the group.
+Page 14.70.01.1 generates Lamp Output LAMP_15A1A04
+Page 14.70.02.1 generates Lamp Output LAMP_15A1B04
+Page 14.70.03.1 generates Lamp Output LAMP_15A1C04
+Page 14.70.04.1 generates Lamp Output LAMP_15A1D04
+Page 14.70.05.1 generates Lamp Output LAMP_15A1E04
+Page 14.70.06.1 generates Lamp Output LAMP_15A1F04
+DEBUG: Tentative bus +S A RING BUS identified based on signal +S A RING 1 TIME
+DEBUG: Added signal +S A RING 2 TIME to bus +S A RING BUS
+DEBUG: Added signal +S A RING 3 TIME to bus +S A RING BUS
+DEBUG: Added signal +S A RING 4 TIME to bus +S A RING BUS
+DEBUG: Added signal +S A RING 5 TIME to bus +S A RING BUS
+DEBUG: Added signal +S A RING 6 TIME to bus +S A RING BUS
+DEBUG: Tentative bus -S A RING BUS identified based on signal -S A RING 6 TIME
+DEBUG: Tentative bus LAMPS_ARING identified based on signal LAMP_15A1A04
+DEBUG: Added signal LAMP_15A1B04 to bus LAMPS_ARING
+DEBUG: Added signal LAMP_15A1C04 to bus LAMPS_ARING
+DEBUG: Added signal LAMP_15A1D04 to bus LAMPS_ARING
+DEBUG: Added signal LAMP_15A1E04 to bus LAMPS_ARING
+DEBUG: Added signal LAMP_15A1F04 to bus LAMPS_ARING
+DEBUG: Added internal signal -S A RING 1 TIME to bus -S A RING BUS
+DEBUG: Added internal signal -S A RING 2 TIME to bus -S A RING BUS
+DEBUG: Added internal signal -S A RING 3 TIME to bus -S A RING BUS
+DEBUG: Added internal signal -S A RING 4 TIME to bus -S A RING BUS
+DEBUG: Added internal signal -S A RING 5 TIME to bus -S A RING BUS
+INFO: Bus +S A RING BUS identified 
+INFO: Bus -S A RING BUS identified 
+INFO: Bus LAMPS_ARING identified 
+Output signal +S A RING 1 TIME replaced by bus +S A RING BUS
+Output signal +S A RING 2 TIME replaced by bus +S A RING BUS
+Output signal +S A RING 3 TIME replaced by bus +S A RING BUS
+Output signal +S A RING 4 TIME replaced by bus +S A RING BUS
+Output signal +S A RING 5 TIME replaced by bus +S A RING BUS
+Output signal +S A RING 6 TIME replaced by bus +S A RING BUS
+Output signal -S A RING 6 TIME replaced by bus -S A RING BUS
+Output signal LAMP_15A1A04 replaced by bus LAMPS_ARING
+Output signal LAMP_15A1B04 replaced by bus LAMPS_ARING
+Output signal LAMP_15A1C04 replaced by bus LAMPS_ARING
+Output signal LAMP_15A1D04 replaced by bus LAMPS_ARING
+Output signal LAMP_15A1E04 replaced by bus LAMPS_ARING
+Output signal LAMP_15A1F04 replaced by bus LAMPS_ARING
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.70.01.1 (A RING 1 TIME)
+Generating HDL associated with page 14.70.02.1 (A RING 2 TIME-ACC)
+Generating HDL associated with page 14.70.03.1 (A RING 3 TIME)
+Generating HDL associated with page 14.70.04.1 (A RING 4 TIME)
+Generating HDL associated with page 14.70.05.1 (A RING 5 TIME)
+Generating HDL associated with page 14.70.06.1 (A RING 6 TIME)
+Generating HDL associated with page 14.70.07.1 (A RING MIX)

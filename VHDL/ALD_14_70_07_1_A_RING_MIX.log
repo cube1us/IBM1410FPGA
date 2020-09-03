@@ -1,0 +1,29 @@
+Generating HDL for page 14.70.07.1 A RING MIX at 9/2/2020 11:13:26 AM
+Removed 1 outputs from Gate at 3D to ignored block(s) or identical signal names
+Generating Statement for block at 3B with output pin(s) of OUT_3B_P
+	and inputs of MS_A_RING_3_TIME,MS_A_RING_2_TIME
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of MS_A_RING_5_TIME,MS_A_RING_3_TIME,MS_A_RING_4_TIME
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D, OUT_4C_D
+	and inputs of OUT_5C_C
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of OUT_4C_D,MS_A_RING_2_TIME
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of OUT_4C_D,MS_A_RING_2_TIME,MS_A_RING_6_TIME
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D
+	and inputs of OUT_3E_C
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_A_RING_2_OR_3_TIME
+	from gate output OUT_3B_P
+Generating output sheet edge signal assignment to 
+	signal PS_A_RING_2_OR_3_OR_4_OR_5_TIME
+	from gate output OUT_3D_D
+Generating output sheet edge signal assignment to 
+	signal PS_A_RING_OFF_TIME
+	from gate output OUT_1E_D

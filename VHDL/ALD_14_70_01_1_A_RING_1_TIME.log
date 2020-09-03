@@ -1,0 +1,35 @@
+Generating HDL for page 14.70.01.1 A RING 1 TIME at 9/2/2020 11:13:13 AM
+Processing extension from block at 4E (Database ID=243211) to 4F (Database ID=243212)
+Copied connection to extension input pin L to master block at 4E
+Copied connection to extension input pin H to master block at 4E
+Copied connection from extension output pin B to master block at 4E
+Copied mapped pin A from extension 4F to master block at 4E
+Copied mapped pin B from extension 4F to master block at 4E
+Copied mapped pin D from extension 4F to master block at 4E
+Copied mapped pin E from extension 4F to master block at 4E
+Copied mapped pin F from extension 4F to master block at 4E
+Copied mapped pin H from extension 4F to master block at 4E
+Moved connection from extension 4F pin B to be from master at 4E
+Removed 1 outputs from Gate at 3F to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1A04
+Generating Statement for block at 2D with output pin(s) of OUT_2D_K
+	and inputs of OUT_3E_D
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of 
+	and inputs of OUT_2D_K
+	and logic function of Lamp
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P, OUT_4E_B
+	and inputs of MS_SET_A_RING_1_TRIG,PS_A_RING_ADV_B,MS_PROGRAM_RESET_1
+	and logic function of Trigger
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D, OUT_3E_D
+	and inputs of OUT_4E_P
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of OUT_4E_B
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_A_RING_1_TIME
+	from gate output OUT_3E_D
+Generating output sheet edge signal assignment to 
+	signal PS_A_RING_1_TIME
+	from gate output OUT_3F_C
