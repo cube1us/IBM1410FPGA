@@ -110,6 +110,8 @@ procedure check1(
 
 
    -- Your test bench declarations go here
+   
+   signal AddrScnr: std_logic_vector(6 downto 2);
 
 -- END USER TEST BENCH DECLARATIONS
 
@@ -175,6 +177,14 @@ fpga_clk_process: process
 -- End of TestBenchFPGAClock.vhdl
 --   
 
+MS_CONS_ADDR_REG_EXIT_GATE <= NOT PS_CONS_ADDR_REG_EXIT_GATE;
+AddrScnr(2) <= PS_ADDR_SCNR_2_POS;
+AddrScnr(3) <= PS_ADDR_SCNR_3_POS;
+AddrScnr(4) <= PS_ADDR_SCNR_4_POS;
+AddrScnr(5) <= PS_ADDR_SCNR_5_POS;
+AddrScnr(6) <= PS_ADDR_SCNR_6_POS;
+
+
 -- Place your test bench code in the uut_process
 
 uut_process: process
@@ -185,7 +195,250 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.70.0%.1        ";
+   
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_1 <= '1';
+   wait for 30 ns;
+   
+   for i in 1 to 6 loop
+      check1(PS_A_RING_BUS(i),'0',testName,"+S Reset");
+      check1(MS_A_RING_BUS(i),'1',testName,"-S Reset");
+   end loop;
+   
+   PS_CONS_MX_Y_POS_BUS(5) <= '0';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_2_POS,'0',testName,"1A");
+   PS_CONS_MX_Y_POS_BUS(5) <= '1';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_2_POS,'0',testName,"1B");
+   PS_CONS_MX_Y_POS_BUS(5) <= '1';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_2_POS,'1',testName,"1C");
+   PS_CONS_MX_Y_POS_BUS(5) <= '0';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
 
+   PS_CONS_MX_Y_POS_BUS(4) <= '0';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_3_POS,'0',testName,"2A");
+   PS_CONS_MX_Y_POS_BUS(4) <= '1';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_3_POS,'0',testName,"2B");
+   PS_CONS_MX_Y_POS_BUS(4) <= '1';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_3_POS,'1',testName,"2C");
+   PS_CONS_MX_Y_POS_BUS(4) <= '0';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+
+   PS_CONS_MX_Y_POS_BUS(3) <= '0';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_4_POS,'0',testName,"3A");
+   PS_CONS_MX_Y_POS_BUS(3) <= '1';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_4_POS,'0',testName,"3B");
+   PS_CONS_MX_Y_POS_BUS(3) <= '1';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_4_POS,'1',testName,"3C");
+   PS_CONS_MX_Y_POS_BUS(3) <= '0';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   
+   PS_CONS_MX_Y_POS_BUS(2) <= '0';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_5_POS,'0',testName,"4A");
+   PS_CONS_MX_Y_POS_BUS(2) <= '1';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_5_POS,'0',testName,"4B");
+   PS_CONS_MX_Y_POS_BUS(2) <= '1';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_5_POS,'1',testName,"4C");
+   PS_CONS_MX_Y_POS_BUS(2) <= '0';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   
+   PS_CONS_MX_Y_POS_BUS(1) <= '0';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_6_POS,'0',testName,"5A");
+   PS_CONS_MX_Y_POS_BUS(1) <= '1';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_6_POS,'0',testName,"5B");
+   PS_CONS_MX_Y_POS_BUS(1) <= '1';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_6_POS,'1',testName,"5C");
+   PS_CONS_MX_Y_POS_BUS(1) <= '0';
+   PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+   wait for 30 ns;
+   
+   -- Set A Ring 1 time
+   
+   MS_SET_A_RING_1_TRIG <= '0';
+   wait for 30 ns;
+   MS_SET_A_RING_1_TRIG <= '1';
+   wait for 30 ns;
+   
+   for i in 1 to 6 loop
+   
+      for j in 1 to 6 loop
+         if(j = i) then
+            check1(PS_A_RING_BUS(j),'1',testName,"A Ring Set Check +");
+            check1(MS_A_RING_BUS(j),'0',testName,"A Ring Set Check -");
+            check1(LAMPS_ARING(j),'1',testName,"A Ring Set Check LAMPS");
+         else
+            check1(PS_A_RING_BUS(j),'0',testName,"A Ring Not Set Check +");
+            check1(MS_A_RING_BUS(j),'1',testName,"A Ring Not Set Check -");
+            check1(LAMPS_ARING(j),'0',testName,"A Ring Not Set Check LAMPS");         
+         end if;
+         
+         check1(PS_A_RING_2_OR_3_TIME,PS_A_RING_BUS(2) or PS_A_RING_BUS(3),testName,"A Ring 2 or 3");
+         check1(PS_A_RING_2_OR_3_OR_4_OR_5_TIME,
+            PS_A_RING_BUS(2) or PS_A_RING_BUS(3) or PS_A_RING_BUS(4) or PS_A_RING_BUS(5),testName,"A Ring 2+3+4+5");
+         check1(PS_A_RING_OFF_TIME,
+            NOT(PS_A_RING_BUS(2) or PS_A_RING_BUS(3) or PS_A_RING_BUS(4) or PS_A_RING_BUS(5) or PS_A_RING_BUS(6)),
+            testName,"A Ring OFF");
+
+         if(j > 1) then
+             if(j = i) then
+                check1(AddrScnr(j),'1',testName,"A Ring Addr Scnr A " & INTEGER'image(i) & " " & INTEGER'image(j) );
+             else
+                check1(AddrScnr(j),'0',testName,"A Ring Addr Scnr B " & INTEGER'image(i) & " " & INTEGER'image(j));
+             end if;
+             PS_CONS_ADDR_REG_EXIT_GATE <= '1';
+             wait for 30 ns; 
+             check1(AddrScnr(j),'0',testName,"A Ring Addr Scnr C " & INTEGER'image(i) & " " & INTEGER'image(j));
+             PS_CONS_ADDR_REG_EXIT_GATE <= '0';
+             wait for 30 ns;
+         end if;
+         
+      end loop;
+      
+      if(i = 2) then
+         PS_A_CYCLE <= '0';
+         PS_1401_STORE_AR_OP_CODES <= '1';
+         wait for 30 ns;
+         check1(MS_H_OR_Q_OP_DOT_A_CY_DOT_A_RING_2_TIME,'1',testName,"2 MS H + Q - A");
+         PS_A_CYCLE <= '1';
+         PS_1401_STORE_AR_OP_CODES <= '0';
+         wait for 30 ns;
+         check1(MS_H_OR_Q_OP_DOT_A_CY_DOT_A_RING_2_TIME,'1',testName,"2 MS H + Q - B");
+         PS_A_CYCLE <= '1';
+         PS_1401_STORE_AR_OP_CODES <= '1';
+         wait for 30 ns;
+         check1(MS_H_OR_Q_OP_DOT_A_CY_DOT_A_RING_2_TIME,'0',testName,"2 MS H + Q - C");         
+      else
+         PS_A_CYCLE <= '1';
+         PS_1401_STORE_AR_OP_CODES <= '1';
+         wait for 30 ns;
+         check1(MS_H_OR_Q_OP_DOT_A_CY_DOT_A_RING_2_TIME,'1',testName,"2 MS H + Q - D");         
+      end if;
+      PS_A_CYCLE <= '0';
+      PS_1401_STORE_AR_OP_CODES <= '0';
+      
+      if(i = 4) then
+         PS_A_CYCLE <= '0';
+         PS_1401_STORE_AR_OP_CODES <= '1';
+         wait for 30 ns;
+         check1(MS_H_OR_Q_OP_DOT_A_CY_DOT_A_RING_4_TIME,'1',testName,"4 MS H + Q - A");
+         PS_A_CYCLE <= '1';
+         PS_1401_STORE_AR_OP_CODES <= '0';
+         wait for 30 ns;
+         check1(MS_H_OR_Q_OP_DOT_A_CY_DOT_A_RING_4_TIME,'1',testName,"4 MS H + Q - B");
+         PS_A_CYCLE <= '1';
+         PS_1401_STORE_AR_OP_CODES <= '1';
+         wait for 30 ns;
+         check1(MS_H_OR_Q_OP_DOT_A_CY_DOT_A_RING_4_TIME,'0',testName,"4 MS H + Q - C");         
+      else
+         PS_A_CYCLE <= '1';
+         PS_1401_STORE_AR_OP_CODES <= '1';
+         wait for 30 ns;
+         check1(MS_H_OR_Q_OP_DOT_A_CY_DOT_A_RING_4_TIME,'1',testName,"4 MS H + Q - D");         
+      end if;
+      PS_A_CYCLE <= '0';
+      PS_1401_STORE_AR_OP_CODES <= '0';
+
+      -- Advance the A Ring
+      
+      PS_A_RING_ADV_A <= '1';
+      PS_A_RING_ADV_B <= '1';
+      wait for 90 ns;
+      PS_A_RING_ADV_A <= '0';
+      PS_A_RING_ADV_B <= '0';
+      wait for 90 ns;            
+   end loop;
+   
+   -- After step 6, The A Ring should be all reaset
+
+     for j in 1 to 6 loop
+        check1(PS_A_RING_BUS(j),'0',testName,"A Ring Done Check +");
+        check1(MS_A_RING_BUS(j),'1',testName,"A Ring Done Check -");
+        check1(LAMPS_ARING(j),'0',testName,"A Ring Done Check LAMPS");         
+     end loop;
+
+
+   check1(PS_ADDR_SCNR_5_POS,'0',testName,"5A");
+   MS_STORE_AR_SET_A_CYCLE_CTRL_A <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_5_POS,'1',testName,"5B");
+   MS_STORE_AR_SET_A_CYCLE_CTRL_A <= '1';
+
+   check1(PS_ADDR_SCNR_6_POS,'0',testName,"6A");
+   MS_STORE_AR_SET_C_CYCLE_CTRL_B <= '0';
+   wait for 30 ns;
+   check1(PS_ADDR_SCNR_6_POS,'1',testName,"5B");
+   MS_STORE_AR_SET_C_CYCLE_CTRL_B <= '1';
+
+   -- Test A ring in 1401 mode - 3 character addresses
+   
+   MS_SET_A_RING_1_TRIG <= '0';
+   wait for 30 ns;
+   MS_SET_A_RING_1_TRIG <= '1';
+   wait for 30 ns;
+         
+   MS_1401_MODE_1 <= '0'; 
+   
+   for i in 1 to 6 loop
+      for j in 1 to 6 loop
+         if(j = i AND i < 5) then
+            check1(PS_A_RING_BUS(j),'1',testName,"1401 A Ring Set Check +");
+            check1(MS_A_RING_BUS(j),'0',testName,"1401 A Ring Set Check -");
+            check1(LAMPS_ARING(j),'1',testName,"1401 A Ring Set Check LAMPS");
+         else
+            check1(PS_A_RING_BUS(j),'0',testName,"1401 A Ring Not Set Check +");
+            check1(MS_A_RING_BUS(j),'1',testName,"1401 A Ring Not Set Check -");
+            check1(LAMPS_ARING(j),'0',testName,"1401 A Ring Set Not Check LAMPS");         
+         end if;
+      end loop;
+      
+      PS_A_RING_ADV_A <= '1';
+      PS_A_RING_ADV_B <= '1';
+      wait for 90 ns;
+      PS_A_RING_ADV_A <= '0';
+      PS_A_RING_ADV_B <= '0';
+      wait for 90 ns;            
+   end loop;
+   
+   
+   
+   assert false report "Simulation Ended NORMALLY (2)" severity failure;
+   
    wait;
    end process;
 
