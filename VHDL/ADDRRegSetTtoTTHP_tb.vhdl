@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -191,10 +192,199 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable tv: std_logic_vector(14 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o: std_logic;
+   variable g1, g2, g3, g4, g5, g6, g7: std_logic;
 
    begin
 
    -- Your test bench code
+   
+   testName := "13.71.02.1        ";
+   
+   for t in 0 to 4095 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+
+      g2 := k;
+      g1 := l and j and g2;
+      g4 := b and c and d;
+      g5 := e and f and g;
+      g3 := i or h or g4 or g5;
+      
+      PS_2ND_CLOCK_PULSE_4 <= a;
+      PS_I_RING_4_OR_9_TIME <= b;
+      PS_I_CYCLE <= c;
+      PS_LOGIC_GATE_A_OR_R <= d;
+      PS_X_CYCLE <= e;
+      PS_A_RING_BUS(3) <= f;
+      PS_LOGIC_GATE_H <= g;
+      MS_LOGIC_GATE_C_1 <= not h;
+      MS_LOGIC_GATE_T <= not i;
+      PS_CONS_MX_Y_POS_BUS(4) <= j;
+      PS_CONSOLE_STROBE_GTD <= k;
+      PS_CONS_CLOCK_2_POS <= l;
+      wait for 30 ns;
+      
+      check1(PS_SET_AR_T_POS,g1 or (g3 and a),testName,"SET AR T POS");
+   end loop;
+
+   testName := "13.71.03.1        ";
+   
+   for t in 0 to 4095 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+
+      g2 := k;
+      g1 := l and j and g2;
+      g4 := b and c and d;
+      g5 := e and f and g;
+      g3 := i or h or g4 or g5;
+      
+      PS_2ND_CLOCK_PULSE_4 <= a;
+      PS_I_RING_3_OR_8_TIME <= b;
+      PS_I_CYCLE <= c;
+      PS_LOGIC_GATE_A_OR_R <= d;
+      PS_X_CYCLE <= e;
+      PS_A_RING_BUS(4) <= f;
+      PS_LOGIC_GATE_H <= g;
+      MS_LOGIC_GATE_D_1 <= not h;
+      MS_LOGIC_GATE_U <= not i;
+      -- The following letters to not match letters on ALD - no matter, as they are
+      -- all ANDed together.
+      PS_CONS_MX_Y_POS_BUS(3) <= j;
+      PS_CONSOLE_STROBE_GTD <= k;
+      PS_CONS_CLOCK_2_POS <= l;
+      wait for 30 ns;
+      
+      check1(PS_SET_AR_H_POS,g1 or (g3 and a),testName,"SET AR H POS");
+   end loop;
+
+   testName := "14.71.04.1        ";
+   
+   for t in 0 to 32767 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      
+      g2 := k;
+      g1 := l and j and g2;
+      g4 := b and c and d;
+      g5 := e and f and g;
+      g6 := c and m and o;
+      g7 := e and m and n;
+      g3 := i or h or g4 or g5 or g6 or g7;
+
+      -- The letters used are the ones I put in [] on tto keep some consistency
+      -- among the varuous tests
+      
+      PS_2ND_CLOCK_PULSE_4 <= a;
+      PS_I_RING_2_OR_7_TIME <= b;
+      PS_I_CYCLE <= c;
+      PS_LOGIC_GATE_A_OR_R <= d;
+      PS_X_CYCLE <= e;
+      PS_A_RING_BUS(5) <= f;
+      PS_LOGIC_GATE_H <= g;
+      MS_LOGIC_GATE_E_1 <= not h;
+      MS_LOGIC_GATE_V <= not i;            
+      PS_CONS_MX_Y_POS_BUS(2) <= j;
+      PS_CONSOLE_STROBE_GTD <= k;
+      PS_CONS_CLOCK_2_POS <= l;      
+      PS_LOGIC_GATE_J <= m;
+      PS_A_RING_BUS(4) <= n;
+      PS_I_RING_5_OR_10_TIME <= o;
+      wait for 30 ns;
+      
+      check1(PS_SET_AR_TH_POS,g1 or (g3 and a),testName,"SET AR TH POS");
+   end loop;
+   
+   testName := "14.71.05.1        ";
+   
+   for t in 0 to 32767 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      
+      g2 := k;
+      g1 := l and j and g2;
+      g4 := b and c and d;
+      g5 := e and f and g;
+      g6 := c and m and o;
+      g7 := e and m and n;
+      g3 := i or h or g4 or g5 or g6 or g7;
+
+      -- The letters used are the ones I put in [] on tto keep some consistency
+      -- among the varuous tests
+      
+      PS_2ND_CLOCK_PULSE_4 <= a;
+      PS_I_RING_1_OR_6_TIME <= b;
+      PS_I_CYCLE <= c;
+      PS_LOGIC_GATE_A_OR_R <= d;
+      PS_X_CYCLE <= e;
+      PS_A_RING_BUS(6) <= f;
+      PS_LOGIC_GATE_H <= g;
+      MS_LOGIC_GATE_F_1 <= not h;
+      MS_LOGIC_GATE_W <= not i;            
+      PS_CONS_MX_Y_POS_BUS(1) <= j;
+      PS_CONSOLE_STROBE_GTD <= k;
+      PS_CONS_CLOCK_2_POS <= l;      
+      PS_LOGIC_GATE_K <= m;
+      PS_A_RING_BUS(4) <= n;
+      PS_I_RING_5_OR_10_TIME <= o;
+      wait for 30 ns;
+      
+      check1(PS_SET_AR_TTH_POS,g1 or (g3 and a),testName,"SET AR TTH POS");
+   end loop;
+
+   assert false report "Simulation Ended NORMALLY (2)" severity failure;
 
    wait;
    end process;
@@ -205,7 +395,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 100 us;  -- Determines how long your simulation runs
+   wait for 3 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY" severity failure;
    end process;
 
