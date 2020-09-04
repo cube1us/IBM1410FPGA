@@ -1,0 +1,56 @@
+Generating HDL for page 14.71.01.1 ADDR REGISTERS SET UNITS POS at 9/4/2020 10:37:15 AM
+Old test bench file ALD_14_71_01_1_ADDR_REGISTERS_SET_UNITS_POS_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+Removed 3 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 4E to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C, OUT_3A_C
+	and inputs of PS_2ND_CLOCK_PULSE_3_JRJ
+	and logic function of EQUAL
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_I_RING_5_OR_10_TIME,PS_I_CYCLE,PS_LOGIC_GATE_A_OR_R
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_4
+	and inputs of OUT_3A_C
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_A_RING_2_TIME,PS_X_CYCLE,PS_LOGIC_GATE_H
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of OUT_5B_NoPin,OUT_5C_NoPin,MS_LOGIC_GATE_B_1
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_3
+	and inputs of OUT_DOT_4C
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_A
+	and inputs of OUT_DOT_3C,OUT_2E_Y
+	and logic function of Special
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of MS_LOGIC_GATE_S
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_H
+	and inputs of PS_CONS_PRINTER_STROBE,PS_CONS_MX_X1A_POS,PS_KEYBOARD_UNLOCK
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_A, OUT_4E_A
+	and inputs of OUT_5E_H
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_NoPin
+	and inputs of OUT_4E_A,PS_CONS_CLOCK_2_POS,PS_CONS_MX_Y5_POS
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_Y
+	and inputs of OUT_3E_NoPin
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_C,OUT_4D_G
+	and logic function of OR
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3C_3,OUT_3B_4
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_2ND_CLOCK_PULSE_4
+	from gate output OUT_3A_C
+Generating output sheet edge signal assignment to 
+	signal PS_SET_AR_U_POS
+	from gate output OUT_2C_A
+Generating output sheet edge signal assignment to 
+	signal PS_CONSOLE_STROBE_GTD
+	from gate output OUT_4E_A
