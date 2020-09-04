@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -254,10 +255,190 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable tv: std_logic_vector(12 downto 0);
+   variable a, b, c, d, e, f, g, h, i, j, k: std_logic;
+   variable g1, g2, g3, g4: std_logic;
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.70.10.1        ";
+   
+   for t in 0 to 255 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      i := tv(7);
+      PS_B_CH_NOT_BUS(HDL_WM_BIT) <= a;
+      PS_I_CYCLE <= b;
+      PS_I_RING_5_OR_10_TIME <= c;
+      MS_STORE_AR_SET_A_CYCLE_CTRL_A <= not d;
+      PS_LOGIC_GATE_F_1 <= e;
+      PS_STORE_ADDR_REGS_OP_CODE <= f;
+      PS_LAST_INSN_RO_CYCLE_1 <= g;
+      PS_INDEX_REQUIRED <= i;
+      g1 := a and b and i and c;
+      wait for 30 ns;
+      check1(MS_SET_X_CYCLE_CTRL_A,not g1,testName,"X Cycle Ctrl");
+      check1(MS_SET_A_RING_1_TRIG,not((g1 or (f and g) or d) and e),testName,"Set A Ring 1 Trig");          
+   end loop;
+
+   PS_B_CH_NOT_BUS(HDL_WM_BIT) <= '0';
+   PS_I_CYCLE <= '0';
+   PS_I_RING_5_OR_10_TIME <= '0';
+   MS_STORE_AR_SET_A_CYCLE_CTRL_A <= not '0';
+   PS_LOGIC_GATE_F_1 <= '0';
+   PS_STORE_ADDR_REGS_OP_CODE <= '0';
+   PS_LAST_INSN_RO_CYCLE_1 <= '0';
+   
+   PS_INDEX_REQUIRED <= '0';
+   PS_I_RING_HDL_BUS(5) <= '1';
+   wait for 30 ns;
+   check1(PS_INDEX_A_AR,'0',testName,"2A");
+   PS_INDEX_REQUIRED <= '1';
+   PS_I_RING_HDL_BUS(5) <= '0';
+   wait for 30 ns;
+   check1(PS_INDEX_A_AR,'0',testName,"2B");
+   PS_INDEX_REQUIRED <= '1';
+   PS_I_RING_HDL_BUS(5) <= '1';
+   wait for 30 ns;
+   check1(PS_INDEX_A_AR,'1',testName,"2C");
+   PS_INDEX_REQUIRED <= '0';
+   PS_I_RING_HDL_BUS(5) <= '0';
+   
+   for t in 0 to 15 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      h := tv(0);
+      i := tv(1);
+      j := tv(2);
+      k := tv(3);
+      PS_I_RING_HDL_BUS(5) <= h;
+      PS_ADDR_DOUBLE_OP_CODES <= j;
+      PS_INDEX_REQUIRED <= i;
+      PS_I_RING_HDL_BUS(10) <= k;
+      wait for 30 ns;
+      check1(PS_INDEX_B_AR,(h and j and i) or (i and k),testName,"Index B AR");
+   end loop;
+
+   PS_I_RING_HDL_BUS(5) <= '0';
+   PS_ADDR_DOUBLE_OP_CODES <= '0';
+   PS_INDEX_REQUIRED <= '0';
+   PS_I_RING_HDL_BUS(10) <= '0';
+   
+   testName := "14.70.11.1        ";
+   
+   check1(PS_A_RING_ADV_A,'0',testName,"3A");
+   check1(PS_A_RING_ADV_B,'0',testName,"3B");
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   check1(PS_A_RING_ADV_A,'1',testName,"3C");
+   check1(PS_A_RING_ADV_B,'1',testName,"3D");
+   MS_LOGIC_GATE_B_1 <= '1';
+    
+   testName := "14.70.12.1        ";
+   
+   for t in 0 to 255 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      MS_1401_MODE_1 <= not a;
+      PS_I_RING_3_OR_8_TIME <= b;
+      PS_LOGIC_GATE_A_OR_R <= c;
+      PS_I_CYCLE_1 <= d;
+      PS_I_RING_4_OR_9_TIME <= e;
+      PS_NO_INDEX_ON_1ST_ADDR_OPS <= f;
+      PS_1ST_ADDRESS <= g;
+      PS_B_CH_NOT_BUS(HDL_WM_BIT) <= h;
+      wait for 30 ns;
+      check1(PS_SET_H_POS_INDEX_TAGS,
+         not a and b and c and d and not(f and g),testName,"H Pos Index Tags");
+      check1(PS_SET_T_POS_INDEX_TAGS, 
+         c and d and not(f and g) and h and e,testName,"T Pos Index Tags");
+   end loop;
+   
+   for t in 0 to 7 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      i := tv(0);
+      j := tv(1);
+      k := tv(2);
+      MS_PROGRAM_RESET_1 <= not i;
+      MS_I_RING_HDL_BUS(1) <= not j;
+      MS_I_RING_HDL_BUS(6) <= not k;
+      wait for 30 ns;
+      check1(MS_RESET_INDEX_TAG_LATCHES,not(i or j or k),testName,"Reset Index Tag Latches");
+   end loop;
+   
+   testName := "14.70.13.1        ";
+    
+   for t in 0 to 7 loop
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      PS_X_CYCLE_CTRL <= a;
+      PS_LOGIC_GATE_SPECIAL_A <= b;
+      MS_CONSOLE_INHIBIT_AR_RO <= not c;
+      wait for 30 ns;
+      check1(PS_RO_INDEX_AR,a and b and not c,testName,"+S RO Index AR");
+      check1(MS_RO_INDEX_AR,not PS_RO_INDEX_AR,testName,"-S RO Index AR");      
+   end loop; 
+   
+   for t in 0 to 15 loop
+      d := tv(0);
+      e := tv(1);
+      f := tv(2);
+      g := tv(3);
+      PS_1401_MODE_1 <= d;
+      PS_INDEX_REQUIRED <= e;
+      PS_I_RING_5_OR_10_TIME <= f;
+      PS_LOGIC_GATE_F_1 <= g;
+      check1(MS_SET_H_POS_INDEX_LAT_A,not(d and e and f and g),testName,"SET H POS Index Latch A");
+      check1(MS_SET_H_POS_INDEX_LAT_B,MS_SET_H_POS_INDEX_LAT_A,testName,"SET H POS Index Latch B"); 
+   end loop; 
+
+   testName := "14.70.14.1        ";
+
+   for t in 0 to 511 loop
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      g1 := (a and b and c) or (d and e);
+      g2 := (b and c and h) or (d and g);
+      g3 := not f and d and i;
+      PS_BRANCH_TO_00001_ADDR_LAT <= a;
+      PS_I_CYCLE_CTRL <= b;
+      PS_LOGIC_GATE_SPECIAL_A_1 <= c;
+      PS_1ST_I_O_CYCLE_CONTROL <= d;
+      PS_1401_READ_TRIGGER <= e;
+      MS_CONSOLE_INHIBIT_AR_RO <= not f;
+      PS_1401_PUNCH_TRIGGER <= g;
+      PS_INTERRUPT_BRANCH <= h;
+      PS_1401_PRINT_TRIGGER <= i;
+      wait for 30 ns;
+      check1(MS_RO_00001_INDEX_ADDR,not(g1 and not f),testName,"RO 00001");
+      check1(MS_RO_00101_INDEX_ADDR,not(g2 and not f),testName,"RO 00101");
+      check1(MS_RO_00201_INDEX_ADDR,not(g3),testName,"RO 00201");
+      check1(MS_RO_FIXED_ADDR,
+        not (not MS_RO_00001_INDEX_ADDR or not MS_RO_00101_INDEX_ADDR or not MS_RO_00201_INDEX_ADDR),
+        testName,"RO Fixed Addr");
+   end loop; 
 
    wait;
    end process;
