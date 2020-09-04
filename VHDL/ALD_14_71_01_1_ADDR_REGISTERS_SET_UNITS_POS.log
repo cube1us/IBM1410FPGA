@@ -1,4 +1,4 @@
-Generating HDL for page 14.71.01.1 ADDR REGISTERS SET UNITS POS at 9/4/2020 10:37:15 AM
+Generating HDL for page 14.71.01.1 ADDR REGISTERS SET UNITS POS at 9/4/2020 12:21:10 PM
 Old test bench file ALD_14_71_01_1_ADDR_REGISTERS_SET_UNITS_POS_tb.vhdl 55 lines preserved and 32 declaration lines preserved
 Removed 3 outputs from Gate at 3A to ignored block(s) or identical signal names
 Removed 6 outputs from Gate at 2C to ignored block(s) or identical signal names
