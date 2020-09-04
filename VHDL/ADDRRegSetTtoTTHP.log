@@ -1,0 +1,62 @@
+Generating HDL for group named ADDRRegSetTtoTTHPat 9/4/2020 12:51:09 PM containing pages: 
+	14.71.02.1, 14.71.03.1, 14.71.04.1, 14.71.05.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ADDRRegSetTtoTTHP_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 4 pages...
+Found 13 signals on page 14.71.02.1
+Found 13 signals on page 14.71.03.1
+Found 16 signals on page 14.71.04.1
+Found 16 signals on page 14.71.05.1
+Found 30 unique input signals and 4 unique output signals, (34 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S LOGIC GATE C 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE H originates outside the group.
+INFO:  Signal -S LOGIC GATE T originates outside the group.
+INFO:  Signal +S LOGIC GATE A OR R originates outside the group.
+INFO:  Signal +S I RING 4 OR 9 TIME originates outside the group.
+INFO:  Signal +S I CYCLE originates outside the group.
+INFO:  Signal +S X CYCLE originates outside the group.
+INFO:  Signal +S A RING 3 TIME originates outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 4 originates outside the group.
+INFO:  Signal +S CONSOLE STROBE GTD originates outside the group.
+INFO:  Signal +S CONS MX Y4 POS originates outside the group.
+INFO:  Signal +S CONS CLOCK 2 POS originates outside the group.
+INFO:  Signal -S LOGIC GATE D 1 originates outside the group.
+INFO:  Signal -S LOGIC GATE U originates outside the group.
+INFO:  Signal +S I RING 3 OR 8 TIME originates outside the group.
+INFO:  Signal +S A RING 4 TIME originates outside the group.
+INFO:  Signal +S CONS MX Y3 POS originates outside the group.
+INFO:  Signal -S LOGIC GATE E 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE J originates outside the group.
+INFO:  Signal -S LOGIC GATE V originates outside the group.
+INFO:  Signal +S I RING 5 OR 10 TIME originates outside the group.
+INFO:  Signal +S I RING 2 OR 7 TIME originates outside the group.
+INFO:  Signal +S A RING 5 TIME originates outside the group.
+INFO:  Signal +S CONS MX Y2 POS originates outside the group.
+INFO:  Signal -S LOGIC GATE F 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE K originates outside the group.
+INFO:  Signal -S LOGIC GATE W originates outside the group.
+INFO:  Signal +S I RING 1 OR 6 TIME originates outside the group.
+INFO:  Signal +S A RING 6 TIME originates outside the group.
+INFO:  Signal +S CONS MX Y1 POS originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S SET AR T POS is used outside the group.
+INFO:  Signal +S SET AR H POS is used outside the group.
+INFO:  Signal +S SET AR TH POS is used outside the group.
+INFO:  Signal +S SET AR TTH POS is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S A RING 3 TIME replaced by Bus signal +S A RING BUS
+Input Signal +S CONS MX Y4 POS replaced by Bus signal +S CONS MX Y POS BUS
+Input Signal +S A RING 4 TIME replaced by Bus signal +S A RING BUS
+Input Signal +S CONS MX Y3 POS replaced by Bus signal +S CONS MX Y POS BUS
+Input Signal +S A RING 5 TIME replaced by Bus signal +S A RING BUS
+Input Signal +S CONS MX Y2 POS replaced by Bus signal +S CONS MX Y POS BUS
+Input Signal +S A RING 6 TIME replaced by Bus signal +S A RING BUS
+Input Signal +S CONS MX Y1 POS replaced by Bus signal +S CONS MX Y POS BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.71.02.1 (ADDR REGISTERS SET TENS POS)
+Generating HDL associated with page 14.71.03.1 (ADDR REGISTERS SET HUNDREDS POS)
+Generating HDL associated with page 14.71.04.1 (ADDR REGISTERS SET THOUSANDS POS)
+Generating HDL associated with page 14.71.05.1 (ADDR REGS SET TEN THOUSANDS POS)

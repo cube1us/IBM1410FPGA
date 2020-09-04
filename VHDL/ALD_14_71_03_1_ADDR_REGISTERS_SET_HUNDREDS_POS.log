@@ -1,0 +1,38 @@
+Generating HDL for page 14.71.03.1 ADDR REGISTERS SET HUNDREDS POS at 9/4/2020 12:50:19 PM
+Removed 6 outputs from Gate at 2C to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_I_RING_3_OR_8_TIME,PS_I_CYCLE,PS_LOGIC_GATE_A_OR_R
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_4
+	and inputs of PS_2ND_CLOCK_PULSE_4
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_X_CYCLE,PS_A_RING_4_TIME,PS_LOGIC_GATE_H
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of OUT_5B_NoPin,OUT_5C_NoPin,MS_LOGIC_GATE_D_1
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_3
+	and inputs of OUT_DOT_4C
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_A
+	and inputs of OUT_DOT_3C,OUT_2E_Y
+	and logic function of Special
+Generating Statement for block at 4D with output pin(s) of OUT_4D_K
+	and inputs of MS_LOGIC_GATE_U
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_CONS_CLOCK_2_POS,PS_CONS_MX_Y3_POS,PS_CONSOLE_STROBE_GTD
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_Y
+	and inputs of OUT_4E_NoPin
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_C,OUT_4D_K
+	and logic function of OR
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3B_4,OUT_3C_3
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_AR_H_POS
+	from gate output OUT_2C_A
