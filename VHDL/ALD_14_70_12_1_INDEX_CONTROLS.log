@@ -1,0 +1,50 @@
+Generating HDL for page 14.70.12.1 INDEX CONTROLS at 9/3/2020 9:07:40 PM
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_P
+	and inputs of MS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of OUT_DOT_3B
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_D
+	and inputs of PS_LOGIC_GATE_A_OR_R,PS_I_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C, OUT_4C_C
+	and inputs of OUT_5C_D
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of OUT_4C_C,PS_I_RING_3_OR_8_TIME,OUT_4E_G
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of OUT_4C_C,OUT_4E_G,PS_I_RING_4_OR_9_TIME
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_DOT_3D
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G, OUT_4E_G
+	and inputs of PS_NO_INDEX_ON_1ST_ADDR_OPS,PS_1ST_ADDRESS
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_P
+	and inputs of PS_B_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_NoPin
+	and inputs of MS_PROGRAM_RESET_1,MS_I_RING_1_TIME,MS_I_RING_6_TIME
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_D
+	and inputs of OUT_2G_NoPin
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_4B_P,OUT_3C_E
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3D_D,OUT_3F_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_H_POS_INDEX_TAGS
+	from gate output OUT_2B_G
+Generating output sheet edge signal assignment to 
+	signal PS_SET_T_POS_INDEX_TAGS
+	from gate output OUT_2D_C
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_INDEX_TAG_LATCHES
+	from gate output OUT_1G_D

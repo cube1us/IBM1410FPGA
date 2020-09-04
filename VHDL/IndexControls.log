@@ -1,0 +1,78 @@
+Generating HDL for group named IndexControlsat 9/3/2020 9:08:50 PM containing pages: 
+	14.70.10.1, 14.70.11.1, 14.70.12.1, 14.70.13.1, 14.70.14.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\IndexControls_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 5 pages...
+Found 15 signals on page 14.70.10.1
+Found 3 signals on page 14.70.11.1
+Found 14 signals on page 14.70.12.1
+Found 11 signals on page 14.70.13.1
+Found 13 signals on page 14.70.14.1
+Found 34 unique input signals and 17 unique output signals, (51 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LOGIC GATE F 1 originates outside the group.
+INFO:  Signal +S I RING 5 TIME originates outside the group.
+INFO:  Signal +S I RING 10 TIME originates outside the group.
+INFO:  Signal +S I RING 5 OR 10 TIME originates outside the group.
+INFO:  Signal +S I CYCLE originates outside the group.
+INFO:  Signal -S STORE AR SET A CYCLE CTRL A originates outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE 1 originates outside the group.
+INFO:  Signal +S STORE ADDR REGS OP CODE originates outside the group.
+INFO:  Signal +S ADDR DOUBLE OP CODES originates outside the group.
+INFO:  Signal +S INDEX REQUIRED originates outside the group.
+INFO:  Signal +S B CH NOT WM BIT originates outside the group.
+INFO:  Signal -S LOGIC GATE B 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE A OR R originates outside the group.
+INFO:  Signal -S I RING 1 TIME originates outside the group.
+INFO:  Signal -S I RING 6 TIME originates outside the group.
+INFO:  Signal +S I RING 3 OR 8 TIME originates outside the group.
+INFO:  Signal +S I RING 4 OR 9 TIME originates outside the group.
+INFO:  Signal +S 1ST ADDRESS originates outside the group.
+INFO:  Signal +S I CYCLE 1 originates outside the group.
+INFO:  Signal -S PROGRAM RESET 1 originates outside the group.
+INFO:  Signal -S 1401 MODE 1 originates outside the group.
+INFO:  Signal +S NO INDEX ON 1ST ADDR OPS originates outside the group.
+INFO:  Signal +S X CYCLE CTRL originates outside the group.
+INFO:  Signal +S 1401 MODE 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE SPECIAL A originates outside the group.
+INFO:  Signal -S CONSOLE INHIBIT AR RO originates outside the group.
+INFO:  Signal +S LOGIC GATE SPECIAL A 1 originates outside the group.
+INFO:  Signal +S I CYCLE CTRL originates outside the group.
+INFO:  Signal +S BRANCH TO 00001 ADDR LAT originates outside the group.
+INFO:  Signal +S 1401 PRINT TRIGGER originates outside the group.
+INFO:  Signal +S 1401 READ TRIGGER originates outside the group.
+INFO:  Signal +S 1401 PUNCH TRIGGER originates outside the group.
+INFO:  Signal +S 1ST I-O CYCLE CONTROL originates outside the group.
+INFO:  Signal +S INTERRUPT BRANCH originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S SET X CYCLE CTRL A is used outside the group.
+INFO:  Signal -S SET A RING 1 TRIG is used outside the group.
+INFO:  Signal +S INDEX A AR is used outside the group.
+INFO:  Signal +S INDEX B AR is used outside the group.
+INFO:  Signal +S A RING ADV B is used outside the group.
+INFO:  Signal +S A RING ADV A is used outside the group.
+INFO:  Signal -S RESET INDEX TAG LATCHES is used outside the group.
+INFO:  Signal +S SET H POS INDEX TAGS is used outside the group.
+INFO:  Signal +S SET T POS INDEX TAGS is used outside the group.
+INFO:  Signal -S RO INDEX AR is used outside the group.
+INFO:  Signal -S SET H POS INDEX LAT B is used outside the group.
+INFO:  Signal -S SET H POS INDEX LAT A is used outside the group.
+INFO:  Signal +S RO INDEX AR is used outside the group.
+INFO:  Signal -S RO FIXED ADDR is used outside the group.
+INFO:  Signal -S RO 00201 INDEX ADDR is used outside the group.
+INFO:  Signal -S RO 00101 INDEX ADDR is used outside the group.
+INFO:  Signal -S RO 00001 INDEX ADDR is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S I RING 5 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 10 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S B CH NOT WM BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal -S I RING 1 TIME replaced by Bus signal -S I RING HDL BUS
+Input Signal -S I RING 6 TIME replaced by Bus signal -S I RING HDL BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.70.10.1 (INDEX CONTROLS)
+Generating HDL associated with page 14.70.11.1 (INDEX CONTROLS)
+Generating HDL associated with page 14.70.12.1 (INDEX CONTROLS)
+Generating HDL associated with page 14.70.13.1 (INDEX CONTROLS-ACC)
+Generating HDL associated with page 14.70.14.1 (SPEICAL ADDR RO CTRL)

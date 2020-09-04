@@ -1,0 +1,42 @@
+Generating HDL for page 14.70.13.1 INDEX CONTROLS-ACC at 9/3/2020 9:07:43 PM
+Removed 2 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 3B to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_D, OUT_4A_D
+	and inputs of PS_X_CYCLE_CTRL,PS_LOGIC_GATE_SPECIAL_A,MS_CONSOLE_INHIBIT_AR_RO
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_A
+	and inputs of OUT_4A_D
+	and logic function of Special
+Generating Statement for block at 3B with output pin(s) of OUT_3B_L
+	and inputs of OUT_4A_D
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PS_1401_MODE_1,PS_INDEX_REQUIRED
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of PS_I_RING_5_OR_10_TIME,PS_LOGIC_GATE_F_1
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_K
+	and inputs of PS_1401_MODE_1,PS_INDEX_REQUIRED
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_K
+	and inputs of PS_I_RING_5_OR_10_TIME,PS_LOGIC_GATE_F_1
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_4D_G,OUT_4E_C
+	and logic function of OR
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_4G_K,OUT_4H_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_RO_INDEX_AR
+	from gate output OUT_3A_A
+Generating output sheet edge signal assignment to 
+	signal MS_RO_INDEX_AR
+	from gate output OUT_3B_L
+Generating output sheet edge signal assignment to 
+	signal MS_SET_H_POS_INDEX_LAT_A
+	from gate output OUT_DOT_1D
+Generating output sheet edge signal assignment to 
+	signal MS_SET_H_POS_INDEX_LAT_B
+	from gate output OUT_DOT_1G

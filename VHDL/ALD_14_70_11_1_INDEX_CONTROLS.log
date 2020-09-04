@@ -1,0 +1,17 @@
+Generating HDL for page 14.70.11.1 INDEX CONTROLS at 9/3/2020 9:07:37 PM
+Ignoring Logic Block 2E with symbol L
+Ignoring Logic Block 2H with symbol L
+Removed 5 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 2G to ignored block(s) or identical signal names
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of MS_LOGIC_GATE_B_1
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of MS_LOGIC_GATE_B_1
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_A_RING_ADV_A
+	from gate output OUT_2D_D
+Generating output sheet edge signal assignment to 
+	signal PS_A_RING_ADV_B
+	from gate output OUT_2G_C
