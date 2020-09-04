@@ -1,0 +1,110 @@
+Generating HDL for page 14.71.10.1 A ADDRESS REG SET CONTROLS-ACC at 9/4/2020 5:09:25 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_10_1_A_ADDRESS_REG_SET_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+WARNING: Diagram block at coordinate 5G has 5 different output pins: A,B,K,D,E
+WARNING: Diagram block at coordinate 5H has 2 different output pins: F,G
+Ignoring Logic Block 4F with symbol CAP
+Ignoring Logic Block 1F with symbol CAP
+Ignoring Logic Block 3G with symbol CAP
+Ignoring Logic Block 1G with symbol CAP
+Ignoring Logic Block 3H with symbol CAP
+Ignoring Logic Block 1H with symbol CAP
+Ignoring Logic Block 3I with symbol CAP
+Ignoring Logic Block 1I with symbol CAP
+Processing extension from block at 5G (Database ID=244197) to 5H (Database ID=244198)
+Copied connection from extension output pin F to master block at 5G
+Copied connection from extension output pin G to master block at 5G
+Moved connection from extension 5H pin F to be from master at 5G
+Moved connection from extension 5H pin G to be from master at 5G
+Removed 5 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4I to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_A_CYCLE_CTRL,PS_LOGIC_GATE_B_OR_C
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_A_CYCLE,PS_LOGIC_GATE_D_OR_E_OR_F
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_E
+	and inputs of OUT_5A_NoPin,OUT_5B_NoPin
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of OUT_DOT_4B
+	and logic function of EQUAL
+Generating Statement for block at 5C with output pin(s) of OUT_5C_R, OUT_5C_R
+	and inputs of PS_INDEX_A_AR,PS_INDEX_GATE
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of OUT_5C_R,OUT_5D_E
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_E, OUT_5D_E
+	and inputs of PS_RD_1ST_ADDR_TO_A_AND_C_AR,PS_1ST_ADDRESS,PS_INSN_RO_GATE
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_X
+	and inputs of OUT_5G_A
+	and logic function of Resistor
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of OUT_5E_X,MS_STOPPED_AT_CYCLE_END
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_X
+	and inputs of OUT_5G_B
+	and logic function of Resistor
+Generating Statement for block at 5G with output pin(s) of OUT_5G_A, OUT_5G_B, OUT_5G_K, OUT_5G_D, OUT_5G_E, OUT_5G_E, OUT_5G_F, OUT_5G_G
+	and inputs of MV_CONS_MODE_SW_ADDR_SET_MODE
+	and logic function of Switch
+Generating Statement for block at 4G with output pin(s) of OUT_4G_X
+	and inputs of OUT_5G_K
+	and logic function of Resistor
+Generating Statement for block at 2G with output pin(s) of OUT_2G_X
+	and inputs of OUT_5G_D
+	and logic function of Resistor
+Generating Statement for block at 4H with output pin(s) of OUT_4H_X
+	and inputs of OUT_5G_E
+	and logic function of Resistor
+Generating Statement for block at 2H with output pin(s) of OUT_2H_X
+	and inputs of OUT_5G_E
+	and logic function of Resistor
+Generating Statement for block at 4I with output pin(s) of OUT_4I_X
+	and inputs of OUT_5G_F
+	and logic function of Resistor
+Generating Statement for block at 2I with output pin(s) of OUT_2I_X
+	and inputs of OUT_5G_G
+	and logic function of Resistor
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_4B_E,PS_1311_SET_AAR,OUT_4C_G,OUT_4E_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_A_AR
+	from gate output OUT_2B_G
+Generating output sheet edge signal assignment to 
+	signal MS_INDEX_A_AR_DOT_INDEX_GATE
+	from gate output OUT_5C_R
+Generating output sheet edge signal assignment to 
+	signal MS_SET_A_AND_C_AR
+	from gate output OUT_5D_E
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_ADDRESS_ENTRY_B_AR
+	from gate output OUT_2F_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_ADDRESS_ENTRY_C_AR
+	from gate output OUT_4G_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_ADDRESS_ENTRY_D_AR
+	from gate output OUT_2G_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_ADDRESS_ENTRY_NORMAL_2
+	from gate output OUT_4H_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_ADDRESS_ENTRY_NORMAL_1
+	from gate output OUT_2H_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_ADDRESS_ENTRY_E_AR
+	from gate output OUT_4I_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_ADDRESS_ENTRY_F_AR
+	from gate output OUT_2I_X
