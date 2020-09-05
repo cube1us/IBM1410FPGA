@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -143,11 +144,49 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable tv: std_logic_vector(12 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m: std_logic;
+   variable g1, g2: std_logic;
 
    begin
 
    -- Your test bench code
+   testName := "14.71.13.1        ";
+   
+   for t in 0 to 2047 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      
+      MV_CONS_ADDRESS_ENTRY_D_AR <= not a;
+      MS_STOPPED_AT_CYCLE_END <= not b;
+      PS_1311_SET_DAR_STAR_1401 <= c;
+      PS_D_CYCLE_CTRL <= d;
+      PS_LOGIC_GATE_B_OR_C <= e;
+      MS_2ND_ADDR_SET_B_AND_D_AR <= not f;
+      PS_D_CYCLE <= g;
+      PS_LOGIC_GATE_D_OR_E_OR_F <= h;
+      MS_INDEX_A_AR_DOT_INDEX_GATE <= not i;
+      PS_SET_C_AR_A <= j;
+      MS_1ST_ADDR_SET_B_AND_D_AR <= not k;
+            
+      wait for 30 ns;
+      check1(PS_SET_D_AR,
+         c or k or i or f or (a and b) or (d and e) or (g and h) or not j, testName, "SET C AR");      
+           
+   end loop;
 
+   assert false report "Simulation Ended NORMALLY (2)" severity failure;
+   
    wait;
    end process;
 
@@ -157,7 +196,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 100 us;  -- Determines how long your simulation runs
+   wait for 2 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY" severity failure;
    end process;
 
