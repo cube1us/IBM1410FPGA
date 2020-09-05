@@ -152,6 +152,40 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "14.71.22.1        ";
+
+   for t in 0 to 1024 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      
+      PS_C_CYCLE_CTRL <= a;
+      PS_LOGIC_GATE_EARLY_B <= b;
+      MS_SYSTEM_RESET <= not c;
+      PS_SET_C_AR <= d;
+      PS_CONSOLE_CYCLE_START <= e;
+      MS_RESET_C_AR_1 <= not f;
+      PS_1ST_CLOCK_PULSE_1 <= g;
+      PS_I_RING_1_OR_1401_AND_3_TIME <= h;
+      PS_LOGIC_GATE_EARLY_F <= i;
+      PS_STORE_ADDR_REGS_OP_CODE <= j;
+      wait for 30 ns;
+  
+      g1 := h and i and j;
+      
+      check1(MS_RESET_C_AR,NOT(g and (c or (a and b) or f or (d and e) or g1)),testName,"Reset C AR");
+      check1(MS_RESET_D_AR_3,NOT g1,testName,"Reset D AR 3");
+      
+   end loop;
+
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
