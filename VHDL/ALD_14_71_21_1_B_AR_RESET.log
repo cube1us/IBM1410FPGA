@@ -1,0 +1,88 @@
+Generating HDL for page 14.71.21.1 B AR RESET at 9/5/2020 3:55:15 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_21_1_B_AR_RESET_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4D to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PS_I_RING_5_TIME,PS_A_RING_2_TIME,PS_INDEX_REQUIRED
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_C
+	and inputs of OUT_DOT_4A,OUT_3B_R
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of PS_LOGIC_GATE_EARLY_F,MS_NOT_ADDR_DBL_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_R
+	and inputs of PS_SET_B_AR,PS_CONSOLE_CYCLE_START
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of PS_B_OR_E_OR_F_CYCLE_CTRL,PS_LOGIC_GATE_EARLY_B
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_G
+	and inputs of OUT_3C_C,MS_SYSTEM_RESET,OUT_3D_E
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_DOT_2C,OUT_1D_R
+	and logic function of Special
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_A_RING_2_TIME,PS_I_RING_10_TIME,PS_INDEX_REQUIRED
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D, OUT_4D_D
+	and inputs of OUT_5D_C
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_E
+	and inputs of OUT_4D_D,PS_LOGIC_GATE_EARLY_F
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_R
+	and inputs of PS_1ST_CLOCK_PULSE_1
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_R
+	and inputs of MS_NOT_ADDR_DBL_OP_CODES,PS_A_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_K
+	and inputs of PS_LOGIC_GATE_EARLY_F,PS_I_RING_1_OR_1401_AND_3_TIME
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_K
+	and inputs of PS_A_CH_NOT_WM_BIT,PS_LOGIC_GATE_EARLY_F
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_G
+	and inputs of OUT_DOT_4G,OUT_DOT_3E,OUT_DOT_3H
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of PS_I_RING_8_TIME,PS_1401_COND_TEST_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_G
+	and inputs of PS_A_CH_NOT_WM_BIT,MS_1_ADDR_PLUS_MOD_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_P
+	and inputs of PS_LOGIC_GATE_EARLY_F,PS_I_RING_6_OR_1401_AND_8_TIME
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_4A_G,OUT_4B_G
+	and logic function of OR
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_2A_C,OUT_2C_G,OUT_2G_G
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E, OUT_DOT_3E
+	and inputs of OUT_3E_R,OUT_3F_K
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G, OUT_DOT_4G
+	and inputs of OUT_4G_K,OUT_4H_G
+	and logic function of OR
+Generating Statement for block at 3H with output pin(s) of OUT_DOT_3H, OUT_DOT_3H
+	and inputs of OUT_3H_G,OUT_3I_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_B_AR
+	from gate output OUT_1C_C
+Generating output sheet edge signal assignment to 
+	signal PS_2ND_ADDR_INDEX_RES_CTRL
+	from gate output OUT_4D_D
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_D_AR_1
+	from gate output OUT_DOT_3E
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_D_AR_3_1401
+	from gate output OUT_DOT_4G
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_D_AR_2
+	from gate output OUT_DOT_3H
