@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -152,10 +153,53 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable tv: std_logic_vector(12 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m: std_logic;
+   variable g1, g2: std_logic;
 
    begin
 
    -- Your test bench code
+   testName := "14.71.11.1        ";
+   
+   for t in 0 to 8191 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      
+      MV_CONS_ADDRESS_ENTRY_C_AR <= not a;
+      MS_STOPPED_AT_CYCLE_END <= not b;
+      PS_C_CYCLE_CTRL <= c;
+      PS_LOGIC_GATE_B_OR_C <= d;
+      PS_C_CYCLE_1 <= e;
+      PS_LOGIC_GATE_D_OR_E_OR_F <= f;
+      MS_SET_A_AND_C_AR <= not g;
+      PS_ADDRESS_SET_ROUTINE <= h;
+      PS_DISPLAY_ROUTINE_1 <= i;
+      PS_1ST_ADDRESS <= j;
+      PS_INSN_RO_GATE <= k;
+      PS_STORE_ADDR_REGS_OP_CODE <= l;
+      PS_B_CH_NOT_WM_BIT <= m;
+      
+      g1 := j and k and l and m;     
+      
+      wait for 30 ns;
+      check1(PS_SET_C_AR_A,not g1,testName,"SET C AR A");
+      check1(PS_SET_C_AR,
+         g or (a and b) or (c and d) or (e and f) or (h and i) or g1, testName, "SET C AR");      
+           
+   end loop;
 
    wait;
    end process;
@@ -166,7 +210,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 100 us;  -- Determines how long your simulation runs
+   wait for 2 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY" severity failure;
    end process;
 
