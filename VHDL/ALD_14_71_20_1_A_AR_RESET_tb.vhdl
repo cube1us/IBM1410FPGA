@@ -172,6 +172,56 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "14.71.20.1        ";
+   
+   for t in 0 to 65535 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      p := tv(15);
+      
+      MS_SYSTEM_RESET <= not a;
+      PS_A_CYCLE_CTRL <= b;
+      PS_LOGIC_GATE_EARLY_B <= c;
+    	PS_1311_RESET_AAR <= d;
+      PS_INDEX_A_AR <= e;
+      PS_A_RING_2_TIME <= f;
+      PS_LOGIC_GATE_EARLY_F <= g;
+      PS_I_RING_1_OR_1401_AND_3_TIME <= h;
+      PS_A_CH_NOT_WM_BIT <= i;
+      PS_1ST_CLOCK_PULSE_1 <= j;
+      PS_PERCENT_TYPE_OP_CODES <= k;
+      MS_STORE_ADDR_REGS_OP_CODE <= not l;
+      PS_SET_A_AR <= m;
+      PS_CONSOLE_CYCLE_START <= n;
+      PS_2_CHAR_ONLY_OP_CODES <= p;
+      MS_1401_MODE_1 <= not o;
+      
+      g1 := (e and f and g) or (b and c) or a;
+      g2 := h and i and g and not l and not(k and not o) and not(p and not o);
+      g3 := (m and n) or g2;
+      
+      wait for 30 ns;
+      check1(MS_RESET_A_AR,NOT(j and (g1 or d or g3)), testName, "RESET A AR");
+      check1(MS_INDEX_A_AR_DOT_A_RING_2_TIME,NOT(e and f and g),testName,"INDEX A AR.A Ring 2 Time");
+      check1(MS_RESET_C_AR_1,NOT(g2),testName,"RESET C AR");      
+           
+   end loop;
+   
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
