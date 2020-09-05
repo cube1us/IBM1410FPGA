@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -155,13 +156,61 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable tv: std_logic_vector(12 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m: std_logic;
+   variable g1, g2: std_logic;
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.71.11.1        ";
+   
+   for t in 0 to 8191 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      
+      MV_CONS_ADDRESS_ENTRY_B_AR <= not a;
+      MS_STOPPED_AT_CYCLE_END <= not b;
+		PS_B_OR_E_OR_F_CYCLE_CTRL <= c;
+      PS_LOGIC_GATE_B_OR_C <= d;
+      PS_B_OR_E_OR_F_CYCLE <= e;
+      PS_LOGIC_GATE_D_OR_E_OR_F <= f;
+      PS_INDEX_B_AR <= g;
+      PS_INDEX_GATE <= h;
+      PS_ADDR_DOUBLE_OP_CODES <= i;
+      PS_1ST_ADDRESS <= j;
+      PS_INSN_RO_GATE <= k;
+      PS_2ND_ADDRESS <= l;
+      PS_RD_2ND_ADDR_TO_B_AND_D_AR <= m;
+      
+      g1 := k and l and m;
+      g2 := i and j and k;
+      
+      wait for 30 ns;
+      check1(MS_2ND_ADDR_SET_B_AND_D_AR,not g1,testName, "2ND SET B and D AR");
+      check1(MS_1ST_ADDR_SET_B_AND_D_AR,not g2,testname, "1ST SET B AND D AR");
+      check1(PS_SET_B_AR,
+         (a and b) or (c and d) or (e and f) or (g and h) or g2 or g1, testName, "SET B AR");      
+      
+      
+   end loop;
 
    wait;
    end process;
+   
 
 -- The following is needed for older VHDL simulations to
 -- terminate the simulation process.  If your environment
@@ -169,7 +218,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 100 us;  -- Determines how long your simulation runs
+   wait for 1 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY" severity failure;
    end process;
 
