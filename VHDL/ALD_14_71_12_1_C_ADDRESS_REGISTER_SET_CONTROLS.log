@@ -1,0 +1,42 @@
+Generating HDL for page 14.71.12.1 C ADDRESS REGISTER SET CONTROLS at 9/5/2020 12:22:33 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_12_1_C_ADDRESS_REGISTER_SET_CONTROLS_tb.vhdl, generating default test bench code.
+Removed 5 outputs from Gate at 2C to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C
+	and inputs of MV_CONS_ADDRESS_ENTRY_C_AR,MS_STOPPED_AT_CYCLE_END
+	and logic function of NOR
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_C_CYCLE_CTRL,PS_LOGIC_GATE_B_OR_C
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_C_CYCLE_1,PS_LOGIC_GATE_D_OR_E_OR_F
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F
+	and inputs of OUT_5B_NoPin,OUT_5C_NoPin,MS_SET_A_AND_C_AR
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_E
+	and inputs of OUT_DOT_4C
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_P
+	and inputs of PS_ADDRESS_SET_ROUTINE,PS_DISPLAY_ROUTINE_1
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of OUT_5D_P,OUT_DOT_5E
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_K
+	and inputs of PS_1ST_ADDRESS,PS_INSN_RO_GATE
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_K
+	and inputs of PS_STORE_ADDR_REGS_OP_CODE,PS_B_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4A_C,OUT_4C_F,OUT_4D_C
+	and logic function of OR
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E, OUT_DOT_5E
+	and inputs of OUT_5E_K,OUT_5F_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_C_AR
+	from gate output OUT_2C_E
+Generating output sheet edge signal assignment to 
+	signal PS_SET_C_AR_A
+	from gate output OUT_DOT_5E
