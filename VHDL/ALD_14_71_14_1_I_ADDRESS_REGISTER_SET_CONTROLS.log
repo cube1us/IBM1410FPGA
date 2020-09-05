@@ -1,0 +1,36 @@
+Generating HDL for page 14.71.14.1 I ADDRESS REGISTER SET CONTROLS at 9/5/2020 1:28:01 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_14_1_I_ADDRESS_REGISTER_SET_CONTROLS_tb.vhdl, generating default test bench code.
+Removed 5 outputs from Gate at 1B to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of PS_I_CYCLE_CTRL,PS_LOGIC_GATE_B_OR_C
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_4B_NoPin,OUT_DOT_4C
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_H
+	and inputs of OUT_DOT_3B
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_I_CYCLE,OUT_5D_D,PS_LOGIC_GATE_D_OR_E_OR_F
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_D
+	and inputs of MS_I_RING_OP_TIME,PS_B_CH_WM_BIT_2,MS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P
+	and inputs of MS_1401_LAST_I_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_B
+	and inputs of MV_CONS_ADDRESS_ENTRY_NORMAL_1,MS_STOPPED_AT_CYCLE_END
+	and logic function of NOR
+Generating Statement for block at 3G with output pin(s) of OUT_3G_A
+	and inputs of MV_STORAGE_SCAN_MODE_2,MS_STOPPED_AT_CYCLE_END
+	and logic function of NOR
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_3B_F,OUT_3F_B,OUT_3G_A
+	and logic function of OR
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_C,OUT_4E_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_I_AR
+	from gate output OUT_1B_H
