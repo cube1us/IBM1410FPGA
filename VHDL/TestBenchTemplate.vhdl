@@ -23,6 +23,8 @@ uut_process: process
 
    -- Your test bench code
 
+   assert false report "Simulation Ended NORMALLY" severity failure;
+
    wait;
    end process;
 
@@ -32,8 +34,8 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 100 us;  -- Determines how long your simulation runs
-   assert false report "Simulation Ended NORMALLY" severity failure;
+   wait for 2 ms;  -- Determines how long your simulation runs
+   assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
 -- END USER TEST BENCH PROCESS
