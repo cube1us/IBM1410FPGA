@@ -1,0 +1,33 @@
+Generating HDL for page 14.71.22.1 C AR RESET at 9/5/2020 4:39:04 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_22_1_C_AR_RESET_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 2E to ignored block(s) or identical signal names
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_C_CYCLE_CTRL,PS_LOGIC_GATE_EARLY_B
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of OUT_5D_NoPin,MS_SYSTEM_RESET
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_SET_C_AR,PS_CONSOLE_CYCLE_START
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_H
+	and inputs of OUT_DOT_3E,OUT_2F_B
+	and logic function of Special
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E
+	and inputs of OUT_5E_C,MS_RESET_C_AR_1,OUT_5G_G
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_B
+	and inputs of PS_1ST_CLOCK_PULSE_1
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_G, OUT_5G_G
+	and inputs of PS_STORE_ADDR_REGS_OP_CODE,PS_I_RING_1_OR_1401_AND_3_TIME,PS_LOGIC_GATE_EARLY_F
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_4D_G,OUT_4F_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_C_AR
+	from gate output OUT_2E_H
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_D_AR_3
+	from gate output OUT_5G_G
