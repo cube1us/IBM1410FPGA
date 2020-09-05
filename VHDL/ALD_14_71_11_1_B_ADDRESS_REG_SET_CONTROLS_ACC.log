@@ -1,0 +1,42 @@
+Generating HDL for page 14.71.11.1 B ADDRESS REG SET CONTROLS-ACC at 9/5/2020 9:14:06 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_11_1_B_ADDRESS_REG_SET_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Removed 5 outputs from Gate at 2C to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_A
+	and inputs of MV_CONS_ADDRESS_ENTRY_B_AR,MS_STOPPED_AT_CYCLE_END
+	and logic function of NOR
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_B_OR_E_OR_F_CYCLE_CTRL,PS_LOGIC_GATE_B_OR_C
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_B_OR_E_OR_F_CYCLE,PS_LOGIC_GATE_D_OR_E_OR_F
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_A
+	and inputs of OUT_5B_NoPin,OUT_5C_NoPin
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_H
+	and inputs of OUT_DOT_4C
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_P
+	and inputs of PS_INDEX_B_AR,PS_INDEX_GATE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of OUT_5D_P,OUT_5F_D,OUT_5E_E
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_E, OUT_5E_E
+	and inputs of PS_ADDR_DOUBLE_OP_CODES,PS_1ST_ADDRESS,PS_INSN_RO_GATE
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_D, OUT_5F_D
+	and inputs of PS_INSN_RO_GATE,PS_2ND_ADDRESS,PS_RD_2ND_ADDR_TO_B_AND_D_AR
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4A_A,OUT_4C_A,OUT_4D_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_B_AR
+	from gate output OUT_2C_H
+Generating output sheet edge signal assignment to 
+	signal MS_1ST_ADDR_SET_B_AND_D_AR
+	from gate output OUT_5E_E
+Generating output sheet edge signal assignment to 
+	signal MS_2ND_ADDR_SET_B_AND_D_AR
+	from gate output OUT_5F_D
