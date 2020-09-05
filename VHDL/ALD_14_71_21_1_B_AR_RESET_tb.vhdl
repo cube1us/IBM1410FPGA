@@ -177,13 +177,72 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
+   variable tv: std_logic_vector(17 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r: std_logic;
    variable g1, g2, g3, g4, g5, g6: std_logic;
 
    begin
 
    -- Your test bench code
+   
+   testName := "14.71.21.1        ";
+
+   for t in 0 to 262143 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      p := tv(15);
+      q := tv(16);
+      r := tv(17);
+      
+   	PS_I_RING_5_TIME <= a;
+      PS_A_RING_2_TIME <= b;
+      PS_SET_B_AR <= c;
+      PS_CONSOLE_CYCLE_START <= d;
+      MS_NOT_ADDR_DBL_OP_CODES <= not e;
+      MS_SYSTEM_RESET <= not f;
+      PS_B_OR_E_OR_F_CYCLE_CTRL <= g;
+      PS_LOGIC_GATE_EARLY_B <= h;
+      PS_1ST_CLOCK_PULSE_1 <= i;
+      PS_I_RING_10_TIME <= j;
+      PS_INDEX_REQUIRED <= k;
+      PS_A_CH_NOT_WM_BIT <= l;
+      PS_LOGIC_GATE_EARLY_F <= m;
+      PS_I_RING_1_OR_1401_AND_3_TIME <= n;
+      PS_I_RING_8_TIME <= o;
+      PS_1401_COND_TEST_OP_CODE <= p;
+      MS_1_ADDR_PLUS_MOD_OP_CODES <= not q;
+      PS_I_RING_6_OR_1401_AND_8_TIME <= r;
+
+      g1 := b and j and k;
+      g2 := n and l and m and not e;
+      g3 := b and a and k and m and not e;
+      g4 := o and l and m and p;
+      g5 := r and l and m and not q;
+      
+      wait for 30 ns;
+      check1(MS_RESET_B_AR,
+         NOT(i and ((g1 and m) or f or (c and d) or (g and h) or g3 or g2 or g5 or g4)),testName,"Reset B AR");
+      check1(PS_2ND_ADDR_INDEX_RES_CTRL,g1,testName,"2ND ADDR INDEX RES CTRL");
+      check1(MS_RESET_D_AR_1,NOT G2,testName,"RESET D AR 1");
+      check1(MS_RESET_D_AR_3_1401,NOT G4,testName,"RESET D AR 3 1401");
+      check1(MS_RESET_D_AR_2,NOT G5,testName,"RESET D AR 2");
+           
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -196,7 +255,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 10 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
