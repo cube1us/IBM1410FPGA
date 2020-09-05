@@ -7,6 +7,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
@@ -143,10 +144,48 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable tv: std_logic_vector(12 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m: std_logic;
+   variable g1, g2: std_logic;
 
    begin
 
    -- Your test bench code
+   testName := "14.71.14.1        ";
+   
+   for t in 0 to 2047 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      
+      PS_I_CYCLE_CTRL <= a;
+      PS_LOGIC_GATE_B_OR_C <= b;
+      PS_I_CYCLE <= c;
+      PS_LOGIC_GATE_D_OR_E_OR_F <= d;
+      MS_I_RING_OP_TIME <= not e;
+      PS_B_CH_WM_BIT_2 <= f;
+      MS_STORAGE_SCAN_ROUTINE <= not g;
+      MS_1401_LAST_I_CYCLE <= not h;
+      MV_CONS_ADDRESS_ENTRY_NORMAL_1 <= not i;
+      MS_STOPPED_AT_CYCLE_END <= not j;
+      MV_STORAGE_SCAN_MODE_2 <= not k;
+      
+      g1 := e or not f or g;     
+      
+      wait for 30 ns;
+      check1(PS_SET_I_AR,
+         (i and j) or (j and k) or (a and b) or (c and d and not h and g1), testName, "SET I AR");      
+           
+   end loop;
 
    wait;
    end process;
