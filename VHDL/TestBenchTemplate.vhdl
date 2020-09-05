@@ -15,6 +15,9 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable tv: std_logic_vector(15 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
+   variable g1, g2, g3, g4, g5, g6: std_logic;
 
    begin
 
