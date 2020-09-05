@@ -1,0 +1,27 @@
+Generating HDL for page 14.71.13.1 D ADDRESS REG SET CONTROLS-ACC at 9/5/2020 12:45:14 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_13_1_D_ADDRESS_REG_SET_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Removed 5 outputs from Gate at 2C to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_L
+	and inputs of MV_CONS_ADDRESS_ENTRY_D_AR,MS_STOPPED_AT_CYCLE_END
+	and logic function of NOR
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_D_CYCLE_CTRL,PS_LOGIC_GATE_B_OR_C
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F
+	and inputs of OUT_5C_NoPin,OUT_5D_NoPin,MS_2ND_ADDR_SET_B_AND_D_AR
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_E
+	and inputs of OUT_DOT_4C
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_D_CYCLE,PS_LOGIC_GATE_D_OR_E_OR_F
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of MS_INDEX_A_AR_DOT_INDEX_GATE,MS_1ST_ADDR_SET_B_AND_D_AR,PS_SET_C_AR_A
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4A_L,PS_1311_SET_DAR_STAR_1401,OUT_4C_F,OUT_4E_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_D_AR
+	from gate output OUT_2C_E
