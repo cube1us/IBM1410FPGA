@@ -1,0 +1,45 @@
+Generating HDL for page 14.71.15.1 E ADDRESS REGISTER SET CONTROLS-ACC at 9/5/2020 1:45:36 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_15_1_E_ADDRESS_REGISTER_SET_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Removed 5 outputs from Gate at 2C to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C
+	and inputs of MV_CONS_ADDRESS_ENTRY_E_AR,MS_STOPPED_AT_CYCLE_END
+	and logic function of NOR
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_E_CYCLE_CTRL,PS_LOGIC_GATE_S_OR_T
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_E_CYCLE,PS_LOGIC_GATE_U_OR_V_OR_W
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F
+	and inputs of OUT_5B_NoPin,OUT_5C_NoPin,OUT_DOT_5D
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_H
+	and inputs of OUT_DOT_4C
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_INDEX_REQUIRED,PS_INDEX_GATE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_P
+	and inputs of OUT_DOT_5F,OUT_DOT_5F
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_K
+	and inputs of PS_I_RING_10_TIME,PS_I_O_COML_AT_LATCH
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_D
+	and inputs of PS_2ND_ADDRESS,PS_INSN_RO_GATE
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_E
+	and inputs of PS_B_CH_NOT_WM_BIT,PS_I_O_COML_AT_LATCH,MS_UNIT_CTRL_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4A_C,OUT_4C_F,OUT_4D_P
+	and logic function of OR
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of OUT_5D_C,OUT_5E_K
+	and logic function of OR
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F, OUT_DOT_5F
+	and inputs of OUT_5F_D,OUT_5G_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_E_AR
+	from gate output OUT_2C_H
