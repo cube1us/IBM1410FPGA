@@ -153,7 +153,7 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(12 downto 0);
+   variable tv: std_logic_vector(13 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n: std_logic;
    variable g1, g2: std_logic;
 
@@ -177,7 +177,7 @@ uut_process: process
       k := tv(10);
       l := tv(11);
       m := tv(12);
-      n := tv(12);
+      n := tv(13);
       
       MV_CONS_ADDRESS_ENTRY_E_AR <= not a;
       MS_STOPPED_AT_CYCLE_END <= not b;
@@ -195,7 +195,7 @@ uut_process: process
       MS_UNIT_CTRL_OP_CODE <= not n;
       
       g1 := m and i and h and g;
-      g2 := m and not n and j and k;     
+      g2 := m and not n and l and j and k;     
       
       wait for 30 ns;
       check1(PS_SET_E_AR,
