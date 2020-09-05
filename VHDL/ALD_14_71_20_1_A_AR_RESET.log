@@ -1,0 +1,51 @@
+Generating HDL for page 14.71.20.1 A AR RESET at 9/5/2020 3:16:37 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_20_1_A_AR_RESET_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 2E to ignored block(s) or identical signal names
+Generating Statement for block at 4D with output pin(s) of OUT_4D_R
+	and inputs of PS_A_CYCLE_CTRL,PS_LOGIC_GATE_EARLY_B
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_4D_R,MS_SYSTEM_RESET,OUT_4E_D
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D, OUT_4E_D
+	and inputs of PS_INDEX_A_AR,PS_A_RING_2_TIME,PS_LOGIC_GATE_EARLY_F
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_H
+	and inputs of OUT_DOT_3E,OUT_2F_F
+	and logic function of Special
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of PS_I_RING_1_OR_1401_AND_3_TIME,PS_A_CH_NOT_WM_BIT,PS_LOGIC_GATE_EARLY_F
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of OUT_DOT_4F,OUT_4H_NoPin
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_F
+	and inputs of PS_1ST_CLOCK_PULSE_1
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_R
+	and inputs of PS_PERCENT_TYPE_OP_CODES,MS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of OUT_5G_R,OUT_4I_R,MS_STORE_ADDR_REGS_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of PS_SET_A_AR,PS_CONSOLE_CYCLE_START
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_R
+	and inputs of PS_2_CHAR_ONLY_OP_CODES,MS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_3D_C,PS_1311_RESET_AAR,OUT_3F_D
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F, OUT_DOT_4F
+	and inputs of OUT_4F_G,OUT_4G_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_INDEX_A_AR_DOT_A_RING_2_TIME
+	from gate output OUT_4E_D
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_A_AR
+	from gate output OUT_2E_H
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_C_AR_1
+	from gate output OUT_DOT_4F
