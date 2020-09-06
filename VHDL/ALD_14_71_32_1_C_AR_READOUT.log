@@ -1,0 +1,54 @@
+Generating HDL for page 14.71.32.1 C AR READOUT at 9/6/2020 6:05:26 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_32_1_C_AR_READOUT_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 1C to ignored block(s) or identical signal names
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of MS_CONSOLE_INHIBIT_AR_RO,PS_INDEX_A_AR,PS_B_TO_LAST_LOGIC_GATE
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of PS_LOGIC_GATE_SPECIAL_A,OUT_DOT_4D,MS_CONSOLE_INHIBIT_AR_RO
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_3B_G,OUT_3C_G,MV_CE_RO_C_AR
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_E
+	and inputs of OUT_DOT_2C
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_D
+	and inputs of PS_A_CYCLE_CTRL,PS_UNITS_CTRL_LATCH,PS_TABLE_SEARCH_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_P
+	and inputs of OUT_DOT_5E,OUT_5F_A
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_1401_STORE_AR_OP_CODES,PS_1ST_SCAN_CTRL,PS_C_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of MS_I_RING_3_TIME
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_A
+	and inputs of PS_C_CYCLE_CTRL,PS_STORE_ADDR_REGS_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_CONS_MX_30_POS,PS_DISPLAY_ROUTINE_1,PS_CONSOLE_STROBE
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of OUT_4G_NoPin,OUT_4H_NoPin
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of PS_CONSOLE_STROBE,PS_ALTER_ROUTINE,PS_CONS_MX_32_POS
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_2C_C,OUT_3G_C
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4D_P,PS_C_AR_RO_CTRL_STAR_ARITH
+	and logic function of OR
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
+	and inputs of OUT_5E_C,OUT_4E_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_RO_C_AR
+	from gate output OUT_1C_E
+Generating output sheet edge signal assignment to 
+	signal MS_TABLE_SEARCH_A_CYCLE_U_CTRL
+	from gate output OUT_5D_D
