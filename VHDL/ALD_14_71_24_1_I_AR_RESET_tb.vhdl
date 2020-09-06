@@ -160,6 +160,48 @@ uut_process: process
    begin
 
    -- Your test bench code
+   testName := "14.71.23.1        ";
+
+   for t in 0 to 8192 loop
+      tv := std_logic_vector(to_unsigned(t,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      
+      PS_SET_I_AR <= a;
+      PS_CONSOLE_CYCLE_START <= b;
+      PS_I_CYCLE_CTRL <= c;
+      PS_LOGIC_GATE_EARLY_B <= d;
+      MS_SYSTEM_RESET <= not e;
+      MS_I_RING_OP_TIME <= not f;
+      PS_LOGIC_GATE_EARLY_F <= g;
+      PS_1401_LAST_I_CYCLE <= h;
+      PS_I_CYCLE <= i;
+      PS_B_CH_WM_BIT_2 <= j;
+      PS_1ST_CLOCK_PULSE_1 <= k;
+      MS_STORAGE_SCAN_ROUTINE <= not l;
+      PS_LOGIC_GATE_F_1 <= m;
+
+      wait for 30 ns;
+  
+      check1(MS_RESET_I_AR,
+         NOT(k and (e or (a and b) or (c and d) or (h and not l and g) or (not f and g and i and j and not l))),
+         testName,"Reset I AR");
+         
+      check1(PS_SET_MEM_AR_TO_I_AR,(m and not l and h) or (not f and j and i and m and not l),testName,
+         "Set MEM AR to I AR");
+      
+   end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
