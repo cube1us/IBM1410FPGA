@@ -194,16 +194,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+-- fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--       fpga_clk <= '0';
+--      wait for clk_period / 2;
+--       fpga_clk <= '1';
+--       wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -215,13 +215,106 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
+   variable tv: std_logic_vector(24 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y: std_logic;
    variable g1, g2, g3, g4, g5, g6: std_logic;
 
    begin
 
    -- Your test bench code
+
+   testName := "14.71.30.1        ";
+   
+   FPGA_CLK <= '1';  -- Not needed for this combinatorial test.
+
+   SWITCH_ROT_ADDR_SEL <= "000000000001";  -- (0 position is just the seed)   
+   for tt in 0 to 255 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      MV_CE_ADDRESS_RO_ENABLE <= not tv(0);
+      SWITCH_MOM_ADDR_DISP <= tv(1) and tv(0); -- Switch does not work right yet.
+      if(tv(2) = '1' and tv(1) = '0' and tv(0) = '0') then
+         SWITCH_ROT_ADDR_SEL <= SWITCH_ROT_ADDR_SEL(10 downto 0) & "0";
+      end if;
+      wait for 30 ns;
+      check1(MS_CE_ADDR_REG_READ_OUT,not(tv(0) and tv(1)),testName,"CE ADDR REG RO");
+      check1(MV_CE_RO_B_AR,not SWITCH_ROT_ADDR_SEL(2),testName,"CE RO B AR");   
+      check1(MV_CE_RO_C_AR,not SWITCH_ROT_ADDR_SEL(3),testName,"CE RO C AR");   
+      check1(MV_CE_RO_D_AR,not SWITCH_ROT_ADDR_SEL(4),testName,"CE RO D AR");   
+      check1(MV_CE_RO_E_AR,not SWITCH_ROT_ADDR_SEL(5),testName,"CE RO E AR");   
+      check1(MV_CE_RO_F_AR,not SWITCH_ROT_ADDR_SEL(6),testName,"CE RO F AR");   
+      check1(MV_CE_RO_I_AR,not SWITCH_ROT_ADDR_SEL(7),testName,"CE RO I AR");   
+   end loop;
+   
+   SWITCH_ROT_ADDR_SEL <= "000000000000";
+   MV_CE_ADDRESS_RO_ENABLE <= '0';
+   SWITCH_MOM_ADDR_DISP <= '0';
+
+   for tt in 0 to 2048*16384 loop  -- 25 bits, 0 to 24 - 32M
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      p := tv(15);
+      q := tv(16);
+      r := tv(17);
+      s := tv(18);
+      t := tv(19);
+      u := tv(20);
+      v := tv(21);
+      w := tv(22);
+      x := tv(23);
+      y := tv(24);
+
+      g1 := a and not b and d and e;
+      g2 := u and v and not w and g and j;
+      g3 := t or (l and m) or (o and p) or (g and j and h) or (o and s and r) or g2 or q;
+
+   	PS_STORE_ADDR_REGS_OP_CODE <= a;
+   	MS_CONSOLE_INHIBIT_AR_RO <= not b;
+   	PS_A_SYMBOL_OP_MODIFIER <= c;
+   	PS_B_TO_LAST_LOGIC_GATE <= d;
+   	PS_C_CYCLE_1 <= e;
+   	MS_CONSOLE_RO_AAR <= not f;
+   	PS_I_CYCLE_CTRL <= g;
+   	PS_BRANCH_TO_A_AR_LATCH <= h;
+   	PS_LOGIC_GATE_SPECIAL_A <=i;
+      PS_I_RING_CTRL <= j;
+   	PS_C_CYCLE_CTRL <= l;
+   	PS_I_RING_1_OR_5_OR_6_OR_10_OR_1401_DOT_3_OR_8 <= m;
+   	MS_SCAN_RESTART_LATCH_STAR_1311 <= not n;
+   	PS_A_CYCLE_CTRL <= o;
+   	PS_READ_OUT_AAR_ON_A_CY_OPS <= p;
+   	MS_A_AR_RO_CTRL_STAR_ARITH <= not q;
+   	PS_TABLE_SEARCH_OP_CODE <= r;
+   	PS_BODY_CTRL_LATCH <= s;
+   	MS_1401_Q_OP_TRANS <= not t;
+   	PS_1401_MODE_1 <= u;
+   	PS_1401_BRANCH_LATCH <= v;
+   	MS_BRANCH_TO_00001 <= not w;
+   	MV_CE_ADDRESS_RO_ENABLE <= not y;
+   	SWITCH_MOM_ADDR_DISP <= x and y;    -- Switches previous signal (doesn't work right yet)
+   	SWITCH_ROT_ADDR_SEL(1) <= x and y;  -- Previous switch feeds this switch as well  
+
+      wait for 30 ns;
+
+      check1(PS_RO_A_AR,
+         f or (x and y) or n or (c and g1) or (not b and i and g3),testName,
+         "RO A AR");
+      check1(PS_STORE_ADDR_REG_OPS_RO_GATE,g1,testName,"Store ADDR Reg Ops RO Gate");                 
+      
+   end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -234,7 +327,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 1100 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
