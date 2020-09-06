@@ -1,0 +1,39 @@
+Generating HDL for page 14.71.25.1 E AR RESET-ACC at 9/6/2020 10:35:43 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_25_1_E_AR_RESET_ACC_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 2D to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PS_E_CYCLE_CTRL,PS_LOGIC_GATE_EARLY_S
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_R
+	and inputs of OUT_4B_C,MS_SYSTEM_RESET
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_P
+	and inputs of PS_SET_E_AR,PS_CONSOLE_CYCLE_START
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_A
+	and inputs of OUT_DOT_3D,OUT_2H_F
+	and logic function of Special
+Generating Statement for block at 4E with output pin(s) of OUT_4E_E
+	and inputs of PS_I_O_COML_AT_LATCH,PS_2ND_ADDR_INDEX_RES_CTRL,PS_LOGIC_GATE_EARLY_F
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_4D_P,OUT_4E_E,OUT_DOT_4F
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of PS_M_OR_L_OP_CODES,PS_LOGIC_GATE_EARLY_F,PS_I_RING_6_TIME
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of MS_I_O_PERCENT_LATCH,MS_I_O_LOZENGE_LATCH,MS_I_O_ASTERISK_LATCH
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_F
+	and inputs of PS_1ST_CLOCK_PULSE_1
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3C_R,OUT_3E_D
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
+	and inputs of OUT_4F_G,OUT_4G_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_E_AR
+	from gate output OUT_2D_A
