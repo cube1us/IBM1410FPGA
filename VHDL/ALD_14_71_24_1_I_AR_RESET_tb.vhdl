@@ -160,7 +160,7 @@ uut_process: process
    begin
 
    -- Your test bench code
-   testName := "14.71.23.1        ";
+   testName := "14.71.24.1        ";
 
    for t in 0 to 8192 loop
       tv := std_logic_vector(to_unsigned(t,tv'Length));
