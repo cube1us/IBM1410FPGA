@@ -1,0 +1,115 @@
+Generating HDL for page 14.71.30.1 A AR READOUT at 9/6/2020 12:15:39 PM
+Old test bench file ALD_14_71_30_1_A_AR_READOUT_tb.vhdl 60 lines preserved and 32 declaration lines preserved
+Block at coordinate 4H is marked for No HDL Generation -- skipped.
+WARNING: Diagram block at coordinate 2H has 4 different output pins: A,B,K,D
+WARNING: Diagram block at coordinate 2I has 3 different output pins: E,F,G
+Ignoring Logic Block 3G with symbol CAP
+Processing extension from block at 2H (Database ID=245050) to 2I (Database ID=245051)
+Copied connection from extension output pin E to master block at 2H
+Copied connection from extension output pin F to master block at 2H
+Copied connection from extension output pin G to master block at 2H
+Removed 2 outputs from Gate at 4A to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_K
+	and inputs of PS_STORE_ADDR_REGS_OP_CODE,MS_CONSOLE_INHIBIT_AR_RO
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C, OUT_4A_C
+	and inputs of OUT_DOT_5A
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_F
+	and inputs of PS_B_TO_LAST_LOGIC_GATE
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_R
+	and inputs of PS_C_CYCLE_1
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of OUT_4A_C,PS_A_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of PS_I_CYCLE_CTRL,PS_I_RING_CTRL,PS_BRANCH_TO_A_AR_LATCH
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F
+	and inputs of OUT_5C_C,OUT_5D_NoPin,OUT_5E_NoPin
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of PS_LOGIC_GATE_SPECIAL_A,OUT_DOT_4C,MS_CONSOLE_INHIBIT_AR_RO
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_E
+	and inputs of OUT_3B_D,OUT_3C_G,MS_CONSOLE_RO_AAR
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_G
+	and inputs of OUT_DOT_2C
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_C_CYCLE_CTRL,PS_I_RING_1_OR_5_OR_6_OR_10_OR_1401_DOT_3_OR_8
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_G
+	and inputs of OUT_2H_A,MS_SCAN_RESTART_LATCH_STAR_1311
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of PS_A_CYCLE_CTRL,PS_READ_OUT_AAR_ON_A_CY_OPS
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_E
+	and inputs of PS_TABLE_SEARCH_OP_CODE,PS_A_CYCLE_CTRL,PS_BODY_CTRL_LATCH
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of OUT_5F_E,MS_A_AR_RO_CTRL_STAR_ARITH,MS_1401_Q_OP_TRANS
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_K
+	and inputs of PS_1401_MODE_1,PS_1401_BRANCH_LATCH
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_P
+	and inputs of OUT_DOT_5G
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_D
+	and inputs of MS_BRANCH_TO_00001,PS_I_CYCLE_CTRL,PS_I_RING_CTRL
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_A, OUT_2H_B, OUT_2H_K, OUT_2H_D, OUT_2H_E, OUT_2H_F, OUT_2H_G
+	and inputs of OUT_4I_X
+	and logic function of Switch
+Generating Statement for block at 5I with output pin(s) of OUT_5I_T
+	and inputs of MV_CE_ADDRESS_RO_ENABLE
+	and logic function of Switch
+Generating Statement for block at 4I with output pin(s) of OUT_4I_X, OUT_4I_X
+	and inputs of OUT_5I_T
+	and logic function of Resistor
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
+	and inputs of OUT_5A_K,OUT_5B_F,OUT_4B_R
+	and logic function of OR
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_F,OUT_4F_D,OUT_4G_P
+	and logic function of OR
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_2C_E,OUT_2D_G
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of OUT_5G_K,OUT_5H_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_STORE_ADDR_REG_OPS_RO_GATE
+	from gate output OUT_4A_C
+Generating output sheet edge signal assignment to 
+	signal PS_RO_A_AR
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal MV_CE_RO_B_AR
+	from gate output OUT_2H_B
+Generating output sheet edge signal assignment to 
+	signal MV_CE_RO_C_AR
+	from gate output OUT_2H_K
+Generating output sheet edge signal assignment to 
+	signal MV_CE_RO_D_AR
+	from gate output OUT_2H_D
+Generating output sheet edge signal assignment to 
+	signal MV_CE_RO_E_AR
+	from gate output OUT_2H_E
+Generating output sheet edge signal assignment to 
+	signal MV_CE_RO_F_AR
+	from gate output OUT_2H_F
+Generating output sheet edge signal assignment to 
+	signal MV_CE_RO_I_AR
+	from gate output OUT_2H_G
+Generating output sheet edge signal assignment to 
+	signal MS_CE_ADDR_REG_READ_OUT
+	from gate output OUT_4I_X
