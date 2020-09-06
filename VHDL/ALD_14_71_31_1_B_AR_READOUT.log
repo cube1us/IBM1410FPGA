@@ -1,0 +1,63 @@
+Generating HDL for page 14.71.31.1 B AR READOUT at 9/6/2020 3:06:32 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_31_1_B_AR_READOUT_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C
+	and inputs of PS_1401_STORE_AR_OP_CODES,MS_CONSOLE_INHIBIT_AR_RO
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_K
+	and inputs of MV_CE_RO_B_AR,MS_CONSOLE_RO_BAR
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_R
+	and inputs of PS_B_TO_LAST_LOGIC_GATE
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_B
+	and inputs of PS_A_OR_C_CYCLE
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of MS_CONSOLE_INHIBIT_AR_RO,PS_E_CYCLE_CTRL,PS_E_CH_UNOVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_DOT_3B,OUT_DOT_3D,OUT_DOT_3E
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of PS_F_CYCLE_CTRL,PS_F_CH_UNOVLP_IN_PROCESS,MS_CONSOLE_INHIBIT_AR_RO
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_P
+	and inputs of MS_1ST_I_O_CYCLE_CONTROL
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of PS_D_CYCLE_CTRL,PS_I_RING_1_OR_5_OR_6_OR_10_OR_1401_DOT_3_OR_8,PS_PROCESS_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of OUT_5G_C,MS_B_AR_RO_CTRL_STAR_ARITH,OUT_5I_E
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of OUT_4G_D,MS_CONSOLE_INHIBIT_AR_RO,PS_LOGIC_GATE_SPECIAL_A
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_3G_G,OUT_3H_C
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_H
+	and inputs of OUT_DOT_2G
+	and logic function of EQUAL
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of PS_STORE_ADDR_REG_OPS_RO_GATE,PS_B_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_E
+	and inputs of PS_B_CYCLE_CTRL,PS_1ST_OR_2ND_OR_3RD_SCAN_CTRL,PS_RO_B_AR_ON_SCAN_B_CY_OPS
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_3A_C,OUT_3B_R,OUT_2B_B
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3C_E,PS_BLOCK_BAR_RO_E_CH_STAR_1311,OUT_3F_P
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_3E_D,PS_BLOCK_BAR_RO_F_CH_STAR_1311
+	and logic function of OR
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_2A_K,OUT_2D_C,OUT_2G_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_RO_B_AR
+	from gate output OUT_1G_H
