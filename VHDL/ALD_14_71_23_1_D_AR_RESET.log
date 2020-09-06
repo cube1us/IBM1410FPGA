@@ -1,0 +1,33 @@
+Generating HDL for page 14.71.23.1 D AR RESET at 9/6/2020 8:15:11 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_23_1_D_AR_RESET_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 2E to ignored block(s) or identical signal names
+Generating Statement for block at 3D with output pin(s) of OUT_3D_G
+	and inputs of OUT_4F_C,MS_SYSTEM_RESET,MS_RESET_D_AR_1
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of MS_1311_RESET_DAR_STAR_1401
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of OUT_DOT_3E,OUT_2F_F
+	and logic function of Special
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PS_D_CYCLE_CTRL,PS_LOGIC_GATE_EARLY_B
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_F
+	and inputs of PS_1ST_CLOCK_PULSE_1
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of MS_RESET_D_AR_2,MS_RESET_D_AR_3,OUT_5H_D
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_D
+	and inputs of PS_SET_D_AR,PS_CONSOLE_CYCLE_START
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_G
+	and inputs of MS_INDEX_A_AR_DOT_A_RING_2_TIME,MS_RESET_D_AR_3_1401
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_3D_G,OUT_4E_C,OUT_3G_G,OUT_3I_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_D_AR
+	from gate output OUT_2E_A
