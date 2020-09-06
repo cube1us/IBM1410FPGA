@@ -1,0 +1,61 @@
+Generating HDL for page 14.71.24.1 I AR RESET at 9/6/2020 10:16:22 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_24_1_I_AR_RESET_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 14 outputs from Gate at 2H to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_1401_LAST_I_CYCLE,MS_STORAGE_SCAN_ROUTINE,PS_LOGIC_GATE_EARLY_F
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_B
+	and inputs of PS_SET_I_AR,PS_CONSOLE_CYCLE_START
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of OUT_4B_D,OUT_4C_B
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_K
+	and inputs of PS_I_CYCLE_CTRL,PS_LOGIC_GATE_EARLY_B
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of MS_I_RING_OP_TIME,PS_LOGIC_GATE_EARLY_F
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E
+	and inputs of OUT_5D_K,OUT_DOT_4E,MS_SYSTEM_RESET
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of OUT_DOT_3E,OUT_2F_R
+	and logic function of Special
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of PS_I_CYCLE,PS_B_CH_WM_BIT_2,MS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_R
+	and inputs of PS_1ST_CLOCK_PULSE_1
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of MS_I_RING_OP_TIME,PS_B_CH_WM_BIT_2
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_E
+	and inputs of PS_I_CYCLE,PS_LOGIC_GATE_F_1,MS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_A
+	and inputs of OUT_DOT_4H,OUT_2I_B
+	and logic function of Special
+Generating Statement for block at 5I with output pin(s) of OUT_5I_E
+	and inputs of PS_LOGIC_GATE_F_1,MS_STORAGE_SCAN_ROUTINE,PS_1401_LAST_I_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_B
+	and inputs of OUT_5I_E
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_3C_G,OUT_3E_E
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_5E_C,OUT_5F_C
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H
+	and inputs of OUT_5G_C,OUT_5H_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_I_AR
+	from gate output OUT_2E_C
+Generating output sheet edge signal assignment to 
+	signal PS_SET_MEM_AR_TO_I_AR
+	from gate output OUT_2H_A
