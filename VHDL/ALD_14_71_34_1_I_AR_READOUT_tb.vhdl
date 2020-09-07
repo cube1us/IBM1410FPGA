@@ -167,7 +167,7 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "14.71.33.1        ";
+   testName := "14.71.34.1        ";
    
    FPGA_CLK <= '1';  -- Not needed for this combinatorial test.
   
