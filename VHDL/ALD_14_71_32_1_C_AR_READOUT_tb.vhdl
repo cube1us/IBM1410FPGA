@@ -150,16 +150,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -171,13 +171,76 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
+   variable tv: std_logic_vector(18 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s: std_logic;
    variable g1, g2, g3, g4, g5, g6: std_logic;
 
    begin
 
    -- Your test bench code
+
+   testName := "14.71.32.1        ";
+   
+   FPGA_CLK <= '1';  -- Not needed for this combinatorial test.
+  
+   for tt in 0 to 8*65536 loop  -- 19 bits (8 * 16 bits) 
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      p := tv(15);
+      q := tv(16);
+      r := tv(17);
+      s := tv(18);
+
+      g1 := i or (n and m) or (m and k and j and not l);
+
+	   PS_INDEX_A_AR <= a;
+	   PS_B_TO_LAST_LOGIC_GATE <= b;
+      MS_CONSOLE_INHIBIT_AR_RO <= not c;
+   	PS_LOGIC_GATE_SPECIAL_A <= d;
+   	MV_CE_RO_C_AR <= not e;
+   	PS_A_CYCLE_CTRL <= f;
+   	PS_UNITS_CTRL_LATCH <= g;
+   	PS_TABLE_SEARCH_OP_CODE <= h;
+   	PS_C_AR_RO_CTRL_STAR_ARITH <= i;
+   	PS_1401_STORE_AR_OP_CODES <= j;
+   	PS_1ST_SCAN_CTRL <= k;
+   	MS_I_RING_3_TIME <= not l;
+   	PS_C_CYCLE_CTRL <= m;
+   	PS_STORE_ADDR_REGS_OP_CODE <= n;
+   	PS_CONS_MX_30_POS <= o;
+   	PS_DISPLAY_ROUTINE_1 <= p;  
+   	PS_CONSOLE_STROBE <= q;
+   	PS_ALTER_ROUTINE <= r;
+   	PS_CONS_MX_32_POS <= s;
+
+      wait for 30 ns;
+   
+      check1(PS_RO_C_AR,
+         e or (a and b and not c) or (not c and d and g1) or (o and p and q) or (q and r and s)
+         ,testName,"RO C AR");
+         
+      if(PS_RO_C_AR /= '0' and PS_RO_C_AR /= '1') then
+         assert false report "Simulation UNDEFINED" severity failure;
+      end if;   
+         
+      check1 (MS_TABLE_SEARCH_A_CYCLE_U_CTRL,NOT(f and g and h),testName,"TS . A CY . U Ctrl");
+      
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -190,7 +253,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 50 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
