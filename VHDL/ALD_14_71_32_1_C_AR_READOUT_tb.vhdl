@@ -221,6 +221,7 @@ uut_process: process
    	MS_I_RING_3_TIME <= not l;
    	PS_C_CYCLE_CTRL <= m;
    	PS_STORE_ADDR_REGS_OP_CODE <= n;
+   	wait for 10 ns;
    	PS_CONS_MX_30_POS <= o;
    	PS_DISPLAY_ROUTINE_1 <= p;  
    	PS_CONSOLE_STROBE <= q;
