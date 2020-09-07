@@ -108,16 +108,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -136,6 +136,30 @@ uut_process: process
    begin
 
    -- Your test bench code
+
+   testName := "14.71.36.1        ";
+   
+   for tt in 0 to 63 loop  
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+
+   	MV_CE_RO_F_AR <= not a;
+   	PS_F_CYCLE_CTRL <= b;
+   	PS_F_CH_OVLP_IN_PROCESS <= c;
+   	MS_CONSOLE_INHIBIT_AR_RO <= not d;
+   	PS_STORE_ADDR_REG_OPS_RO_GATE <= e;
+   	PS_F_SYMBOL_OP_MODIFIER <= f;
+
+      wait for 30 ns;
+
+      check1(PS_RO_F_AR,a or (c and b and not d) or (e and f),testName,"RO FAR");   
+               
+   end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
