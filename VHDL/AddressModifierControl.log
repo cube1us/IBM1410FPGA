@@ -1,0 +1,49 @@
+Generating HDL for group named AddressModifierControlat 9/7/2020 11:17:50 AM containing pages: 
+	14.71.40.1, 14.71.41.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddressModifierControl_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 12 signals on page 14.71.40.1
+Found 21 signals on page 14.71.41.1
+Found 27 unique input signals and 6 unique output signals, (33 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LOGIC GATE D 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE Z originates outside the group.
+INFO:  Signal -S LOGIC GATE B 1 originates outside the group.
+INFO:  Signal +S LOGIC GATE A OR R originates outside the group.
+INFO:  Signal +S 2ND CLOCK PULSE 3 originates outside the group.
+INFO:  Signal -S PROGRAM RESET 5 originates outside the group.
+INFO:  Signal +S BORROW LATCH ON originates outside the group.
+INFO:  Signal +S ZERO LATCH ON originates outside the group.
+INFO:  Signal -V 2ND CHECK TEST SWITCH originates outside the group.
+INFO:  Signal +S I RING 1+5+6+10+1401.3+8 originates outside the group.
+INFO:  Signal +S C OR D CYCLE CTRL originates outside the group.
+INFO:  Signal +S I CYCLE CTRL originates outside the group.
+INFO:  Signal -S X CYCLE CTRL originates outside the group.
+INFO:  Signal -S 1401 Q OP TRANS originates outside the group.
+INFO:  Signal -S F CYCLE CTRL originates outside the group.
+INFO:  Signal -S NO SCAN CTRL originates outside the group.
+INFO:  Signal +S 1ST SCAN CTRL originates outside the group.
+INFO:  Signal -S 1ST SCAN CTRL originates outside the group.
+INFO:  Signal +S 1401 STORE AR OP CODES originates outside the group.
+INFO:  Signal -S INTR BRANCH.B CYCLE CTRL originates outside the group.
+INFO:  Signal -V STORAGE SCAN MODE 1 originates outside the group.
+INFO:  Signal -S DISPLAY ROUTINE originates outside the group.
+INFO:  Signal +S STORAGE SCAN ROUTINE originates outside the group.
+INFO:  Signal -V CONS MODE SW CE MODE originates outside the group.
+INFO:  Signal -S 2ND SCAN CTRL originates outside the group.
+INFO:  Signal -S 3RD SCAN CTRL originates outside the group.
+INFO:  Signal -S E CYCLE CTRL originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S NOT EVEN HUNDREDS ADDR is used outside the group.
+INFO:  Signal +S EVEN HUNDREDS ADDR is used outside the group.
+INFO:  Signal +S RESET ADDR MOD CTRL LATCH is used outside the group.
+INFO:  Signal +S ADDR MOD SET TO PLUS ONE is used outside the group.
+INFO:  Signal +S ADDR MOD SET TO MINUS ONE is used outside the group.
+INFO:  Signal +S ADDR MOD SET TO ZERO is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.71.40.1 (ADDRESS MODIFIER CONTROL-ACC)
+Generating HDL associated with page 14.71.41.1 (ADDRESS MODIFIER CONTROL)

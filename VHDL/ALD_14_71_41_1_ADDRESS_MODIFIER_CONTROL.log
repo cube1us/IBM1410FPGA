@@ -1,0 +1,86 @@
+Generating HDL for page 14.71.41.1 ADDRESS MODIFIER CONTROL at 9/7/2020 11:16:49 AM
+WARNING: Diagram block at coordinate 5G has 4 different output pins: A,B,D,E
+NOTE: DOT Function at 5G is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+NOTE: DOT Function at 5H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Ignoring Logic Block 3F with symbol CAP
+Ignoring Logic Block 3G with symbol CAP
+Removed 1 outputs from Gate at 4F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4G to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G
+	and inputs of PS_I_CYCLE_CTRL,MV_STORAGE_SCAN_MODE_1
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4G_X
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_3B_C,PS_STORAGE_SCAN_ROUTINE,PS_I_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_G
+	and inputs of OUT_5B_G,OUT_2B_D,MS_2ND_SCAN_CTRL
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_G
+	and inputs of MS_E_CYCLE_CTRL,MS_F_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_D
+	and inputs of PS_C_OR_D_CYCLE_CTRL,PS_I_RING_1_OR_5_OR_6_OR_10_OR_1401_DOT_3_OR_8,MS_DISPLAY_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C
+	and inputs of MS_NO_SCAN_CTRL,OUT_DOT_4D,OUT_2E_E
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_1401_STORE_AR_OP_CODES,PS_1ST_SCAN_CTRL
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_B
+	and inputs of OUT_5E_C
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of OUT_4F_X
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_E
+	and inputs of OUT_3E_C,PS_I_CYCLE_CTRL,PS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_X
+	and inputs of OUT_DOT_5G
+	and logic function of Resistor
+Generating Statement for block at 1F with output pin(s) of OUT_1F_G
+	and inputs of MS_1401_Q_OP_TRANS
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_A, OUT_5G_B, OUT_5G_D, OUT_5G_E
+	and inputs of MV_CONS_MODE_SW_CE_MODE
+	and logic function of Switch
+Generating Statement for block at 4G with output pin(s) of OUT_4G_X
+	and inputs of OUT_DOT_5H
+	and logic function of Resistor
+Generating Statement for block at 5H with output pin(s) of OUT_5H_C
+	and inputs of MS_INTR_BRANCH_DOT_B_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_D
+	and inputs of MS_1ST_SCAN_CTRL,MS_3RD_SCAN_CTRL,MS_X_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_1B_G,OUT_1C_G
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_5D_D,OUT_4E_B
+	and logic function of OR
+Generating Statement for block at 1H with output pin(s) of OUT_DOT_1H
+	and inputs of OUT_5H_C,OUT_5I_D
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_1D_C,OUT_1F_G
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of OUT_5G_B,OUT_5G_D
+	and logic function of AND
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of OUT_5G_A,OUT_5G_E
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_MOD_SET_TO_PLUS_ONE
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_MOD_SET_TO_MINUS_ONE
+	from gate output OUT_DOT_1H
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_MOD_SET_TO_ZERO
+	from gate output OUT_DOT_1D
