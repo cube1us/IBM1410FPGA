@@ -138,16 +138,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -167,6 +167,57 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "14.71.33.1        ";
+   
+   FPGA_CLK <= '1';  -- Not needed for this combinatorial test.
+  
+   for tt in 0 to 32768 loop  
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      
+      g1 := m and not n and not o and d and l;
+      g2 := d and l and e;
+      g3 := i or (not h and d) or (a and k) or (k and j) or g2 or g1;
+      g4 := not f and g and g3;
+
+	   PS_INTERRUPT_BRANCH <= a;
+      MV_CE_RO_I_AR <= not b;
+      MS_CONSOLE_RO_IAR <= not c;
+      PS_I_CYCLE_CTRL <= d;
+      PS_NO_BRANCH_LATCH <= e;
+      MS_CONSOLE_INHIBIT_AR_RO <= not f;
+      PS_LOGIC_GATE_SPECIAL_A <= g;
+      MS_I_RING_CTRL <= not h;
+      MS_STORAGE_SCAN_ROUTINE <= not i;
+      PS_NO_SCAN_CTRL <= j;
+      PS_B_CYCLE_CTRL <= k;
+      PS_I_RING_CTRL <= l;
+      PS_1401_MODE_1 <= m;
+      MS_1401_BRANCH_LATCH <= not n;
+      MS_BRANCH_TO_00001 <= not o;
+
+      wait for 30 ns;
+   
+      check1(PS_RO_I_AR,c or b or g4,testName,"RO I AR");
+      check1(MS_INTR_BRANCH_DOT_B_CYCLE_CTRL,NOT(a and k),testName,"INTR BRANCH . B Cycle Ctrl");         
+               
+   end loop;
+
+
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
@@ -178,7 +229,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 100 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
