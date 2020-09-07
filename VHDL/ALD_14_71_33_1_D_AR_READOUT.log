@@ -1,0 +1,39 @@
+Generating HDL for page 14.71.33.1 D AR READOUT at 9/6/2020 8:11:26 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_33_1_D_AR_READOUT_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_INDEX_REQUIRED,PS_I_RING_10_TIME
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_P
+	and inputs of PS_B_TO_LAST_LOGIC_GATE,MS_CONSOLE_INHIBIT_AR_RO
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E
+	and inputs of MS_CONSOLE_INHIBIT_AR_RO,PS_LOGIC_GATE_SPECIAL_A,PS_D_AR_RO_CTRL_STAR_ARITH
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of OUT_4F_E,OUT_DOT_4D,MV_CE_RO_D_AR
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_G
+	and inputs of OUT_DOT_2F
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of PS_CONSOLE_STROBE,PS_DISPLAY_ROUTINE_1,PS_CONS_MX_32_POS
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_4G_D,OUT_4H_E,OUT_4I_R
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_E
+	and inputs of PS_CONSOLE_STROBE,PS_DISPLAY_OR_ALTER,PS_CONS_MX_33_POS
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_R
+	and inputs of PS_NO_SCAN_CTRL,PS_ALTER_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4C_C,OUT_4D_P
+	and logic function of OR
+Generating Statement for block at 2F with output pin(s) of OUT_DOT_2F
+	and inputs of OUT_2F_C,PS_1311_RO_DAR_STAR_1401,OUT_2G_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_RO_D_AR
+	from gate output OUT_1F_G
