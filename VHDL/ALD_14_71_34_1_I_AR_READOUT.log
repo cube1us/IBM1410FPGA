@@ -1,0 +1,49 @@
+Generating HDL for page 14.71.34.1 I AR READOUT at 9/7/2020 8:12:07 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_34_1_I_AR_READOUT_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 5D to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1E to ignored block(s) or identical signal names
+Generating Statement for block at 5D with output pin(s) of OUT_5D_P, OUT_5D_P
+	and inputs of PS_INTERRUPT_BRANCH,PS_B_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_I_CYCLE_CTRL,PS_I_RING_CTRL,PS_NO_BRANCH_LATCH
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of OUT_5E_C,OUT_5G_C,OUT_DOT_5H
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E
+	and inputs of OUT_DOT_4E,MS_CONSOLE_INHIBIT_AR_RO,PS_LOGIC_GATE_SPECIAL_A
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of OUT_3E_E,MV_CE_RO_I_AR,MS_CONSOLE_RO_IAR
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_H
+	and inputs of OUT_2E_D
+	and logic function of EQUAL
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of MS_I_RING_CTRL,PS_I_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of OUT_5D_P,OUT_5F_C,MS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of PS_NO_SCAN_CTRL,PS_B_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_C
+	and inputs of PS_1401_MODE_1,MS_1401_BRANCH_LATCH
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_E
+	and inputs of MS_BRANCH_TO_00001,PS_I_CYCLE_CTRL,PS_I_RING_CTRL
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4E_D,OUT_4F_C
+	and logic function of OR
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of OUT_5H_C,OUT_5I_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_INTR_BRANCH_DOT_B_CYCLE_CTRL
+	from gate output OUT_5D_P
+Generating output sheet edge signal assignment to 
+	signal PS_RO_I_AR
+	from gate output OUT_1E_H
