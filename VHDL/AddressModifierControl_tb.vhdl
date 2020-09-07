@@ -210,14 +210,203 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
+   variable tv: std_logic_vector(17 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s: std_logic;
    variable g1, g2, g3, g4, g5, g6: std_logic;
+   variable sv: std_logic_vector(5 downto 0);
 
    begin
 
    -- Your test bench code
 
+   testName := "14.71.40.1        ";
+   
+   MS_PROGRAM_RESET_5 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_5 <= '1';
+   wait for 30 ns;
+   
+   check1(PS_EVEN_HUNDREDS_ADDR,'0',testName,"SA");
+   check1(PS_NOT_EVEN_HUNDREDS_ADDR,'0',testName,"SB");
+   check1(PS_RESET_ADDR_MOD_CTRL_LATCH,'1',testName,"SC");
+   
+   PS_BORROW_LATCH_ON <= '0';
+   PS_LOGIC_GATE_D_1 <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns;
+   check1(PS_EVEN_HUNDREDS_ADDR,'0',testName,"1A");
+   PS_BORROW_LATCH_ON <= '1';
+   PS_LOGIC_GATE_D_1 <= '0';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns;
+   check1(PS_EVEN_HUNDREDS_ADDR,'0',testName,"1B");
+   PS_BORROW_LATCH_ON <= '1';
+   PS_LOGIC_GATE_D_1 <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '0';
+   wait for 30 ns;
+   check1(PS_EVEN_HUNDREDS_ADDR,'0',testName,"1C");
+   PS_BORROW_LATCH_ON <= '1';
+   PS_LOGIC_GATE_D_1 <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns; -- Sets Latch
+   PS_BORROW_LATCH_ON <= '0';
+   PS_LOGIC_GATE_D_1 <= '0';
+   PS_2ND_CLOCK_PULSE_3 <= '0';
+   wait for 30 ns; -- Latch stays set   
+   check1(PS_EVEN_HUNDREDS_ADDR,'1',testName,"1D");
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns; -- resets latch
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns; -- resets latch
+   check1(PS_EVEN_HUNDREDS_ADDR,'0',testName,"1E");
+   
+   PS_ZERO_LATCH_ON <= '0';
+   PS_LOGIC_GATE_D_1 <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns;
+   check1(PS_NOT_EVEN_HUNDREDS_ADDR,'0',testName,"2A");
+   PS_ZERO_LATCH_ON <= '1';
+   PS_LOGIC_GATE_D_1 <= '0';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns;
+   check1(PS_NOT_EVEN_HUNDREDS_ADDR,'0',testName,"2B");
+   PS_ZERO_LATCH_ON <= '1';
+   PS_LOGIC_GATE_D_1 <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '0';
+   wait for 30 ns;
+   check1(PS_NOT_EVEN_HUNDREDS_ADDR,'0',testName,"2C");
+   PS_ZERO_LATCH_ON <= '1';
+   PS_LOGIC_GATE_D_1 <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns; -- Sets Latch
+   PS_ZERO_LATCH_ON <= '0';
+   PS_LOGIC_GATE_D_1 <= '0';
+   PS_2ND_CLOCK_PULSE_3 <= '0';
+   wait for 30 ns; -- Latch stays set   
+   check1(PS_NOT_EVEN_HUNDREDS_ADDR,'1',testName,"2D");
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns; -- resets latch
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns; -- resets latch
+   check1(PS_NOT_EVEN_HUNDREDS_ADDR,'0',testName,"2E");
+   
+   PS_LOGIC_GATE_A_OR_R <= '0';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns;
+   check1(PS_RESET_ADDR_MOD_CTRL_LATCH,'1',testName,"3A");
+   PS_LOGIC_GATE_A_OR_R <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '0';
+   wait for 30 ns;
+   check1(PS_RESET_ADDR_MOD_CTRL_LATCH,'1',testName,"3B");
+   PS_LOGIC_GATE_A_OR_R <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns; -- Resets Latch
+   PS_LOGIC_GATE_A_OR_R <= '0';
+   PS_2ND_CLOCK_PULSE_3 <= '0';
+   wait for 30 ns; -- Latch stays reset
+   check1(PS_RESET_ADDR_MOD_CTRL_LATCH,'0',testName,"3C");
+   PS_LOGIC_GATE_Z <= '0';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns;
+   check1(PS_RESET_ADDR_MOD_CTRL_LATCH,'0',testName,"3D");
+   PS_LOGIC_GATE_Z <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '0';
+   wait for 30 ns;
+   check1(PS_RESET_ADDR_MOD_CTRL_LATCH,'0',testName,"3E");
+   PS_LOGIC_GATE_Z <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns; -- Latch set
+   PS_LOGIC_GATE_Z <= '0';
+   PS_2ND_CLOCK_PULSE_3 <= '0';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_RESET_ADDR_MOD_CTRL_LATCH,'1',testName,"3F");
+   PS_LOGIC_GATE_A_OR_R <= '1';
+   PS_2ND_CLOCK_PULSE_3 <= '1';
+   wait for 30 ns; -- Resets Latch
+   PS_LOGIC_GATE_A_OR_R <= '0';
+   PS_2ND_CLOCK_PULSE_3 <= '0';
+   wait for 30 ns; -- Latch stays reset
+   check1(PS_RESET_ADDR_MOD_CTRL_LATCH,'0',testName,"3G");
+   MV_2ND_CHECK_TEST_SWITCH <= '0';
+   wait for 30 ns; -- Sets latch   
+   MV_2ND_CHECK_TEST_SWITCH <= '1';
+   wait for 30 ns; -- Latch stays set
+   check1(PS_RESET_ADDR_MOD_CTRL_LATCH,'1',testName,"3H");   
+
+   testName := "14.71.41.1        ";
+   
+   for tt in 0 to 4*65536 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      p := tv(15);
+      q := tv(16);
+      r := tv(17);
+
+	   PS_I_CYCLE_CTRL <= a;
+      MV_STORAGE_SCAN_MODE_1 <= not b;
+      MS_2ND_SCAN_CTRL <= not c;
+      MS_E_CYCLE_CTRL <= not d;
+      MS_F_CYCLE_CTRL <= not e;
+      MS_NO_SCAN_CTRL <= not f;
+      PS_C_OR_D_CYCLE_CTRL <= g;
+      PS_I_RING_1_OR_5_OR_6_OR_10_OR_1401_DOT_3_OR_8 <= h;
+      MS_DISPLAY_ROUTINE <= not i;
+      PS_STORAGE_SCAN_ROUTINE <= j;
+      PS_1401_STORE_AR_OP_CODES <= k;
+      PS_1ST_SCAN_CTRL <= l;
+      MS_1401_Q_OP_TRANS <= not m;
+      MV_CONS_MODE_SW_CE_MODE <= not n;
+      MS_INTR_BRANCH_DOT_B_CYCLE_CTRL <= not o;
+      MS_1ST_SCAN_CTRL <= not p;  -- OK - does NOT track PS (l) - not used togther
+      MS_3RD_SCAN_CTRL <= not q;            
+      MS_X_CYCLE_CTRL <= not r;
+
+      -- Because switching of -V signals is nto working right, we fake it here
+      -- If the console mode is not CE, then the outputs from the mode switch
+      -- are all 1's.  Otherwise, the particular entry is 0.
+      
+      -- Note that even though the output from this rotary switch is active low,
+      -- switches are implemented such that a "1" is indicative of the active
+      -- position.  The HDL generator then complements that.
+
+      for s in 1 to 5 loop
+         sv := "000000"; -- Start assuming open, with pull up to ground
+         sv(s) := n;     -- Value of CE MODE Switch (again, complemented)
+         SWITCH_ROT_STOR_SCAN(5 downto 0) <= sv;
+         wait for 30 ns;
+
+         -- Below, the ILD shows "not k AND not l" but the ALD implements not k OR not l
+         check1(PS_ADDR_MOD_SET_TO_ZERO,
+            m or f or ((not k or not l) and g and not i and h) or (a and j and 
+               (SWITCH_ROT_STOR_SCAN(2) or SWITCH_ROT_STOR_SCAN(4))),testName,
+               "ADDR MOD ZERO");     
+               
+         check1(PS_ADDR_MOD_SET_TO_PLUS_ONE,
+            d or e or c or (a and not b) or (a and j and
+               (SWITCH_ROT_STOR_SCAN(1) or SWITCH_ROT_STOR_SCAN(5))),testName,
+               "ADDR MOD +1");
+               
+         check1(PS_ADDR_MOD_SET_TO_MINUS_ONE,
+            o or p or q or r,testName,"ADDR MOD -1");
+                                                
+      end loop;
+      
+   end loop;
+   
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
@@ -229,7 +418,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 1000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
