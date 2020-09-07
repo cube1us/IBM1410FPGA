@@ -1,0 +1,18 @@
+Generating HDL for page 14.71.36.1 F AR READOUT-ACC at 9/7/2020 11:00:15 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_36_1_F_AR_READOUT_ACC_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 1B to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_E
+	and inputs of PS_F_CYCLE_CTRL,PS_F_CH_OVLP_IN_PROCESS,MS_CONSOLE_INHIBIT_AR_RO
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_E
+	and inputs of OUT_5B_E,MV_CE_RO_F_AR,OUT_3C_D
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C
+	and inputs of OUT_2B_E
+	and logic function of EQUAL
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of PS_STORE_ADDR_REG_OPS_RO_GATE,PS_F_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_RO_F_AR
+	from gate output OUT_1B_C
