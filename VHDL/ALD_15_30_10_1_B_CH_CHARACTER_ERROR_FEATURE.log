@@ -1,0 +1,31 @@
+Generating HDL for page 15.30.10.1 B CH CHARACTER ERROR FEATURE at 9/8/2020 4:22:20 PM
+Ignoring Logic Block 5G with symbol R
+Ignoring Logic Block 5I with symbol R
+Added LAMP signal LAMP_15A1K20
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of PS_CHAR_SEL_ERROR_CHK_1
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_CHAR_SEL_ERROR_CHK_1,PS_CHAR_SEL_ERROR_CHK_2
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_D
+	and inputs of PS_CHAR_SEL_ERROR_CHK_2
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_F
+	and inputs of OUT_4G_NoPin,OUT_4I_NoPin
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_D, OUT_2H_D
+	and inputs of OUT_3H_F,PS_ERROR_SAMPLE
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_NoPin
+	and inputs of OUT_5F_C,OUT_5H_D
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_D
+	and inputs of OUT_2H_D
+	and logic function of NOT
+Generating Statement for block at 1I with output pin(s) of 
+	and inputs of OUT_2I_D
+	and logic function of Lamp
+Generating output sheet edge signal assignment to 
+	signal MS_B_CHAR_SEL_ERROR
+	from gate output OUT_2H_D

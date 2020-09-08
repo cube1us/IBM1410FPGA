@@ -1,0 +1,9 @@
+Generating HDL for page 15.30.09.1 B CH DRIVE WM BIT-ACC at 9/8/2020 4:22:19 PM
+Processing extension from block at 3A (Database ID=247191) to 3B (Database ID=247192)
+Removed 14 outputs from Gate at 3A to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C
+	and inputs of MS_B_DATA_REG_WM_BIT
+	and logic function of Special
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_WM_BIT_1
+	from gate output OUT_3A_C

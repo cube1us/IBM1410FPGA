@@ -1,0 +1,34 @@
+Generating HDL for page 15.30.07.1 B CHANNEL DRIVE C BIT FEATURE at 9/8/2020 4:21:33 PM
+Ignoring Logic Block 5F with symbol R
+WARNING: During sheet edge merge, Logic block at 3E pin A outputs to two different signal names: +B B CH C BIT vs. +S B CH C BIT
+Removed 3 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 5D to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8D13
+Generating Statement for block at 3A with output pin(s) of OUT_3A_K
+	and inputs of OUT_5E_R
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of 
+	and inputs of OUT_3A_K
+	and logic function of Lamp
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of OUT_5E_R
+	and logic function of EQUAL
+Generating Statement for block at 5E with output pin(s) of OUT_5E_R, OUT_5E_R, OUT_5E_R
+	and inputs of OUT_DOT_5D
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_A, OUT_3E_A
+	and inputs of OUT_5E_R
+	and logic function of Special
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of PS_B_DATA_REG_C_BIT_STAR_0_STAR,PS_B_DATA_REG_C_BIT_STAR_1_STAR,PS_B_DATA_REG_C_BIT_STAR_2_STAR,PS_B_DATA_REG_C_BIT_STAR_3_STAR,PS_B_DATA_REG_C_BIT_STAR_FROM_M2_STAR
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_NOT_C_BIT
+	from gate output OUT_3B_G
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_C_BIT
+	from gate output OUT_3E_A
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_C_BIT
+	from gate output OUT_3E_A

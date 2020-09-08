@@ -1,0 +1,40 @@
+Generating HDL for page 15.30.03.1 B CHANNEL DRIVE 4 BIT FEATURE at 9/8/2020 4:21:26 PM
+Ignoring Logic Block 5F with symbol R
+Processing extension from block at 3B (Database ID=246360) to 3C (Database ID=246361)
+Processing extension from block at 3E (Database ID=246365) to 3F (Database ID=246366)
+WARNING: During sheet edge merge, Logic block at 3B pin E outputs to two different signal names: +B B CH NOT 4 BIT vs. +S B CH NOT 4 BIT
+WARNING: During sheet edge merge, Logic block at 3E pin H outputs to two different signal names: +B B CH 4 BIT vs. +S B CH 4 BIT
+Removed 13 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 15 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 5D to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8H13
+Generating Statement for block at 3A with output pin(s) of OUT_3A_B
+	and inputs of OUT_5E_B
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of 
+	and inputs of OUT_3A_B
+	and logic function of Lamp
+Generating Statement for block at 3B with output pin(s) of OUT_3B_E, OUT_3B_E
+	and inputs of OUT_5E_B
+	and logic function of EQUAL
+Generating Statement for block at 5E with output pin(s) of OUT_5E_B, OUT_5E_B, OUT_5E_B
+	and inputs of OUT_DOT_5D
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_H, OUT_3E_H
+	and inputs of OUT_5E_B
+	and logic function of Special
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of PS_B_DATA_REG_4_BIT_STAR_0_STAR,PS_B_DATA_REG_4_BIT_STAR_1_STAR,PS_B_DATA_REG_4_BIT_STAR_2_STAR,PS_B_DATA_REG_4_BIT_STAR_3_STAR,PS_B_DATA_REG_4_BIT_STAR_FROM_M2_STAR
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_NOT_4_BIT
+	from gate output OUT_3B_E
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_NOT_4_BIT
+	from gate output OUT_3B_E
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_4_BIT
+	from gate output OUT_3E_H
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_4_BIT
+	from gate output OUT_3E_H

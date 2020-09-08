@@ -1,0 +1,43 @@
+Generating HDL for page 15.30.08.1 B CHANNEL DRIVE WM BIT FEATURE at 9/8/2020 4:21:34 PM
+Ignoring Logic Block 5G with symbol R
+Processing extension from block at 3B (Database ID=247063) to 3C (Database ID=247064)
+Processing extension from block at 3G (Database ID=247068) to 3H (Database ID=247069)
+WARNING: During sheet edge merge, Logic block at 3B pin H outputs to two different signal names: +B B CH NOT WM BIT vs. +S B CH NOT WM BIT
+WARNING: During sheet edge merge, Logic block at 3G pin H outputs to two different signal names: +B B CH WM BIT vs. +S B CH WM BIT 2
+Removed 27 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 19 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 5E to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8C13
+Generating Statement for block at 3A with output pin(s) of OUT_3A_E
+	and inputs of OUT_5F_B
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of 
+	and inputs of OUT_3A_E
+	and logic function of Lamp
+Generating Statement for block at 3B with output pin(s) of OUT_3B_H, OUT_3B_H
+	and inputs of OUT_5F_B
+	and logic function of EQUAL
+Generating Statement for block at 5F with output pin(s) of OUT_5F_B, OUT_5F_B, OUT_5F_B, OUT_5F_B
+	and inputs of OUT_DOT_5E
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_H, OUT_3G_H
+	and inputs of OUT_5F_B
+	and logic function of Special
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
+	and inputs of PS_B_DATA_REG_WM_BIT_STAR_0_STAR,PS_B_DATA_REG_WM_BIT_STAR_1_STAR,PS_B_DATA_REG_WM_BIT_STAR_2_STAR,PS_B_DATA_REG_WM_BIT_STAR_3_STAR,PS_B_DATA_REG_WM_BIT_STAR_FROM_M2_STAR
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_NOT_WM_BIT
+	from gate output OUT_3B_H
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_NOT_WM_BIT
+	from gate output OUT_3B_H
+Generating output sheet edge signal assignment to 
+	signal MS_B_DATA_REG_WM_BIT
+	from gate output OUT_5F_B
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_WM_BIT_2
+	from gate output OUT_3G_H
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_WM_BIT
+	from gate output OUT_3G_H
