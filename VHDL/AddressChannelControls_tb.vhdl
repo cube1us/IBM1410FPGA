@@ -107,6 +107,9 @@ architecture behavioral of AddressChannelControls_tb is
    constant HDL_2_BIT: integer := 1;
    constant HDL_1_BIT: integer := 0;
 
+   constant MX_X1A_POS: integer := 7;
+   constant MX_X6A_POS: integer := 8;
+
 procedure check1(
     checked: in STD_LOGIC;
     val: in STD_LOGIC;
@@ -174,16 +177,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--begin
+--   fpga_clk <= '0';
+--   wait for clk_period / 2;
+--   fpga_clk <= '1';
+--   wait for clk_period / 2;
+--end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -197,11 +200,136 @@ uut_process: process
    variable subtest: integer;
    variable tv: std_logic_vector(15 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
-   variable g1, g2, g3, g4, g5, g6: std_logic;
+   variable g1, g2, g3, g4, g5, g6, g7: std_logic;
 
    begin
 
    -- Your test bench code
+
+   testName := "14.71.60.1        ";
+   
+   for tt in 0 to 256 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      -- d := tv(3);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      i := tv(7);
+
+		PS_LOGIC_GATE_Z <= a;
+		MS_ADDRESS_SET_ROUTINE <= not b;
+		MS_ANY_LAST_GATE <= not c;
+		-- PS_ZERO_TO_ADDR_CH can't test here - internal only signal
+		PS_LOGIC_GATE_W <= e;
+		PS_LOGIC_GATE_H <= f;
+		MS_X_CYCLE <= not g;
+		MS_LOGIC_GATE_G <= not h;
+		PS_LOGIC_GATE_F_1 <= i;
+	   
+	   wait for 30 ns;
+
+      check1(MS_INSERT_ZERO_ON_ADDR_CH,not(h or i or e or (f and not g) or 
+         (a and not c and NOT b)),testName,"Insert Zero on Addr Ch");
+      
+   end loop;
+
+   check1(MS_INSERT_ZERO_ON_ADDR_CH,'1',testName,"Verify NOT Insert Zero on Addr Ch");
+
+   testName := "14.71.61.1        ";
+   
+   for tt in 0 to 2048 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+
+      g1 := f and g and h and not i and not j and not k;
+      
+		PS_CONS_MX_X_POS_BUS(MX_X1A_POS) <= a;
+      PS_KEYBOARD_UNLOCK <= b;
+      MS_ADDR_SET_KEYBOARD_LOCK <= not c;
+      PS_X_CYCLE <= d;
+      PS_LOGIC_GATE_H <= e;
+      PS_LOGIC_GATE_A_OR_R <= f;
+      PS_I_CYCLE <= g;
+      PS_A_CH_NOT_BUS(HDL_WM_BIT) <= h;
+      MS_OP_MOD_CHAR_TIME_STAR_ARS <= not i;
+      MS_STORAGE_SCAN_ROUTINE <= not j;
+      MS_I_RING_HDL_BUS(0) <= not k; -- Op time
+      	   
+	   wait for 30 ns;
+	   
+	   check1(PS_SET_NU_TO_ADDR_CH,(a and b and not c) or (d and e) or g1,
+	     testName,"Set NU to Addr CH");
+
+   end loop;
+
+   testName := "14.71.62.1        ";
+   
+   for tt in 0 to 16384 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+
+      g1 := a and not b and not c;
+      g2 := not c and not b and e;
+      g3 := h and e and i;
+      g4 := g and not f and n and not d;
+      g5 := i and j and l;
+      g6 := not d and n and not m;
+      g7 := not d and n and k;
+
+      MS_X_CYCLE <= '0';  -- Prevent issues with destination page true on LGH
+		PS_LOGIC_GATE_J <= a;
+		MS_1401_DOT_X_CYCLE_DOT_A_RING_4_TIME <= not b;
+		MS_1401_DOT_I_CYCLE_DOT_I_RING_5_OR_10 <= not c;
+		MS_ADDRESS_SET_ROUTINE <= not d;
+		PS_LOGIC_GATE_K <= e;
+		MS_1401_MODE_1 <= not f;
+		PS_OP_OR_OP_MOD_POSITION <= g;
+		PS_A_RING_BUS(4) <= h;
+		PS_X_CYCLE <= i;
+		PS_A_RING_BUS(6) <= j;
+		PS_I_RING_1_OR_6_TIME <= k;
+		PS_LOGIC_GATE_H <= l;
+		MS_I_CYCLE <= not m;
+		PS_LOGIC_GATE_A_OR_R <= n;      
+      
+	   wait for 30 ns;
+	   
+	   -- Output from this page is internal only, so used destination page signal
+	   -- There don't seem to be any overlapping terms owing to different signal
+	   -- polarity inputs for X Cycle
+	   
+	   check1(MS_INSERT_ZERO_ON_ADDR_CH,
+	     not(g1 or g2 or g3 or g4 or g5 or g6 or g7),
+	     testName,"ZERO TO ADDR CH");
+
+   end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
