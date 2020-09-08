@@ -146,16 +146,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -174,6 +174,17 @@ uut_process: process
    begin
 
    -- Your test bench code
+   
+   testName := "15.30.xx.1        ";
+   
+   for insignal in 1 to 5 loop
+      for b in 0 to 255 loop
+         tv := std_logic_vector(to_unsigned(b,tv'Length));
+         case insignal is
+            when 1 => 
+         end case;
+      end loop;
+   end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
