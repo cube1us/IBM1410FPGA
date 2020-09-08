@@ -1,4 +1,4 @@
-Generating HDL for page 15.30.06.1 B CHANNEL DRIVE B BIT FEATURE at 9/8/2020 4:21:31 PM
+Generating HDL for page 15.30.06.1 B CHANNEL DRIVE B BIT FEATURE at 9/8/2020 4:53:50 PM
 Ignoring Logic Block 5F with symbol R
 Processing extension from block at 3B (Database ID=246847) to 3C (Database ID=246848)
 Processing extension from block at 3E (Database ID=246851) to 3F (Database ID=246852)
@@ -7,7 +7,7 @@ WARNING: During sheet edge merge, Logic block at 3E pin H outputs to two differe
 Removed 10 outputs from Gate at 3B to ignored block(s) or identical signal names
 Removed 21 outputs from Gate at 3E to ignored block(s) or identical signal names
 Removed 1 outputs from Dot Function at 5D to ignored block(s) or identical signal names
-Added LAMP signal LAMP_11C8L13
+Added LAMP signal LAMP_11C8E13
 Generating Statement for block at 3A with output pin(s) of OUT_3A_C
 	and inputs of OUT_5E_F
 	and logic function of NOT
