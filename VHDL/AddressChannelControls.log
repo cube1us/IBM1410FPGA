@@ -1,0 +1,55 @@
+Generating HDL for group named AddressChannelControlsat 9/8/2020 2:21:05 PM containing pages: 
+	14.71.60.1, 14.71.61.1, 14.71.62.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddressChannelControls_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 10 signals on page 14.71.60.1
+Found 12 signals on page 14.71.61.1
+Found 15 signals on page 14.71.62.1
+Found 29 unique input signals and 3 unique output signals, (31 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S ANY LAST GATE originates outside the group.
+INFO:  Signal +S LOGIC GATE Z originates outside the group.
+INFO:  Signal +S LOGIC GATE F 1 originates outside the group.
+INFO:  Signal -S LOGIC GATE G originates outside the group.
+INFO:  Signal +S LOGIC GATE H originates outside the group.
+INFO:  Signal +S LOGIC GATE W originates outside the group.
+INFO:  Signal -S X CYCLE originates outside the group.
+INFO:  Signal -S ADDRESS SET ROUTINE originates outside the group.
+INFO:  Signal +S ZERO TO ADDR CH originates inside the group.
+INFO:  Signal +S LOGIC GATE A OR R originates outside the group.
+INFO:  Signal -S I RING OP TIME originates outside the group.
+INFO:  Signal +S I CYCLE originates outside the group.
+INFO:  Signal +S X CYCLE originates outside the group.
+INFO:  Signal +S CONS MX X1A POS originates outside the group.
+INFO:  Signal +S KEYBOARD UNLOCK originates outside the group.
+INFO:  Signal -S ADDR SET KEYBOARD LOCK originates outside the group.
+INFO:  Signal +S A CH NOT WM BIT originates outside the group.
+INFO:  Signal -S OP MOD CHAR TIME *ARS originates outside the group.
+INFO:  Signal -S STORAGE SCAN ROUTINE originates outside the group.
+INFO:  Signal +S LOGIC GATE J originates outside the group.
+INFO:  Signal +S LOGIC GATE K originates outside the group.
+INFO:  Signal +S I RING 1 OR 6 TIME originates outside the group.
+INFO:  Signal -S I CYCLE originates outside the group.
+INFO:  Signal -S 1401 MODE 1 originates outside the group.
+INFO:  Signal -S 1401.X CYCLE.A RING 4 TIME originates outside the group.
+INFO:  Signal -S 1401.I CYCLE.I RING 5 + 10 originates outside the group.
+INFO:  Signal +S A RING 4 TIME originates outside the group.
+INFO:  Signal +S A RING 6 TIME originates outside the group.
+INFO:  Signal +S OP + OP MOD POSITION originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S INSERT ZERO ON ADDR CH is used outside the group.
+INFO:  Signal +S SET NU TO ADDR CH is used outside the group.
+INFO:  Signal +S ZERO TO ADDR CH is used only inside the group.
+Removing 1 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Input Signal -S I RING OP TIME replaced by Bus signal -S I RING HDL BUS
+Input Signal +S CONS MX X1A POS replaced by Bus signal +S CONS MX X POS BUS
+Input Signal +S A CH NOT WM BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A RING 4 TIME replaced by Bus signal +S A RING BUS
+Input Signal +S A RING 6 TIME replaced by Bus signal +S A RING BUS
+Generating list of internal signals/wires ...
+1 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 14.71.60.1 (ADDRESS CHANNEL CONTROLS)
+Generating HDL associated with page 14.71.61.1 (ADDRESS CHANNEL CONTROLS)
+Generating HDL associated with page 14.71.62.1 (ADDRESS CHANNEL CONTROLS)

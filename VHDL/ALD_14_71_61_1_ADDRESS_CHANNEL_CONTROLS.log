@@ -1,0 +1,50 @@
+Generating HDL for page 14.71.61.1 ADDRESS CHANNEL CONTROLS at 9/8/2020 2:19:21 PM
+Removed 2 outputs from Gate at 3E to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_B
+	and inputs of PS_CONS_MX_X1A_POS,PS_KEYBOARD_UNLOCK
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_R
+	and inputs of OUT_DOT_4A
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G
+	and inputs of MS_ADDR_SET_KEYBOARD_LOCK
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_R
+	and inputs of PS_X_CYCLE
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_B
+	and inputs of OUT_DOT_4C
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_LOGIC_GATE_H
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_F
+	and inputs of PS_LOGIC_GATE_A_OR_R
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of OUT_DOT_4E,OUT_DOT_2C
+	and logic function of Special
+Generating Statement for block at 5F with output pin(s) of OUT_5F_P
+	and inputs of PS_I_CYCLE,PS_A_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_D
+	and inputs of MS_OP_MOD_CHAR_TIME_STAR_ARS
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_P
+	and inputs of MS_STORAGE_SCAN_ROUTINE,MS_I_RING_OP_TIME
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_5A_B,OUT_5B_G
+	and logic function of OR
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_5C_R,OUT_5D_C
+	and logic function of OR
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_3A_R,OUT_3C_B
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_5E_F,OUT_5F_P,OUT_5G_D,OUT_5H_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_NU_TO_ADDR_CH
+	from gate output OUT_3E_C
