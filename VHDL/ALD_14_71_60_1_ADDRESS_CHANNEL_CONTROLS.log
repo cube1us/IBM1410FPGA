@@ -1,0 +1,48 @@
+Generating HDL for page 14.71.60.1 ADDRESS CHANNEL CONTROLS at 9/8/2020 2:16:24 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_60_1_ADDRESS_CHANNEL_CONTROLS_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_F
+	and inputs of PS_LOGIC_GATE_Z
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of MS_ADDRESS_SET_ROUTINE
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B
+	and inputs of MS_ANY_LAST_GATE
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_R
+	and inputs of OUT_DOT_4B
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D
+	and inputs of PS_LOGIC_GATE_W
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F
+	and inputs of OUT_4C_D
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_D
+	and inputs of OUT_DOT_2D
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_B
+	and inputs of PS_LOGIC_GATE_H
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of MS_X_CYCLE
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_DOT_4G,MS_LOGIC_GATE_G,OUT_4H_D
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_D
+	and inputs of PS_LOGIC_GATE_F_1
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_4A_F,OUT_2A_D,OUT_4B_B
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2B_R,OUT_2C_F,PS_ZERO_TO_ADDR_CH,OUT_2G_C
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G
+	and inputs of OUT_4F_B,OUT_4G_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_INSERT_ZERO_ON_ADDR_CH
+	from gate output OUT_1D_D
