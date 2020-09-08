@@ -150,16 +150,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -178,6 +178,58 @@ uut_process: process
    begin
 
    -- Your test bench code
+
+   testName := "14.71.51.1        ";
+   
+   for tt in 0 to 16384 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      -- i := tv(8);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
+      m := tv(11);
+      n := tv(12);
+      o := tv(13);
+
+	   PS_2ND_CLOCK_PULSE_3_JRJ <= a;
+	   PS_LOGIC_GATE_E_2 <= n;
+	   PS_STOP_AT_G_STAR_ARITH <= o; 
+	   PS_LOGIC_GATE_D_1 <= B;
+	   PS_STOP_AT_F <= c;
+	   PS_LOGIC_GATE_F_1 <= d;
+	   PS_STOP_AT_H <= e;
+	   PS_LOGIC_GATE_G <= f;
+	   PS_STOP_AT_J <= g;
+	   PS_LOGIC_GATE_H <= h;
+	   PS_STOP_AT_K <= j;
+	   PS_OUTPUT_CYCLE <= k;
+	   PS_LOGIC_GATE_U <= l;
+	   PS_INPUT_CYCLE <= m;
+	   
+	   wait for 30 ns;
+	   
+	   check1(MY_START_MEM_CLOCK,not a,testName,"Start Mem Clock");
+	   check1(MS_STOP_AT_G_DOT_LOGIC_GATE_E,NOT(n and o),testName,"SAG . LGE");
+	   check1(MS_STOP_AT_F_DOT_LOGIC_GATE_D,NOT(b and c),testName,"SAF . GGD");
+	   check1(MS_STOP_AT_H_DOT_LOGIC_GATE_F,NOT(d and e),testName,"SAH . LGF");
+	   check1(MS_STOP_AT_J_DOT_LOGIC_GATE_G,NOT(f and g),testName,"SAJ . LGG");
+	   check1(MS_STOP_AT_K_DOT_LOGIC_GATE_H,NOT(h and j),testName,"SAK . LGH");
+	   
+	   check1(MY_WRITE_CALL,
+	         NOT(NOT MS_STOP_AT_G_DOT_LOGIC_GATE_E or NOT MS_STOP_AT_F_DOT_LOGIC_GATE_D or
+	         NOT MS_STOP_AT_H_DOT_LOGIC_GATE_F or NOT MS_STOP_AT_J_DOT_LOGIC_GATE_G or
+	         NOT MS_STOP_AT_K_DOT_LOGIC_GATE_H or
+	         (l and k) or (l and m)),testName,"-Y Write Call");
+      
+   end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
