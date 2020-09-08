@@ -16,6 +16,9 @@
    constant HDL_2_BIT: integer := 1;
    constant HDL_1_BIT: integer := 0;
 
+   constant MX_X1A_POS: integer := 7;
+   constant MX_X6A_POS: integer := 8;
+
 procedure check1(
     checked: in STD_LOGIC;
     val: in STD_LOGIC;
