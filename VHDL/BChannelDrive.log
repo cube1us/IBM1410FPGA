@@ -1,7 +1,7 @@
-Generating HDL for group named BChannelDriveat 9/8/2020 4:55:04 PM containing pages: 
+Generating HDL for group named BChannelDriveat 9/8/2020 5:32:29 PM containing pages: 
 	15.30.01.1, 15.30.02.1, 15.30.03.1, 15.30.04.1, 15.30.05.1
 	15.30.06.1, 15.30.07.1, 15.30.08.1, 15.30.09.1, 15.30.10.1
-Old test bench file BChannelDrive_tb.vhdl 60 lines preserved and 35 declaration lines preserved
+Old test bench file BChannelDrive_tb.vhdl 71 lines preserved and 35 declaration lines preserved
 Building lists of signals on 10 pages...
 Found 9 signals on page 15.30.01.1
 Found 9 signals on page 15.30.02.1
@@ -172,6 +172,7 @@ DEBUG: Added signal +B B CH NOT B BIT to bus +B B CH NOT BUS
 DEBUG: Added signal +B B CH B BIT to bus +B B CH BUS
 DEBUG: Added signal +S B CH C BIT to bus +S B CH BUS
 DEBUG: Added signal +S B CH NOT C BIT to bus +S B CH NOT BUS
+DEBUG: Added signal +B B CH C BIT to bus +B B CH BUS
 DEBUG: Added signal +S B CH NOT WM BIT to bus +S B CH NOT BUS
 DEBUG: Added signal +B B CH NOT WM BIT to bus +B B CH NOT BUS
 DEBUG: Added signal +B B CH WM BIT to bus +B B CH BUS
@@ -214,6 +215,7 @@ Output signal +B B CH NOT B BIT replaced by bus +B B CH NOT BUS
 Output signal +B B CH B BIT replaced by bus +B B CH BUS
 Output signal +S B CH C BIT replaced by bus +S B CH BUS
 Output signal +S B CH NOT C BIT replaced by bus +S B CH NOT BUS
+Output signal +B B CH C BIT replaced by bus +B B CH BUS
 Output signal +S B CH NOT WM BIT replaced by bus +S B CH NOT BUS
 Output signal +B B CH NOT WM BIT replaced by bus +B B CH NOT BUS
 Output signal +B B CH WM BIT replaced by bus +B B CH BUS
