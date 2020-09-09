@@ -1,0 +1,45 @@
+Generating HDL for group named AChannelDataControlat 9/9/2020 9:43:01 AM containing pages: 
+	15.38.02.1, 15.38.03.1, 15.38.05.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AChannelDataControl_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 17 signals on page 15.38.02.1
+Found 5 signals on page 15.38.03.1
+Found 4 signals on page 15.38.05.1
+Found 19 unique input signals and 4 unique output signals, (23 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S A CYCLE originates outside the group.
+INFO:  Signal +S B CYCLE 1 originates outside the group.
+INFO:  Signal -S I CYCLE.NOT CR DISABLE originates outside the group.
+INFO:  Signal -S X CYCLE.NOT CR DISABLE originates outside the group.
+INFO:  Signal -S C CYCLE.NOT CR DISABLE originates outside the group.
+INFO:  Signal -S D CYCLE.NOT CR DISABLE originates outside the group.
+INFO:  Signal +S CONTROL REG DISABLE originates outside the group.
+INFO:  Signal -S CONTROL REG DISABLE originates outside the group.
+INFO:  Signal -S 1401 STORE AR OP CODES originates outside the group.
+INFO:  Signal +S 1401 STORE AR OP CODES originates outside the group.
+INFO:  Signal +S A REG TO A CH ON B CY OPS originates outside the group.
+INFO:  Signal +S OP MOD TO A CH ON B CY OPS originates outside the group.
+INFO:  Signal -S OUTPUT CYCLE originates outside the group.
+INFO:  Signal -S INTERRUPT.B CYCLE originates outside the group.
+INFO:  Signal -S GATE CONSOLE TO ASSEMBLY originates outside the group.
+INFO:  Signal +S E CYCLE originates outside the group.
+INFO:  Signal +S E CH INPUT MODE originates outside the group.
+INFO:  Signal +S F CYCLE originates outside the group.
+INFO:  Signal +S F CH INPUT MODE originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S GATE A DATA REG TO A CH is used outside the group.
+INFO:  Signal +S GATE OP MOD REG TO A CH is used outside the group.
+INFO:  Signal +S GATE E2 DATA REG TO A CH is used outside the group.
+INFO:  Signal +S GATE F2 DATA REG TO A CH is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Page 15.38.02.1 generates Lamp Output LAMP_11C8C14
+Page 15.38.02.1 generates Lamp Output LAMP_11C8D14
+Page 15.38.03.1 generates Lamp Output LAMP_11C8E14
+Page 15.38.05.1 generates Lamp Output LAMP_11C8F14
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.38.02.1 (A CHANNEL DATA CONTROL-ACC)
+Generating HDL associated with page 15.38.03.1 (A CHANNEL DATA CONTROL E2)
+Generating HDL associated with page 15.38.05.1 (F2 REG TO A CH CONTROL)

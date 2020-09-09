@@ -1,0 +1,65 @@
+Generating HDL for page 15.38.02.1 A CHANNEL DATA CONTROL-ACC at 9/9/2020 9:42:18 AM
+Removed 8 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 7 outputs from Gate at 1F to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8C14
+Added LAMP signal LAMP_11C8D14
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of MS_I_CYCLE_DOT_NOT_CR_DISABLE,MS_C_CYCLE_DOT_NOT_CR_DISABLE,MS_D_CYCLE_DOT_NOT_CR_DISABLE
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_B
+	and inputs of OUT_DOT_4A
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of MS_X_CYCLE_DOT_NOT_CR_DISABLE,MS_OUTPUT_CYCLE,OUT_5C_R
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_R
+	and inputs of PS_B_CYCLE_1,PS_A_REG_TO_A_CH_ON_B_CY_OPS
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_1401_STORE_AR_OP_CODES,PS_A_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of OUT_5D_C,OUT_5E_P,MS_INTERRUPT_DOT_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_P
+	and inputs of PS_CONTROL_REG_DISABLE,MS_GATE_CONSOLE_TO_ASSEMBLY
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_P
+	and inputs of OUT_DOT_4A
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_B
+	and inputs of OUT_3E_P
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of 
+	and inputs of OUT_2E_B
+	and logic function of Lamp
+Generating Statement for block at 5F with output pin(s) of OUT_5F_D
+	and inputs of MS_1401_STORE_AR_OP_CODES,PS_A_CYCLE,MS_CONTROL_REG_DISABLE
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G, OUT_4F_G
+	and inputs of OUT_5F_D,OUT_5H_NoPin
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_A
+	and inputs of OUT_4F_G
+	and logic function of EQUAL
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of PS_B_CYCLE_1,PS_OP_MOD_TO_A_CH_ON_B_CY_OPS
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_E
+	and inputs of OUT_4F_G
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_A
+	and inputs of OUT_3I_E
+	and logic function of NOT
+Generating Statement for block at 1I with output pin(s) of 
+	and inputs of OUT_2I_A
+	and logic function of Lamp
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A, OUT_DOT_4A
+	and inputs of OUT_4A_G,OUT_4B_G,OUT_4D_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_GATE_A_DATA_REG_TO_A_CH
+	from gate output OUT_1A_B
+Generating output sheet edge signal assignment to 
+	signal PS_GATE_OP_MOD_REG_TO_A_CH
+	from gate output OUT_1F_A

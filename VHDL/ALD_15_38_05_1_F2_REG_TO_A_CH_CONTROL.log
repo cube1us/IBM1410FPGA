@@ -1,0 +1,27 @@
+Generating HDL for page 15.38.05.1 F2 REG TO A CH CONTROL at 9/9/2020 9:42:25 AM
+Removed 8 outputs from Gate at 3B to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8F14
+Generating Statement for block at 5B with output pin(s) of OUT_5B_K
+	and inputs of PS_F_CH_INPUT_MODE,MS_CONTROL_REG_DISABLE
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D, OUT_3B_D
+	and inputs of OUT_DOT_4B
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_F
+	and inputs of PS_F_CYCLE
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_P
+	and inputs of OUT_3B_D
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_K
+	and inputs of OUT_3D_P
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of 
+	and inputs of OUT_2D_K
+	and logic function of Lamp
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_5B_K,OUT_5C_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_GATE_F2_DATA_REG_TO_A_CH
+	from gate output OUT_3B_D
