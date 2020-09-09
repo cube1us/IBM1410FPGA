@@ -175,12 +175,63 @@ uut_process: process
    testName := "15.30.xx.1        ";
    
    for insignal in 1 to 5 loop
+      
+      -- Set up 
+      PS_B_DATA_REG_STAR_0_STAR_BUS <= "00000000";
+      PS_B_DATA_REG_STAR_1_STAR_BUS <= "00000000";
+      PS_B_DATA_REG_STAR_2_STAR_BUS <= "00000000";
+      PS_B_DATA_REG_STAR_3_STAR_BUS <= "00000000";
+      PS_B_DATA_REG_STAR_FROM_M2_STAR_BUS  <= "00000000";
+      wait for 10 ns;                        
+   
       for b in 0 to 255 loop
          tv := std_logic_vector(to_unsigned(b,tv'Length));
          case insignal is
-            when 1 => 
+            when 1 => PS_B_DATA_REG_STAR_0_STAR_BUS <= tv(7 downto 0);
+            when 2 => PS_B_DATA_REG_STAR_1_STAR_BUS <= tv(7 downto 0);
+            when 3 => PS_B_DATA_REG_STAR_2_STAR_BUS <= tv(7 downto 0);
+            when 4 => PS_B_DATA_REG_STAR_3_STAR_BUS <= tv(7 downto 0);
+            when 5 => PS_B_DATA_REG_STAR_FROM_M2_STAR_BUS  <= tv(7 downto 0);                        
          end case;
+         wait for 30 ns;
+         for i in 0 to 7 loop
+            check1(PS_B_CH_NOT_BUS(i),not tv(i),testName,"+S B CH NOT BUS " & INTEGER'IMAGE(i));
+            check1(PB_B_CH_BUS(i),tv(i),testName,"+B B CH BUS " & INTEGER'IMAGE(i));
+            check1(LAMPS_B_CH(i),tv(i),testName,"LAMPS B CH BUS " & INTEGER'IMAGE(i));
+            
+            -- +B B CH NOT Bus has no C bit
+            
+            if(i /= 7) then
+               check1(PB_B_CH_NOT_BUS(i),not tv(i),testName,"+B B CH NOT BUS " & INTEGER'IMAGE(i));
+            end if;
+            
+            -- +S B CH WM BIT has no bus bit.  Instead, it generates TWO signals, ...1 and ...1
+            
+            if(i /= 6) then
+               check1(PS_B_CH_BUS(i),tv(i),testName,"+S B CH BUS " & INTEGER'IMAGE(i));
+            else
+               check1(PS_B_CH_WM_BIT_1,tv(6),testName,"+S B CH WM BIT 1");
+               check1(PS_B_CH_WM_BIT_2,tv(6),testName,"+S B CH WM BIT 2");
+            end if;
+         end loop;         
       end loop;
+   end loop;
+   
+   testName := "15.30.10.1        ";
+   
+   for i in 0 to 7 loop
+      tv := std_logic_vector(to_unsigned(i,tv'length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      
+      PS_CHAR_SEL_ERROR_CHK_1 <= a;
+      PS_CHAR_SEL_ERROR_CHK_2 <= b;
+      PS_ERROR_SAMPLE <= c;
+      wait for 30 ns;
+      check1(MS_B_CHAR_SEL_ERROR,NOT(c and ((a and b) or (not a and not b))),testName,"B CHAR Sel Error");
+      check1(LAMP_15A1K20,c and ((a and b) or (not a and not b)),testName,"B CHAR Sel Error");      
+      
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
