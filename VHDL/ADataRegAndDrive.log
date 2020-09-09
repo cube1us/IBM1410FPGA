@@ -1,7 +1,7 @@
-Generating HDL for group named ADataRegAndDriveat 9/9/2020 11:36:59 AM containing pages: 
+Generating HDL for group named ADataRegAndDriveat 9/9/2020 11:42:56 AM containing pages: 
 	15.39.01.1, 15.39.02.1, 15.39.03.1, 15.39.04.1, 15.39.05.1
 	15.39.06.1, 15.39.07.1, 15.39.08.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ADataRegAndDrive_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file ADataRegAndDrive_tb.vhdl 60 lines preserved and 35 declaration lines preserved
 Building lists of signals on 8 pages...
 Found 17 signals on page 15.39.01.1
 Found 17 signals on page 15.39.02.1
