@@ -1,0 +1,111 @@
+Generating HDL for page 15.38.04.1 OP MOD CONTROLS-ACC at 9/9/2020 10:40:42 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_38_04_1_OP_MOD_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Removed 3 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3I to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1C to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of PS_I_RING_1_TIME,PS_2_CHAR_ONLY_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_R
+	and inputs of PS_2ND_CLOCK_PULSE_2
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of OUT_2A_P
+	and inputs of PS_B_CH_NOT_WM_BIT,PS_I_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of PS_I_RING_6_TIME,PS_1_ADDR_PLUS_MOD_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_4A_NoPin,OUT_4B_NoPin,OUT_4C_NoPin
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_DOT_2C,PS_LOGIC_GATE_D_1
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_H
+	and inputs of OUT_DOT_2B
+	and logic function of Special
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_I_RING_11_TIME,PS_2_ADDR_PLUS_MOD_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D, OUT_3C_D
+	and inputs of PS_1401_MODE,PS_I_CYCLE,MS_1401_DATA_MOVE_OP
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_P
+	and inputs of OUT_3C_D
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_G
+	and inputs of OUT_DOT_2C,MS_1401_MODE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of PS_CHAR_TEST_BRANCH_OP_CODE,PS_1401_MODE,PS_LOGIC_GATE_D_1
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_K
+	and inputs of PS_I_CYCLE,PS_A_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of PS_I_RING_8_TIME,PS_B_CH_WM_BIT_2
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_K
+	and inputs of PS_LOGIC_GATE_E_1,PS_1401_MODE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_P
+	and inputs of PS_B_CH_NOT_B_AND_NOT_A_BIT,PS_I_RING_OP_TIME
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of OUT_DOT_4E,OUT_DOT_4G,OUT_4H_G
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_DOT_3G
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of PS_1401_DATA_MOVE_OP_CODES,PS_I_RING_1_TIME
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D
+	and inputs of PS_I_RING_8_TIME,MS_1401_MODE,PS_LOGIC_GATE_D_1
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_3H_D,MS_PROGRAM_RESET_1
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_NoPin
+	and inputs of PS_1401_DATA_MOVE_OP_CODES,PS_I_RING_2_TIME
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of OUT_4I_NoPin
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_3A_R,OUT_2A_P,OUT_2B_C
+	and logic function of OR
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C, OUT_DOT_2C, OUT_DOT_2C
+	and inputs of OUT_3B_F,OUT_2C_P
+	and logic function of OR
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_1C_G,OUT_1D_K
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4D_D,OUT_4E_C
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G
+	and inputs of OUT_4F_K,OUT_4G_P
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G
+	and inputs of OUT_3G_D,OUT_2H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_OP_MOD_REG
+	from gate output OUT_1B_H
+Generating output sheet edge signal assignment to 
+	signal MS_1401_DOT_I_CYCLE
+	from gate output OUT_3C_D
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_OP_MOD_REG
+	from gate output OUT_2G_C
+Generating output sheet edge signal assignment to 
+	signal PS_1401_DATA_MOVE_SET_OP_MOD
+	from gate output OUT_3I_D
+Generating output sheet edge signal assignment to 
+	signal PS_OP_MOD_TIME
+	from gate output OUT_DOT_2C
+Generating output sheet edge signal assignment to 
+	signal MS_OP_MOD_CHAR_TIME_STAR_ARS
+	from gate output OUT_DOT_1C
