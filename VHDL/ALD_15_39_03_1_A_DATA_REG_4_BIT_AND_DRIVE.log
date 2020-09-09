@@ -1,0 +1,76 @@
+Generating HDL for page 15.39.03.1 A DATA REG 4 BIT AND DRIVE at 9/9/2020 11:22:34 AM
+Found combinatorial loop (need D FF) at output of gate at 5B
+Found combinatorial loop (need D FF) at output of gate at 4B
+Removed 4 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1H to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8H12
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B
+	and inputs of OUT_3E_H
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of 
+	and inputs of OUT_2A_B
+	and logic function of Lamp
+Generating Statement for block at 5B with *latched* output pin(s) of OUT_5B_NoPin_Latch
+	and inputs of MS_RESET_A_DATA_REG,OUT_4B_F
+	and logic function of NAND
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_F_Latch, OUT_4B_F_Latch, OUT_4B_F_Latch
+	and inputs of OUT_5B_NoPin,OUT_5C_NoPin,OUT_5D_F
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_B_CH_4_BIT,PS_SW_B_CH_TO_A_REG
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_F
+	and inputs of PS_AR_CH_4_BIT_STAR_TRANSLATOR_STAR,PS_SW_AR_EXIT_CH_TO_A_REG
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_GATE_A_DATA_REG_TO_A_CH,OUT_4B_F
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of OUT_5E_C,OUT_5F_F,OUT_5G_F
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_H, OUT_3E_H, OUT_3E_H, OUT_3E_H
+	and inputs of OUT_DOT_4E
+	and logic function of Special
+Generating Statement for block at 5F with output pin(s) of OUT_5F_F
+	and inputs of PS_E2_REG_4_BIT,PS_GATE_E2_DATA_REG_TO_A_CH
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_P
+	and inputs of OUT_3E_H
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_F
+	and inputs of PS_OP_MOD_REG_4_BIT,PS_GATE_OP_MOD_REG_TO_A_CH
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_H, OUT_2G_H
+	and inputs of OUT_3E_H
+	and logic function of Special
+Generating Statement for block at 5H with output pin(s) of OUT_5H_F
+	and inputs of PS_F2_REG_4_BIT,PS_GATE_F2_DATA_REG_TO_A_CH
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_K
+	and inputs of OUT_5H_F
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_Q
+	and inputs of OUT_2G_H
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4E_C,OUT_4H_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_A_DATA_REG_4_BIT
+	from gate output OUT_4B_F
+Generating output sheet edge signal assignment to 
+	signal PS_A_CH_NOT_4_BIT
+	from gate output OUT_3E_H
+Generating output sheet edge signal assignment to 
+	signal PB_A_CH_4_BIT
+	from gate output OUT_1F_P
+Generating output sheet edge signal assignment to 
+	signal PS_A_CH_4_BIT
+	from gate output OUT_2G_H
+Generating output sheet edge signal assignment to 
+	signal PB_A_CH_NOT_4_BIT
+	from gate output OUT_1H_Q
+Generating D Flip Flop for block at 5B
+Generating D Flip Flop for block at 4B

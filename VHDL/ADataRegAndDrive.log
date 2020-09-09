@@ -1,0 +1,248 @@
+Generating HDL for group named ADataRegAndDriveat 9/9/2020 11:36:59 AM containing pages: 
+	15.39.01.1, 15.39.02.1, 15.39.03.1, 15.39.04.1, 15.39.05.1
+	15.39.06.1, 15.39.07.1, 15.39.08.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ADataRegAndDrive_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 8 pages...
+Found 17 signals on page 15.39.01.1
+Found 17 signals on page 15.39.02.1
+Found 17 signals on page 15.39.03.1
+Found 17 signals on page 15.39.04.1
+Found 15 signals on page 15.39.05.1
+Found 14 signals on page 15.39.06.1
+Found 15 signals on page 15.39.07.1
+Found 13 signals on page 15.39.08.1
+Found 43 unique input signals and 37 unique output signals, (80 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S OP MOD REG 1 BIT originates outside the group.
+INFO:  Signal +S AR EXIT CH 1 BIT originates outside the group.
+INFO:  Signal +S B CH 1 BIT originates outside the group.
+INFO:  Signal +S SW B CH TO A REG originates outside the group.
+INFO:  Signal +S SW AR EXIT CH TO A REG originates outside the group.
+INFO:  Signal -S RESET A DATA REG originates outside the group.
+INFO:  Signal +S GATE A DATA REG TO A CH originates outside the group.
+INFO:  Signal +S GATE OP MOD REG TO A CH originates outside the group.
+INFO:  Signal +S GATE E2 DATA REG TO A CH originates outside the group.
+INFO:  Signal +S GATE F2 DATA REG TO A CH originates outside the group.
+INFO:  Signal +S E2 REG 1 BIT originates outside the group.
+INFO:  Signal +S F2 REG 1 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 2 BIT originates outside the group.
+INFO:  Signal +S AR EXIT CH 2 BIT originates outside the group.
+INFO:  Signal +S B CH 2 BIT originates outside the group.
+INFO:  Signal +S E2 REG 2 BIT originates outside the group.
+INFO:  Signal +S F2 REG 2 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 4 BIT originates outside the group.
+INFO:  Signal +S AR CH 4 BIT *TRANSLATOR* originates outside the group.
+INFO:  Signal +S B CH 4 BIT originates outside the group.
+INFO:  Signal +S E2 REG 4 BIT originates outside the group.
+INFO:  Signal +S F2 REG 4 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 8 BIT originates outside the group.
+INFO:  Signal +S AR EXIT CH 8 BIT originates outside the group.
+INFO:  Signal +S B CH 8 BIT originates outside the group.
+INFO:  Signal +S E2 REG 8 BIT originates outside the group.
+INFO:  Signal +S F2 REG 8 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG A BIT originates outside the group.
+INFO:  Signal +S B CH A BIT originates outside the group.
+INFO:  Signal +S E2 REG A BIT originates outside the group.
+INFO:  Signal +S F2 REG A BIT originates outside the group.
+INFO:  Signal +S OP MOD REG B BIT originates outside the group.
+INFO:  Signal +S B CH B BIT originates outside the group.
+INFO:  Signal +S E2 REG B BIT originates outside the group.
+INFO:  Signal +S F2 REG B BIT originates outside the group.
+INFO:  Signal +S OP MOD REG C BIT originates outside the group.
+INFO:  Signal +S AR EXIT CH C BIT originates outside the group.
+INFO:  Signal +S B CH NOT C BIT originates outside the group.
+INFO:  Signal +S E2 REG C BIT originates outside the group.
+INFO:  Signal +S F2 REG C BIT originates outside the group.
+INFO:  Signal +S B CH WM BIT 1 originates outside the group.
+INFO:  Signal +S E2 REG WM BIT originates outside the group.
+INFO:  Signal +S F2 REG WM BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S A CH 1 BIT is used outside the group.
+INFO:  Signal +S A DATA REG 1 BIT is used outside the group.
+INFO:  Signal +S A CH NOT 1 BIT is used outside the group.
+INFO:  Signal +B A CH 1 BIT is used outside the group.
+INFO:  Signal +B A CH NOT 1 BIT is used outside the group.
+INFO:  Signal +S A CH 2 BIT is used outside the group.
+INFO:  Signal +S A DATA REG 2 BIT is used outside the group.
+INFO:  Signal +S A CH NOT 2 BIT is used outside the group.
+INFO:  Signal +B A CH 2 BIT is used outside the group.
+INFO:  Signal +B A CH NOT 2 BIT is used outside the group.
+INFO:  Signal +S A CH 4 BIT is used outside the group.
+INFO:  Signal +S A DATA REG 4 BIT is used outside the group.
+INFO:  Signal +S A CH NOT 4 BIT is used outside the group.
+INFO:  Signal +B A CH 4 BIT is used outside the group.
+INFO:  Signal +B A CH NOT 4 BIT is used outside the group.
+INFO:  Signal +S A CH 8 BIT is used outside the group.
+INFO:  Signal +S A DATA REG 8 BIT is used outside the group.
+INFO:  Signal +S A CH NOT 8 BIT is used outside the group.
+INFO:  Signal +B A CH 8 BIT is used outside the group.
+INFO:  Signal +B A CH NOT 8 BIT is used outside the group.
+INFO:  Signal +S A CH A BIT is used outside the group.
+INFO:  Signal +S A DATA REG A BIT is used outside the group.
+INFO:  Signal +S A CH NOT A BIT is used outside the group.
+INFO:  Signal +B A CH A BIT is used outside the group.
+INFO:  Signal +B A CH NOT A BIT is used outside the group.
+INFO:  Signal +S A CH B BIT is used outside the group.
+INFO:  Signal +S A DATA REG B BIT is used outside the group.
+INFO:  Signal +S A CH NOT B BIT is used outside the group.
+INFO:  Signal +B A CH B BIT is used outside the group.
+INFO:  Signal +S A DATA REG C BIT is used outside the group.
+INFO:  Signal +S A CH C BIT is used outside the group.
+INFO:  Signal +S A CH NOT C BIT is used outside the group.
+INFO:  Signal +S A CH NOT WM BIT is used outside the group.
+INFO:  Signal +S A CH WM BIT is used outside the group.
+INFO:  Signal +S A DATA REG WM BIT is used outside the group.
+INFO:  Signal +B A CH WM BIT is used outside the group.
+INFO:  Signal +B A CH NOT WM BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S OP MOD REG 1 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S AR EXIT CH 1 BIT replaced by Bus signal +S AR EXIT CH BUS
+Input Signal +S B CH 1 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S E2 REG 1 BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S F2 REG 1 BIT replaced by Bus signal +S F2 REG BUS
+Input Signal +S OP MOD REG 2 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S AR EXIT CH 2 BIT replaced by Bus signal +S AR EXIT CH BUS
+Input Signal +S B CH 2 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S E2 REG 2 BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S F2 REG 2 BIT replaced by Bus signal +S F2 REG BUS
+Input Signal +S OP MOD REG 4 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S AR CH 4 BIT *TRANSLATOR* replaced by Bus signal +S AR CH *TRANSLATOR* BUS
+Input Signal +S B CH 4 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S E2 REG 4 BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S F2 REG 4 BIT replaced by Bus signal +S F2 REG BUS
+Input Signal +S OP MOD REG 8 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S AR EXIT CH 8 BIT replaced by Bus signal +S AR EXIT CH BUS
+Input Signal +S B CH 8 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S E2 REG 8 BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S F2 REG 8 BIT replaced by Bus signal +S F2 REG BUS
+Input Signal +S OP MOD REG A BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S B CH A BIT replaced by Bus signal +S B CH BUS
+Input Signal +S E2 REG A BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S F2 REG A BIT replaced by Bus signal +S F2 REG BUS
+Input Signal +S OP MOD REG B BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S B CH B BIT replaced by Bus signal +S B CH BUS
+Input Signal +S E2 REG B BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S F2 REG B BIT replaced by Bus signal +S F2 REG BUS
+Input Signal +S OP MOD REG C BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S AR EXIT CH C BIT replaced by Bus signal +S AR EXIT CH BUS
+Input Signal +S B CH NOT C BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S E2 REG C BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S F2 REG C BIT replaced by Bus signal +S F2 REG BUS
+Input Signal +S E2 REG WM BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S F2 REG WM BIT replaced by Bus signal +S F2 REG BUS
+Page 15.39.01.1 generates Lamp Output LAMP_11C8K12
+Page 15.39.02.1 generates Lamp Output LAMP_11C8J12
+Page 15.39.03.1 generates Lamp Output LAMP_11C8H12
+Page 15.39.04.1 generates Lamp Output LAMP_11C8G12
+Page 15.39.05.1 generates Lamp Output LAMP_11C8F12
+Page 15.39.06.1 generates Lamp Output LAMP_11C8E12
+Page 15.39.07.1 generates Lamp Output LAMP_11C8D12
+Page 15.39.08.1 generates Lamp Output LAMP_11C8C12
+DEBUG: Tentative bus +S A CH BUS identified based on signal +S A CH 1 BIT
+DEBUG: Tentative bus +S A DATA REG BUS identified based on signal +S A DATA REG 1 BIT
+DEBUG: Tentative bus +S A CH NOT BUS identified based on signal +S A CH NOT 1 BIT
+DEBUG: Tentative bus +B A CH BUS identified based on signal +B A CH 1 BIT
+DEBUG: Tentative bus +B A CH NOT BUS identified based on signal +B A CH NOT 1 BIT
+DEBUG: Added signal +S A CH 2 BIT to bus +S A CH BUS
+DEBUG: Added signal +S A DATA REG 2 BIT to bus +S A DATA REG BUS
+DEBUG: Added signal +S A CH NOT 2 BIT to bus +S A CH NOT BUS
+DEBUG: Added signal +B A CH 2 BIT to bus +B A CH BUS
+DEBUG: Added signal +B A CH NOT 2 BIT to bus +B A CH NOT BUS
+DEBUG: Added signal +S A CH 4 BIT to bus +S A CH BUS
+DEBUG: Added signal +S A DATA REG 4 BIT to bus +S A DATA REG BUS
+DEBUG: Added signal +S A CH NOT 4 BIT to bus +S A CH NOT BUS
+DEBUG: Added signal +B A CH 4 BIT to bus +B A CH BUS
+DEBUG: Added signal +B A CH NOT 4 BIT to bus +B A CH NOT BUS
+DEBUG: Added signal +S A CH 8 BIT to bus +S A CH BUS
+DEBUG: Added signal +S A DATA REG 8 BIT to bus +S A DATA REG BUS
+DEBUG: Added signal +S A CH NOT 8 BIT to bus +S A CH NOT BUS
+DEBUG: Added signal +B A CH 8 BIT to bus +B A CH BUS
+DEBUG: Added signal +B A CH NOT 8 BIT to bus +B A CH NOT BUS
+DEBUG: Added signal +S A CH A BIT to bus +S A CH BUS
+DEBUG: Added signal +S A DATA REG A BIT to bus +S A DATA REG BUS
+DEBUG: Added signal +S A CH NOT A BIT to bus +S A CH NOT BUS
+DEBUG: Added signal +B A CH A BIT to bus +B A CH BUS
+DEBUG: Added signal +B A CH NOT A BIT to bus +B A CH NOT BUS
+DEBUG: Added signal +S A CH B BIT to bus +S A CH BUS
+DEBUG: Added signal +S A DATA REG B BIT to bus +S A DATA REG BUS
+DEBUG: Added signal +S A CH NOT B BIT to bus +S A CH NOT BUS
+DEBUG: Added signal +B A CH B BIT to bus +B A CH BUS
+DEBUG: Added signal +S A DATA REG C BIT to bus +S A DATA REG BUS
+DEBUG: Added signal +S A CH C BIT to bus +S A CH BUS
+DEBUG: Added signal +S A CH NOT C BIT to bus +S A CH NOT BUS
+DEBUG: Added signal +S A CH NOT WM BIT to bus +S A CH NOT BUS
+DEBUG: Added signal +S A CH WM BIT to bus +S A CH BUS
+DEBUG: Added signal +S A DATA REG WM BIT to bus +S A DATA REG BUS
+DEBUG: Added signal +B A CH WM BIT to bus +B A CH BUS
+DEBUG: Added signal +B A CH NOT WM BIT to bus +B A CH NOT BUS
+DEBUG: Tentative bus LAMPS_A_CH identified based on signal LAMP_11C8K12
+DEBUG: Added signal LAMP_11C8J12 to bus LAMPS_A_CH
+DEBUG: Added signal LAMP_11C8H12 to bus LAMPS_A_CH
+DEBUG: Added signal LAMP_11C8G12 to bus LAMPS_A_CH
+DEBUG: Added signal LAMP_11C8F12 to bus LAMPS_A_CH
+DEBUG: Added signal LAMP_11C8E12 to bus LAMPS_A_CH
+DEBUG: Added signal LAMP_11C8D12 to bus LAMPS_A_CH
+DEBUG: Added signal LAMP_11C8C12 to bus LAMPS_A_CH
+INFO: Bus +S A CH BUS identified 
+INFO: Bus +S A DATA REG BUS identified 
+INFO: Bus +S A CH NOT BUS identified 
+INFO: Bus +B A CH BUS identified 
+INFO: Bus +B A CH NOT BUS identified 
+INFO: Bus LAMPS_A_CH identified 
+Output signal +S A CH 1 BIT replaced by bus +S A CH BUS
+Output signal +S A DATA REG 1 BIT replaced by bus +S A DATA REG BUS
+Output signal +S A CH NOT 1 BIT replaced by bus +S A CH NOT BUS
+Output signal +B A CH 1 BIT replaced by bus +B A CH BUS
+Output signal +B A CH NOT 1 BIT replaced by bus +B A CH NOT BUS
+Output signal +S A CH 2 BIT replaced by bus +S A CH BUS
+Output signal +S A DATA REG 2 BIT replaced by bus +S A DATA REG BUS
+Output signal +S A CH NOT 2 BIT replaced by bus +S A CH NOT BUS
+Output signal +B A CH 2 BIT replaced by bus +B A CH BUS
+Output signal +B A CH NOT 2 BIT replaced by bus +B A CH NOT BUS
+Output signal +S A CH 4 BIT replaced by bus +S A CH BUS
+Output signal +S A DATA REG 4 BIT replaced by bus +S A DATA REG BUS
+Output signal +S A CH NOT 4 BIT replaced by bus +S A CH NOT BUS
+Output signal +B A CH 4 BIT replaced by bus +B A CH BUS
+Output signal +B A CH NOT 4 BIT replaced by bus +B A CH NOT BUS
+Output signal +S A CH 8 BIT replaced by bus +S A CH BUS
+Output signal +S A DATA REG 8 BIT replaced by bus +S A DATA REG BUS
+Output signal +S A CH NOT 8 BIT replaced by bus +S A CH NOT BUS
+Output signal +B A CH 8 BIT replaced by bus +B A CH BUS
+Output signal +B A CH NOT 8 BIT replaced by bus +B A CH NOT BUS
+Output signal +S A CH A BIT replaced by bus +S A CH BUS
+Output signal +S A DATA REG A BIT replaced by bus +S A DATA REG BUS
+Output signal +S A CH NOT A BIT replaced by bus +S A CH NOT BUS
+Output signal +B A CH A BIT replaced by bus +B A CH BUS
+Output signal +B A CH NOT A BIT replaced by bus +B A CH NOT BUS
+Output signal +S A CH B BIT replaced by bus +S A CH BUS
+Output signal +S A DATA REG B BIT replaced by bus +S A DATA REG BUS
+Output signal +S A CH NOT B BIT replaced by bus +S A CH NOT BUS
+Output signal +B A CH B BIT replaced by bus +B A CH BUS
+Output signal +S A DATA REG C BIT replaced by bus +S A DATA REG BUS
+Output signal +S A CH C BIT replaced by bus +S A CH BUS
+Output signal +S A CH NOT C BIT replaced by bus +S A CH NOT BUS
+Output signal +S A CH NOT WM BIT replaced by bus +S A CH NOT BUS
+Output signal +S A CH WM BIT replaced by bus +S A CH BUS
+Output signal +S A DATA REG WM BIT replaced by bus +S A DATA REG BUS
+Output signal +B A CH WM BIT replaced by bus +B A CH BUS
+Output signal +B A CH NOT WM BIT replaced by bus +B A CH NOT BUS
+Output signal LAMP_11C8K12 replaced by bus LAMPS_A_CH
+Output signal LAMP_11C8J12 replaced by bus LAMPS_A_CH
+Output signal LAMP_11C8H12 replaced by bus LAMPS_A_CH
+Output signal LAMP_11C8G12 replaced by bus LAMPS_A_CH
+Output signal LAMP_11C8F12 replaced by bus LAMPS_A_CH
+Output signal LAMP_11C8E12 replaced by bus LAMPS_A_CH
+Output signal LAMP_11C8D12 replaced by bus LAMPS_A_CH
+Output signal LAMP_11C8C12 replaced by bus LAMPS_A_CH
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.39.01.1 (A DATA REG 1 BIT AND DRIVE-ACC)
+Generating HDL associated with page 15.39.02.1 (A DATA REG 2 BIT AND DRIVE-ACC)
+Generating HDL associated with page 15.39.03.1 (A DATA REG 4 BIT AND DRIVE)
+Generating HDL associated with page 15.39.04.1 (A DATA REG 8 BIT AND DRIVE-ACC)
+Generating HDL associated with page 15.39.05.1 (A DATA REG A BIT AND DRIVE-ACC)
+Generating HDL associated with page 15.39.06.1 (A DATA REG B BIT AND DRIVE-ACC)
+Generating HDL associated with page 15.39.07.1 (A DATA REG C BIT AND DRIVE-ACC)
+Generating HDL associated with page 15.39.08.1 (A DATA REG WM BIT AND DRIVE-ACC)
