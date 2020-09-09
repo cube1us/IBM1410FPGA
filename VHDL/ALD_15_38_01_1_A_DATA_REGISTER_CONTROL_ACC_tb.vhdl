@@ -153,16 +153,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -174,13 +174,73 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
-   variable g1, g2, g3, g4, g5, g6: std_logic;
+   variable tv: std_logic_vector(17 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r: std_logic;
+   variable g1, g2, g3, g4, g5, g6, g7, g8: std_logic;
 
    begin
 
    -- Your test bench code
+
+   testName := "15.38.01.1        ";
+   
+   for tt in 0 to 4*65536 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      p := tv(15);
+      q := tv(16);
+      r := tv(17);
+      
+      g1 := b and f and r;
+      g2 := f and r and not a and c;
+      g3 := f and r and d and g and e;
+      g4 := h and g and f and r;
+      g5 := f and r and i and c;
+      g6 := f and r and m;
+      g7 := l and (n or o or p or k);
+      g8 := j and h and l;
+      	   
+    	MS_1401_STORE_AR_OP_CODES <= not a;
+      PS_I_CYCLE_1 <= b;
+      PS_A_CYCLE <= c;
+      PS_NO_SCAN_1 <= d;
+      PS_MPLY_OP_CODE <= e;
+      PS_LOGIC_GATE_D_1 <= f;
+      PS_C_CYCLE <= g;
+      PS_STORE_ADDR_REGS_OP_CODE <= h;
+      PS_1401_STORE_AR_OP_CODES <= i;
+      PS_C_CYCLE_CTRL <= j;
+      MS_MPLY_DOT_NO_SCAN_CTRL_DOT_C_CY_CTRL <= not k;
+      PS_LOGIC_GATE_C_1 <= l;
+      PS_X_CYCLE <= m;
+      MS_I_CYCLE_CTRL <= not n;
+      MS_A_CYCLE_CTRL <= not o;
+      MS_X_CYCLE_CTRL <= not p;
+      MS_PROGRAM_RESET_1 <= not q;
+      PS_2ND_CLOCK_PULSE_3 <= r;
+      	   
+	   wait for 30 ns;
+      
+      check1(PS_SW_B_CH_TO_A_REG,g1 or g2 or g3,testName,"SW B CH to A Reg");
+      check1(PS_SW_AR_EXIT_CH_TO_A_REG,g4 or g5 or g6,testName,"SW AR Exit Ch to A Reg");
+      check1(MS_RESET_A_DATA_REG,NOT(g7 or g8 or q),testName,"Reset A Data Reg");
+            	   
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -193,7 +253,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
