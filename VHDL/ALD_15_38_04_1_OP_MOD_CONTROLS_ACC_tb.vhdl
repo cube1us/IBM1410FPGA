@@ -177,16 +177,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -198,13 +198,110 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
-   variable g1, g2, g3, g4, g5, g6: std_logic;
+   variable tv: std_logic_vector(16 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w: std_logic;
+   variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
    begin
 
    -- Your test bench code
+
+   testName := "15.38.04.1        ";
+   
+   for tt in 0 to 65536 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      p := tv(15);
+      
+      g1 := b and c;
+      g2 := e and f;
+      g3 := h and i;
+      g4 := m and g and not j;
+      g5 := g1 or g2 or g3 or g4;
+      g6 := d and a and g and p and g5;
+      g7 := g5 and k and not m and g;
+      
+      
+   	PS_2ND_CLOCK_PULSE_2 <= a;
+      PS_I_RING_1_TIME <= b;
+      PS_2_CHAR_ONLY_OP_CODES <= c;
+      PS_B_CH_NOT_WM_BIT <= d;
+      PS_I_RING_6_TIME <= e;
+      PS_1_ADDR_PLUS_MOD_OP_CODES <= f;
+      PS_I_CYCLE <= g;
+      PS_I_RING_11_TIME <= h;
+      PS_2_ADDR_PLUS_MOD_OP_CODES <= i;
+      MS_1401_DATA_MOVE_OP <= not j;
+      PS_A_CH_NOT_WM_BIT <= k;
+      PS_CHAR_TEST_BRANCH_OP_CODE <= l;
+      MS_1401_MODE <= not m;
+      PS_I_RING_8_TIME <= n;
+      PS_B_CH_WM_BIT_2 <= o;
+      PS_LOGIC_GATE_D_1 <= p;
+      PS_1401_MODE <= m;
+            
+      wait for 30 ns;
+      
+      check1(PS_SET_OP_MOD_REG,g6,testName,"Set Op Mod Reg");
+      check1(MS_OP_MOD_CHAR_TIME_STAR_ARS,not g7,testName,"OP MOD CHAR TIME *ARS");
+      check1(PS_OP_MOD_TIME,g5,testName,"OP Mod Time");
+      check1(MS_1401_DOT_I_CYCLE,NOT g4,testName,"-S 1401.I Cycle");
+                        
+   end loop;
+
+   for tt in 0 to 65536 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      b := tv(0); 
+      m := tv(1);
+      n := tv(2);
+      o := tv(3);
+      p := tv(4);
+      r := tv(5);
+      s := tv(6);
+      t := tv(7);
+      u := tv(8);
+      v := tv(9);
+      w := tv(10);
+
+      g8 := not m and p and n;
+      g9 := l and m and o and p and n;
+      g10:= s and m and r and t;            
+      
+      PS_I_RING_1_TIME <= b;
+      MS_1401_MODE <= not m;
+      PS_I_RING_8_TIME <= n;
+      PS_B_CH_WM_BIT_2 <= o;
+      PS_LOGIC_GATE_D_1 <= p;
+      PS_1401_MODE <= m;
+   	PS_LOGIC_GATE_E_1 <= r;
+      PS_B_CH_NOT_B_AND_NOT_A_BIT <= s;
+      PS_I_RING_OP_TIME <= t;
+      MS_PROGRAM_RESET_1 <= not u;
+      PS_1401_DATA_MOVE_OP_CODES <= v;
+      PS_I_RING_2_TIME <= w;
+                 
+      wait for 30 ns;
+
+      check1(MS_RESET_OP_MOD_REG,NOT((b and v) or g8 or g9 or g10 or u),
+         testName,"Reset Op Mod Reg");
+      check1(PS_1401_DATA_MOVE_SET_OP_MOD,v and w,testName,"1401 Data Move Set Op Mod");
+                              
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -217,7 +314,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
