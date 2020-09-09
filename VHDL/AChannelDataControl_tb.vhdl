@@ -171,16 +171,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -199,6 +199,97 @@ uut_process: process
    begin
 
    -- Your test bench code
+   testName := "15.38.02.1        ";
+   
+   for tt in 0 to 32768 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      
+      MS_I_CYCLE_DOT_NOT_CR_DISABLE <= not a;
+		MS_C_CYCLE_DOT_NOT_CR_DISABLE <= not b;
+      MS_D_CYCLE_DOT_NOT_CR_DISABLE <= not c;
+      MS_X_CYCLE_DOT_NOT_CR_DISABLE <= not d;
+      MS_OUTPUT_CYCLE <= not e;
+      PS_B_CYCLE_1 <= f;
+      PS_A_REG_TO_A_CH_ON_B_CY_OPS <= g;
+      PS_1401_STORE_AR_OP_CODES <= h;
+      PS_A_CYCLE <= i;
+      MS_INTERRUPT_DOT_B_CYCLE <= not j;
+      PS_CONTROL_REG_DISABLE <= k;
+      MS_GATE_CONSOLE_TO_ASSEMBLY <= not l;
+      MS_1401_STORE_AR_OP_CODES <= not m;
+      MS_CONTROL_REG_DISABLE <= not n;
+      PS_OP_MOD_TO_A_CH_ON_B_CY_OPS <= o;
+            
+      wait for 30 ns;
+      
+      check1(PS_GATE_A_DATA_REG_TO_A_CH,
+         a or b or c or d or e or j or (f and g) or (i and h) or (k and not l),
+         testName,"Gate A Reg to A Ch");
+      check1(LAMP_11C8C14,PS_GATE_A_DATA_REG_TO_A_CH,testName,"LAMP CH Sel A");
+                  
+      check1(PS_GATE_OP_MOD_REG_TO_A_CH,(o and f) or (not m and not n and i),testName,
+         "Gate Op Mod Reg to A Ch");
+      check1(LAMP_11C8D14,PS_GATE_OP_MOD_REG_TO_A_CH,testName,"LAMP CH Sel D");        
+                        
+   end loop;
+
+   testName := "15.38.02.1        ";
+   
+   for tt in 0 to 16 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+            
+      MS_GATE_CONSOLE_TO_ASSEMBLY <= not a;
+      PS_E_CH_INPUT_MODE <= b;
+      MS_CONTROL_REG_DISABLE <= not c;
+      PS_E_CYCLE <= d;
+                        
+      wait for 30 ns;
+      
+      check1(PS_GATE_E2_DATA_REG_TO_A_CH,a or (b and not c and d),testName,
+         "Gate E2 to A CH");
+      check1(LAMP_11C8E14,PS_GATE_E2_DATA_REG_TO_A_CH,testName,"E CH SEL");
+                              
+   end loop;
+
+   testName := "15.38.02.1        ";
+   
+   for tt in 0 to 8 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0); 
+      b := tv(1);
+      c := tv(2);
+            
+      PS_F_CH_INPUT_MODE <= b;
+      MS_CONTROL_REG_DISABLE <= not c;
+      PS_F_CYCLE <= A;
+                        
+      wait for 30 ns;
+      
+      check1(PS_GATE_F2_DATA_REG_TO_A_CH,b and not c and a,testName,
+         "Gate F2 to A CH");
+      check1(LAMP_11C8F14,PS_GATE_F2_DATA_REG_TO_A_CH,testName,"F CH SEL");
+                              
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
