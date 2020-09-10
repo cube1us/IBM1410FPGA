@@ -1,0 +1,25 @@
+Generating HDL for page 15.41.04.1 CHANNEL CHARACTER DETECTION-ACC at 9/9/2020 6:28:07 PM
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PB_B_CH_1_BIT,PB_B_CH_2_BIT,PB_B_CH_4_BIT,PB_B_CH_8_BIT
+	and logic function of NOR
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B
+	and inputs of PB_B_CH_A_BIT,PB_B_CH_B_BIT
+	and logic function of NOR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_A
+	and inputs of PB_B_CH_1_BIT,PB_B_CH_2_BIT,PB_B_CH_4_BIT,PB_B_CH_8_BIT
+	and logic function of NOR
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of PB_B_CH_A_BIT,PB_B_CH_B_BIT
+	and logic function of NOR
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_4A_G,OUT_4B_B
+	and logic function of OR
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_4D_A,OUT_4E_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MB_B_CH_NOT_BLANK
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_BLANK
+	from gate output OUT_DOT_1D

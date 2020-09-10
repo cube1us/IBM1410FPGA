@@ -1,0 +1,19 @@
+Generating HDL for page 15.41.01.1 CHANNEL CHARACTER DETECTION-ACC at 9/9/2020 6:28:01 PM
+Generating Statement for block at 5B with output pin(s) of OUT_5B_C
+	and inputs of PS_E1_INPUT_C_BIT,PS_E1_INPUT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_P
+	and inputs of MS_E1_INPUT_B_BIT,PS_E1_INPUT_A_BIT
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of PS_E1_INPUT_8_BIT,PS_E1_INPUT_4_BIT,MS_E1_INPUT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_L
+	and inputs of OUT_DOT_2D
+	and logic function of EQUAL
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_5B_C,OUT_4C_P,OUT_3D_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_WORD_SEPARATOR
+	from gate output OUT_1D_L

@@ -1,0 +1,37 @@
+Generating HDL for page 15.41.06.1 CHANNEL CHARACTER DETECTION at 9/10/2020 9:20:41 AM
+Generating Statement for block at 5B with output pin(s) of OUT_5B_5
+	and inputs of PS_A_CH_NOT_B_BIT,PS_A_CH_A_BIT
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_6
+	and inputs of PS_A_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_R
+	and inputs of OUT_DOT_2C
+	and logic function of EQUAL
+Generating Statement for block at 3D with output pin(s) of OUT_3D_2
+	and inputs of PS_A_CH_NOT_4_BIT,PS_A_CH_2_BIT,PS_A_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_4
+	and inputs of PS_A_CH_NOT_4_BIT,PS_A_CH_2_BIT,PS_A_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_9
+	and inputs of PS_A_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_A
+	and inputs of OUT_DOT_2F
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_8
+	and inputs of PS_A_CH_NOT_B_BIT,PS_A_CH_A_BIT
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_5B_5,OUT_4C_6,OUT_3D_2
+	and logic function of OR
+Generating Statement for block at 2F with output pin(s) of OUT_DOT_2F
+	and inputs of OUT_3E_4,OUT_4F_9,OUT_5G_8
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_A_CH_NOT_RECORD_MARK
+	from gate output OUT_1C_R
+Generating output sheet edge signal assignment to 
+	signal PS_A_CH_RECORD_MARK
+	from gate output OUT_1F_A

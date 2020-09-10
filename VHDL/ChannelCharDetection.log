@@ -1,0 +1,124 @@
+Generating HDL for group named ChannelCharDetectionat 9/10/2020 9:23:03 AM containing pages: 
+	15.41.01.1, 15.41.02.1, 15.41.03.1, 15.41.04.1, 15.41.06.1
+	15.41.07.1, 15.41.08.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ChannelCharDetection_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 7 pages...
+Found 8 signals on page 15.41.01.1
+Found 10 signals on page 15.41.02.1
+Found 8 signals on page 15.41.03.1
+Found 8 signals on page 15.41.04.1
+Found 8 signals on page 15.41.06.1
+Found 13 signals on page 15.41.07.1
+Found 8 signals on page 15.41.08.1
+Found 41 unique input signals and 15 unique output signals, (56 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S E1 INPUT C BIT originates outside the group.
+INFO:  Signal +S E1 INPUT 1 BIT originates outside the group.
+INFO:  Signal -S E1 INPUT B BIT originates outside the group.
+INFO:  Signal +S E1 INPUT A BIT originates outside the group.
+INFO:  Signal +S E1 INPUT 8 BIT originates outside the group.
+INFO:  Signal +S E1 INPUT 4 BIT originates outside the group.
+INFO:  Signal -S E1 INPUT 2 BIT originates outside the group.
+INFO:  Signal +S A CH 1 BIT originates outside the group.
+INFO:  Signal +S A CH 2 BIT originates outside the group.
+INFO:  Signal +S A CH 4 BIT originates outside the group.
+INFO:  Signal +S A CH 8 BIT originates outside the group.
+INFO:  Signal +S A CH A BIT originates outside the group.
+INFO:  Signal +S A CH B BIT originates outside the group.
+INFO:  Signal +S A CH NOT C BIT originates outside the group.
+INFO:  Signal +S A CH WM BIT originates outside the group.
+INFO:  Signal +S A CH NOT 1 BIT originates outside the group.
+INFO:  Signal +S A CH NOT 2 BIT originates outside the group.
+INFO:  Signal +S A CH NOT 4 BIT originates outside the group.
+INFO:  Signal +S A CH NOT 8 BIT originates outside the group.
+INFO:  Signal +S A CH NOT B BIT originates outside the group.
+INFO:  Signal +B B CH 1 BIT originates outside the group.
+INFO:  Signal +B B CH 2 BIT originates outside the group.
+INFO:  Signal +B B CH 4 BIT originates outside the group.
+INFO:  Signal +B B CH 8 BIT originates outside the group.
+INFO:  Signal +B B CH A BIT originates outside the group.
+INFO:  Signal +B B CH B BIT originates outside the group.
+INFO:  Signal +B B CH NOT 1 BIT originates outside the group.
+INFO:  Signal +B B CH NOT 2 BIT originates outside the group.
+INFO:  Signal +B B CH NOT 4 BIT originates outside the group.
+INFO:  Signal +B B CH NOT 8 BIT originates outside the group.
+INFO:  Signal +B B CH NOT A BIT originates outside the group.
+INFO:  Signal +B B CH NOT B BIT originates outside the group.
+INFO:  Signal +B B CH C BIT originates outside the group.
+INFO:  Signal +B B CH NOT WM BIT originates outside the group.
+INFO:  Signal +S F1 INPUT C BIT originates outside the group.
+INFO:  Signal +S F1 INPUT 1 BIT originates outside the group.
+INFO:  Signal -S F1 INPUT B BIT originates outside the group.
+INFO:  Signal +S F1 INPUT A BIT originates outside the group.
+INFO:  Signal +S F1 INPUT 8 BIT originates outside the group.
+INFO:  Signal +S F1 INPUT 4 BIT originates outside the group.
+INFO:  Signal -S F1 INPUT 2 BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S E CH WORD SEPARATOR is used outside the group.
+INFO:  Signal +S A CH NOT GROUP MARK.WM is used outside the group.
+INFO:  Signal +S A CH GROUP MARK.WM is used outside the group.
+INFO:  Signal -S A CH CHAR NOT A BIT is used outside the group.
+INFO:  Signal +S A CH CHAR A BIT ONLY is used outside the group.
+INFO:  Signal -B B CH NOT BLANK is used outside the group.
+INFO:  Signal +B B CH BLANK is used outside the group.
+INFO:  Signal +S A CH NOT RECORD MARK is used outside the group.
+INFO:  Signal +S A CH RECORD MARK is used outside the group.
+INFO:  Signal +S B CH NOT GROUP MARK WM is used outside the group.
+INFO:  Signal +S B CH GROUP MARK.WM is used outside the group.
+INFO:  Signal -S B CH GROUP MARK.WM is used outside the group.
+INFO:  Signal +B B CH GROUP MARK WM is used outside the group.
+INFO:  Signal +B B CH NOT GROUP MARK WM is used outside the group.
+INFO:  Signal +S F CH NOT WORD SEPARATOR is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S E1 INPUT C BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal +S E1 INPUT 1 BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal -S E1 INPUT B BIT replaced by Bus signal -S E1 INPUT BUS
+Input Signal +S E1 INPUT A BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal +S E1 INPUT 8 BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal +S E1 INPUT 4 BIT replaced by Bus signal +S E1 INPUT BUS
+Input Signal -S E1 INPUT 2 BIT replaced by Bus signal -S E1 INPUT BUS
+Input Signal +S A CH 1 BIT replaced by Bus signal +S A CH BUS
+Input Signal +S A CH 2 BIT replaced by Bus signal +S A CH BUS
+Input Signal +S A CH 4 BIT replaced by Bus signal +S A CH BUS
+Input Signal +S A CH 8 BIT replaced by Bus signal +S A CH BUS
+Input Signal +S A CH A BIT replaced by Bus signal +S A CH BUS
+Input Signal +S A CH B BIT replaced by Bus signal +S A CH BUS
+Input Signal +S A CH NOT C BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH WM BIT replaced by Bus signal +S A CH BUS
+Input Signal +S A CH NOT 1 BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH NOT 2 BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH NOT 4 BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH NOT 8 BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH NOT B BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +B B CH 1 BIT replaced by Bus signal +B B CH BUS
+Input Signal +B B CH 2 BIT replaced by Bus signal +B B CH BUS
+Input Signal +B B CH 4 BIT replaced by Bus signal +B B CH BUS
+Input Signal +B B CH 8 BIT replaced by Bus signal +B B CH BUS
+Input Signal +B B CH A BIT replaced by Bus signal +B B CH BUS
+Input Signal +B B CH B BIT replaced by Bus signal +B B CH BUS
+Input Signal +B B CH NOT 1 BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +B B CH NOT 2 BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +B B CH NOT 4 BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +B B CH NOT 8 BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +B B CH NOT A BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +B B CH NOT B BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +B B CH C BIT replaced by Bus signal +B B CH BUS
+Input Signal +B B CH NOT WM BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +S F1 INPUT C BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal +S F1 INPUT 1 BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal -S F1 INPUT B BIT replaced by Bus signal -S F1 INPUT BUS
+Input Signal +S F1 INPUT A BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal +S F1 INPUT 8 BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal +S F1 INPUT 4 BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal -S F1 INPUT 2 BIT replaced by Bus signal -S F1 INPUT BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.41.01.1 (CHANNEL CHARACTER DETECTION-ACC)
+Generating HDL associated with page 15.41.02.1 (CHANNEL CHARACTER DETECTION)
+Generating HDL associated with page 15.41.03.1 (CHANNEL CHARACTER DETECTION)
+Generating HDL associated with page 15.41.04.1 (CHANNEL CHARACTER DETECTION-ACC)
+Generating HDL associated with page 15.41.06.1 (CHANNEL CHARACTER DETECTION)
+Generating HDL associated with page 15.41.07.1 (CHANNEL CHARACTER DETECTION-ACC)
+Generating HDL associated with page 15.41.08.1 (CH. CHAR. DECITION)

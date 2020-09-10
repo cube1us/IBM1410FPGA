@@ -1,0 +1,19 @@
+Generating HDL for page 15.41.08.1 CH. CHAR. DECITION at 9/9/2020 6:28:15 PM
+Generating Statement for block at 5B with output pin(s) of OUT_5B_5
+	and inputs of PS_F1_INPUT_C_BIT,PS_F1_INPUT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_6
+	and inputs of MS_F1_INPUT_B_BIT,PS_F1_INPUT_A_BIT
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_R
+	and inputs of OUT_DOT_3C
+	and logic function of EQUAL
+Generating Statement for block at 3D with output pin(s) of OUT_3D_2
+	and inputs of PS_F1_INPUT_8_BIT,PS_F1_INPUT_4_BIT,MS_F1_INPUT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_5B_5,OUT_4C_6,OUT_3D_2
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_NOT_WORD_SEPARATOR
+	from gate output OUT_1C_R

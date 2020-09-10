@@ -1,0 +1,57 @@
+Generating HDL for page 15.41.07.1 CHANNEL CHARACTER DETECTION-ACC at 9/9/2020 6:28:13 PM
+Ignoring Logic Block 4C with symbol R
+Ignoring Logic Block 3E with symbol R
+Ignoring Logic Block 4F with symbol R
+Removed 4 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 4A to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 4D to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PB_B_CH_NOT_1_BIT,PB_B_CH_NOT_2_BIT,PB_B_CH_NOT_4_BIT,PB_B_CH_NOT_8_BIT
+	and logic function of NOR
+Generating Statement for block at 3A with output pin(s) of OUT_3A_E, OUT_3A_E
+	and inputs of OUT_DOT_4A
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_A
+	and inputs of PB_B_CH_NOT_A_BIT,PB_B_CH_NOT_B_BIT,PB_B_CH_NOT_WM_BIT,PB_B_CH_C_BIT
+	and logic function of NOR
+Generating Statement for block at 1B with output pin(s) of OUT_1B_B
+	and inputs of OUT_3A_E
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of OUT_DOT_4D
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_Q
+	and inputs of OUT_3C_C
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PB_B_CH_C_BIT,PB_B_CH_NOT_WM_BIT,PB_B_CH_NOT_B_BIT,PB_B_CH_NOT_A_BIT
+	and logic function of NOR
+Generating Statement for block at 3D with output pin(s) of OUT_3D_K
+	and inputs of OUT_DOT_4D
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_A
+	and inputs of PB_B_CH_NOT_8_BIT,PB_B_CH_NOT_4_BIT,PB_B_CH_NOT_2_BIT,PB_B_CH_NOT_1_BIT
+	and logic function of NOR
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A, OUT_DOT_4A
+	and inputs of OUT_4A_G,OUT_4B_A
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D, OUT_DOT_4D
+	and inputs of OUT_4D_G,OUT_4E_A
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_B_CH_GROUP_MARK_DOT_WM
+	from gate output OUT_3A_E
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_GROUP_MARK_DOT_WM
+	from gate output OUT_1B_B
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_NOT_GROUP_MARK_WM
+	from gate output OUT_2C_Q
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_NOT_GROUP_MARK_WM
+	from gate output OUT_3D_K
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_GROUP_MARK_WM
+	from gate output OUT_DOT_4A
