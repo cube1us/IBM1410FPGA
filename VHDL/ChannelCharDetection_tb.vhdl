@@ -9,6 +9,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;  -- For use in test benches only
 use WORK.ALL;
+use WORK.BCD;
 
 -- End of include from HDLTemplate.vhdl
 
@@ -174,19 +175,197 @@ fpga_clk_process: process
 -- End of TestBenchFPGAClock.vhdl
 --   
 
+MS_E1_INPUT_BUS <= NOT PS_E1_INPUT_BUS;
+MS_F1_INPUT_BUS <= NOT PS_F1_INPUT_BUS;
+
 -- Place your test bench code in the uut_process
 
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
+   variable tv, tvwm: std_logic_vector(7 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
    variable g1, g2, g3, g4, g5, g6: std_logic;
 
    begin
 
    -- Your test bench code
+   
+   testName := "15.41.01.1        ";
+   
+      for BCD_CHAR in BCD.BCD loop
+      
+         tv := BCD.bcd_to_slv8_odd_parity(BCD_CHAR);
+
+         PS_E1_INPUT_BUS <= tv;         
+         
+         wait for 30 ns;
+         
+         case BCD_CHAR is
+            when BCD.BCD_WORD_SEPARATOR =>
+               check1(MS_E_CH_WORD_SEPARATOR,'0',testName,"E1 Word Separator WS Char");
+            when others => 
+               check1(MS_E_CH_WORD_SEPARATOR,'1',testName,"E1 Word Separator Others");
+         end case;
+         
+      end loop;
+
+   
+   testName := "15.41.02.1 03 06.1";
+
+   for BCD_CHAR in BCD.BCD loop
+   
+      tv := BCD.bcd_to_slv8_odd_parity(BCD_CHAR);
+      tvwm := not tv(0) & '1' & tv(5 downto 0);
+      
+      -- First test w/o WM
+      
+      PS_A_CH_BUS <= tv;
+      PS_A_CH_NOT_BUS <= not tv;
+      
+      wait for 30 ns;
+      
+      case BCD_CHAR is
+         when BCD.BCD_GROUP_MARK =>
+            check1(PS_A_CH_GROUP_MARK_DOT_WM,'0',testName,"A CH GMWM GM no WM"); 
+            check1(PS_A_CH_NOT_GROUP_MARK_DOT_WM,'1',testName,"A CH Not GMWM GM no WM");
+            check1(PS_A_CH_RECORD_MARK,'0',testName,"A CH RM GM no WM"); 
+            check1(PS_A_CH_NOT_RECORD_MARK,'1',testName,"A CH Not RM GM no WM");
+            check1(PS_A_CH_CHAR_A_BIT_ONLY,'0',testName,"A CH A Bit GM no WM");
+            check1(MS_A_CH_CHAR_NOT_A_BIT,'0',testName,"A CH NOT A Bit GM no WM");
+         when BCD.BCD_RECORD_MARK =>
+            check1(PS_A_CH_GROUP_MARK_DOT_WM,'0',testName,"A CH GMWM RM no WM"); 
+            check1(PS_A_CH_NOT_GROUP_MARK_DOT_WM,'1',testName,"A CH Not GMWM RM no WM");
+            check1(PS_A_CH_RECORD_MARK,'1',testName,"A CH RM RM no WM"); 
+            check1(PS_A_CH_NOT_RECORD_MARK,'0',testName,"A CH Not RM RM no WM");
+            check1(PS_A_CH_CHAR_A_BIT_ONLY,'0',testName,"A CH A Bit RM no WM");
+            check1(MS_A_CH_CHAR_NOT_A_BIT,'0',testName,"A CH NOT A Bit RM no WM");
+         when BCD.BCD_ALT_BLANK =>
+            check1(PS_A_CH_GROUP_MARK_DOT_WM,'0',testName,"A CH GMWM Alt blank no WM"); 
+            check1(PS_A_CH_NOT_GROUP_MARK_DOT_WM,'1',testName,"A CH Not GMWM Alt blank no WM");
+            check1(PS_A_CH_RECORD_MARK,'0',testName,"A CH RM Alt Blank no WM"); 
+            check1(PS_A_CH_NOT_RECORD_MARK,'1',testName,"A CH Not RM Alt Blank no WM");
+            check1(PS_A_CH_CHAR_A_BIT_ONLY,'1',testName,"A CH A Bit Alt blank no WM");
+            check1(MS_A_CH_CHAR_NOT_A_BIT,'1',testName,"A CH NOT A Bit Alt blank no WM");
+         when others => 
+            check1(PS_A_CH_GROUP_MARK_DOT_WM,'0',testName,"A CH GMWM Others no WM");
+            check1(PS_A_CH_NOT_GROUP_MARK_DOT_WM,'1',testName,"A CH Not GMWM Others no WM");
+            check1(PS_A_CH_RECORD_MARK,'0',testName,"A CH RM Others no WM"); 
+            check1(PS_A_CH_NOT_RECORD_MARK,'1',testName,"A CH Not RM Others no WM");
+            check1(PS_A_CH_CHAR_A_BIT_ONLY,'0',testName,"A CH A Bit Others no WM");
+            check1(MS_A_CH_CHAR_NOT_A_BIT,'0',testName,"A CH NOT A Bit Others no WM");
+      end case;
+      
+      -- Second test WITH WM
+      
+      PS_A_CH_BUS <= tvwm;
+      PS_A_CH_NOT_BUS <= not tvwm;
+      
+      wait for 30 ns;
+      
+      case BCD_CHAR is
+         when BCD.BCD_GROUP_MARK =>
+            check1(PS_A_CH_GROUP_MARK_DOT_WM,'1',testName,"A CH GMWM GM WM"); 
+            check1(PS_A_CH_NOT_GROUP_MARK_DOT_WM,'0',testName,"A CH Not GMWM GM WM");
+            check1(PS_A_CH_RECORD_MARK,'0',testName,"A CH RM GM WM"); 
+            check1(PS_A_CH_NOT_RECORD_MARK,'1',testName,"A CH Not RM GM WM");
+            check1(PS_A_CH_CHAR_A_BIT_ONLY,'0',testName,"A CH A Bit GM WM");
+            check1(MS_A_CH_CHAR_NOT_A_BIT,'0',testName,"A CH NOT A Bit GM WM");
+         when BCD.BCD_RECORD_MARK =>
+            check1(PS_A_CH_GROUP_MARK_DOT_WM,'0',testName,"A CH GMWM RM WM"); 
+            check1(PS_A_CH_NOT_GROUP_MARK_DOT_WM,'1',testName,"A CH Not GMWM RM WM");
+            check1(PS_A_CH_RECORD_MARK,'1',testName,"A CH RM RM WM"); 
+            check1(PS_A_CH_NOT_RECORD_MARK,'0',testName,"A CH Not RM RM WM");
+            check1(PS_A_CH_CHAR_A_BIT_ONLY,'0',testName,"A CH A Bit RM WM");
+            check1(MS_A_CH_CHAR_NOT_A_BIT,'0',testName,"A CH NOT A Bit RM WM");
+         when BCD.BCD_ALT_BLANK =>
+            check1(PS_A_CH_GROUP_MARK_DOT_WM,'0',testName,"A CH GMWM Alt blank WM"); 
+            check1(PS_A_CH_NOT_GROUP_MARK_DOT_WM,'1',testName,"A CH Not GMWM Alt blank WM");
+            check1(PS_A_CH_RECORD_MARK,'0',testName,"A CH RM Alt Blank WM"); 
+            check1(PS_A_CH_NOT_RECORD_MARK,'1',testName,"A CH Not RM Alt Blank WM");
+            check1(PS_A_CH_CHAR_A_BIT_ONLY,'1',testName,"A CH A Bit Alt blank WM");
+            check1(MS_A_CH_CHAR_NOT_A_BIT,'1',testName,"A CH NOT A Bit Alt blank WM");
+         when others => 
+            check1(PS_A_CH_GROUP_MARK_DOT_WM,'0',testName,"A CH GMWM Others WM");
+            check1(PS_A_CH_NOT_GROUP_MARK_DOT_WM,'1',testName,"A CH Not GMWM Others WM");
+            check1(PS_A_CH_RECORD_MARK,'0',testName,"A CH RM Others WM"); 
+            check1(PS_A_CH_NOT_RECORD_MARK,'1',testName,"A CH Not RM Others WM");
+            check1(PS_A_CH_CHAR_A_BIT_ONLY,'0',testName,"A CH A Bit Others WM");
+            check1(MS_A_CH_CHAR_NOT_A_BIT,'0',testName,"A CH NOT A Bit Others WM");
+      end case;      
+   end loop;
+
+
+   testName := "15.41.04.1, 07.1  ";
+
+   for BCD_CHAR in BCD.BCD loop
+   
+      tv := BCD.bcd_to_slv8_odd_parity(BCD_CHAR);
+      tvwm := not tv(0) & '1' & tv(5 downto 0);
+      
+      -- First test w/o WM
+      
+      PB_B_CH_BUS <= tv;
+      PB_B_CH_NOT_BUS <= not tv(6 downto 0);
+      
+      wait for 30 ns;
+      
+      case BCD_CHAR is
+         when BCD.BCD_GROUP_MARK =>
+            check1(PS_B_CH_GROUP_MARK_DOT_WM,'0',testName,"B CH GMWM GM no WM"); 
+            check1(MS_B_CH_GROUP_MARK_DOT_WM,'1',testName,"B CH GMWM GM no WM -S"); 
+            check1(PB_B_CH_GROUP_MARK_WM,'0',testName,"B CH GMWM GM no WM +B"); 
+            check1(PS_B_CH_NOT_GROUP_MARK_WM,'1',testName,"B CH Not GMWM GM no WM");
+            check1(PB_B_CH_NOT_GROUP_MARK_WM,'1',testName,"B CH Not GMWM GM no WM +B");
+            check1(PB_B_CH_BLANK,'0',testName,"B CH BLANK GM no WM");
+            check1(MB_B_CH_NOT_BLANK,'0',testName,"B CH NOT BLANK GM no WM");
+         when BCD.BCD_BLANK =>
+            check1(PS_B_CH_GROUP_MARK_DOT_WM,'0',testName,"B CH GMWM BLANK no WM"); 
+            check1(MS_B_CH_GROUP_MARK_DOT_WM,'1',testName,"B CH GMWM BLANK no WM -S"); 
+            check1(PB_B_CH_GROUP_MARK_WM,'0',testName,"B CH GMWM BLANK no WM +B"); 
+            check1(PS_B_CH_NOT_GROUP_MARK_WM,'1',testName,"B CH Not GMWM BLANK no WM");
+            check1(PB_B_CH_NOT_GROUP_MARK_WM,'1',testName,"B CH Not GMWM BLANK no WM +B");
+            check1(PB_B_CH_BLANK,'1',testName,"B CH BLANK BLANK no WM");
+            check1(MB_B_CH_NOT_BLANK,'1',testName,"B CH NOT BLANK BLANK no WM");
+         when others => 
+            check1(PS_B_CH_GROUP_MARK_DOT_WM,'0',testName,"B CH GMWM Others no WM");
+            check1(MS_B_CH_GROUP_MARK_DOT_WM,'1',testName,"B CH GMWM Others no WM -S");
+            check1(PB_B_CH_GROUP_MARK_WM,'0',testName,"B CH GMWM Others no WM +B");
+            check1(PS_B_CH_NOT_GROUP_MARK_WM,'1',testName,"B CH Not GMWM Others no WM");
+            check1(PB_B_CH_NOT_GROUP_MARK_WM,'1',testName,"B CH Not GMWM Others no WM +B");
+            check1(PB_B_CH_BLANK,'0',testName,"B CH BLANK Others no WM");
+            check1(MB_B_CH_NOT_BLANK,'0',testName,"B CH NOT BLANK Others no WM");
+      end case;
+      
+      -- Second test WITH WM
+      
+      PB_B_CH_BUS <= tvwm;
+      PB_B_CH_NOT_BUS <= not tvwm(6 downto 0);
+      
+      wait for 30 ns;
+      
+   end loop;
+
+   testName := "15.41.08.1        ";
+   
+      for BCD_CHAR in BCD.BCD loop
+      
+         tv := BCD.bcd_to_slv8_odd_parity(BCD_CHAR);
+
+         PS_F1_INPUT_BUS <= tv;         
+         
+         wait for 30 ns;
+         
+         case BCD_CHAR is
+            when BCD.BCD_WORD_SEPARATOR =>
+               check1(PS_F_CH_NOT_WORD_SEPARATOR,'0',testName,"F1 Not Word Separator WS Char");
+            when others => 
+               check1(PS_F_CH_NOT_WORD_SEPARATOR,'1',testName,"F1 Not Word Separator Others");
+         end case;
+         
+      end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
