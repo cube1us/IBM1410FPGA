@@ -1,4 +1,6 @@
-Generating HDL for page 15.41.07.1 CHANNEL CHARACTER DETECTION-ACC at 9/9/2020 6:28:13 PM
+Generating HDL for page 15.41.07.1 CHANNEL CHARACTER DETECTION-ACC at 9/11/2020 10:36:34 AM
+Note: DOT Function at 4A has a forced logic function of AND
+Note: DOT Function at 4D has a forced logic function of AND
 Ignoring Logic Block 4C with symbol R
 Ignoring Logic Block 3E with symbol R
 Ignoring Logic Block 4F with symbol R
@@ -36,10 +38,10 @@ Generating Statement for block at 4E with output pin(s) of OUT_4E_A
 	and logic function of NOR
 Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A, OUT_DOT_4A
 	and inputs of OUT_4A_G,OUT_4B_A
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D, OUT_DOT_4D
 	and inputs of OUT_4D_G,OUT_4E_A
-	and logic function of OR
+	and logic function of AND
 Generating output sheet edge signal assignment to 
 	signal MS_B_CH_GROUP_MARK_DOT_WM
 	from gate output OUT_3A_E
