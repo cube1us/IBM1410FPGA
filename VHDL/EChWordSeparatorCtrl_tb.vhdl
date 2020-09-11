@@ -215,6 +215,141 @@ uut_process: process
 
    -- Your test bench code
 
+   testName := "15.41.12.1        ";
+   
+   for tt in 0 to 2**15 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      
+      PS_I_RING_HDL_BUS <= "00000000" & a & "00" & g & "0";
+      PS_PERCENT_OR_COML_AT <= b;
+      MS_COMPUTER_RESET_1 <= not c;
+      PS_LOGIC_GATE_C_OR_D <= d;
+      PS_E_CH_STATUS_SAMPLE_B_DELAY <= e;
+      PS_1401_CARD_PRINT_IN_PROC <= f;
+      PS_E_CH_2_CHAR_ONLY_OP_CODES <= h;
+      PS_LOGIC_GATE_C_1 <= i;
+      PS_1401_COND_TEST_OP_CODE <= j;
+      PS_I_CYCLE <= k;
+      PS_B_CH_NOT_BUS(HDL_WM_BIT) <= l;
+      PS_LOGIC_GATE_E_2 <= m;
+      PS_1401_CARD_OR_PRINT_OP_CODE <= n;
+      PS_I_RING_1_OR_2_OR_5_OR_6_OR_10_TIME <= o;
+      
+      g1 := a and d and b;
+      g2 := j and k and l and m;
+      g3 := g2 or (e and f) or (n and o);
+      g4 := g and h and i;
+      
+      wait for 30 ns;
+
+      check1(MS_E_CH_RESET,NOT(c or g1 or g3 or g4),testName,"-S E Ch Reset");
+      check1(MS_E_CH_RESET_1,NOT(c or g1 or g3 or g4),testName,"-S E Ch Reset 1");
+      check1(MS_E_CH_RESET_CORR_REC_LENGTH,NOT g1,testName,"-S E Ch Reset Corr Rec Len");
+      check1(MS_F_OR_K_E_CH_RESET,NOT g4,testName,"-S F Or K E Ch Reset");
+      
+   end loop;
+   
+      testName := "13.64.04.1        ";
+   
+   -- Note that The W/S latches were reset during test 1
+   
+   check1(PS_E1_REG_WORD_SEPARATOR,'0',testName,"1A");
+   check1(MS_E1_REG_WORD_SEPARATOR,'1',testName,"1B");
+   PS_E_CH_WORD_SEPARATOR_MODE <= '1';
+   PS_SET_E1_REG <= '1';
+   
+   MS_E_CH_WORD_SEPARATOR <= '1';  -- NOT, for now
+   MS_E1_INPUT_BUS(HDL_WM_BIT) <= '1'; -- WM bit NOT set
+   wait for 30 ns;
+   check1(PS_E1_REG_WORD_SEPARATOR,'0',testName,"1C");
+   check1(MS_E1_REG_WORD_SEPARATOR,'1',testName,"1D");
+   MS_E_CH_WORD_SEPARATOR <= '0';
+   wait for 30 ns; -- Should set F1 W/S
+   check1(PS_E1_REG_WORD_SEPARATOR,'1',testName,"1E");
+   check1(MS_E1_REG_WORD_SEPARATOR,'0',testName,"1F");
+   PS_SET_E1_REG <= '0';
+   MS_E_CH_WORD_SEPARATOR <= '1';
+   wait for 30 ns; -- Should stay set
+   check1(PS_E1_REG_WORD_SEPARATOR,'1',testName,"1G");
+   check1(MS_E1_REG_WORD_SEPARATOR,'0',testName,"1H");
+   PS_SET_E1_REG <= '1'; -- Now it should clear
+   wait for 30 ns;
+   check1(PS_E1_REG_WORD_SEPARATOR,'0',testName,"1I");
+   check1(MS_E1_REG_WORD_SEPARATOR,'1',testName,"1J");
+   MS_E1_INPUT_BUS(HDL_WM_BIT) <= '0'; -- WM bit Set
+   wait for 30 ns; -- Should set F1 W/S again
+   check1(PS_E1_REG_WORD_SEPARATOR,'1',testName,"1K");
+   check1(MS_E1_REG_WORD_SEPARATOR,'0',testName,"1L");
+   PS_SET_E1_REG <= '0';
+   MS_E1_INPUT_BUS(HDL_WM_BIT) <= '1';
+   wait for 30 ns;  -- Should stay set
+   check1(PS_E1_REG_WORD_SEPARATOR,'1',testName,"1M");
+   check1(MS_E1_REG_WORD_SEPARATOR,'0',testName,"1N");
+   PS_SET_E1_REG <= '1';
+   wait for 30 ns;  -- Now it should clear again
+   check1(PS_E1_REG_WORD_SEPARATOR,'0',testName,"1O");
+   check1(MS_E1_REG_WORD_SEPARATOR,'1',testName,"1P");
+   
+   -- Set F1 W/S reg again for next test
+   MS_E1_INPUT_BUS(HDL_WM_BIT) <= '0';
+   wait for 30 ns;  -- Now it should set again
+   check1(PS_E1_REG_WORD_SEPARATOR,'1',testName,"1Q");
+   check1(MS_E1_REG_WORD_SEPARATOR,'0',testName,"1R");
+   PS_SET_E1_REG <= '0';
+   
+   PS_E_CH_WORD_SEPARATOR_MODE <= '1';
+   check1(PS_E2_REG_WORD_SEPARATOR,'0',testName,"2A");   
+   check1(MS_E2_REG_WORD_SEPARATOR,'1',testName,"2B");
+   PS_SET_E2_REG_DELAYED <= '1';
+   wait for 30 ns;  -- Should set 
+   PS_SET_E2_REG_DELAYED <= '0';
+   wait for 30 ns;  -- Should stay set
+   check1(PS_E2_REG_WORD_SEPARATOR,'1',testName,"2C");   
+   check1(MS_E2_REG_WORD_SEPARATOR,'0',testName,"2D");
+   PS_RESET_E2_FULL_LATCH <= '1';
+   wait for 30 ns;
+   check1(PS_E2_REG_WORD_SEPARATOR,'1',testName,"2E");   
+   check1(MS_E2_REG_WORD_SEPARATOR,'0',testName,"2F");
+   wait for 30 ns; -- Should reset
+   PS_E_CH_INPUT_MODE <= '1';
+   wait for 30 ns; -- Should stay reset
+   PS_E_CH_INPUT_MODE <= '0';
+   PS_RESET_E2_FULL_LATCH <= '0';
+   check1(PS_E2_REG_WORD_SEPARATOR,'0',testName,"2G");   
+   check1(MS_E2_REG_WORD_SEPARATOR,'1',testName,"2H");
+   PS_SET_E2_REG_DELAYED <= '1';
+   wait for 30 ns;  -- Should set again 
+   PS_SET_E2_REG_DELAYED <= '0';
+   wait for 30 ns;  -- Should stay set
+   check1(PS_E2_REG_WORD_SEPARATOR,'1',testName,"2I");   
+   check1(MS_E2_REG_WORD_SEPARATOR,'0',testName,"2J");
+   PS_SET_E1_REG <= '1';   
+   wait for 30 ns;  -- Should still be set
+   check1(PS_E2_REG_WORD_SEPARATOR,'1',testName,"2K");   
+   check1(MS_E2_REG_WORD_SEPARATOR,'0',testName,"2L");
+   PS_E_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;  -- Should clear
+   PS_E_CH_OUTPUT_MODE <= '1';
+   wait for 30 ns;  -- Should stay clear   
+   check1(PS_E2_REG_WORD_SEPARATOR,'0',testName,"2M");   
+   check1(MS_E2_REG_WORD_SEPARATOR,'1',testName,"2N");
+
+
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
