@@ -1,0 +1,57 @@
+Generating HDL for group named EChWordSeparatorCtrlat 9/11/2020 12:31:55 PM containing pages: 
+	15.41.11.1, 15.41.12.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\EChWordSeparatorCtrl_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 13 signals on page 15.41.11.1
+Found 22 signals on page 15.41.12.1
+Found 26 unique input signals and 9 unique output signals, (34 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S E CH WORD SEPARATOR originates outside the group.
+INFO:  Signal -S E1 INPUT WM BIT originates outside the group.
+INFO:  Signal -S E CH RESET originates inside the group.
+INFO:  Signal +S E CH WORD SEPARATOR MODE originates outside the group.
+INFO:  Signal +S SET E1 REG originates outside the group.
+INFO:  Signal +S E CH OUTPUT MODE originates outside the group.
+INFO:  Signal +S RESET E2 FULL LATCH originates outside the group.
+INFO:  Signal +S E CH INPUT MODE originates outside the group.
+INFO:  Signal +S SET E2 REG DELAYED originates outside the group.
+INFO:  Signal +S LOGIC GATE C + D originates outside the group.
+INFO:  Signal +S LOGIC GATE C 1 originates outside the group.
+INFO:  Signal +S I RING 1 TIME originates outside the group.
+INFO:  Signal +S I RING 2 TIME originates outside the group.
+INFO:  Signal +S I RING 4 TIME originates outside the group.
+INFO:  Signal +S I CYCLE originates outside the group.
+INFO:  Signal +S LOGIC GATE E 2 originates outside the group.
+INFO:  Signal -S COMPUTER RESET 1 originates outside the group.
+INFO:  Signal +S 1401 COND TEST OP CODE originates outside the group.
+INFO:  Signal +S 1401 CARD OR PRINT OP CODE originates outside the group.
+INFO:  Signal +S E CH 2 CHAR ONLY OP CODES originates outside the group.
+INFO:  Signal +S PERCENT OR COML AT originates outside the group.
+INFO:  Signal +S E CH WRONG LENGTH RECORD originates outside the group.
+INFO:  Signal +S E CH STATUS SAMPLE B DELAY originates outside the group.
+INFO:  Signal +S 1401 CARD PRINT IN PROC originates outside the group.
+INFO:  Signal +S B CH NOT WM BIT originates outside the group.
+INFO:  Signal +S I RING 1+2+5+6+10 TIME originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S E1 REG WORD SEPARATOR is used outside the group.
+INFO:  Signal +S E2 REG WORD SEPARATOR is used outside the group.
+INFO:  Signal +S E1 REG WORD SEPARATOR is used outside the group.
+INFO:  Signal -S E2 REG WORD SEPARATOR is used outside the group.
+INFO:  Signal -S E CH RESET is used outside the group.
+INFO:  Signal -S E CH RESET CORR REC LENGTH is used outside the group.
+INFO:  Signal -S F OR K E CH RESET is used outside the group.
+INFO:  Signal -S E CH RESET 1 is used outside the group.
+INFO:  Signal +S BLOCK USE A CH WM is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Signal -S E CH RESET is output from the group, but also used as an input inside the group.
+Input Signal -S E1 INPUT WM BIT replaced by Bus signal -S E1 INPUT BUS
+Input Signal +S I RING 1 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 2 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S I RING 4 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S B CH NOT WM BIT replaced by Bus signal +S B CH NOT BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.41.11.1 (E CH WORD SEPARATOR CONTROL-ACC)
+Generating HDL associated with page 15.41.12.1 (E CH WORD SEPARATOR CONTROL-ACC)

@@ -1,0 +1,78 @@
+Generating HDL for page 15.41.11.1 E CH WORD SEPARATOR CONTROL-ACC at 9/11/2020 12:30:34 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_41_11_1_E_CH_WORD_SEPARATOR_CONTROL_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 3G
+Found combinatorial loop (need D FF) at output of gate at 2G
+Removed 2 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1H to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_P
+	and inputs of PS_SET_E1_REG
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_C
+	and inputs of OUT_3B_E
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G
+	and inputs of MS_E1_INPUT_WM_BIT,MS_E_CH_WORD_SEPARATOR
+	and logic function of NAND
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_E_Latch, OUT_3B_E_Latch
+	and inputs of OUT_DOT_4B,MS_E_CH_RESET,OUT_2B_G
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_G_Latch, OUT_2B_G_Latch, OUT_2B_G_Latch
+	and inputs of OUT_3B_E,OUT_3C_C
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C
+	and inputs of OUT_2B_G
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of PS_E_CH_WORD_SEPARATOR_MODE,PS_SET_E1_REG,OUT_3D_K
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_K
+	and inputs of MS_E_CH_WORD_SEPARATOR,MS_E1_INPUT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_K
+	and inputs of PS_SET_E1_REG,PS_E_CH_OUTPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PS_RESET_E2_FULL_LATCH,PS_E_CH_INPUT_MODE
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of OUT_4E_K,OUT_4F_C,MS_E_CH_RESET
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_E
+	and inputs of OUT_2B_G,PS_E_CH_WORD_SEPARATOR_MODE,PS_SET_E2_REG_DELAYED
+	and logic function of NAND
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_F_Latch
+	and inputs of OUT_2G_NoPin
+	and logic function of NAND
+Generating Statement for block at 2G with *latched* output pin(s) of OUT_2G_NoPin_Latch, OUT_2G_NoPin_Latch
+	and inputs of OUT_4G_E,OUT_DOT_3G
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_E
+	and inputs of OUT_2G_NoPin
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of OUT_1H_D
+	and inputs of OUT_DOT_3G
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_5A_P,OUT_5B_G
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G, OUT_DOT_3G
+	and inputs of OUT_3F_C,OUT_3G_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_E1_REG_WORD_SEPARATOR
+	from gate output OUT_2A_C
+Generating output sheet edge signal assignment to 
+	signal MS_E1_REG_WORD_SEPARATOR
+	from gate output OUT_1B_C
+Generating output sheet edge signal assignment to 
+	signal MS_E2_REG_WORD_SEPARATOR
+	from gate output OUT_1G_E
+Generating output sheet edge signal assignment to 
+	signal PS_E2_REG_WORD_SEPARATOR
+	from gate output OUT_1H_D
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 3G
+Generating D Flip Flop for block at 2G
