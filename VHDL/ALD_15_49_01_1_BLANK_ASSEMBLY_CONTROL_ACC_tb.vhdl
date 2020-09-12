@@ -240,13 +240,207 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
+   variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
-   variable g1, g2, g3, g4, g5, g6: std_logic;
+   variable u1, u2, u3, z0, y, x, v1, v2, v3, r1, r2, r3, q1,q2, q3: std_logic;
+   variable s1,s2,s3, t1, t2, t3, w1,z: std_logic;
+   variable g1, g2, g3, g4, g5, g6, g7, g8: std_logic;
 
    begin
 
    -- Your test bench code
+   testName := "15.41.12.1        ";
+   
+   for tt in 0 to 2**18 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      m := tv(6);
+      p := tv(7);
+      q2 := tv(8);
+      r1 := tv(9);
+      t3 := tv(10);
+      u2 := tv(11);
+      u3 := tv(12);
+      v2 := tv(13);
+      v3 := tv(14);
+      x := tv(15);
+      y := tv(16);
+      z0 := tv(17);
+      
+      g1 := y and x and z0;
+      g2 := u3 and v3 and r1 and v2;
+      g3 := a or d or e or f or (b and c) or (m and c) or (m and q2);
+      g4 := not t3 and g3;      
+      
+      MS_WRITE_EDIT_BLANK <= not u2;
+      MS_MPLY_DOT_N_DOT_C <= not p;
+      PS_B_CH_NOT_WM_BIT <= y;
+      PB_OUTPUT_WM_CYCLE <= x;
+      PB_OUTPUT_CYCLE <= z0;
+      PS_A_CH_VALID_OR_AST_SWITCH_OFF <= u3;
+      PS_A_CH_CHAR_A_BIT_ONLY <= v3;
+      PS_INPUT_CYCLE_NOT_LAST_INPUT <= r1;
+      PS_EVEN_PARITY_CYCLE <= v2;
+      MS_CONTROL_REG_DISABLE <= not t3;
+      MS_STOP_AT_H_DOT_B_CY_DOT_1ST_SCAN <= not a;
+      MS_B_CYCLE_DOT_NO_SCAN <= not d;
+      MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT <= not e;
+      MS_STOP_AT_F_DOT_B_CYCLE <= not f;
+      PS_COMPARE_TYPE_OP_CODES <= b;
+      PS_B_CYCLE_1 <= c;
+      PS_1401_STORE_AR_OP_CODES <= m;
+      PS_C_CYCLE <= q2;
+      
+      wait for 30 ns;
+      
+      check1(MS_1401_STORE_AR_DOT_C_CYCLE,not(m and q2),testName,"1401 Store AR DOT C Cycle");
+      check1(MB_USE_NO_NUMERICS,NOT(u2 or p or g1 or g2 or g4),testName,"Use No Numerics");
+      
+   end loop;
+
+
+   for tt in 0 to 2**22 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      
+      u3 := tv(0);
+      v3 := tv(1);
+      r1 := tv(2);
+      v2 := tv(3);
+      
+      t3 := tv(4);
+      a := tv(5);
+      d := tv(6);
+      e := tv(7);
+      f := tv(8);
+      b := tv(9);
+      c := tv(10);
+      m := tv(11);
+      q2 := tv(12);
+      
+      s3 := tv(13);
+      u2 := tv(14);
+      r2 := tv(15);
+      s2 := tv(16);
+      t2 := tv(17);
+      t1 := tv(18);
+      w1 := tv(19);
+      u1 := tv(20);
+      v1 := tv(21);
+      
+      g2 := u3 and v3 and r1 and v2;
+      g3 := a or d or e or f or (b and c) or (m and c) or (m and q2);      
+      g4 := not t3 and g3;   
+      g5 := m and r2 and s2;
+      g6 := not t2 and not t3 and t1;  
+      
+      PS_A_CH_VALID_OR_AST_SWITCH_OFF <= u3;
+      PS_A_CH_CHAR_A_BIT_ONLY <= v3;
+      PS_INPUT_CYCLE_NOT_LAST_INPUT <= r1;
+      PS_EVEN_PARITY_CYCLE <= v2;
+      
+      MS_CONTROL_REG_DISABLE <= not t3;
+      MS_STOP_AT_H_DOT_B_CY_DOT_1ST_SCAN <= not a;
+      MS_B_CYCLE_DOT_NO_SCAN <= not d;
+      MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT <= not e;
+      MS_STOP_AT_F_DOT_B_CYCLE <= not f;
+      PS_COMPARE_TYPE_OP_CODES <= b;
+      PS_B_CYCLE_1 <= c;
+      PS_1401_STORE_AR_OP_CODES <= m;
+      PS_C_CYCLE <= q2;
+      
+      PS_USE_NO_ZONES_STAR_ARITH <= s3;
+      MS_WRITE_EDIT_BLANK <= not u2;
+      PS_A_RING_3_TIME <= r2;
+      PS_A_CYCLE <= s2;
+      MS_1401_MODE <= not t2;
+      PS_X_CYCLE <= t1;
+      PS_OUTPUT_CYCLE <= u1;
+      PS_OUTPUT_WM_CYCLE <= w1;
+      MB_A_OR_S_DOT_B_DOT_Y_OR_X_DOT_S_OR_NOT_BW_DOT_1401 <= not v1;
+      
+      
+      wait for 30 ns;
+
+      check1(MS_1401_STORE_AR_DOT_C_CYCLE,not(m and q2),testName,"1401 Store AR DOT C Cycle - 2");
+      check1(MB_USE_NO_ZONES,NOT(g2 or g4 or v1 or s3 or u2 or g5 or g6 or (w1 and u1)),
+         testName,"Use No Zones");
+      
+   end loop;
+   
+   wait for 1 ms;
+
+   for tt in 0 to 2**24 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      
+      t3 := tv(0);
+      a := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      b := tv(5);
+      c := tv(6);
+      m := tv(7);
+      q2 := tv(8);
+      
+      p := tv(9);
+      k := tv(10);
+      o := tv(11);
+      j := tv(12);
+      q1 := tv(13);
+      q3 := tv(14);
+      l := tv(15);
+      u1 := tv(16);
+      r3 := tv(17);
+      s1 := tv(18);
+      i := tv(19);
+      n := tv(20);
+      r1 := tv(21);
+      g := tv(22);
+      h := tv(23);
+      
+      g3 := a or d or e or f or (b and c) or (m and c) or (m and q2);      
+      g4 := not t3 and g3;
+      g7 := r3 and s1 and i and n;
+      g8 := r1 and g and i and not h;   
+      
+      MS_CONTROL_REG_DISABLE <= not t3;
+      MS_STOP_AT_H_DOT_B_CY_DOT_1ST_SCAN <= not a;
+      MS_B_CYCLE_DOT_NO_SCAN <= not d;
+      MS_C_OR_D_CYCLE_DOT_INSN_READ_OUT <= not e;
+      MS_STOP_AT_F_DOT_B_CYCLE <= not f;
+      PS_COMPARE_TYPE_OP_CODES <= b;
+      PS_B_CYCLE_1 <= c;
+      PS_1401_STORE_AR_OP_CODES <= m;
+      PS_C_CYCLE <= q2;
+      
+      MS_MPLY_DOT_N_DOT_C <= not p;
+      MS_FILE_OP_DOT_D_CYCLE <= not k;
+      MS_X_CYCLE_DOT_NOT_CR_DISABLE <= not o;
+      PS_USE_NO_WM_STAR_EDIT <= j;
+      PS_CLEAR_WORD_MARK_OP_CODE <= q1;
+      PS_A_OR_B_CYCLE <= q3;
+      PS_MOVE_CYCLE <= l;
+      PS_OUTPUT_CYCLE <= u1;
+      PB_B_CH_NOT_GROUP_MARK_WM <= r3;
+      PB_ANY_LIST_INPUT_CYCLE <= s1;
+      PS_LOAD_CYCLE <= i;
+      PB_1401_MODE <= n;
+      PS_INPUT_CYCLE_NOT_LAST_INPUT <= r1;
+      PS_A_CH_INVALID <= g;
+      MV_ASTERISK_INS_CONSOLE_SW_OFF <= not h;
+            
+      wait for 30 ns;
+
+      check1(MS_1401_STORE_AR_DOT_C_CYCLE,not(m and q2),testName,"1401 Store AR DOT C Cycle - 3");
+      check1(PB_USE_NO_WM,g4 or p or k or o or j or (q1 and q3) or (l and u1) or
+         g7 or g8,testName,"Use No WM");
+      
+   end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -259,7 +453,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 1100 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
