@@ -1,7 +1,14 @@
-Generating HDL for page 15.49.01.1 BLANK ASSEMBLY CONTROL-ACC at 9/12/2020 1:27:24 PM
-Note: DOT Function at 1F has a forced logic function of AND
-Note: DOT Function at 1G has a forced logic function of AND
-Note: DOT Function at 1H has a forced logic function of AND
+Generating HDL for page 15.49.01.1 BLANK ASSEMBLY CONTROL-ACC at 9/12/2020 3:52:55 PM
+Note: DOT Function at 4B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1F has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Note: DOT Function at 1G has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Note: DOT Function at 2G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1H has input level(s) of B, and output level(s) of B, Logic Function set to AND
 Ignoring Logic Block 5B with symbol R
 Removed 1 outputs from Gate at 5A to ignored block(s) or identical signal names
 Removed 2 outputs from Dot Function at 1G to ignored block(s) or identical signal names
