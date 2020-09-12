@@ -1,5 +1,7 @@
-Generating HDL for page 15.49.01.1 BLANK ASSEMBLY CONTROL-ACC at 9/11/2020 8:49:56 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_49_01_1_BLANK_ASSEMBLY_CONTROL_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 15.49.01.1 BLANK ASSEMBLY CONTROL-ACC at 9/12/2020 10:01:18 AM
+Note: DOT Function at 1F has a forced logic function of AND
+Note: DOT Function at 1G has a forced logic function of AND
+Note: DOT Function at 1H has a forced logic function of AND
 Ignoring Logic Block 5B with symbol R
 Removed 1 outputs from Gate at 5A to ignored block(s) or identical signal names
 Removed 2 outputs from Dot Function at 1G to ignored block(s) or identical signal names
@@ -114,10 +116,10 @@ Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D, OUT_DOT_1
 	and logic function of OR
 Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
 	and inputs of OUT_3C_C,OUT_1F_B
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
 	and inputs of OUT_1G_A,MB_A_OR_S_DOT_B_DOT_Y_OR_X_DOT_S_OR_NOT_BW_DOT_1401
-	and logic function of OR
+	and logic function of AND
 Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
 	and inputs of OUT_2E_E,OUT_2F_C,PS_USE_NO_ZONES_STAR_ARITH,PS_USE_NO_ZONES_STAR_EDIT
 	and logic function of OR
@@ -129,7 +131,7 @@ Generating Statement for block at 2H with output pin(s) of OUT_DOT_2H
 	and logic function of OR
 Generating Statement for block at 1H with output pin(s) of OUT_DOT_1H
 	and inputs of OUT_1H_B,OUT_1I_B
-	and logic function of OR
+	and logic function of AND
 Generating output sheet edge signal assignment to 
 	signal PB_USE_NO_WM
 	from gate output OUT_1C_K
