@@ -192,13 +192,85 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
-   variable g1, g2, g3, g4, g5, g6: std_logic;
+   variable tv: std_logic_vector(22 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w: std_logic;
+   variable g1, g2, g3, g4, g5, g6, g7, g8: std_logic;
 
    begin
 
    -- Your test bench code
+
+   testName := "15.49.04.1        ";
+
+   for tt in 0 to 2**23 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      p := tv(15);
+      q := tv(16);
+      r := tv(17);
+      s := tv(18);
+      t := tv(19);
+      u := tv(20);
+      v := tv(21);
+      w := tv(22);
+      
+      g1 := a and b;
+      g2 := c and e and d;
+      g3 := f and g;
+      g4 := j and i and k;
+      g5 := p and o;
+      g6 := m and n;
+      g7 := s and t and u;
+      g8 := s and not w;
+                  
+	   PS_LOAD_CYCLE <= a;
+      PS_OUTPUT_CYCLE <= b;
+      PS_DATA_MOVE_OP_CODE <= c;
+      PS_B_CYCLE_1 <= d;
+      PS_OP_MOD_REG_NOT_4_BIT <= e;
+      PS_STORE_ADDR_REGS_OP_CODE <= f;
+      PS_C_CYCLE <= g;
+      MS_EDIT_SKID_CYCLE <= not h;
+      PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN <= i;
+      PS_ARITH_TYPE_OP_CODES <= j;
+      PS_B_OR_D_CYCLE <= k;
+      MS_INTERRUPT_DOT_B_CYCLE <= not l;
+      PS_1401_STORE_AR_OP_CODES <= m;
+      PS_A_CYCLE <= n;
+      PS_MOVE_CYCLE <= o;
+      PS_INPUT_CYCLE <= p;
+      MS_F_CYCLE <= not q;
+      MB_ANY_LAST_IN_CYCLE_NOT_1401 <= not r;
+      PS_E_CYCLE <= s;
+      PS_E_CH_SELECT_UNIT_2 <= t;
+      PS_E_CH_UNIT_NUMBER_0 <= u;
+      PS_OUTPUT_FIELD_CYCLE_STAR_1414_STAR <= v;
+      MS_E_CH_SELECT_UNIT_2 <= not w;
+
+      wait for 30 ns;
+      
+      check1(MS_G_OP_DOT_C_CYCLE,not g3,testName,"G Op . C Cycle");
+      check1(MS_1401_H_OR_Q_DOT_A_CYCLE,not g6,testName,"1401 H + Q . A Cycle");
+      check1(PB_USE_B_CH_WM,h or l or r or g1 or g2 or g3 or g4 or g5 or g6,
+         testName,"USE B Ch WM");
+      check1(PS_OUTPUT_FIELD_CYCLE,q or g7 or g8 or v,testName,"Output Field Cycle");            
+      
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -211,7 +283,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 300 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
