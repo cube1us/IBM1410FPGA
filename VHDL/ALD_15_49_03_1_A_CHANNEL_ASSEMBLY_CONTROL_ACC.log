@@ -1,0 +1,57 @@
+Generating HDL for page 15.49.03.1 A CHANNEL ASSEMBLY CONTROL-ACC at 9/12/2020 8:16:39 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_49_03_1_A_CHANNEL_ASSEMBLY_CONTROL_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 2 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_G
+	and inputs of MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,MS_CONTROL_REG_DISABLE
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_OP_MOD_REG_2_BIT,PS_DATA_MOVE_OP_CODE,PS_B_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_Q
+	and inputs of OUT_DOT_2B
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of PS_I_CYCLE_1,MS_1401_DOT_I_RING_5_OR_10_TIME_DOT_I_CY
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_G
+	and inputs of OUT_4B_D,OUT_4C_G,OUT_3D_E
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of MS_A_CH_CHAR_NOT_A_BIT,MS_ODD_PARITY_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_E, OUT_3D_E
+	and inputs of OUT_4D_C,PS_INPUT_CYCLE_NOT_LAST_INPUT,PS_A_CH_VALID_OR_AST_SWITCH_OFF
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,MS_CONTROL_REG_DISABLE,MS_RA_OR_RS_DOT_B_DOT_U_OR_Y_DOT_1401
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PS_B_CYCLE_1,PS_DATA_MOVE_OP_CODE,PS_OP_MOD_REG_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_G
+	and inputs of OUT_4F_C,MS_G_OP_DOT_C_CYCLE,OUT_4G_R
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_A
+	and inputs of OUT_DOT_2F
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_R
+	and inputs of PS_EDIT_USE_A_CH_NU
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_G
+	and inputs of OUT_3D_E,MS_I_CYCLE,MS_1401_H_OR_Q_DOT_A_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2A_G,PS_USE_A_CH_ZONES_STAR_EDIT,OUT_2C_G
+	and logic function of OR
+Generating Statement for block at 2F with output pin(s) of OUT_DOT_2F
+	and inputs of OUT_2E_C,OUT_2F_G,OUT_2G_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_USE_A_CH_ZONES
+	from gate output OUT_1B_Q
+Generating output sheet edge signal assignment to 
+	signal PS_USE_A_CH_NU
+	from gate output OUT_1F_A
