@@ -177,13 +177,69 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
+   variable tv: std_logic_vector(16 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q: std_logic;
    variable g1, g2, g3, g4, g5, g6: std_logic;
 
    begin
 
    -- Your test bench code
+   
+   testName := "15.49.02.1        ";
+
+   for tt in 0 to 2**17 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      p := tv(15);
+      q := tv(16);
+      
+      g1 := k and not m and not n;
+      g2 := i or j;
+      g3 := f and g1 and g2 and not h;
+      g4 := b and d and c;      
+      
+	   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= not a;
+      PS_DATA_MOVE_OP_CODE <= b;
+      PS_B_CYCLE_1 <= c;
+      PS_OP_MOD_REG_4_BIT <= d;
+      MS_I_CYCLE <= not e;
+      PS_LOAD_CYCLE <= f;
+      MS_CONTROL_REG_DISABLE <= not g;
+      PS_BLOCK_USE_A_CH_WM <= h;
+      MV_ASTERISK_INS_CONSOLE_SW_OFF <= not i;
+      MS_A_CH_VALID <= not j;
+      PS_INPUT_CYCLE <= k;
+      MS_F_CH_OUTPUT_WM_CYCLE_STAR_1414_STAR <= not l;
+      MS_E_CH_LAST_INPUT_CYCLE <= not m;
+      MS_F_CH_LAST_INPUT_CYCLE <= not n;
+      PS_E_CYCLE <= o;
+      PS_E_CH_SELECT_UNIT_2 <= p;
+      PS_E_CH_UNIT_NUMBER_1 <= q;
+      
+      wait for 30 ns;
+      
+      check1(PS_INPUT_CYCLE_NOT_LAST_INPUT,g1,testName,"Input Cycle . Not Last Input");
+      check1(PS_A_CH_VALID_OR_AST_SWITCH_OFF,g2,testName,"A Ch Valid + Ast Ins Sw Off");
+      check1(PB_USE_A_CH_WM,a or e or g or g4 or g3,TestName,"Use A CH WM");
+      check1(PS_OUTPUT_WM_CYCLE,l or (o and p and q),testName,"+S Output WM Cycle");
+      check1(PB_OUTPUT_WM_CYCLE,l or (o and p and q),testName,"+B Output WM Cycle");
+      
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -196,7 +252,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
