@@ -1,0 +1,138 @@
+Generating HDL for page 15.49.05.1 B CHANNEL ASSEMBLY CONTROL-ACC at 9/13/2020 10:50:59 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_49_05_1_B_CHANNEL_ASSEMBLY_CONTROL_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Ignoring Logic Block 2G with symbol R
+Ignoring Logic Block 1G with symbol R
+Ignoring Logic Block 1H with symbol R
+Removed 2 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_A
+	and inputs of MS_ODD_PARITY_CYCLE
+	and logic function of NOT
+Generating Statement for block at 4A with output pin(s) of OUT_4A_K
+	and inputs of OUT_5A_A
+	and logic function of NOT
+Generating Statement for block at 3A with output pin(s) of OUT_3A_D
+	and inputs of OUT_4A_K,MB_B_CH_NOT_BLANK
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_K
+	and inputs of OUT_3A_D,OUT_4B_C,PB_OUTPUT_CYCLE
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_A
+	and inputs of OUT_2A_K,OUT_2B_C,OUT_4H_A
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_B
+	and inputs of PS_OUTPUT_FIELD_CYCLE
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of OUT_5B_B
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of MS_LB_DOT_B_CYCLE_DOT_BODY_LATCH,OUT_4C_C,MS_FILE_OP_DOT_D_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_DOT_3C
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of MS_INPUT_CYCLE
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_OP_MOD_REG_NOT_2_BIT,PS_B_CYCLE_1,PS_DATA_MOVE_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of MS_INTERRUPT_DOT_B_CYCLE,OUT_5G_C,MS_G_OP_DOT_C_CYCLE
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_M
+	and inputs of PS_1401_CARD_PRINT_IN_PROC
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_B
+	and inputs of OUT_5C_C,OUT_5D_M,PB_B_CH_GROUP_MARK_WM,OUT_4E_A
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_F
+	and inputs of OUT_4D_B
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_F
+	and inputs of OUT_2D_F
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_P
+	and inputs of PS_I_O_GRP_MK_WM_STOP_CTRL
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_A
+	and inputs of OUT_5E_P
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_F
+	and inputs of MS_STORE_B_CH_CHARACTER
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D
+	and inputs of MS_STORE_B_CH_CHARACTER
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_R
+	and inputs of PS_OUTPUT_FIELD_CYCLE,PS_OUTPUT_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of OUT_5F_R,MS_INTERRUPT_DOT_B_CYCLE,MS_FILE_OP_DOT_D_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_M
+	and inputs of OUT_DOT_3F
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of OUT_1F_K
+	and inputs of OUT_2F_M,MB_USE_B_CH_NU_STAR_ARITH,OUT_4H_A
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C, OUT_5G_C
+	and inputs of PS_WORD_MARK_OP_CODES,PS_A_OR_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of PS_B_CYCLE_1,PS_DATA_MOVE_OP_CODE,PS_OP_MOD_REG_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of OUT_5G_C,OUT_4G_C,MS_LB_DOT_B_CYCLE_DOT_3RD_SCAN_DOT_UNITS
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_A
+	and inputs of PS_M_OR_L_OP_CODES
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_A, OUT_4H_A, OUT_4H_A
+	and inputs of OUT_5I_Q,OUT_4I_A
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of MS_E_CH_FILE_DOT_NO_TRANSFER_BUS
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E
+	and inputs of OUT_3H_C
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_Q, OUT_5I_Q
+	and inputs of OUT_2I_C
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_A
+	and inputs of OUT_2H_E,PB_1401_MODE,OUT_3I_K,PB_B_CH_NOT_GROUP_MARK_WM
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_K
+	and inputs of OUT_5H_A
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_C
+	and inputs of PS_ANY_LAST_INPUT_CYCLE
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3B_G,OUT_3C_G,PS_USE_B_CH_ZONES_STAR_ARITH,OUT_2E_F
+	and logic function of OR
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F
+	and inputs of OUT_1E_D,OUT_4F_D,OUT_3G_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PB_USE_B_CH_ZONES
+	from gate output OUT_1A_A
+Generating output sheet edge signal assignment to 
+	signal MS_INPUT_CYCLE_GRP_MK_WM_INSRT
+	from gate output OUT_1D_F
+Generating output sheet edge signal assignment to 
+	signal PB_USE_B_CH_NU
+	from gate output OUT_1F_K
+Generating output sheet edge signal assignment to 
+	signal MB_ANY_LAST_IN_CYCLE_NOT_1401
+	from gate output OUT_4H_A
+Generating output sheet edge signal assignment to 
+	signal PB_ANY_LAST_INPUT_CYCLE
+	from gate output OUT_5I_Q
