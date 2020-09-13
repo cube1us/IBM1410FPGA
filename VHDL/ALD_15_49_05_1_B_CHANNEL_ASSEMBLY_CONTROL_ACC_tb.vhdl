@@ -189,16 +189,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -210,17 +210,39 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(25 downto 0);
+   variable tv: std_logic_vector(27 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
+   variable z0, z2, z3: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.49.05.1        ";
 
-   for tt in 0 to 2**23 loop
+   -- relocated from main loop - too many signals was crashing vivado
+         
+   for tt in 0 to 2**4 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      i := tv(0);
+      k := tv(1);
+      m := tv(2);
+      o := tv(3);
+   	MS_INPUT_CYCLE <= not i;
+      PB_B_CH_GROUP_MARK_WM <= k;
+      PS_1401_CARD_PRINT_IN_PROC <= m;
+      PS_I_O_GRP_MK_WM_STOP_CTRL <= o;
+      
+      wait for 30 ns;
+      
+      check1(MS_INPUT_CYCLE_GRP_MK_WM_INSRT,NOT(i and k and o and not m),
+         testName, "Input Cycle GMWM Insert");      
+   
+   end loop;
+
+
+   for tt in 0 to 2**24 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -230,28 +252,73 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      -- i := tv(8);
+      j := tv(8);
+      -- k := tv(10);
+      l := tv(9);
+      -- m := tv(12);
+      n := tv(10);
+      -- o := tv(14);
+      p := tv(11);
+      q := tv(12);
+      r := tv(13);
+      s := tv(14);
+      t := tv(15);
+      u := tv(16);
+      v := tv(17);
+      w := tv(18);
+      x := tv(19);
+      y := tv(20);
+      z0 := tv(21);
+      z2 := tv(22);
+      z3 := tv(23);
+      
+      g1 := j and g and h;
+      g2 := e and b and (a or d);
+      g3 := t and u;
+      g4 := z2 and (not z0 or w or not y or not z3);
+      g5 := e and c;
+      g6 := j and v and h;
 
+   	MS_ODD_PARITY_CYCLE <= not a;
+   	PB_OUTPUT_CYCLE <= b;
+   	PS_OUTPUT_CYCLE <= c;
+   	MB_B_CH_NOT_BLANK <= not d;
+   	PS_OUTPUT_FIELD_CYCLE <= e;
+   	MS_LB_DOT_B_CYCLE_DOT_BODY_LATCH <= not f;
+   	PS_OP_MOD_REG_NOT_2_BIT <= g;
+   	PS_B_CYCLE_1 <= h;
+   	-- MS_INPUT_CYCLE <= not i;
+   	PS_DATA_MOVE_OP_CODE <= j;
+   	-- PB_B_CH_GROUP_MARK_WM <= k;
+   	MS_G_OP_DOT_C_CYCLE <= not l;
+   	-- PS_1401_CARD_PRINT_IN_PROC <= m;
+   	MS_FILE_OP_DOT_D_CYCLE <= not n;
+   	-- PS_I_O_GRP_MK_WM_STOP_CTRL <= o;
+   	MS_INTERRUPT_DOT_B_CYCLE <= not p;
+   	PS_USE_B_CH_ZONES_STAR_ARITH <= q;
+   	MS_STORE_B_CH_CHARACTER <= not r;
+   	MB_USE_B_CH_NU_STAR_ARITH <= not s;
+   	PS_WORD_MARK_OP_CODES <= t;
+   	PS_A_OR_B_CYCLE <= u;
+   	PS_OP_MOD_REG_NOT_1_BIT <= v;
+   	MS_E_CH_FILE_DOT_NO_TRANSFER_BUS <= not w;
+   	MS_LB_DOT_B_CYCLE_DOT_3RD_SCAN_DOT_UNITS <= not x;
+   	PS_M_OR_L_OP_CODES <= y;
+   	PS_ANY_LAST_INPUT_CYCLE <= z2;
+   	PB_B_CH_NOT_GROUP_MARK_WM <= z3;
+   	PB_1401_MODE <= z0;
       
       wait for 30 ns;
       
+      check1(MB_ANY_LAST_IN_CYCLE_NOT_1401,NOT g4,testName,"Any Last In . Not 1401");
+      check1(PB_ANY_LAST_INPUT_CYCLE,PS_ANY_LAST_INPUT_CYCLE,testName,"+B Any Last Input Cycle");
+      -- check1(MS_INPUT_CYCLE_GRP_MK_WM_INSRT,NOT(i and k and o and not m),testName,
+      --    "Input Cycle GMWM Insert");
+      check1(PB_USE_B_CH_ZONES,q or f or n or g1 or g2 or g3 or l or p or r or g4,
+         testName,"Use B Ch Zones");
+      check1(PB_USE_B_CH_NU,g4 or g3 or r or p or n or x or g5 or g6 or s,testName,
+         "Use B Ch Numerics");
       
    end loop;
 
@@ -266,7 +333,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 8000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
