@@ -194,9 +194,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.49.06.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**14 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -212,23 +212,38 @@ uut_process: process
       l := tv(11);
       m := tv(12);
       n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
 
+      g1 := d and a and e; -- Not NOT a: a is switch ON 
+
+	   PS_B_CH_WM_BIT_2 <= j;
+	   MV_36_VOLTS <= '0';
+      GROUND <= '0';
+      MS_MASTER_ERROR <= not b;
+     	MS_WRITE_EDIT_ASTERISK <= not c;
+  	   PS_INPUT_CYCLE_NOT_LAST_INPUT <= d;
+  	   PS_A_CH_INVALID <= e;
+  	   PS_EVEN_PARITY_CYCLE <= f;
+  	   PB_B_CH_BLANK <= g;
+   	MS_OUTPUT_CYCLE <= not h;
+   	PB_OUTPUT_WM_CYCLE <= i;
+   	PB_B_CH_WM_BIT <= j;
+   	PS_ANY_LAST_INPUT_CYCLE <= k;
+   	PS_1401_MODE <= l;
+   	PS_M_OR_L_OP_CODES <= m;
+   	MS_E_CH_FILE_DOT_NO_TRANSFER_BUS <= not n;
+   	SWITCH_TOG_ASTERISK <= a;
       
       wait for 30 ns;
       
-      
+      check1(MV_ASTERISK_INS_CONSOLE_SW_OFF,a,testName,"Ast Insert Off");
+      check1(MB_ASSEMBLY_CH_A_BIT_INSERT,not(g and f and h),testName,"ASSM A Bit Insert");
+      check1(MB_ASSEMBLY_CH_NU_ONE_INSERT,not(h and i and j),testName,"ASSM Nu one Insert");
+      check1(PS_I_O_CHECK,b or g1,testName,"I O CHECK");
+      check1(MS_ASTERISK_A_CH_CHECK_CTRL,not g1,testName,"Ast. A Ch Check Ctrl");
+      check1(MS_SET_ASTERISK,NOT(g1 or c),testName,"Set Asterisk");
+      check1(PB_OUTPUT_CYCLE,h,testName,"+B Output Cycle");
+      check1(MS_SET_GROUP_MARK,not(not n and k and l and m),testName,"Set Group Mark");
+                 
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
