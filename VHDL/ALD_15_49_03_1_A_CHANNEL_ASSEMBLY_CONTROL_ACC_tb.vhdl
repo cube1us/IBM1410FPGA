@@ -171,13 +171,68 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(15 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p: std_logic;
+   variable tv: std_logic_vector(17 downto 0);
+   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r: std_logic;
    variable g1, g2, g3, g4, g5, g6: std_logic;
 
    begin
 
    -- Your test bench code
+
+   testName := "15.49.03.1        ";
+
+   for tt in 0 to 2**18 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      p := tv(15);
+      q := tv(16);
+      r := tv(17);
+      
+      g1 := l and c and k;
+      g2 := e and not f;
+      g3 := g and h and (i or j);
+      g4 := l and o and k;
+      
+	   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= not a;
+      PS_USE_A_CH_ZONES_STAR_EDIT <= b;
+      PS_OP_MOD_REG_2_BIT <= c;
+      MS_CONTROL_REG_DISABLE <= not d;
+      PS_I_CYCLE_1 <= e;
+      MS_1401_DOT_I_RING_5_OR_10_TIME_DOT_I_CY <= not f;
+      PS_INPUT_CYCLE_NOT_LAST_INPUT <= g;
+      PS_A_CH_VALID_OR_AST_SWITCH_OFF <= h;
+      MS_A_CH_CHAR_NOT_A_BIT <= not i;
+      MS_ODD_PARITY_CYCLE <= not j;
+      PS_B_CYCLE_1 <= k;
+      PS_DATA_MOVE_OP_CODE <= l;
+      MS_RA_OR_RS_DOT_B_DOT_U_OR_Y_DOT_1401 <= not m;
+      MS_G_OP_DOT_C_CYCLE <= not n;
+      PS_OP_MOD_REG_1_BIT <= o;
+      MS_I_CYCLE <= not p;
+      PS_EDIT_USE_A_CH_NU <= q;
+      MS_1401_H_OR_Q_DOT_A_CYCLE <= not r;
+
+      wait for 30 ns;
+      
+      check1(PS_USE_A_CH_ZONES,b or a or d or g1 or g2 or g3,testName,"Use A Ch Zones");
+      check1(PS_USE_A_CH_NU,g3 or q or p or r or n or g4 or d or a or m,testName,"Use A Ch NU");
+      
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -190,7 +245,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
