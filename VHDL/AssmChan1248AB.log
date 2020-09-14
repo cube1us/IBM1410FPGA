@@ -1,0 +1,189 @@
+Generating HDL for group named AssmChan1248ABat 9/14/2020 8:05:31 AM containing pages: 
+	15.50.01.1, 15.50.02.1, 15.50.03.1, 15.50.04.1, 15.50.05.1
+	15.50.06.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AssmChan1248AB_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 6 pages...
+Found 19 signals on page 15.50.01.1
+Found 19 signals on page 15.50.02.1
+Found 19 signals on page 15.50.03.1
+Found 19 signals on page 15.50.04.1
+Found 25 signals on page 15.50.05.1
+Found 20 signals on page 15.50.06.1
+Found 58 unique input signals and 26 unique output signals, (83 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S B CH NOT 1 BIT originates outside the group.
+INFO:  Signal +S B CH 1 BIT originates outside the group.
+INFO:  Signal +S A CH NOT 1 BIT originates outside the group.
+INFO:  Signal +S A CH 1 BIT originates outside the group.
+INFO:  Signal +S USE A CH NU originates outside the group.
+INFO:  Signal -S SET ASTERISK originates outside the group.
+INFO:  Signal -S SET GROUP MARK originates outside the group.
+INFO:  Signal +B ADDER OUT NOT 1 BIT originates outside the group.
+INFO:  Signal +B USE ADDER NU 1 originates outside the group.
+INFO:  Signal -B ASSEMBLY CH NU ZERO INSERT originates outside the group.
+INFO:  Signal -S SET DOLLAR SIGN originates outside the group.
+INFO:  Signal +B ADDER OUT 1 BIT originates outside the group.
+INFO:  Signal -B USE NO NUMERICS originates outside the group.
+INFO:  Signal +B USE B CH NU originates outside the group.
+INFO:  Signal -B ASSEMBLY CH NU ONE INSERT originates outside the group.
+INFO:  Signal +S B CH NOT 2 BIT originates outside the group.
+INFO:  Signal +S B CH 2 BIT originates outside the group.
+INFO:  Signal +S A CH NOT 2 BIT originates outside the group.
+INFO:  Signal +S A CH 2 BIT originates outside the group.
+INFO:  Signal +B ADDER OUT NOT 2 BIT originates outside the group.
+INFO:  Signal +B ADDER OUT 2 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 4 BIT originates outside the group.
+INFO:  Signal +S B CH 4 BIT originates outside the group.
+INFO:  Signal +S A CH NOT 4 BIT originates outside the group.
+INFO:  Signal +S A CH 4 BIT originates outside the group.
+INFO:  Signal +B ADDER OUT NOT 4 BIT originates outside the group.
+INFO:  Signal +B ADDER OUT 4 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 8 BIT originates outside the group.
+INFO:  Signal +S B CH 8 BIT originates outside the group.
+INFO:  Signal +S A CH NOT 8 BIT originates outside the group.
+INFO:  Signal +S A CH 8 BIT originates outside the group.
+INFO:  Signal +B ADDER OUT NOT 8 BIT originates outside the group.
+INFO:  Signal +B ADDER OUT 8 BIT originates outside the group.
+INFO:  Signal +S B CH NOT A BIT originates outside the group.
+INFO:  Signal +S B CH A BIT originates outside the group.
+INFO:  Signal +S A CH NOT A BIT originates outside the group.
+INFO:  Signal +S A CH A BIT originates outside the group.
+INFO:  Signal -B USE NO ZONES originates outside the group.
+INFO:  Signal +S USE A CH ZONES originates outside the group.
+INFO:  Signal +B USE B CH ZONES originates outside the group.
+INFO:  Signal -B ASSEMBLY CH A BIT INSERT originates outside the group.
+INFO:  Signal +S ASM CH NOT A BIT*ADDER ZONES originates outside the group.
+INFO:  Signal -S PLUS SIGN LATCH GATED originates outside the group.
+INFO:  Signal +S ASM CH A BIT*STERLING originates outside the group.
+INFO:  Signal -S A CH INV MINUS SIGN GTD originates outside the group.
+INFO:  Signal -S ASSEMBLY CH B BIT originates inside the group.
+INFO:  Signal -B B CH MIN+INV PLUS SIGN GATED originates outside the group.
+INFO:  Signal -B B CH PLU+INV MIN SIGN GATED originates outside the group.
+INFO:  Signal +S ASM CH A BIT*ADDER ZONES originates outside the group.
+INFO:  Signal -S ZONE ADDER NOT A.NOT B.C 1 originates outside the group.
+INFO:  Signal -S ZONE ADDER NOT A.NOT B.C 2 originates outside the group.
+INFO:  Signal +S B CH NOT B BIT originates outside the group.
+INFO:  Signal +S B CH B BIT originates outside the group.
+INFO:  Signal +S A CH NOT B BIT originates outside the group.
+INFO:  Signal +S A CH B BIT originates outside the group.
+INFO:  Signal +S ADDER ZONES NOT B BIT originates outside the group.
+INFO:  Signal +S ASM CH B BIT * ADDER ZONES originates outside the group.
+INFO:  Signal -B B MN+IN PL+PL+INV MN GATED originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S ASSEMBLY CH 1 BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH 1 BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH NOT 1 BIT is used outside the group.
+INFO:  Signal -Y ASSEMBLY CH 1 BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH 2 BIT is used outside the group.
+INFO:  Signal +S ASSEMBLY CH 2 BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH NOT 2 BIT is used outside the group.
+INFO:  Signal -Y ASSEMBLY CH 2 BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH 4 BIT is used outside the group.
+INFO:  Signal +S ASSEMBLY CH 4 BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH NOT 4 BIT is used outside the group.
+INFO:  Signal -Y ASSEMBLY CH 4 BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH 8 BIT is used outside the group.
+INFO:  Signal +S ASSEMBLY CH 8 BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH NOT 8 BIT is used outside the group.
+INFO:  Signal -Y ASSEMBLY CH 8 BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH A BIT is used outside the group.
+INFO:  Signal +S ASSEMBLY CH A BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH NOT A BIT is used outside the group.
+INFO:  Signal -Y ASSEMBLY CH A BIT is used outside the group.
+INFO:  Signal +S ASSEMBLY CH A OR B BITS is used outside the group.
+INFO:  Signal +B B CH PL+INV MIN SIGN GATED is used outside the group.
+INFO:  Signal +S ASSEMBLY CH B BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH B BIT is used outside the group.
+INFO:  Signal -S ASSEMBLY CH NOT B BIT is used outside the group.
+INFO:  Signal -Y ASSEMBLY CH B BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Signal -S ASSEMBLY CH B BIT is output from the group, but also used as an input inside the group.
+Input Signal +S B CH NOT 1 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 1 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH NOT 1 BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH 1 BIT replaced by Bus signal +S A CH BUS
+Input Signal +B ADDER OUT NOT 1 BIT replaced by Bus signal +B ADDER OUT NOT BUS
+Input Signal +B ADDER OUT 1 BIT replaced by Bus signal +B ADDER OUT BUS
+Input Signal +S B CH NOT 2 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 2 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH NOT 2 BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH 2 BIT replaced by Bus signal +S A CH BUS
+Input Signal +B ADDER OUT NOT 2 BIT replaced by Bus signal +B ADDER OUT NOT BUS
+Input Signal +B ADDER OUT 2 BIT replaced by Bus signal +B ADDER OUT BUS
+Input Signal +S B CH NOT 4 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 4 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH NOT 4 BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH 4 BIT replaced by Bus signal +S A CH BUS
+Input Signal +B ADDER OUT NOT 4 BIT replaced by Bus signal +B ADDER OUT NOT BUS
+Input Signal +B ADDER OUT 4 BIT replaced by Bus signal +B ADDER OUT BUS
+Input Signal +S B CH NOT 8 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 8 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH NOT 8 BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH 8 BIT replaced by Bus signal +S A CH BUS
+Input Signal +B ADDER OUT NOT 8 BIT replaced by Bus signal +B ADDER OUT NOT BUS
+Input Signal +B ADDER OUT 8 BIT replaced by Bus signal +B ADDER OUT BUS
+Input Signal +S B CH NOT A BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH A BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH NOT A BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH A BIT replaced by Bus signal +S A CH BUS
+Input Signal +S B CH NOT B BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH B BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A CH NOT B BIT replaced by Bus signal +S A CH NOT BUS
+Input Signal +S A CH B BIT replaced by Bus signal +S A CH BUS
+Page 15.50.01.1 generates Lamp Output LAMP_11C8K10
+Page 15.50.01.1 generates Lamp Output LAMP_11C8K11
+Page 15.50.02.1 generates Lamp Output LAMP_11C8J10
+Page 15.50.02.1 generates Lamp Output LAMP_11C8J11
+Page 15.50.03.1 generates Lamp Output LAMP_11C8H10
+Page 15.50.03.1 generates Lamp Output LAMP_11C8H11
+Page 15.50.04.1 generates Lamp Output LAMP_11C8G10
+Page 15.50.04.1 generates Lamp Output LAMP_11C8G11
+Page 15.50.05.1 generates Lamp Output LAMP_11C8F10
+Page 15.50.05.1 generates Lamp Output LAMP_11C8F11
+Page 15.50.06.1 generates Lamp Output LAMP_11C8E10
+Page 15.50.06.1 generates Lamp Output LAMP_11C8E11
+DEBUG: Tentative bus +S ASSEMBLY CH BUS identified based on signal +S ASSEMBLY CH 1 BIT
+DEBUG: Tentative bus -S ASSEMBLY CH BUS identified based on signal -S ASSEMBLY CH 1 BIT
+DEBUG: Tentative bus -Y ASSEMBLY CH BUS identified based on signal -Y ASSEMBLY CH 1 BIT
+DEBUG: Added signal -S ASSEMBLY CH 2 BIT to bus -S ASSEMBLY CH BUS
+DEBUG: Added signal +S ASSEMBLY CH 2 BIT to bus +S ASSEMBLY CH BUS
+DEBUG: Added signal -Y ASSEMBLY CH 2 BIT to bus -Y ASSEMBLY CH BUS
+DEBUG: Added signal -S ASSEMBLY CH 4 BIT to bus -S ASSEMBLY CH BUS
+DEBUG: Added signal +S ASSEMBLY CH 4 BIT to bus +S ASSEMBLY CH BUS
+DEBUG: Added signal -Y ASSEMBLY CH 4 BIT to bus -Y ASSEMBLY CH BUS
+DEBUG: Added signal -S ASSEMBLY CH 8 BIT to bus -S ASSEMBLY CH BUS
+DEBUG: Added signal +S ASSEMBLY CH 8 BIT to bus +S ASSEMBLY CH BUS
+DEBUG: Added signal -Y ASSEMBLY CH 8 BIT to bus -Y ASSEMBLY CH BUS
+DEBUG: Added signal -S ASSEMBLY CH A BIT to bus -S ASSEMBLY CH BUS
+DEBUG: Added signal +S ASSEMBLY CH A BIT to bus +S ASSEMBLY CH BUS
+DEBUG: Added signal -Y ASSEMBLY CH A BIT to bus -Y ASSEMBLY CH BUS
+DEBUG: Added signal +S ASSEMBLY CH B BIT to bus +S ASSEMBLY CH BUS
+DEBUG: Added signal -S ASSEMBLY CH B BIT to bus -S ASSEMBLY CH BUS
+DEBUG: Added signal -Y ASSEMBLY CH B BIT to bus -Y ASSEMBLY CH BUS
+DEBUG: Tentative bus LAMPS_ASSM_CH_NOT identified based on signal LAMP_11C8K10
+DEBUG: Tentative bus LAMPS_ASSM_CH identified based on signal LAMP_11C8K11
+DEBUG: Added signal LAMP_11C8J10 to bus LAMPS_ASSM_CH_NOT
+DEBUG: Added signal LAMP_11C8J11 to bus LAMPS_ASSM_CH
+DEBUG: Added signal LAMP_11C8H10 to bus LAMPS_ASSM_CH_NOT
+DEBUG: Added signal LAMP_11C8H11 to bus LAMPS_ASSM_CH
+DEBUG: Added signal LAMP_11C8G10 to bus LAMPS_ASSM_CH_NOT
+DEBUG: Added signal LAMP_11C8G11 to bus LAMPS_ASSM_CH
+DEBUG: Added signal LAMP_11C8F10 to bus LAMPS_ASSM_CH_NOT
+DEBUG: Added signal LAMP_11C8F11 to bus LAMPS_ASSM_CH
+DEBUG: Added signal LAMP_11C8E10 to bus LAMPS_ASSM_CH_NOT
+DEBUG: Added signal LAMP_11C8E11 to bus LAMPS_ASSM_CH
+INFO: Bus +S ASSEMBLY CH BUS NOT generated.  Found 6 members of 7 Total members 
+INFO: Bus -S ASSEMBLY CH BUS NOT generated.  Found 6 members of 7 Total members 
+INFO: Bus -Y ASSEMBLY CH BUS NOT generated.  Found 6 members of 8 Total members 
+INFO: Bus LAMPS_ASSM_CH_NOT NOT generated.  Found 6 members of 8 Total members 
+INFO: Bus LAMPS_ASSM_CH NOT generated.  Found 6 members of 8 Total members 
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.50.01.1 (NUM ASSEM 1.NOT 1 BITS FEATURE)
+Generating HDL associated with page 15.50.02.1 (NUM ASSEM 2.NOT 2 BITS FEATURE)
+Generating HDL associated with page 15.50.03.1 (NUM ASSEM 4 NOT 4 BITS FEATURE)
+Generating HDL associated with page 15.50.04.1 (NUM ASSEM 8.NOT 8 BITS FEATURE)
+Generating HDL associated with page 15.50.05.1 (ZONE ASSEM A.NOT A BITS FEATURE)
+Generating HDL associated with page 15.50.06.1 (ZONE ASSEM B.NOT B BITS FEATURE)
