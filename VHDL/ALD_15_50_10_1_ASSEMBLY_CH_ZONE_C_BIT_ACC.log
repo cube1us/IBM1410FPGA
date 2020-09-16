@@ -1,0 +1,100 @@
+Generating HDL for page 15.50.10.1 ASSEMBLY CH ZONE C BIT-ACC at 9/16/2020 4:05:43 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_50_10_1_ASSEMBLY_CH_ZONE_C_BIT_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1A has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3E has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Note: DOT Function at 4H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 2 outputs from Gate at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_A
+	and inputs of MB_ASSEMBLY_CH_A_BIT_INSERT
+	and logic function of NOT
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of OUT_5A_A
+	and logic function of AND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_A
+	and inputs of OUT_4A_NoPin,OUT_3B_NoPin,OUT_4C_NoPin
+	and logic function of NOR
+Generating Statement for block at 5B with output pin(s) of OUT_5B_A
+	and inputs of PS_B_CH_VC_NOT_ZONE_C_BIT
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B
+	and inputs of OUT_5B_A
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_NoPin
+	and inputs of OUT_4B_B,PB_USE_B_CH_ZONES
+	and logic function of AND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_A
+	and inputs of OUT_DOT_1A
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of MB_B_CH_MIN_OR_INV_PLUS_SIGN_GATED
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of OUT_5C_C
+	and logic function of AND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_G
+	and inputs of PS_A_CH_VC_NOT_ZONE_C_BIT,PS_USE_A_CH_ZONES
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_E
+	and inputs of OUT_5D_G,MS_SET_DOLLAR_SIGN,MS_SET_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_P
+	and inputs of OUT_DOT_4D
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of PB_B_CH_PL_OR_INV_MIN_SIGN_GATED
+	and logic function of AND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_A
+	and inputs of OUT_5E_NoPin,OUT_3F_NoPin,OUT_4G_NoPin
+	and logic function of NOR
+Generating Statement for block at 5F with output pin(s) of OUT_5F_B
+	and inputs of PS_B_CH_VC_ZONE_C_BIT
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of OUT_5F_B
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_NoPin
+	and inputs of OUT_4F_D,PB_USE_B_CH_ZONES
+	and logic function of AND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_A
+	and inputs of OUT_DOT_3E
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_E
+	and inputs of MB_USE_NO_ZONES
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of OUT_5G_E
+	and logic function of AND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of PS_A_CH_VC_ZONE_C_BIT,PS_USE_A_CH_ZONES
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_F
+	and inputs of OUT_5H_NoPin,MS_SET_GROUP_MARK
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_Q
+	and inputs of OUT_DOT_4H
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A, OUT_DOT_1A
+	and inputs of OUT_3A_A,OUT_3D_P
+	and logic function of AND
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4D_E,PS_ASM_CH_NOT_ZN_C_BIT_STAR_ADD_ZN
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E, OUT_DOT_3E
+	and inputs of OUT_3E_A,OUT_3H_Q
+	and logic function of AND
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H
+	and inputs of OUT_4H_F,PS_ASM_CH_ZONE_C_BIT_STAR_ADDER_ZN
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_ASSEMBLY_CH_NOT_ZONE_C_BIT
+	from gate output OUT_1B_A
+Generating output sheet edge signal assignment to 
+	signal PS_ASSEMBLY_CH_ZONE_C_BIT
+	from gate output OUT_1F_A
+Generating output sheet edge signal assignment to 
+	signal MB_ASSEMBLY_CH_NOT_ZONE_C_BIT
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal MB_ASSEMBLY_CH_ZONE_C_BIT
+	from gate output OUT_DOT_3E
