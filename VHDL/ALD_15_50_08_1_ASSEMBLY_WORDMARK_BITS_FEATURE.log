@@ -1,0 +1,69 @@
+Generating HDL for page 15.50.08.1 ASSEMBLY WORDMARK BITS FEATURE at 9/16/2020 11:13:42 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_50_08_1_ASSEMBLY_WORDMARK_BITS_FEATURE_tb.vhdl, generating default test bench code.
+Note: DOT Function at 5F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Ignoring Logic Block 2I with symbol R
+Removed 4 outputs from Gate at 4F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
+Removed 10 outputs from Gate at 3I to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8C10
+Added LAMP signal LAMP_11C8C11
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_B_CH_NOT_WM_BIT,PB_USE_B_CH_WM
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_A
+	and inputs of PB_USE_NO_WM
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F
+	and inputs of OUT_5B_NoPin,OUT_5C_A,OUT_5D_NoPin
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D, OUT_3C_D
+	and inputs of OUT_4C_F
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_B
+	and inputs of OUT_3C_D
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of 
+	and inputs of OUT_2C_B
+	and logic function of Lamp
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PB_A_CH_NOT_WM_BIT,PB_USE_A_CH_WM
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PB_USE_B_CH_WM,PS_B_CH_WM_BIT_1
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_H, OUT_4F_H, OUT_4F_H
+	and inputs of OUT_DOT_5F
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_F
+	and inputs of OUT_5F_NoPin,OUT_5H_NoPin
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of PB_USE_A_CH_WM,PB_A_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D, OUT_3H_D
+	and inputs of OUT_4F_H
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_A
+	and inputs of OUT_3H_D
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of 
+	and inputs of OUT_2H_A
+	and logic function of Lamp
+Generating Statement for block at 3I with output pin(s) of OUT_3I_R
+	and inputs of OUT_4F_H
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
+	and inputs of PS_SET_WM,OUT_4G_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ASSEMBLY_CH_NOT_WM_BIT
+	from gate output OUT_3C_D
+Generating output sheet edge signal assignment to 
+	signal PS_ASSEMBLY_CH_WM_BIT
+	from gate output OUT_4F_H
+Generating output sheet edge signal assignment to 
+	signal MS_ASSEMBLY_CH_WM_BIT
+	from gate output OUT_3H_D
+Generating output sheet edge signal assignment to 
+	signal MY_ASSEMBLY_CH_WM_BIT
+	from gate output OUT_3I_R
