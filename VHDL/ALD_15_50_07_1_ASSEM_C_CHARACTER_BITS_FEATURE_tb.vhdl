@@ -164,9 +164,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.50.07.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -174,31 +174,35 @@ uut_process: process
       d := tv(3);
       e := tv(4);
       f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      
+      g1 := e and c and b;
+      g2 := c and a and f;
+      g3 := f and e and d;
+      g4 := b and a and d;
+      g5 := a and f and d;
+      g6 := d and b and e;
+      g7 := e and f and c;
+      g8 := a and b and c;
 
-      
+		PS_ASSEMBLY_CH_NU_C_BIT <= a;
+		-- MB_ASSEMBLY_CH_NOT_NU_C_BIT;-- Not used on ALD
+		-- MB_ASSEMBLY_CH_NU_C_BIT;    -- Not used on ALD
+		-- MB_ASSEMBLY_CH_ZONE_C_BIT;  -- Not used on ALD
+		PS_ASSEMBLY_CH_ZONE_C_BIT <= b;
+		MS_ASSEMBLY_CH_WM_BIT <= c;  -- One when NOT WM
+		PS_ASSEMBLY_CH_WM_BIT <= d;
+		PS_ASSEMBLY_CH_NOT_NU_C_BIT <= e;
+		PS_ASSEMBLY_CH_NOT_ZONE_C_BIT <= f;
+          
       wait for 30 ns;
-      
-      
+     
+      check1(MS_ASSEMBLY_CH_NOT_C_CHAR_BIT,NOT(g1 or g2 or g3 or g4),testName,"-S Assm ch Not C Char Bit");
+      check1(LAMP_11C8D10,NOT MS_ASSEMBLY_CH_NOT_C_CHAR_BIT,testName,"Assembly Ch NOT C Char Lamp");
+      check1(MS_ASSEMBLY_CH_C_CHAR_BIT,NOT(g5 or g6 or g7 or g8),testName,"-S Assm Ch C Char Bit");
+      check1(LAMP_11C8D11,NOT MS_ASSEMBLY_CH_C_CHAR_BIT,testName,"Assembly Ch C Char Lamp");
+      check1(MY_ASSEMBLY_CH_C_BIT,MS_ASSEMBLY_CH_C_CHAR_BIT,testName,"-Y Assm Ch C Char Bit");
+      check1(PS_ASSEMBLY_CH_C_CHAR_BIT,NOT MS_ASSEMBLY_CH_C_CHAR_BIT,testName,"+S Assm Ch C Char Bit"); 
+     
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
