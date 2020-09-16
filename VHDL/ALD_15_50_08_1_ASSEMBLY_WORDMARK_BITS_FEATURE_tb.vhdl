@@ -161,9 +161,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.50.08.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -173,25 +173,29 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      
+      g1 := a and c;
+      g2 := d and e;
+      g3 := f and c;
+      g4 := h and e;
 
+		PS_B_CH_NOT_WM_BIT <= a;
+		PB_USE_NO_WM <= b;
+		PB_USE_B_CH_WM <= c;
+		PB_A_CH_NOT_WM_BIT <= d;
+		PB_USE_A_CH_WM <= e;
+		PS_B_CH_WM_BIT_1 <= f;
+		PS_SET_WM <= g;
+		PB_A_CH_WM_BIT <= h;
+		
+		wait for 30 ns;
+
+      check1(MS_ASSEMBLY_CH_NOT_WM_BIT,NOT(b or g1 or g2),testName,"-S Assm Ch NOT WM");
+      check1(LAMP_11C8C10,NOT MS_ASSEMBLY_CH_NOT_WM_BIT,testName,"Lamp Assm Ch NOT WM"); 
+      check1(PS_ASSEMBLY_CH_WM_BIT,g3 or g4 or g,testName,"+S Assm Ch WM");
+      check1(LAMP_11C8C11,PS_ASSEMBLY_CH_WM_BIT,testName,"Lamp Assm Ch WM");
+      check1(MS_ASSEMBLY_CH_WM_BIT,NOT PS_ASSEMBLY_CH_WM_BIT,testName,"-S Assm Ch WM");
+      check1(MY_ASSEMBLY_CH_WM_BIT,NOT PS_ASSEMBLY_CH_WM_BIT,testName,"-Y Assm Ch WM");
       
       wait for 30 ns;
       
