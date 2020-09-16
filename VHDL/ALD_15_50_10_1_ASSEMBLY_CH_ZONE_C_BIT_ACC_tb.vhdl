@@ -178,7 +178,7 @@ uut_process: process
 
    testName := "15.49.04.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**15 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -195,21 +195,34 @@ uut_process: process
       m := tv(12);
       n := tv(13);
       o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
+      
+      g1 := b and c;
+      g2 := e and f;
+      g3 := k and c;
+      g4 := m and f;      
+      
+		MB_ASSEMBLY_CH_A_BIT_INSERT <= not a;
+      PS_B_CH_VC_NOT_ZONE_C_BIT <= b;
+      PB_USE_B_CH_ZONES <= c;
+      MB_B_CH_MIN_OR_INV_PLUS_SIGN_GATED <= not d;
+      PS_A_CH_VC_NOT_ZONE_C_BIT <= e;
+      PS_USE_A_CH_ZONES <= f;
+      PS_ASM_CH_NOT_ZN_C_BIT_STAR_ADD_ZN <= g;
+      MS_SET_DOLLAR_SIGN <= not h;
+      MS_SET_ASTERISK <= not i;
+      PB_B_CH_PL_OR_INV_MIN_SIGN_GATED <= j;
+      PS_B_CH_VC_ZONE_C_BIT <= k;
+      MB_USE_NO_ZONES <= not l;
+      PS_A_CH_VC_ZONE_C_BIT <= m;
+      PS_ASM_CH_ZONE_C_BIT_STAR_ADDER_ZN <= n;
+      MS_SET_GROUP_MARK <= not o;
       
       wait for 30 ns;
       
+      check1(MB_ASSEMBLY_CH_NOT_ZONE_C_BIT,NOT(d or h or i or a or g or g1 or g2),testName,"-B Assm Ch Not Zone C");
+      check1(PS_ASSEMBLY_CH_NOT_ZONE_C_BIT,NOT MB_ASSEMBLY_CH_NOT_ZONE_C_BIT,testName,"-B Assm Ch Not Zone C");
+      check1(PS_ASSEMBLY_CH_ZONE_C_BIT,g3 or g4 or j or l or o or n,testName,"+S Assm Ch Zone C");
+      check1(MB_ASSEMBLY_CH_ZONE_C_BIT,NOT PS_ASSEMBLY_CH_ZONE_C_BIT,testName,"-B Assm Ch Zone C");
       
    end loop;
 
