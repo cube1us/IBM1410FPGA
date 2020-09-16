@@ -321,14 +321,232 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable bitNum: integer;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.50.01.1        ";
 
-   for tt in 0 to 2**23 loop
+   bitNum := HDL_1_BIT;
+   for tt in 0 to 2**15 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+
+      g1 := a and d;
+      g2 := b and h;
+      g3 := c and i;
+      g4 := i and o;
+      g5 := h and n;
+      g6 := d and m;
+
+		PB_ADDER_OUT_NOT_BUS(bitNum) <= a;
+		PS_B_CH_NOT_BUS(bitNum) <= b;
+		PS_A_CH_NOT_BUS(bitNum) <= c;
+		PB_USE_ADDER_NU_1 <= d;
+		MS_SET_ASTERISK <= not e;
+		MB_ASSEMBLY_CH_NU_ZERO_INSERT <= not f;
+		MB_USE_NO_NUMERICS <= not g;
+		PB_USE_B_CH_NU <= h;
+		PS_USE_A_CH_NU <= i;
+		MB_ASSEMBLY_CH_NU_ONE_INSERT <= not j;
+		MS_SET_DOLLAR_SIGN <= not k;
+		MS_SET_GROUP_MARK <= not l;
+		PB_ADDER_OUT_BUS(bitNum) <= m;
+		PS_B_CH_BUS(bitNum) <= n;
+		PS_A_CH_BUS(bitNum) <= o;
+      
+      wait for 30 ns;
+      
+      check1(MS_ASSEMBLY_CH_NOT_1_BIT,NOT(e or f or g or g1 or g2 or g3),testName,"ASSM Ch Not 1 bit");
+      check1(LAMP_11C8K10,not MS_ASSEMBLY_CH_NOT_1_BIT,testName,"ASSM Ch Not 1 bit Lamp");
+      check1(PS_ASSEMBLY_CH_1_BIT,g4 or g5 or g6 or j or k or l,testName,"ASSM Ch 1 Bit");
+      check1(LAMP_11C8K11,PS_ASSEMBLY_CH_1_BIT,testName,"ASSM Ch 1 Bit Lamp");
+      check1(MS_ASSEMBLY_CH_1_BIT,not PS_ASSEMBLY_CH_1_BIT,testName,"-S Assm Ch 1 bit");
+      check1(MY_ASSEMBLY_CH_1_BIT,not PS_ASSEMBLY_CH_1_BIT,testName,"-Y Assm Ch 1 bit");
+      
+   end loop;
+
+   testName := "15.50.02.1        ";
+   bitNum := HDL_2_BIT;  -- 2 bit
+   for tt in 0 to 2**15 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+
+      g1 := a and h;
+      g2 := b and l;
+      g3 := c and d;
+      g4 := d and n;
+      g5 := l and m;
+      g6 := h and o;
+
+		PB_ADDER_OUT_NOT_BUS(bitNum) <= a;
+		PS_B_CH_NOT_BUS(bitNum) <= b;
+		PS_A_CH_NOT_BUS(bitNum) <= c;
+		PS_USE_A_CH_NU <= d;
+		MB_USE_NO_NUMERICS <= not e;
+		MB_ASSEMBLY_CH_NU_ONE_INSERT <= not f;		
+		MS_SET_ASTERISK <= not g;
+		PB_USE_ADDER_NU_1 <= h;
+		MS_SET_GROUP_MARK <= not i;
+		MS_SET_DOLLAR_SIGN <= not j;		
+		MB_ASSEMBLY_CH_NU_ZERO_INSERT <= not k;		
+		PB_USE_B_CH_NU <= l;		
+		PS_B_CH_BUS(bitNum) <= m;
+		PS_A_CH_BUS(bitNum) <= n;
+		PB_ADDER_OUT_BUS(bitNum) <= o;
+      
+      wait for 30 ns;
+      
+      check1(MS_ASSEMBLY_CH_NOT_2_BIT,NOT(g or f or e or g1 or g2 or g3),testName,"ASSM Ch Not 2 bit");
+      check1(LAMP_11C8J10,not MS_ASSEMBLY_CH_NOT_2_BIT,testName,"ASSM Ch Not 2 bit Lamp");
+      check1(PS_ASSEMBLY_CH_2_BIT,g4 or g5 or g6 or j or k or i,testName,"ASSM Ch 2 Bit");
+      check1(LAMP_11C8J11,PS_ASSEMBLY_CH_2_BIT,testName,"ASSM Ch 2 Bit Lamp");
+      check1(MS_ASSEMBLY_CH_2_BIT,not PS_ASSEMBLY_CH_2_BIT,testName,"-S Assm Ch 2 bit");
+      check1(MY_ASSEMBLY_CH_2_BIT,not PS_ASSEMBLY_CH_2_BIT,testName,"-Y Assm Ch 2 bit");
+      
+   end loop;
+
+   testName := "15.50.03.1        ";
+   bitNum := HDL_4_BIT;  -- 4 bit
+   for tt in 0 to 2**15 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+
+      g1 := a and f;
+      g2 := b and i;
+      g3 := c and o;
+      g4 := o and n;
+      g5 := i and m;
+      g6 := f and l;
+
+		PB_ADDER_OUT_NOT_BUS(bitNum) <= a;
+		PS_B_CH_NOT_BUS(bitNUM) <= b;
+		PS_A_CH_NOT_BUS(bitNUM) <= c;
+		MS_SET_DOLLAR_SIGN <= not d;
+		MB_USE_NO_NUMERICS <= not e;
+		PB_USE_ADDER_NU_1 <= f;
+		MB_ASSEMBLY_CH_NU_ZERO_INSERT <= not g;
+		MB_ASSEMBLY_CH_NU_ONE_INSERT <= not h;
+		PB_USE_B_CH_NU <= i;
+		MS_SET_GROUP_MARK <= not j;
+		MS_SET_ASTERISK <= not k;
+		PB_ADDER_OUT_BUS(bitNum) <= l;
+		PS_B_CH_BUS(bitNum) <= m;
+		PS_A_CH_BUS(bitNum) <= n;
+		PS_USE_A_CH_NU <= o;
+      
+      wait for 30 ns;
+      
+      check1(MS_ASSEMBLY_CH_NOT_4_BIT,NOT(d or g or h or e or g1 or g2 or g3),testName,"ASSM Ch Not 4 bit");
+      check1(LAMP_11C8H10,not MS_ASSEMBLY_CH_NOT_4_BIT,testName,"ASSM Ch Not 4 bit Lamp");
+      check1(PS_ASSEMBLY_CH_4_BIT,g4 or g5 or g6 or j or k,testName,"ASSM Ch 4 Bit");
+      check1(LAMP_11C8H11,PS_ASSEMBLY_CH_4_BIT,testName,"ASSM Ch 4 Bit Lamp");
+      check1(MS_ASSEMBLY_CH_4_BIT,not PS_ASSEMBLY_CH_4_BIT,testName,"-S Assm Ch 4 bit");
+      check1(MY_ASSEMBLY_CH_4_BIT,not PS_ASSEMBLY_CH_4_BIT,testName,"-Y Assm Ch 4 bit");
+      
+   end loop;
+
+   testName := "15.50.04.1        ";
+   bitNum := HDL_8_BIT;  -- 8 bit
+   for tt in 0 to 2**15 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      
+      g1 := a and g;
+      g2 := b and d;
+      g3 := c and j;
+      g4 := j and o;
+      g5 := d and n;
+      g6 := g and m;
+
+		PB_ADDER_OUT_NOT_BUS(bitNum) <= a;
+		PS_B_CH_NOT_BUS(bitNum) <= b;
+		PS_A_CH_NOT_BUS(bitNum) <= c;
+		PB_USE_B_CH_NU <= d;
+		MB_USE_NO_NUMERICS <= not e;
+		MB_ASSEMBLY_CH_NU_ONE_INSERT <= not f;
+		PB_USE_ADDER_NU_1 <= g;
+		MB_ASSEMBLY_CH_NU_ZERO_INSERT <= not h;
+		MS_SET_DOLLAR_SIGN <= not i;
+		PS_USE_A_CH_NU <= j;
+		MS_SET_GROUP_MARK <= not k;
+		MS_SET_ASTERISK <= not l;
+		PB_ADDER_OUT_BUS(bitNum) <= m;
+		PS_B_CH_BUS(bitNum) <= n;
+		PS_A_CH_BUS(bitNum) <= o;
+      
+      wait for 30 ns;
+      
+      check1(MS_ASSEMBLY_CH_NOT_8_BIT,NOT(f or e or g1 or g2 or g3),testName,"ASSM Ch Not 8 bit");
+      check1(LAMP_11C8G10,not MS_ASSEMBLY_CH_NOT_8_BIT,testName,"ASSM Ch Not 8 bit Lamp");
+      check1(PS_ASSEMBLY_CH_8_BIT,g4 or g5 or g6 or h or l or i or k,testName,"ASSM Ch 8 Bit");
+      check1(LAMP_11C8G11,PS_ASSEMBLY_CH_8_BIT,testName,"ASSM Ch 8 Bit Lamp");
+      check1(MS_ASSEMBLY_CH_8_BIT,not PS_ASSEMBLY_CH_8_BIT,testName,"-S Assm Ch 8 bit");
+      check1(MY_ASSEMBLY_CH_8_BIT,not PS_ASSEMBLY_CH_8_BIT,testName,"-Y Assm Ch 8 bit");
+      
+   end loop;
+
+   testName := "15.50.05.1        ";
+   bitNum := HDL_A_BIT;
+   for tt in 0 to 2**16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -346,22 +564,114 @@ uut_process: process
       n := tv(13);
       o := tv(14);
       p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
+      
+      g1 := a and g;
+      g2 := b and h;
+      g3 := h and o;
+      g4 := g and m;
+      
+		PS_B_CH_NOT_BUS(HDL_A_BIT) <= a;
+      -- MB_B_CH_MIN_OR_INV_PLUS_SIGN_GATED;   LATER, not on ALD
+      -- MB_B_CH_PLU_OR_INV_MIN_SIGN_GATED; LATER, not on ALD
+      PS_A_CH_NOT_BUS(HDL_A_BIT) <= b;
+      PS_ASM_CH_NOT_A_BIT_STAR_ADDER_ZONES <= c;
+      MS_SET_ASTERISK <= not d;
+      MS_SET_DOLLAR_SIGN <= not e;
+      MB_USE_NO_ZONES <= not f;
+      PB_USE_B_CH_ZONES <= g;
+      PS_USE_A_CH_ZONES <= h;
+      MB_ASSEMBLY_CH_A_BIT_INSERT <= not i;
+      MS_SET_GROUP_MARK <= not j;
+      MS_PLUS_SIGN_LATCH_GATED <= not k;
+      PS_ASM_CH_A_BIT_STAR_STERLING <= l;
+      PS_ASM_CH_A_BIT_STAR_ADDER_ZONES <= p;
+      PS_B_CH_BUS(HDL_A_BIT) <= m;
+      MS_A_CH_INV_MINUS_SIGN_GTD <= not n;
+      PS_A_CH_BUS(HDL_A_BIT) <= o;      
       
       wait for 30 ns;
       
+      check1(MS_ASSEMBLY_CH_NOT_A_BIT,NOT(c or d or e or f or g1 or g2),testName,"ASSM Ch Not A bit");
+      check1(LAMP_11C8F10,not MS_ASSEMBLY_CH_NOT_A_BIT,testName,"ASSM Ch Not A bit Lamp");
+      check1(PS_ASSEMBLY_CH_A_BIT,g3 or g4 or i or j or k or n or l or p,testName,"ASSM Ch A Bit");
+      check1(LAMP_11C8F11,PS_ASSEMBLY_CH_A_BIT,testName,"ASSM Ch A Bit Lamp");
+      check1(MS_ASSEMBLY_CH_A_BIT,not PS_ASSEMBLY_CH_A_BIT,testName,"-S Assm Ch A bit");
+      check1(MY_ASSEMBLY_CH_A_BIT,not PS_ASSEMBLY_CH_A_BIT,testName,"-Y Assm Ch A bit");
+      check1(PS_ASSEMBLY_CH_A_OR_B_BITS,not MS_ASSEMBLY_CH_B_BIT or PS_ASSEMBLY_CH_A_BIT,
+         testName,"ASSM CH A+B Bits");
       
    end loop;
+   
+   -- These signals do not appear on the ALD.  Hopefully I got them right.  ;)
+   
+   for tt in 0 to 2 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      
+      MB_B_CH_MIN_OR_INV_PLUS_SIGN_GATED <= a;  -- In this test, don't invert - follow my sheet
+      MB_B_CH_PLU_OR_INV_MIN_SIGN_GATED <= b;   -- So, this is actual logic, not "positive" logic
+      
+      wait for 30 ns;
+      
+      check1(PB_B_CH_PL_OR_INV_MIN_SIGN_GATED,not b and a,testName,"ASSM Ch Not A bit");
+
+   end loop;
+   
+
+   testName := "15.50.05.1        ";
+   bitNum := HDL_B_BIT;
+   for tt in 0 to 2**15 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      i := tv(8);
+      j := tv(9);
+      k := tv(10);
+      l := tv(11);
+      m := tv(12);
+      n := tv(13);
+      o := tv(14);
+      
+      g1 := n and h;
+      g2 := o and i;
+      g3 := i and c;
+      g4 := h and a;
+      
+		PS_B_CH_NOT_BUS(HDL_B_BIT) <= a;
+      -- MB_B_MN_OR_IN_PL_OR_PL_OR_INV_MN_GATED; -- Not used on ALD
+      MS_ZONE_ADDER_NOT_A_DOT_NOT_B_DOT_C_1 <= not b;
+      PS_A_CH_NOT_BUS(HDL_B_BIT) <= c;
+      PS_ADDER_ZONES_NOT_B_BIT <= d;
+      MB_USE_NO_ZONES <= not e;
+      MB_ASSEMBLY_CH_A_BIT_INSERT <= not f;
+      MS_ZONE_ADDER_NOT_A_DOT_NOT_B_DOT_C_2 <= not g;
+      PB_USE_B_CH_ZONES <= h;
+      PS_USE_A_CH_ZONES <= i;
+      MS_SET_GROUP_MARK <= not j;
+      MS_SET_ASTERISK <= not k;
+      MS_SET_DOLLAR_SIGN <= not l;
+      PS_ASM_CH_B_BIT_STAR_ADDER_ZONES <= m;
+      PS_B_CH_BUS(HDL_B_BIT) <= n;
+      PS_A_CH_BUS(HDL_B_BIT) <= o;      
+      
+      wait for 30 ns;
+      
+      check1(MS_ASSEMBLY_CH_NOT_B_BIT,NOT(g3 or g4 or g or f or e or d or b),testName,"ASSM Ch Not B bit");
+      check1(LAMP_11C8E10,not MS_ASSEMBLY_CH_NOT_B_BIT,testName,"ASSM Ch Not B bit Lamp");
+      check1(PS_ASSEMBLY_CH_B_BIT,m or k or l or j or g1 or g2,testName,"ASSM Ch B Bit");
+      check1(LAMP_11C8E11,PS_ASSEMBLY_CH_B_BIT,testName,"ASSM Ch B Bit Lamp");
+      check1(MS_ASSEMBLY_CH_B_BIT,not PS_ASSEMBLY_CH_B_BIT,testName,"-S Assm Ch B bit");
+      check1(MY_ASSEMBLY_CH_B_BIT,not PS_ASSEMBLY_CH_B_BIT,testName,"-Y Assm Ch B bit");
+      
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -374,7 +684,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
