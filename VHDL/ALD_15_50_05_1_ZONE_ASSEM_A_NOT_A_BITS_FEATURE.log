@@ -1,4 +1,4 @@
-Generating HDL for page 15.50.05.1 ZONE ASSEM A.NOT A BITS FEATURE at 9/13/2020 5:13:04 PM
+Generating HDL for page 15.50.05.1 ZONE ASSEM A.NOT A BITS FEATURE at 9/15/2020 9:39:01 PM
 Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 4F has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 1I with symbol R
@@ -10,6 +10,9 @@ Added LAMP signal LAMP_11C8F11
 Generating Statement for block at 5B with output pin(s) of OUT_5B_C
 	and inputs of PB_USE_B_CH_ZONES,PS_B_CH_NOT_A_BIT
 	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_K
+	and inputs of MB_B_CH_PLU_OR_INV_MIN_SIGN_GATED
+	and logic function of NOT
 Generating Statement for block at 5C with output pin(s) of OUT_5C_D
 	and inputs of PS_A_CH_NOT_A_BIT,PS_USE_A_CH_ZONES
 	and logic function of NAND
@@ -27,6 +30,12 @@ Generating Statement for block at 1C with output pin(s) of
 	and logic function of Lamp
 Generating Statement for block at 4D with output pin(s) of OUT_4D_D
 	and inputs of MS_SET_ASTERISK,MS_SET_DOLLAR_SIGN,MB_USE_NO_ZONES
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_M
+	and inputs of OUT_4E_C
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of MB_B_CH_MIN_OR_INV_PLUS_SIGN_GATED,OUT_2B_K
 	and logic function of NAND
 Generating Statement for block at 3E with output pin(s) of OUT_3E_H, OUT_3E_H, OUT_3E_H
 	and inputs of OUT_DOT_4F
@@ -67,6 +76,9 @@ Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
 Generating output sheet edge signal assignment to 
 	signal MS_ASSEMBLY_CH_NOT_A_BIT
 	from gate output OUT_3C_D
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_PL_OR_INV_MIN_SIGN_GATED
+	from gate output OUT_1D_M
 Generating output sheet edge signal assignment to 
 	signal PS_ASSEMBLY_CH_A_BIT
 	from gate output OUT_3E_H
