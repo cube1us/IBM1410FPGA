@@ -1,0 +1,102 @@
+Generating HDL for page 15.50.09.1 ASSEMBLY NUMERIC C BIT-ACC at 9/16/2020 3:37:23 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_50_09_1_ASSEMBLY_NUMERIC_C_BIT_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3D has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Note: DOT Function at 4F has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Removed 2 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C
+	and inputs of MB_ASSEMBLY_CH_NU_ONE_INSERT
+	and logic function of NOT
+Generating Statement for block at 3A with output pin(s) of OUT_3A_A
+	and inputs of PS_B_CH_VC_NOT_NU_C_BIT
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of OUT_3A_A
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of OUT_5A_C
+	and logic function of AND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_A
+	and inputs of OUT_5B_NoPin,OUT_5C_NoPin,OUT_5D_NoPin
+	and logic function of NOR
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PB_ADDER_OUT_NOT_C_BIT,PB_USE_ADDER_NU_1
+	and logic function of AND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_E
+	and inputs of OUT_DOT_3D
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of OUT_2A_D,PB_USE_B_CH_NU
+	and logic function of AND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_B
+	and inputs of OUT_4E_D
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_B
+	and inputs of OUT_1C_E
+	and logic function of EQUAL
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of PS_A_CH_VC_NOT_NU_C_BIT,PS_USE_A_CH_NU
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of OUT_5E_NoPin,MS_SET_DOLLAR_SIGN
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PB_ADDER_OUT_C_BIT,PB_USE_ADDER_NU_1
+	and logic function of AND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of OUT_5F_NoPin,OUT_5G_NoPin,OUT_4H_NoPin,OUT_4I_NoPin
+	and logic function of NOR
+Generating Statement for block at 5G with output pin(s) of OUT_5G_NoPin
+	and inputs of OUT_1G_E,PB_USE_B_CH_NU
+	and logic function of AND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of OUT_1H_C
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_M
+	and inputs of PS_B_CH_VC_NU_C_BIT
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of OUT_1G_E
+	and inputs of OUT_2G_M
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_P
+	and inputs of MB_ASSEMBLY_CH_NU_ZERO_INSERT
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of OUT_5H_P
+	and logic function of AND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_P
+	and inputs of PS_A_CH_VC_NU_C_BIT,PS_USE_A_CH_NU
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_C
+	and inputs of OUT_2H_P,MS_SET_GROUP_MARK,MS_SET_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_F
+	and inputs of MB_USE_NO_NUMERICS
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_NoPin
+	and inputs of OUT_5I_F
+	and logic function of AND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_B
+	and inputs of OUT_DOT_4F
+	and logic function of NOT
+Generating Statement for block at 1I with output pin(s) of OUT_1I_L
+	and inputs of OUT_2I_B
+	and logic function of EQUAL
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D, OUT_DOT_3D
+	and inputs of OUT_4B_A,OUT_3D_B
+	and logic function of AND
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F, OUT_DOT_4F
+	and inputs of OUT_4F_G,OUT_3G_C
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal PS_ASSEMBLY_CH_NOT_NU_C_BIT
+	from gate output OUT_1D_B
+Generating output sheet edge signal assignment to 
+	signal PS_ASSEMBLY_CH_NU_C_BIT
+	from gate output OUT_1I_L
+Generating output sheet edge signal assignment to 
+	signal MB_ASSEMBLY_CH_NOT_NU_C_BIT
+	from gate output OUT_DOT_3D
+Generating output sheet edge signal assignment to 
+	signal MB_ASSEMBLY_CH_NU_C_BIT
+	from gate output OUT_DOT_4F
