@@ -182,43 +182,154 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.55.08.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**8 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+
+      b := tv(0);
+      c := tv(1); -- Bit C
+      e := tv(2); -- Bit 8
+      f := tv(3); -- Bit A
+      g := tv(4); -- Bit B
+      p := tv(5);
+      q := tv(6);
+      r := tv(7);
+
+      g1 := p and q and r;
+
+      MS_E_CH_RESET <= '0';
+      wait for 30 ns;
+      MS_E_CH_RESET <= '1';      
+      wait for 30 ns;
+
+      -- These three signals comprise +S SET E CH UNIT SEL REG
+      PS_PERCENT_OR_COML_AT <= p;
+      PS_I_RING_HDL_BUS(4) <= q;
+      PS_LAST_LOGIC_GATE_1 <= r;
+      
+      MS_CONTROL_REG_DISABLE <= not b;
+      PS_ASSEMBLY_CH_C_CHAR_BIT <= c;
+      PS_ASSEMBLY_CH_BUS <= "0" & g & f & e & "000";      
+
+      wait for 30 ns; -- Any given register may or may not set
+
+      PS_PERCENT_OR_COML_AT <= '0';
+      PS_I_RING_HDL_BUS(4) <= '0';
+      PS_LAST_LOGIC_GATE_1 <= '0';
+      wait for 30 ns;     
+
+      if(g1 = '0') then
+         -- No register should be set under these conditions
+         for bitnum in 3 to 7 loop
+            check1(PS_E_CH_U_SEL_REG_BUS(bitnum),'0',testName,"No Set E Ch U Sel Reg Bit " & Integer'Image(bitnum));
+            if(bitnum < 6) then   -- No WM bit to test, so it is always 0.
+               check1(PS_E_CH_U_SEL_REG_NOT_BUS(bitnum),'1',testName,"No Set E Ch U Sel Reg Not Bit " & Integer'Image(bitnum));
+            end if;
+            if(bitnum = 7) then
+               check1(PS_E_CH_U_SEL_REG_NOT_BUS(HDL_C_BIT),not b,testName,"No Set E Ch U Sel Reg Not Bit CR Disable ");
+            end if;
+         end loop;
+      else
+         -- Certain register(s) may be set
+         for bitnum in 3 to 5 loop
+            check1(PS_E_CH_U_SEL_REG_BUS(bitnum),tv(bitNum-1),testName,"Set E Ch U Sel Reg Bit " & Integer'Image(bitnum));
+            check1(PS_E_CH_U_SEL_REG_NOT_BUS(bitnum),not tv(bitNum-1),testName,"Set E Ch U Sel Reg NOT Bit " & Integer'Image(bitnum));
+         end loop;
+         check1(PS_E_CH_U_SEL_REG_BUS(HDL_C_BIT),not b and c,testName,"Set E Ch U Sel reg C Bit");
+         check1(PS_E_CH_U_SEL_REG_NOT_BUS(HDL_C_BIT),not b and not c,testName,"Set E Ch U Sel reg NOT C Bit");
+      end if;
+      
+   end loop;
+   
+   testName := "15.55.09.1        ";
+   
+   for tt in 0 to 2**16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
+      -- d := tv(3);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
+      n := tv(11);
+      o := tv(12);
+      p := tv(13);
+      q := tv(14);
+      r := tv(15);
       
+      g1 := p and q and r;
+      g2 := h and j and k;
+      g3 := k and j and o;
+      
+      MS_E_CH_RESET <= '0';
+      wait for 30 ns;
+      MS_E_CH_RESET <= '1';
       wait for 30 ns;
       
+      -- All should be clear
+      
+      for bitnum in 0 to 2 loop
+         check1(PS_E_CH_U_SEL_REG_BUS(bitnum),'0',testName,"Reset E Ch U Sel Reg Bit " & Integer'Image(bitnum));
+         check1(PS_E_CH_U_SEL_REG_NOT_BUS(bitnum),'1',testName,"Reset E Ch U Sel Reg NOT Bit " & Integer'Image(bitnum));         
+      end loop;   
+      
+		MS_1401_PUNCH <= not a;
+      MS_TEST_PUNCH_ERROR <= not b;
+      PS_ASSEMBLY_CH_BUS(HDL_4_BIT) <= c;
+      MS_1401_PRINT <= not e;
+      MS_TEST_PRINT_ERROR <= not f;
+      PS_ASSEMBLY_CH_BUS(HDL_2_BIT) <= g;
+      PS_E_CH_FORMS_CTRL_OP_CODE <= h;
+      PS_I_RING_1_OR_1401_AND_3_TIME <= j;
+      PS_LOGIC_GATE_D_1 <= k;
+      PS_ASSEMBLY_CH_BUS(HDL_1_BIT) <= l;
+      MS_1401_READ <= not m;
+      MS_TEST_READ_E_OR_F <= not n;
+      PS_E_CH_STACKER_SEL_OP_CODE <= o;
+      PS_PERCENT_OR_COML_AT <= p;
+      PS_I_RING_HDL_BUS(4) <= q;
+      PS_LAST_LOGIC_GATE_1 <= r;                  
+      wait for 30 ns;  -- Maybe set some latches...
+
+      check1(MS_E_CH_FORMS_CTRL_OP_CODE_JRJ,not g2,testName,"-S E Ch Forms Ctrl Op Code JRJ");
+      check1(MS_E_CH_STACK_SEL_OP_CODE,not g3,testName,"-S E Ch Stack Sel Op Code");
+           
+		MS_1401_PUNCH <= '1';
+      MS_TEST_PUNCH_ERROR <= '1';
+      PS_ASSEMBLY_CH_BUS(HDL_4_BIT) <= '0';
+      MS_1401_PRINT <= '1';
+      MS_TEST_PRINT_ERROR <= '1';
+      PS_ASSEMBLY_CH_BUS(HDL_2_BIT) <= '0';
+      PS_E_CH_FORMS_CTRL_OP_CODE <= '0';
+      PS_I_RING_1_OR_1401_AND_3_TIME <= '0';
+      PS_LOGIC_GATE_D_1 <= '0';
+      PS_ASSEMBLY_CH_BUS(HDL_1_BIT) <= '0';
+      MS_1401_READ <= '1';
+      MS_TEST_READ_E_OR_F <= '1';
+      PS_E_CH_STACKER_SEL_OP_CODE <= '0';
+      PS_PERCENT_OR_COML_AT <= '0';
+      PS_I_RING_HDL_BUS(4) <= '0';
+      PS_LAST_LOGIC_GATE_1 <= '0';                        
+      wait for 30 ns;            
+      
+      check1(PS_E_CH_U_SEL_REG_BUS(2),a or b or (c and g1),testName,"Set E Ch U Sel Reg Bit 2");
+      check1(PS_E_CH_U_SEL_REG_NOT_BUS(2),NOT PS_E_CH_U_SEL_REG_BUS(2),testName,"Set E Ch U Sel Reg NOT Bit 2");
+      
+      check1(PS_E_CH_U_SEL_REG_BUS(1),g2 or e or f or (g and g1),testName,"Set E Ch U Sel Reg Bit 1");
+      check1(PS_E_CH_U_SEL_REG_NOT_BUS(1),NOT PS_E_CH_U_SEL_REG_BUS(1),testName,"Set E Ch U Sel Reg NOT Bit 1");
+      
+      check1(PS_E_CH_U_SEL_REG_BUS(0),g3 or m or n or (g1 and l),testName,"Set E Ch U Sel Reg Bit 0");
+      check1(PS_E_CH_U_SEL_REG_NOT_BUS(0),NOT PS_E_CH_U_SEL_REG_BUS(0),testName,"Set E Ch U Sel Reg NOT Bit 0");
       
    end loop;
-
+   
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
@@ -230,7 +341,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
