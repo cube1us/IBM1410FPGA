@@ -1,0 +1,78 @@
+Generating HDL for group named FChUnitNumberDecodeat 9/17/2020 4:41:46 PM containing pages: 
+	15.56.04.1, 15.56.05.1, 15.56.06.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\FChUnitNumberDecode_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 20 signals on page 15.56.04.1
+Found 17 signals on page 15.56.05.1
+Found 20 signals on page 15.56.06.1
+Found 10 unique input signals and 29 unique output signals, (39 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S F CH UNIT NU REG NOT C BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG C BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG NOT 8 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG 8 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG NOT 4 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG NOT 2 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG 2 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG NOT 1 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG 1 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG 4 BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S F CH UNIT NUMBER 0 is used outside the group.
+INFO:  Signal -C UNIT NU 0 TO TAU * F CH is used outside the group.
+INFO:  Signal +S F CH UNIT NUMBER 0 is used outside the group.
+INFO:  Signal -C SEEK * F CH 1405 is used outside the group.
+INFO:  Signal -C UNIT NU 1 TO TAU * F CH is used outside the group.
+INFO:  Signal -S F CH UNIT NUMBER 1 is used outside the group.
+INFO:  Signal +S F CH UNIT NUMBER 1 is used outside the group.
+INFO:  Signal -C SINGLE REC*F CH TO 1405 is used outside the group.
+INFO:  Signal -C UNIT NU 2 TO TAU * F CH is used outside the group.
+INFO:  Signal -S F CH UNIT NUMBER 2 is used outside the group.
+INFO:  Signal -C FULL TRACK WITHOUT IA*1405 F CH is used outside the group.
+INFO:  Signal -S F CH UNIT NUMBER 4 is used outside the group.
+INFO:  Signal -S F CH UNIT NUMBER 3 is used outside the group.
+INFO:  Signal +S F CH UNIT NUMBER 3 is used outside the group.
+INFO:  Signal -C UNIT NU 3 TO TAU *F CH is used outside the group.
+INFO:  Signal -C WRITE CHECK *F CH TO 1405 is used outside the group.
+INFO:  Signal -C UNIT NU 4 TO TAU *F CH is used outside the group.
+INFO:  Signal -C WRITE ADDR *F CH TO 1405 is used outside the group.
+INFO:  Signal -C UNIT NU 5 TO TAU * F CH is used outside the group.
+INFO:  Signal -S F CH UNIT NUMBER 9 is used outside the group.
+INFO:  Signal -C UNIT NU 6 TO TAU * F CH is used outside the group.
+INFO:  Signal -C UNIT NU 7 TO TAU * F CH is used outside the group.
+INFO:  Signal -C F CH UNIT 8 BIT*1301* is used outside the group.
+INFO:  Signal -C F CH UNIT 1 BIT*1301* is used outside the group.
+INFO:  Signal -C UNIT NU 8 TO TAU * F CH is used outside the group.
+INFO:  Signal -C F CH UNIT C BIT*1301* is used outside the group.
+INFO:  Signal -C F CH UNIT 4 BIT*1301* is used outside the group.
+INFO:  Signal -C UNIT NU 9 TO TAU * F CH is used outside the group.
+INFO:  Signal -C F CH UNIT 2 BIT*1301* is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S F CH UNIT NU REG NOT C BIT replaced by Bus signal +S F CH U NU REG NOT BUS
+Input Signal +S F CH UNIT NU REG C BIT replaced by Bus signal +S F CH U NU REG BUS
+Input Signal +S F CH UNIT NU REG NOT 8 BIT replaced by Bus signal +S F CH U NU REG NOT BUS
+Input Signal +S F CH UNIT NU REG 8 BIT replaced by Bus signal +S F CH U NU REG BUS
+Input Signal +S F CH UNIT NU REG NOT 4 BIT replaced by Bus signal +S F CH U NU REG NOT BUS
+Input Signal +S F CH UNIT NU REG NOT 2 BIT replaced by Bus signal +S F CH U NU REG NOT BUS
+Input Signal +S F CH UNIT NU REG 2 BIT replaced by Bus signal +S F CH U NU REG BUS
+Input Signal +S F CH UNIT NU REG NOT 1 BIT replaced by Bus signal +S F CH U NU REG NOT BUS
+Input Signal +S F CH UNIT NU REG 1 BIT replaced by Bus signal +S F CH U NU REG BUS
+Input Signal +S F CH UNIT NU REG 4 BIT replaced by Bus signal +S F CH U NU REG BUS
+DEBUG: Tentative bus -C F CH UNIT *1301* BUS identified based on signal -C F CH UNIT 8 BIT*1301*
+DEBUG: Added signal -C F CH UNIT 1 BIT*1301* to bus -C F CH UNIT *1301* BUS
+DEBUG: Added signal -C F CH UNIT C BIT*1301* to bus -C F CH UNIT *1301* BUS
+DEBUG: Added signal -C F CH UNIT 4 BIT*1301* to bus -C F CH UNIT *1301* BUS
+DEBUG: Added signal -C F CH UNIT 2 BIT*1301* to bus -C F CH UNIT *1301* BUS
+INFO: Bus -C F CH UNIT *1301* BUS identified 
+Output signal -C F CH UNIT 8 BIT*1301* replaced by bus -C F CH UNIT *1301* BUS
+Output signal -C F CH UNIT 1 BIT*1301* replaced by bus -C F CH UNIT *1301* BUS
+Output signal -C F CH UNIT C BIT*1301* replaced by bus -C F CH UNIT *1301* BUS
+Output signal -C F CH UNIT 4 BIT*1301* replaced by bus -C F CH UNIT *1301* BUS
+Output signal -C F CH UNIT 2 BIT*1301* replaced by bus -C F CH UNIT *1301* BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.56.04.1 (F CH UNIT NUMBER DECODE)
+Generating HDL associated with page 15.56.05.1 (F CH UNIT NUMBER DECODE)
+Generating HDL associated with page 15.56.06.1 (F CH UNIT NUMBER DECODE)

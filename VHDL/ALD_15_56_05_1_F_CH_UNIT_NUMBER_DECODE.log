@@ -1,0 +1,87 @@
+Generating HDL for page 15.56.05.1 F CH UNIT NUMBER DECODE at 9/17/2020 4:40:59 PM
+Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 1 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2D to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PS_F_CH_UNIT_NU_REG_2_BIT,PS_F_CH_UNIT_NU_REG_NOT_4_BIT,PS_F_CH_UNIT_NU_REG_C_BIT
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C
+	and inputs of OUT_DOT_4A
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D, OUT_2A_D, OUT_2A_D, OUT_2A_D
+	and inputs of OUT_3A_C
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of OUT_1A_A
+	and inputs of OUT_2A_D
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of PS_F_CH_UNIT_NU_REG_1_BIT,PS_F_CH_UNIT_NU_REG_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_A
+	and inputs of OUT_2A_D
+	and logic function of EQUAL
+Generating Statement for block at 1C with output pin(s) of OUT_1C_P
+	and inputs of OUT_2A_D
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PS_F_CH_UNIT_NU_REG_NOT_C_BIT,PS_F_CH_UNIT_NU_REG_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_DOT_4D
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C, OUT_2D_C, OUT_2D_C
+	and inputs of OUT_3D_C
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_E
+	and inputs of OUT_2D_C
+	and logic function of EQUAL
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of PS_F_CH_UNIT_NU_REG_NOT_8_BIT,PS_F_CH_UNIT_NU_REG_NOT_2_BIT,PS_F_CH_UNIT_NU_REG_4_BIT
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_E
+	and inputs of OUT_2D_C
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of PS_F_CH_UNIT_NU_REG_NOT_8_BIT,PS_F_CH_UNIT_NU_REG_1_BIT
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_G
+	and inputs of OUT_DOT_4G
+	and logic function of EQUAL
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of PS_F_CH_UNIT_NU_REG_C_BIT,PS_F_CH_UNIT_NU_REG_4_BIT,PS_F_CH_UNIT_NU_REG_NOT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_4A_G,OUT_4B_G
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4D_G,OUT_4E_G
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G
+	and inputs of OUT_4G_G,OUT_4H_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_UNIT_NUMBER_3
+	from gate output OUT_2A_D
+Generating output sheet edge signal assignment to 
+	signal MC_UNIT_NU_3_TO_TAU_STAR_F_CH
+	from gate output OUT_1A_A
+Generating output sheet edge signal assignment to 
+	signal MC_WRITE_CHECK_STAR_F_CH_TO_1405
+	from gate output OUT_1B_A
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_UNIT_NUMBER_3
+	from gate output OUT_1C_P
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_UNIT_NUMBER_4
+	from gate output OUT_2D_C
+Generating output sheet edge signal assignment to 
+	signal MC_UNIT_NU_4_TO_TAU_STAR_F_CH
+	from gate output OUT_1D_E
+Generating output sheet edge signal assignment to 
+	signal MC_WRITE_ADDR_STAR_F_CH_TO_1405
+	from gate output OUT_1E_E
+Generating output sheet edge signal assignment to 
+	signal MC_UNIT_NU_5_TO_TAU_STAR_F_CH
+	from gate output OUT_1G_G
