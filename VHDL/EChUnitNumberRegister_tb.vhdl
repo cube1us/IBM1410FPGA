@@ -136,6 +136,7 @@ uut_process: process
    variable testName: string(1 to 18);
    variable subtest: integer;
    variable tv: std_logic_vector(25 downto 0);
+   variable tv2: std_logic_vector(2 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
@@ -143,40 +144,57 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.55.01.1, 02.1  ";
 
-   for tt in 0 to 2**23 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
-      
+   MS_E_CH_RESET <= '0';
+   wait for 30 ns;
+   MS_E_CH_RESET <= '1';
+   wait for 30 ns;
+   
+   for i in 0 to 32 loop
+      tv := std_logic_vector(to_unsigned(i,tv'Length));
+      MS_E_CH_RESET <= '0';
+      wait for 30 ns;
+      MS_E_CH_RESET <= '1';
       wait for 30 ns;
       
+      -- Set the appropriate assembly channel bits
+      
+      PS_ASSEMBLY_CH_BUS <= "000" & tv(3 downto 0);
+      PS_ASSEMBLY_CH_NU_C_BIT <= tv(4);      
+      
+      -- Test that we start out as 0, checking all the combinations of the controls except the one
+      -- that will actually set it
+      
+      for ctrl in 0 to 6 loop
+         tv2 := std_logic_vector(to_unsigned(ctrl,tv2'Length));
+         PS_PERCENT_OR_COML_AT <= tv2(0);
+         PS_I_RING_HDL_BUS(5) <= tv2(1);
+         PS_LAST_LOGIC_GATE_1 <= tv2(2);
+         wait for 30 ns;
+         for j in 0 to 3 loop
+            check1(PS_E_CH_U_NU_REG_BUS(j),'0',testName,"Zero Test E Ch Unit Bus " & Integer'Image(j));
+            check1(PS_E_CH_U_NU_REG_NOT_BUS(j),'1',testName,"Zero Test E Ch Unit Not Bus " & Integer'Image(j));
+         end loop;   
+         check1(PS_E_CH_U_NU_REG_BUS(HDL_C_BIT),'0',testName,"Zero Test E Ch Unit Bus C Bit");
+         check1(PS_E_CH_U_NU_REG_NOT_BUS(HDL_C_BIT),'1',testName,"Zero Test E Ch Unit Not Bus C Bit");
+      end loop;
+      
+      -- Now, set it.
+      
+      PS_PERCENT_OR_COML_AT <= '1';  -- The other two signals are already set 110
+      wait for 30 ns; -- Set the latches
+      PS_PERCENT_OR_COML_AT <= '0';
+      PS_I_RING_HDL_BUS(5) <= '0';
+      PS_LAST_LOGIC_GATE_1 <= '0';
+      wait for 30 ns; -- Latches should stay set
+            
+      for j in 0 to 3 loop
+         check1(PS_E_CH_U_NU_REG_BUS(j),tv(j),testName,"Set Test E Ch Unit Bus " & Integer'Image(j));
+         check1(PS_E_CH_U_NU_REG_NOT_BUS(j),not tv(j),testName,"Set Test E Ch Unit Not Bus " & Integer'Image(j));
+      end loop;   
+      check1(PS_E_CH_U_NU_REG_BUS(HDL_C_BIT),tv(4),testName,"Set Test E Ch Unit Bus C Bit");
+      check1(PS_E_CH_U_NU_REG_NOT_BUS(HDL_C_BIT),not tv(4),testName,"Set Test E Ch Unit Not Bus C Bit");
       
    end loop;
 
