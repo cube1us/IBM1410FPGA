@@ -1,0 +1,98 @@
+Generating HDL for page 15.55.06.1 E CH UNIT NUMBER DECODE at 9/16/2020 8:58:05 PM
+Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PS_E_CH_UNIT_NU_REG_C_BIT,PS_E_CH_UNIT_NU_REG_NOT_1_BIT,PS_E_CH_UNIT_NU_REG_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_G
+	and inputs of OUT_DOT_4A
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of PS_E_CH_UNIT_NU_REG_4_BIT,PS_E_CH_UNIT_NU_REG_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_H
+	and inputs of PS_E_CH_UNIT_NU_REG_NOT_8_BIT
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of PS_E_CH_UNIT_NU_REG_2_BIT,PS_E_CH_UNIT_NU_REG_4_BIT,PS_E_CH_UNIT_NU_REG_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_H
+	and inputs of OUT_DOT_4C
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PS_E_CH_UNIT_NU_REG_1_BIT,PS_E_CH_UNIT_NU_REG_NOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_A
+	and inputs of PS_E_CH_UNIT_NU_REG_NOT_1_BIT
+	and logic function of EQUAL
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of PS_E_CH_UNIT_NU_REG_NOT_C_BIT,PS_E_CH_UNIT_NU_REG_NOT_1_BIT,PS_E_CH_UNIT_NU_REG_NOT_4_BIT
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of PS_E_CH_UNIT_NU_REG_NOT_C_BIT
+	and logic function of EQUAL
+Generating Statement for block at 1E with output pin(s) of OUT_1E_A
+	and inputs of OUT_DOT_4E
+	and logic function of EQUAL
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of PS_E_CH_UNIT_NU_REG_8_BIT,PS_E_CH_UNIT_NU_REG_NOT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_E
+	and inputs of PS_E_CH_UNIT_NU_REG_NOT_2_BIT
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of PS_E_CH_UNIT_NU_REG_8_BIT,PS_E_CH_UNIT_NU_REG_NOT_4_BIT,PS_E_CH_UNIT_NU_REG_NOT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_G
+	and inputs of PS_E_CH_UNIT_NU_REG_NOT_4_BIT
+	and logic function of EQUAL
+Generating Statement for block at 1G with output pin(s) of OUT_1G_E
+	and inputs of OUT_DOT_4G
+	and logic function of EQUAL
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of PS_E_CH_UNIT_NU_REG_1_BIT,PS_E_CH_UNIT_NU_REG_C_BIT
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_4A_G,OUT_4B_G
+	and logic function of OR
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_G,OUT_4D_G
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4E_G,OUT_4F_G
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G, OUT_DOT_4G
+	and inputs of OUT_4G_G,OUT_4H_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MC_UNIT_NU_6_TO_TAU_STAR_E_CH
+	from gate output OUT_1A_G
+Generating output sheet edge signal assignment to 
+	signal MC_E_CH_UNIT_8_BIT_STAR_1301_STAR
+	from gate output OUT_2B_H
+Generating output sheet edge signal assignment to 
+	signal MC_UNIT_NU_7_TO_TAU_STAR_E_CH
+	from gate output OUT_1C_H
+Generating output sheet edge signal assignment to 
+	signal MC_E_CH_UNIT_1_BIT_STAR_1301_STAR
+	from gate output OUT_2D_A
+Generating output sheet edge signal assignment to 
+	signal MC_E_CH_UNIT_C_BIT_STAR_1301_STAR
+	from gate output OUT_2E_A
+Generating output sheet edge signal assignment to 
+	signal MC_UNIT_NU_8_TO_TAU_STAR_E_CH
+	from gate output OUT_1E_A
+Generating output sheet edge signal assignment to 
+	signal MC_E_CH_UNIT_2_BIT_STAR_1301_STAR
+	from gate output OUT_2F_E
+Generating output sheet edge signal assignment to 
+	signal MC_E_CH_UNIT_4_BIT_STAR_1301_STAR
+	from gate output OUT_2G_G
+Generating output sheet edge signal assignment to 
+	signal MC_UNIT_NU_9_TO_TAU_STAR_E_CH
+	from gate output OUT_1G_E
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_UNIT_NUMBER_9
+	from gate output OUT_DOT_4G

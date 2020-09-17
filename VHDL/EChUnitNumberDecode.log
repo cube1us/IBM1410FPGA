@@ -1,0 +1,84 @@
+Generating HDL for group named EChUnitNumberDecodeat 9/16/2020 8:58:40 PM containing pages: 
+	15.55.04.1, 15.55.05.1, 15.55.06.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\EChUnitNumberDecode_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 25 signals on page 15.55.04.1
+Found 18 signals on page 15.55.05.1
+Found 20 signals on page 15.55.06.1
+Found 13 unique input signals and 32 unique output signals, (45 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S LOZ SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S LOZ SYMBOL OP MODIFIER originates outside the group.
+INFO:  Signal +S 1401 PRINT TRIGGER originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG NOT C BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG C BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG NOT 8 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG 8 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG NOT 4 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG NOT 2 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG 2 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG NOT 1 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG 1 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG 4 BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S E CH UNIT NUMBER 0 is used outside the group.
+INFO:  Signal +S E CH UNIT NUMBER 0 is used outside the group.
+INFO:  Signal +S E CH UNIT NUMBER 1 is used outside the group.
+INFO:  Signal -C UNIT NU 0 TO TAU * E CH is used outside the group.
+INFO:  Signal -C SELECT NO 0 TO BUFFER is used outside the group.
+INFO:  Signal -C SEEK * E CH 1405 is used outside the group.
+INFO:  Signal -C UNIT NU 1 TO TAU * E CH is used outside the group.
+INFO:  Signal -S E CH UNIT NUMBER 1 is used outside the group.
+INFO:  Signal -C SELECT NO 1 TO BUFFER is used outside the group.
+INFO:  Signal -C SINGLE REC*E CH TO 1405 is used outside the group.
+INFO:  Signal -C UNIT NU 2 TO TAU * E CH is used outside the group.
+INFO:  Signal -C SELECT NO 2 TO BUFFER is used outside the group.
+INFO:  Signal -C FULL TRACK WITHOUT IA*1405 E CH is used outside the group.
+INFO:  Signal -S E CH UNIT NUMBER 4 is used outside the group.
+INFO:  Signal -S E CH UNIT NUMBER 3 is used outside the group.
+INFO:  Signal +S E CH UNIT NUMBER 3 is used outside the group.
+INFO:  Signal -C UNIT NU 3 TO TAU * E CH is used outside the group.
+INFO:  Signal -C SELECT NO 3 TO BUFFER is used outside the group.
+INFO:  Signal -C WRITE CHECK*E CH TO 1405 is used outside the group.
+INFO:  Signal -C UNIT NU 4 TO TAU * E CH is used outside the group.
+INFO:  Signal -C WRITE ADDR*E CH TO 1405 is used outside the group.
+INFO:  Signal -C UNIT NU 5 TO TAU * E CH is used outside the group.
+INFO:  Signal -S E CH UNIT NUMBER 9 is used outside the group.
+INFO:  Signal -C UNIT NU 6 TO TAU * E CH is used outside the group.
+INFO:  Signal -C E CH UNIT 8 BIT*1301* is used outside the group.
+INFO:  Signal -C UNIT NU 7 TO TAU * E CH is used outside the group.
+INFO:  Signal -C E CH UNIT 1 BIT*1301* is used outside the group.
+INFO:  Signal -C UNIT NU 8 TO TAU * E CH is used outside the group.
+INFO:  Signal -C E CH UNIT C BIT*1301* is used outside the group.
+INFO:  Signal -C E CH UNIT 2 BIT*1301* is used outside the group.
+INFO:  Signal -C UNIT NU 9 TO TAU * E CH is used outside the group.
+INFO:  Signal -C E CH UNIT 4 BIT*1301* is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S E CH UNIT NU REG NOT C BIT replaced by Bus signal +S E CH U NU REG NOT BUS
+Input Signal +S E CH UNIT NU REG C BIT replaced by Bus signal +S E CH U NU REG BUS
+Input Signal +S E CH UNIT NU REG NOT 8 BIT replaced by Bus signal +S E CH U NU REG NOT BUS
+Input Signal +S E CH UNIT NU REG 8 BIT replaced by Bus signal +S E CH U NU REG BUS
+Input Signal +S E CH UNIT NU REG NOT 4 BIT replaced by Bus signal +S E CH U NU REG NOT BUS
+Input Signal +S E CH UNIT NU REG NOT 2 BIT replaced by Bus signal +S E CH U NU REG NOT BUS
+Input Signal +S E CH UNIT NU REG 2 BIT replaced by Bus signal +S E CH U NU REG BUS
+Input Signal +S E CH UNIT NU REG NOT 1 BIT replaced by Bus signal +S E CH U NU REG NOT BUS
+Input Signal +S E CH UNIT NU REG 1 BIT replaced by Bus signal +S E CH U NU REG BUS
+Input Signal +S E CH UNIT NU REG 4 BIT replaced by Bus signal +S E CH U NU REG BUS
+DEBUG: Tentative bus -C E CH UNIT *1301* BUS identified based on signal -C E CH UNIT 8 BIT*1301*
+DEBUG: Added signal -C E CH UNIT 1 BIT*1301* to bus -C E CH UNIT *1301* BUS
+DEBUG: Added signal -C E CH UNIT C BIT*1301* to bus -C E CH UNIT *1301* BUS
+DEBUG: Added signal -C E CH UNIT 2 BIT*1301* to bus -C E CH UNIT *1301* BUS
+DEBUG: Added signal -C E CH UNIT 4 BIT*1301* to bus -C E CH UNIT *1301* BUS
+INFO: Bus -C E CH UNIT *1301* BUS identified 
+Output signal -C E CH UNIT 8 BIT*1301* replaced by bus -C E CH UNIT *1301* BUS
+Output signal -C E CH UNIT 1 BIT*1301* replaced by bus -C E CH UNIT *1301* BUS
+Output signal -C E CH UNIT C BIT*1301* replaced by bus -C E CH UNIT *1301* BUS
+Output signal -C E CH UNIT 2 BIT*1301* replaced by bus -C E CH UNIT *1301* BUS
+Output signal -C E CH UNIT 4 BIT*1301* replaced by bus -C E CH UNIT *1301* BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.55.04.1 (E CH UNIT NUMBER DECODE)
+Generating HDL associated with page 15.55.05.1 (E CH UNIT NUMBER DECODE)
+Generating HDL associated with page 15.55.06.1 (E CH UNIT NUMBER DECODE)
