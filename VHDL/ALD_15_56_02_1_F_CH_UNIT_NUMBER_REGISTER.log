@@ -1,0 +1,55 @@
+Generating HDL for page 15.56.02.1 F CH UNIT NUMBER REGISTER at 9/17/2020 4:24:31 PM
+Found combinatorial loop (need D FF) at output of gate at 4C
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 4E
+Found combinatorial loop (need D FF) at output of gate at 3E
+Removed 2 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2F to ignored block(s) or identical signal names
+Generating Statement for block at 4C with *latched* output pin(s) of OUT_4C_F_Latch, OUT_4C_F_Latch
+	and inputs of MS_F_CH_RESET,OUT_3C_NoPin
+	and logic function of NAND
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_NoPin_Latch, OUT_3C_NoPin_Latch
+	and inputs of OUT_4C_F,OUT_5D_C
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_E
+	and inputs of OUT_3C_NoPin
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_ASSEMBLY_CH_2_BIT,PS_SET_F_CH_UNIT_NU_REG
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of OUT_4C_F
+	and logic function of NOT
+Generating Statement for block at 4E with *latched* output pin(s) of OUT_4E_F_Latch, OUT_4E_F_Latch
+	and inputs of MS_F_CH_RESET,OUT_3E_NoPin
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_NoPin_Latch, OUT_3E_NoPin_Latch
+	and inputs of OUT_4E_F,OUT_5F_R
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_E
+	and inputs of OUT_3E_NoPin
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_R
+	and inputs of PS_SET_F_CH_UNIT_NU_REG,PS_ASSEMBLY_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D
+	and inputs of OUT_4E_F
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_UNIT_NU_REG_NOT_2_BIT
+	from gate output OUT_2C_E
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_UNIT_NU_REG_2_BIT
+	from gate output OUT_2D_D
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_UNIT_NU_REG_NOT_1_BIT
+	from gate output OUT_2E_E
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_UNIT_NU_REG_1_BIT
+	from gate output OUT_2F_D
+Generating D Flip Flop for block at 4C
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 4E
+Generating D Flip Flop for block at 3E
