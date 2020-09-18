@@ -212,47 +212,112 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable senseBus: std_logic_vector(7 downto 0);
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.60.0*.1        ";
+   
+   for bitNum in 0 to 7 loop
+      for tt in 0 to 2**19 loop
+         tv := std_logic_vector(to_unsigned(tt,tv'Length));
+         a := tv(0);
+         b := tv(1);
+         c := tv(2);
+         d := tv(3);
+         e := tv(4);
+         f := tv(5);
+         g := tv(6);
+         h := tv(7);
+         i := tv(8);
+         j := tv(9);
+         k := tv(10);
+         l := tv(11);
+         m := tv(12);
+         n := tv(13);
+         o := tv(14);
+         p := tv(15);
+         q := tv(16);
+         r := tv(17);
+         s := tv(18);
+         t := tv(19);
+         
+         g1 := a and b; -- Assembly Ch
+         g2 := c or d;  -- SIF or 1412-19
+         
+         case bitNum is  -- TAU
+            when HDL_WM_BIT => g3 := '0';
+            when HDL_C_BIT =>  g3 := (f and p and not e) or (q and e and f); 
+            when others =>     g3 := e and f;             
+         end case;
+                 
+         case bitNum is -- I/O Synchronizer
+            when HDL_WM_BIT => g4 := '0';
+            when others =>     g4 := g and h;
+         end case;
+         
+         g5 := k and (i or j); -- 1301 or 1405
+         
+         case bitNum is -- Console
+            when HDL_C_BIT =>  g6 := r or s;
+            when others =>     g6 := l and m; -- Note that signal for l varies (below)
+         end case;
+         
+         g7 := n and o; -- Sense Switch
+   
+         if(bitNum < 7) then
+            PS_ASSEMBLY_CH_BUS(bitNum) <= a;
+         else
+            PS_ASSEMBLY_CH_C_CHAR_BIT <= a;
+         end if;
+                  
+         PS_GATE_ASM_CH_TO_E1_INPUT <= b;
+         
+         PS_E1_INPUT_STAR_SIF_BUS(bitNum) <= c;
+         PS_E1_INPUT_STAR_1412_19_BUS(bitNum) <= d;
+         
+         MC_E_CH_TAU_TO_CPU_BUS(bitNum) <= not e;
+         MS_GATE_TAPE_TO_E1_INPUT <= not f;
+         MC_I_O_SYNC_TO_CPU_BUS(bitNum) <= not g;
+         MS_GATE_I_O_SYNC_TO_E1_IN <= not h;
+         MC_E_CH_1301_TO_CPU_BUS(bitNum) <= not i;
+         MC_E_CH_1405_TO_CPU_BUS(bitNum) <= not j;
+         MS_GATE_E_CH_FILE_TO_E1_IN <= not k;
+         
+         case bitNum is
+            when HDL_WM_BIT => PS_CONSOLE_WM_CHARACTER <= l;
+            when HDL_C_BIT  => NULL; -- Console C bit handled by r and s
+            when others =>     MV_CONS_PRTR_TO_CPU_BUS(bitNum) <= not l; 
+         end case;
+         
+         MS_GATE_CONSOLE_PRTR_TO_E1_IN <= not m;
+         PS_GATE_CONSOLE_PRTR_TO_E1_IN <= m;
+         
+         senseBus := "00000000";
+         senseBus(bitNum) := n;
+         (SWITCH_TOG_SENSE_SW_C, SWITCH_TOG_SENSE_SW_W, SWITCH_TOG_SENSE_SW_B, SWITCH_TOG_SENSE_SW_A,
+            SWITCH_TOG_SENSE_SW_8, SWITCH_TOG_SENSE_SW_4, SWITCH_TOG_SENSE_SW_2, SWITCH_TOG_SENSE_SW_1) <=
+            senseBus;
+                  
+         MS_GATE_BIT_SENSE_SWITCH <= not o;
+         PS_E_CH_SELECT_UNIT_U <= p;
+         PS_E_CH_SELECT_UNIT_B <= q;
+         MS_CONSOLE_WM_DOT_NOT_C_INPUT <= not r;
+         MS_CONSOLE_NOT_WM_DOT_C_INPUT <= not s;
+                                    
+         wait for 30 ns;
+         
+         check1(PS_E1_INPUT_BUS(bitNum),g1 or g2 or g3 or g4 or g5 or g6 or g7,testName,
+            "+S E1 Input BitNum " & Integer'Image(bitNum));
+         check1(MS_E1_INPUT_BUS(bitNum),NOT PS_E1_INPUT_BUS(bitNum),testName,
+               "-S E1 Input BitNum " & Integer'Image(bitNum));
+         
+      end loop;
 
-   for tt in 0 to 2**23 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
-      
-      wait for 30 ns;
-      
-      
    end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
@@ -265,7 +330,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 200 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
