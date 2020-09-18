@@ -140,6 +140,8 @@ fpga_clk_process: process
 -- End of TestBenchFPGAClock.vhdl
 --   
 
+MS_F_CH_RESET_1 <= MS_F_CH_RESET;   -- 15.56.09.1 uses 2nd reset line
+
 -- Place your test bench code in the uut_process
 
 uut_process: process
@@ -175,7 +177,7 @@ uut_process: process
       MS_F_CH_RESET <= '1';      
       wait for 30 ns;
 
-      -- These three signals comprise +S SET E CH UNIT SEL REG
+      -- These three signals comprise +S SET F Ch UNIT SEL REG
       PS_LOZENGE_OR_ASTERISK <= p;
       PS_I_RING_HDL_BUS(4) <= q;
       PS_LAST_LOGIC_GATE_1 <= r;
@@ -194,22 +196,22 @@ uut_process: process
       if(g1 = '0') then
          -- No register should be set under these conditions
          for bitnum in 3 to 7 loop
-            check1(PS_F_CH_U_SEL_REG_BUS(bitnum),'0',testName,"No Set E Ch U Sel Reg Bit " & Integer'Image(bitnum));
+            check1(PS_F_CH_U_SEL_REG_BUS(bitnum),'0',testName,"No Set F Ch U Sel Reg Bit " & Integer'Image(bitnum));
             if(bitnum < 6) then   -- No WM bit to test, so it is always 0.
-               check1(PS_F_CH_U_SEL_REG_NOT_BUS(bitnum),'1',testName,"No Set E Ch U Sel Reg Not Bit " & Integer'Image(bitnum));
+               check1(PS_F_CH_U_SEL_REG_NOT_BUS(bitnum),'1',testName,"No Set F Ch U Sel Reg Not Bit " & Integer'Image(bitnum));
             end if;
             if(bitnum = 7) then
-               check1(PS_F_CH_U_SEL_REG_NOT_BUS(HDL_C_BIT),not b,testName,"No Set E Ch U Sel Reg Not Bit CR Disable ");
+               check1(PS_F_CH_U_SEL_REG_NOT_BUS(HDL_C_BIT),not b,testName,"No Set F Ch U Sel Reg Not Bit CR Disable ");
             end if;
          end loop;
       else
          -- Certain register(s) may be set
          for bitnum in 3 to 5 loop
-            check1(PS_F_CH_U_SEL_REG_BUS(bitnum),tv(bitNum-1),testName,"Set E Ch U Sel Reg Bit " & Integer'Image(bitnum));
-            check1(PS_F_CH_U_SEL_REG_NOT_BUS(bitnum),not tv(bitNum-1),testName,"Set E Ch U Sel Reg NOT Bit " & Integer'Image(bitnum));
+            check1(PS_F_CH_U_SEL_REG_BUS(bitnum),tv(bitNum-1),testName,"Set F Ch U Sel Reg Bit " & Integer'Image(bitnum));
+            check1(PS_F_CH_U_SEL_REG_NOT_BUS(bitnum),not tv(bitNum-1),testName,"Set F Ch U Sel Reg NOT Bit " & Integer'Image(bitnum));
          end loop;
-         check1(PS_F_CH_U_SEL_REG_BUS(HDL_C_BIT),not b and c,testName,"Set E Ch U Sel reg C Bit");
-         check1(PS_F_CH_U_SEL_REG_NOT_BUS(HDL_C_BIT),not b and not c,testName,"Set E Ch U Sel reg NOT C Bit");
+         check1(PS_F_CH_U_SEL_REG_BUS(HDL_C_BIT),not b and c,testName,"Set F Ch U Sel reg C Bit");
+         check1(PS_F_CH_U_SEL_REG_NOT_BUS(HDL_C_BIT),not b and not c,testName,"Set F Ch U Sel reg NOT C Bit");
       end if;
       
    end loop;
@@ -246,8 +248,8 @@ uut_process: process
       -- All should be clear
       
       for bitnum in 0 to 2 loop
-         check1(PS_F_CH_U_SEL_REG_BUS(bitnum),'0',testName,"Reset E Ch U Sel Reg Bit " & Integer'Image(bitnum));
-         check1(PS_F_CH_U_SEL_REG_NOT_BUS(bitnum),'1',testName,"Reset E Ch U Sel Reg NOT Bit " & Integer'Image(bitnum));         
+         check1(PS_F_CH_U_SEL_REG_BUS(bitnum),'0',testName,"Reset F Ch U Sel Reg Bit " & Integer'Image(bitnum));
+         check1(PS_F_CH_U_SEL_REG_NOT_BUS(bitnum),'1',testName,"Reset F Ch U Sel Reg NOT Bit " & Integer'Image(bitnum));         
       end loop;   
       
       PS_ASSEMBLY_CH_BUS(HDL_4_BIT) <= c;
@@ -271,16 +273,16 @@ uut_process: process
       wait for 30 ns;            
       
       -- 4 Bit
-      check1(PS_F_CH_U_SEL_REG_BUS(HDL_4_BIT),c and g1,testName,"Set E Ch U Sel Reg 4 Bit");
+      check1(PS_F_CH_U_SEL_REG_BUS(HDL_4_BIT),c and g1,testName,"Set F Ch U Sel Reg 4 Bit");
       check1(PS_F_CH_U_SEL_REG_NOT_BUS(HDL_4_BIT),
-         NOT PS_F_CH_U_SEL_REG_BUS(HDL_4_BIT),testName,"Set E Ch U Sel Reg NOT 4 Bit");
+         NOT PS_F_CH_U_SEL_REG_BUS(HDL_4_BIT),testName,"Set F Ch U Sel Reg NOT 4 Bit");
       
       -- 2 Bit
-      check1(PS_F_CH_U_SEL_REG_BUS(HDL_2_BIT),e or (g and g1),testName,"Set E Ch U Sel Reg 2 bit");
-      check1(PS_F_CH_U_SEL_REG_NOT_BUS(HDL_2_BIT),NOT PS_F_CH_U_SEL_REG_BUS(HDL_2_BIT),testName,"Set E Ch U Sel Reg NOT 2 Bit");
+      check1(PS_F_CH_U_SEL_REG_BUS(HDL_2_BIT),f or (g and g1),testName,"Set F Ch U Sel Reg 2 bit");
+      check1(PS_F_CH_U_SEL_REG_NOT_BUS(HDL_2_BIT),NOT PS_F_CH_U_SEL_REG_BUS(HDL_2_BIT),testName,"Set F Ch U Sel Reg NOT 2 Bit");
       
-      check1(PS_F_CH_U_SEL_REG_BUS(HDL_1_BIT),m or (l and g1),testName,"Set E Ch U Sel Reg 1 bit");
-      check1(PS_F_CH_U_SEL_REG_NOT_BUS(HDL_1_bit),NOT PS_F_CH_U_SEL_REG_BUS(HDL_1_BIT),testName,"Set E Ch U Sel Reg NOT 1 Bit");
+      check1(PS_F_CH_U_SEL_REG_BUS(HDL_1_BIT),m or (l and g1),testName,"Set F Ch U Sel Reg 1 bit");
+      check1(PS_F_CH_U_SEL_REG_NOT_BUS(HDL_1_bit),NOT PS_F_CH_U_SEL_REG_BUS(HDL_1_BIT),testName,"Set F Ch U Sel Reg NOT 1 Bit");
       
    end loop;
 
