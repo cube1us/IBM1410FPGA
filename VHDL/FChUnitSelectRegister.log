@@ -1,0 +1,76 @@
+Generating HDL for group named FChUnitSelectRegisterat 9/18/2020 7:57:18 AM containing pages: 
+	15.56.08.1, 15.56.09.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\FChUnitSelectRegister_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 15 signals on page 15.56.08.1
+Found 16 signals on page 15.56.09.1
+Found 16 unique input signals and 15 unique output signals, (30 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S CONTROL REG DISABLE originates outside the group.
+INFO:  Signal -S F CH RESET originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 8 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH A BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH B BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH C CHAR BIT originates outside the group.
+INFO:  Signal +S SET F CH UNIT SEL REG originates inside the group.
+INFO:  Signal +S I RING 4 TIME originates outside the group.
+INFO:  Signal +S LAST LOGIC GATE 1 originates outside the group.
+INFO:  Signal +S LOZENGE OR ASTERISK originates outside the group.
+INFO:  Signal -S F CH RESET 1 originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 1 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 2 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 4 BIT originates outside the group.
+INFO:  Signal -S SET F U SEL REG 2 BIT*1414* originates outside the group.
+INFO:  Signal -S SET F U SEL REG 1 BIT*1414* originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S F CH U SEL REG NOT 8 BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG A BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG C BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG NOT B BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG B BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG NOT C BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG NOT A BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG 8 BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG NOT 1 BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG 4 BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG NOT 2 BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG 2 BIT is used outside the group.
+INFO:  Signal +S F CH U SEL REG NOT 4 BIT is used outside the group.
+INFO:  Signal +S SET F CH UNIT SEL REG is used only inside the group.
+INFO:  Signal +S F CH U SEL REG 1 BIT is used outside the group.
+Removing 1 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Input Signal +S ASSEMBLY CH 8 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH A BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH B BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S I RING 4 TIME replaced by Bus signal +S I RING HDL BUS
+Input Signal +S ASSEMBLY CH 1 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH 2 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH 4 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+DEBUG: Tentative bus +S F CH U SEL REG NOT BUS identified based on signal +S F CH U SEL REG NOT 8 BIT
+DEBUG: Tentative bus +S F CH U SEL REG BUS identified based on signal +S F CH U SEL REG C BIT
+DEBUG: Added signal +S F CH U SEL REG NOT C BIT to bus +S F CH U SEL REG NOT BUS
+DEBUG: Added signal +S F CH U SEL REG 8 BIT to bus +S F CH U SEL REG BUS
+DEBUG: Added signal +S F CH U SEL REG NOT 1 BIT to bus +S F CH U SEL REG NOT BUS
+DEBUG: Added signal +S F CH U SEL REG 4 BIT to bus +S F CH U SEL REG BUS
+DEBUG: Added signal +S F CH U SEL REG NOT 2 BIT to bus +S F CH U SEL REG NOT BUS
+DEBUG: Added signal +S F CH U SEL REG 2 BIT to bus +S F CH U SEL REG BUS
+DEBUG: Added signal +S F CH U SEL REG NOT 4 BIT to bus +S F CH U SEL REG NOT BUS
+DEBUG: Added signal +S F CH U SEL REG 1 BIT to bus +S F CH U SEL REG BUS
+INFO: Bus +S F CH U SEL REG NOT BUS identified 
+INFO: Bus +S F CH U SEL REG BUS identified 
+Output signal +S F CH U SEL REG NOT 8 BIT replaced by bus +S F CH U SEL REG NOT BUS
+Output signal +S F CH U SEL REG C BIT replaced by bus +S F CH U SEL REG BUS
+Output signal +S F CH U SEL REG NOT C BIT replaced by bus +S F CH U SEL REG NOT BUS
+Output signal +S F CH U SEL REG 8 BIT replaced by bus +S F CH U SEL REG BUS
+Output signal +S F CH U SEL REG NOT 1 BIT replaced by bus +S F CH U SEL REG NOT BUS
+Output signal +S F CH U SEL REG 4 BIT replaced by bus +S F CH U SEL REG BUS
+Output signal +S F CH U SEL REG NOT 2 BIT replaced by bus +S F CH U SEL REG NOT BUS
+Output signal +S F CH U SEL REG 2 BIT replaced by bus +S F CH U SEL REG BUS
+Output signal +S F CH U SEL REG NOT 4 BIT replaced by bus +S F CH U SEL REG NOT BUS
+Output signal +S F CH U SEL REG 1 BIT replaced by bus +S F CH U SEL REG BUS
+Generating list of internal signals/wires ...
+1 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.56.08.1 (F CH UNIT SELECT REGISTER)
+Generating HDL associated with page 15.56.09.1 (F CH UNIT SELECT REGISTER)
