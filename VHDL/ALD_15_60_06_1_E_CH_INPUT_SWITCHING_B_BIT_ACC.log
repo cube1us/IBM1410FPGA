@@ -1,0 +1,58 @@
+Generating HDL for page 15.60.06.1 E CH INPUT SWITCHING B BIT-ACC at 9/18/2020 10:36:59 AM
+Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5G has input level(s) of C, and output level(s) of , Logic Function set to OR
+NOTE: DOT Function at 5G is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Ignoring Logic Block 3H with symbol CAP
+Ignoring Logic Block 3I with symbol CAP
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4I to ignored block(s) or identical signal names
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of PS_ASSEMBLY_CH_B_BIT,PS_GATE_ASM_CH_TO_E1_INPUT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_E
+	and inputs of OUT_4D_D
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_D, OUT_1D_D
+	and inputs of OUT_DOT_2D
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of MC_E_CH_TAU_TO_CPU_B_BIT,MS_GATE_TAPE_TO_E1_INPUT
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_A
+	and inputs of MC_I_O_SYNC_TO_CPU_B_BIT,MS_GATE_I_O_SYNC_TO_E1_IN
+	and logic function of NOR
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_1D_D
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A
+	and inputs of OUT_DOT_5G,MS_GATE_E_CH_FILE_TO_E1_IN
+	and logic function of NOR
+Generating Statement for block at 4H with output pin(s) of OUT_4H_X
+	and inputs of MV_CONS_PRTR_TO_CPU_B_BIT_STAR_T2OP
+	and logic function of Resistor
+Generating Statement for block at 2H with output pin(s) of OUT_2H_A
+	and inputs of OUT_4H_X,MS_GATE_CONSOLE_PRTR_TO_E1_IN
+	and logic function of NOR
+Generating Statement for block at 5I with output pin(s) of OUT_5I_T
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 4I with output pin(s) of OUT_4I_X
+	and inputs of OUT_5I_T
+	and logic function of Resistor
+Generating Statement for block at 2I with output pin(s) of OUT_2I_A
+	and inputs of OUT_4I_X,MS_GATE_BIT_SENSE_SWITCH
+	and logic function of NOR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2D_E,PS_E1_INPUT_B_BIT_STAR_SIF,PS_E1_INPUT_B_BIT_STAR_1412_19,OUT_2E_A,OUT_2F_A,OUT_2G_A,OUT_2H_A,OUT_2I_A
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of MC_E_CH_1301_TO_CPU_B_BIT,MC_E_CH_1405_TO_CPU_B_BIT
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal MS_E1_INPUT_B_BIT
+	from gate output OUT_1D_D
+Generating output sheet edge signal assignment to 
+	signal PS_E1_INPUT_B_BIT
+	from gate output OUT_1F_C

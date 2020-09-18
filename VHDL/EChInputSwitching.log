@@ -1,0 +1,212 @@
+Generating HDL for group named EChInputSwitchingat 9/18/2020 10:43:55 AM containing pages: 
+	15.60.01.1, 15.60.02.1, 15.60.03.1, 15.60.04.1, 15.60.05.1
+	15.60.06.1, 15.60.07.1, 15.60.08.1
+Old test bench file EChInputSwitching_tb.vhdl 97 lines preserved and 35 declaration lines preserved
+Building lists of signals on 8 pages...
+Found 18 signals on page 15.60.01.1
+Found 17 signals on page 15.60.02.1
+Found 17 signals on page 15.60.03.1
+Found 17 signals on page 15.60.04.1
+Found 17 signals on page 15.60.05.1
+Found 17 signals on page 15.60.06.1
+Found 19 signals on page 15.60.07.1
+Found 13 signals on page 15.60.08.1
+Found 74 unique input signals and 16 unique output signals, (90 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S GATE BIT SENSE SWITCH originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 1 BIT originates outside the group.
+INFO:  Signal +S GATE ASM CH TO E1 INPUT originates outside the group.
+INFO:  Signal +S E1 INPUT 1 BIT *SIF originates outside the group.
+INFO:  Signal +S E1 INPUT 1 BIT*1412-19 originates outside the group.
+INFO:  Signal -C E CH TAU TO CPU 1 BIT originates outside the group.
+INFO:  Signal -S GATE TAPE TO E1 INPUT originates outside the group.
+INFO:  Signal -C I-O SYNC TO CPU 1 BIT originates outside the group.
+INFO:  Signal -S GATE I-O SYNC TO E1 IN originates outside the group.
+INFO:  Signal -C E CH 1301 TO CPU 1 BIT originates outside the group.
+INFO:  Signal -C E CH 1405 TO CPU 1 BIT originates outside the group.
+INFO:  Signal -S GATE E CH FILE TO E1 IN originates outside the group.
+INFO:  Signal -V CONS PRTR TO CPU 1 BIT*R5 OP originates outside the group.
+INFO:  Signal -S GATE CONSOLE PRTR TO E1 IN originates outside the group.
+INFO:  Signal -V 36 VOLTS originates outside the group.
+INFO:  Signal GROUND originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 2 BIT originates outside the group.
+INFO:  Signal +S E1 INPUT 2 BIT *SIF originates outside the group.
+INFO:  Signal +S E1 INPUT 2 BIT*1412-19 originates outside the group.
+INFO:  Signal -C E CH TAU TO CPU 2 BIT originates outside the group.
+INFO:  Signal -C I-O SYNC TO CPU 2 BIT originates outside the group.
+INFO:  Signal -C E CH 1301 TO CPU 2 BIT originates outside the group.
+INFO:  Signal -C E CH 1405 TO CPU 2 BIT originates outside the group.
+INFO:  Signal -V CONS PRTR TO CPU 2 BIT*R10P originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 4 BIT originates outside the group.
+INFO:  Signal +S E1 INPUT 4 BIT *SIF originates outside the group.
+INFO:  Signal +S E1 INPUT 4 BIT*1412-19 originates outside the group.
+INFO:  Signal -C E CH TAU TO CPU 4 BIT originates outside the group.
+INFO:  Signal -C I-O SYNC TO CPU 4 BIT originates outside the group.
+INFO:  Signal -C E CH 1301 TO CPU 4 BIT originates outside the group.
+INFO:  Signal -C E CH 1405 TO CPU 4 BIT originates outside the group.
+INFO:  Signal -V CONS PRTR TO CPU 4 BIT*R2OP originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 8 BIT originates outside the group.
+INFO:  Signal +S E1 INPUT 8 BIT *SIF originates outside the group.
+INFO:  Signal +S E1 INPUT 8 BIT*1412-19 originates outside the group.
+INFO:  Signal -C E CH TAU TO CPU 8 BIT originates outside the group.
+INFO:  Signal -C I-O SYNC TO CPU 8 BIT originates outside the group.
+INFO:  Signal -C E CH 1301 TO CPU 8 BIT originates outside the group.
+INFO:  Signal -C E CH 1405 TO CPU 8 BIT originates outside the group.
+INFO:  Signal -V CONS PRTR TO CPU 8 BIT*S2OP originates outside the group.
+INFO:  Signal +S ASSEMBLY CH A BIT originates outside the group.
+INFO:  Signal +S E1 INPUT A BIT*1412-19 originates outside the group.
+INFO:  Signal +S E1 INPUT A BIT *SIF originates outside the group.
+INFO:  Signal -C E CH TAU TO CPU A BIT originates outside the group.
+INFO:  Signal -C I-O SYNC TO CPU A BIT originates outside the group.
+INFO:  Signal -C E CH 1301 TO CPU A BIT originates outside the group.
+INFO:  Signal -C E CH 1405 TO CPU A BIT originates outside the group.
+INFO:  Signal -V CONS PRTR TO CPU A BIT*T10P originates outside the group.
+INFO:  Signal +S ASSEMBLY CH B BIT originates outside the group.
+INFO:  Signal +S E1 INPUT B BIT *SIF originates outside the group.
+INFO:  Signal +S E1 INPUT B BIT*1412-19 originates outside the group.
+INFO:  Signal -C E CH TAU TO CPU B BIT originates outside the group.
+INFO:  Signal -C I-O SYNC TO CPU B BIT originates outside the group.
+INFO:  Signal -C E CH 1301 TO CPU B BIT originates outside the group.
+INFO:  Signal -C E CH 1405 TO CPU B BIT originates outside the group.
+INFO:  Signal -V CONS PRTR TO CPU B BIT*T2OP originates outside the group.
+INFO:  Signal +S E CH SELECT UNIT U originates outside the group.
+INFO:  Signal +S E CH SELECT UNIT B originates outside the group.
+INFO:  Signal +S ASSEMBLY CH C CHAR BIT originates outside the group.
+INFO:  Signal +S E1 INPUT C BIT *SIF originates outside the group.
+INFO:  Signal +S E1 INPUT C BIT*1412-19 originates outside the group.
+INFO:  Signal -C E CH TAU TO CPU C BIT originates outside the group.
+INFO:  Signal -C I-O SYNC TO CPU C BIT originates outside the group.
+INFO:  Signal -C E CH 1301 TO CPU C BIT originates outside the group.
+INFO:  Signal -C E CH 1405 TO CPU C BIT originates outside the group.
+INFO:  Signal -S CONSOLE WM.NOT C INPUT originates outside the group.
+INFO:  Signal -S CONSOLE NOT WM.C INPUT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH WM BIT originates outside the group.
+INFO:  Signal +S E1 INPUT WM BIT *SIF originates outside the group.
+INFO:  Signal +S E1 INPUT WM BIT*1412-19 originates outside the group.
+INFO:  Signal +S CONSOLE WM CHARACTER originates outside the group.
+INFO:  Signal +S GATE CONSOLE PRTR TO E1 IN originates outside the group.
+INFO:  Signal -C E CH 1301 TO CPU WM BIT originates outside the group.
+INFO:  Signal -C E CH 1405 TO CPU WM BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S E1 INPUT 1 BIT is used outside the group.
+INFO:  Signal -S E1 INPUT 1 BIT is used outside the group.
+INFO:  Signal +S E1 INPUT 2 BIT is used outside the group.
+INFO:  Signal -S E1 INPUT 2 BIT is used outside the group.
+INFO:  Signal +S E1 INPUT 4 BIT is used outside the group.
+INFO:  Signal -S E1 INPUT 4 BIT is used outside the group.
+INFO:  Signal +S E1 INPUT 8 BIT is used outside the group.
+INFO:  Signal -S E1 INPUT 8 BIT is used outside the group.
+INFO:  Signal +S E1 INPUT A BIT is used outside the group.
+INFO:  Signal -S E1 INPUT A BIT is used outside the group.
+INFO:  Signal +S E1 INPUT B BIT is used outside the group.
+INFO:  Signal -S E1 INPUT B BIT is used outside the group.
+INFO:  Signal +S E1 INPUT C BIT is used outside the group.
+INFO:  Signal -S E1 INPUT C BIT is used outside the group.
+INFO:  Signal -S E1 INPUT WM BIT is used outside the group.
+INFO:  Signal +S E1 INPUT WM BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S ASSEMBLY CH 1 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E1 INPUT 1 BIT *SIF replaced by Bus signal +S E1 INPUT *SIF BUS
+Input Signal +S E1 INPUT 1 BIT*1412-19 replaced by Bus signal +S E1 INPUT *1412-19 BUS
+Input Signal -C E CH TAU TO CPU 1 BIT replaced by Bus signal -C E CH TAU TO CPU BUS
+Input Signal -C I-O SYNC TO CPU 1 BIT replaced by Bus signal -C I-O SYNC TO CPU BUS
+Input Signal -C E CH 1301 TO CPU 1 BIT replaced by Bus signal -C E CH 1301 TO CPU BUS
+Input Signal -C E CH 1405 TO CPU 1 BIT replaced by Bus signal -C E CH 1405 TO CPU BUS
+Input Signal -V CONS PRTR TO CPU 1 BIT*R5 OP replaced by Bus signal -V CONS PRTR TO CPU BUS
+Input Signal +S ASSEMBLY CH 2 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E1 INPUT 2 BIT *SIF replaced by Bus signal +S E1 INPUT *SIF BUS
+Input Signal +S E1 INPUT 2 BIT*1412-19 replaced by Bus signal +S E1 INPUT *1412-19 BUS
+Input Signal -C E CH TAU TO CPU 2 BIT replaced by Bus signal -C E CH TAU TO CPU BUS
+Input Signal -C I-O SYNC TO CPU 2 BIT replaced by Bus signal -C I-O SYNC TO CPU BUS
+Input Signal -C E CH 1301 TO CPU 2 BIT replaced by Bus signal -C E CH 1301 TO CPU BUS
+Input Signal -C E CH 1405 TO CPU 2 BIT replaced by Bus signal -C E CH 1405 TO CPU BUS
+Input Signal -V CONS PRTR TO CPU 2 BIT*R10P replaced by Bus signal -V CONS PRTR TO CPU BUS
+Input Signal +S ASSEMBLY CH 4 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E1 INPUT 4 BIT *SIF replaced by Bus signal +S E1 INPUT *SIF BUS
+Input Signal +S E1 INPUT 4 BIT*1412-19 replaced by Bus signal +S E1 INPUT *1412-19 BUS
+Input Signal -C E CH TAU TO CPU 4 BIT replaced by Bus signal -C E CH TAU TO CPU BUS
+Input Signal -C I-O SYNC TO CPU 4 BIT replaced by Bus signal -C I-O SYNC TO CPU BUS
+Input Signal -C E CH 1301 TO CPU 4 BIT replaced by Bus signal -C E CH 1301 TO CPU BUS
+Input Signal -C E CH 1405 TO CPU 4 BIT replaced by Bus signal -C E CH 1405 TO CPU BUS
+Input Signal -V CONS PRTR TO CPU 4 BIT*R2OP replaced by Bus signal -V CONS PRTR TO CPU BUS
+Input Signal +S ASSEMBLY CH 8 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E1 INPUT 8 BIT *SIF replaced by Bus signal +S E1 INPUT *SIF BUS
+Input Signal +S E1 INPUT 8 BIT*1412-19 replaced by Bus signal +S E1 INPUT *1412-19 BUS
+Input Signal -C E CH TAU TO CPU 8 BIT replaced by Bus signal -C E CH TAU TO CPU BUS
+Input Signal -C I-O SYNC TO CPU 8 BIT replaced by Bus signal -C I-O SYNC TO CPU BUS
+Input Signal -C E CH 1301 TO CPU 8 BIT replaced by Bus signal -C E CH 1301 TO CPU BUS
+Input Signal -C E CH 1405 TO CPU 8 BIT replaced by Bus signal -C E CH 1405 TO CPU BUS
+Input Signal -V CONS PRTR TO CPU 8 BIT*S2OP replaced by Bus signal -V CONS PRTR TO CPU BUS
+Input Signal +S ASSEMBLY CH A BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E1 INPUT A BIT*1412-19 replaced by Bus signal +S E1 INPUT *1412-19 BUS
+Input Signal +S E1 INPUT A BIT *SIF replaced by Bus signal +S E1 INPUT *SIF BUS
+Input Signal -C E CH TAU TO CPU A BIT replaced by Bus signal -C E CH TAU TO CPU BUS
+Input Signal -C I-O SYNC TO CPU A BIT replaced by Bus signal -C I-O SYNC TO CPU BUS
+Input Signal -C E CH 1301 TO CPU A BIT replaced by Bus signal -C E CH 1301 TO CPU BUS
+Input Signal -C E CH 1405 TO CPU A BIT replaced by Bus signal -C E CH 1405 TO CPU BUS
+Input Signal -V CONS PRTR TO CPU A BIT*T10P replaced by Bus signal -V CONS PRTR TO CPU BUS
+Input Signal +S ASSEMBLY CH B BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E1 INPUT B BIT *SIF replaced by Bus signal +S E1 INPUT *SIF BUS
+Input Signal +S E1 INPUT B BIT*1412-19 replaced by Bus signal +S E1 INPUT *1412-19 BUS
+Input Signal -C E CH TAU TO CPU B BIT replaced by Bus signal -C E CH TAU TO CPU BUS
+Input Signal -C I-O SYNC TO CPU B BIT replaced by Bus signal -C I-O SYNC TO CPU BUS
+Input Signal -C E CH 1301 TO CPU B BIT replaced by Bus signal -C E CH 1301 TO CPU BUS
+Input Signal -C E CH 1405 TO CPU B BIT replaced by Bus signal -C E CH 1405 TO CPU BUS
+Input Signal -V CONS PRTR TO CPU B BIT*T2OP replaced by Bus signal -V CONS PRTR TO CPU BUS
+Input Signal +S E1 INPUT C BIT *SIF replaced by Bus signal +S E1 INPUT *SIF BUS
+Input Signal +S E1 INPUT C BIT*1412-19 replaced by Bus signal +S E1 INPUT *1412-19 BUS
+Input Signal -C E CH TAU TO CPU C BIT replaced by Bus signal -C E CH TAU TO CPU BUS
+Input Signal -C I-O SYNC TO CPU C BIT replaced by Bus signal -C I-O SYNC TO CPU BUS
+Input Signal -C E CH 1301 TO CPU C BIT replaced by Bus signal -C E CH 1301 TO CPU BUS
+Input Signal -C E CH 1405 TO CPU C BIT replaced by Bus signal -C E CH 1405 TO CPU BUS
+Input Signal +S ASSEMBLY CH WM BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E1 INPUT WM BIT *SIF replaced by Bus signal +S E1 INPUT *SIF BUS
+Input Signal +S E1 INPUT WM BIT*1412-19 replaced by Bus signal +S E1 INPUT *1412-19 BUS
+Input Signal -C E CH 1301 TO CPU WM BIT replaced by Bus signal -C E CH 1301 TO CPU BUS
+Input Signal -C E CH 1405 TO CPU WM BIT replaced by Bus signal -C E CH 1405 TO CPU BUS
+DEBUG: Tentative bus +S E1 INPUT BUS identified based on signal +S E1 INPUT 1 BIT
+DEBUG: Tentative bus -S E1 INPUT BUS identified based on signal -S E1 INPUT 1 BIT
+DEBUG: Added signal +S E1 INPUT 2 BIT to bus +S E1 INPUT BUS
+DEBUG: Added signal -S E1 INPUT 2 BIT to bus -S E1 INPUT BUS
+DEBUG: Added signal +S E1 INPUT 4 BIT to bus +S E1 INPUT BUS
+DEBUG: Added signal -S E1 INPUT 4 BIT to bus -S E1 INPUT BUS
+DEBUG: Added signal +S E1 INPUT 8 BIT to bus +S E1 INPUT BUS
+DEBUG: Added signal -S E1 INPUT 8 BIT to bus -S E1 INPUT BUS
+DEBUG: Added signal +S E1 INPUT A BIT to bus +S E1 INPUT BUS
+DEBUG: Added signal -S E1 INPUT A BIT to bus -S E1 INPUT BUS
+DEBUG: Added signal +S E1 INPUT B BIT to bus +S E1 INPUT BUS
+DEBUG: Added signal -S E1 INPUT B BIT to bus -S E1 INPUT BUS
+DEBUG: Added signal +S E1 INPUT C BIT to bus +S E1 INPUT BUS
+DEBUG: Added signal -S E1 INPUT C BIT to bus -S E1 INPUT BUS
+DEBUG: Added signal -S E1 INPUT WM BIT to bus -S E1 INPUT BUS
+DEBUG: Added signal +S E1 INPUT WM BIT to bus +S E1 INPUT BUS
+INFO: Bus +S E1 INPUT BUS identified 
+INFO: Bus -S E1 INPUT BUS identified 
+Output signal +S E1 INPUT 1 BIT replaced by bus +S E1 INPUT BUS
+Output signal -S E1 INPUT 1 BIT replaced by bus -S E1 INPUT BUS
+Output signal +S E1 INPUT 2 BIT replaced by bus +S E1 INPUT BUS
+Output signal -S E1 INPUT 2 BIT replaced by bus -S E1 INPUT BUS
+Output signal +S E1 INPUT 4 BIT replaced by bus +S E1 INPUT BUS
+Output signal -S E1 INPUT 4 BIT replaced by bus -S E1 INPUT BUS
+Output signal +S E1 INPUT 8 BIT replaced by bus +S E1 INPUT BUS
+Output signal -S E1 INPUT 8 BIT replaced by bus -S E1 INPUT BUS
+Output signal +S E1 INPUT A BIT replaced by bus +S E1 INPUT BUS
+Output signal -S E1 INPUT A BIT replaced by bus -S E1 INPUT BUS
+Output signal +S E1 INPUT B BIT replaced by bus +S E1 INPUT BUS
+Output signal -S E1 INPUT B BIT replaced by bus -S E1 INPUT BUS
+Output signal +S E1 INPUT C BIT replaced by bus +S E1 INPUT BUS
+Output signal -S E1 INPUT C BIT replaced by bus -S E1 INPUT BUS
+Output signal -S E1 INPUT WM BIT replaced by bus -S E1 INPUT BUS
+Output signal +S E1 INPUT WM BIT replaced by bus +S E1 INPUT BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.60.01.1 (E CH INPUT SWITCHING 1 BIT-ACC)
+Generating HDL associated with page 15.60.02.1 (E CH INPUT SWITCHING 2 BIT-ACC)
+Generating HDL associated with page 15.60.03.1 (E CH INPUT SWITCHING 4 BIT-ACC)
+Generating HDL associated with page 15.60.04.1 (E CH INPUT SWITCHING 8 BIT-ACC)
+Generating HDL associated with page 15.60.05.1 (E CH INPUT SWITCHING A BIT-ACC)
+Generating HDL associated with page 15.60.06.1 (E CH INPUT SWITCHING B BIT-ACC)
+Generating HDL associated with page 15.60.07.1 (E CH INPUT SWITCHING C BIT-ACC)
+Generating HDL associated with page 15.60.08.1 (E CH INPUT SWITCHING WM BIT)
