@@ -155,43 +155,84 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.60.09.1        ";
 
-   for tt in 0 to 2**23 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
-      
+   MS_PROGRAM_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_1 <= '1';
+   wait for 30 ns;
+   
+   check1(PS_CONSOLE_WM_CHARACTER,'0',testName,"1A");
+   check1(MS_CONSOLE_WM_CHARACTER,'1',testName,"1B");
+   
+   -- WM NOT set
+   for i in 0 to 4 loop
+      tv := std_logic_vector(to_unsigned(i,tv'Length));
+      g := tv(0);
+      h := tv(1);
+      PS_GATE_CONSOLE_PRTR_TO_E1_IN <= g;
+      MV_CONSOLE_C_INPUT_STAR_CHK_OP <= not h;
       wait for 30 ns;
-      
-      
+      check1(MS_CONSOLE_NOT_WM_DOT_C_INPUT,not(h and g),testName,"2A");
+      check1(MS_CONSOLE_WM_DOT_NOT_C_INPUT,'1',testName,"2B");
    end loop;
+   
+   MS_CONS_WM_OUTPUT_SET <= '0';
+   wait for 30 ns;
+   MS_CONS_WM_OUTPUT_SET <= '1';
+   wait for 30 ns;
 
+   check1(PS_CONSOLE_WM_CHARACTER,'1',testName,"3A");
+   check1(MS_CONSOLE_WM_CHARACTER,'0',testName,"3B");
+
+   -- WM IS set
+   for i in 0 to 4 loop
+      tv := std_logic_vector(to_unsigned(i,tv'Length));
+      g := tv(0);
+      h := tv(1);
+      PS_GATE_CONSOLE_PRTR_TO_E1_IN <= g;
+      MV_CONSOLE_C_INPUT_STAR_CHK_OP <= not h;
+      wait for 30 ns;
+      check1(MS_CONSOLE_NOT_WM_DOT_C_INPUT,'1',testName,"3A");
+      check1(MS_CONSOLE_WM_DOT_NOT_C_INPUT,not(g and not h),testName,"3B");
+   end loop;
+   
+   MS_CONS_ERROR_BACKSPACE_SET <= '0';
+   wait for 30 ns;
+   MS_CONS_ERROR_BACKSPACE_SET <= '1';
+   wait for 30 ns;
+   check1(PS_CONSOLE_WM_CHARACTER,'0',testName,"4A");
+   check1(MS_CONSOLE_WM_CHARACTER,'1',testName,"4B");
+   
+   MS_CONS_WM_INPUT_SET <= '0';
+   wait for 30 ns;
+   MS_CONS_WM_INPUT_SET <= '1';
+   wait for 30 ns;
+   check1(PS_CONSOLE_WM_CHARACTER,'1',testName,"5A");
+   check1(MS_CONSOLE_WM_CHARACTER,'0',testName,"5B");
+   
+   MS_CONS_GATED_CARRIAGE_RETURN <= '0';
+   wait for 30 ns;
+   MS_CONS_GATED_CARRIAGE_RETURN <= '1';
+   wait for 30 ns;
+   check1(PS_CONSOLE_WM_CHARACTER,'0',testName,"6A");
+   check1(MS_CONSOLE_WM_CHARACTER,'1',testName,"6B");
+
+   MS_CONS_WM_INPUT_SET <= '0';
+   wait for 30 ns;
+   MS_CONS_WM_INPUT_SET <= '1';
+   wait for 30 ns;
+   check1(PS_CONSOLE_WM_CHARACTER,'1',testName,"7A");
+   check1(MS_CONSOLE_WM_CHARACTER,'0',testName,"7B");
+   
+   MS_CONS_WM_INPUT_RESET <= '0';
+   wait for 30 ns;
+   MS_CONS_WM_INPUT_RESET <= '1';
+   wait for 30 ns;
+   check1(PS_CONSOLE_WM_CHARACTER,'0',testName,"7C");
+   check1(MS_CONSOLE_WM_CHARACTER,'1',testName,"7D");
+
+   
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
