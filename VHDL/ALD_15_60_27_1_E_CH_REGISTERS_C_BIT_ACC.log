@@ -1,0 +1,60 @@
+Generating HDL for page 15.60.27.1 E CH REGISTERS C BIT-ACC at 9/18/2020 5:45:11 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_60_27_1_E_CH_REGISTERS_C_BIT_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 2F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 2F
+Removed 3 outputs from Gate at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of MS_E1_INPUT_C_BIT,PS_SET_E1_REG
+	and logic function of NAND
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_G_Latch, OUT_3B_G_Latch, OUT_3B_G_Latch
+	and inputs of OUT_4B_NoPin,OUT_2B_A
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_A_Latch, OUT_2B_A_Latch, OUT_2B_A_Latch
+	and inputs of OUT_3B_G,OUT_4C_Q
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_Q
+	and inputs of PS_SET_E1_REG,PS_E1_INPUT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_F
+	and inputs of OUT_3B_G,PS_COPY_E1_WM_DOT_C_BIT,PS_SET_E2_REG
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E
+	and inputs of OUT_2B_A,PS_SET_E2_REG,PS_COPY_INV_E1_WM_DOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_NoPin_Latch, OUT_3F_NoPin_Latch
+	and inputs of OUT_4E_F,OUT_4F_E,OUT_DOT_2F
+	and logic function of NAND
+Generating Statement for block at 2F with *latched* output pin(s) of OUT_2F_P_Latch
+	and inputs of OUT_3F_NoPin,MS_SET_E2_WORD_SEPARATOR
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_DOT_2F
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of OUT_2B_A,PS_SET_E2_REG,PS_COPY_E1_WM_DOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_B
+	and inputs of OUT_3F_NoPin
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of OUT_3B_G,PS_SET_E2_REG,PS_COPY_INV_E1_WM_DOT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_P
+	and inputs of OUT_4G_D,OUT_4H_C
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_DOT_2F, OUT_DOT_2F
+	and inputs of OUT_2F_P,OUT_2H_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_E2_REG_C_BIT
+	from gate output OUT_1F_C
+Generating output sheet edge signal assignment to 
+	signal PS_E2_REG_C_BIT
+	from gate output OUT_1G_B
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 2F
