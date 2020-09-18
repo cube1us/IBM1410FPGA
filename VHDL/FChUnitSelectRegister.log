@@ -1,6 +1,6 @@
-Generating HDL for group named FChUnitSelectRegisterat 9/18/2020 7:57:18 AM containing pages: 
+Generating HDL for group named FChUnitSelectRegisterat 9/18/2020 9:22:28 AM containing pages: 
 	15.56.08.1, 15.56.09.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\FChUnitSelectRegister_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file FChUnitSelectRegister_tb.vhdl 190 lines preserved and 35 declaration lines preserved
 Building lists of signals on 2 pages...
 Found 15 signals on page 15.56.08.1
 Found 16 signals on page 15.56.09.1
@@ -48,8 +48,12 @@ Input Signal +S ASSEMBLY CH 1 BIT replaced by Bus signal +S ASSEMBLY CH BUS
 Input Signal +S ASSEMBLY CH 2 BIT replaced by Bus signal +S ASSEMBLY CH BUS
 Input Signal +S ASSEMBLY CH 4 BIT replaced by Bus signal +S ASSEMBLY CH BUS
 DEBUG: Tentative bus +S F CH U SEL REG NOT BUS identified based on signal +S F CH U SEL REG NOT 8 BIT
-DEBUG: Tentative bus +S F CH U SEL REG BUS identified based on signal +S F CH U SEL REG C BIT
+DEBUG: Tentative bus +S F CH U SEL REG BUS identified based on signal +S F CH U SEL REG A BIT
+DEBUG: Added signal +S F CH U SEL REG C BIT to bus +S F CH U SEL REG BUS
+DEBUG: Added signal +S F CH U SEL REG NOT B BIT to bus +S F CH U SEL REG NOT BUS
+DEBUG: Added signal +S F CH U SEL REG B BIT to bus +S F CH U SEL REG BUS
 DEBUG: Added signal +S F CH U SEL REG NOT C BIT to bus +S F CH U SEL REG NOT BUS
+DEBUG: Added signal +S F CH U SEL REG NOT A BIT to bus +S F CH U SEL REG NOT BUS
 DEBUG: Added signal +S F CH U SEL REG 8 BIT to bus +S F CH U SEL REG BUS
 DEBUG: Added signal +S F CH U SEL REG NOT 1 BIT to bus +S F CH U SEL REG NOT BUS
 DEBUG: Added signal +S F CH U SEL REG 4 BIT to bus +S F CH U SEL REG BUS
@@ -60,8 +64,12 @@ DEBUG: Added signal +S F CH U SEL REG 1 BIT to bus +S F CH U SEL REG BUS
 INFO: Bus +S F CH U SEL REG NOT BUS identified 
 INFO: Bus +S F CH U SEL REG BUS identified 
 Output signal +S F CH U SEL REG NOT 8 BIT replaced by bus +S F CH U SEL REG NOT BUS
+Output signal +S F CH U SEL REG A BIT replaced by bus +S F CH U SEL REG BUS
 Output signal +S F CH U SEL REG C BIT replaced by bus +S F CH U SEL REG BUS
+Output signal +S F CH U SEL REG NOT B BIT replaced by bus +S F CH U SEL REG NOT BUS
+Output signal +S F CH U SEL REG B BIT replaced by bus +S F CH U SEL REG BUS
 Output signal +S F CH U SEL REG NOT C BIT replaced by bus +S F CH U SEL REG NOT BUS
+Output signal +S F CH U SEL REG NOT A BIT replaced by bus +S F CH U SEL REG NOT BUS
 Output signal +S F CH U SEL REG 8 BIT replaced by bus +S F CH U SEL REG BUS
 Output signal +S F CH U SEL REG NOT 1 BIT replaced by bus +S F CH U SEL REG NOT BUS
 Output signal +S F CH U SEL REG 4 BIT replaced by bus +S F CH U SEL REG BUS
