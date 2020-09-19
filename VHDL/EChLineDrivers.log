@@ -1,0 +1,134 @@
+Generating HDL for group named EChLineDriversat 9/18/2020 9:21:34 PM containing pages: 
+	15.60.31.1, 15.60.32.1, 15.60.33.1, 15.60.34.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\EChLineDrivers_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 4 pages...
+Found 10 signals on page 15.60.31.1
+Found 10 signals on page 15.60.32.1
+Found 10 signals on page 15.60.33.1
+Found 11 signals on page 15.60.34.1
+Found 11 unique input signals and 30 unique output signals, (41 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S E2 REG 1 BIT originates outside the group.
+INFO:  Signal -S E2 REG 2 BIT originates outside the group.
+INFO:  Signal -S E2 REG 4 BIT originates outside the group.
+INFO:  Signal -S E2 REG 8 BIT originates outside the group.
+INFO:  Signal -S E2 REG A BIT originates outside the group.
+INFO:  Signal -S E2 REG B BIT originates outside the group.
+INFO:  Signal +S E CH SELECT UNIT U originates outside the group.
+INFO:  Signal +S E CH SELECT UNIT B originates outside the group.
+INFO:  Signal -S E2 REG C BIT originates outside the group.
+INFO:  Signal +S E2 REG C BIT originates outside the group.
+INFO:  Signal -S E2 REG WM BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -C CPU TO E CH TAU 2 BIT is used outside the group.
+INFO:  Signal -C CPU TO I-O SYNC 2 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1301 2 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH TAU 1 BIT is used outside the group.
+INFO:  Signal -C CPU TO I-O SYNC 1 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1301 1 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1405 2 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1405 1 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH TAU 8 BIT is used outside the group.
+INFO:  Signal -C CPU TO I-O SYNC 8 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1301 8 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1405 8 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH TAU 4 BIT is used outside the group.
+INFO:  Signal -C CPU TO I-O SYNC 4 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1301 4 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1405 4 BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH TAU B BIT is used outside the group.
+INFO:  Signal -C CPU TO I-O SYNC B BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1301 B BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1405 B BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH TAU A BIT is used outside the group.
+INFO:  Signal -C CPU TO I-O SYNC A BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1301 A BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1405 A BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH TAU C BIT is used outside the group.
+INFO:  Signal -C CPU TO I-O SYNC C BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1301 C BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1405 C BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1301 WM BIT is used outside the group.
+INFO:  Signal -C CPU TO E CH 1405 WM BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal -S E2 REG 1 BIT replaced by Bus signal -S E2 REG BUS
+Input Signal -S E2 REG 2 BIT replaced by Bus signal -S E2 REG BUS
+Input Signal -S E2 REG 4 BIT replaced by Bus signal -S E2 REG BUS
+Input Signal -S E2 REG 8 BIT replaced by Bus signal -S E2 REG BUS
+Input Signal -S E2 REG A BIT replaced by Bus signal -S E2 REG BUS
+Input Signal -S E2 REG B BIT replaced by Bus signal -S E2 REG BUS
+Input Signal -S E2 REG C BIT replaced by Bus signal -S E2 REG BUS
+Input Signal +S E2 REG C BIT replaced by Bus signal +S E2 REG BUS
+Input Signal -S E2 REG WM BIT replaced by Bus signal -S E2 REG BUS
+DEBUG: Tentative bus -C CPU TO E CH TAU BUS identified based on signal -C CPU TO E CH TAU 2 BIT
+DEBUG: Tentative bus -C CPU TO I-O SYNC BUS identified based on signal -C CPU TO I-O SYNC 2 BIT
+DEBUG: Tentative bus -C CPU TO E CH 1301 BUS identified based on signal -C CPU TO E CH 1301 2 BIT
+DEBUG: Added signal -C CPU TO E CH TAU 1 BIT to bus -C CPU TO E CH TAU BUS
+DEBUG: Added signal -C CPU TO I-O SYNC 1 BIT to bus -C CPU TO I-O SYNC BUS
+DEBUG: Added signal -C CPU TO E CH 1301 1 BIT to bus -C CPU TO E CH 1301 BUS
+DEBUG: Tentative bus -C CPU TO E CH 1405 BUS identified based on signal -C CPU TO E CH 1405 2 BIT
+DEBUG: Added signal -C CPU TO E CH 1405 1 BIT to bus -C CPU TO E CH 1405 BUS
+DEBUG: Added signal -C CPU TO E CH TAU 8 BIT to bus -C CPU TO E CH TAU BUS
+DEBUG: Added signal -C CPU TO I-O SYNC 8 BIT to bus -C CPU TO I-O SYNC BUS
+DEBUG: Added signal -C CPU TO E CH 1301 8 BIT to bus -C CPU TO E CH 1301 BUS
+DEBUG: Added signal -C CPU TO E CH 1405 8 BIT to bus -C CPU TO E CH 1405 BUS
+DEBUG: Added signal -C CPU TO E CH TAU 4 BIT to bus -C CPU TO E CH TAU BUS
+DEBUG: Added signal -C CPU TO I-O SYNC 4 BIT to bus -C CPU TO I-O SYNC BUS
+DEBUG: Added signal -C CPU TO E CH 1301 4 BIT to bus -C CPU TO E CH 1301 BUS
+DEBUG: Added signal -C CPU TO E CH 1405 4 BIT to bus -C CPU TO E CH 1405 BUS
+DEBUG: Added signal -C CPU TO E CH TAU B BIT to bus -C CPU TO E CH TAU BUS
+DEBUG: Added signal -C CPU TO I-O SYNC B BIT to bus -C CPU TO I-O SYNC BUS
+DEBUG: Added signal -C CPU TO E CH 1301 B BIT to bus -C CPU TO E CH 1301 BUS
+DEBUG: Added signal -C CPU TO E CH 1405 B BIT to bus -C CPU TO E CH 1405 BUS
+DEBUG: Added signal -C CPU TO E CH TAU A BIT to bus -C CPU TO E CH TAU BUS
+DEBUG: Added signal -C CPU TO I-O SYNC A BIT to bus -C CPU TO I-O SYNC BUS
+DEBUG: Added signal -C CPU TO E CH 1301 A BIT to bus -C CPU TO E CH 1301 BUS
+DEBUG: Added signal -C CPU TO E CH 1405 A BIT to bus -C CPU TO E CH 1405 BUS
+DEBUG: Added signal -C CPU TO E CH TAU C BIT to bus -C CPU TO E CH TAU BUS
+DEBUG: Added signal -C CPU TO I-O SYNC C BIT to bus -C CPU TO I-O SYNC BUS
+DEBUG: Added signal -C CPU TO E CH 1301 C BIT to bus -C CPU TO E CH 1301 BUS
+DEBUG: Added signal -C CPU TO E CH 1405 C BIT to bus -C CPU TO E CH 1405 BUS
+DEBUG: Added signal -C CPU TO E CH 1301 WM BIT to bus -C CPU TO E CH 1301 BUS
+DEBUG: Added signal -C CPU TO E CH 1405 WM BIT to bus -C CPU TO E CH 1405 BUS
+INFO: Bus -C CPU TO E CH TAU BUS identified 
+INFO: Bus -C CPU TO I-O SYNC BUS identified 
+INFO: Bus -C CPU TO E CH 1301 BUS identified 
+INFO: Bus -C CPU TO E CH 1405 BUS identified 
+Output signal -C CPU TO E CH TAU 2 BIT replaced by bus -C CPU TO E CH TAU BUS
+Output signal -C CPU TO I-O SYNC 2 BIT replaced by bus -C CPU TO I-O SYNC BUS
+Output signal -C CPU TO E CH 1301 2 BIT replaced by bus -C CPU TO E CH 1301 BUS
+Output signal -C CPU TO E CH TAU 1 BIT replaced by bus -C CPU TO E CH TAU BUS
+Output signal -C CPU TO I-O SYNC 1 BIT replaced by bus -C CPU TO I-O SYNC BUS
+Output signal -C CPU TO E CH 1301 1 BIT replaced by bus -C CPU TO E CH 1301 BUS
+Output signal -C CPU TO E CH 1405 2 BIT replaced by bus -C CPU TO E CH 1405 BUS
+Output signal -C CPU TO E CH 1405 1 BIT replaced by bus -C CPU TO E CH 1405 BUS
+Output signal -C CPU TO E CH TAU 8 BIT replaced by bus -C CPU TO E CH TAU BUS
+Output signal -C CPU TO I-O SYNC 8 BIT replaced by bus -C CPU TO I-O SYNC BUS
+Output signal -C CPU TO E CH 1301 8 BIT replaced by bus -C CPU TO E CH 1301 BUS
+Output signal -C CPU TO E CH 1405 8 BIT replaced by bus -C CPU TO E CH 1405 BUS
+Output signal -C CPU TO E CH TAU 4 BIT replaced by bus -C CPU TO E CH TAU BUS
+Output signal -C CPU TO I-O SYNC 4 BIT replaced by bus -C CPU TO I-O SYNC BUS
+Output signal -C CPU TO E CH 1301 4 BIT replaced by bus -C CPU TO E CH 1301 BUS
+Output signal -C CPU TO E CH 1405 4 BIT replaced by bus -C CPU TO E CH 1405 BUS
+Output signal -C CPU TO E CH TAU B BIT replaced by bus -C CPU TO E CH TAU BUS
+Output signal -C CPU TO I-O SYNC B BIT replaced by bus -C CPU TO I-O SYNC BUS
+Output signal -C CPU TO E CH 1301 B BIT replaced by bus -C CPU TO E CH 1301 BUS
+Output signal -C CPU TO E CH 1405 B BIT replaced by bus -C CPU TO E CH 1405 BUS
+Output signal -C CPU TO E CH TAU A BIT replaced by bus -C CPU TO E CH TAU BUS
+Output signal -C CPU TO I-O SYNC A BIT replaced by bus -C CPU TO I-O SYNC BUS
+Output signal -C CPU TO E CH 1301 A BIT replaced by bus -C CPU TO E CH 1301 BUS
+Output signal -C CPU TO E CH 1405 A BIT replaced by bus -C CPU TO E CH 1405 BUS
+Output signal -C CPU TO E CH TAU C BIT replaced by bus -C CPU TO E CH TAU BUS
+Output signal -C CPU TO I-O SYNC C BIT replaced by bus -C CPU TO I-O SYNC BUS
+Output signal -C CPU TO E CH 1301 C BIT replaced by bus -C CPU TO E CH 1301 BUS
+Output signal -C CPU TO E CH 1405 C BIT replaced by bus -C CPU TO E CH 1405 BUS
+Output signal -C CPU TO E CH 1301 WM BIT replaced by bus -C CPU TO E CH 1301 BUS
+Output signal -C CPU TO E CH 1405 WM BIT replaced by bus -C CPU TO E CH 1405 BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.60.31.1 (E CH LINE DRIVERS)
+Generating HDL associated with page 15.60.32.1 (E CH LINE DRIVERS)
+Generating HDL associated with page 15.60.33.1 (E CH LINE DRIVERS)
+Generating HDL associated with page 15.60.34.1 (E CH LINE LINE DRIVERS)

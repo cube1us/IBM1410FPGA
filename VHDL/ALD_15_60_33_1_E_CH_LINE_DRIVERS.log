@@ -1,0 +1,47 @@
+Generating HDL for page 15.60.33.1 E CH LINE DRIVERS at 9/18/2020 9:20:43 PM
+WARNING: During sheet edge merge, Logic block at 3D pin A outputs to two different signal names: -C CPU TO E CH 1405 B BIT vs. -C CPU TO E CH 1301 B BIT
+WARNING: During sheet edge merge, Logic block at 3H pin E outputs to two different signal names: -C CPU TO E CH 1405 A BIT vs. -C CPU TO E CH 1301 A BIT
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3G to ignored block(s) or identical signal names
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A
+	and inputs of MS_E2_REG_B_BIT
+	and logic function of EQUAL
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A
+	and inputs of MS_E2_REG_B_BIT
+	and logic function of EQUAL
+Generating Statement for block at 3D with output pin(s) of OUT_3D_A, OUT_3D_A
+	and inputs of MS_E2_REG_B_BIT
+	and logic function of EQUAL
+Generating Statement for block at 3F with output pin(s) of OUT_3F_E
+	and inputs of MS_E2_REG_A_BIT
+	and logic function of EQUAL
+Generating Statement for block at 3G with output pin(s) of OUT_3G_E
+	and inputs of MS_E2_REG_A_BIT
+	and logic function of EQUAL
+Generating Statement for block at 3H with output pin(s) of OUT_3H_E, OUT_3H_E
+	and inputs of MS_E2_REG_A_BIT
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_TAU_B_BIT
+	from gate output OUT_3B_A
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_I_O_SYNC_B_BIT
+	from gate output OUT_3C_A
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_1301_B_BIT
+	from gate output OUT_3D_A
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_1405_B_BIT
+	from gate output OUT_3D_A
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_TAU_A_BIT
+	from gate output OUT_3F_E
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_I_O_SYNC_A_BIT
+	from gate output OUT_3G_E
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_1301_A_BIT
+	from gate output OUT_3H_E
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_1405_A_BIT
+	from gate output OUT_3H_E

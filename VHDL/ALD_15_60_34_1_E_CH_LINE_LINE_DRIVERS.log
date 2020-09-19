@@ -1,0 +1,43 @@
+Generating HDL for page 15.60.34.1 E CH LINE LINE DRIVERS at 9/18/2020 9:20:45 PM
+WARNING: During sheet edge merge, Logic block at 1F pin G outputs to two different signal names: -C CPU TO E CH 1405 C BIT vs. -C CPU TO E CH 1301 C BIT
+WARNING: During sheet edge merge, Logic block at 1G pin H outputs to two different signal names: -C CPU TO E CH 1405 WM BIT vs. -C CPU TO E CH 1301 WM BIT
+Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_E2_REG_C_BIT,PS_E_CH_SELECT_UNIT_U
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of OUT_5B_NoPin,OUT_5D_NoPin
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_G
+	and inputs of OUT_3C_E
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_E_CH_SELECT_UNIT_B,MS_E2_REG_C_BIT
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_G
+	and inputs of MS_E2_REG_C_BIT
+	and logic function of EQUAL
+Generating Statement for block at 1F with output pin(s) of OUT_1F_G, OUT_1F_G
+	and inputs of MS_E2_REG_C_BIT
+	and logic function of EQUAL
+Generating Statement for block at 1G with output pin(s) of OUT_1G_H, OUT_1G_H
+	and inputs of MS_E2_REG_WM_BIT
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_TAU_C_BIT
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_I_O_SYNC_C_BIT
+	from gate output OUT_1E_G
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_1301_C_BIT
+	from gate output OUT_1F_G
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_1405_C_BIT
+	from gate output OUT_1F_G
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_1301_WM_BIT
+	from gate output OUT_1G_H
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_E_CH_1405_WM_BIT
+	from gate output OUT_1G_H
