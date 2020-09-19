@@ -201,16 +201,17 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable lin, lout: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.62.01.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**17 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
+      -- a := tv(0); -- Handle below - special case to avoid conflicts
       b := tv(1);
       c := tv(2);
       d := tv(3);
@@ -220,27 +221,86 @@ uut_process: process
       h := tv(7);
       i := tv(8);
       j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      -- k := tv(9);
+      l := tv(10);
+      m := tv(11);
+      n := tv(12);
+      o := tv(13);
+      p := tv(14);
+      q := tv(15);
+      r := tv(16);
 
+      -- Can't have 1311 recover mode if special case writes?
+      
+      a := tv(0) and not h and not j and not l and not m and not n and not g3;      
+      
+      g1 := b and c and e and f;
+      g2 := g1 and d and i;
+      lin := g2 or p or a or q or r;
+      g3 := g1 and o and i;
+      g4 := g3 or h or j or l or m or n;
+      lout := not a and g4;
+      
+      -- First, reset the latches each time
+      
+      MS_E_CH_RESET <= '0';
+      wait for 30 ns;
+      MS_E_CH_RESET <= '1';
+      wait for 30 ns;
+
+    	MS_RECEIVER_LATCH_STAR_1311 <= not a;
+    	PS_PERCENT_OR_COML_AT <= b;
+    	PS_M_OR_L_OP_CODES <= c;
+    	PS_DOLLAR_SIGN_OR_R_SYMBOL_OP_MOD <= d;
+    	PS_I_RING_11_TIME <= e;
+    	PS_LOGIC_GATE_F_1 <= f;
+    	MS_E_CH_FILE_ADDR_TRANSFER <= not g;
+    	MS_1401_PRINT <= not h;
+    	PS_2ND_CLOCK_PULSE_2 <= i;
+    	MS_1401_PUNCH <= not j;
+    	MS_TEST_PRINT_ERROR <= not l;
+    	MS_E_CH_FORMS_CTRL_OP_CODE_JRJ <= not m;
+    	MS_TEST_PUNCH_ERROR <= not n;
+    	PS_W_OR_X_SYMBOL_OP_MODIFIER <= o;
+    	MS_E_CH_STACK_SEL_OP_CODE <= not p;
+    	MS_1401_READ <= not q;
+    	MS_TEST_READ_E_OR_F <= not r;
       
       wait for 30 ns;
+     
+      check1(MC_INPUT_MODE_TO_BUFFER,not lin,testName,"-C Input Mode To Buffer");
+      check1(MC_INPUT_OP_TO_1405_STAR_E_CH,not lin,testName,"-C Input Op To 1405");          
+      check1(MC_INPUT_OP_TO_1301_STAR_E_CH,not lin,testName,"-C Input Op To 1301");
+      check1(LAMP_15A1E14,lin,testName,"LAMP CH 1 READ");
+      check1(PS_E_CH_INPUT_MODE,lin and not g,testname,"+S Input Mode");          
+      check1(MS_E_CH_INPUT_MODE,not PS_E_CH_INPUT_MODE,testname,"-S Input Mode"); 
       
+      check1(MC_OUTPUT_MODE_TO_BUFFER,not lout,testName,"-C Output Mode To Buffer");         
+      check1(MC_OUTPUT_OP_TO_1301_STAR_E_CH,not lout,testName,"-C Output Op To 1301");         
+      check1(MC_OUTPUT_OP_TO_1405_STAR_E_CH,not lout,testName,"-C Output Op To 1405");         
+      check1(LAMP_15A1F14,lout,testName,"LAMP CH 1 WRITE");
+
+      -- Have to reset variables so reset for next round works...
       
+    	MS_RECEIVER_LATCH_STAR_1311 <= '1';
+      PS_PERCENT_OR_COML_AT <= '0';
+      PS_M_OR_L_OP_CODES <= '0';
+      PS_DOLLAR_SIGN_OR_R_SYMBOL_OP_MOD <= '0';
+      PS_I_RING_11_TIME <= '0';
+      PS_LOGIC_GATE_F_1 <= '0';
+      MS_E_CH_FILE_ADDR_TRANSFER <= '1';
+      MS_1401_PRINT <= '1';
+      PS_2ND_CLOCK_PULSE_2 <= '0';
+      MS_1401_PUNCH <= '1';
+      MS_TEST_PRINT_ERROR <= '1';
+      MS_E_CH_FORMS_CTRL_OP_CODE_JRJ <= '1';
+      MS_TEST_PUNCH_ERROR <= '1';
+      PS_W_OR_X_SYMBOL_OP_MODIFIER <= '0';
+      MS_E_CH_STACK_SEL_OP_CODE <= '1';
+      MS_1401_READ <= '1';
+      MS_TEST_READ_E_OR_F <= '1';
+      wait for 30 ns;    
+        
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -254,7 +314,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
