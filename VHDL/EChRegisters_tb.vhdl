@@ -148,6 +148,7 @@ uut_process: process
    variable testName: string(1 to 18);
    variable subtest: integer;
    variable tv: std_logic_vector(25 downto 0);
+   variable tv2: std_logic_vector(7 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
@@ -155,43 +156,126 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.60.2*.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 255 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
 
+      -- First, clear E1 and E2
       
+      PS_E1_INPUT_BUS <= "00000000";
+      MS_E1_INPUT_BUS <= "11111111";
+      PS_SET_E1_REG <= '1';
+      wait for 30 ns;
+      PS_SET_E1_REG <= '0';
+      PS_COPY_E1_BCD_TO_E2_REG <= '1';
+      PS_SET_E2_REG <= '1';
+      PS_COPY_E1_WM_DOT_C_BIT <= '1';
+      wait for 30 ns;
+      PS_COPY_E1_BCD_TO_E2_REG <= '0';
+      PS_SET_E2_REG <= '0';
+      PS_COPY_E1_WM_DOT_C_BIT <= '0';
       wait for 30 ns;
       
+      check1(PS_E1_REG_WM_BIT,'0',testName,"+S E1 WM Zero");
+      check1(PS_E1_REG_NOT_WM_BIT,'1',testName,"+S E1 NOT WM Zero");
+      for i in 0 to 7 loop
+         check1(PS_E2_REG_BUS(i),'0',testName,"+S E2 Zero bit number " & Integer'Image(i));
+         check1(MS_E2_REG_BUS(i),'1',testName,"-S E2 Zero bit number " & Integer'Image(i));
+      end loop;           
+      
+      -- These latches have no reset lines, per se - they 
+      -- are always "set" based on the data
+      
+      PS_E1_INPUT_BUS <= tv(7 downto 0);
+      MS_E1_INPUT_BUS <= not tv(7 downto 0);
+      
+      -- E1 has but one control line
+      
+      PS_SET_E1_REG <= '1';
+      wait for 30 ns;
+      PS_SET_E1_REG <= '0';
+      wait for 30 ns;
+
+      check1(PS_E1_REG_WM_BIT,tv(6),testName,"+S E1 Set WM");
+      check1(PS_E1_REG_NOT_WM_BIT,not tv(6),testName,"+S E1 Set NOT WM");
+
+      -- Should not have affected E2
+      
+      for i in 0 to 7 loop
+         check1(PS_E2_REG_BUS(i),'0',testName,"+S E2 Not yet set 1 bit number " & Integer'Image(i));
+         check1(MS_E2_REG_BUS(i),'1',testName,"-S E2 Not yet set 1 bit number " & Integer'Image(i));
+      end loop;           
+      
+      PS_COPY_E1_BCD_TO_E2_REG <= '1';
+      wait for 30 ns;
+
+      for i in 0 to 7 loop
+         check1(PS_E2_REG_BUS(i),'0',testName,"+S E2 Not yet set 2 bit number " & Integer'Image(i));
+         check1(MS_E2_REG_BUS(i),'1',testName,"-S E2 Not yet set 2 bit number " & Integer'Image(i));
+      end loop;           
+
+      PS_COPY_E1_BCD_TO_E2_REG <= '0';
+      wait for 30 ns;
+      PS_SET_E2_REG <= '1';
+      wait for 30 ns;
+
+      for i in 0 to 7 loop
+         check1(PS_E2_REG_BUS(i),'0',testName,"+S E2 Not yet set 3 bit number " & Integer'Image(i));
+         check1(MS_E2_REG_BUS(i),'1',testName,"-S E2 Not yet set 3 bit number " & Integer'Image(i));
+      end loop;           
+
+      PS_COPY_E1_BCD_TO_E2_REG <= '1';
+      wait for 30 ns; -- NOW E2 should set bits 5 downto 0
+
+      tv2 := "00" & tv(5 downto 0); -- C and WM bits not yet set!
+      for i in 0 to 7 loop
+         check1(PS_E2_REG_BUS(i),tv2(i),testName,"+S E2 Set BCD bit number " & Integer'Image(i));
+         check1(MS_E2_REG_BUS(i),not tv2(i),testName,"-S E2 Set BCD bit number " & Integer'Image(i));
+      end loop;   
+      
+      PS_COPY_E1_BCD_TO_E2_REG <= '0';
+      PS_COPY_E1_WM_DOT_C_BIT <= '1';
+      wait for 30 ns; -- NOW E2 should set the C and WM bits
+      PS_COPY_E1_WM_DOT_C_BIT <= '0';
+      wait for 30 ns;
+      
+      for i in 0 to 7 loop
+         check1(PS_E2_REG_BUS(i),tv(i),testName,"+S E2 Set WM.C bit number " & Integer'Image(i));
+         check1(MS_E2_REG_BUS(i),not tv(i),testName,"-S E2 WM.C bit number " & Integer'Image(i));
+      end loop;   
+
+      -- Now, set the E2 C and WM bits inverted
+      
+      PS_COPY_INV_E1_WM_DOT_C_BIT <= '1';
+      wait for 30 ns;
+      PS_COPY_INV_E1_WM_DOT_C_BIT <= '0';
+      wait for 30 ns;                    
+                    
+      tv2 := not tv(7) & not tv(6) & tv(5 downto 0);                    
+
+      for i in 0 to 7 loop
+         check1(PS_E2_REG_BUS(i),tv2(i),testName,"+S E2 Set INV WM.C bit number " & Integer'Image(i));
+         check1(MS_E2_REG_BUS(i),not tv2(i),testName,"-S E2 INV WM.C bit number " & Integer'Image(i));
+      end loop;   
+      
+      -- Now, set E2 to a Word Separator
+
+      PS_COPY_E1_BCD_TO_E2_REG <= '0';
+      PS_SET_E2_REG <= '0';
+      MS_SET_E2_WORD_SEPARATOR <= '0';
+      wait for 30 ns;
+      MS_SET_E2_WORD_SEPARATOR <= '1';
+      wait for 30 ns;
+      
+      tv(7 downto 0) := "10011101"; -- Word Separator 
+      for i in 0 to 7 loop
+         check1(PS_E2_REG_BUS(i),tv(i),testName,"+S E2 Word Separator bit number " & Integer'Image(i));
+         check1(MS_E2_REG_BUS(i),not tv(i),testName,"-S E2 Word Separator 3 bit number " & Integer'Image(i));
+      end loop;                      
       
    end loop;
-
+   
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
