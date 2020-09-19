@@ -143,41 +143,49 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.60.3*.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 255 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
       
+      -- First test without units U or B set
+      
+      PS_E2_REG_BUS <= tv(7 downto 0);
+      MS_E2_REG_BUS <= not tv(7 downto 0);
       wait for 30 ns;
       
+      for bitNum in 0 to 7 loop
+         case bitNum is
+            when HDL_C_BIT =>
+               check1(MC_CPU_TO_E_CH_1301_BUS(bitNum),MS_E2_REG_BUS(bitNum),testName,"1301 C Bit");
+               check1(MC_CPU_TO_E_CH_1405_BUS(bitNum),MS_E2_REG_BUS(bitNum),testName,"1405 C Bit");
+               check1(MC_CPU_TO_I_O_SYNC_BUS(bitNum),MS_E2_REG_BUS(bitNum),testName,"I/O Sync C Bit");
+            when HDL_WM_BIT =>      
+               check1(MC_CPU_TO_E_CH_1301_BUS(bitNum),MS_E2_REG_BUS(bitNum),testName,"1301 WM Bit");
+               check1(MC_CPU_TO_E_CH_1405_BUS(bitNum),MS_E2_REG_BUS(bitNum),testName,"1405 Wm Bit");
+            when others =>
+               check1(MC_CPU_TO_E_CH_1301_BUS(bitNum),MS_E2_REG_BUS(bitNum),testName,"1301 Bit " & Integer'Image(bitNum));
+               check1(MC_CPU_TO_E_CH_1405_BUS(bitNum),MS_E2_REG_BUS(bitNum),testName,"1405 Bit " & Integer'Image(bitNum));
+               check1(MC_CPU_TO_I_O_SYNC_BUS(bitNum),MS_E2_REG_BUS(bitNum),testName,"I/O Sync Bit " & Integer'Image(bitNum));
+               check1(MC_CPU_TO_E_CH_TAU_BUS(bitNum),MS_E2_REG_BUS(bitNum),testName,"TAU Bit " & Integer'Image(bitNum));
+         end case;
+      end loop;
       
+      -- Test the TAU Check Bit
+      
+      PS_E_CH_SELECT_UNIT_U <= '1';
+      wait for 30 ns;
+
+      check1(MC_CPU_TO_E_CH_TAU_BUS(HDL_C_BIT),not MS_E2_REG_BUS(HDL_C_BIT),testName,"TAU Bit Unit U Bit");
+      
+      PS_E_CH_SELECT_UNIT_U <= '0';
+      PS_E_CH_SELECT_UNIT_B <= '1';
+      wait for 30 ns;
+
+      check1(MC_CPU_TO_E_CH_TAU_BUS(HDL_C_BIT),MS_E2_REG_BUS(HDL_C_BIT),testName,"TAU Bit Unit B C Bit");
+      
+      PS_E_CH_SELECT_UNIT_B <= '0';
+                  
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
