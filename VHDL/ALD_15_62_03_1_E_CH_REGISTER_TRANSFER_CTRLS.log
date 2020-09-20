@@ -1,5 +1,4 @@
-Generating HDL for page 15.62.03.1 E CH REGISTER TRANSFER CTRLS at 9/20/2020 9:34:50 AM
-Old test bench file ALD_15_62_03_1_E_CH_REGISTER_TRANSFER_CTRLS_tb.vhdl 97 lines preserved and 35 declaration lines preserved
+Generating HDL for page 15.62.03.1 E CH REGISTER TRANSFER CTRLS at 9/20/2020 10:11:39 AM
 NOTE: Special signal LOGIC ONE removed from sheet inputs list.
 NOTE: Special signal LOGIC ZERO removed from sheet inputs list.
 Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
@@ -76,7 +75,7 @@ Generating Statement for block at 2E with output pin(s) of OUT_2E_C
 	and inputs of OUT_3E_D
 	and logic function of NOT
 Generating Statement for block at 1E with output pin(s) of OUT_1E_F, OUT_1E_B
-	and inputs of OUT_2E_C,MS_E_CH_RESET_1,OUT_1G_F
+	and inputs of OUT_2E_C,'1',MS_E_CH_RESET_1,OUT_1G_F
 	and logic function of Trigger
 Generating Statement for block at 4F with output pin(s) of OUT_4F_D
 	and inputs of OUT_1A_C,PS_E_CH_OUTPUT_MODE,PS_E2_REG_FULL
