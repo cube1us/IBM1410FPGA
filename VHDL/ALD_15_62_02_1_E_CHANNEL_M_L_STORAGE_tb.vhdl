@@ -183,6 +183,7 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable lmove, lload: std_logic;
 
    begin
 
@@ -190,7 +191,7 @@ uut_process: process
 
    testName := "15.49.04.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -199,29 +200,92 @@ uut_process: process
       e := tv(4);
       f := tv(5);
       g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
+      -- h := tv(7); Reset line
+      -- i := tv(7);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
       
+      g1 := e and f and k;
+      g3 := (g or d) and f and b and k;
+      g2 := c or g1 or g3; -- Move Mode
+      g4 := k and f and b and m; -- Load Mode
+      g5 := f and j and k and l;
+      
+      MS_E_CH_RESET_1 <= '0';
+      wait for 30 ns;
+      MS_E_CH_RESET_1 <= '1';
       wait for 30 ns;
       
+      check1(PS_E_CH_MOVE_MODE,'0',testName,"+S Reset Move");
+      check1(MS_E_CH_MOVE_MODE,'1',testName,"-S Reset Move");
+      check1(PS_E_CH_LOAD_MODE,'0',testName,"+S Reset Load");
+      check1(MS_E_CH_LOAD_MODE,'1',testName,"-S Reset Load");      
+      
+   	PS_E_CH_SELECT_7_BIT_UNIT <= a;
+      PS_PERCENT_OR_COML_AT <= b;
+      MS_1401_CARD_PRINT_IN_PROC <= not c;
+      MS_UNIT_CTRL_OP_CODE <= not d;
+      PS_E_CH_2_CHAR_ONLY_OP_CODES <= e;
+      PS_LAST_INSN_RO_CYCLE <= f;
+      MS_I_O_MOVE_OP_CODE <= not g;
+      PS_BRANCH_ON_STATUS_CH_1 <= '0'; -- Test later in reset phase
+      PS_LOGIC_GATE_E_1 <= k;
+      PS_I_O_INTLK_RESET_CONDITION <= '0'; -- Test later in reset phase
+      PS_I_O_LOAD_OP_CODE <= m;
+      wait for 30 ns; -- Perhaps set a latch
+
+      check1(PS_E_CH_MOVE_MODE,g2,testName,"+S Set Move");
+      check1(MS_E_CH_MOVE_MODE,not g2,testName,"-S Set Move");
+      check1(PS_E_CH_LOAD_MODE,g4,testName,"+S Set Load");
+      check1(MS_E_CH_LOAD_MODE,not g4,testName,"-S Set Load");
+      
+      check1(PS_E_CH_WORD_SEPARATOR_MODE,a and PS_E_CH_LOAD_MODE,testName,"WS Mode");
+      check1(PS_E_CH_INTERLOCK,g2 or g4,testName,"+S Interlock");
+      check1(LAMP_15A1A14,PS_E_CH_INTERLOCK,testName,"Lamp Interlock");
+      check1(MS_E_CH_INTERLOCK,not PS_E_CH_INTERLOCK,testName,"+S Interlock");
+      check1(MC_LOAD_MODE_TO_1301_STAR_E_CH,not PS_E_CH_LOAD_MODE,testName,"-C 1301 Load Mode");
+      check1(MC_LOAD_MODE_TO_1405_STAR_E_CH,not PS_E_CH_LOAD_MODE,testName,"-C 1405 Load Mode");
+      
+      
+   	PS_E_CH_SELECT_7_BIT_UNIT <= '0';
+      PS_PERCENT_OR_COML_AT <= '0';
+      MS_1401_CARD_PRINT_IN_PROC <= '1';
+      MS_UNIT_CTRL_OP_CODE <= '1';
+      PS_E_CH_2_CHAR_ONLY_OP_CODES <= '0';
+      PS_LAST_INSN_RO_CYCLE <= '0';
+      MS_I_O_MOVE_OP_CODE <= '1';
+      PS_BRANCH_ON_STATUS_CH_1 <= '0'; -- Test later in reset phase
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_I_O_INTLK_RESET_CONDITION <= '0'; -- Test later in reset phase
+      PS_I_O_LOAD_OP_CODE <= '0';
+      
+      -- Now, test reset
+      
+      PS_LAST_INSN_RO_CYCLE <= f;
+      PS_BRANCH_ON_STATUS_CH_1 <= j;
+      PS_LOGIC_GATE_E_1 <= k;
+      PS_I_O_INTLK_RESET_CONDITION <= l;
+      wait for 30 ns;      
+      
+      if (g5 = '1') then  -- Reset condition         
+         check1(PS_E_CH_MOVE_MODE,'0',testName,"+S Reset G5 Move");
+         check1(MS_E_CH_MOVE_MODE,'1',testName,"-S Reset G5 Move");
+         check1(PS_E_CH_LOAD_MODE,'0',testName,"+S Reset G5 Load");
+         check1(MS_E_CH_LOAD_MODE,'1',testName,"-S Reset G5 Load");    
+      else  -- No reset - same as earlier
+         check1(PS_E_CH_MOVE_MODE,g2,testName,"+S Set Move");
+         check1(MS_E_CH_MOVE_MODE,not g2,testName,"-S Set Move");
+         check1(PS_E_CH_LOAD_MODE,g4,testName,"+S Set Load");
+         check1(MS_E_CH_LOAD_MODE,not g4,testName,"-S Set Load");             
+      end if;
+
+      PS_LAST_INSN_RO_CYCLE <= '0';
+      PS_BRANCH_ON_STATUS_CH_1 <= '0';
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_I_O_INTLK_RESET_CONDITION <= '0';
+       
       
    end loop;
 
