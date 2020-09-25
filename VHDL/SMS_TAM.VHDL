@@ -69,9 +69,33 @@ begin
         if(DCRESET = '0' OR DCRFORCE = '1') then
             OUTOFF <= '1';
             OUTON <= '0';
+            SSTAGE1A <= '0';
+            SSTAGE2A <= '0';
+            SSTAGE3A <= '0';
+            SSTAGE1B <= '0';
+            SSTAGE2B <= '0';
+            SSTAGE3B <= '0';
+            RSTAGE1A <= '0';
+            RSTAGE2A <= '0';
+            RSTAGE3A <= '0';
+            RSTAGE1B <= '0';
+            RSTAGE2B <= '0';
+            RSTAGE3B <= '0';
         elsif(DCSET = '0' OR DCSFORCE = '1') then
             OUTON <= '1';
             OUTOFF <= '0';
+            SSTAGE1A <= '0';
+            SSTAGE2A <= '0';
+            SSTAGE3A <= '0';
+            SSTAGE1B <= '0';
+            SSTAGE2B <= '0';
+            SSTAGE3B <= '0';
+            RSTAGE1A <= '0';
+            RSTAGE2A <= '0';
+            RSTAGE3A <= '0';
+            RSTAGE1B <= '0';
+            RSTAGE2B <= '0';
+            RSTAGE3B <= '0';
         elsif(rising_edge(FPGA_CLK)) then
             SSTAGE1A <= ACSET1;
             SSTAGE2A <= SSTAGE1A;
