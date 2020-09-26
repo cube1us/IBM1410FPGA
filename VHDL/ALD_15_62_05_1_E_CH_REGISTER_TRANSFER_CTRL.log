@@ -1,5 +1,5 @@
-Generating HDL for page 15.62.05.1 E CH REGISTER TRANSFER CTRL at 9/25/2020 7:53:17 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_62_05_1_E_CH_REGISTER_TRANSFER_CTRL_tb.vhdl, generating default test bench code.
+Generating HDL for page 15.62.05.1 E CH REGISTER TRANSFER CTRL at 9/25/2020 8:31:48 PM
+NOTE: Special signal LOGIC ONE removed from sheet inputs list.
 Note: DOT Function at 5C has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 5F has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 3F has input level(s) of S, and output level(s) of S, Logic Function set to OR
@@ -12,6 +12,7 @@ Ignoring Logic Block 2B with symbol L
 Processing extension from block at 2G (Database ID=255402) to 2H (Database ID=255403)
 Copied connection to extension input pin A to master block at 2G
 Copied connection to extension input pin P to master block at 2G
+Copied connection to extension input pin E to master block at 2G
 Copied connection to extension input pin T to master block at 2G
 Copied connection from extension output pin B to master block at 2G
 Copied mapped pin B from extension 2H to master block at 2G
@@ -62,7 +63,7 @@ Generating Statement for block at 5G with output pin(s) of OUT_5G_P
 	and inputs of PS_INPUT_CYCLE_DOT_LOAD
 	and logic function of NAND
 Generating Statement for block at 2G with output pin(s) of OUT_2G_F, OUT_2G_B
-	and inputs of OUT_3A_B,OUT_3C_C,MS_E_CH_RESET_1,OUT_2F_B
+	and inputs of OUT_3A_B,'1',OUT_3C_C,MS_E_CH_RESET_1,'1',OUT_2F_B
 	and logic function of Trigger
 Generating Statement for block at 1G with output pin(s) of OUT_1G_D, OUT_1G_D
 	and inputs of OUT_2G_F
