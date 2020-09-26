@@ -274,6 +274,7 @@ uut_process: process
       check1(PS_E_CH_INPUT_MODE,lin and not g,testname,"+S Input Mode");          
       check1(MS_E_CH_INPUT_MODE,not PS_E_CH_INPUT_MODE,testname,"-S Input Mode"); 
       
+      check1(PS_E_CH_OUTPUT_MODE,lout or g,testname,"+S E Ch Output Mode");
       check1(MC_OUTPUT_MODE_TO_BUFFER,not lout,testName,"-C Output Mode To Buffer");         
       check1(MC_OUTPUT_OP_TO_1301_STAR_E_CH,not lout,testName,"-C Output Op To 1301");         
       check1(MC_OUTPUT_OP_TO_1405_STAR_E_CH,not lout,testName,"-C Output Op To 1405");         
