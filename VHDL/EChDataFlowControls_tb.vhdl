@@ -209,42 +209,97 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.62.06.1, 08.1  ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**14 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      -- c := tv(2);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(9);
+      l := tv(9);
+      m := tv(10);
+      n := tv(11);
+      o := tv(12);
+      p := tv(13);
+
+      g3 := j and d and e;
+      g4 := f and not a;
+      g5 := not k and l;
+      g6 := not h and m;
+      g7 := n or o or p;
+      g1 := not g7 and e and not h and f;
+      g2 := e and d and not g7 and m and g;
+
+      MS_E2_REG_WORD_SEPARATOR <= not a;
+      PS_SET_E2_REG <= b;
+      -- MS_GATE_CONSOLE_TO_ASSEMBLY <= not c;
+      PS_E1_REG_WORD_SEPARATOR <= d;
+      PS_E2_REG_WORD_SEPARATOR <= e;
+      PS_E_CH_INPUT_MODE <= f;
+      PS_E1_REG_WM_BIT <= g;
+      MS_E1_REG_WORD_SEPARATOR <= not h;
+      PS_E1_REG_NOT_WM_BIT <= j;
+      MS_E_CH_IN_PROCESS <= not k;
+      PS_I_CYCLE_1 <= l;
+      PS_E_CH_OUTPUT_MODE <= m;
+      
+      MS_ALTER_ROUTINE <= not n;
+      MS_ADDRESS_SET_ROUTINE <= not o;
+      MS_STORAGE_SCAN_LOAD <= not p;
+      
+      wait for 30 ns;
+      
+      check1(MS_GATE_CONSOLE_TO_ASSEMBLY,not g7,testName,"-S Gate Console To Assembly");
+      check1(PS_COPY_E1_BCD_TO_E2_REG,not d or a or g7,testName,"Copy E1 BCD to E2");
+      check1(MS_SET_E2_WORD_SEPARATOR,not(b and not g7 and not a and d),testName,"-S Set E2 WS");
+      check1(PS_COPY_INV_E1_WM_DOT_C_BIT,g1 or g2,testName,"Copy Inv E1 WM.C Bit");
+      check1(PS_COPY_E1_WM_DOT_C_BIT,g7 or g3 or g4 or g5 or g6,testName,"Copy E1 WM.C Bit");      
+      
+   end loop;
+   
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
       
+      g1 := f and not g and not h;
+      g2 := j and not k and not g;
+
+		PS_E_CH_SELECT_ANY_BUFFER <= a;
+		MS_E_CH_STACKER_SEL_OP_CODE <= not b;
+		PS_E_CH_SELECT_TAPE_DATA <= c;
+		PS_E_CH_INPUT_MODE <= d;
+		PS_E_CH_SELECT_UNIT_F <= e;
+		PS_I_CYCLE_DOT_NOT_CR_DISABLE <= f;
+		MS_1401_B_OP_CODE <= not g;
+		MS_E_CH_IN_PROCESS <= not h;
+		PS_E_CH_OUTPUT_MODE <= j;
+		MS_CONTROL_REG_DISABLE <= not k;
+
       wait for 30 ns;
       
+      check1(MS_GATE_I_O_SYNC_TO_E1_IN,not(a and not b and d),testName,"Gate I/O Sync to E1");
+      check1(MS_GATE_TAPE_TO_E1_INPUT,not(c and d),testName,"Gate Tape to E1");
+      check1(MS_GATE_E_CH_FILE_TO_E1_IN,not(d and e),testName,"Gate File to E1");
+      check1(PS_GATE_ASM_CH_TO_E1_INPUT,g1 or g2,testName,"Gate Assembly Ch to E1");
       
    end loop;
+   
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
