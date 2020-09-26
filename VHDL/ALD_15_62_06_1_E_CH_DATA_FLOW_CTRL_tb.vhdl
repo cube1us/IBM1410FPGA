@@ -167,9 +167,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.62.06.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**12 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -179,28 +179,37 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
+      m := tv(11);
 
+      g1 := not c and e and not h and f;
+      g2 := e and d and not c and m and g;
+      g3 := j and d and e;
+      g4 := f and not a;
+      g5 := not k and l;
+      g6 := not h and m;
+
+	   MS_E2_REG_WORD_SEPARATOR <= not a;
+	   PS_SET_E2_REG <= b;
+	   MS_GATE_CONSOLE_TO_ASSEMBLY <= not c;
+      PS_E1_REG_WORD_SEPARATOR <= d;
+      PS_E2_REG_WORD_SEPARATOR <= e;
+   	PS_E_CH_INPUT_MODE <= f;
+   	PS_E1_REG_WM_BIT <= g;
+   	MS_E1_REG_WORD_SEPARATOR <= not h;
+      PS_E1_REG_NOT_WM_BIT <= j;
+   	MS_E_CH_IN_PROCESS <= not k;
+   	PS_I_CYCLE_1 <= l;
+   	PS_E_CH_OUTPUT_MODE <= m;
       
       wait for 30 ns;
       
+      check1(PS_COPY_E1_BCD_TO_E2_REG,not d or a or c,testName,"Copy E1 BCD to E2");
+      check1(MS_SET_E2_WORD_SEPARATOR,not(b and not c and not a and d),testName,"-S Set E2 WS");
+      check1(PS_COPY_INV_E1_WM_DOT_C_BIT,g1 or g2,testName,"Copy Inv E1 WM.C Bit");
+      check1(PS_COPY_E1_WM_DOT_C_BIT,c or g3 or g4 or g5 or g6,testName,"Copy E1 WM.C Bit");      
       
    end loop;
 
