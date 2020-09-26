@@ -1,0 +1,114 @@
+Generating HDL for page 15.63.02.1 F CHANNEL M-L STORAGE at 9/26/2020 4:21:24 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_63_02_1_F_CHANNEL_M_L_STORAGE_tb.vhdl, generating default test bench code.
+Note: DOT Function at 5D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 3D
+Found combinatorial loop (need D FF) at output of gate at 2D
+WARNING: During sheet edge merge, Logic block at 4I pin G outputs to two different signal names: -C LOAD MODE TO 1405*F CH vs. -C LOAD MODE TO 1301*F CH
+Removed 1 outputs from Dot Function at 4G to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1A15
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PS_F_CH_SELECT_7_BIT_UNIT,OUT_1E_D
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_C
+	and inputs of OUT_4A_G
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of OUT_1A_D
+	and inputs of OUT_2C_C
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_C
+	and inputs of PS_LAST_INSN_RO_CYCLE,PS_LOZENGE_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B, OUT_4B_B
+	and inputs of OUT_5B_C
+	and logic function of NOT
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_F_Latch, OUT_3B_F_Latch
+	and inputs of OUT_DOT_5D,MS_F_CH_RESET_1,OUT_2B_NoPin
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_NoPin_Latch, OUT_2B_NoPin_Latch
+	and inputs of OUT_1A_D,OUT_3B_F
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_E
+	and inputs of OUT_2B_NoPin
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of OUT_4B_B,PS_UNIT_CTRL_OR_MOVE_OP_CODE,PS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_3C_D,MS_F_SET_MOVE_MODE_LATCH_STAR_1414_STAR
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_D
+	and inputs of OUT_3B_F
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_K
+	and inputs of PS_LAST_INSN_RO_CYCLE,PS_BRANCH_ON_STATUS_CH_2
+	and logic function of NAND
+Generating Statement for block at 3D with *latched* output pin(s) of OUT_3D_F_Latch, OUT_3D_F_Latch
+	and inputs of OUT_DOT_5D,MS_F_CH_RESET_1,OUT_2D_NoPin
+	and logic function of NAND
+Generating Statement for block at 2D with *latched* output pin(s) of OUT_2D_NoPin_Latch, OUT_2D_NoPin_Latch
+	and inputs of OUT_3D_F,OUT_3E_C
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_E, OUT_1D_E, OUT_1D_E
+	and inputs of OUT_2D_NoPin
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_P
+	and inputs of PS_LOGIC_GATE_E_1,PS_I_O_INTLK_RESET_CONDITION
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of OUT_4B_B,PS_LOGIC_GATE_E_1,PS_I_O_LOAD_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D, OUT_1E_D
+	and inputs of OUT_3D_F
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of OUT_1B_E
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_B
+	and inputs of OUT_DOT_4G
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_K
+	and inputs of OUT_3G_B
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of 
+	and inputs of OUT_2G_K
+	and logic function of Lamp
+Generating Statement for block at 4H with output pin(s) of OUT_4H_R
+	and inputs of OUT_1D_E
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_G, OUT_4I_G
+	and inputs of OUT_1D_E
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D, OUT_DOT_5D
+	and inputs of OUT_5D_K,OUT_5E_P
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G, OUT_DOT_4G
+	and inputs of OUT_4G_C,OUT_4H_R
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_WORD_SEPARATOR_MODE
+	from gate output OUT_2A_C
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_MOVE_MODE
+	from gate output OUT_1C_D
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_LOAD_MODE
+	from gate output OUT_1D_E
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_LOAD_MODE
+	from gate output OUT_1E_D
+Generating output sheet edge signal assignment to 
+	signal MC_LOAD_MODE_TO_1301_STAR_F_CH
+	from gate output OUT_4I_G
+Generating output sheet edge signal assignment to 
+	signal MC_LOAD_MODE_TO_1405_STAR_F_CH
+	from gate output OUT_4I_G
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_INTERLOCK
+	from gate output OUT_DOT_4G
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 3D
+Generating D Flip Flop for block at 2D
