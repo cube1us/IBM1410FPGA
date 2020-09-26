@@ -1,0 +1,11 @@
+Generating HDL for page 15.62.08.1 GATE CONSOLE TO ASSEMBLY at 9/26/2020 9:21:21 AM
+Removed 3 outputs from Gate at 2C to ignored block(s) or identical signal names
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of MS_ALTER_ROUTINE,MS_ADDRESS_SET_ROUTINE,MS_STORAGE_SCAN_LOAD
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_H
+	and inputs of OUT_3C_C
+	and logic function of Special
+Generating output sheet edge signal assignment to 
+	signal MS_GATE_CONSOLE_TO_ASSEMBLY
+	from gate output OUT_2C_H

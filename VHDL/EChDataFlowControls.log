@@ -1,0 +1,50 @@
+Generating HDL for group named EChDataFlowControlsat 9/26/2020 9:22:02 AM containing pages: 
+	15.62.06.1, 15.62.07.1, 15.62.08.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\EChDataFlowControls_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 16 signals on page 15.62.06.1
+Found 14 signals on page 15.62.07.1
+Found 4 signals on page 15.62.08.1
+Found 22 unique input signals and 9 unique output signals, (30 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S I CYCLE 1 originates outside the group.
+INFO:  Signal -S E CH IN PROCESS originates outside the group.
+INFO:  Signal -S E1 REG WORD SEPARATOR originates outside the group.
+INFO:  Signal -S E2 REG WORD SEPARATOR originates outside the group.
+INFO:  Signal +S E2 REG WORD SEPARATOR originates outside the group.
+INFO:  Signal +S E1 REG NOT WM BIT originates outside the group.
+INFO:  Signal +S E1 REG WM BIT originates outside the group.
+INFO:  Signal +S E CH INPUT MODE originates outside the group.
+INFO:  Signal +S E CH OUTPUT MODE originates outside the group.
+INFO:  Signal +S SET E2 REG originates outside the group.
+INFO:  Signal -S GATE CONSOLE TO ASSEMBLY originates inside the group.
+INFO:  Signal +S E1 REG WORD SEPARATOR originates outside the group.
+INFO:  Signal +S I CYCLE.NOT CR DISABLE originates outside the group.
+INFO:  Signal -S CONTROL REG DISABLE originates outside the group.
+INFO:  Signal -S E CH STACKER SEL OP CODE originates outside the group.
+INFO:  Signal -S 1401 B OP CODE originates outside the group.
+INFO:  Signal +S E CH SELECT TAPE DATA originates outside the group.
+INFO:  Signal +S E CH SELECT UNIT F originates outside the group.
+INFO:  Signal +S E CH SELECT ANY BUFFER originates outside the group.
+INFO:  Signal -S STORAGE SCAN LOAD originates outside the group.
+INFO:  Signal -S ALTER ROUTINE originates outside the group.
+INFO:  Signal -S ADDRESS SET ROUTINE originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S COPY E1 BCD TO E2 REG is used outside the group.
+INFO:  Signal -S SET E2 WORD SEPARATOR is used outside the group.
+INFO:  Signal +S COPY E1 WM.C BIT is used outside the group.
+INFO:  Signal +S COPY INV E1 WM.C BIT is used outside the group.
+INFO:  Signal +S GATE ASM CH TO E1 INPUT is used outside the group.
+INFO:  Signal -S GATE TAPE TO E1 INPUT is used outside the group.
+INFO:  Signal -S GATE I-O SYNC TO E1 IN is used outside the group.
+INFO:  Signal -S GATE E CH FILE TO E1 IN is used outside the group.
+INFO:  Signal -S GATE CONSOLE TO ASSEMBLY is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Signal -S GATE CONSOLE TO ASSEMBLY is output from the group, but also used as an input inside the group.
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.62.06.1 (E CH DATA FLOW CTRL)
+Generating HDL associated with page 15.62.07.1 (E CH DATA FLOW CONTROLS)
+Generating HDL associated with page 15.62.08.1 (GATE CONSOLE TO ASSEMBLY)

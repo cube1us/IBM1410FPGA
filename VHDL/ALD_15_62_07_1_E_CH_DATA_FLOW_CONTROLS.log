@@ -1,0 +1,66 @@
+Generating HDL for page 15.62.07.1 E CH DATA FLOW CONTROLS at 9/26/2020 9:21:14 AM
+Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 6 outputs from Dot Function at 1B to ignored block(s) or identical signal names
+Removed 6 outputs from Dot Function at 1C to ignored block(s) or identical signal names
+Removed 7 outputs from Dot Function at 1E to ignored block(s) or identical signal names
+Removed 7 outputs from Dot Function at 1H to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_F
+	and inputs of PS_E_CH_SELECT_ANY_BUFFER
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_E_CH_INPUT_MODE
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_R
+	and inputs of MS_E_CH_STACKER_SEL_OP_CODE
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_R
+	and inputs of PS_E_CH_SELECT_TAPE_DATA
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of PS_E_CH_INPUT_MODE
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_B
+	and inputs of PS_E_CH_INPUT_MODE
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of PS_E_CH_SELECT_UNIT_F
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_D
+	and inputs of PS_I_CYCLE_DOT_NOT_CR_DISABLE,MS_1401_B_OP_CODE,MS_E_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_B
+	and inputs of OUT_5H_D
+	and logic function of NOT
+Generating Statement for block at 5I with output pin(s) of OUT_5I_NoPin
+	and inputs of PS_E_CH_OUTPUT_MODE,MS_CONTROL_REG_DISABLE,MS_1401_B_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_D
+	and inputs of OUT_5I_NoPin
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_4A_F,OUT_4B_D,OUT_3B_R
+	and logic function of OR
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_4C_R,OUT_4D_C
+	and logic function of OR
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E
+	and inputs of OUT_4E_B,OUT_4F_D
+	and logic function of OR
+Generating Statement for block at 1H with output pin(s) of OUT_DOT_1H
+	and inputs of OUT_4H_B,OUT_4I_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_GATE_I_O_SYNC_TO_E1_IN
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal MS_GATE_TAPE_TO_E1_INPUT
+	from gate output OUT_DOT_1C
+Generating output sheet edge signal assignment to 
+	signal MS_GATE_E_CH_FILE_TO_E1_IN
+	from gate output OUT_DOT_1E
+Generating output sheet edge signal assignment to 
+	signal PS_GATE_ASM_CH_TO_E1_INPUT
+	from gate output OUT_DOT_1H
