@@ -210,12 +210,14 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable x1, x2, z2: std_logic;
+   variable savee1e2: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.62.04.1        ";
 
    for tt in 0 to 2**23 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
@@ -226,30 +228,158 @@ uut_process: process
       e := tv(4);
       f := tv(5);
       g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      -- h := tv(7);
+      i := tv(7);
+      j := tv(8);
+      k := tv(9);
+      -- l := tv(11);
+      m := tv(10);
+      -- n := tv(13);
+      o := tv(11);
+      p := tv(12);
+      q := tv(13);
+      -- r := tv(17);
+      -- s := tv(18);
+      t := tv(14);
+      u := tv(15);
+      v := tv(16);
+      w := tv(17);
+      x1 := tv(18);
+      x2 := tv(19);
+      y := tv(20);
+      z := tv(21);
+      z2 := tv(22);
 
+      g1 := e and d and j and k and not g;
+      g2 := o and p and v and q;
+      g3 := t and (y or x1 or x2) and w and v and u and q;
+      g4 := z2 and z and w and k;
+      g5 := (a or b) and not c and e and d and k;
+      g6 := f or g1 or g2 or g3 or g4 or g5;
       
+      -- Reset
+      
+      MS_E_CH_RESET_1 <= '0';
+      wait for 30 ns;
+      MS_E_CH_RESET_1 <= '1';
       wait for 30 ns;
       
+      check1(PS_SET_E1_REG,'0',testName,"+S Set E1 Reset");
+      check1(MS_SET_E1_REG,'1',testName,"+S Set E1 Reset");
+
+      -- Note that the default conditions keep this "reset"
       
+      MS_1401_CARD_PRINT_IN_PROC <= not a ;
+      MS_X_SYMBOL_OP_MOD_GATED <= not b;
+      MS_E_CH_2ND_ADDR_TRF <= not c;
+      PS_E_CYCLE <= d;
+      PS_E_CH_OUTPUT_MODE <= e;
+      MS_E_CH_CLOCKED_STROBE_INPUT <= not f;
+      MS_E_CH_1ST_CHAR_2ND_ADDR <= not g;
+      -- PS_2ND_CLOCK_PULSE_21 <= h;
+      PS_B_CH_NOT_GROUP_MARK_WM <= j;
+      PS_EARLY_LAST_GATE_I_O <= k;
+      -- MS_E_CH_RESET_1 <= ;
+      MS_GATE_CONSOLE_TO_ASSEMBLY <= not m;
+      PS_E1_REG_FULL <= '0';
+      PS_E_CH_2_CHAR_ONLY_OP_CODES <= o;
+      PS_A_CH_NOT_WM_BIT <= p;
+      PS_LOGIC_GATE_EARLY_B_OR_S <= q;
+      -- PS_1ST_CLOCK_PULSE_21 <= ;
+      MS_E2_REG_FULL <= '1';
+      PS_M_OR_L_OP_CODES <= t;
+      PS_I_RING_5_TIME <= u;
+      PS_I_CYCLE_1 <= v;
+      PS_PERCENT_OR_COML_AT <= w;
+      MS_E_CH_SELECT_UNIT_1 <= not x1;
+      MS_E_CH_SELECT_UNIT_4 <= not x2;
+      PS_E_CH_SELECT_UNIT_8 <= y;
+      PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= z;
+      PS_UNITS_OR_BODY_LATCH <= z2;
+
+      wait for 30 ns;
+      
+      check1(MS_RES_E2_FULL_AT_F_OR_K_OPS,NOT(v and o and p and q),testName,
+         "-S Reset E2 Full at F OR K OPS");
+      
+      -- Run the clocks
+      
+      PS_1ST_CLOCK_PULSE_21 <= '1';
+      PS_2ND_CLOCK_PULSE_21 <= '0';
+      wait for 30 ns;
+
+      check1(PS_SET_E1_REG,g6 or m,testName,"+S Set E1 Reg");            
+      check1(MS_SET_E1_REG,not g6,testName,"-S Set E1 Reg");
+      check1(PS_SET_E2_REG_DELAYED,'0',testName,"Set E2 Delayed 1");            
+
+      PS_1ST_CLOCK_PULSE_21 <= '0';
+      PS_2ND_CLOCK_PULSE_21 <= '1';
+      wait for 30 ns;            
+            
+      -- Set values back before reset during next loop
+
+      MS_1401_CARD_PRINT_IN_PROC <= '1';
+      MS_X_SYMBOL_OP_MOD_GATED <= '1';
+      MS_E_CH_2ND_ADDR_TRF <= '1';
+      PS_E_CYCLE <= '0';
+      PS_E_CH_OUTPUT_MODE <= '0';
+      MS_E_CH_CLOCKED_STROBE_INPUT <= '1';
+      MS_E_CH_1ST_CHAR_2ND_ADDR <= '1';
+      -- PS_2ND_CLOCK_PULSE_21 <= h;
+      PS_B_CH_NOT_GROUP_MARK_WM <= '0';
+      PS_EARLY_LAST_GATE_I_O <= '0';
+      -- MS_E_CH_RESET_1 <= ;
+      -- MS_GATE_CONSOLE_TO_ASSEMBLY <= '1';  -- Reset after next test
+      PS_E1_REG_FULL <= '0';
+      PS_E_CH_2_CHAR_ONLY_OP_CODES <= '0';
+      PS_A_CH_NOT_WM_BIT <= '0';
+      PS_LOGIC_GATE_EARLY_B_OR_S <= '0';
+      -- PS_1ST_CLOCK_PULSE_21 <= ;
+      MS_E2_REG_FULL <= '1';
+      PS_M_OR_L_OP_CODES <= '0';
+      PS_I_RING_5_TIME <= '0';
+      PS_I_CYCLE_1 <= '0';
+      PS_PERCENT_OR_COML_AT <= '0';
+      MS_E_CH_SELECT_UNIT_1 <= '1';
+      MS_E_CH_SELECT_UNIT_4 <= '1';
+      PS_E_CH_SELECT_UNIT_8 <= '0';
+      PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '0';
+      PS_UNITS_OR_BODY_LATCH <= '0';
+      
+      -- Now, maybe set E2 (Not dependent upon SET E1 on this page)
+      
+      PS_1ST_CLOCK_PULSE_21 <= '1';
+      PS_2ND_CLOCK_PULSE_21 <= '0';
+      wait for 30 ns;
+      check1(PS_SET_E2_REG_DELAYED,'0',testName,"Set E2 Delayed 2");            
+
+      PS_E1_REG_FULL <= tv(0) and PS_SET_E1_REG;
+      MS_E2_REG_FULL <= tv(1);
+
+      PS_1ST_CLOCK_PULSE_21 <= '0';
+      PS_2ND_CLOCK_PULSE_21 <= '1';
+      savee1e2 := PS_E1_REG_FULL and MS_E2_REG_FULL;
+      wait for 30 ns;
+            
+      check1(PS_SET_E2_REG,(PS_E1_REG_FULL and MS_E2_REG_FULL) or m,testName,"Set E2 Reg");      
+      
+      -- And then maybe we set E2 Delayed (The Console part does not set E2 Reg Delayed)
+          
+      check1(PS_SET_E2_REG_DELAYED,savee1e2,testName,"Set E2 Delayed 3");            
+
+      PS_E1_REG_FULL <= '0';
+      MS_E2_REG_FULL <= '1';
+      MS_GATE_CONSOLE_TO_ASSEMBLY <= '1';
+ 
+      wait for 30 ns;
+      PS_1ST_CLOCK_PULSE_21 <= '1';      
+      PS_2ND_CLOCK_PULSE_21 <= '0';
+      wait for 30 ns;            
+      PS_1ST_CLOCK_PULSE_21 <= '0';      
+      PS_2ND_CLOCK_PULSE_21 <= '1';
+      
+      
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -263,7 +393,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 4000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
