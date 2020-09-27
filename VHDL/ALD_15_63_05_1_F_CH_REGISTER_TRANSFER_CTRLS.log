@@ -1,0 +1,99 @@
+Generating HDL for page 15.63.05.1 F CH REGISTER TRANSFER CTRLS at 9/27/2020 3:34:54 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_63_05_1_F_CH_REGISTER_TRANSFER_CTRLS_tb.vhdl, generating default test bench code.
+NOTE: Special signal LOGIC ONE removed from sheet inputs list.
+Note: DOT Function at 3B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+DOT Function at 2E has one output from a Trigger, one output from Non-Trigger
+   Trigger block pin B located at 2E, Non-trigger is located at 2B Output is to 1E
+   Using Trigger faux pin T as input side of pin B
+Ignoring Logic Block 3D with symbol L
+Ignoring Logic Block 4F with symbol L
+Ignoring Logic Block 2G with symbol L
+Ignoring Logic Block 4H with symbol L
+Ignoring Logic Block 4I with symbol L
+Processing extension from block at 2E (Database ID=256293) to 2F (Database ID=256294)
+Copied connection to extension input pin H to master block at 2E
+Copied connection to extension input pin K to master block at 2E
+Copied connection from extension output pin F to master block at 2E
+Copied mapped pin A from extension 2F to master block at 2E
+Copied mapped pin E from extension 2F to master block at 2E
+Copied mapped pin F from extension 2F to master block at 2E
+Copied mapped pin X from extension 2F to master block at 2E
+Moved connection from extension 2F pin F to be from master at 2E
+Processing extension from block at 2H (Database ID=256302) to 2I (Database ID=256303)
+Copied connection to extension input pin L to master block at 2H
+Copied connection to extension input pin H to master block at 2H
+Copied connection to extension input pin K to master block at 2H
+Copied mapped pin A from extension 2I to master block at 2H
+Copied mapped pin B from extension 2I to master block at 2H
+Copied mapped pin D from extension 2I to master block at 2H
+Copied mapped pin E from extension 2I to master block at 2H
+Copied mapped pin F from extension 2I to master block at 2H
+Copied mapped pin H from extension 2I to master block at 2H
+Removed 3 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3F to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_C
+	and inputs of PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN,PS_LOGIC_GATE_EARLY_F,PS_LOZENGE_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_1F_D
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_R
+	and inputs of OUT_DOT_3B
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of OUT_5B_C,OUT_DOT_5D,MS_F_CH_CLOCKED_STROBE_OUTPUT
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_P
+	and inputs of PS_INPUT_CYCLE_DOT_LOAD
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_EARLY_LAST_GATE_I_O,PS_INPUT_CYCLE_NOT_LAST_INPUT,PS_F_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of PS_2ND_CLOCK_PULSE_2
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C, OUT_3E_C
+	and inputs of OUT_4E_D
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_B, OUT_2E_F
+	and inputs of OUT_3E_C,MS_F_CH_RESET,'1',OUT_2B_R,OUT_3F_R,'1'
+	and logic function of Trigger
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_2E_B
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_R, OUT_3F_R, OUT_3F_R
+	and inputs of OUT_4G_F
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of OUT_1F_D, OUT_1F_D
+	and inputs of OUT_2E_F
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_F
+	and inputs of PS_1ST_CLOCK_PULSE_1
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_P
+	and inputs of MS_SET_F2_REG,'1',OUT_3F_R,MS_F_CH_RESET,'1'
+	and logic function of Trigger
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_3B_F,PS_GATE_RESET_F2_FULL_STAR_1414_STAR,OUT_4C_G
+	and logic function of OR
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of OUT_5D_P,OUT_5E_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_2ND_CLOCK_PULSE_CLAMPED_A
+	from gate output OUT_3E_C
+Generating output sheet edge signal assignment to 
+	signal PS_RESET_F2_FULL_LATCH
+	from gate output OUT_1E_C
+Generating output sheet edge signal assignment to 
+	signal PS_1ST_CLOCK_PULSE_CLAMPED_A
+	from gate output OUT_3F_R
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_F2_FULL_LATCH
+	from gate output OUT_1F_D
+Generating output sheet edge signal assignment to 
+	signal PS_SET_F2_REG_DELAYED
+	from gate output OUT_2H_P
