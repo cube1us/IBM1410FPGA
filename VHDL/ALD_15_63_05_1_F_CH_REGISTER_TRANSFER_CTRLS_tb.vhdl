@@ -166,50 +166,122 @@ uut_process: process
    variable testName: string(1 to 18);
    variable subtest: integer;
    variable tv: std_logic_vector(25 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
+   variable g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.63.05.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      -- a := tv(0);
+      -- b := tv(1);
+      -- c := tv(0);
+      -- d := tv(1);
+      -- e := tv(2);
+      -- f := tv(3);
+      g := tv(0);
+      h := tv(1);
+      -- i := tv(6);
+      j := tv(2);
+      k := tv(3);
+      l := tv(4);
+      m := tv(5);
+      n := tv(6);
+      o := tv(7);
+      p := tv(8);
 
+
+      g1 := n and o and p and m;
+      g2 := g and j and h;
       
+      MS_F_CH_RESET <= '0';
+      wait for 30 ns;
+      MS_F_CH_RESET <= '1';
       wait for 30 ns;
       
+      -- 1st CP sets
+      
+      PS_1ST_CLOCK_PULSE_1 <= '0';
+      PS_2ND_CLOCK_PULSE_2 <= '1';
+      wait for 30 ns;
+
+      check1(PS_1ST_CLOCK_PULSE_CLAMPED_A,PS_1ST_CLOCK_PULSE_1,testName,"1ST CP 21 A");
+      check1(PS_2ND_CLOCK_PULSE_CLAMPED_A,PS_2ND_CLOCK_PULSE_2,testName,"2ND CP 21 A");
+      
+      -- Initial conditions are such that the latch will be RESET at this point
+      
+      check1(PS_RESET_F2_FULL_LATCH,'0',testName,"Init Set +S Reset E2 Full");           
+      check1(MS_RESET_F2_FULL_LATCH,'1',testName,"Init Set -S Reset E2 Full");                       
+      
+      PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= g;
+      PS_LOGIC_GATE_EARLY_F <= h;
+      PS_LOZENGE_OR_ASTERISK <= j;
+      PS_GATE_RESET_F2_FULL_STAR_1414_STAR <= k;
+      MS_F_CH_CLOCKED_STROBE_OUTPUT <= not l;
+      PS_EARLY_LAST_GATE_I_O <= m;
+      PS_F_CYCLE <= n;
+      PS_INPUT_CYCLE_NOT_LAST_INPUT <= o;
+      PS_INPUT_CYCLE_DOT_LOAD <= p;
+                  
+      PS_1ST_CLOCK_PULSE_1 <= '1';
+      PS_2ND_CLOCK_PULSE_2 <= '0';
+      wait for 30 ns;
+
+      check1(PS_RESET_F2_FULL_LATCH,g1 or l or g2 or k,testName,"Set +S Reset E2 Full");
+      check1(MS_RESET_F2_FULL_LATCH,NOT(g1 or l or g2 or k),testName,"Set +S Reset E2 Full");
+      
+      PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '0';
+      PS_LOGIC_GATE_EARLY_F <= '0';
+      PS_LOZENGE_OR_ASTERISK <= '0';
+      PS_GATE_RESET_F2_FULL_STAR_1414_STAR <= '0';
+      MS_F_CH_CLOCKED_STROBE_OUTPUT <= '1';
+      PS_EARLY_LAST_GATE_I_O <= '0';
+      PS_F_CYCLE <= '0';
+      PS_INPUT_CYCLE_NOT_LAST_INPUT <= '0';
+      PS_INPUT_CYCLE_DOT_LOAD <= '0';
+
+      PS_1ST_CLOCK_PULSE_1 <= '0';
+      PS_2ND_CLOCK_PULSE_2 <= '1';      
+      wait for 30 ns;
+      
+      check1(PS_1ST_CLOCK_PULSE_CLAMPED_A,PS_1ST_CLOCK_PULSE_1,testName,"1ST CP 21 B");
+      check1(PS_2ND_CLOCK_PULSE_CLAMPED_A,PS_2ND_CLOCK_PULSE_2,testName,"2ND CP 21 B");
+      
+      check1(PS_RESET_F2_FULL_LATCH,'0',testName,"Finish +S Set E2 Full");           
+      check1(MS_RESET_F2_FULL_LATCH,'1',testName,"Finish -S Set E2 Full");                       
       
    end loop;
 
+   check1(PS_SET_F2_REG_DELAYED,'0',testName,"F2 Reg Delayed A");
+   MS_SET_F2_REG <= '0';
+   wait for 30 ns;
+   check1(PS_SET_F2_REG_DELAYED,'0',testName,"F2 Reg Delayed B");
+   MS_SET_F2_REG <= '0';
+   wait for 30 ns;
+   check1(PS_SET_F2_REG_DELAYED,'0',testName,"F2 Reg Delayed C");
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_F2_REG_DELAYED,'0',testName,"F2 Reg Delayed D");
+   
+   MS_SET_F2_REG <= '1';
+   wait for 30 ns;
+   check1(PS_SET_F2_REG_DELAYED,'1',testName,"F2 Reg Delayed E");
+   wait for 30 ns;
+   check1(PS_SET_F2_REG_DELAYED,'1',testName,"F2 Reg Delayed F");
+   
+   PS_1ST_CLOCK_PULSE_1 <= '1';
+   wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_1 <= '0';
+   wait for 30 ns;
+   check1(PS_SET_F2_REG_DELAYED,'0',testName,"F2 Reg Delayed G");
+
+   
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
