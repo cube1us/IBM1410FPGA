@@ -178,48 +178,152 @@ uut_process: process
    variable testName: string(1 to 18);
    variable subtest: integer;
    variable tv: std_logic_vector(25 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
-   variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable b,c,d,e,f,g,h,i,j,k,l,m,n,s,w,x,y,z,z2: std_logic;
+   variable g1, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable savee1e2: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
 
-   for tt in 0 to 2**23 loop
+   testName := "15.63.04.1        ";
+
+   for tt in 0 to 2**13 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      -- a := tv(0);
+      b := tv(0);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      -- h := tv(7);
+      i := tv(6);
+      j := tv(7);
+      k := tv(8);
+      -- l := tv(11);
+      m := tv(9);
+      -- n := tv(13);
+      -- o := tv(11);
+      -- p := tv(12);
+      -- q := tv(13);
+      -- r := tv(17);
+      -- s := tv(18);
+      -- t := tv(14);
+      -- u := tv(15);
+      -- v := tv(16);
+      w := tv(10);
+      -- x1 := tv(18);
+      -- x2 := tv(19);
+      -- y := tv(20);
+      z := tv(11);
+      z2 := tv(12);
 
+      g1 := e and d and j and k and not g; -- Gates 5D and 5E
+      -- g2 := o and p and v and q;
+      -- g3 := t and (y or x1 or x2) and w and v and u and q;
+      g4 := z2 and z and w and k; -- Gate 4D and 4E
+      -- g5 := b and c and e and d and k and not j;
+      g5 := (not c or j) and b and d and e and d and k and not g;
+      g6 := f or g1 or g4 or g5;
       
+      -- Reset
+      
+      MS_F_CH_RESET_1 <= '0';
+      wait for 30 ns;
+      MS_F_CH_RESET_1 <= '1';
       wait for 30 ns;
       
+      check1(PS_SET_F1_REG,'0',testName,"+S Set F1 Reset");
+      check1(MS_SET_F1_REG,'1',testName,"+S Set F1 Reset");
+
+      -- Note that the default conditions keep this "reset"
       
+      PS_X_SYMBOL_OP_MOD_GATED <= b;
+      PS_F_CH_2ND_ADDR_TRF <= c;
+      PS_F_CYCLE <= d;
+      PS_F_CH_OUTPUT_MODE <= e;
+      MS_F_CH_CLOCKED_STROBE_INPUT <= not f;
+      MS_F_CH_1ST_CHAR_2ND_ADDR <= not g;
+      -- PS_2ND_CLOCK_PULSE_CLAMPED_A <= h;
+      PS_B_CH_NOT_GROUP_MARK_WM <= j;
+      PS_B_CH_GROUP_MARK_DOT_WM <= not j;
+      PS_EARLY_LAST_GATE_I_O <= k;
+      -- MS_F_CH_RESET_1 <= ;
+      PS_F1_REG_FULL <= '0';
+      PS_GATE_SET_F1_REG_STAR_1414_STAR <= m;
+      -- PS_1ST_CLOCK_PULSE_CLAMPED_A <= ;
+      MS_F2_REG_FULL <= '1';
+      PS_LOZENGE_OR_ASTERISK <= w;
+      PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= z;
+      PS_UNITS_OR_BODY_LATCH <= z2;
+
+      wait for 30 ns;
+      
+      -- Run the clocks
+      
+      PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+      PS_2ND_CLOCK_PULSE_CLAMPED_A <= '0';
+      wait for 30 ns;
+
+      check1(PS_SET_F1_REG,g6 or m,testName,"+S Set F1 Reg");            
+      check1(MS_SET_F1_REG,not (g6 or m),testName,"-S Set F1 Reg");
+
+      PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+      PS_2ND_CLOCK_PULSE_CLAMPED_A <= '1';
+      wait for 30 ns;            
+            
+      -- Set values back before reset during next loop
+
+      PS_X_SYMBOL_OP_MOD_GATED <= '0';
+      PS_F_CH_2ND_ADDR_TRF <= '0';
+      PS_F_CYCLE <= '0';
+      PS_F_CH_OUTPUT_MODE <= '0';
+      MS_F_CH_CLOCKED_STROBE_INPUT <= '1';
+      MS_F_CH_1ST_CHAR_2ND_ADDR <= '1';
+      -- PS_2ND_CLOCK_PULSE_CLAMPED_A <= h;
+      PS_B_CH_NOT_GROUP_MARK_WM <= '0';
+      PS_B_CH_GROUP_MARK_DOT_WM <= '0';
+      PS_EARLY_LAST_GATE_I_O <= '0';
+      -- MS_F_CH_RESET_1 <= ;
+      PS_F1_REG_FULL <= '0';
+      PS_GATE_SET_F1_REG_STAR_1414_STAR <= '0';      
+      -- PS_1ST_CLOCK_PULSE_CLAMPED_A <= ;
+      MS_F2_REG_FULL <= '1';
+      PS_LOZENGE_OR_ASTERISK <= '0';
+      PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '0';
+      PS_UNITS_OR_BODY_LATCH <= '0';
+      
+      -- Now, maybe set E2 (Not dependent upon SET E1 on this page)
+      
+      PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
+      PS_2ND_CLOCK_PULSE_CLAMPED_A <= '0';
+      wait for 30 ns;
+
+      -- These tv(0) and tv(1) are not really related to variables "a" and "b"
+      
+      PS_F1_REG_FULL <= tv(0);
+      MS_F2_REG_FULL <= tv(1);
+      savee1e2 := PS_F1_REG_FULL and not MS_F2_REG_FULL;
+      wait for 30 ns;
+
+      PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+      PS_2ND_CLOCK_PULSE_CLAMPED_A <= '1';
+      wait for 30 ns;
+                 
+      check1(PS_SET_F2_REG,savee1e2,testName,"Set F2 Reg");      
+      
+      PS_F1_REG_FULL <= '0';
+      MS_F2_REG_FULL <= '1';
+ 
+      wait for 30 ns;
+      PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';      
+      PS_2ND_CLOCK_PULSE_CLAMPED_A <= '0';
+      wait for 30 ns;            
+      PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';      
+      PS_2ND_CLOCK_PULSE_CLAMPED_A <= '1';
+                        
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -233,7 +337,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
