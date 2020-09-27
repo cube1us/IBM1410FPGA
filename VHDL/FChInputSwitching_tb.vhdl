@@ -157,49 +157,90 @@ uut_process: process
    variable testName: string(1 to 18);
    variable subtest: integer;
    variable tv: std_logic_vector(25 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
-   variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable a,b,c,d,e,f,g,i,j,k,p,q,t,u,v,w,x,y,z: std_logic;
+   variable g1, g2, g3, g4, g5, g6, g8, g9, g10: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.60.0*.1        ";
+   
+   for bitNum in 0 to 7 loop
+      for tt in 0 to 2**13 loop
+         tv := std_logic_vector(to_unsigned(tt,tv'Length));
+         a := tv(0);
+         b := tv(1);
+         c := tv(2);
+         d := tv(3);
+         e := tv(4);
+         f := tv(5);
+         g := tv(6);
+         -- h := tv(7);
+         i := tv(7);
+         j := tv(8);
+         k := tv(9);
+         -- l := tv(11);
+         -- m := tv(12);
+         -- n := tv(13);
+         -- o := tv(14);
+         p := tv(10);
+         q := tv(11);
+         -- r := tv(17);
+         -- s := tv(18);
+         t := tv(12);
+         
+         g1 := a and b; -- Assembly Ch
+         
+         case bitNum is
+            when HDL_WM_BIT => g2 := c or d;
+            when others => g2 := c or d or g;
+         end case;
+         
+         case bitNum is  -- TAU
+            when HDL_WM_BIT => g3 := '0';
+            when HDL_C_BIT =>  g3 := (f and p and not e) or (q and e and f); 
+            when others =>     g3 := e and f;             
+         end case;
+                 
+         case bitNum is -- 1414 I/O Synchronizer
+            when HDL_WM_BIT => g4 := '0';
+            when others =>     g4 := g;
+         end case;
+         
+         g5 := k and (i or j); -- 1301 or 1405
+                  
+         if(bitNum < 7) then
+            PS_ASSEMBLY_CH_BUS(bitNum) <= a;
+         else
+            PS_ASSEMBLY_CH_C_CHAR_BIT <= a;
+         end if;
+                  
+         PS_ASSEMBLY_TO_F_CH <= b;
+         
+         PS_F1_INPUT_STAR_SIF_BUS(bitNum) <= c;
+         PS_F1_INPUT_STAR_1412_19_BUS(bitNum) <= d;
+         
+         MC_F_CH_TAU_TO_CPU_BUS(bitNum) <= not e;
+         MS_TAPE_TO_F_CH <= not f;
+         PS_F1_INPUT_STAR_1414_STAR_BUS(bitNum) <= g;
+         MC_F_CH_1301_TO_CPU_BUS(bitNum) <= not i;
+         MC_F_CH_1405_TO_CPU_BUS(bitNum) <= not j;
+         MS_FILE_TO_F_CH <= not k;         
+         
+         PS_F_CH_SELECT_UNIT_U <= p;
+         PS_F_CH_SELECT_UNIT_B <= q;
+         wait for 30 ns;
+         
+         check1(PS_F1_INPUT_BUS(bitNum),g1 or g2 or g3 or g4 or g5,testName,
+            "+S F1 Input BitNum " & Integer'Image(bitNum));
+         check1(MS_F1_INPUT_BUS(bitNum),NOT PS_F1_INPUT_BUS(bitNum),testName,
+               "-S F1 Input BitNum " & Integer'Image(bitNum));
+         
+      end loop;
 
-   for tt in 0 to 2**23 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
-      
-      wait for 30 ns;
-      
-      
    end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
