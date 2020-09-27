@@ -166,47 +166,102 @@ uut_process: process
    variable testName: string(1 to 18);
    variable subtest: integer;
    variable tv: std_logic_vector(25 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
+   variable a,b,d,f,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.63.02.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
+      -- c := tv(2);
+      d := tv(2);
+      -- e := tv(4);
+      f := tv(3);
+      -- g := tv(4);
+      -- h := tv(7); Reset line
+      -- i := tv(7);
+      j := tv(4);
+      k := tv(5);
+      l := tv(6);
+      m := tv(7);
+      n := tv(8);
       
+      g1 := f and b;
+      g3 := (d and k and g1) or n; 
+      g4 := k and m and g1; -- Load Mode
+      g5 := f and j and k and l;
+      
+      MS_F_CH_RESET_1 <= '0';
+      wait for 30 ns;
+      MS_F_CH_RESET_1 <= '1';
       wait for 30 ns;
       
+      check1(PS_F_CH_MOVE_MODE,'0',testName,"+S Reset Move");
+      check1(PS_F_CH_LOAD_MODE,'0',testName,"+S Reset Load");
+      check1(MS_F_CH_LOAD_MODE,'1',testName,"-S Reset Load");      
+      
+      PS_F_CH_SELECT_7_BIT_UNIT <= a;
+      PS_LOZENGE_OR_ASTERISK <= b;
+      PS_UNIT_CTRL_OR_MOVE_OP_CODE <= d;
+      PS_LAST_INSN_RO_CYCLE <= f;
+      PS_BRANCH_ON_STATUS_CH_2 <= '0'; -- Test later in reset phase
+      PS_LOGIC_GATE_E_1 <= k;
+      PS_I_O_INTLK_RESET_CONDITION <= '0'; -- Test later in reset phase
+      PS_I_O_LOAD_OP_CODE <= m;
+      MS_F_SET_MOVE_MODE_LATCH_STAR_1414_STAR <= not n;
+      
+      wait for 30 ns; -- Perhaps set a latch
+
+      check1(PS_F_CH_MOVE_MODE,g3,testName,"+S Set Move");
+      check1(PS_F_CH_LOAD_MODE,g4,testName,"+S Set Load");
+      check1(MS_F_CH_LOAD_MODE,not g4,testName,"-S Set Load");
+      
+      check1(PS_F_CH_WORD_SEPARATOR_MODE,a and PS_F_CH_LOAD_MODE,testName,"WS Mode");
+      check1(PS_F_CH_INTERLOCK,g3 or g4,testName,"+S Interlock");
+      check1(LAMP_15A1A15,PS_F_CH_INTERLOCK,testName,"Lamp Interlock");
+      check1(MC_LOAD_MODE_TO_1301_STAR_F_CH,not PS_F_CH_LOAD_MODE,testName,"-C 1301 Load Mode");
+      check1(MC_LOAD_MODE_TO_1405_STAR_F_CH,not PS_F_CH_LOAD_MODE,testName,"-C 1405 Load Mode");
+      
+      
+      PS_F_CH_SELECT_7_BIT_UNIT <= '0';
+      PS_LOZENGE_OR_ASTERISK <= '0';
+      PS_UNIT_CTRL_OR_MOVE_OP_CODE <= '0';
+      PS_LAST_INSN_RO_CYCLE <= '0';
+      PS_BRANCH_ON_STATUS_CH_2 <= '0'; -- Test later in reset phase
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_I_O_INTLK_RESET_CONDITION <= '0'; -- Test later in reset phase
+      PS_I_O_LOAD_OP_CODE <= '0';
+      MS_F_SET_MOVE_MODE_LATCH_STAR_1414_STAR <= '1';
+      
+      -- Now, test reset
+      
+      PS_LAST_INSN_RO_CYCLE <= f;
+      PS_BRANCH_ON_STATUS_CH_2 <= j;
+      PS_LOGIC_GATE_E_1 <= k;
+      PS_I_O_INTLK_RESET_CONDITION <= l;
+      wait for 30 ns;      
+      
+      if (g5 = '1') then  -- Reset condition         
+         check1(PS_F_CH_MOVE_MODE,'0',testName,"+S Reset G5 Move");
+         check1(PS_F_CH_LOAD_MODE,'0',testName,"+S Reset G5 Load");
+         check1(MS_F_CH_LOAD_MODE,'1',testName,"-S Reset G5 Load");    
+      else  -- No reset - same as earlier
+         check1(PS_F_CH_MOVE_MODE,g3,testName,"+S Set Move");
+         check1(PS_F_CH_LOAD_MODE,g4,testName,"+S Set Load");
+         check1(MS_F_CH_LOAD_MODE,not g4,testName,"-S Set Load");             
+      end if;
+
+      PS_LAST_INSN_RO_CYCLE <= '0';
+      PS_BRANCH_ON_STATUS_CH_2 <= '0';
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_I_O_INTLK_RESET_CONDITION <= '0';
+       
       
    end loop;
 
