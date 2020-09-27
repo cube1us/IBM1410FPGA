@@ -172,47 +172,97 @@ uut_process: process
    variable testName: string(1 to 18);
    variable subtest: integer;
    variable tv: std_logic_vector(25 downto 0);
-   variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
+   variable f,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.63.03.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**14 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      -- a := tv(0);
+      -- b := tv(1);
+      -- c := tv(2);
+      -- d := tv(2);
+      -- e := tv(3);
+      f := tv(0);
+      -- g := tv(6);
+      -- h := tv(5);
+      -- i := tv(6);
+      j := tv(1);
+      k := tv(2);
+      l := tv(3);
+      m := tv(4);
+      n := tv(5);
+      o := tv(6);
+      p := tv(7);
+      q := tv(8);
+      r := tv(9);
+      s := tv(10);
+      t := tv(11);
+      u := tv(12);
+      v := tv(13);
+      
+      g1 := f or (k and j and l) or (k and s and p) or (n and (m or o));
+      g2 := (u and s) or (v and j);
+      
+      MS_F_CH_RESET_1 <= '0';
+      wait for 30 ns;
+      MS_F_CH_RESET_1 <= '1';
+      wait for 30 ns;
+      
+      check1(PS_F_CH_STROBE_TRIGGER,'0',testName,"+S Strobe Trigger Channel Reset");
+      check1(MS_F_CH_STROBE_TRIGGER,'1',testName,"-S Strobe Trigger Channel Reset");
+      check1(MS_F_CH_CLOCKED_STROBE_INPUT,'1',testName,"-S E Ch Clocked Strobe Input Ch reset");
+      check1(MS_F_CH_CLOCKED_STROBE_OUTPUT,'1',testName,"-S E Ch Clocked Strobe Output Ch restet");
+      
 
+  	   MC_SET_FCH_STROB_TR_E_FR_FEATS <= not f;
+  	   PS_F_CH_OUTPUT_MODE <= j;
+  	   PS_F_CH_SELECT_TAPE <= k;
+  	   MC_TAPE_WRITE_STROBE <= not l;
+  	   MC_1301_STROBE_F_CH <= not m;
+  	   MS_F_CH_SELECT_UNIT_F <= not n;
+  	   MC_1405_STROBE_F_CH <= not o;
+  	   MC_TAPE_READ_STROBE <= not p;
+  	   PS_F2_REG_FULL <= r;
+  	   PS_F_CH_INPUT_MODE <= s;
+  	   MS_F1_REG_FULL <= not t;
+  	   PS_SET_F1_REG <= u;
+  	   PS_RESET_F2_FULL_LATCH <= v;
       
       wait for 30 ns;
       
+      check1(PS_F_CH_STROBE_TRIGGER,g1 and not g2,testName,"+S E Set Ch Strobe Trigger");
+      check1(MS_F_CH_STROBE_TRIGGER,not g1 or g2,testName,"-S E Set Ch Strobe Trigger");
+      
+      PS_2ND_CLOCK_PULSE_CLAMPED_A <= '1';
+      wait for 30 ns;
+      PS_2ND_CLOCK_PULSE_CLAMPED_A <= '0';
+      wait for 30 ns;
+      
+      check1(MS_F_CH_CLOCKED_STROBE_INPUT,not(g1 and not g2 and not t and s),testName,
+         "-S E Ch Clocked Strobe Input");
+      check1(MS_F_CH_CLOCKED_STROBE_OUTPUT,not(g1 and not g2 and r and j),testName,
+            "-S E Ch Clocked Strobe Output");
+      
+      -- Put signals back to normal state so reset works
+      MC_SET_FCH_STROB_TR_E_FR_FEATS <= '1';
+      PS_F_CH_OUTPUT_MODE <= '0';
+      PS_F_CH_SELECT_TAPE <= '0';
+      MC_TAPE_WRITE_STROBE <= '1';
+      MC_1301_STROBE_F_CH <= '1';
+      MS_F_CH_SELECT_UNIT_F <= '1';
+      MC_1405_STROBE_F_CH <= '1';
+      MC_TAPE_READ_STROBE <= '1';
+      PS_F2_REG_FULL <= '0';
+      PS_F_CH_INPUT_MODE <= '0';
+      MS_F1_REG_FULL <= '1';
+      PS_SET_F1_REG <= '0';
+      PS_RESET_F2_FULL_LATCH <= '0';
       
    end loop;
 
@@ -227,7 +277,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
