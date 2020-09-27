@@ -1,0 +1,49 @@
+Generating HDL for page 15.70.07.1 F CH INPUT SWITCHING C BIT at 9/27/2020 5:15:57 PM
+Note: DOT Function at 2E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5G has input level(s) of C, and output level(s) of , Logic Function set to OR
+NOTE: DOT Function at 5G is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Ignoring Logic Block 5F with symbol R
+Removed 1 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5E to ignored block(s) or identical signal names
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of OUT_5D_G,PS_F_CH_SELECT_UNIT_U,OUT_4D_C
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_1E_A
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_G
+	and inputs of MS_TAPE_TO_F_CH
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of OUT_5E_B
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_B, OUT_5E_B
+	and inputs of MC_F_CH_TAU_TO_CPU_C_BIT,MS_TAPE_TO_F_CH
+	and logic function of NOR
+Generating Statement for block at 3E with output pin(s) of OUT_3E_A
+	and inputs of OUT_5E_B,PS_F_CH_SELECT_UNIT_B
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_H
+	and inputs of OUT_3C_C,OUT_3E_A,OUT_3F_G
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_A, OUT_1E_A
+	and inputs of OUT_DOT_2E
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_G
+	and inputs of PS_ASSEMBLY_CH_C_CHAR_BIT,PS_ASSEMBLY_TO_F_CH
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_DOT_5G,MS_FILE_TO_F_CH
+	and logic function of NOR
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E
+	and inputs of OUT_2E_H,PS_F1_INPUT_C_BIT_STAR_SIF,PS_F1_INPUT_C_BIT_STAR_1414_STAR,PS_F1_INPUT_C_BIT_STAR_1412_19,OUT_2G_C
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of MC_F_CH_1301_TO_CPU_C_BIT,MC_F_CH_1405_TO_CPU_C_BIT
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal PS_F1_INPUT_C_BIT
+	from gate output OUT_1C_C
+Generating output sheet edge signal assignment to 
+	signal MS_F1_INPUT_C_BIT
+	from gate output OUT_1E_A

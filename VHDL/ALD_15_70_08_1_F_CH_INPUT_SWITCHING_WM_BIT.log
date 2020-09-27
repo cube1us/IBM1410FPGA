@@ -1,0 +1,32 @@
+Generating HDL for page 15.70.08.1 F CH INPUT SWITCHING WM BIT at 9/27/2020 5:15:59 PM
+Note: DOT Function at 2E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5F has input level(s) of C, and output level(s) of , Logic Function set to OR
+NOTE: DOT Function at 5F is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
+Generating Statement for block at 1C with output pin(s) of OUT_1C_D
+	and inputs of OUT_1E_D
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PS_ASSEMBLY_CH_WM_BIT,PS_ASSEMBLY_TO_F_CH
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_K
+	and inputs of OUT_4D_G
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D, OUT_1E_D
+	and inputs of OUT_DOT_2E
+	and logic function of NOT
+Generating Statement for block at 2F with output pin(s) of OUT_2F_L
+	and inputs of OUT_DOT_5F,MS_FILE_TO_F_CH
+	and logic function of NOR
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E
+	and inputs of OUT_2D_K,PS_F1_INPUT_WM_BIT_STAR_SIF,PS_F1_INPUT_WM_BIT_STAR_1412_19,OUT_2F_L
+	and logic function of OR
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
+	and inputs of MC_F_CH_1301_TO_CPU_WM_BIT,MC_F_CH_1405_TO_CPU_WM_BIT
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal PS_F1_INPUT_WM_BIT
+	from gate output OUT_1C_D
+Generating output sheet edge signal assignment to 
+	signal MS_F1_INPUT_WM_BIT
+	from gate output OUT_1E_D
