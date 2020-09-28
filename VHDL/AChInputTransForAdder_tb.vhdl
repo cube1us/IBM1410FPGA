@@ -158,9 +158,34 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.11.01.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**6 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      
+      PB_TRUE_ADD_A <= a;
+      PB_A_CH_NOT_BUS(HDL_1_BIT) <= b;
+      PB_COMP_ADD_A <= c;
+      PB_A_CH_BUS(HDL_1_BIT) <= d;
+      MS_A_CH_INSERT_PLUS_ZERO <= not e;
+      MS_A_CH_INSERT_PLUS_NINE <= not f;
+
+      wait for 30 ns;      
+      
+      check1(MB_ADD_AB0,NOT((a and b) or e or (d and c)),testName,"ADD A B0");
+      check1(MB_ADD_AB1,NOT((a and d) or f or (c and b)),testName,"ADD A B1");
+
+   end loop;
+
+   testName := "16.11.02.1        ";
+
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -170,29 +195,132 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      
+      PB_A_CH_NOT_BUS(HDL_8_BIT) <= a;
+      PB_A_CH_NOT_BUS(HDL_2_BIT) <= b;
+      PB_A_CH_NOT_BUS(HDL_4_BIT) <= c;
+      PB_COMP_ADD_A <= d;
+      PB_A_CH_BUS(HDL_8_BIT) <= e;
+      PB_TRUE_ADD_A <= f;
+      PB_A_CH_NOT_BUS(HDL_1_BIT) <= g;
+      PB_A_CH_BUS(HDL_2_BIT) <= h;
+      MS_A_CH_INSERT_PLUS_ZERO <= not j;  -- Inverted on page 16.11.01.1      
 
+      wait for 30 ns;      
       
-      wait for 30 ns;
+      check1(MB_ADD_AQ0,NOT((f and g and h and c and e) or j or
+         (f and b and c and a) or (d and c and e and b)),testName,"ADD A Q0");
+
+   end loop;
+
+
+   testName := "16.11.03.1        ";
+
+   for tt in 0 to 2**7 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
       
+      PB_A_CH_NOT_BUS(HDL_8_BIT) <= a;
+      PB_TRUE_ADD_A <= b;
+      PB_A_CH_NOT_BUS(HDL_4_BIT) <= c;
+      PB_A_CH_BUS(HDL_1_BIT) <= d;
+      PB_A_CH_BUS(HDL_2_BIT) <= e;
+      PB_COMP_ADD_A <= f;
+      PB_A_CH_BUS(HDL_4_BIT) <= g;
+       
+      wait for 30 ns;      
       
+      check1(MB_ADD_AQ2,NOT((b and e and c and a) or (b and e and c and d) or 
+         (f and e and g)),testName,"ADD A Q2");
+
+   end loop;
+
+
+   testName := "16.11.04.1        ";
+
+   for tt in 0 to 2**4 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      
+      PB_TRUE_ADD_A <= a;
+      PB_A_CH_BUS(HDL_4_BIT) <= b;
+      PB_A_CH_NOT_BUS(HDL_2_BIT) <= c;
+      PB_COMP_ADD_A <= d;
+             
+      wait for 30 ns;      
+      
+      check1(MB_ADD_AQ4,NOT((a and b and c) or (d and c and b)),testName,"ADD A Q4");
+
+   end loop;
+
+
+   testName := "16.11.05.1        ";
+
+   for tt in 0 to 2**7 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      
+      PB_A_CH_BUS(HDL_1_BIT) <= a;
+      PB_COMP_ADD_A <= b;
+      PB_A_CH_NOT_BUS(HDL_4_BIT) <= c;
+      PB_A_CH_NOT_BUS(HDL_8_BIT) <= d;
+      PB_A_CH_BUS(HDL_2_BIT) <= e;
+      PB_TRUE_ADD_A <= f;
+      PB_A_CH_BUS(HDL_4_BIT) <= g;
+
+      wait for 30 ns;      
+      
+      check1(MB_ADD_AQ6,NOT((f and e and g) or (b and e and c and a) or
+         (b and e and c and d)),testName,"ADD A Q6");
+
+   end loop;
+
+
+   testName := "16.11.06.1        ";
+
+   for tt in 0 to 2**9 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      j := tv(8);
+      
+      PB_TRUE_ADD_A <= a;
+      PB_A_CH_NOT_BUS(HDL_2_BIT) <= b;
+      PB_A_CH_BUS(HDL_8_BIT) <= c;
+      PB_A_CH_NOT_BUS(HDL_8_BIT) <= d;
+      PB_COMP_ADD_A <= e;
+      PB_A_CH_NOT_BUS(HDL_4_BIT) <= g;
+      PB_A_CH_BUS(HDL_2_BIT) <= f;
+      PB_A_CH_NOT_BUS(HDL_1_BIT) <= h;
+      MS_A_CH_INSERT_PLUS_NINE <= not j; -- Inverted on page 16.11.01.1
+      
+      wait for 30 ns;      
+      
+      check1(MB_ADD_AQ8,NOT((a and g and b and c) or (e and f and g and c and h) or
+         (e and g and d and b) or j),testName,"ADD A Q8");
+
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
