@@ -1,0 +1,40 @@
+Generating HDL for page 15.70.33.1 F CH LINE DRIVERS C AND WM BITS at 9/28/2020 10:30:43 AM
+WARNING: During sheet edge merge, Logic block at 1D pin G outputs to two different signal names: TW CPU TO F CH TAU C BIT vs. -C CPU TO F CH TAU C BIT 
+WARNING: During sheet edge merge, Logic block at 1E pin G outputs to two different signal names: -C CPU TO F CH 1405 C BIT vs. -C CPU TO F CH 1301 C BIT
+WARNING: During sheet edge merge, Logic block at 1F pin H outputs to two different signal names: -C CPU TO F CH 1405 WM BIT vs. -C CPU TO F CH 1301 WM BIT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_F_CH_SELECT_UNIT_U,PS_F2_REG_C_BIT
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of OUT_5C_NoPin,OUT_5E_NoPin
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_G, OUT_1D_G
+	and inputs of OUT_4D_C
+	and logic function of EQUAL
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of MS_F2_REG_C_BIT,PS_F_CH_SELECT_UNIT_B
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_G, OUT_1E_G
+	and inputs of MS_F2_REG_C_BIT
+	and logic function of EQUAL
+Generating Statement for block at 1F with output pin(s) of OUT_1F_H, OUT_1F_H
+	and inputs of MS_F2_REG_WM_BIT
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_F_CH_TAU_C_BIT
+	from gate output OUT_1D_G
+Generating output sheet edge signal assignment to 
+	signal TW_CPU_TO_F_CH_TAU_C_BIT
+	from gate output OUT_1D_G
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_F_CH_1301_C_BIT
+	from gate output OUT_1E_G
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_F_CH_1405_C_BIT
+	from gate output OUT_1E_G
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_F_CH_1301_WM_BIT
+	from gate output OUT_1F_H
+Generating output sheet edge signal assignment to 
+	signal MC_CPU_TO_F_CH_1405_WM_BIT
+	from gate output OUT_1F_H

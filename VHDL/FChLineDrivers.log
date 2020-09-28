@@ -1,0 +1,109 @@
+Generating HDL for group named FChLineDriversat 9/28/2020 10:40:59 AM containing pages: 
+	15.70.31.1, 15.70.32.1, 15.70.33.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\FChLineDrivers_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 12 signals on page 15.70.31.1
+Found 12 signals on page 15.70.32.1
+Found 11 signals on page 15.70.33.1
+Found 11 unique input signals and 24 unique output signals, (35 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S F2 REG 1 BIT originates outside the group.
+INFO:  Signal -S F2 REG 2 BIT originates outside the group.
+INFO:  Signal -S F2 REG 4 BIT originates outside the group.
+INFO:  Signal -S F2 REG 8 BIT originates outside the group.
+INFO:  Signal -S F2 REG A BIT originates outside the group.
+INFO:  Signal -S F2 REG B BIT originates outside the group.
+INFO:  Signal +S F CH SELECT UNIT U originates outside the group.
+INFO:  Signal +S F CH SELECT UNIT B originates outside the group.
+INFO:  Signal -S F2 REG C BIT originates outside the group.
+INFO:  Signal +S F2 REG C BIT originates outside the group.
+INFO:  Signal -S F2 REG WM BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -C CPU TO F CH TAU 4 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1301 4 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1405 4 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH TAU 2 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1301 2 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1405 2 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH TAU 1 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1301 1 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1405 1 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH TAU B BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1301 B BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1405 B BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH TAU A BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1301 A BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1405 A BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH TAU 8 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1301 8 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1405 8 BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH TAU C BIT  is used outside the group.
+INFO:  Signal TW CPU TO F CH TAU C BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1301 C BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1405 C BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1301 WM BIT is used outside the group.
+INFO:  Signal -C CPU TO F CH 1405 WM BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal -S F2 REG 1 BIT replaced by Bus signal -S F2 REG BUS
+Input Signal -S F2 REG 2 BIT replaced by Bus signal -S F2 REG BUS
+Input Signal -S F2 REG 4 BIT replaced by Bus signal -S F2 REG BUS
+Input Signal -S F2 REG 8 BIT replaced by Bus signal -S F2 REG BUS
+Input Signal -S F2 REG A BIT replaced by Bus signal -S F2 REG BUS
+Input Signal -S F2 REG B BIT replaced by Bus signal -S F2 REG BUS
+Input Signal -S F2 REG C BIT replaced by Bus signal -S F2 REG BUS
+Input Signal +S F2 REG C BIT replaced by Bus signal +S F2 REG BUS
+Input Signal -S F2 REG WM BIT replaced by Bus signal -S F2 REG BUS
+DEBUG: Tentative bus -C CPU TO F CH TAU BUS identified based on signal -C CPU TO F CH TAU 4 BIT
+DEBUG: Tentative bus -C CPU TO F CH 1301 BUS identified based on signal -C CPU TO F CH 1301 4 BIT
+DEBUG: Tentative bus -C CPU TO F CH 1405 BUS identified based on signal -C CPU TO F CH 1405 4 BIT
+DEBUG: Added signal -C CPU TO F CH TAU 2 BIT to bus -C CPU TO F CH TAU BUS
+DEBUG: Added signal -C CPU TO F CH 1301 2 BIT to bus -C CPU TO F CH 1301 BUS
+DEBUG: Added signal -C CPU TO F CH 1405 2 BIT to bus -C CPU TO F CH 1405 BUS
+DEBUG: Added signal -C CPU TO F CH TAU 1 BIT to bus -C CPU TO F CH TAU BUS
+DEBUG: Added signal -C CPU TO F CH 1301 1 BIT to bus -C CPU TO F CH 1301 BUS
+DEBUG: Added signal -C CPU TO F CH 1405 1 BIT to bus -C CPU TO F CH 1405 BUS
+DEBUG: Added signal -C CPU TO F CH TAU B BIT to bus -C CPU TO F CH TAU BUS
+DEBUG: Added signal -C CPU TO F CH 1301 B BIT to bus -C CPU TO F CH 1301 BUS
+DEBUG: Added signal -C CPU TO F CH 1405 B BIT to bus -C CPU TO F CH 1405 BUS
+DEBUG: Added signal -C CPU TO F CH TAU A BIT to bus -C CPU TO F CH TAU BUS
+DEBUG: Added signal -C CPU TO F CH 1301 A BIT to bus -C CPU TO F CH 1301 BUS
+DEBUG: Added signal -C CPU TO F CH 1405 A BIT to bus -C CPU TO F CH 1405 BUS
+DEBUG: Added signal -C CPU TO F CH TAU 8 BIT to bus -C CPU TO F CH TAU BUS
+DEBUG: Added signal -C CPU TO F CH 1301 8 BIT to bus -C CPU TO F CH 1301 BUS
+DEBUG: Added signal -C CPU TO F CH 1405 8 BIT to bus -C CPU TO F CH 1405 BUS
+DEBUG: Added signal -C CPU TO F CH 1301 C BIT to bus -C CPU TO F CH 1301 BUS
+DEBUG: Added signal -C CPU TO F CH 1405 C BIT to bus -C CPU TO F CH 1405 BUS
+DEBUG: Added signal -C CPU TO F CH 1301 WM BIT to bus -C CPU TO F CH 1301 BUS
+DEBUG: Added signal -C CPU TO F CH 1405 WM BIT to bus -C CPU TO F CH 1405 BUS
+INFO: Bus -C CPU TO F CH TAU BUS identified 
+INFO: Bus -C CPU TO F CH 1301 BUS identified 
+INFO: Bus -C CPU TO F CH 1405 BUS identified 
+Output signal -C CPU TO F CH TAU 4 BIT replaced by bus -C CPU TO F CH TAU BUS
+Output signal -C CPU TO F CH 1301 4 BIT replaced by bus -C CPU TO F CH 1301 BUS
+Output signal -C CPU TO F CH 1405 4 BIT replaced by bus -C CPU TO F CH 1405 BUS
+Output signal -C CPU TO F CH TAU 2 BIT replaced by bus -C CPU TO F CH TAU BUS
+Output signal -C CPU TO F CH 1301 2 BIT replaced by bus -C CPU TO F CH 1301 BUS
+Output signal -C CPU TO F CH 1405 2 BIT replaced by bus -C CPU TO F CH 1405 BUS
+Output signal -C CPU TO F CH TAU 1 BIT replaced by bus -C CPU TO F CH TAU BUS
+Output signal -C CPU TO F CH 1301 1 BIT replaced by bus -C CPU TO F CH 1301 BUS
+Output signal -C CPU TO F CH 1405 1 BIT replaced by bus -C CPU TO F CH 1405 BUS
+Output signal -C CPU TO F CH TAU B BIT replaced by bus -C CPU TO F CH TAU BUS
+Output signal -C CPU TO F CH 1301 B BIT replaced by bus -C CPU TO F CH 1301 BUS
+Output signal -C CPU TO F CH 1405 B BIT replaced by bus -C CPU TO F CH 1405 BUS
+Output signal -C CPU TO F CH TAU A BIT replaced by bus -C CPU TO F CH TAU BUS
+Output signal -C CPU TO F CH 1301 A BIT replaced by bus -C CPU TO F CH 1301 BUS
+Output signal -C CPU TO F CH 1405 A BIT replaced by bus -C CPU TO F CH 1405 BUS
+Output signal -C CPU TO F CH TAU 8 BIT replaced by bus -C CPU TO F CH TAU BUS
+Output signal -C CPU TO F CH 1301 8 BIT replaced by bus -C CPU TO F CH 1301 BUS
+Output signal -C CPU TO F CH 1405 8 BIT replaced by bus -C CPU TO F CH 1405 BUS
+Output signal -C CPU TO F CH 1301 C BIT replaced by bus -C CPU TO F CH 1301 BUS
+Output signal -C CPU TO F CH 1405 C BIT replaced by bus -C CPU TO F CH 1405 BUS
+Output signal -C CPU TO F CH 1301 WM BIT replaced by bus -C CPU TO F CH 1301 BUS
+Output signal -C CPU TO F CH 1405 WM BIT replaced by bus -C CPU TO F CH 1405 BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.70.31.1 (F CH LINE DRIVERS 4 2 AND 1 BITS)
+Generating HDL associated with page 15.70.32.1 (F CH LINE DRIVERS B A AND 8 BITS)
+Generating HDL associated with page 15.70.33.1 (F CH LINE DRIVERS C AND WM BITS)
