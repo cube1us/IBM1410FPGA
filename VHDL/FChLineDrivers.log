@@ -1,6 +1,6 @@
-Generating HDL for group named FChLineDriversat 9/28/2020 10:40:59 AM containing pages: 
+Generating HDL for group named FChLineDriversat 9/28/2020 12:41:10 PM containing pages: 
 	15.70.31.1, 15.70.32.1, 15.70.33.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\FChLineDrivers_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file FChLineDrivers_tb.vhdl 103 lines preserved and 35 declaration lines preserved
 Building lists of signals on 3 pages...
 Found 12 signals on page 15.70.31.1
 Found 12 signals on page 15.70.32.1
@@ -37,7 +37,7 @@ INFO:  Signal -C CPU TO F CH 1405 A BIT is used outside the group.
 INFO:  Signal -C CPU TO F CH TAU 8 BIT is used outside the group.
 INFO:  Signal -C CPU TO F CH 1301 8 BIT is used outside the group.
 INFO:  Signal -C CPU TO F CH 1405 8 BIT is used outside the group.
-INFO:  Signal -C CPU TO F CH TAU C BIT  is used outside the group.
+INFO:  Signal -C CPU TO F CH TAU C BIT is used outside the group.
 INFO:  Signal TW CPU TO F CH TAU C BIT is used outside the group.
 INFO:  Signal -C CPU TO F CH 1301 C BIT is used outside the group.
 INFO:  Signal -C CPU TO F CH 1405 C BIT is used outside the group.
@@ -72,6 +72,7 @@ DEBUG: Added signal -C CPU TO F CH 1405 A BIT to bus -C CPU TO F CH 1405 BUS
 DEBUG: Added signal -C CPU TO F CH TAU 8 BIT to bus -C CPU TO F CH TAU BUS
 DEBUG: Added signal -C CPU TO F CH 1301 8 BIT to bus -C CPU TO F CH 1301 BUS
 DEBUG: Added signal -C CPU TO F CH 1405 8 BIT to bus -C CPU TO F CH 1405 BUS
+DEBUG: Added signal -C CPU TO F CH TAU C BIT to bus -C CPU TO F CH TAU BUS
 DEBUG: Added signal -C CPU TO F CH 1301 C BIT to bus -C CPU TO F CH 1301 BUS
 DEBUG: Added signal -C CPU TO F CH 1405 C BIT to bus -C CPU TO F CH 1405 BUS
 DEBUG: Added signal -C CPU TO F CH 1301 WM BIT to bus -C CPU TO F CH 1301 BUS
@@ -97,6 +98,7 @@ Output signal -C CPU TO F CH 1405 A BIT replaced by bus -C CPU TO F CH 1405 BUS
 Output signal -C CPU TO F CH TAU 8 BIT replaced by bus -C CPU TO F CH TAU BUS
 Output signal -C CPU TO F CH 1301 8 BIT replaced by bus -C CPU TO F CH 1301 BUS
 Output signal -C CPU TO F CH 1405 8 BIT replaced by bus -C CPU TO F CH 1405 BUS
+Output signal -C CPU TO F CH TAU C BIT replaced by bus -C CPU TO F CH TAU BUS
 Output signal -C CPU TO F CH 1301 C BIT replaced by bus -C CPU TO F CH 1301 BUS
 Output signal -C CPU TO F CH 1405 C BIT replaced by bus -C CPU TO F CH 1405 BUS
 Output signal -C CPU TO F CH 1301 WM BIT replaced by bus -C CPU TO F CH 1301 BUS
