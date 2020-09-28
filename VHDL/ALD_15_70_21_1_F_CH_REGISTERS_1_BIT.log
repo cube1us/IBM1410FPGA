@@ -1,0 +1,47 @@
+Generating HDL for page 15.70.21.1 F CH REGISTERS 1 BIT at 9/28/2020 7:40:25 AM
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 2F
+Removed 1 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of MS_F1_INPUT_1_BIT,PS_SET_F1_REG
+	and logic function of NAND
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_G_Latch, OUT_3B_G_Latch
+	and inputs of OUT_4B_NoPin,OUT_2B_A
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_A_Latch, OUT_2B_A_Latch
+	and inputs of OUT_3B_G,OUT_4C_B
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_B
+	and inputs of PS_F1_INPUT_1_BIT,PS_SET_F1_REG
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_F
+	and inputs of OUT_3B_G,PS_COPY_F1_BCD_TO_F2_REG,PS_SET_F2_REG
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_P_Latch, OUT_3F_P_Latch
+	and inputs of OUT_4F_F,OUT_2F_NoPin
+	and logic function of NAND
+Generating Statement for block at 2F with *latched* output pin(s) of OUT_2F_NoPin_Latch, OUT_2F_NoPin_Latch
+	and inputs of OUT_3F_P,OUT_4G_E,MS_SET_F2_WORD_SEPARATOR
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_B
+	and inputs of OUT_2F_NoPin
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_E
+	and inputs of OUT_2B_A,PS_SET_F2_REG,PS_COPY_F1_BCD_TO_F2_REG
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_C
+	and inputs of OUT_3F_P
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_F2_REG_1_BIT
+	from gate output OUT_1F_B
+Generating output sheet edge signal assignment to 
+	signal PS_F2_REG_1_BIT
+	from gate output OUT_1G_C
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 2F

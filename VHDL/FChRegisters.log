@@ -1,0 +1,119 @@
+Generating HDL for group named FChRegistersat 9/28/2020 7:41:25 AM containing pages: 
+	15.70.21.1, 15.70.22.1, 15.70.23.1, 15.70.24.1, 15.70.25.1
+	15.70.26.1, 15.70.27.1, 15.70.28.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\FChRegisters_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 8 pages...
+Found 8 signals on page 15.70.21.1
+Found 8 signals on page 15.70.22.1
+Found 8 signals on page 15.70.23.1
+Found 8 signals on page 15.70.24.1
+Found 8 signals on page 15.70.25.1
+Found 8 signals on page 15.70.26.1
+Found 9 signals on page 15.70.27.1
+Found 11 signals on page 15.70.28.1
+Found 22 unique input signals and 18 unique output signals, (40 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S COPY F1 BCD TO F2 REG originates outside the group.
+INFO:  Signal -S SET F2 WORD SEPARATOR originates outside the group.
+INFO:  Signal +S SET F1 REG originates outside the group.
+INFO:  Signal +S SET F2 REG originates outside the group.
+INFO:  Signal +S F1 INPUT 1 BIT originates outside the group.
+INFO:  Signal -S F1 INPUT 1 BIT originates outside the group.
+INFO:  Signal +S F1 INPUT 2 BIT originates outside the group.
+INFO:  Signal -S F1 INPUT 2 BIT originates outside the group.
+INFO:  Signal +S F1 INPUT 4 BIT originates outside the group.
+INFO:  Signal -S F1 INPUT 4 BIT originates outside the group.
+INFO:  Signal +S F1 INPUT 8 BIT originates outside the group.
+INFO:  Signal -S F1 INPUT 8 BIT originates outside the group.
+INFO:  Signal +S F1 INPUT A BIT originates outside the group.
+INFO:  Signal -S F1 INPUT A BIT originates outside the group.
+INFO:  Signal +S F1 INPUT B BIT originates outside the group.
+INFO:  Signal -S F1 INPUT B BIT originates outside the group.
+INFO:  Signal +S COPY INV F1 WM.C BIT originates outside the group.
+INFO:  Signal +S COPY F1 WM.C BIT originates outside the group.
+INFO:  Signal +S F1 INPUT C BIT originates outside the group.
+INFO:  Signal -S F1 INPUT C BIT originates outside the group.
+INFO:  Signal +S F1 INPUT WM BIT originates outside the group.
+INFO:  Signal -S F1 INPUT WM BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S F2 REG 1 BIT is used outside the group.
+INFO:  Signal -S F2 REG 1 BIT is used outside the group.
+INFO:  Signal +S F2 REG 2 BIT is used outside the group.
+INFO:  Signal -S F2 REG 2 BIT is used outside the group.
+INFO:  Signal +S F2 REG 4 BIT is used outside the group.
+INFO:  Signal -S F2 REG 4 BIT is used outside the group.
+INFO:  Signal +S F2 REG 8 BIT is used outside the group.
+INFO:  Signal -S F2 REG 8 BIT is used outside the group.
+INFO:  Signal +S F2 REG A BIT is used outside the group.
+INFO:  Signal -S F2 REG A BIT is used outside the group.
+INFO:  Signal +S F2 REG B BIT is used outside the group.
+INFO:  Signal -S F2 REG B BIT is used outside the group.
+INFO:  Signal +S F2 REG C BIT is used outside the group.
+INFO:  Signal -S F2 REG C BIT is used outside the group.
+INFO:  Signal +S F1 REG WM BIT is used outside the group.
+INFO:  Signal +S F1 REG NOT WM BIT is used outside the group.
+INFO:  Signal +S F2 REG WM BIT is used outside the group.
+INFO:  Signal -S F2 REG WM BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S F1 INPUT 1 BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal -S F1 INPUT 1 BIT replaced by Bus signal -S F1 INPUT BUS
+Input Signal +S F1 INPUT 2 BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal -S F1 INPUT 2 BIT replaced by Bus signal -S F1 INPUT BUS
+Input Signal +S F1 INPUT 4 BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal -S F1 INPUT 4 BIT replaced by Bus signal -S F1 INPUT BUS
+Input Signal +S F1 INPUT 8 BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal -S F1 INPUT 8 BIT replaced by Bus signal -S F1 INPUT BUS
+Input Signal +S F1 INPUT A BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal -S F1 INPUT A BIT replaced by Bus signal -S F1 INPUT BUS
+Input Signal +S F1 INPUT B BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal -S F1 INPUT B BIT replaced by Bus signal -S F1 INPUT BUS
+Input Signal +S F1 INPUT C BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal -S F1 INPUT C BIT replaced by Bus signal -S F1 INPUT BUS
+Input Signal +S F1 INPUT WM BIT replaced by Bus signal +S F1 INPUT BUS
+Input Signal -S F1 INPUT WM BIT replaced by Bus signal -S F1 INPUT BUS
+DEBUG: Tentative bus +S F2 REG BUS identified based on signal +S F2 REG 1 BIT
+DEBUG: Tentative bus -S F2 REG BUS identified based on signal -S F2 REG 1 BIT
+DEBUG: Added signal +S F2 REG 2 BIT to bus +S F2 REG BUS
+DEBUG: Added signal -S F2 REG 2 BIT to bus -S F2 REG BUS
+DEBUG: Added signal +S F2 REG 4 BIT to bus +S F2 REG BUS
+DEBUG: Added signal -S F2 REG 4 BIT to bus -S F2 REG BUS
+DEBUG: Added signal +S F2 REG 8 BIT to bus +S F2 REG BUS
+DEBUG: Added signal -S F2 REG 8 BIT to bus -S F2 REG BUS
+DEBUG: Added signal +S F2 REG A BIT to bus +S F2 REG BUS
+DEBUG: Added signal -S F2 REG A BIT to bus -S F2 REG BUS
+DEBUG: Added signal +S F2 REG B BIT to bus +S F2 REG BUS
+DEBUG: Added signal -S F2 REG B BIT to bus -S F2 REG BUS
+DEBUG: Added signal +S F2 REG C BIT to bus +S F2 REG BUS
+DEBUG: Added signal -S F2 REG C BIT to bus -S F2 REG BUS
+DEBUG: Added signal +S F2 REG WM BIT to bus +S F2 REG BUS
+DEBUG: Added signal -S F2 REG WM BIT to bus -S F2 REG BUS
+INFO: Bus +S F2 REG BUS identified 
+INFO: Bus -S F2 REG BUS identified 
+Output signal +S F2 REG 1 BIT replaced by bus +S F2 REG BUS
+Output signal -S F2 REG 1 BIT replaced by bus -S F2 REG BUS
+Output signal +S F2 REG 2 BIT replaced by bus +S F2 REG BUS
+Output signal -S F2 REG 2 BIT replaced by bus -S F2 REG BUS
+Output signal +S F2 REG 4 BIT replaced by bus +S F2 REG BUS
+Output signal -S F2 REG 4 BIT replaced by bus -S F2 REG BUS
+Output signal +S F2 REG 8 BIT replaced by bus +S F2 REG BUS
+Output signal -S F2 REG 8 BIT replaced by bus -S F2 REG BUS
+Output signal +S F2 REG A BIT replaced by bus +S F2 REG BUS
+Output signal -S F2 REG A BIT replaced by bus -S F2 REG BUS
+Output signal +S F2 REG B BIT replaced by bus +S F2 REG BUS
+Output signal -S F2 REG B BIT replaced by bus -S F2 REG BUS
+Output signal +S F2 REG C BIT replaced by bus +S F2 REG BUS
+Output signal -S F2 REG C BIT replaced by bus -S F2 REG BUS
+Output signal +S F2 REG WM BIT replaced by bus +S F2 REG BUS
+Output signal -S F2 REG WM BIT replaced by bus -S F2 REG BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 15.70.21.1 (F CH REGISTERS 1 BIT)
+Generating HDL associated with page 15.70.22.1 (F CH REGISTERS 2 BIT)
+Generating HDL associated with page 15.70.23.1 (F CH REGISTERS 4 BIT)
+Generating HDL associated with page 15.70.24.1 (F CH REGISTERS 8 BIT)
+Generating HDL associated with page 15.70.25.1 (F CH REGISTERS A BIT)
+Generating HDL associated with page 15.70.26.1 (F CH REGISTERS B BIT)
+Generating HDL associated with page 15.70.27.1 (F CH REGISTERS C BIT)
+Generating HDL associated with page 15.70.28.1 (F CH REGISTERS WM BIT)
