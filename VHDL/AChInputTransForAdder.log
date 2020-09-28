@@ -1,0 +1,56 @@
+Generating HDL for group named AChInputTransForAdderat 9/28/2020 4:41:21 PM containing pages: 
+	16.11.01.1, 16.11.02.1, 16.11.03.1, 16.11.04.1, 16.11.05.1
+	16.11.06.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AChInputTransForAdder_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 6 pages...
+Found 10 signals on page 16.11.01.1
+Found 10 signals on page 16.11.02.1
+Found 8 signals on page 16.11.03.1
+Found 5 signals on page 16.11.04.1
+Found 8 signals on page 16.11.05.1
+Found 10 signals on page 16.11.06.1
+Found 14 unique input signals and 9 unique output signals, (21 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +B A CH 1 BIT originates outside the group.
+INFO:  Signal +B A CH NOT 1 BIT originates outside the group.
+INFO:  Signal +B TRUE ADD A originates outside the group.
+INFO:  Signal +B COMP ADD A originates outside the group.
+INFO:  Signal -S A CH INSERT PLUS ZERO originates outside the group.
+INFO:  Signal -S A CH INSERT PLUS NINE originates outside the group.
+INFO:  Signal +B A CH 2 BIT originates outside the group.
+INFO:  Signal +B A CH NOT 2 BIT originates outside the group.
+INFO:  Signal +B A CH NOT 4 BIT originates outside the group.
+INFO:  Signal +B A CH 8 BIT originates outside the group.
+INFO:  Signal +B A CH NOT 8 BIT originates outside the group.
+INFO:  Signal +B A CH INSERT PLUS ZERO originates inside the group.
+INFO:  Signal +B A CH 4 BIT originates outside the group.
+INFO:  Signal +B A CH INSERT PLUS NINE originates inside the group.
+Determining destinations for all output signals...
+INFO:  Signal -B ADD AB0 is used outside the group.
+INFO:  Signal +B A CH INSERT PLUS ZERO is used only inside the group.
+INFO:  Signal -B ADD AB1 is used outside the group.
+INFO:  Signal +B A CH INSERT PLUS NINE is used only inside the group.
+INFO:  Signal -B ADD AQ0 is used outside the group.
+INFO:  Signal -B ADD AQ2 is used outside the group.
+INFO:  Signal -B ADD AQ4 is used outside the group.
+INFO:  Signal -B ADD AQ6 is used outside the group.
+INFO:  Signal -B ADD AQ8 is used outside the group.
+Removing 2 output signals that do not have destinations outside the group...
+Removing 2 input signals that originate inside the group...
+Input Signal +B A CH 1 BIT replaced by Bus signal +B A CH BUS
+Input Signal +B A CH NOT 1 BIT replaced by Bus signal +B A CH NOT BUS
+Input Signal +B A CH 2 BIT replaced by Bus signal +B A CH BUS
+Input Signal +B A CH NOT 2 BIT replaced by Bus signal +B A CH NOT BUS
+Input Signal +B A CH NOT 4 BIT replaced by Bus signal +B A CH NOT BUS
+Input Signal +B A CH 8 BIT replaced by Bus signal +B A CH BUS
+Input Signal +B A CH NOT 8 BIT replaced by Bus signal +B A CH NOT BUS
+Input Signal +B A CH 4 BIT replaced by Bus signal +B A CH BUS
+Generating list of internal signals/wires ...
+2 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 16.11.01.1 (A CH INPUT TRANS FOR ADDER-ACC)
+Generating HDL associated with page 16.11.02.1 (A CH INPUT TRANS FOR ADDER-ACC)
+Generating HDL associated with page 16.11.03.1 (A CH INPUT TRANS FOR ADDER-ACC)
+Generating HDL associated with page 16.11.04.1 (A CH INPUT TRANS FOR ADDER-ACC)
+Generating HDL associated with page 16.11.05.1 (A CH INPUT TRANS FOR ADDER-ACC)
+Generating HDL associated with page 16.11.06.1 (A CH INPUT TRANS FOR ADDER-ACC)

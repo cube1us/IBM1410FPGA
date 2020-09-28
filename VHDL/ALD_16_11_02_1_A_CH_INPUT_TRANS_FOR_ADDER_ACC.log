@@ -1,0 +1,21 @@
+Generating HDL for page 16.11.02.1 A CH INPUT TRANS FOR ADDER-ACC at 9/28/2020 4:39:42 PM
+Note: DOT Function at 1B has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Removed 4 outputs from Dot Function at 1B to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B
+	and inputs of PB_A_CH_NOT_8_BIT,PB_TRUE_ADD_A,PB_A_CH_NOT_4_BIT,PB_A_CH_NOT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_A
+	and inputs of PB_A_CH_NOT_2_BIT,PB_A_CH_NOT_4_BIT,PB_A_CH_8_BIT,PB_COMP_ADD_A
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_B
+	and inputs of PB_A_CH_8_BIT,PB_A_CH_2_BIT,PB_TRUE_ADD_A,PB_A_CH_NOT_4_BIT,PB_A_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_K
+	and inputs of PB_A_CH_INSERT_PLUS_ZERO
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_4B_B,OUT_4D_A,OUT_4E_B,OUT_4G_K
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal MB_ADD_AQ0
+	from gate output OUT_DOT_1B
