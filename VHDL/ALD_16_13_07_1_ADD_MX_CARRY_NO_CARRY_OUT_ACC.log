@@ -1,0 +1,46 @@
+Generating HDL for page 16.13.07.1 ADD MX CARRY NO CARRY OUT-ACC at 9/29/2020 12:48:33 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_13_07_1_ADD_MX_CARRY_NO_CARRY_OUT_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3B has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Note: DOT Function at 4F has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PB_ADD_AQ0_DOT_BQ0,PB_ADD_AQ0_DOT_BQ2,PB_ADD_AQ2_DOT_BQ0,PB_ADD_AQ0_DOT_BQ4
+	and logic function of NOR
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_DOT_3B
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_A
+	and inputs of PB_ADD_AQ2_DOT_BQ2,PB_ADD_AQ4_DOT_BQ2,PB_ADD_AQ4_DOT_BQ0,PB_ADD_AQ6_DOT_BQ0
+	and logic function of NOR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_A
+	and inputs of PB_ADD_AQ2_DOT_BQ4,PB_ADD_AQ0_DOT_BQ6
+	and logic function of NOR
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of PB_ADD_AQ8_DOT_BQ8,PB_ADD_AQ8_DOT_BQ6,PB_ADD_AQ6_DOT_BQ8,PB_ADD_AQ8_DOT_BQ4
+	and logic function of NOR
+Generating Statement for block at 2G with output pin(s) of OUT_2G_F
+	and inputs of OUT_DOT_4F
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_A
+	and inputs of PB_ADD_AQ6_DOT_BQ6,PB_ADD_AQ4_DOT_BQ8,PB_ADD_AQ8_DOT_BQ2,PB_ADD_AQ6_DOT_BQ4
+	and logic function of NOR
+Generating Statement for block at 4I with output pin(s) of OUT_4I_D
+	and inputs of PB_ADD_AQ4_DOT_BQ6,PB_ADD_AQ2_DOT_BQ8
+	and logic function of NOR
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B, OUT_DOT_3B
+	and inputs of OUT_4A_G,OUT_4C_A,OUT_4D_A
+	and logic function of AND
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F, OUT_DOT_4F
+	and inputs of OUT_4F_G,OUT_4H_A,OUT_4I_D
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal PS_ADDER_MX_NO_CARRY_OUT
+	from gate output OUT_2B_D
+Generating output sheet edge signal assignment to 
+	signal PS_ADDER_MX_CARRY_OUT
+	from gate output OUT_2G_F
+Generating output sheet edge signal assignment to 
+	signal MB_ADDER_MX_NO_CARRY_OUT
+	from gate output OUT_DOT_3B
+Generating output sheet edge signal assignment to 
+	signal MB_ADDER_MX_CARRY_OUT
+	from gate output OUT_DOT_4F
