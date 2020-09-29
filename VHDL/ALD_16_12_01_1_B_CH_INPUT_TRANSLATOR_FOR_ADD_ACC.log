@@ -1,0 +1,54 @@
+Generating HDL for page 16.12.01.1 B CH INPUT TRANSLATOR FOR ADD-ACC at 9/28/2020 7:31:11 PM
+Note: DOT Function at 4B has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Note: DOT Function at 1F has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Ignoring Logic Block 3B with symbol L
+Removed 4 outputs from Gate at 5A to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1B to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_P, OUT_5A_P, OUT_5A_P
+	and inputs of MS_TRUE_ADD_B
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B
+	and inputs of OUT_5A_P,PB_B_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_Q
+	and inputs of PS_COMP_ADD_B
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_1B_A, OUT_1B_A, OUT_1B_A
+	and inputs of OUT_2B_Q
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of OUT_1B_A,PB_B_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_K
+	and inputs of OUT_4E_M
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_M, OUT_4E_M
+	and inputs of MS_B_CH_INSERT_PLUS_ZERO
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of OUT_5A_P,PB_B_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of OUT_1B_A,PB_B_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_4B_B,OUT_4C_C,OUT_4D_K
+	and logic function of AND
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_4F_D,OUT_4G_D
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal PB_TRUE_ADD_B
+	from gate output OUT_5A_P
+Generating output sheet edge signal assignment to 
+	signal PB_COMP_ADD_B
+	from gate output OUT_1B_A
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_INSERT_PLUS_ZERO
+	from gate output OUT_4E_M
+Generating output sheet edge signal assignment to 
+	signal MB_ADD_BB0
+	from gate output OUT_DOT_4B
+Generating output sheet edge signal assignment to 
+	signal MB_ADD_BB1
+	from gate output OUT_DOT_1F

@@ -1,0 +1,57 @@
+Generating HDL for group named BChInputTranslationForAddat 9/28/2020 7:32:01 PM containing pages: 
+	16.12.01.1, 16.12.02.1, 16.12.03.1, 16.12.04.1, 16.12.05.1
+	16.12.06.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\BChInputTranslationForAdd_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 6 pages...
+Found 10 signals on page 16.12.01.1
+Found 10 signals on page 16.12.02.1
+Found 8 signals on page 16.12.03.1
+Found 5 signals on page 16.12.04.1
+Found 8 signals on page 16.12.05.1
+Found 9 signals on page 16.12.06.1
+Found 14 unique input signals and 10 unique output signals, (21 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S TRUE ADD B originates outside the group.
+INFO:  Signal +S COMP ADD B originates outside the group.
+INFO:  Signal -S B CH INSERT PLUS ZERO originates outside the group.
+INFO:  Signal +B B CH NOT 1 BIT originates outside the group.
+INFO:  Signal +B B CH 1 BIT originates outside the group.
+INFO:  Signal +B TRUE ADD B originates inside the group.
+INFO:  Signal +B COMP ADD B originates inside the group.
+INFO:  Signal +B B CH INSERT PLUS ZERO originates inside the group.
+INFO:  Signal +B B CH NOT 2 BIT originates outside the group.
+INFO:  Signal +B B CH 2 BIT originates outside the group.
+INFO:  Signal +B B CH NOT 4 BIT originates outside the group.
+INFO:  Signal +B B CH NOT 8 BIT originates outside the group.
+INFO:  Signal +B B CH 8 BIT originates outside the group.
+INFO:  Signal +B B CH 4 BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +B TRUE ADD B is used only inside the group.
+INFO:  Signal +B COMP ADD B is used only inside the group.
+INFO:  Signal +B B CH INSERT PLUS ZERO is used only inside the group.
+INFO:  Signal -B ADD BB1 is used outside the group.
+INFO:  Signal -B ADD BB0 is used outside the group.
+INFO:  Signal -B ADD BQ0 is used outside the group.
+INFO:  Signal -B ADD BQ2 is used outside the group.
+INFO:  Signal -B ADD BQ4 is used outside the group.
+INFO:  Signal -B ADD BQ6 is used outside the group.
+INFO:  Signal -B ADD BQ8 is used outside the group.
+Removing 3 output signals that do not have destinations outside the group...
+Removing 3 input signals that originate inside the group...
+Input Signal +B B CH NOT 1 BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +B B CH 1 BIT replaced by Bus signal +B B CH BUS
+Input Signal +B B CH NOT 2 BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +B B CH 2 BIT replaced by Bus signal +B B CH BUS
+Input Signal +B B CH NOT 4 BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +B B CH NOT 8 BIT replaced by Bus signal +B B CH NOT BUS
+Input Signal +B B CH 8 BIT replaced by Bus signal +B B CH BUS
+Input Signal +B B CH 4 BIT replaced by Bus signal +B B CH BUS
+Generating list of internal signals/wires ...
+3 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 16.12.01.1 (B CH INPUT TRANSLATOR FOR ADD-ACC)
+Generating HDL associated with page 16.12.02.1 (B CH INPUT TRANSLATOR FOR ADD-ACC)
+Generating HDL associated with page 16.12.03.1 (B CH INPUT TRANSLATOR FOR ADD-ACC)
+Generating HDL associated with page 16.12.04.1 (B CH INPUT TRANSLATOR FOR ADD-ACC)
+Generating HDL associated with page 16.12.05.1 (B CH INPUT TRANSLATOR FOR ADD-ACC)
+Generating HDL associated with page 16.12.06.1 (B CH INPUT TRANSLATOR FOR ADD-ACC)
