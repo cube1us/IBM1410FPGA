@@ -1,0 +1,78 @@
+Generating HDL for group named AddMatrixCarryInBandQat 9/29/2020 11:05:54 AM containing pages: 
+	16.13.01.1, 16.13.02.1, 16.13.03.1, 16.13.04.1, 16.13.05.1
+	16.13.06.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddMatrixCarryInBandQ_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 6 pages...
+Found 14 signals on page 16.13.01.1
+Found 18 signals on page 16.13.02.1
+Found 16 signals on page 16.13.03.1
+Found 17 signals on page 16.13.04.1
+Found 16 signals on page 16.13.05.1
+Found 12 signals on page 16.13.06.1
+Found 16 unique input signals and 37 unique output signals, (53 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -B ADD AB0 originates outside the group.
+INFO:  Signal -B ADD AB1 originates outside the group.
+INFO:  Signal -B ADD BB0 originates outside the group.
+INFO:  Signal -B ADD BB1 originates outside the group.
+INFO:  Signal -B NO CARRY LATCH originates outside the group.
+INFO:  Signal -B CARRY LATCH originates outside the group.
+INFO:  Signal -B ADD AQ0 originates outside the group.
+INFO:  Signal -B ADD AQ2 originates outside the group.
+INFO:  Signal -B ADD AQ4 originates outside the group.
+INFO:  Signal -B ADD AQ6 originates outside the group.
+INFO:  Signal -B ADD AQ8 originates outside the group.
+INFO:  Signal -B ADD BQ0 originates outside the group.
+INFO:  Signal -B ADD BQ2 originates outside the group.
+INFO:  Signal -B ADD BQ4 originates outside the group.
+INFO:  Signal -B ADD BQ6 originates outside the group.
+INFO:  Signal -B ADD BQ8 originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +B AB0.BB0.NC is used outside the group.
+INFO:  Signal +B AB0.BB1.C is used outside the group.
+INFO:  Signal +B AB1.BB0.C is used outside the group.
+INFO:  Signal +B AB1.BB1.NC is used outside the group.
+INFO:  Signal +B AB0.BB1.NC is used outside the group.
+INFO:  Signal +B AB1.BB0.NC is used outside the group.
+INFO:  Signal +B AB0.BB0.C is used outside the group.
+INFO:  Signal +B AB1.BB1.C is used outside the group.
+INFO:  Signal +B ADD AQ0.BQ0 is used outside the group.
+INFO:  Signal +B ADD BQ0 is used outside the group.
+INFO:  Signal +B ADD AQ2.BQ8 is used outside the group.
+INFO:  Signal -B ADDER MX Q0 is used outside the group.
+INFO:  Signal +B ADD AQ4.BQ6 is used outside the group.
+INFO:  Signal +B ADD BQ4 is used outside the group.
+INFO:  Signal +B ADD AQ6.BQ4 is used outside the group.
+INFO:  Signal +B ADD AQ8.BQ2 is used outside the group.
+INFO:  Signal +B ADD AQ0.BQ2 is used outside the group.
+INFO:  Signal +B ADD AQ2.BQ0 is used outside the group.
+INFO:  Signal -B ADDER MX Q2 is used outside the group.
+INFO:  Signal +B ADD AQ4.BQ8 is used outside the group.
+INFO:  Signal +B ADD AQ6.BQ6 is used outside the group.
+INFO:  Signal +B ADD AQ8.BQ4 is used outside the group.
+INFO:  Signal +B ADD AQ0.BQ4 is used outside the group.
+INFO:  Signal +B ADD AQ2.BQ2 is used outside the group.
+INFO:  Signal -B ADDER MX Q4 is used outside the group.
+INFO:  Signal +B ADD AQ4.BQ0 is used outside the group.
+INFO:  Signal +B ADD AQ6.BQ8 is used outside the group.
+INFO:  Signal +B ADD BQ8 is used outside the group.
+INFO:  Signal +B ADD AQ8.BQ6 is used outside the group.
+INFO:  Signal +B ADD AQ0.BQ6 is used outside the group.
+INFO:  Signal +B ADD AQ2.BQ4 is used outside the group.
+INFO:  Signal -B ADDER MX Q6 is used outside the group.
+INFO:  Signal +B ADD AQ4.BQ2 is used outside the group.
+INFO:  Signal +B ADD AQ6.BQ0 is used outside the group.
+INFO:  Signal +B ADD AQ8.BQ8 is used outside the group.
+INFO:  Signal +S ADDER MX Q8 is used outside the group.
+INFO:  Signal -B ADDER MX Q8 is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 16.13.01.1 (ADD MATRIX BINARY CARRY IN-ACC)
+Generating HDL associated with page 16.13.02.1 (ADDER MARIX Q0-ACC)
+Generating HDL associated with page 16.13.03.1 (ADDER MATRIX Q2-ACC)
+Generating HDL associated with page 16.13.04.1 (ADDER MATRIX Q4-ACC)
+Generating HDL associated with page 16.13.05.1 (ADDER MATRIX Q6-ACC)
+Generating HDL associated with page 16.13.06.1 (ADDER MATRIX Q8-ACC)
