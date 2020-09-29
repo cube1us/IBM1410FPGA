@@ -1,0 +1,66 @@
+Generating HDL for group named AddOutputTranslatorShifts2at 9/29/2020 5:08:30 PM containing pages: 
+	16.14.03.1, 16.14.04.1, 16.14.05.1, 16.14.06.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddOutputTranslatorShifts2_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 4 pages...
+Found 19 signals on page 16.14.03.1
+Found 10 signals on page 16.14.04.1
+Found 13 signals on page 16.14.05.1
+Found 19 signals on page 16.14.06.1
+Found 15 unique input signals and 30 unique output signals, (45 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -B ADDER MX Q0 originates outside the group.
+INFO:  Signal -B ADDER MX Q2 originates outside the group.
+INFO:  Signal -B B0 SHIFT originates outside the group.
+INFO:  Signal -B B3 SHIFT originates outside the group.
+INFO:  Signal -B B1 SHIFT originates outside the group.
+INFO:  Signal -B B2 SHIFT originates outside the group.
+INFO:  Signal -B ADDER OUT NOT 1 BIT originates outside the group.
+INFO:  Signal -B B2+B3 SHIFT originates outside the group.
+INFO:  Signal -B ADDER OUT 1 BIT originates outside the group.
+INFO:  Signal -B B0+B1 SHIFT originates outside the group.
+INFO:  Signal -B ADDER MX Q4 originates outside the group.
+INFO:  Signal -B ADDER MX Q6 originates outside the group.
+INFO:  Signal -B ADDER MX Q8 originates outside the group.
+INFO:  Signal -B ADDER MX NO CARRY OUT originates outside the group.
+INFO:  Signal -B ADDER MX CARRY OUT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +B Q0.ANY SHIFT is used outside the group.
+INFO:  Signal +B Q0.B0 SHIFT is used outside the group.
+INFO:  Signal +B Q0.B1 SHIFT is used outside the group.
+INFO:  Signal +B Q0.B2 SHIFT is used outside the group.
+INFO:  Signal +B Q0.B3 SHIFT is used outside the group.
+INFO:  Signal +B Q2.B0+B2 SHIFT is used outside the group.
+INFO:  Signal +B Q2.B1+B3 SHIFT is used outside the group.
+INFO:  Signal +B Q2.B0+B1 SHIFT is used outside the group.
+INFO:  Signal +B Q2.B2+B3 SHIFT is used outside the group.
+INFO:  Signal +B Q4.ANY SHIFT is used outside the group.
+INFO:  Signal +B Q4.B0 SHIFT is used outside the group.
+INFO:  Signal +B Q4.B1 SHIFT is used outside the group.
+INFO:  Signal +B Q4.B2 SHIFT is used outside the group.
+INFO:  Signal +B Q4.B3 SHIFT is used outside the group.
+INFO:  Signal +B Q6.B0 SHIFT is used outside the group.
+INFO:  Signal +B Q6.B1 SHIFT is used outside the group.
+INFO:  Signal +B Q6.B2 SHIFT is used outside the group.
+INFO:  Signal +B Q6.B3 SHIFT is used outside the group.
+INFO:  Signal +B Q6.B0+B1 SHIFT is used outside the group.
+INFO:  Signal +B Q6.B2+B3 SHIFT is used outside the group.
+INFO:  Signal +S ADDER CARRY is used outside the group.
+INFO:  Signal +S ADDER NO CARRY is used outside the group.
+INFO:  Signal +B Q8.B0 SHIFT is used outside the group.
+INFO:  Signal +B Q8.B1 SHIFT is used outside the group.
+INFO:  Signal +B Q8.B2 SHIFT is used outside the group.
+INFO:  Signal +B Q8.B3 SHIFT is used outside the group.
+INFO:  Signal +B ADDER NO CARRY is used outside the group.
+INFO:  Signal +B Q8.B0+B1 SHIFT is used outside the group.
+INFO:  Signal +B ADDER CARRY is used outside the group.
+INFO:  Signal +B Q8.B2+B3 SHIFT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Page 16.14.06.1 generates Lamp Output LAMP_15A1C11
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 16.14.03.1 (ADD OUTPUT TRANSLATOR -ACC)
+Generating HDL associated with page 16.14.04.1 (ADD OUTPUT TRANSLATOR-ACC)
+Generating HDL associated with page 16.14.05.1 (ADD OUTPUT TRANSLATOR-ACC)
+Generating HDL associated with page 16.14.06.1 (ADD OUTPUT TRANSLATOR-ACC)

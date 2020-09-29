@@ -1,0 +1,36 @@
+Generating HDL for page 16.14.04.1 ADD OUTPUT TRANSLATOR-ACC at 9/29/2020 5:07:32 PM
+Removed 1 outputs from Gate at 4B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4F to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of MB_ADDER_MX_Q4
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_B
+	and inputs of MB_ADDER_MX_Q4,MB_B0_SHIFT
+	and logic function of NOR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of MB_ADDER_MX_Q4,MB_B1_SHIFT
+	and logic function of NOR
+Generating Statement for block at 4E with output pin(s) of OUT_4E_A
+	and inputs of MB_ADDER_MX_Q4,MB_B2_SHIFT
+	and logic function of NOR
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of MB_ADDER_MX_Q4,MB_B3_SHIFT
+	and logic function of NOR
+Generating output sheet edge signal assignment to 
+	signal PB_Q4_DOT_ANY_SHIFT
+	from gate output OUT_4B_C
+Generating output sheet edge signal assignment to 
+	signal PB_Q4_DOT_B0_SHIFT
+	from gate output OUT_4C_B
+Generating output sheet edge signal assignment to 
+	signal PB_Q4_DOT_B1_SHIFT
+	from gate output OUT_4D_C
+Generating output sheet edge signal assignment to 
+	signal PB_Q4_DOT_B2_SHIFT
+	from gate output OUT_4E_A
+Generating output sheet edge signal assignment to 
+	signal PB_Q4_DOT_B3_SHIFT
+	from gate output OUT_4F_D
