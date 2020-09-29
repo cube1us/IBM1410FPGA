@@ -257,9 +257,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.14.03.1 - 06.1 ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**15 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -269,28 +269,69 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      -- i := tv(8);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
+      m := tv(11);
+      n := tv(12);
+      o := tv(13);
+      p := tv(14);
 
+   	MB_ADDER_MX_Q0 <= not a;
+   	MB_B0_SHIFT <= not b;
+   	MB_B1_SHIFT <= not c;
+   	MB_B2_SHIFT <= not d;
+   	MB_B3_SHIFT <= not e;
+   	MB_ADDER_OUT_NOT_1_BIT <= not f;
+   	MB_ADDER_MX_Q2 <= not g;
+   	MB_ADDER_OUT_1_BIT <= not h;
+   	MB_B0_OR_B1_SHIFT <= not j;
+   	MB_B2_OR_B3_SHIFT <= not k;
+   	MB_ADDER_MX_Q6 <= not l;
+   	MB_ADDER_MX_Q8 <= not m;
+   	MB_ADDER_MX_NO_CARRY_OUT <= not n;
+   	MB_ADDER_MX_CARRY_OUT <= not o;
+   	MB_ADDER_MX_Q4 <= not p;
       
       wait for 30 ns;
       
+      check1(PB_Q0_DOT_ANY_SHIFT,a,testName,"Q0 Any Shift");
+      check1(PB_Q0_DOT_B0_SHIFT,a and b,testName,"Q0.B0 Shift");
+      check1(PB_Q0_DOT_B1_SHIFT,a and c,testName,"Q0.B1 Shift");
+      check1(PB_Q0_DOT_B2_SHIFT,a and d,testName,"Q0.B2 Shift");
+      check1(PB_Q0_DOT_B3_SHIFT,a and e,testName,"Q0.B3 Shift");
+      check1(PB_Q2_DOT_B0_OR_B2_SHIFT,g and f,testName,"Q2.B0+B2 Shift");
+      check1(PB_Q2_DOT_B1_OR_B3_SHIFT,g and h,testName,"Q2.B1+B3 Shift");
+      check1(PB_Q2_DOT_B0_OR_B1_SHIFT,g and j,testName,"Q2.B0+B1 Shift");
+      check1(PB_Q2_DOT_B2_OR_B3_SHIFT,g and k,testName,"Q2.B2+B3 Shift");
+      
+      check1(PB_Q4_DOT_ANY_SHIFT,p,testName,"Q4 Any Shift");
+      check1(PB_Q4_DOT_B0_SHIFT,p and b,testName,"Q4.B0 Shift");
+      check1(PB_Q4_DOT_B1_SHIFT,p and c,testName,"Q4.B1 Shift");
+      check1(PB_Q4_DOT_B2_SHIFT,p and d,testName,"Q4.B2 Shift");
+      check1(PB_Q4_DOT_B3_SHIFT,p and e,testName,"Q4.B3 Shift");
+      
+      check1(PB_Q6_DOT_B0_SHIFT,l and b,testName,"Q6.B0 Shift");
+      check1(PB_Q6_DOT_B1_SHIFT,l and c,testName,"Q6.B0 Shift");
+      check1(PB_Q6_DOT_B2_SHIFT,l and d,testName,"Q6.B0 Shift");
+      check1(PB_Q6_DOT_B3_SHIFT,l and e,testName,"Q6.B0 Shift");
+      check1(PB_Q6_DOT_B0_OR_B1_SHIFT,l and j,testName,"Q6.B0+B1 Shift");
+      check1(PB_Q6_DOT_B2_OR_B3_SHIFT,l and k,testName,"Q6.B2+B3 Shift");
+      
+      check1(PB_Q8_DOT_B0_SHIFT,m and b,testName,"Q8.B0 Shift");
+      check1(PB_Q8_DOT_B1_SHIFT,m and c,testName,"Q8.B0 Shift");
+      check1(PB_Q8_DOT_B2_SHIFT,m and d,testName,"Q8.B0 Shift");
+      check1(PB_Q8_DOT_B3_SHIFT,m and e,testName,"Q8.B0 Shift");
+      
+      check1(PS_ADDER_NO_CARRY,n or (j and m),testName,"+S Adder No Carry");
+      check1(PB_ADDER_NO_CARRY,n or (j and m),testName,"+B Adder No Carry");
+      check1(PB_Q8_DOT_B0_OR_B1_SHIFT,m and j,testName,"Q8.B0+B1 Shift");
+      
+      check1(PS_ADDER_CARRY,o or (k and m),testName,"+S Adder Carry"); 
+      check1(PB_ADDER_CARRY,o or (k and m),testName,"+B Adder Carry"); 
+      check1(LAMP_15A1C11,o or (k and m),testName,"+B Adder Carry"); 
+      check1(PB_Q8_DOT_B2_OR_B3_SHIFT,k and m,testName,"Q8.B2+B3 Shift");                  
       
    end loop;
 
