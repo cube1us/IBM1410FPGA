@@ -273,6 +273,8 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable carry, ab0, bb0, ab1, bb1: std_logic;
+   variable aq0, aq2, aq4, aq6, aq8, bq0, bq2, bq4, bq6, bq8: std_logic;
 
    begin
 
@@ -280,39 +282,93 @@ uut_process: process
 
    testName := "15.49.04.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**15 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      carry := tv(0);
+      ab0 := tv(1);
+      ab1 := tv(2);
+      bb0 := tv(3);
+      bb1 := tv(4);
+      aq0 := tv(5);
+      aq2 := tv(6);
+      aq4 := tv(7);
+      aq6 := tv(8);
+      aq8 := tv(9);
+      bq0 := tv(10);
+      bq2 := tv(11);
+      bq4 := tv(12);
+      bq6 := tv(13);
+      bq8 := tv(14);
 
+
+   	MB_NO_CARRY_LATCH <= carry;  -- -B Not Carry, i.e., not not carry.  ;)
+   	MB_CARRY_LATCH <= not carry;
+   	MB_ADD_AB0 <= not ab0;
+   	MB_ADD_AB1 <= not ab1;
+   	MB_ADD_BB0 <= not bb0;
+   	MB_ADD_BB1 <= not bb1;
+   	MB_ADD_AQ0 <= not aq0;
+   	MB_ADD_AQ2 <= not aq2;
+   	MB_ADD_AQ4 <= not aq4;
+   	MB_ADD_AQ6 <= not aq6;
+   	MB_ADD_AQ8 <= not aq8;
+   	MB_ADD_BQ0 <= not bq0;
+   	MB_ADD_BQ2 <= not bq2;
+   	MB_ADD_BQ4 <= not bq4;
+   	MB_ADD_BQ6 <= not bq6;
+   	MB_ADD_BQ8 <= not bq8;
       
       wait for 30 ns;
       
+      check1(PB_AB0_DOT_BB0_DOT_NC,ab0 and bb0 and not carry,testName,"AB0.BB0.NC");
+      check1(PB_AB0_DOT_BB1_DOT_C,ab0 and bb1 and carry,testName,"AB0.BB1.C");
+      check1(PB_AB1_DOT_BB0_DOT_C,ab1 and bb0 and carry,testName,"AB1.BB0.C");
+      check1(PB_AB1_DOT_BB1_DOT_NC,ab1 and bb1 and not carry,testName,"AB1.BB1.NC"); 
+      check1(PB_AB0_DOT_BB1_DOT_NC,ab0 and bb1 and not carry,testName,"AB0.BB1.NC");
+      check1(PB_AB1_DOT_BB0_DOT_NC,ab1 and bb0 and not carry,testName,"AB1.BB0.NC");
+      check1(PB_AB0_DOT_BB0_DOT_C,ab0 and bb0 and carry,testName,"AB0.BB0.C");
+      check1(PB_AB1_DOT_BB1_DOT_C,ab1 and bb1 and carry,testName,"AB1.BB1.C");
       
+      check1(PB_ADD_AQ0_DOT_BQ0,aq0 and bq0,testName,"AQ0.BQ0");
+      check1(PB_ADD_BQ0,bq0,testName,"BQ0");
+      check1(PB_ADD_AQ2_DOT_BQ8,aq2 and bq8,testName,"AQ2.BQ8");
+      check1(PB_ADD_AQ4_DOT_BQ6,aq4 and bq6,testName,"AQ4.BQ6");
+      check1(PB_ADD_BQ4,bq4,testName,"BQ4");
+      check1(PB_ADD_AQ6_DOT_BQ4,aq6 and bq4,testName,"AQ6.BQ4");
+      check1(PB_ADD_AQ8_DOT_BQ2,aq8 and bq2,testName,"AQ8.BQ2");
+      check1(MB_ADDER_MX_Q0,NOT((aq0 and bq0) or (aq2 and bq8) or (aq4 and bq6) or
+         (aq6 and bq4) or (aq8 and bq2)),testName,"Q0 Out");
+         
+      check1(PB_ADD_AQ0_DOT_BQ2,aq0 and bq2,testName,"AQ0.BQ2");
+      check1(PB_ADD_AQ2_DOT_BQ0,aq2 and bq0,testName,"AQ2.BQ0");
+      check1(PB_ADD_AQ4_DOT_BQ8,aq4 and bq8,testName,"AQ4.BQ8");
+      check1(PB_ADD_AQ6_DOT_BQ6,aq6 and bq6,testName,"AQ6.BQ6");
+      check1(PB_ADD_AQ8_DOT_BQ4,aq8 and bq4,testName,"AQ8.BQ4");
+      check1(MB_ADDER_MX_Q2,NOT((aq0 and bq2) or (aq2 and bq0) or (aq4 and bq8) or
+         (aq6 and bq6) or (aq8 and bq4)),testName,"Q2 Out");
+         
+      check1(PB_ADD_AQ0_DOT_BQ4,aq0 and bq4,testName,"AQ0.BQ4");
+      check1(PB_ADD_AQ2_DOT_BQ2,aq2 and bq2,testName,"AQ2.BQ2");
+      check1(PB_ADD_AQ4_DOT_BQ0,aq4 and bq0,testName,"AQ4.BQ0");
+      check1(PB_ADD_AQ6_DOT_BQ8,aq6 and bq8,testName,"AQ6.BQ8");
+      check1(PB_ADD_AQ8_DOT_BQ6,aq8 and bq6,testName,"AQ8.BQ6");
+      check1(PB_ADD_BQ8,bq8,testName,"BQ8");
+      check1(MB_ADDER_MX_Q4,NOT((aq0 and bq4) or (aq2 and bq2) or (aq4 and bq0) or
+         (aq6 and bq8) or (aq8 and bq6)),testName,"Q4 Out");
+      
+      check1(PB_ADD_AQ0_DOT_BQ6,aq0 and bq6,testName,"AQ0.BQ6");
+      check1(PB_ADD_AQ2_DOT_BQ4,aq2 and bq4,testName,"AQ2.BQ4");
+      check1(PB_ADD_AQ4_DOT_BQ2,aq4 and bq2,testName,"AQ4.BQ2");
+      check1(PB_ADD_AQ6_DOT_BQ0,aq6 and bq0,testName,"AQ6.BQ0");
+      check1(PB_ADD_AQ8_DOT_BQ8,aq8 and bq8,testName,"AQ8.BQ8");
+      check1(MB_ADDER_MX_Q6,NOT((aq0 and bq6) or (aq2 and bq4) or (aq4 and bq2) or
+         (aq6 and bq0) or (aq8 and bq8)),testName,"Q6 Out");
+     
+      check1(MB_ADDER_MX_Q8,NOT((aq0 and bq8) or (aq2 and bq6) or (aq4 and bq4) or
+         (aq6 and bq2) or (aq8 and bq0)),testName,"Q8 Out");
+      check1(PS_ADDER_MX_Q8,(aq0 and bq8) or (aq2 and bq6) or (aq4 and bq4) or
+            (aq6 and bq2) or (aq8 and bq0),testName,"+S Q8 Out");
+                  
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
