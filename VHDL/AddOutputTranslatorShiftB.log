@@ -1,0 +1,41 @@
+Generating HDL for group named AddOutputTranslatorShiftBat 9/29/2020 1:25:23 PM containing pages: 
+	16.14.01.1, 16.14.02.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddOutputTranslatorShiftB_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 15 signals on page 16.14.01.1
+Found 14 signals on page 16.14.02.1
+Found 8 unique input signals and 13 unique output signals, (21 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +B AB0.BB0.NC originates outside the group.
+INFO:  Signal +B AB0.BB1.C originates outside the group.
+INFO:  Signal +B AB1.BB0.C originates outside the group.
+INFO:  Signal +B AB1.BB1.NC originates outside the group.
+INFO:  Signal +B AB0.BB1.NC originates outside the group.
+INFO:  Signal +B AB1.BB0.NC originates outside the group.
+INFO:  Signal +B AB0.BB0.C originates outside the group.
+INFO:  Signal +B AB1.BB1.C originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -B B0 SHIFT is used outside the group.
+INFO:  Signal +S B3 SHIFT is used outside the group.
+INFO:  Signal -B B3 SHIFT is used outside the group.
+INFO:  Signal +S B1 SHIFT is used outside the group.
+INFO:  Signal -B B1 SHIFT is used outside the group.
+INFO:  Signal +S B2 SHIFT is used outside the group.
+INFO:  Signal -B B2 SHIFT is used outside the group.
+INFO:  Signal +B ADDER OUT NOT 1 BIT is used outside the group.
+INFO:  Signal +B ADDER OUT 1 BIT is used outside the group.
+INFO:  Signal -B ADDER OUT NOT 1 BIT is used outside the group.
+INFO:  Signal -B B2+B3 SHIFT is used outside the group.
+INFO:  Signal -B ADDER OUT 1 BIT is used outside the group.
+INFO:  Signal -B B0+B1 SHIFT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+DEBUG: Tentative bus +B ADDER OUT NOT BUS identified based on signal +B ADDER OUT NOT 1 BIT
+DEBUG: Tentative bus +B ADDER OUT BUS identified based on signal +B ADDER OUT 1 BIT
+INFO: Bus +B ADDER OUT NOT BUS NOT generated.  Found 1 members of 5 Total members 
+INFO: Bus +B ADDER OUT BUS NOT generated.  Found 1 members of 5 Total members 
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 16.14.01.1 (ADD OUTPUT TRANSLATOR-ACC)
+Generating HDL associated with page 16.14.02.1 (ADD OUTPUT TRANSLATOR-ACC)

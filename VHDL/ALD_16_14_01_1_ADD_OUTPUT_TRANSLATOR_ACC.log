@@ -1,0 +1,47 @@
+Generating HDL for page 16.14.01.1 ADD OUTPUT TRANSLATOR-ACC at 9/29/2020 1:24:34 PM
+Removed 3 outputs from Gate at 4B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 4D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 4F to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 4H to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B
+	and inputs of PB_AB0_DOT_BB0_DOT_NC
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_4D_C
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C, OUT_4D_C
+	and inputs of PB_AB1_DOT_BB1_DOT_C
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_E
+	and inputs of OUT_4F_A
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_A, OUT_4F_A
+	and inputs of PB_AB0_DOT_BB0_DOT_C,PB_AB0_DOT_BB1_DOT_NC,PB_AB1_DOT_BB0_DOT_NC
+	and logic function of NOR
+Generating Statement for block at 2G with output pin(s) of OUT_2G_B
+	and inputs of OUT_4H_B
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_B, OUT_4H_B
+	and inputs of PB_AB0_DOT_BB1_DOT_C,PB_AB1_DOT_BB1_DOT_NC,PB_AB1_DOT_BB0_DOT_C
+	and logic function of NOR
+Generating output sheet edge signal assignment to 
+	signal MB_B0_SHIFT
+	from gate output OUT_4B_B
+Generating output sheet edge signal assignment to 
+	signal PS_B3_SHIFT
+	from gate output OUT_2C_C
+Generating output sheet edge signal assignment to 
+	signal MB_B3_SHIFT
+	from gate output OUT_4D_C
+Generating output sheet edge signal assignment to 
+	signal PS_B1_SHIFT
+	from gate output OUT_2E_E
+Generating output sheet edge signal assignment to 
+	signal MB_B1_SHIFT
+	from gate output OUT_4F_A
+Generating output sheet edge signal assignment to 
+	signal PS_B2_SHIFT
+	from gate output OUT_2G_B
+Generating output sheet edge signal assignment to 
+	signal MB_B2_SHIFT
+	from gate output OUT_4H_B
