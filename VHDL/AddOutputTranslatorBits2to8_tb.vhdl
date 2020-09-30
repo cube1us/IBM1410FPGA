@@ -197,9 +197,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "15.49.07.1 - 09.1 ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**21 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -222,15 +222,36 @@ uut_process: process
       s := tv(18);
       t := tv(19);
       u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
 
+  	   PB_Q0_DOT_B1_SHIFT <= a;
+  	   PB_Q2_DOT_B2_OR_B3_SHIFT <= b;
+      PB_Q4_DOT_B0_SHIFT <= c;
+      PB_Q4_DOT_B1_SHIFT <= d;
+  	   PB_Q6_DOT_B2_OR_B3_SHIFT <= e;
+  	   PB_Q8_DOT_B3_SHIFT <= f;
+  	   PB_Q8_DOT_B0_OR_B1_SHIFT <= g;
+  	   PB_Q0_DOT_B0_SHIFT <= h;
+  	   PB_Q0_DOT_B2_SHIFT <= j;
+  	   PB_Q0_DOT_B3_SHIFT <= k;
+  	   PB_Q2_DOT_B0_OR_B1_SHIFT <= l;
+  	   PB_Q4_DOT_B2_SHIFT <= m;
+  	   PB_Q4_DOT_B3_SHIFT <= n;
+  	   PB_Q6_DOT_B0_OR_B1_SHIFT <= o;
+  	   PB_Q8_DOT_B2_SHIFT <= p;
+  	   PB_Q0_DOT_ANY_SHIFT <= q;
+  	   PB_Q8_DOT_B0_SHIFT <= r;
+  	   PB_Q8_DOT_B1_SHIFT <= s;
+  	   PB_Q8_DOT_B2_OR_B3_SHIFT <= t;
+  	   PB_Q4_DOT_ANY_SHIFT <= u;
       
       wait for 30 ns;
       
+      check1(PB_ADDER_OUT_2_BIT,h or j or k or l or m or n or o or p,testName,"Adder Out 2 Bit");
+      check1(PB_ADDER_OUT_NOT_2_BIT,a or b or c or d or e or f or g,testName,"Adder Out Not 2 Bit");
+      check1(PB_ADDER_OUT_4_BIT,b or o or u,testName,"Adder Out 4 Bit");
+      check1(PB_ADDER_OUT_NOT_4_BIT,e or l or q or r or s or t,testName,"Adder Out Not 4 Bit");
+      check1(PB_ADDER_OUT_8_BIT,e or g or h or p,testName,"Adder Out 8 Bit");
+      check1(PB_ADDER_OUT_NOT_8_BIT,a or b or f or j or k or l or o or u,testName,"Adder Out Not 8 Bit");
       
    end loop;
 
@@ -245,7 +266,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 80 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
