@@ -181,7 +181,7 @@ uut_process: process
 
    testName := "15.49.04.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**19 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -202,18 +202,31 @@ uut_process: process
       q := tv(16);
       r := tv(17);
       s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
 
+   	PB_Q0_DOT_B1_SHIFT <= a;
+   	PB_Q0_DOT_B2_SHIFT <= b;
+   	PB_Q2_DOT_B0_OR_B2_SHIFT <= c; 
+   	PB_Q4_DOT_B0_SHIFT <= d;
+   	PB_Q4_DOT_B3_SHIFT <= e;
+   	PB_Q6_DOT_B1_SHIFT <= f;
+   	PB_Q6_DOT_B2_SHIFT <= g;
+   	PB_Q8_DOT_B0_SHIFT <= h;
+   	PB_Q8_DOT_B3_SHIFT <= j;
+   	PB_Q0_DOT_B0_SHIFT <= k;
+   	PB_Q2_DOT_B1_OR_B3_SHIFT <= l;
+   	PB_Q0_DOT_B3_SHIFT <= m;
+   	PB_Q4_DOT_B1_SHIFT <= n;
+   	PB_Q4_DOT_B2_SHIFT <= o;
+   	PB_Q6_DOT_B0_SHIFT <= p;
+   	PB_Q6_DOT_B3_SHIFT <= q;
+   	PB_Q8_DOT_B1_SHIFT <= r;
+   	PB_Q8_DOT_B2_SHIFT <= s;
       
       wait for 30 ns;
       
-      
+      check1(PB_ADDER_OUT_NOT_C_BIT,a or b or c or d or e or f or g or h or j,testName,"Adder Out Not C Bit");
+      check1(PB_ADDER_OUT_C_BIT,k or m or l or n or o or p or q or r or s,testName,"Adder Out C Bit");
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -227,7 +240,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 80 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
