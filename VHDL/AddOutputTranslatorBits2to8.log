@@ -1,0 +1,52 @@
+Generating HDL for group named AddOutputTranslatorBits2to8at 9/29/2020 7:46:15 PM containing pages: 
+	16.14.07.1, 16.14.08.1, 16.14.09.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddOutputTranslatorBits2to8_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 17 signals on page 16.14.07.1
+Found 11 signals on page 16.14.08.1
+Found 14 signals on page 16.14.09.1
+Found 20 unique input signals and 6 unique output signals, (26 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +B Q0.B0 SHIFT originates outside the group.
+INFO:  Signal +B Q0.B1 SHIFT originates outside the group.
+INFO:  Signal +B Q0.B2 SHIFT originates outside the group.
+INFO:  Signal +B Q0.B3 SHIFT originates outside the group.
+INFO:  Signal +B Q2.B0+B1 SHIFT originates outside the group.
+INFO:  Signal +B Q2.B2+B3 SHIFT originates outside the group.
+INFO:  Signal +B Q4.B0 SHIFT originates outside the group.
+INFO:  Signal +B Q4.B1 SHIFT originates outside the group.
+INFO:  Signal +B Q4.B2 SHIFT originates outside the group.
+INFO:  Signal +B Q4.B3 SHIFT originates outside the group.
+INFO:  Signal +B Q6.B0+B1 SHIFT originates outside the group.
+INFO:  Signal +B Q6.B2+B3 SHIFT originates outside the group.
+INFO:  Signal +B Q8.B2 SHIFT originates outside the group.
+INFO:  Signal +B Q8.B3 SHIFT originates outside the group.
+INFO:  Signal +B Q8.B0+B1 SHIFT originates outside the group.
+INFO:  Signal +B Q0.ANY SHIFT originates outside the group.
+INFO:  Signal +B Q4.ANY SHIFT originates outside the group.
+INFO:  Signal +B Q8.B0 SHIFT originates outside the group.
+INFO:  Signal +B Q8.B1 SHIFT originates outside the group.
+INFO:  Signal +B Q8.B2+B3 SHIFT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +B ADDER OUT NOT 2 BIT is used outside the group.
+INFO:  Signal +B ADDER OUT 2 BIT is used outside the group.
+INFO:  Signal +B ADDER OUT NOT 4 BIT is used outside the group.
+INFO:  Signal +B ADDER OUT 4 BIT is used outside the group.
+INFO:  Signal +B ADDER OUT NOT 8 BIT is used outside the group.
+INFO:  Signal +B ADDER OUT 8 BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+DEBUG: Tentative bus +B ADDER OUT NOT BUS identified based on signal +B ADDER OUT NOT 2 BIT
+DEBUG: Tentative bus +B ADDER OUT BUS identified based on signal +B ADDER OUT 2 BIT
+DEBUG: Added signal +B ADDER OUT NOT 4 BIT to bus +B ADDER OUT NOT BUS
+DEBUG: Added signal +B ADDER OUT 4 BIT to bus +B ADDER OUT BUS
+DEBUG: Added signal +B ADDER OUT NOT 8 BIT to bus +B ADDER OUT NOT BUS
+DEBUG: Added signal +B ADDER OUT 8 BIT to bus +B ADDER OUT BUS
+INFO: Bus +B ADDER OUT NOT BUS NOT generated.  Found 3 members of 5 Total members 
+INFO: Bus +B ADDER OUT BUS NOT generated.  Found 3 members of 5 Total members 
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 16.14.07.1 (ADD OUTPUT TRANSLATOR-ACC)
+Generating HDL associated with page 16.14.08.1 (ADD OUTPUT TRANSLATOR-ACC)
+Generating HDL associated with page 16.14.09.1 (ADD OUTPUT TRANSLATOR-ACC)

@@ -1,0 +1,30 @@
+Generating HDL for page 16.14.09.1 ADD OUTPUT TRANSLATOR-ACC at 9/29/2020 7:45:20 PM
+Note: DOT Function at 3C has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Ignoring Logic Block 3B with symbol R
+Ignoring Logic Block 4E with symbol R
+Removed 1 outputs from Gate at 4F to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 3C to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_A
+	and inputs of PB_Q0_DOT_B2_SHIFT,PB_Q0_DOT_B1_SHIFT,PB_Q2_DOT_B0_OR_B1_SHIFT,PB_Q2_DOT_B2_OR_B3_SHIFT
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F
+	and inputs of OUT_DOT_3C
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PB_Q0_DOT_B3_SHIFT,PB_Q4_DOT_ANY_SHIFT,PB_Q6_DOT_B0_OR_B1_SHIFT,PB_Q8_DOT_B3_SHIFT
+	and logic function of NOR
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of PB_Q0_DOT_B0_SHIFT,PB_Q6_DOT_B2_OR_B3_SHIFT,PB_Q8_DOT_B2_SHIFT,PB_Q8_DOT_B0_OR_B1_SHIFT
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_A
+	and inputs of OUT_4F_G
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_4B_A,OUT_4D_G
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal PB_ADDER_OUT_NOT_8_BIT
+	from gate output OUT_2C_F
+Generating output sheet edge signal assignment to 
+	signal PB_ADDER_OUT_8_BIT
+	from gate output OUT_2F_A
