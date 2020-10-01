@@ -1,0 +1,89 @@
+Generating HDL for page 16.16.01.1 SIGN CONT CHAN SIGNS-ACC at 10/1/2020 10:29:47 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_16_01_1_SIGN_CONT_CHAN_SIGNS_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Ignoring Logic Block 5E with symbol R
+Ignoring Logic Block 4E with symbol R
+Ignoring Logic Block 3E with symbol R
+Removed 2 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 1B to ignored block(s) or identical signal names
+Removed 3 outputs from Dot Function at 1H to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_B, OUT_4A_B
+	and inputs of PB_B_CH_NOT_A_BIT,PB_B_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_E
+	and inputs of OUT_4A_B
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A
+	and inputs of OUT_4A_B
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_F
+	and inputs of PB_B_CH_B_BIT
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C, OUT_4C_C
+	and inputs of PB_B_CH_A_BIT,PB_B_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of OUT_4C_C
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of OUT_4C_C,PB_B_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E, OUT_4F_E
+	and inputs of PB_A_CH_NOT_A_BIT,PB_A_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_F
+	and inputs of OUT_4F_E
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of OUT_4F_E
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_K
+	and inputs of OUT_3G_C
+	and logic function of EQUAL
+Generating Statement for block at 4H with output pin(s) of OUT_4H_B, OUT_4H_B
+	and inputs of PB_A_CH_A_BIT,PB_A_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E
+	and inputs of OUT_4H_B
+	and logic function of NOT
+Generating Statement for block at 3I with output pin(s) of OUT_3I_C
+	and inputs of OUT_4H_B,PB_A_CH_B_BIT
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_B
+	and inputs of PB_A_CH_B_BIT
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_2B_F,OUT_2C_D
+	and logic function of OR
+Generating Statement for block at 1H with output pin(s) of OUT_DOT_1H
+	and inputs of OUT_2H_E,OUT_2I_B
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_MINUS
+	from gate output OUT_3A_E
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_MINUS
+	from gate output OUT_3B_A
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_PLUS
+	from gate output OUT_3D_D
+Generating output sheet edge signal assignment to 
+	signal PB_A_CH_MINUS
+	from gate output OUT_3F_F
+Generating output sheet edge signal assignment to 
+	signal PS_A_CH_MINUS
+	from gate output OUT_2G_K
+Generating output sheet edge signal assignment to 
+	signal PB_A_CH_PLUS
+	from gate output OUT_3I_C
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_PLUS
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_A_CH_PLUS
+	from gate output OUT_DOT_1H
