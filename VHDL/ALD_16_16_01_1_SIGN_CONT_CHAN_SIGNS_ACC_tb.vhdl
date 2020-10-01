@@ -161,41 +161,35 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.16.01.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**4 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
 
+  	   PB_B_CH_A_BIT <= a;
+	   PB_B_CH_NOT_A_BIT <= not a;
+	   PB_B_CH_B_BIT <= b;
+
+	   PB_A_CH_A_BIT <= c;
+	   PB_A_CH_NOT_A_BIT <= not c;
+	   PB_A_CH_B_BIT <= d;
+	   
+      wait for 30 ns;      
       
-      wait for 30 ns;
-      
-      
+	   check1(PB_B_CH_MINUS,b and not a,testName,"+B BCH -");
+	   check1(PS_B_CH_MINUS,b and not a,testName,"+S BCH -");
+	   check1(PB_B_CH_PLUS,(a and b) or not b,testName,"+B B CH +");
+	   check1(PS_B_CH_PLUS,(a and b) or not b,testName,"+S B CH +");
+
+	   check1(PB_A_CH_MINUS,d and not c,testName,"+B ACH -");
+	   check1(PS_A_CH_MINUS,d and not c,testName,"+S ACH -");
+	   check1(PB_A_CH_PLUS,(c and d) or not d,testName,"+B A CH +");
+	   check1(PS_A_CH_PLUS,(c and d) or not d,testName,"+S A CH +");
+	         
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
