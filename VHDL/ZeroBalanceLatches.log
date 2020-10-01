@@ -1,0 +1,39 @@
+Generating HDL for group named ZeroBalanceLatchesat 9/30/2020 5:08:28 PM containing pages: 
+	16.14.11.1, 16.14.12.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ZeroBalanceLatches_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 14 signals on page 16.14.11.1
+Found 15 signals on page 16.14.12.1
+Found 14 unique input signals and 4 unique output signals, (18 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LAST LOGIC GATE 2 originates outside the group.
+INFO:  Signal +S LAST INSN RO CYCLE 2 originates outside the group.
+INFO:  Signal -S COMPUTER RESET 1 originates outside the group.
+INFO:  Signal +S ADD TYPE OP CODES originates outside the group.
+INFO:  Signal -S ASSEMBLY CH 1 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 2 BIT originates outside the group.
+INFO:  Signal -S ASSEMBLY CH 4 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 8 BIT originates outside the group.
+INFO:  Signal -S MPLY.LAST INSN RO CYCLE originates outside the group.
+INFO:  Signal -S A+S.B CYCLE originates outside the group.
+INFO:  Signal -S MPLY.U+Y+X.B originates outside the group.
+INFO:  Signal -S B CH INSERT PLUS ZERO originates outside the group.
+INFO:  Signal +S LOGIC GATE D 1 originates outside the group.
+INFO:  Signal +S UNITS LATCH originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S NOT ZR BAL LATCH is used outside the group.
+INFO:  Signal -S NOT ZR BAL LATCH is used outside the group.
+INFO:  Signal +S ZR BAL LATCH is used outside the group.
+INFO:  Signal -S ZR BAL LATCH is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal -S ASSEMBLY CH 1 BIT replaced by Bus signal -S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH 2 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal -S ASSEMBLY CH 4 BIT replaced by Bus signal -S ASSEMBLY CH BUS
+Input Signal +S ASSEMBLY CH 8 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Page 16.14.12.1 generates Lamp Output LAMP_15A1K12
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 16.14.11.1 (0 BALANCE INDICAT LATCH-ACC)
+Generating HDL associated with page 16.14.12.1 (0 BALANCE INDICAT LATCH-ACC)

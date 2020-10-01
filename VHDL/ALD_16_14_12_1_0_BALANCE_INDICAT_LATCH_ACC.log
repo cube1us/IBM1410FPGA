@@ -1,0 +1,55 @@
+Generating HDL for page 16.14.12.1 0 BALANCE INDICAT LATCH-ACC at 9/30/2020 5:07:56 PM
+Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Ignoring Logic Block 3B with symbol R
+Found combinatorial loop (need D FF) at output of gate at 3E
+Found combinatorial loop (need D FF) at output of gate at 2E
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1K12
+Generating Statement for block at 1B with output pin(s) of OUT_1B_E
+	and inputs of OUT_DOT_2D
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of PS_UNITS_LATCH,PS_ADD_TYPE_OP_CODES,PS_LOGIC_GATE_D_1
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_K
+	and inputs of MS_MPLY_DOT_LAST_INSN_RO_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_E_Latch, OUT_3E_E_Latch
+	and inputs of MS_COMPUTER_RESET_1,OUT_4G_E,OUT_DOT_2D
+	and logic function of NAND
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_G_Latch
+	and inputs of OUT_3C_D,OUT_3E_E
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_K
+	and inputs of OUT_3E_E
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of 
+	and inputs of OUT_2F_K
+	and logic function of Lamp
+Generating Statement for block at 5G with output pin(s) of OUT_5G_D
+	and inputs of MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B,MS_B_CH_INSERT_PLUS_ZERO,MS_A_OR_S_DOT_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_E
+	and inputs of OUT_5G_D,PS_LAST_LOGIC_GATE_2,OUT_DOT_5H
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_K
+	and inputs of PS_ASSEMBLY_CH_8_BIT,MS_ASSEMBLY_CH_4_BIT
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_C
+	and inputs of PS_ASSEMBLY_CH_2_BIT,MS_ASSEMBLY_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D, OUT_DOT_2D, OUT_DOT_2D
+	and inputs of OUT_2D_K,OUT_2E_G
+	and logic function of OR
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of OUT_5H_K,OUT_5I_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ZR_BAL_LATCH
+	from gate output OUT_1B_E
+Generating output sheet edge signal assignment to 
+	signal PS_ZR_BAL_LATCH
+	from gate output OUT_DOT_2D
+Generating D Flip Flop for block at 3E
+Generating D Flip Flop for block at 2E

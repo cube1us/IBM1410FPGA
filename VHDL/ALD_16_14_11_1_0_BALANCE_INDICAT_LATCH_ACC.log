@@ -1,0 +1,39 @@
+Generating HDL for page 16.14.11.1 0 BALANCE INDICAT LATCH-ACC at 9/30/2020 5:07:54 PM
+Note: DOT Function at 5H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3E
+Found combinatorial loop (need D FF) at output of gate at 2E
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of PS_LAST_INSN_RO_CYCLE_2,PS_ADD_TYPE_OP_CODES,PS_LAST_LOGIC_GATE_2
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_E_Latch
+	and inputs of OUT_4D_D,OUT_2E_C,MS_MPLY_DOT_LAST_INSN_RO_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_C_Latch, OUT_2E_C_Latch, OUT_2E_C_Latch
+	and inputs of OUT_3E_E,MS_COMPUTER_RESET_1,OUT_4G_C
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_D
+	and inputs of OUT_2E_C
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_G
+	and inputs of MS_A_OR_S_DOT_B_CYCLE,MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B,MS_B_CH_INSERT_PLUS_ZERO
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of OUT_5G_G,PS_LAST_LOGIC_GATE_2,OUT_DOT_5H
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_C
+	and inputs of PS_ASSEMBLY_CH_8_BIT,MS_ASSEMBLY_CH_4_BIT
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_K
+	and inputs of PS_ASSEMBLY_CH_2_BIT,MS_ASSEMBLY_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of OUT_5H_C,OUT_5I_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_ZR_BAL_LATCH
+	from gate output OUT_2E_C
+Generating output sheet edge signal assignment to 
+	signal MS_NOT_ZR_BAL_LATCH
+	from gate output OUT_1F_D
+Generating D Flip Flop for block at 3E
+Generating D Flip Flop for block at 2E
