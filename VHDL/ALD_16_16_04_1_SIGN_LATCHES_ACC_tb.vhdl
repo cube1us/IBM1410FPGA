@@ -164,40 +164,71 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.16.04.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**12 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
+      -- a := tv(0); -- Reset
+      b := tv(0);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
+      n := tv(11);
       
+      -- Reset
+      
+      MS_I_CYCLE <= '0';
+      wait for 30 ns;
+      MS_I_CYCLE <= '1';
       wait for 30 ns;
       
+      check1(PS_MINUS_SIGN_LATCH,'0',testName,"Reset - Latch");
+      check1(PS_PLUS_SIGN_LATCH,'0',testName,"Reset + Latch");      
+
+      -- Maybe set the latch      
+      
+      MS_1401_MINUS_SIGN <= not b;
+      PS_B_CH_MINUS <= c;
+      PS_A_CH_MINUS <= d;
+      PS_B_CH_PLUS <= e;
+      PS_LAST_LOGIC_GATE_2 <= f;
+      MB_MPLY_DOT_MQ_DOT_B_DOT_1 <= not g;
+      MS_DIV_DOT_U_DOT_B_DOT_BB_DOT_T <= not h;
+      PS_A_CH_PLUS <= j;
+      PS_A_CYCLE <= k;
+      PS_UNITS_LATCH <= l;
+      PS_E_OR_Z_OP_CODES <= m;
+      MS_1401_PLUS_SIGN <= not n;      
+      wait for 30 ns;
+
+      -- Set values back to their default - should not affect latch
+
+      MS_1401_MINUS_SIGN <= '1';
+      PS_B_CH_MINUS <= '0';
+      PS_A_CH_MINUS <= '0';
+      PS_B_CH_PLUS <= '0';
+      PS_LAST_LOGIC_GATE_2 <= '0';
+      MB_MPLY_DOT_MQ_DOT_B_DOT_1 <= '1';
+      MS_DIV_DOT_U_DOT_B_DOT_BB_DOT_T <= '1';
+      PS_A_CH_PLUS <= '0';
+      PS_A_CYCLE <= '0';
+      PS_UNITS_LATCH <= '0';
+      PS_E_OR_Z_OP_CODES <= '0';
+      MS_1401_PLUS_SIGN <= '1';
+      wait for 30 ns;
+
+      check1(PS_MINUS_SIGN_LATCH,b or (f and k and l and m and c) or
+         (((c and j) or (d and e)) and f and (h or g)),testName,"Set - Latch");
+
+      check1(PS_PLUS_SIGN_LATCH,n or (f and k and l and m and e) or
+         (((j and e) or (d and c)) and f and (h or g)),testName,"Set + Latch");      
       
    end loop;
 
