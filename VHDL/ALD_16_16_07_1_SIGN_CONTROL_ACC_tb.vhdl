@@ -161,9 +161,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.16.07.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -176,26 +176,25 @@ uut_process: process
       i := tv(8);
       j := tv(9);
       k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
 
-      
+	   PB_B_CH_PLUS <= a;
+	   PB_USE_B_CH_SIGN <= b;
+	   PB_B_CH_MINUS <= c;
+	   PB_USE_INV_B_CH_SIGN <= d;
+	   PS_A_CH_PLUS <= e;
+	   PS_USE_A_CH_SIGN <= f;
+	   PS_A_CH_MINUS <= g;
+	   PS_USE_INV_A_CH_SIGN <= h;
+	   PS_PLUS_SIGN_LATCH <= j;
+	   PS_USE_SIGN_LATCH <= k;
+	   
       wait for 30 ns;
       
-      
+	   check1(MB_B_CH_PLU_OR_INV_MIN_SIGN_GATED,not((a and b) or (c and d)),testName,"-B B CH + or INV -");
+	   check1(MS_A_CH_PLUS_SIGN_GATED,not(e and f),testName,"-S A CH +");
+	   check1(MS_A_CH_INV_MINUS_SIGN_GTD,not(g and h),testName,"-S A CH INV -");
+	   check1(MS_PLUS_SIGN_LATCH_GATED,not(j and k),testName,"-S +");
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
