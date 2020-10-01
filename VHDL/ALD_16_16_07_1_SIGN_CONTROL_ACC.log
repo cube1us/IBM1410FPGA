@@ -1,0 +1,36 @@
+Generating HDL for page 16.16.07.1 SIGN CONTROL-ACC at 10/1/2020 2:00:42 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_16_07_1_SIGN_CONTROL_ACC_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4I to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of PB_B_CH_PLUS,PB_USE_B_CH_SIGN
+	and logic function of AND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A
+	and inputs of OUT_4A_NoPin,OUT_4C_NoPin
+	and logic function of NOR
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PB_B_CH_MINUS,PB_USE_INV_B_CH_SIGN
+	and logic function of AND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_K
+	and inputs of PS_A_CH_PLUS,PS_USE_A_CH_SIGN
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of PS_A_CH_MINUS,PS_USE_INV_A_CH_SIGN
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_G
+	and inputs of PS_PLUS_SIGN_LATCH,PS_USE_SIGN_LATCH
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MB_B_CH_PLU_OR_INV_MIN_SIGN_GATED
+	from gate output OUT_3B_A
+Generating output sheet edge signal assignment to 
+	signal MS_A_CH_PLUS_SIGN_GATED
+	from gate output OUT_4E_K
+Generating output sheet edge signal assignment to 
+	signal MS_A_CH_INV_MINUS_SIGN_GTD
+	from gate output OUT_4G_C
+Generating output sheet edge signal assignment to 
+	signal MS_PLUS_SIGN_LATCH_GATED
+	from gate output OUT_4I_G
