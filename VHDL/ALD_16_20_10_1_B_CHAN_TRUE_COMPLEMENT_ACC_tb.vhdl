@@ -157,6 +157,7 @@ uut_process: process
    variable testName: string(1 to 18);
    variable subtest: integer;
    variable tv: std_logic_vector(25 downto 0);
+   variable tv2: std_logic_vector(3 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
@@ -164,40 +165,87 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.20.10.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
       e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
+      h := tv(5);
+      j := tv(6);
+      k := tv(7);
+      l := tv(8);
+      m := tv(9);
       
+      g1 := (a and b) or (c and d) or e or k or (h and j);
+      g2 := (a and l) or m;
+      
+      --  Reset
+      
+      MS_X_CYCLE_CTRL <= '1';
+      MS_X_CYCLE <= '1';
       wait for 30 ns;
+      MS_X_CYCLE_CTRL <= '0';
+      MS_X_CYCLE <= '0';
+      wait for 30 ns;
+
+      check1(MS_TRUE_ADD_B,'1',testName,"Reset True Add");
+      check1(PS_COMP_ADD_B,'0',testName,"Reset Compl Add");
+      check1(LAMP_15A1F11,'0',testName,"Reset Compl Add Lamp");            
+ 
+      -- Combinatorial Outputs test  
+
+		PS_ADD_OR_SUBT_OP_CODES <= a;
+		PS_1ST_SCAN <= b;
+		PS_MPLY_OR_DIV_OP_CODES <= c;
+		PS_1ST_OR_3RD_SCAN <= d;
+		MS_CMP_OP_CODES_DOT_1ST_SCAN <= not e;
+		MB_START_1401_INDEX <= not h;
+		MB_START_TRUE_INDEX <= not j;
+		MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN <= not k;
+		PS_3RD_SCAN <= l;		
+		MB_START_COMPL_INDEX <= not m;
       
+      wait for 30 ns;  -- Latch may set
+
+		PS_ADD_OR_SUBT_OP_CODES <= '0';
+      PS_1ST_SCAN <= '0';
+      PS_MPLY_OR_DIV_OP_CODES <= '0';
+      PS_1ST_OR_3RD_SCAN <= '0';
+      MS_CMP_OP_CODES_DOT_1ST_SCAN <= '1';
+		MB_START_1401_INDEX <= '1';
+		MB_START_TRUE_INDEX <= '1';
+      MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN <= '1';
+      PS_3RD_SCAN <= '0';
+		MB_START_COMPL_INDEX <= '1';
+      
+      wait for 30 ns; -- If set, latch should stay that way
+      
+      check1(MS_TRUE_ADD_B,not g1,testName,"Set True Add B");
+      check1(PS_COMP_ADD_B,g2,testName,"Set Compl Add B");
+      check1(LAMP_15A1F11,g2,testName,"Set Compl Add Lamp");            
+            
+      -- Reset Test
+      
+      for rr in 0 to 3 loop
+         tv2 := std_logic_vector(to_unsigned(rr,tv2'Length));
+         MS_X_CYCLE_CTRL <= tv2(0);
+         MS_X_CYCLE <= tv2(1);
+         wait for 30 ns;
+         if(rr /= 3) then
+            -- No reset yet
+            check1(MS_TRUE_ADD_B,not g1,testName,"Still Set True Add B");
+            check1(PS_COMP_ADD_B,g2,testName,"Still Set Compl Add B");
+            check1(LAMP_15A1F11,g2,testName,"Still Set Compl Add Lamp");            
+         else
+            check1(MS_TRUE_ADD_B,'1',testName,"Reset 2 True Add");
+            check1(PS_COMP_ADD_B,'0',testName,"Reset 2 Compl Add");
+            check1(LAMP_15A1F11,'0',testName,"Reset 2 Compl Add Lamp");            
+         end if;
+      end loop;      
       
    end loop;
 
