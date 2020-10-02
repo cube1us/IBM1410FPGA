@@ -170,9 +170,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.20.04.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -182,28 +182,35 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
 
+		PS_ADD_OR_SUBT_OP_CODES <= a;
+		PS_B_CYCLE <= b;
+		PS_1ST_SCAN <= c;
+		PS_TRUE_LATCH <= d;
+		PB_ADDER_NO_CARRY <= e;
+		PB_ADDER_CARRY <= f;
+		PB_B_CH_WM_BIT <= g;
+		PS_UNITS_LATCH <= h;
+		PS_B_CH_WM_BIT_2 <= j;
+		PS_BODY_OR_EXTENSION <= k;
+		PS_1401_MODE_1 <= l;
       
       wait for 30 ns;
-      
+
+      check1(PS_A_OR_S_DOT_B_CYCLE,a and b,testName,"+S addsub.b");
+      check1(MS_A_OR_S_DOT_B_CYCLE,not(a and b),testName,"-S addsub.b");
+      check1(MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_NOT_RC,not(a and b and c and d and g and e),
+         testName,"A+R.b.1.t.bw.not rc");
+      check1(MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_RC,not(a and b and c and d and g and f),
+         testName,"A+S.b.1.t.bw.rc");
+      check1(MS_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_U_DOT_1401,not(a and b and c and d and h and l),
+         testName,"A+S.b.1.t.u.1401");
+      check1(MS_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_Y_OR_X_DOT_1401,not(a and b and c and d and j and k and l),
+         testName,"A+S.b.1.t.bw.y+x.1401");
+         	 
       
    end loop;
 
