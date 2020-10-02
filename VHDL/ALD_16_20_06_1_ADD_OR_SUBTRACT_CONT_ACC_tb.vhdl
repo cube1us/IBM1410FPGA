@@ -155,9 +155,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.20.06.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**7 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -166,30 +166,23 @@ uut_process: process
       e := tv(4);
       f := tv(5);
       g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
       
+		PS_A_OR_S_DOT_B_CYCLE <= a;
+      PS_3RD_SCAN <= b;
+      PB_B_CH_NOT_WM_BIT <= c;
+      PB_B_CH_WM_BIT <= d;
+      PS_UNITS_LATCH <= e;
+      PS_1ST_SCAN <= f;
+      MS_1401_MODE_1 <= not g;
+            
       wait for 30 ns;
-      
-      
+      check1(MS_A_OR_S_DOT_B_DOT_3,not(a and b),testName,"a+s.b.3");
+      check1(MB_A_OR_S_DOT_B_DOT_3_DOT_NOT_BW,not(a and b and c),testName,"a+s.b.e.not bw");
+      check1(MB_A_OR_S_DOT_B_DOT_3_DOT_BW,not(a and b and d),testName,"a+s.b.3.bw");
+      check1(MS_A_OR_S_DOT_B_DOT_3_DOT_U,not(a and b and e),testName,"a+s.b.e.u");
+      check1(MS_A_OR_S_DOT_B_DOT_U_DOT_1_DOT_NOT_1401,not(a and e and f and not g),
+         testName,"a+s.b.u.1.not 1401");
+                  
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
