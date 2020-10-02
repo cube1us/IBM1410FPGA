@@ -1,0 +1,38 @@
+Generating HDL for group named AddZonesGroupingat 10/2/2020 7:58:07 AM containing pages: 
+	16.17.01.1, 16.17.02.1, 16.17.03.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddZonesGrouping_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 3 pages...
+Found 14 signals on page 16.17.01.1
+Found 14 signals on page 16.17.02.1
+Found 16 signals on page 16.17.03.1
+Found 14 unique input signals and 6 unique output signals, (20 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -S ZONE ADDER A.B.C 1 originates outside the group.
+INFO:  Signal -S ZONE ADDER A.B.C 2 originates outside the group.
+INFO:  Signal -S ZONE ADDER NOT A.B.NOT C 1 originates outside the group.
+INFO:  Signal -S ZONE ADDER NOT A.B.NOT C 2 originates outside the group.
+INFO:  Signal -S ZONE ADDER A.NOT B.NOT C 1 originates outside the group.
+INFO:  Signal -S ZONE ADDER A.NOT B.NOT C 2 originates outside the group.
+INFO:  Signal -S ZONE ADDER NOT A.NOT B.C 1 originates outside the group.
+INFO:  Signal -S ZONE ADDER NOT A.NOT B.C 2 originates outside the group.
+INFO:  Signal -S A CH MINUS SIGN GATED originates outside the group.
+INFO:  Signal -S A CH INV PLUS SIGN GATED originates outside the group.
+INFO:  Signal -S MINUS SIGN GATED originates outside the group.
+INFO:  Signal -S A CH PLUS SIGN GATED originates outside the group.
+INFO:  Signal -S A CH INV MINUS SIGN GTD originates outside the group.
+INFO:  Signal -S PLUS SIGN LATCH GATED originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S ASM CH NOT A BIT*ADDER ZONES is used outside the group.
+INFO:  Signal +S ASM CH A BIT*ADDER ZONES is used outside the group.
+INFO:  Signal +S ADDER ZONES NOT B BIT is used outside the group.
+INFO:  Signal +S ASM CH B BIT * ADDER ZONES is used outside the group.
+INFO:  Signal +S ASM CH NOT ZN C BIT*ADD ZN is used outside the group.
+INFO:  Signal +S ASM CH ZONE C BIT*ADDER ZN is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 16.17.01.1 (ADD ZONES GROUPING A BITS-ACC)
+Generating HDL associated with page 16.17.02.1 (ADD ZONES GROUPING B BITS-ACC)
+Generating HDL associated with page 16.17.03.1 (ADD ZONES GROUPING C BITS-ACC)
