@@ -1,0 +1,50 @@
+Generating HDL for page 16.20.06.1 ADD OR SUBTRACT CONT-ACC at 10/2/2020 2:08:23 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_20_06_1_ADD_OR_SUBTRACT_CONT_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 2 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3G to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_K, OUT_5B_K
+	and inputs of PS_A_OR_S_DOT_B_CYCLE,PS_3RD_SCAN
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_P, OUT_4B_P
+	and inputs of OUT_5B_K
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4B_P
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_Q, OUT_2B_Q
+	and inputs of OUT_3B_C
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of OUT_2B_Q,PB_B_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_B
+	and inputs of OUT_2B_Q,PB_B_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of OUT_4B_P,PS_UNITS_LATCH
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of PS_A_OR_S_DOT_B_CYCLE,PS_UNITS_LATCH,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_C
+	and inputs of MS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_DOT_1H
+	and inputs of OUT_4H_C,OUT_4I_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_A_OR_S_DOT_B_DOT_3
+	from gate output OUT_5B_K
+Generating output sheet edge signal assignment to 
+	signal MB_A_OR_S_DOT_B_DOT_3_DOT_NOT_BW
+	from gate output OUT_3C_E
+Generating output sheet edge signal assignment to 
+	signal MB_A_OR_S_DOT_B_DOT_3_DOT_BW
+	from gate output OUT_3E_B
+Generating output sheet edge signal assignment to 
+	signal MS_A_OR_S_DOT_B_DOT_3_DOT_U
+	from gate output OUT_3G_P
+Generating output sheet edge signal assignment to 
+	signal MS_A_OR_S_DOT_B_DOT_U_DOT_1_DOT_NOT_1401
+	from gate output OUT_DOT_1H
