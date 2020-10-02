@@ -169,9 +169,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.20.02.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -181,27 +181,29 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
 
+	   PS_1ST_SCAN <= a;
+	   PS_BODY_OR_EXTENSION <= b;
+	   PB_B_CH_WM_BIT <= c;
+	   PS_B_CYCLE_1 <= d;
+	   PS_RESET_TYPE_OP_CODES <= e;
+	   PS_LAST_INSN_RO_CYCLE_2 <= f;
+	   PS_RESET_ADD_OP_CODE <= g;
+	   PS_UNITS_LATCH <= h;
+	   PS_RESET_SUBT_OP_CODE <= j;
+	   MS_1401_MODE_1 <= not k;
       
       wait for 30 ns;
+      
+      check1(MS_B_CH_INSERT_PLUS_ZERO,not(d and a and e),testName,"-S B CH Insert +0");
+      check1(MS_RA_OR_RS_DOT_1_DOT_B_DOT_X_OR_Y,not(b and d and a and e),testName,"-S RA+RS.1.B.X+Y");
+      check1(MB_RA_OR_RS_DOT_1_DOT_B_DOT_BW,not(c and d and a and e),testName,"-B RA+RS.1.B.BW");
+      check1(MS_RA_OR_RS_DOT_LAST_INSN_RO_CYCLE,not(e and f),testName,"-S RA+RS.LIRO");
+      check1(MS_RA_DOT_U_DOT_B,not(g and d and h),testName,"-S RA.U.B");
+      check1(MS_RS_DOT_U_DOT_B,not(h and d and j),testName,"-S RS.U.B");
+      check1(MS_RA_OR_RS_DOT_B_DOT_NOT_1401,not(d and e and not k),testName,"-S RA+RS.B.NOT 1401");
       
       
    end loop;
