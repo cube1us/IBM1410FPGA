@@ -179,9 +179,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.17.0%.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**14 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -191,27 +191,38 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
+      m := tv(11);
+      n := tv(12);
+      o := tv(13);
 
+	   MS_ZONE_ADDER_A_DOT_B_DOT_C_1 <= not a;
+	   MS_ZONE_ADDER_A_DOT_B_DOT_C_2 <= not b;
+	   MS_ZONE_ADDER_NOT_A_DOT_B_DOT_NOT_C_1 <= not c;
+	   MS_ZONE_ADDER_NOT_A_DOT_B_DOT_NOT_C_2 <= not d;
+	   MS_ZONE_ADDER_A_DOT_NOT_B_DOT_NOT_C_1 <= not e;
+	   MS_ZONE_ADDER_A_DOT_NOT_B_DOT_NOT_C_2 <= not f;
+	   MS_ZONE_ADDER_NOT_A_DOT_NOT_B_DOT_C_1 <= not g;
+	   MS_ZONE_ADDER_NOT_A_DOT_NOT_B_DOT_C_2 <= not h;
+	   MS_A_CH_MINUS_SIGN_GATED <= not j;
+	   MS_A_CH_INV_PLUS_SIGN_GATED <= not k;
+	   MS_MINUS_SIGN_GATED <= not l;
+	   MS_A_CH_PLUS_SIGN_GATED <=  not m;
+	   MS_A_CH_INV_MINUS_SIGN_GTD <= not n;
+	   MS_PLUS_SIGN_LATCH_GATED <= not o;
       
       wait for 30 ns;
+      
+      check1(PS_ASM_CH_A_BIT_STAR_ADDER_ZONES,e or f or b or a or m,testName,"ASM Ch A Bit Adder Zones");
+      check1(PS_ASM_CH_NOT_A_BIT_STAR_ADDER_ZONES,c or g or d or h or l or k or j,testName,"ASM Ch Not A Bit Adder Zones");
+
+      check1(PS_ASM_CH_B_BIT_STAR_ADDER_ZONES,c or d or a or b or j or k or l or m or n or o,testName,"ASM Ch B Bit Adder Zones");
+      check1(PS_ADDER_ZONES_NOT_B_BIT,e or f,testName,"ASM Ch Not B Bit Adder Zones");
+      
+      check1(PS_ASM_CH_ZONE_C_BIT_STAR_ADDER_ZN,a or b or g or h or m or n or o,testName,"ASM Ch C Bit Adder Zones");
+      check1(PS_ASM_CH_NOT_ZN_C_BIT_STAR_ADD_ZN,e or f or c or d or j or k or l,testName,"ASM Ch Not C Bit Adder Zones");
       
       
    end loop;
