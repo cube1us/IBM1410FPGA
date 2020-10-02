@@ -173,9 +173,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.20.03.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -185,29 +185,32 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
 
+		PS_ADD_TYPE_OP_CODES <= a;
+		PS_1ST_SCAN <= b;
+		PB_A_CH_NOT_WM_BIT <= c;
+		PB_B_CH_NOT_WM_BIT <= d;
+		PB_A_CH_WM_BIT <= e;
+		PS_TRUE_LATCH <= f;
+		PS_EXTENSION_LATCH <= g;
+		PS_UNITS_OR_BODY_LATCH <= h;
+		PS_B_CYCLE <= j;
+		PS_RESET_TYPE_OP_CODES <= k;
+		PS_1401_MODE_1 <= l;
       
       wait for 30 ns;
       
-      
+      check1(MB_RA_OR_RS_OR_A_OR_S_DOT_B_DOT_NOT_BW,not(a and j and d),testName,"-B addtype.b.not bw");
+      check1(MB_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_NOT_BW_DOT_NOT_AW,not(a and b and j and d and c),testName,"-B addtype.1.b.not bw.not aw");
+      check1(MB_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_NOT_BW_DOT_AW,not(a and b and j and d and e),testName,"-B addtype.1.b.not bw.aw");
+      check1(MS_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_T_DOT_X,not(a and b and j and f and g),testName,"-S addtype.1.b.t.x");
+      check1(MS_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_U_OR_Y,not(a and b and j and h),testName,"-S addtype.1.b.u+y");
+      check1(MS_RA_OR_RS_DOT_B_DOT_U_OR_Y_DOT_1401,not(k and j and h and l),testName,"-S reset type.b.u+y.1401");
+      check1(MS_RA_OR_RS_DOT_B_DOT_X_DOT_1401,not(k and j and g and l),testName,"-S reset type.b.x.1401");
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
