@@ -1,0 +1,76 @@
+Generating HDL for page 16.20.03.1 ADD SUBT RESET AND SUB CTRLS-ACC at 10/2/2020 12:30:09 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_20_03_1_ADD_SUBT_RESET_AND_SUB_CTRLS_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_M, OUT_4A_M
+	and inputs of OUT_5B_E
+	and logic function of NOT
+Generating Statement for block at 3A with output pin(s) of OUT_3A_P
+	and inputs of PS_ADD_TYPE_OP_CODES,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_C
+	and inputs of OUT_3A_P
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_E, OUT_5B_E
+	and inputs of PS_1ST_SCAN,PS_ADD_TYPE_OP_CODES,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D, OUT_4B_D
+	and inputs of OUT_5B_E
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_B
+	and inputs of OUT_4A_M,PB_B_CH_NOT_WM_BIT,PB_A_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_D
+	and inputs of OUT_2A_C,PB_B_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A
+	and inputs of OUT_4A_M,PB_B_CH_NOT_WM_BIT,PB_A_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of OUT_4B_D,PS_TRUE_LATCH,PS_EXTENSION_LATCH
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_K
+	and inputs of OUT_4B_D,PS_UNITS_OR_BODY_LATCH
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_G
+	and inputs of PS_RESET_TYPE_OP_CODES,PS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of PS_UNITS_OR_BODY_LATCH,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of PS_RESET_TYPE_OP_CODES,PS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_P
+	and inputs of PS_EXTENSION_LATCH,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_3F_G,OUT_3G_P
+	and logic function of OR
+Generating Statement for block at 1H with output pin(s) of OUT_DOT_1H
+	and inputs of OUT_3H_C,OUT_3I_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MB_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_NOT_BW_DOT_NOT_AW
+	from gate output OUT_3B_B
+Generating output sheet edge signal assignment to 
+	signal MB_RA_OR_RS_OR_A_OR_S_DOT_B_DOT_NOT_BW
+	from gate output OUT_1B_D
+Generating output sheet edge signal assignment to 
+	signal MB_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_NOT_BW_DOT_AW
+	from gate output OUT_3C_A
+Generating output sheet edge signal assignment to 
+	signal MS_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_T_DOT_X
+	from gate output OUT_3D_D
+Generating output sheet edge signal assignment to 
+	signal MS_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_U_OR_Y
+	from gate output OUT_3E_K
+Generating output sheet edge signal assignment to 
+	signal MS_RA_OR_RS_DOT_B_DOT_U_OR_Y_DOT_1401
+	from gate output OUT_DOT_1F
+Generating output sheet edge signal assignment to 
+	signal MS_RA_OR_RS_DOT_B_DOT_X_DOT_1401
+	from gate output OUT_DOT_1H
