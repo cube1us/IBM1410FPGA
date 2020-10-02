@@ -1,0 +1,56 @@
+Generating HDL for page 16.20.02.1 ADD SUBT RST ADD + RESET SUBT-ACC at 10/2/2020 11:19:56 AM
+Old test bench file ALD_16_20_02_1_ADD_SUBT_RST_ADD_RESET_SUBT_ACC_tb.vhdl 97 lines preserved and 35 declaration lines preserved
+Removed 2 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_C
+	and inputs of OUT_3B_P
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D, OUT_4B_D
+	and inputs of PS_B_CYCLE_1,PS_1ST_SCAN,PS_RESET_TYPE_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_P, OUT_3B_P
+	and inputs of OUT_4B_D
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_B
+	and inputs of OUT_4B_D
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of OUT_4C_B,PB_B_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_3B_P,PS_BODY_OR_EXTENSION
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of PS_RESET_TYPE_OP_CODES,PS_LAST_INSN_RO_CYCLE_2
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_1
+	and inputs of PS_RESET_ADD_OP_CODE,PS_B_CYCLE_1,PS_UNITS_LATCH
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_1
+	and inputs of PS_UNITS_LATCH,PS_B_CYCLE_1,PS_RESET_SUBT_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of PS_B_CYCLE_1,PS_RESET_TYPE_OP_CODES,MS_1401_MODE_1
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_B_CH_INSERT_PLUS_ZERO
+	from gate output OUT_2A_C
+Generating output sheet edge signal assignment to 
+	signal MB_RA_OR_RS_DOT_1_DOT_B_DOT_BW
+	from gate output OUT_3C_C
+Generating output sheet edge signal assignment to 
+	signal MS_RA_OR_RS_DOT_1_DOT_B_DOT_X_OR_Y
+	from gate output OUT_2C_C
+Generating output sheet edge signal assignment to 
+	signal MS_RA_OR_RS_DOT_LAST_INSN_RO_CYCLE
+	from gate output OUT_3E_C
+Generating output sheet edge signal assignment to 
+	signal MS_RA_DOT_U_DOT_B
+	from gate output OUT_3F_1
+Generating output sheet edge signal assignment to 
+	signal MS_RS_DOT_U_DOT_B
+	from gate output OUT_3G_1
+Generating output sheet edge signal assignment to 
+	signal MS_RA_OR_RS_DOT_B_DOT_NOT_1401
+	from gate output OUT_3H_C
