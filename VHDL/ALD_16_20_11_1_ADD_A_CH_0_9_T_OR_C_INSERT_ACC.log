@@ -1,0 +1,49 @@
+Generating HDL for page 16.20.11.1 ADD A CH 0-9 T OR C INSERT-ACC at 10/3/2020 8:53:13 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_20_11_1_ADD_A_CH_0_9_T_OR_C_INSERT_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 2C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_E
+	and inputs of PS_TRUE_LATCH,PS_EXTENSION_LATCH,PS_MPLY_OR_DIV_OP_CODES
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_G
+	and inputs of OUT_4A_E,OUT_4B_C
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PS_MPLY_OR_DIV_OP_CODES,PS_COMPLEMENT_LATCH,PS_MQ_LATCH
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of MS_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_T_DOT_X,MS_A_OR_S_DOT_B_DOT_3
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_B
+	and inputs of OUT_DOT_2C
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_B
+	and inputs of PS_MPLY_OR_DIV_OP_CODES,PS_COMPLEMENT_LATCH,PS_EXTENSION_LATCH
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_NoPin
+	and inputs of OUT_4D_B,MS_A_OR_S_DOT_B_DOT_1_DOT_S_DOT_X,OUT_4E_C
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of OUT_3D_NoPin
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of PS_MPLY_OR_DIV_OP_CODES,PS_TRUE_LATCH,PS_MQ_LATCH
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of MS_MPLY_DOT_U_OR_Y_DOT_B,MS_DIV_DOT_U_OR_Y_DOT_B,MS_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_U_OR_Y
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_L
+	and inputs of OUT_3F_C
+	and logic function of EQUAL
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_2A_G,OUT_2B_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_A_CH_INSERT_PLUS_ZERO
+	from gate output OUT_1C_B
+Generating output sheet edge signal assignment to 
+	signal MS_A_CH_INSERT_PLUS_NINE
+	from gate output OUT_2D_D
+Generating output sheet edge signal assignment to 
+	signal PS_ADDER_A_CH_USE_T_OR_C
+	from gate output OUT_2F_L
