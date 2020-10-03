@@ -1,5 +1,4 @@
-Generating HDL for page 16.20.14.1 TRUE AND COMP LATCHES-ACC at 10/3/2020 12:20:12 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_20_14_1_TRUE_AND_COMP_LATCHES_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 16.20.14.1 TRUE AND COMP LATCHES-ACC at 10/3/2020 1:45:51 PM
 Note: DOT Function at 2E has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 2H has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 5D
@@ -23,7 +22,7 @@ Generating Statement for block at 1A with output pin(s) of OUT_1A_D
 	and logic function of NAND
 Generating Statement for block at 2C with output pin(s) of OUT_2C_D
 	and inputs of MB_START_TRUE_ADD_2,MB_START_TRUE_ADD_1
-	and logic function of NOR
+	and logic function of NAND
 Generating Statement for block at 5D with *latched* output pin(s) of OUT_5D_NoPin_Latch
 	and inputs of MS_LOGIC_GATE_D_1,MS_PROGRAM_RESET_5,OUT_4D_D
 	and logic function of NAND
