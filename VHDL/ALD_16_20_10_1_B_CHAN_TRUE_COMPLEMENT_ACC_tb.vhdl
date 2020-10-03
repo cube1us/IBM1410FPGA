@@ -180,7 +180,7 @@ uut_process: process
       l := tv(8);
       m := tv(9);
       
-      g1 := (a and b) or (c and d) or e or k or (h and j);
+      g1 := (a and b) or (c and d) or e or k or h or j;
       g2 := (a and l) or m;
       
       --  Reset
