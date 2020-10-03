@@ -1,5 +1,4 @@
-Generating HDL for page 16.20.10.1 B CHAN TRUE-COMPLEMENT-ACC at 10/2/2020 3:00:39 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_20_10_1_B_CHAN_TRUE_COMPLEMENT_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 16.20.10.1 B CHAN TRUE-COMPLEMENT-ACC at 10/3/2020 2:25:58 PM
 Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 3G has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 2C with symbol R
@@ -29,7 +28,7 @@ Generating Statement for block at 4E with *latched* output pin(s) of OUT_4E_R_La
 	and logic function of NAND
 Generating Statement for block at 3E with output pin(s) of OUT_3E_B
 	and inputs of MB_START_1401_INDEX,MB_START_TRUE_INDEX
-	and logic function of NOR
+	and logic function of NAND
 Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_K_Latch
 	and inputs of OUT_4E_R,MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN
 	and logic function of NAND
