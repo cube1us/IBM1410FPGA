@@ -182,9 +182,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.20.12.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**13 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -194,27 +194,44 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
+      m := tv(11);
+      n := tv(12);
 
+      g1 := g and h and j;
+      g2 := c and f and g1;
+      g3 := g1 and k and e;
+      g4 := g1 and c and k;
+      g5 := g1 and e and f;
+      g6 := not l and n and m;
+            
+		MS_LOGIC_GATE_E_1 <= not a;
+      PB_B_CH_PLUS <= b;
+      PB_A_CH_PLUS <= c;
+      PB_B_CH_MINUS <= d;
+      PB_A_CH_MINUS <= e;
+      PS_ADD_OP_CODE <= f;
+      PS_B_CYCLE <= g;
+      PS_UNITS_LATCH <= h;
+      PS_1ST_SCAN <= j;
+      PS_SUBT_OP_CODE <= k;
+      MS_1401_MODE_1 <= not l;
+      PS_X_CYCLE <= m;
+      PS_A_RING_2_TIME <= n;
       
       wait for 30 ns;
+      
+      
+      check1(MB_START_TRUE_ADD_1,not(b and a and (g2 or g3)),testName,"-B Start True Add 1");
+      check1(MB_START_TRUE_ADD_2,not(a and (g4 or g5) and d),testName,"-B Start True Add 2");
+      check1(MB_START_COMPL_ADD_1,not(b and (g4 or g5) and a),testName,"-B Start Compl Add 1");
+      check1(MB_START_COMPL_ADD_2,not(a and (g2 or g3) and d),testName,"-B Start Compl Add 2");
+      check1(MB_START_COMPL_INDEX,not(d and a and g6),testName,"-B Start Compl Index");
+      check1(MB_START_TRUE_INDEX,not(g6 and b and a),testName,"-B Start True Index");
+      check1(MB_START_1401_INDEX,not(a and m and n and l),testName,"-B Start 1401 Index");
+      check1(PB_1401_MODE,l,testName,"+B 1401 Mode");
       
       
    end loop;
