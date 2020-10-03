@@ -173,42 +173,158 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.20.15.1        ";
 
-   for tt in 0 to 2**23 loop
+   -- Test reset
+   
+   MS_PROGRAM_RESET_5 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_5 <= '1';
+   wait for 30 ns;
+
+   check1(PS_COMPLEMENT_LATCH,'0',testName,"Reset +S Complement Latch");
+   check1(PB_COMPLEMENT_LATCH,'0',testName,"Reset +B Complement Latch");
+   check1(MB_COMPLEMENT_LATCH,'1',testName,"Reset -B Complement Latch");
+   check1(PB_COMP_ADD_A,'0',testName,"Reset Comp Add A");
+   check1(LAMP_15A1E11,'0',testName,"Reset Lamp Comp Add A");
+   
+   -- Test Comp Add A except for Complement Latch Input
+   
+   for tt in 0 to 2**2 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
-      
+      k := tv(0);
+      l := tv(1);
+      PS_COMPARE_TYPE_OP_CODES <= k;
+      PS_1ST_SCAN <= l;
       wait for 30 ns;
-      
-      
+      check1(MS_CMP_OP_CODES_DOT_1ST_SCAN,not(k and l),testName,"CMP Op Codes . 1st Scan");
+      check1(PB_COMP_ADD_A,(k and l),testName,"Comp Add A no Complement Latch");
+      check1(LAMP_15A1E11,PB_COMP_ADD_A,testName,"Comp Add A no Complement Latch");
    end loop;
+   
+   MB_START_COMPL_ADD_1 <= '1';
+   MB_START_COMPL_ADD_2 <= '1';
+   PS_COMPARE_TYPE_OP_CODES <= '0';
+   PS_1ST_SCAN <= '0';
+   PS_ADDER_A_CH_USE_T_OR_C <= '1'; -- So lamp lights
+   
+   -- Test Comp Ctrl and rest of Comp Add A   
+   
+   for tt in 0 to 2**4 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      MS_PROGRAM_RESET_5 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_5 <= '1';
+      wait for 30 ns;
+      check1(PS_COMPLEMENT_LATCH,'0',testName,"1A");
+      check1(PB_COMPLEMENT_LATCH,'0',testName,"1B");
+      check1(MB_COMPLEMENT_LATCH,'1',testName,"1C");
+      check1(LAMP_15A1E11,'0',testName,"1D");
+      PS_SET_COMPL_CTRL_LATCH <= tv(0);
+      PS_LAST_LOGIC_GATE_2 <= tv(1);
+      PS_LOGIC_GATE_C_1 <= tv(2);
+      wait for 60 ns; -- perhaps set latches (cascaded)      
+      PS_SET_COMPL_CTRL_LATCH <= '0';
+      PS_LAST_LOGIC_GATE_2 <= '1';
+      check1(PS_COMPLEMENT_LATCH,tv(0) and tv(1) and tv(2),testName,"1E");
+      check1(PB_COMPLEMENT_LATCH,tv(0) and tv(1) and tv(2),testName,"1F");
+      check1(MB_COMPLEMENT_LATCH,not PB_COMPLEMENT_LATCH,testName,"1G");
+      check1(LAMP_15A1E11,PB_COMPLEMENT_LATCH,testName,"1H");
+      -- Reset Comp Ctrl and then Complement Latch
+      MS_LOGIC_GATE_D_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_D_1 <= '1';
+      wait for 60 ns; -- Resetting Comp Ctrl won't reset Complement Latch
+      check1(PS_COMPLEMENT_LATCH,tv(0) and tv(1) and tv(2),testName,"1I");
+      check1(PB_COMPLEMENT_LATCH,tv(0) and tv(1) and tv(2),testName,"1J");
+      check1(MB_COMPLEMENT_LATCH,not PB_COMPLEMENT_LATCH,testName,"1K");
+      check1(LAMP_15A1E11,PB_COMPLEMENT_LATCH,testName,"1L");
+      -- But then resetting Complement Latch should work
+      MS_LOGIC_GATE_B_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_B_1 <= '1';
+      wait for 30 ns;
+      check1(PS_COMPLEMENT_LATCH,'0',testName,"1M");
+      check1(PB_COMPLEMENT_LATCH,'0',testName,"1N");
+      check1(MB_COMPLEMENT_LATCH,not PB_COMPLEMENT_LATCH,testName,"1O");
+      check1(LAMP_15A1E11,PB_COMPLEMENT_LATCH,testName,"1P");
+   end loop;
+   
+   -- Test Complement Latch w/o Comp Ctrl 
+   -- Not testing lamp / -B at this point
+   
+   PS_SET_COMPL_CTRL_LATCH <= '0';
+   PS_LAST_LOGIC_GATE_2 <= '0';
+   PS_LOGIC_GATE_C_1 <= '0';
+   PS_ADDER_A_CH_USE_T_OR_C <= '0';
+
+   for tt in 0 to 3 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      MS_PROGRAM_RESET_5 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_5 <= '1';
+      wait for 30 ns;
+      MB_START_COMPL_ADD_1 <= not tv(0);
+      MB_START_COMPL_ADD_2 <= not tv(1);
+      wait for 30 ns;
+      check1(PS_COMPLEMENT_LATCH,tv(0) or tv(1),testName,"2A");
+      check1(PB_COMPLEMENT_LATCH,tv(0) or tv(1),testName,"2B");      
+   end loop;
+   
+   -- Test Regen
+   
+   MB_START_COMPL_ADD_1 <= '1';
+   MB_START_COMPL_ADD_2 <= '1';
+   MS_PROGRAM_RESET_5 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_5 <= '1';
+   wait for 30 ns;
+   
+   MB_START_COMPL_ADD_1 <= '0';
+   wait for 30 ns; -- Sets Complement Latch
+   MB_START_COMPL_ADD_1 <= '1';
+   wait for 30 ns; -- Should stay set
+   check1(PS_COMPLEMENT_LATCH,'1',testName,"3A");
+   check1(PB_COMPLEMENT_LATCH,'1',testName,"3B");
+   -- Set Comp Ctrl latch from Complement Latch regen      
+   PS_REGEN_COMPL <= '1';
+   PS_LAST_LOGIC_GATE_2 <= '1';
+   wait for 30 ns;
+   -- Reset Complement Latch (and reset inputs to Comp Ctrl Latch - which should stay set)
+   MS_LOGIC_GATE_B_1 <= '0';
+   PS_REGEN_COMPL <= '0'; 
+   PS_LAST_LOGIC_GATE_2 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_COMPLEMENT_LATCH,'0',testName,"3C");
+   check1(PB_COMPLEMENT_LATCH,'0',testName,"3D");
+   -- Now set Complement Latch via Comp Ctrl
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns; -- Should set Complement Latch
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   -- Reset Comp Ctrl
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   check1(PS_COMPLEMENT_LATCH,'1',testName,"3E");
+   check1(PB_COMPLEMENT_LATCH,'1',testName,"3F");
+   -- Reset Complement Latch (so now, both are reset)
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_COMPLEMENT_LATCH,'0',testName,"3G");
+   check1(PB_COMPLEMENT_LATCH,'0',testName,"3H");
+   -- Since Comp Ctrl is NOT set any more, this should NOT set Complement Latch either
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(PS_COMPLEMENT_LATCH,'0',testName,"3I");
+   check1(PB_COMPLEMENT_LATCH,'0',testName,"3J");
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
