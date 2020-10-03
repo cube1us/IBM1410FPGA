@@ -200,7 +200,7 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.20.13.1        ";
 
    for tt in 0 to 2**23 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
@@ -212,29 +212,53 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
+      m := tv(11);
+      n := tv(12);
+      o := tv(13);
+      p := tv(14);
+      q := tv(15);
+      r := tv(16);
+      s := tv(17);
+      t := tv(18);
+      u := tv(19);
+      v := tv(20);
+      w := tv(21);
+      x := tv(22);
 
+		MS_MPLY_DOT_LAST_INSN_RO_CYCLE <= not a;
+		MS_RA_OR_RS_DOT_LAST_INSN_RO_CYCLE <= not b;
+		MS_LB_OP_DOT_LIROC <= not c;
+		MB_DIV_DOT_X_DOT_B_DOT_S_DOT_NOT_RC <= not d;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_B0 <= not e;
+		MS_A_CYCLE <= not f;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_B1_4 <= not g;
+		MS_MPLY_DOT_N_DOT_C <= not h;
+		MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN <= not j;
+		MS_RA_OR_RS_DOT_B_DOT_NOT_1401 <= not k;
+		MB_DIV_DOT_X_DOT_B <= not l;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_BW <= not m;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_B5_8 <= not n;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_NOT_BW <= not o;
+		MB_DIV_DOT_X_DOT_B_DOT_S_DOT_RC <= not p;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B9 <= not q;
+		MS_DIV_DOT_LAST_INSN_RO_CYCLE <= not r;
+		MS_DIV_DOT_2_DOT_D <= not s;
+		MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B <= not t;
+		MS_MPLY_DOT_1_OR_N_OR_3_DOT_D <= not u;
+		MS_DIV_DOT_U_OR_Y_DOT_B <= not v;
+		MS_A_OR_S_DOT_B_CYCLE <= not w;
+		MS_DIV_DOT_MQ_DOT_B <= not x;
       
       wait for 30 ns;
-      
-      
+            
+      check1(PS_SET_TRUE,a or g or e or m or d or b or c,testName,"Set True");
+      check1(PS_REGEN_TRUE,h or t or u or l or v or w or k or j or f,testName,"Regen True");
+      check1(PS_SET_COMPL_CTRL_LATCH,n or o or q or s or r or p,testName,"Set Compl Ctrl Latch");
+      check1(PS_REGEN_COMPL,u or t or x or v or w or f,testName,"Regen Compl");            
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -248,7 +272,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 400 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
