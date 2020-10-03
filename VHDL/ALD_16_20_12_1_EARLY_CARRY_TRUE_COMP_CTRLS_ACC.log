@@ -1,0 +1,118 @@
+Generating HDL for page 16.20.12.1 EARLY CARRY TRUE COMP CTRLS-ACC at 10/3/2020 9:48:32 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_20_12_1_EARLY_CARRY_TRUE_COMP_CTRLS_ACC_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 5G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_A, OUT_5A_A, OUT_5A_A, OUT_5A_A, OUT_5A_A, OUT_5A_A, OUT_5A_A
+	and inputs of MS_LOGIC_GATE_E_1
+	and logic function of NOT
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of OUT_5C_B,PB_A_CH_PLUS
+	and logic function of AND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_A
+	and inputs of OUT_4A_NoPin,OUT_4B_NoPin
+	and logic function of NOR
+Generating Statement for block at 1A with output pin(s) of OUT_1A_B
+	and inputs of OUT_5A_A,PB_B_CH_PLUS,OUT_3B_B
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of PB_A_CH_MINUS,OUT_5D_C
+	and logic function of AND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_B, OUT_3B_B
+	and inputs of OUT_3A_A
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_1B_A
+	and inputs of OUT_5A_A,PB_B_CH_MINUS,OUT_3D_C
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_B, OUT_5C_B
+	and inputs of OUT_3E_C
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PB_A_CH_PLUS,OUT_5D_C
+	and logic function of AND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_H
+	and inputs of OUT_4C_NoPin,OUT_4D_NoPin
+	and logic function of NOR
+Generating Statement for block at 1C with output pin(s) of OUT_1C_K
+	and inputs of OUT_5A_A,PB_B_CH_PLUS,OUT_3D_C
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C, OUT_5D_C
+	and inputs of OUT_3F_C
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of OUT_5C_B,PB_A_CH_MINUS
+	and logic function of AND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C, OUT_3D_C
+	and inputs of OUT_3C_H
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_B
+	and inputs of OUT_5A_A,OUT_3B_B,PB_B_CH_MINUS
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of PS_ADD_OP_CODE,OUT_4F_C
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_E
+	and inputs of PS_B_CYCLE,PS_UNITS_LATCH,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C, OUT_4F_C
+	and inputs of OUT_5F_E
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of OUT_4F_C,PS_SUBT_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_M, OUT_5G_M, OUT_5G_M
+	and inputs of MS_1401_MODE_1
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_B, OUT_3G_B
+	and inputs of OUT_5G_M,OUT_5I_Q,OUT_5H_P
+	and logic function of NOR
+Generating Statement for block at 1G with output pin(s) of OUT_1G_A
+	and inputs of OUT_5A_A,OUT_3G_B,PB_B_CH_MINUS
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_P, OUT_5H_P
+	and inputs of PS_X_CYCLE
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_K
+	and inputs of OUT_5H_P
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of OUT_1H_K
+	and inputs of OUT_5A_A,OUT_3G_B,PB_B_CH_PLUS
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_Q, OUT_5I_Q
+	and inputs of PS_A_RING_2_TIME
+	and logic function of NOT
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of OUT_5I_Q
+	and logic function of NOT
+Generating Statement for block at 1I with output pin(s) of OUT_1I_B
+	and inputs of OUT_5A_A,OUT_5G_M,OUT_3H_K,OUT_3I_D
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MB_START_TRUE_ADD_1
+	from gate output OUT_1A_B
+Generating output sheet edge signal assignment to 
+	signal MB_START_TRUE_ADD_2
+	from gate output OUT_1B_A
+Generating output sheet edge signal assignment to 
+	signal MB_START_COMPL_ADD_1
+	from gate output OUT_1C_K
+Generating output sheet edge signal assignment to 
+	signal MB_START_COMPL_ADD_2
+	from gate output OUT_1D_B
+Generating output sheet edge signal assignment to 
+	signal PB_1401_MODE
+	from gate output OUT_5G_M
+Generating output sheet edge signal assignment to 
+	signal MB_START_COMPL_INDEX
+	from gate output OUT_1G_A
+Generating output sheet edge signal assignment to 
+	signal MB_START_TRUE_INDEX
+	from gate output OUT_1H_K
+Generating output sheet edge signal assignment to 
+	signal MB_START_1401_INDEX
+	from gate output OUT_1I_B
