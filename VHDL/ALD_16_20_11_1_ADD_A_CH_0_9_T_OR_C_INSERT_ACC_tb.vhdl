@@ -161,9 +161,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.20.11.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -173,28 +173,32 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
+      
+      g1 := e and c and f;
+      g2 := f and d and g;
+      g3 := f and d and c;
+      g4 := f and e and g;
 
+		MS_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_T_DOT_X <= not a;
+		MS_A_OR_S_DOT_B_DOT_3 <= not b;
+		PS_EXTENSION_LATCH <= c;
+		PS_COMPLEMENT_LATCH <= d;
+		PS_TRUE_LATCH <= e;
+		PS_MPLY_OR_DIV_OP_CODES <= f;
+		PS_MQ_LATCH <= g;
+		MS_A_OR_S_DOT_B_DOT_1_DOT_S_DOT_X <= not h;
+		MS_MPLY_DOT_U_OR_Y_DOT_B <= not j;
+		MS_DIV_DOT_U_OR_Y_DOT_B <= not k;
+		MS_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_U_OR_Y <= not l;
       
       wait for 30 ns;
       
+      check1(MS_A_CH_INSERT_PLUS_ZERO,not(g1 or g2 or a or b),testName,"Insert +0");
+      check1(MS_A_CH_INSERT_PLUS_NINE,not(g3 or g4 or h),testName,"Insert +9");
+      check1(PS_ADDER_A_CH_USE_T_OR_C,j or k or l,testName,"Use T or C");
       
    end loop;
 
