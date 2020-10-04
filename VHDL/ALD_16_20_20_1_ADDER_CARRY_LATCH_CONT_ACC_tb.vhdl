@@ -191,9 +191,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.20.20.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**22 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -203,28 +203,51 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
       j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      k := tv(9);
+      l := tv(10);
+      m := tv(11);
+      n := tv(12);
+      o := tv(13);
+      p := tv(14);
+      q := tv(15);
+      r := tv(16);
+      s := tv(17);
+      t := tv(18);
+      u := tv(19);
+      v := tv(20);
+      w := tv(21);
+      
+      g1 := r or s or t or w or v or u;
 
+		MS_MPLY_DOT_X_DOT_B_DOT_T <= not a ;
+		MS_MPLY_DOT_D_DOT_T <= not b;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_B1_4 <= not c;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_B0 <= not d;
+		MS_LB_OP_DOT_LIROC <= not e;
+		MS_MPLY_DOT_X_DOT_B_DOT_S <= not f;
+		MS_MPLY_DOT_D_DOT_S <= not g;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_B5_8 <= not h;
+		MS_RA_OR_RS_DOT_LAST_INSN_RO_CYCLE <= not j;
+		MS_DIV_DOT_LAST_INSN_RO_CYCLE <= not k;
+		MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_NOT_RC <= not l;
+		MS_DIV_DOT_2_DOT_D <= not m;
+		MB_A_OR_S_DOT_B_DOT_1_DOT_S_DOT_BW_DOT_NOT_RC <= not n;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B9 <= not o;
+		PS_ADDER_CARRY <= p;
+		PS_ADDER_NO_CARRY <= q;
+		MS_MPLY_DOT_U_OR_Y_DOT_B <= not r;
+		MS_DIV_DOT_U_OR_Y_DOT_B <= not s;
+		MB_DIV_DOT_X_DOT_B <= not t;
+		MS_X_CYCLE <= not u;
+		MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN <= not v;
+		MB_RA_OR_RS_OR_A_OR_S_DOT_B_DOT_NOT_BW <= not w;
       
       wait for 30 ns;
       
+      check1(PS_SET_NO_CARRY,a or b or c or d or e or j or (q and g1),testName,"Set No Carry");
+      check1(PS_SET_CARRY_LATCH,(g1 and p) or g or f or h or o or m or l or k or n,
+         testName,"Set Carry");
       
    end loop;
 
@@ -239,7 +262,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 2000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
