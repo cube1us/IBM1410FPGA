@@ -152,7 +152,7 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "16.30.04.1        ";
+   testName := "16.30.06.1        ";
 
    -- Test reset
    
