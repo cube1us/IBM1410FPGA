@@ -1,0 +1,61 @@
+Generating HDL for page 16.30.06.1 EXTENSION LATCHES-ACC at 10/4/2020 11:37:41 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_30_06_1_EXTENSION_LATCHES_ACC_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5B
+Found combinatorial loop (need D FF) at output of gate at 5C
+Found combinatorial loop (need D FF) at output of gate at 4C
+Found combinatorial loop (need D FF) at output of gate at 3E
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 2F
+Found combinatorial loop (need D FF) at output of gate at 2G
+Removed 3 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 12 outputs from Gate at 2G to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1J08
+Generating Statement for block at 5A with output pin(s) of OUT_5A_R
+	and inputs of PS_NEXT_TO_LAST_LOGIC_GATE,PS_SET_EXTN_CTRL_LATCH
+	and logic function of NAND
+Generating Statement for block at 5B with *latched* output pin(s) of OUT_5B_D_Latch
+	and inputs of PS_NEXT_TO_LAST_LOGIC_GATE,OUT_2G_C,PS_RGEN_EXT_CTRL
+	and logic function of NAND
+Generating Statement for block at 5C with *latched* output pin(s) of OUT_5C_E_Latch, OUT_5C_E_Latch
+	and inputs of MS_LOGIC_GATE_D_1,MS_PROGRAM_RESET_5,OUT_4C_C
+	and logic function of NAND
+Generating Statement for block at 4C with *latched* output pin(s) of OUT_4C_C_Latch, OUT_4C_C_Latch
+	and inputs of OUT_5A_R,OUT_5B_D,OUT_5C_E
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_NoPin_Latch
+	and inputs of OUT_4C_C,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_E
+	and inputs of OUT_1F_K
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of 
+	and inputs of OUT_2E_E
+	and logic function of Lamp
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_E_Latch, OUT_3F_E_Latch
+	and inputs of MS_LOGIC_GATE_B_1,MS_PROGRAM_RESET_5,OUT_2F_G
+	and logic function of NAND
+Generating Statement for block at 2F with *latched* output pin(s) of OUT_2F_G_Latch, OUT_2F_G_Latch
+	and inputs of OUT_3E_NoPin,OUT_3F_E
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_K, OUT_1F_K
+	and inputs of OUT_2F_G
+	and logic function of NOT
+Generating Statement for block at 2G with *latched* output pin(s) of OUT_2G_C_Latch, OUT_2G_C_Latch
+	and inputs of OUT_3F_E
+	and logic function of Special
+Generating output sheet edge signal assignment to 
+	signal MS_EXTENSION_CTRL_LATCH
+	from gate output OUT_5C_E
+Generating output sheet edge signal assignment to 
+	signal MS_EXTENSION_LATCH
+	from gate output OUT_1F_K
+Generating output sheet edge signal assignment to 
+	signal PS_EXTENSION_LATCH
+	from gate output OUT_2G_C
+Generating D Flip Flop for block at 5B
+Generating D Flip Flop for block at 5C
+Generating D Flip Flop for block at 4C
+Generating D Flip Flop for block at 3E
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 2F
+Generating D Flip Flop for block at 2G
