@@ -155,42 +155,138 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.30.04.1        ";
 
-   for tt in 0 to 2**23 loop
+   -- Test reset
+   
+   MS_PROGRAM_RESET_5 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_5 <= '1';
+   wait for 30 ns;
+
+   check1(PS_BODY_LATCH,'0',testName,"+S Reset Body Latch");
+   check1(MS_BODY_LATCH,'1',testName,"+S Reset Body Latch");
+   check1(PS_BODY_CTRL_LATCH,'0',testName,"+S Reset Body Ctrl Latch");
+   check1(MS_BODY_CTRL_LATCH,'1',testName,"-S Reset Body Ctrl Latch");
+   check1(LAMP_15A1H08,'0',testName,"Reset Units Lamp");
+   
+     
+   -- Test Units Ctrl   
+   
+   for tt in 0 to 2**2 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
-      
+      MS_PROGRAM_RESET_5 <= '0';
       wait for 30 ns;
-      
-      
+      MS_PROGRAM_RESET_5 <= '1';
+      wait for 30 ns;
+      check1(PS_BODY_CTRL_LATCH,'0',testName,"1A");
+      check1(MS_BODY_CTRL_LATCH,'1',testName,"1B");
+      PS_SET_BODY_CTRL_LATCH <= tv(0);
+      PS_NEXT_TO_LAST_LOGIC_GATE <= tv(1);
+      wait for 60 ns; -- perhaps set Body Ctrl Latch
+      PS_SET_BODY_CTRL_LATCH <= '0';
+      PS_NEXT_TO_LAST_LOGIC_GATE <= '0';
+      check1(PS_BODY_CTRL_LATCH,tv(0) and tv(1),testName,"1C");
+      check1(MS_BODY_CTRL_LATCH,not PS_BODY_CTRL_LATCH,testName,"1D");
+      check1(PS_BODY_LATCH,'0',testName,"1E");
+      check1(MS_BODY_LATCH,not PS_BODY_LATCH,testName,"1F");
+      check1(LAMP_15A1H08,PS_BODY_LATCH,testName,"1G");
+      PS_LOGIC_GATE_C_1 <= '1';
+      wait for 30 ns; -- perhaps set Body Latch
+      PS_LOGIC_GATE_C_1 <= '0';
+      wait for 30 ns; -- should stay set
+      check1(PS_BODY_LATCH,tv(0) and tv(1),testName,"1H");
+      check1(MS_BODY_LATCH,not PS_BODY_LATCH,testName,"1I");
+      check1(LAMP_15A1H08,PS_BODY_LATCH,testName,"1J");      
+      -- Reset Units Ctrl and then Body Latch      
+      MS_LOGIC_GATE_D_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_D_1 <= '1';
+      wait for 60 ns; -- Resetting Units Ctrl won't reset Body Latch
+      check1(PS_BODY_CTRL_LATCH,'0',testName,"1K");
+      check1(MS_BODY_CTRL_LATCH,not PS_BODY_CTRL_LATCH,testName,"1L");
+      check1(PS_BODY_LATCH,tv(0) and tv(1),testName,"1M");
+      check1(MS_BODY_LATCH,not PS_BODY_LATCH,testName,"1N");
+      check1(LAMP_15A1H08,PS_BODY_LATCH,testName,"1O");
+      -- But then resetting Body Latch should work
+      MS_LOGIC_GATE_B_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_B_1 <= '1';
+      wait for 30 ns;
+      check1(PS_BODY_LATCH,'0',testName,"1P");
+      check1(MS_BODY_LATCH,'1',testName,"1Q");
+      check1(LAMP_15A1H08,PS_BODY_LATCH,testName,"1R");
    end loop;
+      
+   -- Test Regen
+   
+   MS_PROGRAM_RESET_5 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_5 <= '1';
+   wait for 30 ns;
+   
+   PS_SET_BODY_CTRL_LATCH <= '1';
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+   wait for 30 ns; -- Sets Body Ctrl Latch
+   PS_SET_BODY_CTRL_LATCH <= '0';
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '0';
+   wait for 30 ns; -- Should stay set   
+   check1(PS_BODY_CTRL_LATCH,'1',testName,"3A");
+   check1(PS_BODY_LATCH,'0',testName,"3AA");
+   -- Set Body Latch   
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(PS_BODY_LATCH,'1',testName,"3B");
+   -- Reset Body Ctrl Latch.  Body Latch should stay set
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   check1(PS_BODY_CTRL_LATCH,'0',testName,"3C");
+   check1(PS_BODY_LATCH,'1',testName,"3D");   
+   -- Set Body Ctrl Latch from Body Latch regen      
+   PS_RGEN_UNITS_DOT_BODY_CTRL <= '1';
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+   wait for 30 ns;
+   PS_RGEN_UNITS_DOT_BODY_CTRL <= '0'; 
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '0';
+   wait for 30 ns;
+   -- Reset Body Latch (and reset inputs to Body Ctrl Latch - which should stay set)
+   MS_LOGIC_GATE_B_1 <= '0';
+   PS_SET_BODY_CTRL_LATCH <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_BODY_LATCH,'0',testName,"3E");
+   check1(PS_BODY_CTRL_LATCH,'1',testName,"3F");
+   -- Now set Body Latch via Units Ctrl (again?)
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns; -- Should set Body Latch
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(PS_BODY_LATCH,'1',testName,"3G");
+   check1(PS_BODY_CTRL_LATCH,'1',testName,"3H");
+   -- Reset Units Ctrl
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   check1(PS_BODY_CTRL_LATCH,'0',testName,"3I");
+   check1(PS_BODY_LATCH,'1',testName,"3J");
+   -- Reset Body Latch (so now, both are reset)
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_BODY_LATCH,'0',testName,"3K");
+   -- Since Units Ctrl is NOT set any more, this should NOT set Body Latch either
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(PS_BODY_LATCH,'0',testName,"3L");
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
