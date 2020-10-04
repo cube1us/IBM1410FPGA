@@ -137,41 +137,24 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.30.08.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**3 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
 
-      
+      MS_EXTENSION_LATCH <= not a;
+      MS_UNITS_LATCH <= not b;
+      MS_BODY_LATCH <= not c;
+
       wait for 30 ns;
       
-      
+      check1(PS_UNITS_OR_BODY_OR_EXT,a or b or c,testName,"U+B+X");
+      check1(PS_BODY_OR_EXTENSION,a or c,testName,"B+X");
+      check1(PS_UNITS_OR_BODY_LATCH,b or c,testName,"U+B");
+                  
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
