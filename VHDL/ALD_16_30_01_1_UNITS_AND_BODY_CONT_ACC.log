@@ -1,0 +1,50 @@
+Generating HDL for page 16.30.01.1 UNITS AND BODY CONT-ACC at 10/3/2020 9:20:19 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_30_01_1_UNITS_AND_BODY_CONT_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 1 outputs from Gate at 3I to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C
+	and inputs of MS_LAST_INSN_RO_CYCLE,MS_MPLY_DOT_N_DOT_D,MS_MPLY_DOT_3_DOT_D_DOT_MDL
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_B
+	and inputs of MB_DIV_DOT_X_DOT_B_DOT_S_DOT_NOT_RC,MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B0_8,MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_3_DOT_B1_9
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of MS_DIV_DOT_2_DOT_D,MS_TLU_SET_A_CYCLE_CTRL_B,MS_LB_DOT_B_CYCLE_DOT_EXT_DOT_ZONE_CARRY
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C
+	and inputs of MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_NOT_RC,MB_1401_MPLY_EARLY_END,MB_A_OR_S_DOT_B_DOT_1_DOT_S_DOT_BW_DOT_NOT_RC
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_K
+	and inputs of MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN_DOT_UNITS
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_G
+	and inputs of MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_NOT_AW,MS_DIV_DOT_U_OR_Y_DOT_B_DOT_NOT_AW,MS_EDIT_SET_A_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of MS_SET_A_CYCLE_CTRL_ON_Z_OP,MS_CMP_MODE_SET_A_CYCLE_CTRL_A
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_E
+	and inputs of MB_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_NOT_BW_DOT_NOT_AW
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_E
+	and inputs of MS_FILE_OP_DOT_D_CY_DOT_2ND_SCAN,MS_STORE_AR_SET_C_CYCLE_CTRL_B,MS_FILE_OP_TAKE_2ND_SCAN_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_C
+	and inputs of MS_STD_A_CYCLE_OPS_DOT_A_CYCLE,MS_EDIT_SET_B_CYCLE_CTRL_C
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_3A_C,OUT_3B_B,OUT_3D_D,OUT_1D_C
+	and logic function of OR
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_3E_K,OUT_3F_G,OUT_3G_G,OUT_1G_E,OUT_3H_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_RGEN_UNITS_DOT_BODY_CTRL
+	from gate output OUT_3I_C
+Generating output sheet edge signal assignment to 
+	signal PS_SET_UNITS_CTRL_LATCH
+	from gate output OUT_DOT_1D
+Generating output sheet edge signal assignment to 
+	signal PS_SET_BODY_CTRL_LATCH
+	from gate output OUT_DOT_1G
