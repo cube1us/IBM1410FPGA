@@ -197,7 +197,7 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.30.05.1        ";
 
    for tt in 0 to 2**23 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
@@ -209,29 +209,55 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
+      m := tv(11);
+      n := tv(12);
+      o := tv(13);
+      p := tv(14);
+      q := tv(15);
+      r := tv(16);
+      s := tv(17);
+      t := tv(18);
+      u := tv(19);
+      v := tv(20);
+      w := tv(21);
+      x := tv(22);
 
+		MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_AW_DOT_1 <= not a;
+		MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_AW_DOT_3 <= not b;
+		MS_DIV_DOT_U_OR_Y_DOT_B_DOT_AW <= not c;
+		MS_EDIT_SET_B_CYCLE_CTRL_A <= not d;
+		MS_EDIT_SKID_CYCLE <= not e;
+		MB_RA_OR_RS_OR_A_OR_S_DOT_1_DOT_B_DOT_NOT_BW_DOT_AW <= not f;
+		MS_TLU_SET_B_CYCLE_CTRL <= not g;
+		MS_MPLY_DOT_N_DOT_C <= not h;
+		MB_A_OR_S_DOT_B_DOT_3_DOT_NOT_BW <= not j;
+		MS_MPLY_DOT_X_DOT_B_DOT_NOT_MDL <= not k;
+		MS_MPLY_DOT_1_OR_3_DOT_D_DOT_NOT_MDL <= not l;
+		MB_DIV_DOT_X_DOT_B_DOT_S_DOT_RC <= not m;
+		MS_DIV_DOT_X_DOT_B_DOT_T_DOT_MDL <= not n;
+		MS_EDIT_SET_B_CYCLE_CTRL_B <= not o;
+		MS_EDIT_SET_B_CYCLE_CTRL_D <= not p;
+		MS_EDIT_SET_B_CYCLE_CTRL_G <= not q;
+		MS_FILE_OP_TAKE_EXTENSION_CYCLE <= not r;
+		MS_LB_DOT_B_CYCLE_DOT_BODY_LATCH <= not s;
+		MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= not t;
+		MS_EDIT_SET_B_CYCLE_CTRL_C <= not u;
+		PS_RGEN_EXTN_CTRL_STAR_STERLING <= v;
+		MS_EDIT_SET_B_CYCLE_CTRL_E <= not w;
+		MS_EDIT_SET_B_CYCLE_CTRL_F <= not x;
       
       wait for 30 ns;
+
+      check1(PS_SET_EXTN_CTRL_LATCH,a or b or h or c or f or j or s or d or e or g or r,
+         testName,"Set extn ctrl latch");
+         
+      check1(PS_SET_MQ_CTRL,k or l or m or n or o or p or q,testName,"Set MQ Ctrl");
       
-      
+      check1(PS_RGEN_EXT_CTRL,t or u or w or x or v,testName,"Rgen Ext Ctrl");
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -245,7 +271,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 8000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
