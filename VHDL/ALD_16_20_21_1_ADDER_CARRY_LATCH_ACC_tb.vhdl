@@ -178,6 +178,7 @@ uut_process: process
       MS_PROGRAM_RESET_5 <= '1';
       wait for 30 ns;
       check1(MB_CARRY_LATCH,'1',testName,"1A");
+      check1(LAMP_15A1A11,not MB_CARRY_LATCH,testName,"1B");
       PS_SET_CARRY_LATCH <= tv(0);
       PS_LAST_LOGIC_GATE_2 <= tv(1);
       PS_LOGIC_GATE_C_1 <= tv(2);
@@ -185,18 +186,21 @@ uut_process: process
       PS_SET_CARRY_LATCH <= '0';
       PS_LAST_LOGIC_GATE_2 <= '1';
       check1(MB_CARRY_LATCH,not(tv(0) and tv(1) and tv(2)),testName,"1D");
+      check1(LAMP_15A1A11,not MB_CARRY_LATCH,testName,"1E");
       -- Reset Carry Ctrl and then Carry Latch
       MS_LOGIC_GATE_D_1 <= '0';
       wait for 30 ns;
       MS_LOGIC_GATE_D_1 <= '1';
       wait for 60 ns; -- Resetting Carry Ctrl won't reset Carry Latch
       check1(MB_CARRY_LATCH,not(tv(0) and tv(1) and tv(2)),testName,"1G");
+      check1(LAMP_15A1A11,not MB_CARRY_LATCH,testName,"1H");
       -- But then resetting Carry Latch should work
       MS_LOGIC_GATE_B_1 <= '0';
       wait for 30 ns;
       MS_LOGIC_GATE_B_1 <= '1';
       wait for 30 ns;
       check1(MB_CARRY_LATCH,'1',testName,"1J");
+      check1(LAMP_15A1A11,not MB_CARRY_LATCH,testName,"1K");
    end loop;
    
    -- Test Carry Latch w/o Carry Ctrl
