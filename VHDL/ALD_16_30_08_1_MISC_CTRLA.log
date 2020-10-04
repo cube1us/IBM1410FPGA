@@ -1,0 +1,29 @@
+Generating HDL for page 16.30.08.1 MISC CTRLA at 10/4/2020 4:11:32 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_30_08_1_MISC_CTRLA_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 2E to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_D
+	and inputs of MS_UNITS_LATCH,MS_BODY_LATCH,MS_EXTENSION_LATCH
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of MS_EXTENSION_LATCH,MS_BODY_LATCH
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_3C_C
+	and logic function of EQUAL
+Generating Statement for block at 3E with output pin(s) of OUT_3E_R
+	and inputs of MS_BODY_LATCH,MS_UNITS_LATCH
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_B
+	and inputs of OUT_3E_R
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal PS_UNITS_OR_BODY_OR_EXT
+	from gate output OUT_3A_D
+Generating output sheet edge signal assignment to 
+	signal PS_BODY_OR_EXTENSION
+	from gate output OUT_2C_C
+Generating output sheet edge signal assignment to 
+	signal PS_UNITS_OR_BODY_LATCH
+	from gate output OUT_2E_B
