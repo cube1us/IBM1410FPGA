@@ -153,44 +153,121 @@ uut_process: process
 
    begin
 
-   -- Your test bench code
+   testName := "16.20.21.1        ";
 
-   testName := "15.49.04.1        ";
+   -- Test reset
+   
+   MS_PROGRAM_RESET_5 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_5 <= '1';
+   wait for 30 ns;
 
-   for tt in 0 to 2**23 loop
+   check1(MB_NO_CARRY_LATCH,'1',testName,"Reset Carry Latch");
+     
+   -- Test Carry Ctrl and reset of True Add A   
+   
+   for tt in 0 to 2**3 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
-      
+      MS_PROGRAM_RESET_5 <= '0';
       wait for 30 ns;
-      
-      
+      MS_PROGRAM_RESET_5 <= '1';
+      wait for 30 ns;
+      check1(MB_NO_CARRY_LATCH,'1',testName,"1A");
+      PS_SET_NO_CARRY <= tv(0);
+      PS_LAST_LOGIC_GATE_2 <= tv(1);
+      PS_LOGIC_GATE_C_1 <= tv(2);
+      wait for 60 ns; -- perhaps set latches (cascaced)      
+      PS_SET_NO_CARRY <= '0';
+      PS_LAST_LOGIC_GATE_2 <= '1';
+      check1(MB_NO_CARRY_LATCH,not(tv(0) and tv(1) and tv(2)),testName,"1D");
+      -- Reset Carry Ctrl and then Carry Latch
+      MS_LOGIC_GATE_D_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_D_1 <= '1';
+      wait for 60 ns; -- Resetting Carry Ctrl won't reset Carry Latch
+      check1(MB_NO_CARRY_LATCH,not(tv(0) and tv(1) and tv(2)),testName,"1G");
+      -- But then resetting Carry Latch should work
+      MS_LOGIC_GATE_B_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_B_1 <= '1';
+      wait for 30 ns;
+      check1(MB_NO_CARRY_LATCH,'1',testName,"1J");
    end loop;
+   
+   -- Test Carry Latch w/o Carry Ctrl
+   
+   PS_SET_NO_CARRY <= '0';
+   PS_LAST_LOGIC_GATE_2 <= '0';
+   PS_LOGIC_GATE_C_1 <= '0';
+
+   for tt in 0 to 2**4 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      MS_PROGRAM_RESET_5 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_5 <= '1';
+      wait for 30 ns;
+      MB_START_TRUE_ADD_1 <= not tv(0);
+      MB_START_TRUE_ADD_2 <= not tv(1);
+      MB_START_1401_INDEX <= not tv(2);
+      MB_START_TRUE_INDEX <= not tv(3);
+      wait for 30 ns;
+      MB_START_TRUE_ADD_1 <= '1';
+      MB_START_TRUE_ADD_2 <= '1';
+      MB_START_1401_INDEX <= '1';
+      MB_START_TRUE_INDEX <= '1';
+      wait for 30 ns;      
+      check1(MB_NO_CARRY_LATCH,not(tv(0) or tv(1) or tv(2) or tv(3)),testName,"2A");
+   end loop;
+   
+   -- Test Regen
+   
+   MB_START_TRUE_ADD_1 <= '1';
+   MB_START_TRUE_ADD_2 <= '1';
+   MS_PROGRAM_RESET_5 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_5 <= '1';
+   wait for 30 ns;
+   
+   MB_START_TRUE_ADD_1 <= '0';
+   wait for 30 ns; -- Sets Carry Latch
+   MB_START_TRUE_ADD_1 <= '1';
+   wait for 30 ns; -- Should stay set
+   check1(MB_NO_CARRY_LATCH,'0',testName,"3A");
+   -- Set Carry Ctrl latch from Carry Latch regen      
+   PS_A_CYCLE <= '1'; 
+   PS_LAST_LOGIC_GATE_2 <= '1';
+   wait for 30 ns;
+   -- Reset Carry Latch (and reset inputs to Carry Ctrl Latch - which should stay set)
+   MS_LOGIC_GATE_B_1 <= '0';
+   PS_A_CYCLE <= '0'; 
+   PS_LAST_LOGIC_GATE_2 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(MB_NO_CARRY_LATCH,'1',testName,"3C");
+   -- Now set Carry Latch via Carry Ctrl
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns; -- Should set Carry Latch
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   -- Reset Carry Ctrl
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   check1(MB_NO_CARRY_LATCH,'0',testName,"3E");
+   -- Reset Carry Latch (so now, both are reset)
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(MB_NO_CARRY_LATCH,'1',testName,"3G");
+   -- Since Carry Ctrl is NOT set any more, this should NOT set Carry Latch either
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(MB_NO_CARRY_LATCH,'1',testName,"3I");
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
