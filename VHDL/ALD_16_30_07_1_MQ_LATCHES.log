@@ -1,0 +1,51 @@
+Generating HDL for page 16.30.07.1 MQ LATCHES at 10/4/2020 1:28:24 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_30_07_1_MQ_LATCHES_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5C
+Found combinatorial loop (need D FF) at output of gate at 4C
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 2F
+Removed 3 outputs from Gate at 2G to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1K08
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_NEXT_TO_LAST_LOGIC_GATE,PS_SET_MQ_CTRL
+	and logic function of NAND
+Generating Statement for block at 5C with *latched* output pin(s) of OUT_5C_C_Latch, OUT_5C_C_Latch
+	and inputs of MS_LOGIC_GATE_D_1,MS_PROGRAM_RESET_5,OUT_4C_F
+	and logic function of NAND
+Generating Statement for block at 4C with *latched* output pin(s) of OUT_4C_F_Latch, OUT_4C_F_Latch
+	and inputs of OUT_5A_NoPin,OUT_5C_C
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_NoPin
+	and inputs of OUT_4C_F,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_B
+	and inputs of OUT_1F_D
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of 
+	and inputs of OUT_2E_B
+	and logic function of Lamp
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_H_Latch, OUT_3F_H_Latch
+	and inputs of MS_LOGIC_GATE_B_1,MS_PROGRAM_RESET_5,OUT_2F_F
+	and logic function of NAND
+Generating Statement for block at 2F with *latched* output pin(s) of OUT_2F_F_Latch, OUT_2F_F_Latch
+	and inputs of OUT_3E_NoPin,OUT_3F_H
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_D, OUT_1F_D
+	and inputs of OUT_2F_F
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A
+	and inputs of OUT_3F_H
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_MQ_CTRL_LATCH
+	from gate output OUT_5C_C
+Generating output sheet edge signal assignment to 
+	signal MS_MQ_LATCH
+	from gate output OUT_1F_D
+Generating output sheet edge signal assignment to 
+	signal PS_MQ_LATCH
+	from gate output OUT_2G_A
+Generating D Flip Flop for block at 5C
+Generating D Flip Flop for block at 4C
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 2F
