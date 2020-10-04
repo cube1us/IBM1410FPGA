@@ -149,42 +149,64 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.30.07.1        ";
 
-   for tt in 0 to 2**23 loop
+   -- Test reset
+   
+   MS_PROGRAM_RESET_5 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_5 <= '1';
+   wait for 30 ns;
+
+   check1(PS_MQ_LATCH,'0',testName,"+S Reset Extension Latch");
+   check1(MS_MQ_LATCH,'1',testName,"+S Reset MQ Latch");
+   check1(MS_MQ_CTRL_LATCH,'1',testName,"-S Reset MQ Ctrl Latch");
+   check1(LAMP_15A1K08,'0',testName,"Reset Units Lamp");
+        
+   -- Test MQ Ctrl   
+   
+   for tt in 0 to 2**2 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
-      
+      MS_PROGRAM_RESET_5 <= '0';
       wait for 30 ns;
-      
-      
+      MS_PROGRAM_RESET_5 <= '1';
+      wait for 30 ns;
+      check1(MS_MQ_CTRL_LATCH,'1',testName,"1B");
+      PS_SET_MQ_CTRL <= tv(0);
+      PS_NEXT_TO_LAST_LOGIC_GATE <= tv(1);
+      wait for 60 ns; -- perhaps set MQ Ctrl Latch
+      PS_SET_MQ_CTRL <= '0';
+      PS_NEXT_TO_LAST_LOGIC_GATE <= '0';
+      check1(MS_MQ_CTRL_LATCH,not (tv(0) and tv(1)),testName,"1D");
+      check1(PS_MQ_LATCH,'0',testName,"1E");
+      check1(MS_MQ_LATCH,not PS_MQ_LATCH,testName,"1F");
+      check1(LAMP_15A1K08,PS_MQ_LATCH,testName,"1G");
+      PS_LOGIC_GATE_C_1 <= '1';
+      wait for 30 ns; -- perhaps set MQ Latch
+      PS_LOGIC_GATE_C_1 <= '0';
+      wait for 30 ns; -- should stay set
+      check1(PS_MQ_LATCH,tv(0) and tv(1),testName,"1H");
+      check1(MS_MQ_LATCH,not PS_MQ_LATCH,testName,"1I");
+      check1(LAMP_15A1K08,PS_MQ_LATCH,testName,"1J");      
+      -- Reset MQ Ctrl and then MQ Latch      
+      MS_LOGIC_GATE_D_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_D_1 <= '1';
+      wait for 60 ns; -- Resetting MQ Ctrl won't reset MQ Latch
+      check1(MS_MQ_CTRL_LATCH,'1',testName,"1L");
+      check1(PS_MQ_LATCH,tv(0) and tv(1),testName,"1M");
+      check1(MS_MQ_LATCH,not PS_MQ_LATCH,testName,"1N");
+      check1(LAMP_15A1K08,PS_MQ_LATCH,testName,"1O");
+      -- But then resetting MQ Latch should work
+      MS_LOGIC_GATE_B_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_B_1 <= '1';
+      wait for 30 ns;
+      check1(PS_MQ_LATCH,'0',testName,"1P");
+      check1(MS_MQ_LATCH,'1',testName,"1Q");
+      check1(LAMP_15A1K08,PS_MQ_LATCH,testName,"1R");
    end loop;
+      
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
