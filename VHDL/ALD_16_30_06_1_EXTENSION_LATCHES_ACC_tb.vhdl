@@ -152,42 +152,134 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.30.04.1        ";
 
-   for tt in 0 to 2**23 loop
+   -- Test reset
+   
+   MS_PROGRAM_RESET_5 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_5 <= '1';
+   wait for 30 ns;
+
+   check1(PS_EXTENSION_LATCH,'0',testName,"+S Reset Extension Latch");
+   check1(MS_EXTENSION_LATCH,'1',testName,"+S Reset Extension Latch");
+   check1(MS_EXTENSION_CTRL_LATCH,'1',testName,"-S Reset Extension Ctrl Latch");
+   check1(LAMP_15A1J08,'0',testName,"Reset Units Lamp");
+   
+     
+   -- Test Units Ctrl   
+   
+   for tt in 0 to 2**2 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
-
-      
+      MS_PROGRAM_RESET_5 <= '0';
       wait for 30 ns;
-      
-      
+      MS_PROGRAM_RESET_5 <= '1';
+      wait for 30 ns;
+      check1(MS_EXTENSION_CTRL_LATCH,'1',testName,"1B");
+      PS_SET_EXTN_CTRL_LATCH <= tv(0);
+      PS_NEXT_TO_LAST_LOGIC_GATE <= tv(1);
+      wait for 60 ns; -- perhaps set Extension Ctrl Latch
+      PS_SET_EXTN_CTRL_LATCH <= '0';
+      PS_NEXT_TO_LAST_LOGIC_GATE <= '0';
+      check1(MS_EXTENSION_CTRL_LATCH,not (tv(0) and tv(1)),testName,"1D");
+      check1(PS_EXTENSION_LATCH,'0',testName,"1E");
+      check1(MS_EXTENSION_LATCH,not PS_EXTENSION_LATCH,testName,"1F");
+      check1(LAMP_15A1J08,PS_EXTENSION_LATCH,testName,"1G");
+      PS_LOGIC_GATE_C_1 <= '1';
+      wait for 30 ns; -- perhaps set Extension Latch
+      PS_LOGIC_GATE_C_1 <= '0';
+      wait for 30 ns; -- should stay set
+      check1(PS_EXTENSION_LATCH,tv(0) and tv(1),testName,"1H");
+      check1(MS_EXTENSION_LATCH,not PS_EXTENSION_LATCH,testName,"1I");
+      check1(LAMP_15A1J08,PS_EXTENSION_LATCH,testName,"1J");      
+      -- Reset Units Ctrl and then Extension Latch      
+      MS_LOGIC_GATE_D_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_D_1 <= '1';
+      wait for 60 ns; -- Resetting Units Ctrl won't reset Extension Latch
+      check1(MS_EXTENSION_CTRL_LATCH,'1',testName,"1L");
+      check1(PS_EXTENSION_LATCH,tv(0) and tv(1),testName,"1M");
+      check1(MS_EXTENSION_LATCH,not PS_EXTENSION_LATCH,testName,"1N");
+      check1(LAMP_15A1J08,PS_EXTENSION_LATCH,testName,"1O");
+      -- But then resetting Extension Latch should work
+      MS_LOGIC_GATE_B_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_B_1 <= '1';
+      wait for 30 ns;
+      check1(PS_EXTENSION_LATCH,'0',testName,"1P");
+      check1(MS_EXTENSION_LATCH,'1',testName,"1Q");
+      check1(LAMP_15A1J08,PS_EXTENSION_LATCH,testName,"1R");
    end loop;
+      
+   -- Test Regen
+   
+   MS_PROGRAM_RESET_5 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_5 <= '1';
+   wait for 30 ns;
+   
+   PS_SET_EXTN_CTRL_LATCH <= '1';
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+   wait for 30 ns; -- Sets Extension Ctrl Latch
+   PS_SET_EXTN_CTRL_LATCH <= '0';
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '0';
+   wait for 30 ns; -- Should stay set   
+   check1(MS_EXTENSION_CTRL_LATCH,'0',testName,"3A");
+   check1(PS_EXTENSION_LATCH,'0',testName,"3AA");
+   -- Set Extension Latch   
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(PS_EXTENSION_LATCH,'1',testName,"3B");
+   -- Reset Extension Ctrl Latch.  Extension Latch should stay set
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   check1(MS_EXTENSION_CTRL_LATCH,'1',testName,"3C");
+   check1(PS_EXTENSION_LATCH,'1',testName,"3D");   
+   -- Set Extension Ctrl Latch from Extension Latch regen      
+   PS_RGEN_EXT_CTRL <= '1';
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '1';
+   wait for 30 ns;
+   PS_RGEN_EXT_CTRL <= '0'; 
+   PS_NEXT_TO_LAST_LOGIC_GATE <= '0';
+   wait for 30 ns;
+   -- Reset Extension Latch (and reset inputs to Extension Ctrl Latch - which should stay set)
+   MS_LOGIC_GATE_B_1 <= '0';
+   PS_SET_EXTN_CTRL_LATCH <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_EXTENSION_LATCH,'0',testName,"3E");
+   check1(MS_EXTENSION_CTRL_LATCH,'0',testName,"3F");
+   -- Now set Extension Latch via Units Ctrl (again?)
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns; -- Should set Extension Latch
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(PS_EXTENSION_LATCH,'1',testName,"3G");
+   check1(MS_EXTENSION_CTRL_LATCH,'0',testName,"3H");
+   -- Reset Units Ctrl
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   check1(MS_EXTENSION_CTRL_LATCH,'1',testName,"3I");
+   check1(PS_EXTENSION_LATCH,'1',testName,"3J");
+   -- Reset Extension Latch (so now, both are reset)
+   MS_LOGIC_GATE_B_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   wait for 30 ns;
+   check1(PS_EXTENSION_LATCH,'0',testName,"3K");
+   -- Since Units Ctrl is NOT set any more, this should NOT set Extension Latch either
+   PS_LOGIC_GATE_C_1 <= '1';
+   wait for 30 ns;
+   PS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(PS_EXTENSION_LATCH,'0',testName,"3L");
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
