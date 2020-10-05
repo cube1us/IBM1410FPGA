@@ -152,9 +152,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.40.03.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -162,31 +162,22 @@ uut_process: process
       d := tv(3);
       e := tv(4);
       f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
 
-      
+		MS_RA_DOT_U_DOT_B <= not a;
+		MS_RS_DOT_U_DOT_B <= not b;
+		MS_A_OR_S_DOT_B_DOT_1_DOT_S_DOT_U_DOT_1401 <= not c;
+		MS_A_OR_S_DOT_B_DOT_3_DOT_U <= not d;
+		MS_MPLY_DOT_N_OR_1_OR_2_OR_3_DOT_D <= not e;
+		MS_DIV_DOT_MQ_DOT_B_DOT_MDL <= not f;
+
       wait for 30 ns;
       
-      
+		check1(PS_USE_A_CH_SIGN,a,testName,"Use A Ch Sign");
+		check1(PS_USE_INV_A_CH_SIGN,b,testName,"Use INV A Ch Sign");
+		check1(PB_USE_B_CH_SIGN,c,testName,"Use B Ch Sign");
+		check1(PB_USE_INV_B_CH_SIGN,d,testName,"Use Inv B Ch Sign");
+		check1(PS_USE_SIGN_LATCH,e or f,testName,"Use Sign Latch");
+		      
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
