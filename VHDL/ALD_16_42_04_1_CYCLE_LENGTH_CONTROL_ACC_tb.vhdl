@@ -152,9 +152,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.42.04.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -164,27 +164,23 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := a and b;
 
+		PS_1401_COND_TEST_OP_CODE <= a;
+		PS_I_RING_9_TIME <= b;
+		MS_A_OR_S_DOT_B_DOT_3_DOT_U <= not c;
+		MS_A_OR_S_DOT_B_DOT_Y_OR_X <= not d;
+		MS_MPLY_DOT_N_OR_1_OR_2_DOT_D <= not e;
+		PS_A_OR_S_DOT_B_CYCLE <= f;
+		PS_UNITS_LATCH <= g;
+		PS_1ST_SCAN <= h;
       
       wait for 30 ns;
       
+      check1(MS_1401_COND_TEST_DOT_I9,not g1,testName,"1401 Cond Test.I9");
+      check1(PS_STOP_AT_F_STAR_ARITH,c or d or e,testName,"Stop at F *Arith");
+      check1(PS_STOP_AT_G_STAR_ARITH,g1 or (f and g and h),testName,"Stop at G *Arith");
       
    end loop;
 
