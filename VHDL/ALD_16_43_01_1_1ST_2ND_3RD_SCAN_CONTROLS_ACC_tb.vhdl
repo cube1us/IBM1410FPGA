@@ -197,9 +197,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.43.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**23 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -224,12 +224,42 @@ uut_process: process
       v := tv(20);
       w := tv(21);
       x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_NOT_AW <= not a;
+		MS_MPLY_DOT_X_DOT_B_DOT_REGEN_1 <= not b;
+		MB_RA_OR_RS_OR_A_OR_S_DOT_B_DOT_NOT_BW <= not c;
+		MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN_DOT_UNITS <= not d;
+		MS_LB_DOT_B_CYCLE_DOT_BODY_LATCH <= not e;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_1_DOT_B0_DOT_BW <= not f;
+		MS_DIV_DOT_X_DOT_B_DOT_T_DOT_NOT_MDL <= not g;
+		MS_FILE_OP_TAKE_2ND_SCAN_CYCLE <= not h;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B0_DOT_NOT_BW <= not j;
+		MS_MPLY_DOT_1_OR_N_OR_3_DOT_D <= not k;
+		MB_DIV_DOT_X_DOT_B_DOT_S_DOT_NOT_RC <= not l;
+		MS_DIV_DOT_X_DOT_B_DOT_T_DOT_MDL <= not m;
+		MS_DIV_DOT_U_OR_Y_DOT_B <= not n;
+		MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_NOT_RC <= not o;
+		MB_A_OR_S_DOT_B_DOT_1_DOT_S_DOT_BW_DOT_NOT_RC <= not p;
+		MS_DIV_DOT_2_DOT_D <= not q;
+		MS_MPLY_DOT_U_OR_Y_DOT_B <= not r;
+		MS_MPLY_DOT_X_DOT_B_DOT_NOT_MDL <= not s;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_3_DOT_B1_9 <= not t;
+		MB_DIV_DOT_X_DOT_B_DOT_S_DOT_RC <= not u;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_S <= not v;
+		MB_A_OR_S_DOT_B_DOT_3_DOT_NOT_BW <= not w;
       
       wait for 30 ns;
       
+      check1(PS_REGEN_1ST_SCAN_CTRL_STAR_ARITH,a or b or j or u or n or d or e or c,testName,
+         "Regen 1st Scan Ctrl *Arith");
+         
+      check1(PS_SET_2ND_SCAN_CTRL_STAR_ARITH,f or g or h,testName,"Set 2nd Scan Ctrl *Arith");
+      
+      check1(PS_SET_3RD_SCAN_CTRL_STAR_ARITH,k or l or m or o or p or q,testName,
+         "Set 3rd Scan Ctrl *Arith");
+         
+      check1(PS_RGEN_3RD_SCAN_CTRL_STAR_ARITH,r or s or t or v or j or u or n or w,testName,
+         "Regen 3rd Scan Ctrl *Arith");
       
    end loop;
 
@@ -244,7 +274,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 800 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
