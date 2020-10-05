@@ -1,0 +1,33 @@
+Generating HDL for group named ArithOverflowLatchesat 10/5/2020 4:59:08 PM containing pages: 
+	16.45.01.1, 16.45.02.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ArithOverflowLatches_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 9 signals on page 16.45.01.1
+Found 9 signals on page 16.45.02.1
+Found 11 unique input signals and 4 unique output signals, (15 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S LAST LOGIC GATE 2 originates outside the group.
+INFO:  Signal +S LAST LOGIC GATE 1 originates outside the group.
+INFO:  Signal -S SET NO DIV OVERFLOW originates outside the group.
+INFO:  Signal -S RESET DIV OVERFLOW originates outside the group.
+INFO:  Signal -S COMPUTER RESET 1 originates outside the group.
+INFO:  Signal -S 1401 MODE 1 originates outside the group.
+INFO:  Signal -B DIV.MQ.B.S.RC originates outside the group.
+INFO:  Signal -S SET NO OVERFLOW originates outside the group.
+INFO:  Signal -S RESET OVERFLOW originates outside the group.
+INFO:  Signal -B A+S.B.1.T.BW.RC originates outside the group.
+INFO:  Signal -S 1401 DIVIDE OVERFLOW originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S DIV OVERFLOW is used outside the group.
+INFO:  Signal +S NOT DIV OVERFLOW is used outside the group.
+INFO:  Signal +S OVERFLOW is used outside the group.
+INFO:  Signal +S NO OVERFLOW is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Page 16.45.01.1 generates Lamp Output LAMP_15A1H12
+Page 16.45.02.1 generates Lamp Output LAMP_15A1F12
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 16.45.01.1 (DIVIDE OVERFLOW LATCH)
+Generating HDL associated with page 16.45.02.1 (ARITH OVERFLOW LATCH-ACC)

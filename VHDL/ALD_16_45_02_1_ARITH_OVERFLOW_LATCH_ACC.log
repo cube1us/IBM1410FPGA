@@ -1,0 +1,50 @@
+Generating HDL for page 16.45.02.1 ARITH OVERFLOW LATCH-ACC at 10/5/2020 4:58:43 PM
+Note: DOT Function at 5B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3A
+Found combinatorial loop (need D FF) at output of gate at 2A
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 2F
+Added LAMP signal LAMP_15A1F12
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of PS_LAST_LOGIC_GATE_1,OUT_DOT_5B
+	and logic function of NAND
+Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_D_Latch
+	and inputs of OUT_4A_NoPin,OUT_2A_E
+	and logic function of NAND
+Generating Statement for block at 2A with *latched* output pin(s) of OUT_2A_E_Latch, OUT_2A_E_Latch
+	and inputs of OUT_3A_D,MS_SET_NO_OVERFLOW,MS_COMPUTER_RESET_1
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_P
+	and inputs of MS_1401_DIVIDE_OVERFLOW
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_E
+	and inputs of MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_RC
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_K
+	and inputs of OUT_DOT_5B,PS_LAST_LOGIC_GATE_2
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_C_Latch, OUT_3F_C_Latch
+	and inputs of OUT_2F_K,MS_COMPUTER_RESET_1,MS_RESET_OVERFLOW
+	and logic function of NAND
+Generating Statement for block at 2F with *latched* output pin(s) of OUT_2F_K_Latch, OUT_2F_K_Latch
+	and inputs of OUT_4E_K,OUT_3F_C
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_B
+	and inputs of OUT_3F_C
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of 
+	and inputs of OUT_2H_B
+	and logic function of Lamp
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B, OUT_DOT_5B
+	and inputs of OUT_5B_P,OUT_5D_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_NO_OVERFLOW
+	from gate output OUT_2A_E
+Generating output sheet edge signal assignment to 
+	signal PS_OVERFLOW
+	from gate output OUT_2F_K
+Generating D Flip Flop for block at 3A
+Generating D Flip Flop for block at 2A
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 2F
