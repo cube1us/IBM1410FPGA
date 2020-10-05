@@ -1,0 +1,58 @@
+Generating HDL for page 16.40.02.1 ADDER NUMERIC CONT-ACC at 10/5/2020 8:00:26 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_40_02_1_ADDER_NUMERIC_CONT_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2D has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Note: DOT Function at 3B has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Note: DOT Function at 1G has input level(s) of B, and output level(s) of B, Logic Function set to AND
+Ignoring Logic Block 2F with symbol R
+Removed 4 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 4 outputs from Dot Function at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B_DOT_3
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B
+	and inputs of OUT_DOT_3A
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of MS_DIV_DOT_B,MS_A_OR_S_DOT_B_CYCLE,MS_RA_OR_RS_DOT_B_DOT_NOT_1401
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_B
+	and inputs of OUT_DOT_3B
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of MS_X_CYCLE_DOT_NOT_CR_DISABLE,MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_3E_G
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_G
+	and inputs of MS_DIV_DOT_2_DOT_D
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of MS_RA_OR_RS_DOT_B_DOT_X_DOT_1401,MS_MPLY_DOT_N_OR_1_OR_2_OR_3_DOT_D,MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B_DOT_1
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_M
+	and inputs of OUT_3G_G
+	and logic function of NOT
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A
+	and inputs of OUT_3A_G,OUT_3B_G,OUT_3C_C
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2D_C,MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_NOT_ZERO_BAL,MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B9_DOT_STAR,MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B5_8,MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B1_4
+	and logic function of AND
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
+	and inputs of OUT_2A_B,MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B1_4,MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B5_8
+	and logic function of AND
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_2G_M,MB_MPLY_DOT_MQ_DOT_B_DOT_B0_DOT_STAR,MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_ZERO_BAL
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal PB_USE_ADDER_NU_1
+	from gate output OUT_2B_B
+Generating output sheet edge signal assignment to 
+	signal MB_USE_B_CH_NU_STAR_ARITH
+	from gate output OUT_DOT_2D
+Generating output sheet edge signal assignment to 
+	signal MB_ASSEMBLY_CH_NU_ZERO_INSERT
+	from gate output OUT_DOT_1G
