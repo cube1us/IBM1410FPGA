@@ -1,0 +1,10 @@
+Generating HDL for page 16.41.02.1 ADDRESS REGISTER CTRLS FOR FILE at 10/5/2020 12:33:20 PM
+Generating Statement for block at 4B with output pin(s) of OUT_4B_E
+	and inputs of PS_FILE_OP,PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN_CTRL,PS_D_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_4B_E
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_D_AR_RO_CTRL_STAR_FILE_CTRL
+	from gate output OUT_2B_C

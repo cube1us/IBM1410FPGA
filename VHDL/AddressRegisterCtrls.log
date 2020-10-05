@@ -1,0 +1,39 @@
+Generating HDL for group named AddressRegisterCtrlsat 10/5/2020 12:33:58 PM containing pages: 
+	16.41.01.1, 16.41.02.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddressRegisterCtrls_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 21 signals on page 16.41.01.1
+Found 4 signals on page 16.41.02.1
+Found 17 unique input signals and 6 unique output signals, (22 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S A CYCLE CTRL originates outside the group.
+INFO:  Signal +S C CYCLE CTRL originates outside the group.
+INFO:  Signal +S B CYCLE CTRL originates outside the group.
+INFO:  Signal +S D CYCLE CTRL originates outside the group.
+INFO:  Signal +S NO SCAN CTRL originates outside the group.
+INFO:  Signal +S NO+1ST+2ND+3RD SCAN CTRL originates outside the group.
+INFO:  Signal +S MPLY OP CODE originates outside the group.
+INFO:  Signal +S MPLY OR DIV OP CODES originates outside the group.
+INFO:  Signal +S ARITH TYPE OP CODES originates outside the group.
+INFO:  Signal -S TABLE SEARCH A CYCLE U CTRL originates outside the group.
+INFO:  Signal +S UNITS CTRL LATCH originates outside the group.
+INFO:  Signal -S BODY CTRL LATCH originates outside the group.
+INFO:  Signal +S BODY CTRL LATCH originates outside the group.
+INFO:  Signal -S EXTENSION CTRL LATCH originates outside the group.
+INFO:  Signal -S MQ CTRL LATCH originates outside the group.
+INFO:  Signal +S D AR RO CTRL*FILE CTRL originates inside the group.
+INFO:  Signal +S FILE OP originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -S A AR RO CTRL*ARITH is used outside the group.
+INFO:  Signal -S B AR RO CTRL*ARITH is used outside the group.
+INFO:  Signal +S C AR RO CTRL*ARITH is used outside the group.
+INFO:  Signal +S D AR RO CTRL*ARITH is used outside the group.
+INFO:  Signal -S MPLY.NO SCAN CTRL.C CY CTRL is used outside the group.
+INFO:  Signal +S D AR RO CTRL*FILE CTRL is used only inside the group.
+Removing 1 output signals that do not have destinations outside the group...
+Removing 1 input signals that originate inside the group...
+Generating list of internal signals/wires ...
+1 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 16.41.01.1 (ADDRESS REGISTER CTRLS-ACC)
+Generating HDL associated with page 16.41.02.1 (ADDRESS REGISTER CTRLS FOR FILE)

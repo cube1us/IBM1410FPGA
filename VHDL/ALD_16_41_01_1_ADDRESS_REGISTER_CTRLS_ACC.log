@@ -1,0 +1,47 @@
+Generating HDL for page 16.41.01.1 ADDRESS REGISTER CTRLS-ACC at 10/5/2020 12:33:16 PM
+Note: DOT Function at 2G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PS_MPLY_OR_DIV_OP_CODES,PS_BODY_CTRL_LATCH,PS_A_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of MS_BODY_CTRL_LATCH,MS_EXTENSION_CTRL_LATCH,MS_MQ_CTRL_LATCH
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_E
+	and inputs of OUT_5D_C,PS_ARITH_TYPE_OP_CODES,PS_B_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of PS_MPLY_OR_DIV_OP_CODES,PS_UNITS_CTRL_LATCH,PS_A_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of OUT_4E_D,OUT_4F_E,MS_TABLE_SEARCH_A_CYCLE_U_CTRL
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E, OUT_4F_E
+	and inputs of PS_C_CYCLE_CTRL,PS_NO_SCAN_CTRL,PS_MPLY_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_ARITH_TYPE_OP_CODES,PS_UNITS_CTRL_LATCH,PS_B_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_4G_NoPin,OUT_4H_NoPin
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN_CTRL,PS_MPLY_OR_DIV_OP_CODES,PS_D_CYCLE_CTRL
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_2G_C,PS_D_AR_RO_CTRL_STAR_FILE_CTRL
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_A_AR_RO_CTRL_STAR_ARITH
+	from gate output OUT_4B_D
+Generating output sheet edge signal assignment to 
+	signal MS_B_AR_RO_CTRL_STAR_ARITH
+	from gate output OUT_4D_E
+Generating output sheet edge signal assignment to 
+	signal PS_C_AR_RO_CTRL_STAR_ARITH
+	from gate output OUT_2E_C
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_NO_SCAN_CTRL_DOT_C_CY_CTRL
+	from gate output OUT_4F_E
+Generating output sheet edge signal assignment to 
+	signal PS_D_AR_RO_CTRL_STAR_ARITH
+	from gate output OUT_DOT_2G
