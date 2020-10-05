@@ -203,9 +203,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.40.01.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**15 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -214,31 +214,97 @@ uut_process: process
       e := tv(4);
       f := tv(5);
       g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      s := tv(7);
+      t := tv(8);
+      u := tv(9);
+      v := tv(10);
+      w := tv(11);
+      x := tv(12);
+      y := tv(13);
+      z := tv(14);
 
+		MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B_DOT_3 <= not a;
+		MS_DIV_DOT_U_OR_Y_OR_X_DOT_B <= not b;
+		MS_DIV_DOT_2_DOT_D <= not c;
+		MS_DIV_DOT_MQ_DOT_B_DOT_NOT_MDL <= not d;
+		MS_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_U_DOT_1401 <= not e;
+		MS_A_OR_S_DOT_B_DOT_Y_OR_X_DOT_NOT_1401 <= not f;
+		MS_A_OR_S_DOT_B_DOT_U_DOT_1_DOT_NOT_1401 <= not g;
+		MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B_DOT_1 <= not s;
+      MS_MPLY_DOT_MQ_DOT_B <= not t;
+      MS_RA_OR_RS_DOT_1_DOT_B_DOT_X_OR_Y <= not u;
+      MS_MPLY_DOT_N_DOT_C <= not v;
       
       wait for 30 ns;
       
+      check1(PS_USE_B_CH_ZONES_STAR_ARITH,a or b or c or d or e or f or g,
+         testName,"Use B Ch Zones *Arith");
+      check1(PS_USE_NO_ZONES_STAR_ARITH,s or t or u or v,testName,
+         "Use No Zones *Arith");
       
    end loop;
+   
+   for tt in 0 to 2**11 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      h := tv(0);
+      j := tv(1);
+      k := tv(2);
+      l := tv(3);
+      n := tv(4);
+      o := tv(5);
+      p := tv(6);
+      q := tv(7);
+      r := tv(8);
+      w := tv(9);
+      x := tv(10);
+      
+      g1 := w and x;
+      g2 := n and o and p and q and r and not g1;
+      g4 := j and n and k;
+      g3 := (g4 and h) or (not g4 and l);      
+      
+      -- Reset latches
+      
+      MS_DIV_DOT_LAST_INSN_RO_CYCLE <= '0';
+      wait for 30 ns;
+      MS_DIV_DOT_LAST_INSN_RO_CYCLE <= '1';
+      wait for 30 ns;
+   
+      -- Perhaps set latches, and set variables
+      
+		PS_B_CH_MINUS <= h;
+      PS_A_CH_MINUS <= j;
+      PS_UNITS_LATCH <= k;
+      PS_B_CH_PLUS <= l;
+      PS_B_CYCLE <= n;
+      PS_DIV_OP_CODE <= o;
+      PS_LOGIC_GATE_E_1 <= p;
+      PS_1401_MODE_1 <= q;
+      PS_B_CH_B_BIT <= r;
+      PS_LOGIC_GATE_C_1 <= w;
+      PS_MPLY_DIV_LAST_LATCH <= x;         
+      wait for 30 ns;
+
+      check1(MS_1401_DIV_EARLY_END,not(g2),testName,"1401 DIV Early End");
+      check1(MS_1401_MINUS_SIGN,not(q and g2 and not g3),testName,"1401 -");
+      check1(MS_1401_PLUS_SIGN,not(q and g2 and g3),testName,"1401 +");
+
+      -- Reset variables before next iteration, so reset works
+      
+		PS_B_CH_MINUS <= '0';
+      PS_A_CH_MINUS <= '0';
+      PS_UNITS_LATCH <= '0';
+      PS_B_CH_PLUS <= '0';
+      PS_B_CYCLE <= '0';
+      PS_DIV_OP_CODE <= '0';
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_1401_MODE_1 <= '0';
+      PS_B_CH_B_BIT <= '0';
+      PS_LOGIC_GATE_C_1 <= '0';
+      PS_MPLY_DIV_LAST_LATCH <= '0';         
+      
+      
+   end loop;   
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
