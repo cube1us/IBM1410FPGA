@@ -170,42 +170,118 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.45.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   MS_COMPUTER_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_COMPUTER_RESET_1 <= '1';
+   wait for 30 ns;
+   
+   check1(PS_NOT_DIV_OVERFLOW,'1',testName,"Computer Reset Not Div Overflow");
+   check1(PS_DIV_OVERFLOW,'0',testName,"Computer Reset Div Overflow");
+   check1(LAMP_15A1H12,'0',testName,"Computer Reset Div Overflow Lamp");
+
+   for tt in 0 to 2**2 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
-      
+      -- Enter with No Div Overflow SET
+      check1(PS_NOT_DIV_OVERFLOW,'1',testName,"Check Not Div Overflow Set");
+      MS_SET_NO_DIV_OVERFLOW <= '1';
+      MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_RC <= not tv(0);
+      PS_LAST_LOGIC_GATE_2 <= tv(1);
+      wait for 30 ns; -- Perhaps reset no div overflow
+      MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_RC <= '1';
+      PS_LAST_LOGIC_GATE_2 <= '0';
+      wait for 30 ns;  -- If reset, should stay reset
+      check1(PS_NOT_DIV_OVERFLOW,not(tv(0) and tv(1)),testName,"Reset Not Div Overflow");
+      -- Set No Div Overflow again, regardless
+      MS_SET_NO_DIV_OVERFLOW <= '0';
       wait for 30 ns;
-      
-      
+      MS_SET_NO_DIV_OVERFLOW <= '1';
+      wait for 30 ns;      
+      check1(PS_NOT_DIV_OVERFLOW,'1',testname,"Set Not Div Overflow");                  
    end loop;
 
+   MS_COMPUTER_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_COMPUTER_RESET_1 <= '1';
+   wait for 30 ns;
+
+   for tt in 0 to 2**3 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));   
+      -- Enter with Div Overflow RESET
+      check1(PS_DIV_OVERFLOW,'0',testName,"Check Div Overflow Reset");
+      MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_RC <= not tv(0);
+      MS_1401_MODE_1 <= not tv(1);
+      PS_LAST_LOGIC_GATE_1 <= tv(2);
+      wait for 30 ns; -- Perhaps set latch
+      MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_RC <= '1';
+      MS_1401_MODE_1 <= '1';
+      PS_LAST_LOGIC_GATE_1 <= '0';
+      wait for 30 ns;
+      check1(PS_DIV_OVERFLOW,tv(0) and not tv(1) and tv(2),testName,"Set Div Overflow");
+      check1(LAMP_15A1H12,PS_DIV_OVERFLOW,testName,"Set Div Overflow Lamp");
+      -- Reset
+      MS_RESET_DIV_OVERFLOW <= '0';
+      wait for 30 ns;
+      MS_RESET_DIV_OVERFLOW <= '1';
+      wait for 30 ns;
+      check1(PS_DIV_OVERFLOW,'0',testName,"Reset Div Overflow");
+      check1(LAMP_15A1H12,PS_DIV_OVERFLOW,testName,"Reset Div Overflow Lamp");
+   end loop;   
+
+   MS_COMPUTER_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_COMPUTER_RESET_1 <= '1';
+   wait for 30 ns;
+
+   for tt in 0 to 2**3 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      -- Enter with No Overflow SET   
+      check1(PS_NO_OVERFLOW,'1',testName,"Check No Overflow Set");
+      PS_LAST_LOGIC_GATE_1 <= tv(0);
+      MS_1401_DIVIDE_OVERFLOW <= not tv(1);
+      MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_RC <= not tv(2);
+      wait for 30 ns; -- Perhaps reset
+      PS_LAST_LOGIC_GATE_1 <= '0';
+      MS_1401_DIVIDE_OVERFLOW <= '1';
+      MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_RC <= '1';
+      wait for 30 ns;
+      check1(PS_NO_OVERFLOW,not(tv(0) and (tv(1) or tv(2))),testName,
+         "Reset No Overflow");
+      -- Now force the latchs et
+      MS_SET_NO_OVERFLOW <= '0';
+      wait for 30 ns;
+      MS_SET_NO_OVERFLOW <= '1';
+      wait for 30 ns;
+      check1(PS_NO_OVERFLOW,'1',testName,"Set No Overflow");
+   end loop;   
+
+   MS_COMPUTER_RESET_1 <= '0';
+   wait for 30 ns;
+   MS_COMPUTER_RESET_1 <= '1';
+   wait for 30 ns;
+
+   for tt in 0 to 2**3 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      -- Enter with Overflow RESET
+      check1(PS_OVERFLOW,'0',testName,"Check Overflow Reset");
+      PS_LAST_LOGIC_GATE_2 <= tv(0);
+      MS_1401_DIVIDE_OVERFLOW <= not tv(1);
+      MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_RC <= not tv(2);
+      wait for 30 ns; -- Perhaps set overflow
+      PS_LAST_LOGIC_GATE_2 <= '0';
+      MS_1401_DIVIDE_OVERFLOW <= '1';
+      MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_RC <= '1';
+      wait for 30 ns;
+      check1(PS_OVERFLOW,tv(0) and (tv(1) or tv(2)),testName,"Set Overflow");
+      check1(LAMP_15A1F12,PS_OVERFLOW,testName,"Overflow Lamp");
+      MS_RESET_OVERFLOW <= '0';
+      wait for 30 ns;
+      MS_RESET_OVERFLOW <= '1';
+      wait for 30 ns;
+      check1(PS_OVERFLOW,'0',testName,"Reset Overflow");      
+   end loop;
+   
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
