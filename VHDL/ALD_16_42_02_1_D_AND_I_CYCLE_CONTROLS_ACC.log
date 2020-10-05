@@ -1,0 +1,40 @@
+Generating HDL for page 16.42.02.1 D AND I CYCLE CONTROLS-ACC at 10/5/2020 2:02:18 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_42_02_1_D_AND_I_CYCLE_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Generating Statement for block at 3B with output pin(s) of OUT_3B_B
+	and inputs of MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_NOT_BW,MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_1_DOT_B1_9,MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B0_DOT_NOT_BW
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_P
+	and inputs of MS_DIV_DOT_X_DOT_B_DOT_T_DOT_NOT_MDL
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_B
+	and inputs of MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_BW,MB_MPLY_DOT_MQ_DOT_B_DOT_1_DOT_B0_DOT_BW
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of MB_MPLY_DOT_MQ_DOT_B_DOT_3_DOT_T_DOT_B0_DOT_BW,MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_RC,MB_RA_OR_RS_DOT_1_DOT_B_DOT_BW
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_E
+	and inputs of MS_DIV_DOT_MQ_DOT_B_DOT_T,MS_MPLY_DOT_X_DOT_B_DOT_MDL
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_A
+	and inputs of MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_NOT_RC
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_RC,MB_A_OR_S_DOT_B_DOT_1_DOT_S_DOT_BW_DOT_RC,MB_A_OR_S_DOT_B_DOT_3_DOT_BW
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of MS_LB_DOT_B_CYCLE_DOT_EXT_DOT_NO_ZONE_CAR,MS_LB_DOT_B_CYCLE_DOT_3RD_SCAN_DOT_UNITS,MS_MPLY_DOT_2_DOT_D
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_3B_B,OUT_3C_P,OUT_3D_B
+	and logic function of OR
+Generating Statement for block at 2F with output pin(s) of OUT_DOT_2F
+	and inputs of OUT_3E_D,OUT_3F_E,OUT_2F_A,OUT_3G_C,OUT_3H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_D_CYCLE_CTRL_STAR_ARITH
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_EXECUTE_CYCLE_STAR_ARITH
+	from gate output OUT_DOT_2F
