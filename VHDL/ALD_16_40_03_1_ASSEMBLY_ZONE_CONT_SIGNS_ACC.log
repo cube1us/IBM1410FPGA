@@ -1,0 +1,37 @@
+Generating HDL for page 16.40.03.1 ASSEMBLY ZONE CONT SIGNS-ACC at 10/5/2020 11:16:28 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_40_03_1_ASSEMBLY_ZONE_CONT_SIGNS_ACC_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 4A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4G to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_D
+	and inputs of MS_RA_DOT_U_DOT_B
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of MS_RS_DOT_U_DOT_B
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_P
+	and inputs of MS_A_OR_S_DOT_B_DOT_1_DOT_S_DOT_U_DOT_1401
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_Q
+	and inputs of MS_A_OR_S_DOT_B_DOT_3_DOT_U
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_A
+	and inputs of MS_MPLY_DOT_N_OR_1_OR_2_OR_3_DOT_D,MS_DIV_DOT_MQ_DOT_B_DOT_MDL
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_USE_A_CH_SIGN
+	from gate output OUT_4A_D
+Generating output sheet edge signal assignment to 
+	signal PS_USE_INV_A_CH_SIGN
+	from gate output OUT_4B_D
+Generating output sheet edge signal assignment to 
+	signal PB_USE_B_CH_SIGN
+	from gate output OUT_4D_P
+Generating output sheet edge signal assignment to 
+	signal PB_USE_INV_B_CH_SIGN
+	from gate output OUT_4E_Q
+Generating output sheet edge signal assignment to 
+	signal PS_USE_SIGN_LATCH
+	from gate output OUT_4G_A
