@@ -182,9 +182,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.41.0%.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -194,28 +194,42 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
+      m := tv(11);
+      n := tv(12);
+      p := tv(13);
+      q := tv(14);
+      r := tv(15);
 
+		PS_MPLY_OR_DIV_OP_CODES <= a;
+		PS_BODY_CTRL_LATCH <= b;
+		PS_A_CYCLE_CTRL <= c;
+		MS_EXTENSION_CTRL_LATCH <= not d;
+		MS_BODY_CTRL_LATCH <= not e;
+		MS_MQ_CTRL_LATCH <= not f;
+		PS_UNITS_CTRL_LATCH <= g;
+		MS_TABLE_SEARCH_A_CYCLE_U_CTRL <= not h;
+		PS_B_CYCLE_CTRL <= j;
+		PS_ARITH_TYPE_OP_CODES <= k;
+		PS_C_CYCLE_CTRL <= l;
+		PS_NO_SCAN_CTRL <= m;
+		PS_MPLY_OP_CODE <= n;
+		PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN_CTRL <= p;
+		PS_D_CYCLE_CTRL <= q;
+		PS_FILE_OP <= r;
+
+      o := r and p and q;  -- Signal between pages
+      g1 := l and m and n;
       
       wait for 30 ns;
       
+      check1(MS_A_AR_RO_CTRL_STAR_ARITH,not(a and b and c),testName,"AAR RO CTRL");
+      check1(MS_B_AR_RO_CTRL_STAR_ARITH,not((d or e or f) and k and j),testName,"BAR RO CTRL");
+      check1(MS_MPLY_DOT_NO_SCAN_CTRL_DOT_C_CY_CTRL,not g1,testName,"MPLY.No Scan Ctrl.C Cy Ctrl");
+      check1(PS_C_AR_RO_CTRL_STAR_ARITH,h or (a and g and c) or g1,testName,"CAR RO CTRL");
+      check1(PS_D_AR_RO_CTRL_STAR_ARITH,o or (k and g and j) or (p and q and a),testName,"DAR RO CTRL");
       
    end loop;
 
