@@ -184,7 +184,7 @@ uut_process: process
 
    testName := "15.49.04.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**18 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -194,28 +194,41 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      j := tv(8);
+      k := tv(9);
+      l := tv(10);
+      m := tv(11);
+      n := tv(12);
+      o := tv(13);
+      p := tv(14);
+      q := tv(15);
+      r := tv(16);
+      s := tv(17);
 
+		MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B_DOT_3 <= not a;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B1_4 <= not b;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B5_8 <= not c;
+		MS_DIV_DOT_B <= not d;
+		MS_A_OR_S_DOT_B_CYCLE <= not e;
+		MS_RA_OR_RS_DOT_B_DOT_NOT_1401 <= not f;
+		MS_X_CYCLE_DOT_NOT_CR_DISABLE <= not g;
+		MS_LB_DOT_B_CYCLE_DOT_1ST_SCAN <= not h;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_NOT_ZERO_BAL <= not j;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B9_DOT_STAR <= not k;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B5_8 <= not l;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B1_4 <= not m;
+		MS_DIV_DOT_2_DOT_D <= not n;
+		MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B_DOT_1 <= not o;
+		MS_MPLY_DOT_N_OR_1_OR_2_OR_3_DOT_D <= not p;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_B0_DOT_STAR <= not q;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_ZERO_BAL <= not r;
+		MS_RA_OR_RS_DOT_B_DOT_X_DOT_1401 <= not s;
       
       wait for 30 ns;
       
+      check1(PB_USE_ADDER_NU_1,a or b or c or d or e or f or g or h,testName,"User Adder Nu");
+      check1(MB_USE_B_CH_NU_STAR_ARITH,not(j or k or l or m or n),testName,"Use B Ch Nu *Arith");
+      check1(MB_ASSEMBLY_CH_NU_ZERO_INSERT,not(o or p or q or r or s),testName,"Assembly Ch Nu Zero Insert");            
       
    end loop;
 
@@ -230,7 +243,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 200 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
