@@ -1,0 +1,27 @@
+Generating HDL for page 16.42.04.1 CYCLE LENGTH CONTROL-ACC at 10/5/2020 2:19:56 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_42_04_1_CYCLE_LENGTH_CONTROL_ACC_tb.vhdl, generating default test bench code.
+Ignoring Logic Block 3B with symbol R
+Ignoring Logic Block 3F with symbol R
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G, OUT_3C_G
+	and inputs of PS_1401_COND_TEST_OP_CODE,PS_I_RING_9_TIME
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of MS_A_OR_S_DOT_B_DOT_3_DOT_U,MS_A_OR_S_DOT_B_DOT_Y_OR_X,MS_MPLY_DOT_N_OR_1_OR_2_DOT_D
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_E
+	and inputs of PS_A_OR_S_DOT_B_CYCLE,PS_UNITS_LATCH,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_P
+	and inputs of OUT_3C_G,OUT_3H_E
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_1401_COND_TEST_DOT_I9
+	from gate output OUT_3C_G
+Generating output sheet edge signal assignment to 
+	signal PS_STOP_AT_F_STAR_ARITH
+	from gate output OUT_3E_D
+Generating output sheet edge signal assignment to 
+	signal PS_STOP_AT_G_STAR_ARITH
+	from gate output OUT_1H_P
