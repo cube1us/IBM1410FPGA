@@ -179,9 +179,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.62.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**18 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -201,17 +201,34 @@ uut_process: process
       q := tv(15);
       r := tv(16);
       s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B0_DOT_NOT_BW <= not a;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_1_DOT_B1_9 <= not b;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_NOT_BW <= not c;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_BW <= not d;
+		MS_DIV_DOT_X_DOT_B_DOT_T_DOT_NOT_MDL <= not e;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_1_DOT_B0_DOT_BW <= not f;
+		MS_MPLY_DOT_X_DOT_B_DOT_MDL <= not g;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_3_DOT_T_DOT_B0_DOT_BW <= not h;
+		MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_RC <= not j;
+		MS_DIV_DOT_MQ_DOT_B_DOT_T <= not k;
+		MB_RA_OR_RS_DOT_1_DOT_B_DOT_BW <= not l;
+		MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_NOT_RC <= not m;
+		MB_A_OR_S_DOT_B_DOT_1_DOT_T_DOT_BW_DOT_RC <= not n;
+		MB_A_OR_S_DOT_B_DOT_1_DOT_S_DOT_BW_DOT_RC <= not o;
+		MB_A_OR_S_DOT_B_DOT_3_DOT_BW <= not p;
+		MS_LB_DOT_B_CYCLE_DOT_EXT_DOT_NO_ZONE_CAR <= not q;
+		MS_LB_DOT_B_CYCLE_DOT_3RD_SCAN_DOT_UNITS <= not r;
+		MS_MPLY_DOT_2_DOT_D <= not s;
       
       wait for 30 ns;
       
+      check1(PS_SET_D_CYCLE_CTRL_STAR_ARITH,a or b or c or d or e or f,
+         testName,"Set D Cycle Ctrl *Arith");
+         
+      check1(PS_LAST_EXECUTE_CYCLE_STAR_ARITH,
+         g or h or j or k or l or m or n or o or p or q or r or s,
+         testName,"Last Exec Cycle *Arith");
       
    end loop;
 
@@ -226,7 +243,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 8000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
