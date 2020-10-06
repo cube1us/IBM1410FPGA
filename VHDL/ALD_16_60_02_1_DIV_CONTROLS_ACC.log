@@ -1,0 +1,68 @@
+Generating HDL for page 16.60.02.1 DIV CONTROLS-ACC at 10/6/2020 2:43:46 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_60_02_1_DIV_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 4D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4F to ignored block(s) or identical signal names
+Removed 7 outputs from Gate at 4H to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_G, OUT_5A_G
+	and inputs of PS_B_CYCLE,PS_DIV_OP_CODE,PS_EXTENSION_LATCH
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_F, OUT_4A_F
+	and inputs of OUT_5A_G
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_P, OUT_4B_P, OUT_4B_P
+	and inputs of OUT_5A_G
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A
+	and inputs of OUT_4B_P
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_K
+	and inputs of OUT_4B_P,PB_ADDER_NO_CARRY,PB_COMPLEMENT_LATCH
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_B
+	and inputs of OUT_4B_P,PB_ADDER_CARRY,PB_COMPLEMENT_LATCH
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of OUT_4A_F,PS_NOT_MPLY_DIV_LAST_LATCH,PS_TRUE_LATCH_1
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of OUT_4A_F,PS_MPLY_DIV_LAST_LATCH,PS_TRUE_LATCH_1
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_G
+	and inputs of PS_DIV_OP_CODE,PS_2ND_SCAN,PS_D_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_L
+	and inputs of OUT_5H_G
+	and logic function of EQUAL
+Generating Statement for block at 5I with output pin(s) of OUT_5I_G
+	and inputs of PS_DIV_OP_CODE,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_C
+	and inputs of PS_TRUE_LATCH_1,PS_DIV_DOT_MQ_DOT_B
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MB_DIV_DOT_X_DOT_B
+	from gate output OUT_3B_A
+Generating output sheet edge signal assignment to 
+	signal MB_DIV_DOT_X_DOT_B_DOT_S_DOT_NOT_RC
+	from gate output OUT_4C_K
+Generating output sheet edge signal assignment to 
+	signal MB_DIV_DOT_X_DOT_B_DOT_S_DOT_RC
+	from gate output OUT_4D_B
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_X_DOT_B_DOT_T_DOT_NOT_MDL
+	from gate output OUT_4E_G
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_X_DOT_B_DOT_T_DOT_MDL
+	from gate output OUT_4F_G
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_2_DOT_D
+	from gate output OUT_4H_L
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_B
+	from gate output OUT_5I_G
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_MQ_DOT_B_DOT_T
+	from gate output OUT_4I_C
