@@ -1,0 +1,64 @@
+Generating HDL for page 16.61.01.1 MPLY DIGIT RECOGNITION-ACC at 10/6/2020 2:56:58 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_61_01_1_MPLY_DIGIT_RECOGNITION_ACC_tb.vhdl, generating default test bench code.
+Ignoring Logic Block 1C with symbol R
+Ignoring Logic Block 1F with symbol R
+Removed 1 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1H to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_E, OUT_4A_E
+	and inputs of PB_ADD_BQ0,PB_B_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_B
+	and inputs of OUT_4A_E
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B, OUT_4B_B, OUT_4B_B
+	and inputs of PB_ADD_BQ0,PB_B_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_B
+	and inputs of OUT_4A_E,OUT_4B_B,MB_ADD_BQ4,MB_ADD_BQ2,OUT_4G_E,MB_ADD_BQ6
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of PB_B_CH_NOT_1_BIT,PB_ADD_BQ4
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_B
+	and inputs of OUT_4B_B,OUT_4D_C,MB_ADD_BQ2
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_A
+	and inputs of OUT_4G_E,MB_ADD_BQ6,OUT_4F_D
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of PB_ADD_BQ4,PB_B_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_E, OUT_4G_E, OUT_4G_E
+	and inputs of PB_B_CH_NOT_1_BIT,PB_ADD_BQ8
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_B
+	and inputs of OUT_4B_B,OUT_4G_E,MB_ADD_BQ6,MB_ADD_BQ4,MB_ADD_BQ2,OUT_4H_A
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_A, OUT_4H_A
+	and inputs of PB_ADD_BQ8,PB_B_CH_1_BIT
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_C
+	and inputs of OUT_4H_A
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_0
+	from gate output OUT_1A_B
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_0_8
+	from gate output OUT_1B_B
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_1_4
+	from gate output OUT_1D_B
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_5_8
+	from gate output OUT_1E_A
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_1_9
+	from gate output OUT_1G_B
+Generating output sheet edge signal assignment to 
+	signal PB_B_CH_9
+	from gate output OUT_1H_C
