@@ -197,9 +197,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.50.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -217,20 +217,40 @@ uut_process: process
       o := tv(13);
       p := tv(14);
       q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN <= a;
+		PS_MPLY_OP_CODE <= b;
+		PS_D_CYCLE <= c;
+		PS_NO_SCAN <= d;
+		PS_2ND_SCAN <= e;
+		PS_1ST_OR_NO_OR_3RD_SCAN <= f;
+		PS_3RD_SCAN <= g;
+		PS_MPLY_DIV_LAST_LATCH <= h;
+		PS_1ST_OR_3RD_SCAN <= j;
+		PS_NOT_MPLY_DIV_LAST_LATCH <= k;
+		PB_B_CH_0 <= l;
+		PS_1401_MODE_1 <= m;
+		PB_B_CH_WM_BIT <= n;
+		PS_TRUE_LATCH_1 <= o;
+		PS_COMPLEMENT_LATCH <= p;
+		PS_NO_OR_1ST_OR_2ND_SCAN <= q;
+		
+		g1 := b and c;
       
       wait for 30 ns;
-      
-      
+
+		check1(MS_MPLY_DOT_N_OR_1_OR_2_OR_3_DOT_D,not(g1 and a),testName,"1A");
+		check1(MS_MPLY_DOT_N_DOT_D,not(g1 and d),testName,"1B");
+		check1(MS_MPLY_DOT_1_OR_N_OR_3_DOT_D,not(g1 and f),testName,"1C");
+		check1(MS_MPLY_DOT_2_DOT_D,not(g1 and e),testName,"1D");
+		check1(MS_MPLY_DOT_3_DOT_D,not(g1 and g),testName,"1E");
+		check1(MS_MPLY_DOT_3_DOT_D_DOT_MDL,not(g1 and g and h),testName,"1F");
+		check1(MS_MPLY_DOT_1_OR_3_DOT_D_DOT_NOT_MDL,
+		 not((g1 and j and k) and (not m or not l or not n)),testName,"1G");
+		check1(MS_MPLY_DOT_D_DOT_T,not(g1 and o),testName,"1H");
+		check1(MS_MPLY_DOT_D_DOT_S,not(g1 and p),testName,"1I");
+		check1(MS_MPLY_DOT_N_OR_1_OR_2_DOT_D,not(g1 and q),testName,"1J");
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
