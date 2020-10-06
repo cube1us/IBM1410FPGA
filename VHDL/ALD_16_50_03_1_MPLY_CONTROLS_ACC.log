@@ -1,0 +1,92 @@
+Generating HDL for page 16.50.03.1 MPLY CONTROLS-ACC at 10/6/2020 9:17:07 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_50_03_1_MPLY_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 1 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2I to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of PS_MPLY_OP_CODE,PS_D_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_D, OUT_3A_D, OUT_3A_D, OUT_3A_D, OUT_3A_D, OUT_3A_D, OUT_3A_D, OUT_3A_D, OUT_3A_D, OUT_3A_D
+	and inputs of OUT_4A_NoPin
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B
+	and inputs of OUT_3A_D,PS_NO_OR_1ST_OR_2ND_OR_3RD_SCAN
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of OUT_3A_D,PS_NO_SCAN
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F
+	and inputs of OUT_3A_D,PS_2ND_SCAN
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_P
+	and inputs of OUT_3A_D,PS_1ST_OR_NO_OR_3RD_SCAN
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of OUT_3A_D,PS_3RD_SCAN
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_F
+	and inputs of OUT_3A_D,PS_3RD_SCAN,PS_MPLY_DIV_LAST_LATCH
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_K
+	and inputs of PS_1401_MODE_1
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_E
+	and inputs of OUT_3A_D,PS_1ST_OR_3RD_SCAN,PS_NOT_MPLY_DIV_LAST_LATCH
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_DOT_4F
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_B
+	and inputs of PB_B_CH_0,PB_B_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_D
+	and inputs of OUT_3A_D,PS_TRUE_LATCH_1
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_3A_D,PS_COMPLEMENT_LATCH
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_E
+	and inputs of OUT_3A_D,PS_NO_OR_1ST_OR_2ND_SCAN
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
+	and inputs of OUT_4F_K,OUT_4G_B
+	and logic function of OR
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_2F_E,OUT_1F_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_N_OR_1_OR_2_OR_3_DOT_D
+	from gate output OUT_2A_B
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_N_DOT_D
+	from gate output OUT_2B_G
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_2_DOT_D
+	from gate output OUT_2C_F
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_1_OR_N_OR_3_DOT_D
+	from gate output OUT_1C_P
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_3_DOT_D
+	from gate output OUT_2D_D
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_3_DOT_D_DOT_MDL
+	from gate output OUT_2E_F
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_D_DOT_T
+	from gate output OUT_2G_D
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_D_DOT_S
+	from gate output OUT_2H_C
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_N_OR_1_OR_2_DOT_D
+	from gate output OUT_2I_E
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_1_OR_3_DOT_D_DOT_NOT_MDL
+	from gate output OUT_DOT_1F
