@@ -197,9 +197,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.60.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**14 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -215,20 +215,38 @@ uut_process: process
       m := tv(11);
       n := tv(12);
       o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := b and h and d; -- DIV.MQ.B
 
+		PS_LAST_INSN_RO_CYCLE_2 <= a;
+		PS_DIV_OP_CODE <= b;
+		PS_UNITS_OR_BODY_OR_EXT <= c;
+		PS_B_CYCLE <= d;
+		PS_UNITS_OR_BODY_LATCH <= e;
+		PS_A_CH_NOT_WM_BIT <= f;
+		PS_A_CH_WM_BIT <= g;
+		PS_MQ_LATCH <= h;
+		PB_ADDER_NO_CARRY <= j;
+		PB_ADDER_CARRY <= k;
+		PB_COMPLEMENT_LATCH <= l;
+		PS_MPLY_DIV_LAST_LATCH <= m;
+		PB_1401_MODE <= n;
+		PS_NOT_MPLY_DIV_LAST_LATCH <= o;
       
       wait for 30 ns;
+
+		check1(MS_DIV_DOT_LAST_INSN_RO_CYCLE,not(a and b),testName,"1A");
+		check1(MS_DIV_DOT_U_OR_Y_DOT_B,not(b and e and d),testName,"1B");
+		check1(MS_DIV_DOT_U_OR_Y_OR_X_DOT_B,not(b and c and d),testName,"1C");
+		check1(MS_DIV_DOT_U_OR_Y_DOT_B_DOT_NOT_AW,not(b and e and d and f),testName,"1D");
+		check1(MS_DIV_DOT_U_OR_Y_DOT_B_DOT_AW,not(b and e and d and g),testName,"1E");
+		check1(MS_DIV_DOT_MQ_DOT_B,not(g1),testName,"1F");
+		check1(MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_NOT_RC,not(g1 and l and j),testName,"1G");
+		check1(MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_RC,not(g1 and l and k),testName,"1H");
+		check1(PS_DIV_DOT_MQ_DOT_B,g1,testName,"1I");
+		check1(MS_DIV_DOT_MQ_DOT_B_DOT_MDL,not(g1 and m),testName,"1J");
+		check1(MS_1401_DIVIDE_OVERFLOW,not(n and not MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_RC),testName,"1K");
+		check1(MS_DIV_DOT_MQ_DOT_B_DOT_NOT_MDL,not(g1 and o),testName,"1L");
       
       
    end loop;
