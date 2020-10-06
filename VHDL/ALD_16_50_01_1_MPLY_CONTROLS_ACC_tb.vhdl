@@ -173,9 +173,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.50.01.1        ";  -- NOTE:  Remove X when editing to set correct length!
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -187,24 +187,31 @@ uut_process: process
       h := tv(7);
       j := tv(8);
       k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
-      
+		PS_UNITS_OR_BODY_LATCH <= a;
+		PS_A_CH_NOT_WM_BIT <= b;
+		PS_MPLY_OP_CODE <= c;
+		PS_A_CH_WM_BIT <= d;
+		PS_B_CYCLE <= e;
+		PS_UNITS_OR_BODY_OR_EXT <= f;
+		PS_3RD_SCAN <= g;
+		PS_1ST_SCAN <= h;
+		PS_NO_SCAN <= j;
+		PS_C_CYCLE_1 <= k;
+		
+		g1 := c and a and e;
+		g2 := c and f and e;
+				
       wait for 30 ns;
+
+		check1(MS_MPLY_DOT_U_OR_Y_DOT_B,not(g1),testName,"1A");
+		check1(MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_NOT_AW,not(g1 and b),testName,"1B");
+		check1(MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_AW_DOT_1,not(g1 and d and h),testName,"1C");
+		check1(MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_AW_DOT_3,not(g1 and c and d and g),testName,"1D");
+		check1(MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B,not(g2),testName,"1E");
+		check1(MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B_DOT_1,not(g2 and h),testName,"1F");
+		check1(MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B_DOT_3,not(g2 and g),testName,"1G");
+		check1(MS_MPLY_DOT_N_DOT_C,not(c and j and k),testName,"1H");
       
       
    end loop;
