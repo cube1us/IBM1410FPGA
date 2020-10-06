@@ -212,9 +212,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.50.05.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**18 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -234,17 +234,43 @@ uut_process: process
       q := tv(15);
       r := tv(16);
       s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PB_B_CH_NOT_WM_BIT <= a;
+		MB_COMPLEMENT_LATCH <= not b;
+		MB_MPLY_DOT_MQ_DOT_B1_CYCLE <= not c;
+		PB_B_CH_9 <= d;
+		PB_B_CH_1_4 <= e;
+		PB_B_CH_0_8 <= f;
+		MS_ZR_BAL_LATCH <= not g;
+		PB_B_CH_8_BIT <= h;
+		PB_B_CH_WM_BIT <= j;
+		PB_B_CH_2_BIT <= k;
+		PB_B_CH_5_8 <= l;
+		MS_NOT_ZR_BAL_LATCH <= not m;
+		PS_MPLY_OP_CODE <= n;
+		PS_1ST_OR_3RD_SCAN <= o;
+		PS_D_CYCLE <= p;
+		PB_1ST_SCAN <= q;
+		PB_1401_MODE <= r;
+		PS_LAST_INSN_RO_CYCLE_2 <= s;
+		
+		g1 := b and c;  -- MPLY.MQ.B1.S
       
       wait for 30 ns;
       
+		check1(MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_NOT_BW,not(g1 and d and a),testName,"1A");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_BW,not(g1 and d and j),testName,"1B");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B1_4,not(g1 and e),testName,"1C");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B5_8,not(g1 and l),testName,"1D");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_S,not(g1),testName,"1E");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B0_8,not(g1 and f),testName,"1F");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_ZERO_BAL,not(g1 and d and g),testName,"1G");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_B1_4,not(c and e),testName,"1H");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_B5_8,not(c and l),testName,"1I");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_NOT_ZERO_BAL,not(g1 and d and m),testName,"1J");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_1,not(c and q),testName,"1K");
+      check1(MB_1401_MPLY_EARLY_END,not(k and h and n and o and p and r and j),testName,"1L");
+      check1(MS_MPLY_DOT_LAST_INSN_RO_CYCLE,not(n and s),testName,"1M");
       
    end loop;
 
@@ -259,7 +285,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
