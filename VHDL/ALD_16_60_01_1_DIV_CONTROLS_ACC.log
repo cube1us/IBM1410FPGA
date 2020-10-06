@@ -1,0 +1,98 @@
+Generating HDL for page 16.60.01.1 DIV CONTROLS-ACC at 10/6/2020 1:31:44 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_60_01_1_DIV_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Removed 3 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PS_LAST_INSN_RO_CYCLE_2,PS_DIV_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_A
+	and inputs of OUT_4A_G
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_E
+	and inputs of PS_DIV_OP_CODE,PS_UNITS_OR_BODY_OR_EXT,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_B
+	and inputs of OUT_4C_D
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D, OUT_4C_D
+	and inputs of PS_DIV_OP_CODE,PS_B_CYCLE,PS_UNITS_OR_BODY_LATCH
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D, OUT_3C_D
+	and inputs of OUT_4C_D
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_K
+	and inputs of OUT_3C_D,PS_A_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_P
+	and inputs of OUT_3C_D,PS_A_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_E, OUT_4E_E, OUT_4E_E
+	and inputs of PS_DIV_OP_CODE,PS_B_CYCLE,PS_MQ_LATCH
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_M, OUT_3E_M
+	and inputs of OUT_4E_E
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of OUT_3E_M,PB_COMPLEMENT_LATCH,PB_ADDER_NO_CARRY
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G, OUT_4F_G, OUT_4F_G
+	and inputs of OUT_4E_E
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_K, OUT_2F_K
+	and inputs of OUT_3E_M,PB_COMPLEMENT_LATCH,PB_ADDER_CARRY
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_K
+	and inputs of OUT_4F_G,PS_MPLY_DIV_LAST_LATCH
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_F
+	and inputs of PB_1401_MODE
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_2F_K,OUT_4H_F
+	and logic function of NOR
+Generating Statement for block at 1H with output pin(s) of OUT_1H_B
+	and inputs of OUT_2H_C
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_P
+	and inputs of OUT_4F_G,PS_NOT_MPLY_DIV_LAST_LATCH
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_LAST_INSN_RO_CYCLE
+	from gate output OUT_3A_A
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_U_OR_Y_OR_X_DOT_B
+	from gate output OUT_4B_E
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_U_OR_Y_DOT_B
+	from gate output OUT_2B_B
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_U_OR_Y_DOT_B_DOT_NOT_AW
+	from gate output OUT_2C_K
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_U_OR_Y_DOT_B_DOT_AW
+	from gate output OUT_2D_P
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_MQ_DOT_B
+	from gate output OUT_4E_E
+Generating output sheet edge signal assignment to 
+	signal MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_NOT_RC
+	from gate output OUT_2E_A
+Generating output sheet edge signal assignment to 
+	signal PS_DIV_DOT_MQ_DOT_B
+	from gate output OUT_4F_G
+Generating output sheet edge signal assignment to 
+	signal MB_DIV_DOT_MQ_DOT_B_DOT_S_DOT_RC
+	from gate output OUT_2F_K
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_MQ_DOT_B_DOT_MDL
+	from gate output OUT_2G_K
+Generating output sheet edge signal assignment to 
+	signal MS_1401_DIVIDE_OVERFLOW
+	from gate output OUT_1H_B
+Generating output sheet edge signal assignment to 
+	signal MS_DIV_DOT_MQ_DOT_B_DOT_NOT_MDL
+	from gate output OUT_2I_P
