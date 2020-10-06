@@ -203,9 +203,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.50.04.1        ";  -- NOTE:  Remove X when editing to set correct length!
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**13 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -220,22 +220,41 @@ uut_process: process
       l := tv(10);
       m := tv(11);
       n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PS_MPLY_OP_CODE <= a;
+		PS_MQ_LATCH <= b;
+		PS_B_CYCLE <= c;
+		PS_TRUE_LATCH_1 <= d;
+		PB_B_CH_9 <= e;
+		PB_B_CH_NOT_WM_BIT <= f;
+		PB_B_CH_0 <= g;
+		PB_B_CH_WM_BIT <= h;
+		PS_1ST_SCAN <= j;
+		PB_B_CH_1_4 <= k;
+		PB_B_CH_5_8 <= l;
+		PB_B_CH_1_9 <= m;
+		PS_3RD_SCAN <= n;
+      
+      g1 := a and b and c;
+      g2 := g1 and d;
       
       wait for 30 ns;
       
+		check1(MS_MPLY_DOT_MQ_DOT_B,not(g1),testName,"1A");
+      check1(MB_MPLY_DOT_MQ_DOT_B1_CYCLE,not(g1),testName,"1B");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_B0,not(g1 and g),testName,"1C");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B9,not(g2 and e),testName,"1D");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_B0_DOT_STAR,not(g1 and g),testName,"1E");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B9_DOT_STAR,not(g2 and e),testName,"1F");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B0_DOT_NOT_BW,not(g2 and f and g),testName,"1G");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_3_DOT_T_DOT_B0_DOT_BW,not(g2 and n and g and h),testName,"1H");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B1_4,not(g2 and k),testName,"1I");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_1_DOT_B0_DOT_BW,not(g2 and j and g and h),testName,"1J");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_B5_8,not(g2 and l),testName,"1K");
+      check1(PB_1ST_SCAN,j,testName,"1L");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_1_DOT_B1_9,not(g2 and j and m),testName,"1M");
+      check1(PS_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_1_DOT_B1_9,g2 and j and m,testName,"1N");
+      check1(MB_MPLY_DOT_MQ_DOT_B_DOT_T_DOT_3_DOT_B1_9,not(g2 and n and m),testName,"1O");
       
    end loop;
 
