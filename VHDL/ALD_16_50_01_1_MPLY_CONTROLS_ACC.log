@@ -1,0 +1,73 @@
+Generating HDL for page 16.50.01.1 MPLY CONTROLS-ACC at 10/6/2020 8:56:02 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_50_01_1_MPLY_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Removed 2 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 2H to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_B_CYCLE,PS_UNITS_OR_BODY_LATCH,PS_MPLY_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_R, OUT_4A_R, OUT_4A_R, OUT_4A_R
+	and inputs of OUT_5A_NoPin
+	and logic function of NOT
+Generating Statement for block at 3A with output pin(s) of OUT_3A_C
+	and inputs of OUT_4A_R
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4A_R,PS_A_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of OUT_4A_R,PS_A_CH_WM_BIT,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_G
+	and inputs of OUT_4A_R,PS_A_CH_WM_BIT,PS_3RD_SCAN
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_MPLY_OP_CODE,PS_UNITS_OR_BODY_OR_EXT,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_R, OUT_4E_R, OUT_4E_R
+	and inputs of OUT_5E_C
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of OUT_4E_R
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_R
+	and inputs of OUT_4E_R,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_K
+	and inputs of OUT_4E_R,PS_3RD_SCAN
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of PS_MPLY_OP_CODE,PS_NO_SCAN,PS_C_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_B
+	and inputs of OUT_3H_C
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_U_OR_Y_DOT_B
+	from gate output OUT_3A_C
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_NOT_AW
+	from gate output OUT_3B_C
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_AW_DOT_1
+	from gate output OUT_3C_E
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_U_OR_Y_DOT_B_DOT_AW_DOT_3
+	from gate output OUT_3D_G
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B
+	from gate output OUT_3E_C
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B_DOT_1
+	from gate output OUT_3F_R
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_U_OR_Y_OR_X_DOT_B_DOT_3
+	from gate output OUT_3G_K
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_N_DOT_C
+	from gate output OUT_2H_B
