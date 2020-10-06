@@ -161,9 +161,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.61.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -173,27 +173,26 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PB_B_CH_NOT_1_BIT <= a; -- B0
+		PB_ADD_BQ0 <= b;
+		MB_ADD_BQ2 <= not c;
+		PB_B_CH_1_BIT <= d; -- B1
+		MB_ADD_BQ6 <= not e;
+		PB_ADD_BQ4 <= f;
+		PB_ADD_BQ8 <= g;
+		MB_ADD_BQ4 <= not h;
       
       wait for 30 ns;
       
+      -- No ILD, so I checked it against Qui-Binary code table.
+      
+		check1(PB_B_CH_0,a and b,testName,"1A");  -- Q0.B0
+      check1(PB_B_CH_0_8,(b and d) or (b and a) or c or h or e or (a and g),testName,"1B"); -- Q0.B1 + Q0.B0 + Q2 + Q4 + Q6 + Q8.B0
+      check1(PB_B_CH_1_4,(a and f) or (b and d) or c,testName,"1C"); -- Q4.B0 + Q0.B1 + Q2
+      check1(PB_B_CH_5_8,(a and g) or e or (f and d),testName,"1D"); -- Q8.B0 + Q6 + Q4.BQ1
+      check1(PB_B_CH_1_9,(a and g) or c or e or h or (b and d) or (g and d),testName,"1E"); -- Q8.B0 + Q2 + Q6 + Q4 + Q0.B1 + Q8.B1
+      check1(PB_B_CH_9,g and d,testName,"1F"); -- Q8.B1
       
    end loop;
 
