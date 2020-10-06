@@ -1,0 +1,108 @@
+Generating HDL for page 16.50.05.1 MPLY CONTROLS-ACC at 10/6/2020 1:04:05 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_50_05_1_MPLY_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3H to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 1A with output pin(s) of OUT_1A_A
+	and inputs of PB_B_CH_9,PB_B_CH_NOT_WM_BIT,OUT_4B_D
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D, OUT_4B_D, OUT_4B_D, OUT_4B_D, OUT_4B_D, OUT_4B_D, OUT_4B_D, OUT_4B_D
+	and inputs of MB_COMPLEMENT_LATCH,MB_MPLY_DOT_MQ_DOT_B1_CYCLE
+	and logic function of NOR
+Generating Statement for block at 1B with output pin(s) of OUT_1B_K
+	and inputs of OUT_4B_D,PB_B_CH_9,PB_B_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_E, OUT_4C_E, OUT_4C_E
+	and inputs of MB_MPLY_DOT_MQ_DOT_B1_CYCLE
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_K
+	and inputs of OUT_4B_D,PB_B_CH_1_4
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of OUT_4B_D
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of OUT_1D_K
+	and inputs of OUT_4B_D,PB_B_CH_5_8
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_A
+	and inputs of MS_ZR_BAL_LATCH
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_A
+	and inputs of OUT_4B_D,OUT_5E_A,PB_B_CH_9
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_4B_D,PB_B_CH_0_8
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_D
+	and inputs of OUT_4C_E,PB_B_CH_1_4
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_B
+	and inputs of MS_NOT_ZR_BAL_LATCH
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_K
+	and inputs of OUT_4B_D,OUT_5G_B,PB_B_CH_9
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_D
+	and inputs of OUT_4C_E,PB_B_CH_5_8
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_D
+	and inputs of PS_MPLY_OP_CODE,PS_1ST_OR_3RD_SCAN,PS_D_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of OUT_5H_D
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_B
+	and inputs of OUT_4H_C,PB_B_CH_2_BIT,PB_B_CH_8_BIT,PB_B_CH_WM_BIT,PB_1401_MODE
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_E
+	and inputs of OUT_4C_E,PB_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_R
+	and inputs of PS_MPLY_OP_CODE,PS_LAST_INSN_RO_CYCLE_2
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_K
+	and inputs of OUT_2I_R
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_NOT_BW
+	from gate output OUT_1A_A
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_BW
+	from gate output OUT_1B_K
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B1_4
+	from gate output OUT_1C_K
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_S
+	from gate output OUT_3D_D
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B5_8
+	from gate output OUT_1D_K
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_ZERO_BAL
+	from gate output OUT_3E_A
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B0_8
+	from gate output OUT_1E_C
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_B1_4
+	from gate output OUT_1F_D
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_NOT_ZERO_BAL
+	from gate output OUT_3G_K
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_B5_8
+	from gate output OUT_1G_D
+Generating output sheet edge signal assignment to 
+	signal MB_1401_MPLY_EARLY_END
+	from gate output OUT_3H_B
+Generating output sheet edge signal assignment to 
+	signal MB_MPLY_DOT_MQ_DOT_B_DOT_1
+	from gate output OUT_1H_E
+Generating output sheet edge signal assignment to 
+	signal MS_MPLY_DOT_LAST_INSN_RO_CYCLE
+	from gate output OUT_1I_K
