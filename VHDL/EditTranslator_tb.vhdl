@@ -230,6 +230,22 @@ procedure check1(
 
 -- START USER TEST BENCH PROCESS
 
+PS_B_CH_NOT_BUS <= NOT PS_B_CH_BUS;      
+
+PS_B_CH_B_AND_A_BIT <= PS_B_CH_BUS(HDL_B_BIT) and PS_B_CH_BUS(HDL_A_BIT);
+PS_B_CH_8_AND_1_BIT <= PS_B_CH_BUS(HDL_8_BIT) and PS_B_CH_BUS(HDL_1_BIT);
+PS_B_CH_B_AND_NOT_A_BIT <= PS_B_CH_BUS(HDL_B_BIT) and PS_B_CH_NOT_BUS(HDL_A_BIT);
+PS_B_CH_8_AND_NOT_1_BIT <= PS_B_CH_BUS(HDL_8_BIT) and PS_B_CH_NOT_BUS(HDL_1_BIT);
+PS_B_CH_4_AND_NOT_2_BIT <= PS_B_CH_BUS(HDL_4_BIT) and PS_B_CH_NOT_BUS(HDL_2_BIT);
+PS_B_CH_NOT_B_AND_A_BIT <= PS_B_CH_NOT_BUS(HDL_B_BIT) and PS_B_CH_BUS(HDL_A_BIT);
+PS_B_CH_NOT_8_AND_1_BIT <= PS_B_CH_NOT_BUS(HDL_8_BIT) and PS_B_CH_BUS(HDL_1_BIT);
+PS_B_CH_NOT_4_AND_2_BIT <= PS_B_CH_NOT_BUS(HDL_4_BIT) and PS_B_CH_BUS(HDL_2_BIT);
+PS_B_CH_NOT_B_AND_NOT_A_BIT <= PS_B_CH_NOT_BUS(HDL_B_BIT) and PS_B_CH_NOT_BUS(HDL_A_BIT);
+PS_B_CH_NOT_8_AND_NOT_1_BIT <= PS_B_CH_NOT_BUS(HDL_8_BIT) and PS_B_CH_NOT_BUS(HDL_1_BIT);
+PS_B_CH_NOT_4_AND_NOT_2_BIT <= PS_B_CH_NOT_BUS(HDL_4_BIT) and PS_B_CH_NOT_BUS(HDL_2_BIT);
+
+
+
 -- The user test bench code MUST be placed between the
 -- line that starts with the first line of text that
 -- begins with "-- START USERS TEST BENCH PROCESS" 
@@ -242,6 +258,7 @@ procedure check1(
 --
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
+
 
 fpga_clk_process: process
 
@@ -272,39 +289,178 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.11.0%.1        ";
 
-   for tt in 0 to 2**25 loop
+   for BCD_CHAR in BCD.BCD loop
+      PS_B_CH_BUS <= BCD.bcd_to_slv8_odd_parity(BCD_CHAR);
+      wait for 30 ns;
+      
+      case BCD_CHAR is
+         when BCD.BCD_0 => 
+            check1(PS_NOT_CTRL_0,'0',testName,"Not Ctrl 0 false");
+            check1(PS_CONTROL_ZERO,'1',testName,"+S Control 0 asserted");
+            check1(MS_CONTROL_ZERO,'0',testName,"-S Control 0 asserted");
+         when Others => 
+            check1(PS_NOT_CTRL_0,'1',testName,"Not Ctrl 0 true");
+            check1(PS_CONTROL_ZERO,'0',testName,"+S Control 0 Not Asserted");
+            check1(MS_CONTROL_ZERO,'1',testName,"-S Control 0 Not Asserted");
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_ASTERISK => 
+            check1(PS_NOT_ASTERISK,'0',testName,"Not * false");
+            check1(PS_ASTERISK,'1',testName,"+S * asserted");      
+         when others => 
+            check1(PS_NOT_ASTERISK,'1',testName,"Not * true");
+            check1(PS_ASTERISK,'0',testName,"+S * not asserted");                  
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_DOLLAR => 
+            check1(PS_NOT_DOLLAR_SIGN,'0',testName,"Not $ False");
+            check1(PS_DOLLAR_SIGN,'1',testName,"+S $ Asserted");
+         when others => 
+            check1(PS_NOT_DOLLAR_SIGN,'1',testName,"Not $ true");
+            check1(PS_DOLLAR_SIGN,'0',testName,"+S $ Not Asserted");            
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_1 to BCD.BCD_9 => 
+            check1(PS_NOT_SIG_DIGIT,'0',testName,"Not digit false 1-9");
+            check1(PS_SIG_DIGIT,'1',testName,"+S Sig Digit Asserted");
+            check1(MS_SIG_DIGIT,'0',testName,"-S Sig Digit Asserted");
+         when others => 
+            check1(PS_NOT_SIG_DIGIT,'1',testName,"Not digit true");
+            check1(PS_SIG_DIGIT,'0',testName,"+S Sig Digit Not Asserted");
+            check1(MS_SIG_DIGIT,'1',testName,"-S Sig Digit Not Asserted");
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_MINUS => check1(PS_NOT_MINUS_SYMBOL,'0',testName,"Not Minus false");
+         when others => check1(PS_NOT_MINUS_SYMBOL,'1',testName,"Not Minus true");
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_COMMA => 
+            check1(PS_NOT_COMMA,'0',testName,"Not Comma false");
+            check1(PS_COMMA,'1',testName,"+S Comma Asserted");
+         when others => 
+            check1(PS_NOT_COMMA,'1',testName,"Not Comma true");
+            check1(PS_COMMA,'0',testName,"+S Comman Not Asserted");
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_PERIOD => 
+            check1(PS_NOT_DECIMAL,'0',testName,"Not Decimal false");
+            check1(MS_NOT_DECIMAL,'1',testName,"-S Not Decimal false");
+            check1(PS_DECIMAL,'1',testName,"+S Decimal Asserted");
+         when others => 
+            check1(PS_NOT_DECIMAL,'1',testName,"Not Decimal true");
+            check1(MS_NOT_DECIMAL,'0',testName,"-S Not Decimal true");
+            check1(PS_DECIMAL,'0',testName,"+S Decimal Not Asserted");
+      end case;
+
+      case BCD_CHAR is
+         when BCD.BCD_BLANK => 
+            check1(PS_NOT_BLANK,'0',testName,"Not Blank false");
+            check1(PS_BLANK,'1',testName,"+S Blank asserted");
+            check1(MS_BLANK,'0',testName,"-S Blank asserted");
+         when others => 
+            check1(PS_NOT_BLANK,'1',testName,"Not BLANK true");
+            check1(PS_BLANK,'0',testName,"+S Blank Not Assserted");
+            check1(MS_BLANK,'1',testName,"-S Blank Not Assserted");
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_C => check1(PS_NOT_C_CHAR,'0',testName,"Not C false");
+         when others => check1(PS_NOT_C_CHAR,'1',testName,"Not C true");
+      end case;
+
+      case BCD_CHAR is
+         when BCD.BCD_R => check1(PS_NOT_R_CHAR,'0',testName,"Not R false");
+         when others => check1(PS_NOT_R_CHAR,'1',testName,"Not R true");
+      end case;
+
+      case BCD_CHAR is
+         when BCD.BCD_AMPERSAND => 
+            check1(PS_NOT_SPACE,'0',testName,"Not Space (&) false");
+         when others => check1(PS_NOT_SPACE,'1',testName,"Not Space (&) true");
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_C | BCD.BCD_R | BCD.BCD_MINUS =>
+            check1(PS_C_OR_R_OR_MINUS,'1',testName,"C or R or Minus true");
+         when others => check1(PS_C_OR_R_OR_MINUS,'0',testName,"C or R or Minus false");
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_BLANK | BCD.BCD_0 =>
+            check1(PS_BLANK_OR_ZERO,'1',testName,"+S Blank or Zero true");
+         when others => check1(PS_BLANK_OR_ZERO,'0',testName,"+S Blank or Zero false");
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_BLANK | BCD.BCD_0 | BCD.BCD_COMMA =>
+            check1(PS_BLANK_0_OR_COMMA,'1',testName,"+S Blank 0 or Comma true");
+         when others => check1(PS_BLANK_0_OR_COMMA,'0',testName,"+S Blank 0 or Comma false");
+      end case;
+
+      case BCD_CHAR is
+         when BCD.BCD_0 | BCD.BCD_PERIOD =>
+            check1(PS_0_OR_DECIMAL,'1',testName,"+S 0 or Decimal true");
+         when others => check1(PS_0_OR_DECIMAL,'0',testName,"+S 0 or Decimal false");
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_1 to BCD.BCD_9 | BCD.BCD_BLANK | BCD.BCD_0 | BCD.BCD_COMMA | BCD.BCD_MINUS |
+            BCD.BCD_PERIOD =>
+               check1(PS_BLK_0_PUNCT_OR_SIG_DIGIT,'1',testName,"+ Blank 0 Punc. or digit true");
+         when others => 
+               check1(PS_BLK_0_PUNCT_OR_SIG_DIGIT,'0',testName,"+ Blank 0 Punc. or digit false");
+      end case;
+      
+      case BCD_CHAR is
+         when BCD.BCD_ASTERISK | BCD.BCD_DOLLAR => 
+            check1(PS_ASTERISK_OR_DOLLAR_SIGN,'1',testName,"+S * or $ asserted");      
+         when others => 
+            check1(PS_ASTERISK_OR_DOLLAR_SIGN,'0',testName,"+S * not asserted");                  
+      end case;      
+            
+   end loop;
+   
+   for tt in 0 to 16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
       
+      PS_MOVE_ZERO_SUP_OP_CODE <= a;
+      PS_B_CYCLE <= b;
+      PS_EDIT_OP_CODE <= c;
+      PS_1ST_SCAN <= d;
       wait for 30 ns;
       
+      check1(PS_Z_OP_DOT_B_CYCLE,a and b,testName,"Z Op.B");
+      check1(MS_Z_OP_DOT_B_CYCLE,NOT(a and b),testName,"-S Z Op.B");
+      check1(PS_E_OR_Z_OP_DOT_B_CYCLE,b and (a or c),testName,"E+Z Op . B");
+      check1(PS_E_OP_DOT_B_CYCLE_1,c and b,testName,"E Op . B 1");
+      check1(PS_E_OP_DOT_B_CYCLE_2,c and b,testName,"E Op . B 2");
+      
+      for BCD_CHAR in BCD.BCD loop
+         PS_B_CH_BUS <= BCD.bcd_to_slv8_odd_parity(BCD_CHAR);
+         wait for 30 ns;
+         
+         case BCD_CHAR is
+            when BCD.BCD_AMPERSAND => 
+               check1(MS_SPACE,not(PS_E_OP_DOT_B_CYCLE_1 and d),
+                  testName,"-S Space perhaps asserted");
+            when others => 
+               check1(MS_SPACE,'1',testName,"-S Space (&) not asserted");
+         end case;
+
+         wait for 30 ns;
+      end loop;      
       
    end loop;
 
