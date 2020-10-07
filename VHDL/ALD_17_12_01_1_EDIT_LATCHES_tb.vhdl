@@ -65,6 +65,8 @@ architecture behavioral of ALD_17_12_01_1_EDIT_LATCHES_tb is
 
 -- START USER TEST BENCH DECLARATIONS
 
+   signal lastNotZS, lastNotZSCtrlA: STD_LOGIC;
+   
 -- The user test bench declarations, if any, must be
 -- placed AFTER the line starts with the first line of text 
 -- with -- START USER TEST BENCH DECLARATIONS and ends
@@ -162,45 +164,120 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   
+   -- Why the flip I didn't think to remember the expected state of "hidden" ctrl latches
+   -- before is beyond me.  It made writing the test bench sooo much easier.
+   
+   variable lastNotZSCtrl: std_logic := '0';
+   variable lastNotZSLatch: std_logic := '0';
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.12.01.1        ";
+   
+   MS_LOGIC_GATE_B_1 <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   
+   check1(PS_NOT_0_SUPPRESS,'0',testName,"+S ZS Reset");
+   check1(MS_NOT_0_SUPPRESS,'1',testName,"-S ZS Reset");
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      d := tv(0);
+      e := tv(1);
+      f := tv(2);
+      g := tv(3);
+      h := tv(4);
+      j := tv(5);
+      k := tv(6);
+      l := tv(7);
+      m := tv(8);
+      n := tv(9);
 
+      g1 := g and h and k;
+      g2 := g1 or (k and l) or m or n;
+      g3 := d and e;
+      g4 := (lastNotZSLatch and g2 and e) or g3 or (e and f and k);
       
+      lastNotZS <= lastNotZSLatch;
+      lastNotZSCtrlA <= lastNotZSCtrl;
+
+      -- Reset Not 0 Suppress Latch
+      
+      MS_LOGIC_GATE_B_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_B_1 <= '1';
+      wait for 30 ns;
+
+      check1(PS_NOT_0_SUPPRESS,'0',testName,"+S ZS Loop Reset");
+      check1(MS_NOT_0_SUPPRESS,'1',testName,"-S ZS Loop Reset");
+
+      -- If Not ZS Ctrl was set last iteration, then set Not ZS Latch now
+      
+      PS_LOGIC_GATE_C_1 <= '1';
+      wait for 30 ns;
+      PS_LOGIC_GATE_C_1 <= '0';
       wait for 30 ns;
       
+      check1(PS_NOT_0_SUPPRESS,lastNotZSCtrl,testName,"+S ZS From Ctrl");
+      check1(MS_NOT_0_SUPPRESS,not lastNotZSCtrl,testName,"-S ZS From Ctrl");
       
+      -- Reset Not ZS Ctrl  This should not affect Not ZS Latch
+      
+      MS_LOGIC_GATE_D_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_D_1 <= '1';
+      wait for 30 ns;
+      
+      check1(PS_NOT_0_SUPPRESS,lastNotZSCtrl,testName,"+S ZS From Ctrl Reset ZS Ctrl");
+      check1(MS_NOT_0_SUPPRESS,not lastNotZSCtrl,testName,"-S ZS From Ctrl Reset ZS Ctrl");
+      
+      -- Remember the setting of the Not ZS Latch for the next iteration
+      
+      lastNotZSLatch := PS_NOT_0_SUPPRESS;
+      
+      -- Now maybe set Not ZS Ctrl
+      
+      PS_LAST_INSN_RO_CYCLE <= d;
+      PS_LAST_LOGIC_GATE_1 <= e;
+      
+      PS_SIG_DIGIT <= f;
+      PS_1ST_SCAN <= g;
+      PS_NOT_CTRL_0 <= h;
+      PS_E_OP_DOT_B_CYCLE_1 <= j;
+      PS_E_OR_Z_DOT_2ND_SCAN_DOT_EXTENSION <= k;
+      PS_BLK_0_PUNCT_OR_SIG_DIGIT <= l;
+      MS_A_CYCLE <= not m;
+      MS_3RD_SCAN <= not n;
+
+      wait for 30 ns; -- Perhaps set Not ZS Ctrl
+      
+      check1(MS_LAST_INSN_RO_AND_LOGIC_GATE,not g3,testName,"-S LIROC and LLG");
+      
+      -- Remember the *expected* state of Not ZS Ctrl for the next iteration
+      
+      lastNotZSCtrl := g4;
+      
+      -- Reset the signals before the next iteration
+      
+      PS_LAST_INSN_RO_CYCLE <= '0';
+      PS_LAST_LOGIC_GATE_1 <= '0';
+      
+      PS_SIG_DIGIT <= '0';
+      PS_1ST_SCAN <= '0';
+      PS_NOT_CTRL_0 <= '0';
+      PS_E_OP_DOT_B_CYCLE_1 <= '0';
+      PS_E_OR_Z_DOT_2ND_SCAN_DOT_EXTENSION <= '0';
+      PS_BLK_0_PUNCT_OR_SIG_DIGIT <= '0';
+      MS_A_CYCLE <= '1';
+      MS_3RD_SCAN <= '1';
+                                
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
