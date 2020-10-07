@@ -1,0 +1,48 @@
+Generating HDL for page 17.11.05.1 EDIT TRANSLATOR at 10/6/2020 8:07:56 PM
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2G to ignored block(s) or identical signal names
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of PS_B_CH_NOT_8_BIT,PS_NOT_BLANK,PS_B_CH_NOT_B_AND_NOT_A_BIT
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of PS_B_CH_NOT_B_AND_NOT_A_BIT,PS_B_CH_NOT_4_AND_NOT_2_BIT,PS_B_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of PS_B_CH_B_AND_A_BIT,PS_B_CH_NOT_4_AND_2_BIT,PS_B_CH_8_AND_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_Q
+	and inputs of OUT_3D_D
+	and logic function of EQUAL
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of PS_B_CH_NOT_B_AND_NOT_A_BIT,PS_B_CH_NOT_8_AND_NOT_1_BIT,PS_B_CH_NOT_4_AND_NOT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_K
+	and inputs of OUT_3F_D
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of PS_B_CH_NOT_B_AND_NOT_A_BIT,PS_B_CH_8_AND_NOT_1_BIT,PS_B_CH_NOT_4_AND_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_L
+	and inputs of OUT_4G_C
+	and logic function of EQUAL
+Generating Statement for block at 4H with output pin(s) of OUT_4H_E
+	and inputs of PS_B_CH_NOT_B_AND_A_BIT,PS_B_CH_8_AND_1_BIT,PS_B_CH_NOT_4_AND_2_BIT
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_NUMERIC_1_THRU_7
+	from gate output OUT_3B_F
+Generating output sheet edge signal assignment to 
+	signal MS_NU_8_OR_9_CHAR
+	from gate output OUT_3C_E
+Generating output sheet edge signal assignment to 
+	signal MS_DECIMAL
+	from gate output OUT_2D_Q
+Generating output sheet edge signal assignment to 
+	signal MS_BLANK
+	from gate output OUT_2F_K
+Generating output sheet edge signal assignment to 
+	signal MS_CONTROL_ZERO
+	from gate output OUT_2G_L
+Generating output sheet edge signal assignment to 
+	signal MS_COMMA
+	from gate output OUT_4H_E

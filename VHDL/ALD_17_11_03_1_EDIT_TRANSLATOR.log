@@ -1,0 +1,60 @@
+Generating HDL for page 17.11.03.1 EDIT TRANSLATOR at 10/6/2020 8:07:53 PM
+Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 4 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1E to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_E
+	and inputs of PS_B_CH_NOT_B_BIT,PS_B_CH_NOT_A_BIT,PS_B_CH_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of PS_B_CH_NOT_4_BIT,PS_B_CH_NOT_2_BIT,PS_B_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_B
+	and inputs of OUT_DOT_2B
+	and logic function of EQUAL
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of PS_B_CH_B_BIT,PS_B_CH_A_BIT,PS_B_CH_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_E
+	and inputs of PS_B_CH_NOT_4_BIT,PS_B_CH_1_BIT,PS_B_CH_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of PS_B_CH_B_BIT,PS_B_CH_NOT_A_BIT,PS_B_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_F
+	and inputs of PS_B_CH_NOT_2_BIT,PS_B_CH_1_BIT,PS_B_CH_NOT_4_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of PS_B_CH_B_BIT,PS_B_CH_A_BIT,PS_B_CH_NOT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of PS_B_CH_NOT_4_BIT,PS_B_CH_NOT_2_BIT,PS_B_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2A_E,OUT_2B_D
+	and logic function of OR
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_2C_C,OUT_2D_E
+	and logic function of OR
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E
+	and inputs of OUT_2E_D,OUT_2F_F
+	and logic function of OR
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_3G_C,OUT_4H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_BLANK
+	from gate output OUT_1B_B
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_C_CHAR
+	from gate output OUT_DOT_1C
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_R_CHAR
+	from gate output OUT_DOT_1E
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_SPACE
+	from gate output OUT_DOT_1G

@@ -1,0 +1,118 @@
+Generating HDL for group named EditTranslatorat 10/6/2020 8:08:24 PM containing pages: 
+	17.11.01.1, 17.11.02.1, 17.11.03.1, 17.11.04.1, 17.11.05.1
+	17.11.06.1, 17.11.07.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\EditTranslator_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 7 pages...
+Found 13 signals on page 17.11.01.1
+Found 19 signals on page 17.11.02.1
+Found 15 signals on page 17.11.03.1
+Found 17 signals on page 17.11.04.1
+Found 17 signals on page 17.11.05.1
+Found 17 signals on page 17.11.06.1
+Found 14 signals on page 17.11.07.1
+Found 36 unique input signals and 39 unique output signals, (66 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S B CH NOT 1 BIT originates outside the group.
+INFO:  Signal +S B CH 1 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 2 BIT originates outside the group.
+INFO:  Signal +S B CH 2 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 4 BIT originates outside the group.
+INFO:  Signal +S B CH 4 BIT originates outside the group.
+INFO:  Signal +S B CH 8 BIT originates outside the group.
+INFO:  Signal +S B CH NOT A BIT originates outside the group.
+INFO:  Signal +S B CH NOT B BIT originates outside the group.
+INFO:  Signal +S B CH B BIT originates outside the group.
+INFO:  Signal +S B CH NOT 8 BIT originates outside the group.
+INFO:  Signal +S B CH A BIT originates outside the group.
+INFO:  Signal +S B CH NOT 8 AND NOT 1 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 4 AND NOT 2 BIT originates outside the group.
+INFO:  Signal +S B CYCLE originates outside the group.
+INFO:  Signal +S EDIT OP CODE originates outside the group.
+INFO:  Signal +S MOVE ZERO SUP OP CODE originates outside the group.
+INFO:  Signal +S B CH B AND A BIT originates outside the group.
+INFO:  Signal +S B CH NOT 8 AND 1 BIT originates outside the group.
+INFO:  Signal +S B CH NOT 4 AND 2 BIT originates outside the group.
+INFO:  Signal +S B CH 8 AND 1 BIT originates outside the group.
+INFO:  Signal +S B CH B AND NOT A BIT originates outside the group.
+INFO:  Signal +S NOT BLANK originates inside the group.
+INFO:  Signal +S B CH NOT B AND NOT A BIT originates outside the group.
+INFO:  Signal +S B CH 8 AND NOT 1 BIT originates outside the group.
+INFO:  Signal +S B CH NOT B AND A BIT originates outside the group.
+INFO:  Signal -S MINUS SIGN originates inside the group.
+INFO:  Signal -S NUMERIC 1 THRU 7 originates inside the group.
+INFO:  Signal -S NU 8 OR 9 CHAR originates inside the group.
+INFO:  Signal -S DECIMAL originates inside the group.
+INFO:  Signal -S BLANK originates inside the group.
+INFO:  Signal -S CONTROL ZERO originates inside the group.
+INFO:  Signal -S COMMA originates inside the group.
+INFO:  Signal +S 1ST SCAN originates outside the group.
+INFO:  Signal +S E OP.B CYCLE 1 originates inside the group.
+INFO:  Signal +S B CH 4 AND NOT 2 BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S NOT CTRL 0 is used outside the group.
+INFO:  Signal +S NOT ASTERISK is used outside the group.
+INFO:  Signal +S NOT DOLLAR SIGN is used outside the group.
+INFO:  Signal +S NOT SIG DIGIT is used outside the group.
+INFO:  Signal +S NOT COMMA is used outside the group.
+INFO:  Signal +S NOT MINUS SYMBOL is used outside the group.
+INFO:  Signal +S NOT DECIMAL is used outside the group.
+INFO:  Signal -S NOT DECIMAL is used outside the group.
+INFO:  Signal +S NOT BLANK is used outside the group.
+INFO:  Signal +S NOT C CHAR is used outside the group.
+INFO:  Signal +S NOT R CHAR is used outside the group.
+INFO:  Signal +S NOT SPACE is used outside the group.
+INFO:  Signal +S Z OP.B CYCLE is used outside the group.
+INFO:  Signal -S Z OP.B CYCLE is used outside the group.
+INFO:  Signal +S E OR Z OP.B CYCLE is used outside the group.
+INFO:  Signal +S E OP.B CYCLE 1 is used outside the group.
+INFO:  Signal +S E OP.B CYCLE 2 is used outside the group.
+INFO:  Signal +S C OR R OR MINUS is used outside the group.
+INFO:  Signal -S MINUS SIGN is used only inside the group.
+INFO:  Signal -S NUMERIC 1 THRU 7 is used only inside the group.
+INFO:  Signal -S NU 8 OR 9 CHAR is used only inside the group.
+INFO:  Signal -S DECIMAL is used only inside the group.
+INFO:  Signal -S BLANK is used outside the group.
+INFO:  Signal -S CONTROL ZERO is used outside the group.
+INFO:  Signal -S COMMA is used only inside the group.
+INFO:  Signal +S BLANK is used outside the group.
+INFO:  Signal +S BLANK OR ZERO is used outside the group.
+INFO:  Signal +S CONTROL ZERO is used outside the group.
+INFO:  Signal +S COMMA is used outside the group.
+INFO:  Signal +S BLANK 0 OR COMMA is used outside the group.
+INFO:  Signal +S 0 OR DECIMAL is used outside the group.
+INFO:  Signal +S BLK 0 PUNCT OR SIG DIGIT is used outside the group.
+INFO:  Signal -S SIG DIGIT is used outside the group.
+INFO:  Signal +S SIG DIGIT is used outside the group.
+INFO:  Signal +S DECIMAL is used outside the group.
+INFO:  Signal +S ASTERISK is used outside the group.
+INFO:  Signal +S ASTERISK OR DOLLAR SIGN is used outside the group.
+INFO:  Signal +S DOLLAR SIGN is used outside the group.
+INFO:  Signal -S SPACE is used outside the group.
+Removing 5 output signals that do not have destinations outside the group...
+Removing 9 input signals that originate inside the group...
+Signal +S NOT BLANK is output from the group, but also used as an input inside the group.
+Signal -S BLANK is output from the group, but also used as an input inside the group.
+Signal -S CONTROL ZERO is output from the group, but also used as an input inside the group.
+Signal +S E OP.B CYCLE 1 is output from the group, but also used as an input inside the group.
+Input Signal +S B CH NOT 1 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 1 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT 2 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 2 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT 4 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH 4 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH 8 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT A BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH NOT B BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH B BIT replaced by Bus signal +S B CH BUS
+Input Signal +S B CH NOT 8 BIT replaced by Bus signal +S B CH NOT BUS
+Input Signal +S B CH A BIT replaced by Bus signal +S B CH BUS
+Generating list of internal signals/wires ...
+5 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 17.11.01.1 (EDIT TRANSLATOR)
+Generating HDL associated with page 17.11.02.1 (EDIT TRANSLATOR)
+Generating HDL associated with page 17.11.03.1 (EDIT TRANSLATOR)
+Generating HDL associated with page 17.11.04.1 (EDIT TRANSLATOR)
+Generating HDL associated with page 17.11.05.1 (EDIT TRANSLATOR)
+Generating HDL associated with page 17.11.06.1 (EDIT TRANSLATOR)
+Generating HDL associated with page 17.11.07.1 (EDIT TRANSLATOR)

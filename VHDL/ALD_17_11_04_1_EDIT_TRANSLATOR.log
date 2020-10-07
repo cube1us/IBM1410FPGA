@@ -1,0 +1,61 @@
+Generating HDL for page 17.11.04.1 EDIT TRANSLATOR at 10/6/2020 8:07:55 PM
+Removed 3 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2E to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C, OUT_4B_C, OUT_4B_C
+	and inputs of PS_MOVE_ZERO_SUP_OP_CODE,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_R
+	and inputs of OUT_4B_C
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_4B_C,OUT_3E_C
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_A
+	and inputs of OUT_2C_C
+	and logic function of EQUAL
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of OUT_3E_C
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_R
+	and inputs of PS_EDIT_OP_CODE,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C, OUT_3E_C, OUT_3E_C
+	and inputs of OUT_4E_R
+	and logic function of EQUAL
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of OUT_3E_C
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of PS_B_CH_B_AND_A_BIT,PS_B_CH_NOT_8_AND_1_BIT,PS_B_CH_NOT_4_AND_2_BIT
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_E
+	and inputs of OUT_4F_D,OUT_4G_E,OUT_4H_D
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_E
+	and inputs of PS_B_CH_B_AND_NOT_A_BIT,PS_B_CH_8_AND_1_BIT,PS_B_CH_NOT_4_AND_NOT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_D, OUT_4H_D
+	and inputs of PS_B_CH_B_AND_NOT_A_BIT,PS_B_CH_NOT_8_AND_NOT_1_BIT,PS_B_CH_NOT_4_AND_NOT_2_BIT
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_Z_OP_DOT_B_CYCLE
+	from gate output OUT_4B_C
+Generating output sheet edge signal assignment to 
+	signal PS_Z_OP_DOT_B_CYCLE
+	from gate output OUT_2B_R
+Generating output sheet edge signal assignment to 
+	signal PS_E_OR_Z_OP_DOT_B_CYCLE
+	from gate output OUT_1C_A
+Generating output sheet edge signal assignment to 
+	signal PS_E_OP_DOT_B_CYCLE_1
+	from gate output OUT_2D_D
+Generating output sheet edge signal assignment to 
+	signal PS_E_OP_DOT_B_CYCLE_2
+	from gate output OUT_2E_C
+Generating output sheet edge signal assignment to 
+	signal PS_C_OR_R_OR_MINUS
+	from gate output OUT_1F_E
+Generating output sheet edge signal assignment to 
+	signal MS_MINUS_SIGN
+	from gate output OUT_4H_D

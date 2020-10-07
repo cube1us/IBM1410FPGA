@@ -1,0 +1,46 @@
+Generating HDL for page 17.11.01.1 EDIT TRANSLATOR at 10/6/2020 8:07:50 PM
+Note: DOT Function at 1G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 5 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1G to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 1E to ignored block(s) or identical signal names
+Generating Statement for block at 2C with output pin(s) of OUT_2C_G
+	and inputs of PS_B_CH_8_BIT,PS_B_CH_NOT_B_BIT,PS_B_CH_NOT_A_BIT
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_G
+	and inputs of PS_B_CH_NOT_4_BIT,PS_B_CH_2_BIT,PS_B_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_L
+	and inputs of OUT_DOT_2D
+	and logic function of EQUAL
+Generating Statement for block at 2E with output pin(s) of OUT_2E_G
+	and inputs of PS_B_CH_B_BIT,PS_B_CH_NOT_A_BIT,PS_B_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_G
+	and inputs of PS_B_CH_4_BIT,PS_B_CH_NOT_2_BIT,PS_B_CH_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of PS_B_CH_B_BIT,PS_B_CH_NOT_A_BIT,PS_B_CH_8_BIT
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of PS_B_CH_1_BIT,PS_B_CH_NOT_4_BIT,PS_B_CH_2_BIT
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_3G_G,OUT_4H_G
+	and logic function of OR
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E
+	and inputs of OUT_2E_G,OUT_2F_G
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2C_G,OUT_2D_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_CTRL_0
+	from gate output OUT_1D_L
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_DOLLAR_SIGN
+	from gate output OUT_DOT_1G
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_ASTERISK
+	from gate output OUT_DOT_1E
