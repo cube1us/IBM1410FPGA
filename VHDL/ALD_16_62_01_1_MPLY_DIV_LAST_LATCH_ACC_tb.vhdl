@@ -167,9 +167,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "16.62.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -179,29 +179,130 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      k := tv(8);
+      m := tv(9);
+      n := tv(10);
 
+      g2 := f or b;
+      g3 := e and a and g and d and h;
+      g1 := (g2 or g3) and c;
+      g4 := g1 or k;
       
+      MS_PROGRAM_RESET_5 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_5 <= '1';
       wait for 30 ns;
       
+      check1(PS_MPLY_DIV_LAST_LATCH,'0',testName,"1A");
+
+		PS_UNITS_LATCH <= a;
+		MB_1401_MPLY_EARLY_END <= not b;
+		PS_LAST_LOGIC_GATE_1 <= c;
+		PS_B_CH_B_BIT <= d;
+		PS_DIV_OP_CODE <= e;
+		MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_BW <= not f;
+		PS_B_CYCLE <= g;
+		PS_TRUE_LATCH <= h;
+		MS_1401_DIV_EARLY_END <= not k;
+		PS_LAST_LOGIC_GATE_2 <= c;
+		MS_DIV_DOT_LAST_INSN_RO_CYCLE <= '1';
+		MS_MPLY_DOT_LAST_INSN_RO_CYCLE <= '1';
+      wait for 30 ns; -- perhaps set MDL Latch      
+      check1(MS_DIV_DOT_U_DOT_B_DOT_BB_DOT_T,not(g3),testName,"1B");
+      check1(PS_MPLY_DIV_LAST_LATCH,g4,testName,"1C");
+
+      -- Remove setting inputs before attempting reset
+            
+      PS_LAST_LOGIC_GATE_1 <= '0'; 
+      PS_LAST_LOGIC_GATE_2 <= '0'; 
+      MS_1401_DIV_EARLY_END <= '1';
+      wait for 30 ns;
+      check1(PS_MPLY_DIV_LAST_LATCH,g4,testName,"1D");
       
+      if(g4 = '1') then
+         MS_DIV_DOT_LAST_INSN_RO_CYCLE <= not m;
+         MS_MPLY_DOT_LAST_INSN_RO_CYCLE <= not n;
+         wait for 30 ns;
+         check1(PS_MPLY_DIV_LAST_LATCH,not(m or n), testName,"1E");
+      end if;
+      
+      -- Remove reset inputs as well before next iteration
+      MS_DIV_DOT_LAST_INSN_RO_CYCLE <= '1';
+      MS_MPLY_DOT_LAST_INSN_RO_CYCLE <= '1';
+                              
    end loop;
+   
+      for tt in 0 to 2**11 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      f := tv(5);
+      g := tv(6);
+      h := tv(7);
+      k := tv(8);
+      m := tv(9);
+      n := tv(10);
+
+      g2 := f or b;
+      g3 := e and a and g and d and h;
+      g1 := (g2 or g3) and c;
+      g4 := g1 or k;
+      
+      MS_PROGRAM_RESET_5 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_5 <= '1';
+      wait for 30 ns;
+      
+      check1(PS_NOT_MPLY_DIV_LAST_LATCH,'0',testName,"2A");
+
+      -- Now, maybe set the latch
+      
+      MS_DIV_DOT_LAST_INSN_RO_CYCLE <= not m;
+      MS_MPLY_DOT_LAST_INSN_RO_CYCLE <= not n;
+      wait for 30 ns;
+      check1(PS_NOT_MPLY_DIV_LAST_LATCH,m or n,testName,"2B");
+      
+      -- If it did not set, set it now anyway by forcing it set
+      
+      MS_MPLY_DOT_LAST_INSN_RO_CYCLE <= '0';      
+      wait for 30 ns;
+      check1(PS_NOT_MPLY_DIV_LAST_LATCH,'1',testName,"2C");
+
+      -- Now, disable the sets, so we can test resets.
+      MS_DIV_DOT_LAST_INSN_RO_CYCLE <= '1';
+      MS_MPLY_DOT_LAST_INSN_RO_CYCLE <= '1';
+      wait for 30 ns;
+            
+      PS_UNITS_LATCH <= a;
+      MB_1401_MPLY_EARLY_END <= not b;
+      PS_LAST_LOGIC_GATE_1 <= c;
+      PS_B_CH_B_BIT <= d;
+      PS_DIV_OP_CODE <= e;
+      MB_MPLY_DOT_MQ_DOT_B_DOT_S_DOT_B9_DOT_BW <= not f;
+      PS_B_CYCLE <= g;
+      PS_TRUE_LATCH <= h;
+      MS_1401_DIV_EARLY_END <= not k;
+      PS_LAST_LOGIC_GATE_2 <= c;
+      wait for 30 ns; -- perhaps reset the NOT MDL Latch      
+
+      check1(PS_NOT_MPLY_DIV_LAST_LATCH,
+         NOT(k or ((g2 or (e and h and g and d and a)) and c)) ,testName,"2D");
+
+      -- Remove setting inputs before attempting reset
+                 
+      -- Remove reset inputs as well before next iteration
+      
+      PS_LAST_LOGIC_GATE_1 <= '0';
+      PS_LAST_LOGIC_GATE_2 <= '0';
+      MS_1401_DIV_EARLY_END <= '1';
+      MS_DIV_DOT_LAST_INSN_RO_CYCLE <= '1';
+      MS_MPLY_DOT_LAST_INSN_RO_CYCLE <= '1';
+                              
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
