@@ -1,0 +1,83 @@
+Generating HDL for page 17.12.01.1 EDIT LATCHES at 10/7/2020 1:58:48 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_12_01_1_EDIT_LATCHES_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 5A
+Found combinatorial loop (need D FF) at output of gate at 4A
+Found combinatorial loop (need D FF) at output of gate at 3A
+Found combinatorial loop (need D FF) at output of gate at 4B
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 2C
+Found combinatorial loop (need D FF) at output of gate at 3F
+Removed 3 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2C to ignored block(s) or identical signal names
+Generating Statement for block at 5A with *latched* output pin(s) of OUT_5A_B_Latch
+	and inputs of OUT_DOT_4A,MS_LOGIC_GATE_D_1
+	and logic function of NAND
+Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_G_Latch
+	and inputs of OUT_5A_B,OUT_5C_A
+	and logic function of NAND
+Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_P_Latch
+	and inputs of OUT_DOT_4A,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_C_Latch
+	and inputs of OUT_5D_NoPin,OUT_3F_NoPin
+	and logic function of NAND
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_F_Latch, OUT_3B_F_Latch
+	and inputs of MS_LOGIC_GATE_B_1,OUT_2B_NoPin
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_NoPin_Latch, OUT_2B_NoPin_Latch
+	and inputs of OUT_3A_P,OUT_3B_F
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_E
+	and inputs of OUT_2B_NoPin
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_A, OUT_5C_A
+	and inputs of PS_LAST_INSN_RO_CYCLE,PS_LAST_LOGIC_GATE_1
+	and logic function of NAND
+Generating Statement for block at 2C with *latched* output pin(s) of OUT_2C_D_Latch, OUT_2C_D_Latch
+	and inputs of OUT_3B_F
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_E_OR_Z_DOT_2ND_SCAN_DOT_EXTENSION,PS_LAST_LOGIC_GATE_1,PS_SIG_DIGIT
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_D
+	and inputs of PS_1ST_SCAN,PS_NOT_CTRL_0,PS_E_OP_DOT_B_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_R
+	and inputs of PS_E_OR_Z_DOT_2ND_SCAN_DOT_EXTENSION,PS_BLK_0_PUNCT_OR_SIG_DIGIT
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E
+	and inputs of OUT_5E_D,OUT_5F_R,MS_A_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_NoPin_Latch
+	and inputs of OUT_2C_D,PS_LAST_LOGIC_GATE_1,OUT_DOT_4F
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of MS_3RD_SCAN
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A, OUT_DOT_4A
+	and inputs of OUT_4A_G,OUT_4B_C
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
+	and inputs of OUT_4F_E,OUT_4G_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_NOT_0_SUPPRESS
+	from gate output OUT_1B_E
+Generating output sheet edge signal assignment to 
+	signal MS_LAST_INSN_RO_AND_LOGIC_GATE
+	from gate output OUT_5C_A
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_0_SUPPRESS
+	from gate output OUT_2C_D
+Generating D Flip Flop for block at 5A
+Generating D Flip Flop for block at 4A
+Generating D Flip Flop for block at 3A
+Generating D Flip Flop for block at 4B
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 2C
+Generating D Flip Flop for block at 3F
