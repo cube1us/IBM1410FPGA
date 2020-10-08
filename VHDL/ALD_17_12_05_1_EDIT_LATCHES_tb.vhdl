@@ -155,39 +155,55 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.12.05.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**7 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
       e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      g := tv(5);
+      h := tv(6);
       
+      -- Reset
+      
+      MS_I_RING_OP_TIME <= '0';
+      wait for 30 ns;
+      MS_I_RING_OP_TIME <= '1';
       wait for 30 ns;
       
+      check1(PS_ASTERISK_FILL,'0',testName,"Reset +S * Fill");
+      check1(MS_ASTERISK_FILL,NOT PS_ASTERISK_FILL,testName,"Reset -S * Fill");
+      check1(PS_FLOAT_DOLLAR_SIGN,'0',testName,"Reset +S Float $");
+      check1(MS_FLOAT_DOLLAR_SIGN,NOT PS_FLOAT_DOLLAR_SIGN,testName,"Reset -S Float $");
+
+		PS_ASTERISK <= a;
+		PS_LAST_LOGIC_GATE_1 <= b;
+		PS_0_SUPPRESS <= c;
+		PS_BODY_LATCH <= d;
+		PS_NOT_ASTERISK_FILL_OR_FL_DOL <= e;
+		PS_DOLLAR_SIGN <= g;
+		PS_E_OP_DOT_B_CYCLE_2 <= h;		     
+      wait for 30 ns;
+      
+      -- Reset variables for next iteration - latch should stay in same state
+      
+		PS_ASTERISK <= '0';
+      PS_LAST_LOGIC_GATE_1 <= '0';
+      PS_0_SUPPRESS <= '0';
+      PS_BODY_LATCH <= '0';
+      PS_NOT_ASTERISK_FILL_OR_FL_DOL <= '0';
+      PS_DOLLAR_SIGN <= '0';
+      PS_E_OP_DOT_B_CYCLE_2 <= '0';
+      wait for 30 ns;
+      
+      check1(PS_ASTERISK_FILL,a and b and e and h and c and d,testName,"Set +S * Fill");
+      check1(MS_ASTERISK_FILL,NOT PS_ASTERISK_FILL,testName,"Set -S * Fill");
+      check1(PS_FLOAT_DOLLAR_SIGN,b and e and h and c and d and g,testName,"Set +S Float $");
+      check1(MS_FLOAT_DOLLAR_SIGN,NOT PS_FLOAT_DOLLAR_SIGN,testName,"Set -S Float $");
+            
       
    end loop;
 
