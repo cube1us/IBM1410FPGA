@@ -1,0 +1,38 @@
+Generating HDL for page 17.13.06.1 EDIT CONTROLS at 10/8/2020 5:28:00 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_13_06_1_EDIT_CONTROLS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+WARNING: During sheet edge merge, Logic block at 1A pin B outputs to two different signal names: -S SET DOLLAR SIGN vs. -S SET DOLLAR SIGN * EDIT
+Removed 7 outputs from Gate at 1A to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of PS_BLANK,PS_FLOAT_DOLLAR_SIGN,PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_B, OUT_1A_B
+	and inputs of OUT_2A_D
+	and logic function of EQUAL
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of PS_E_OP_DOT_B_CYCLE_2,PS_NOT_CTRL_0,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_P
+	and inputs of OUT_3C_D,OUT_3D_E
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_E
+	and inputs of PS_E_OR_Z_OP_DOT_B_CYCLE,PS_1ST_SCAN,PS_0_SUPPRESS
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of PS_EXTENSION_LATCH,PS_2ND_SCAN,PS_E_OR_Z_OP_DOT_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_P
+	and inputs of OUT_3E_C,MS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_2C_P,OUT_2F_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_SET_DOLLAR_SIGN_STAR_EDIT
+	from gate output OUT_1A_B
+Generating output sheet edge signal assignment to 
+	signal MS_SET_DOLLAR_SIGN
+	from gate output OUT_1A_B
+Generating output sheet edge signal assignment to 
+	signal PS_USE_NO_WM_STAR_EDIT
+	from gate output OUT_DOT_1C
