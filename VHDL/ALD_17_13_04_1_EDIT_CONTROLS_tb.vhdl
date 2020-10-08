@@ -164,9 +164,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.13.04.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**12 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -180,23 +180,28 @@ uut_process: process
       k := tv(9);
       l := tv(10);
       m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := a and b and c;
+      g2 := g and (d or e);
 
+		PS_NOT_0_SUPPRESS <= a;
+		PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION <= b;
+		PS_NOT_BLANK <= c;
+		MS_NOT_0_SUPPRESS <= not d;
+		MS_DECIMAL_CONTROL <= not e;
+		MS_EDIT_SKID_CYCLE <= not f;
+		PS_E_OR_Z_DOT_2ND_SCAN_DOT_EXTENSION <= g;
+		PS_0_SUPPRESS <= h;
+		PS_NOT_DECIMAL_CONTROL <= j;
+		PS_BLANK_0_OR_COMMA <= k;
+		MS_FLOAT_DOLLAR_SIGN <= not l;
+		MS_NOT_ASTERISK_FILL_OR_FL_DOL <= not m;
       
       wait for 30 ns;
       
+      check1(PS_2ND_SCAN_SIG_CHAR,g1 or f or g2,testName,"2ND Scan Sig Char");
+      check1(PS_NOT_ASTERISK_FILL,l or m,testName,"Not Asterisk Fill");
+      check1(MS_BLANKED_0_OR_COMMA,not(g and h and j and k and (l or m)),testName,"Blanked 0 or Comma");
       
    end loop;
 
