@@ -203,7 +203,6 @@ uut_process: process
       g1 := g and h and k;
       g2 := g1 or (k and l) or m or n;
       g3 := d and e;
-      g4 := (lastNotZSLatch and g2 and e) or g3 or (e and f and k);
       
       lastNotZS <= lastNotZSLatch;
       lastNotZSCtrlA <= lastNotZSCtrl;
@@ -262,6 +261,7 @@ uut_process: process
       
       -- Remember the *expected* state of Not ZS Ctrl for the next iteration
       
+      g4 := (lastNotZSLatch and g2 and e) or g3 or (e and f and k);      
       lastNotZSCtrl := g4;
       
       -- Reset the signals before the next iteration
