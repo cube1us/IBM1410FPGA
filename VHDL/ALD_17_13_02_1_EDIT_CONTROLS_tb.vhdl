@@ -167,9 +167,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.13.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**14 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -185,22 +185,30 @@ uut_process: process
       m := tv(11);
       n := tv(12);
       o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := d or e;
+      g2 := g1 and k and b and c and f;
+      g3 := g and h and j and l and m and n and o and k;
 
+		PS_PLUS_SIGN_LATCH <= a;
+		PS_1ST_SCAN <= b;
+		PS_C_OR_R_OR_MINUS <= c;
+		MS_UNITS_LATCH <= not d;
+		MS_EXTENSION_LATCH <= not e;
+		PS_MINUS_SIGN_LATCH <= f;
+		PS_UNITS_LATCH <= g;
+		PS_NOT_BLANK <= h;
+		PS_NOT_CTRL_0 <= j;
+		PS_E_OP_DOT_B_CYCLE_1 <= k;
+		PS_NOT_C_CHAR <= l;
+		PS_NOT_R_CHAR <= m;
+		PS_NOT_MINUS_SYMBOL <= n;
+		PS_NOT_SPACE <= o;
       
       wait for 30 ns;
       
-      
+      check1(MS_BLANKED_CREDIT_SYMBOL,not(c and a and b and k and g1),testName,"-S Blanked CR Symbol");
+      check1(PS_CREDIT_OR_NOT_U_CTRL_CHAR,g2 or g3,testName,"+S Credit or not Unit Ctrl Char");
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
