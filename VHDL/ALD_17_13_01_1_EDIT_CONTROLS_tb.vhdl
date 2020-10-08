@@ -164,9 +164,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.13.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -179,24 +179,33 @@ uut_process: process
       j := tv(8);
       k := tv(9);
       l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := g and f;
+      g2 := f and k and h;
+      g3 := l and k and h;
+      g4 := j and l and h;
+      g5 := l and g;   
+      
+      g6 := h and c and d and e;   
 
+		PS_SET_WORD_MARK_OP_CODE <= a;
+		PS_A_OR_B_CYCLE <= b;
+		PS_1ST_SCAN <= c;
+		PS_CONTROL_ZERO <= d;
+		PS_NOT_0_SUPPRESS <= e;
+		PS_UNITS_LATCH <= f;
+		PS_Z_OP_DOT_B_CYCLE <= g;
+		PS_E_OP_DOT_B_CYCLE_1 <= h;
+		PS_ASTERISK_OR_DOLLAR_SIGN <= j;
+		PS_BLANK_OR_ZERO <= k;
+		PS_BODY_LATCH <= l;
       
       wait for 30 ns;
-      
+
+      check1(PS_SET_WM,(g and f) or (a and b) or g6,testName,"Set WM");
+      check1(PS_USE_NO_ZONES_STAR_EDIT,g1 or g2,testName,"Use No Zones *Edit");
+      check1(PS_EDIT_USE_A_CH_NU,g1 or g2 or g3 or g4 or g5,testName,"Edit Use A Ch NU");
+      check1(PS_USE_A_CH_ZONES_STAR_EDIT,g3 or g4 or g5,testName,"Use A Ch Zones *Edit");      
       
    end loop;
 
