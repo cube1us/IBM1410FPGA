@@ -185,9 +185,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.13.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**21 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -210,13 +210,38 @@ uut_process: process
       t := tv(18);
       u := tv(19);
       v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := a and c and g and o and b and d and h;
+      g2 := e and c and f and l and m and n and h and r;
+      g3 := p and q and g and o and r;
+      g4 := t and o and s and g;
+      g5 := t and u and v;
 
+		PS_BODY_LATCH <= a;
+		PS_NOT_ASTERISK <= b;
+		PS_E_OP_DOT_B_CYCLE_2 <= c;
+		PS_NOT_DOLLAR_SIGN <= d;
+		PS_EXTENSION_LATCH <= e;
+		PS_1ST_SCAN <= f;
+		PS_NOT_BLANK <= g;
+		PS_NOT_SPACE <= h;
+		PS_CREDIT_OR_NOT_U_CTRL_CHAR <= j;
+		PS_2ND_SCAN_SIG_CHAR <= k;
+		PS_NOT_C_CHAR <= l;
+		PS_NOT_R_CHAR <= m;
+		PS_NOT_MINUS_SYMBOL <= n;
+		PS_NOT_CTRL_0 <= o;
+		PS_2ND_SCAN <= p;
+		PS_E_OR_Z_OP_DOT_B_CYCLE <= q;
+		PS_NOT_COMMA <= r;
+		PS_NOT_DECIMAL <= s;
+		PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION <= t;
+		PS_BLANK <= u;
+		PS_NOT_ASTERISK_FILL_OR_FL_DOL <= v;
       
       wait for 30 ns;
+      
+      check1(MS_STORE_B_CH_CHARACTER,not(j or k or g1 or g2 or g3 or g4 or g5),testName,"Store B Ch Char");
       
       
    end loop;
@@ -232,7 +257,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 2000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
