@@ -69,6 +69,7 @@ architecture behavioral of ALD_17_12_02_1_EDIT_LATCHES_tb is
 
 -- START USER TEST BENCH DECLARATIONS
 
+
 -- The user test bench declarations, if any, must be
 -- placed AFTER the line starts with the first line of text 
 -- with -- START USER TEST BENCH DECLARATIONS and ends
@@ -100,6 +101,8 @@ procedure check1(
 
 
    -- Your test bench declarations go here
+
+   signal lastNotStarFillOrFlDollarLatchSig, lastNotStarFillIOrFlDollarCtrlSig: std_logic; 
 
 -- END USER TEST BENCH DECLARATIONS
    
@@ -168,44 +171,124 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable lastNotStarFillOrFlDollarLatch, lastNotStarFillIOrFlDollarCtrl: std_logic := '0'; 
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.12.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   MS_LOGIC_GATE_B_1 <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
+   
+   check1(PS_NOT_ASTERISK_FILL_OR_FL_DOL,'0',testName,"+S *$ Reset");
+   check1(MS_NOT_ASTERISK_FILL_OR_FL_DOL,'1',testName,"-S *$ Reset");
+
+
+   for tt in 0 to 2**13 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      b := tv(0);
+      e := tv(1);
+      f := tv(2);
+      g := tv(3);
+      h := tv(4);
+      j := tv(5);
+      k := tv(6);
+      l := tv(7);
+      m := tv(8);
+      n := tv(9);
+      o := tv(10);
+      p := tv(11);
+      q := tv(12);
+      
+      g1 := e and f and g and h;
+      g2 := g1 or k or j or l or m or n or o or p;
       
       wait for 30 ns;
       
+      -- Signals to use on waveform display...
+      
+      lastNotStarFillOrFlDollarLatchSig <= lastNotStarFillOrFlDollarLatch;
+      lastNotStarFillIOrFlDollarCtrlSig <= lastNotStarFillIOrFlDollarCtrl; 
+
+      -- Reset Not * or Floating $  Latch
+      
+      MS_LOGIC_GATE_B_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_B_1 <= '1';
+      wait for 30 ns;
+
+      check1(PS_NOT_ASTERISK_FILL_OR_FL_DOL,'0',testName,"+S *$ Loop Reset");
+      check1(MS_NOT_ASTERISK_FILL_OR_FL_DOL,'1',testName,"-S *$ Loop Reset");
+      
+      -- If not * or Floating $ Ctrl latch was set last iteration, then set latch now
+      
+      PS_LOGIC_GATE_C_1 <= '1';
+      wait for 30 ns;
+      PS_LOGIC_GATE_C_1 <= '0';
+      wait for 30 ns;
+      
+      check1(PS_NOT_ASTERISK_FILL_OR_FL_DOL,lastNotStarFillIOrFlDollarCtrl,testName,"+S *$ From Ctrl");
+      check1(MS_NOT_ASTERISK_FILL_OR_FL_DOL,not lastNotStarFillIOrFlDollarCtrl,testName,"-S *$ From Ctrl");
+      
+      -- Reset * Fill Float $ Control latch - this should not affect the output latch
+
+      MS_LOGIC_GATE_D_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_D_1 <= '1';
+      wait for 30 ns;
+      
+      check1(PS_NOT_ASTERISK_FILL_OR_FL_DOL,lastNotStarFillIOrFlDollarCtrl,testName,"+S *$ From Ctrl Reset Ctrl");
+      check1(MS_NOT_ASTERISK_FILL_OR_FL_DOL,not lastNotStarFillIOrFlDollarCtrl,testName,"-S *$ From Ctrl Reset Ctrl");
+      
+      -- Remember the setting of the output latch for the next iteration
+      
+      lastNotStarFillOrFlDollarLatch := PS_NOT_ASTERISK_FILL_OR_FL_DOL;
+      lastNotStarFillOrFlDollarLatchSig <= lastNotStarFillOrFlDollarLatch;
+      
+      -- Now, maybe set the control latch.
+
+		MS_LAST_INSN_RO_AND_LOGIC_GATE <= not b;
+		PS_E_OP_DOT_B_CYCLE_1 <= e;
+		PS_BODY_LATCH <= f;
+		PS_NOT_ASTERISK <= g;
+		PS_NOT_DOLLAR_SIGN <= h;
+		MS_A_CYCLE <= not j;
+		MS_UNITS_LATCH <= not k;
+		MS_EXTENSION_LATCH <= not l;
+		MS_2ND_SCAN <= not m;
+		MS_3RD_SCAN <= not n;
+		MS_Z_OP_DOT_B_CYCLE <= not o;
+		MS_NOT_0_SUPPRESS <= not p;
+		PS_LAST_LOGIC_GATE_1 <= q;
+		wait for 30 ns;
+		
+		-- Remember the *expected* state of the control latch for the next iteration
+		
+      g3 := (lastNotStarFillOrFlDollarLatch and g2 and q) or b; -- Note b includes q.
+		lastNotStarFillIOrFlDollarCtrl := g3;
+      lastNotStarFillIOrFlDollarCtrlSig <= lastNotStarFillIOrFlDollarCtrl; 
+
+      -- Reset the signals before the next iteration
+
+		MS_LAST_INSN_RO_AND_LOGIC_GATE <= '1';
+		PS_E_OP_DOT_B_CYCLE_1 <= '0';
+		PS_BODY_LATCH <= '0';
+		PS_NOT_ASTERISK <= '0';
+		PS_NOT_DOLLAR_SIGN <= '0';
+		MS_A_CYCLE <= '1';
+		MS_UNITS_LATCH <= '1';
+		MS_EXTENSION_LATCH <= '1';
+		MS_2ND_SCAN <= '1';
+		MS_3RD_SCAN <= '1';
+		MS_Z_OP_DOT_B_CYCLE <= '1';
+		MS_NOT_0_SUPPRESS <= '1';
+		PS_LAST_LOGIC_GATE_1 <= '0';
       
    end loop;
 
