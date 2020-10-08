@@ -1,0 +1,68 @@
+Generating HDL for page 17.13.03.1 EDIT CONTROLS at 10/8/2020 4:39:32 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_13_03_1_EDIT_CONTROLS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of PS_BODY_LATCH,PS_E_OP_DOT_B_CYCLE_2
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of PS_NOT_BLANK,PS_NOT_CTRL_0,PS_NOT_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of PS_NOT_DOLLAR_SIGN,PS_NOT_SPACE
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_G
+	and inputs of PS_EXTENSION_LATCH,PS_E_OP_DOT_B_CYCLE_2,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_DOT_3C,OUT_DOT_3D,OUT_DOT_4G
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_F
+	and inputs of OUT_DOT_2D
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_G
+	and inputs of PS_NOT_C_CHAR,PS_NOT_R_CHAR,PS_NOT_MINUS_SYMBOL
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of PS_NOT_SPACE,PS_NOT_COMMA
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_E
+	and inputs of PS_2ND_SCAN,PS_E_OR_Z_OP_DOT_B_CYCLE,PS_NOT_BLANK
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION,PS_NOT_CTRL_0
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of PS_NOT_CTRL_0,PS_NOT_COMMA
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of PS_NOT_DECIMAL,PS_NOT_BLANK
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_K
+	and inputs of OUT_DOT_3H,OUT_3I_B
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_B
+	and inputs of PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION,PS_BLANK,PS_NOT_ASTERISK_FILL_OR_FL_DOL
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3A_G,OUT_3B_D,OUT_3C_C
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3D_G,OUT_3E_G,OUT_3F_C
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2D_C,PS_CREDIT_OR_NOT_U_CTRL_CHAR,PS_2ND_SCAN_SIG_CHAR,OUT_2H_K
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G
+	and inputs of OUT_4G_E,OUT_4H_C
+	and logic function of OR
+Generating Statement for block at 3H with output pin(s) of OUT_DOT_3H
+	and inputs of OUT_3G_C,OUT_3H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_STORE_B_CH_CHARACTER
+	from gate output OUT_1D_F
