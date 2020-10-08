@@ -1,0 +1,61 @@
+Generating HDL for page 17.12.05.1 EDIT LATCHES at 10/8/2020 1:53:37 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_12_05_1_EDIT_LATCHES_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 2F
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_C_Latch, OUT_3B_C_Latch
+	and inputs of OUT_2B_D,MS_I_RING_OP_TIME
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_D_Latch, OUT_2B_D_Latch
+	and inputs of OUT_3B_C,OUT_DOT_4C
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of PS_ASTERISK,PS_0_SUPPRESS,PS_BODY_LATCH
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_Q
+	and inputs of OUT_2B_D
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_G
+	and inputs of PS_LAST_LOGIC_GATE_1,PS_NOT_ASTERISK_FILL_OR_FL_DOL,PS_E_OP_DOT_B_CYCLE_2
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_R_Latch, OUT_3F_R_Latch
+	and inputs of OUT_2F_C,MS_I_RING_OP_TIME
+	and logic function of NAND
+Generating Statement for block at 2F with *latched* output pin(s) of OUT_2F_C_Latch, OUT_2F_C_Latch
+	and inputs of OUT_3F_R,OUT_DOT_4G
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of PS_DOLLAR_SIGN,PS_0_SUPPRESS,PS_BODY_LATCH
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_C
+	and inputs of OUT_3F_R
+	and logic function of EQUAL
+Generating Statement for block at 5H with output pin(s) of OUT_5H_G
+	and inputs of PS_LAST_LOGIC_GATE_1,PS_NOT_ASTERISK_FILL_OR_FL_DOL,PS_E_OP_DOT_B_CYCLE_2
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_G,OUT_5D_G
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G
+	and inputs of OUT_4G_G,OUT_5H_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ASTERISK_FILL
+	from gate output OUT_3B_C
+Generating output sheet edge signal assignment to 
+	signal PS_ASTERISK_FILL
+	from gate output OUT_1C_Q
+Generating output sheet edge signal assignment to 
+	signal PS_FLOAT_DOLLAR_SIGN
+	from gate output OUT_2F_C
+Generating output sheet edge signal assignment to 
+	signal MS_FLOAT_DOLLAR_SIGN
+	from gate output OUT_1G_C
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 2F
