@@ -170,9 +170,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.13.05.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -190,19 +190,33 @@ uut_process: process
       o := tv(13);
       p := tv(14);
       q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := a and o and b and c and d;
+      g2 := g and e and d;
+      g3 := g and f and d;
+      g4 := k and l and m;
+      g5 := g and e and o and p;
 
+		PS_E_OR_Z_DOT_2ND_SCAN_DOT_EXTENSION <= a;
+		PS_NOT_DECIMAL_CONTROL <= b;
+		PS_BLANK_0_OR_COMMA <= c;
+		PS_ASTERISK_FILL <= d;
+		PS_0_OR_DECIMAL <= e;
+		PS_BLANK <= f;
+		PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION <= g; 
+		MS_BLANKED_0_OR_COMMA <= not h;
+		MS_BLANKED_CREDIT_SYMBOL <= not j;
+		PS_EXTENSION_LATCH <= k;
+		PS_COMMA <= l;
+		PS_E_OP_DOT_B_CY_DOT_1ST_SCAN <= m;
+		MS_SPACE <= not n;
+		PS_0_SUPPRESS <= o;
+		PS_NOT_ASTERISK_FILL <= p;
       
       wait for 30 ns;
       
+      check1(MS_WRITE_EDIT_ASTERISK,not(g1 or g2 or g3),testName,"Write Edit Asterisk");
+      check1(MS_WRITE_EDIT_BLANK,not(h or j or g4 or n or g5),testName,"Write Edit Blank");
       
    end loop;
 
@@ -217,7 +231,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
