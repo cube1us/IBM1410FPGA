@@ -153,14 +153,14 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
-
+   
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.12.04.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -168,30 +168,73 @@ uut_process: process
       d := tv(3);
       e := tv(4);
       f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
 
+      g1 := c and e and h and f and j and k;
+      -- The last term in g2 is to avoid an unrealistic undefined state in NOT DECIMAL CONTROL
+      g2 := (e and f and j and not a and not b) and not(d or not c);
+
+      -- Set up latches for test: Reset Decimal Control and SET Not Decimal Control
       
+      MS_I_RING_OP_TIME <= '0';
+      -- Make sure we test both ways of setting NOT Decimal Control 
+      -- But make sure it gets set one way or the other
+      if(d = '0' and c = '1') then
+         PS_EDIT_OP_CODE <= '0';
+      else
+         PS_EDIT_OP_CODE <= c;
+         MS_LAST_INSN_RO_AND_LOGIC_GATE <= not d;
+      end if;
+      wait for 30 ns;
+      MS_I_RING_OP_TIME <= '1';
+      PS_EDIT_OP_CODE <= '1';
+      MS_LAST_INSN_RO_AND_LOGIC_GATE <= '1';
       wait for 30 ns;
       
+      check1(PS_NOT_DECIMAL_CONTROL,'1',testName,"Loop Reset - Set Not Decimal Control");
+      check1(PS_DECIMAL_CONTROL,'0',testName,"Loop Reset +S Decimal Control");
+      check1(MS_DECIMAL_CONTROL,'1',testName,"Loop Reset -S Decimal Control");
       
+      -- Set up the variables, avoiding conflicts that would not NOT DECIMAL CONTROL into 
+      -- an unrealistic, undefined state
+
+      if(d = '0' and c = '1') then
+         -- Allow a reset based on input signals
+   		MS_NOT_DECIMAL <= not a;
+         MS_NOT_0_SUPPRESS <= not b;
+      else
+         -- Don't allow a reset because d is 1 or c is 0
+   		MS_NOT_DECIMAL <= '0';
+         MS_NOT_0_SUPPRESS <= '0';
+      end if;      
+      
+      PS_EDIT_OP_CODE <= c;
+      MS_LAST_INSN_RO_AND_LOGIC_GATE <= not d;
+      PS_LAST_LOGIC_GATE_1 <= e;
+      PS_EXTENSION_LATCH <= f;
+      PS_DECIMAL <= h;
+      PS_2ND_SCAN <= j;
+      PS_0_SUPPRESS <= k;
+      wait for 30 ns; -- Perhaps set Decimal Control or Reset Not Decimal Control
+      
+      check1(PS_NOT_DECIMAL_CONTROL,not g2,testName,"Set/Reset Not Decimal Control"); -- g2 is reset signal
+      check1(PS_DECIMAL_CONTROL,g1,testName,"Set +S Decimal Control");
+      check1(MS_DECIMAL_CONTROL,not g1,testName,"Set -S Decimal Control");
+                  
+      -- Set the signals back before the next iteration                  
+
+      MS_NOT_DECIMAL <= '1';
+      MS_NOT_0_SUPPRESS <= '1';
+      PS_EDIT_OP_CODE <= '0';
+      MS_LAST_INSN_RO_AND_LOGIC_GATE <= '1';
+      PS_LAST_LOGIC_GATE_1 <= '0';
+      PS_EXTENSION_LATCH <= '0';
+      PS_DECIMAL <= '0';
+      PS_2ND_SCAN <= '0';
+      PS_0_SUPPRESS <= '0';
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
