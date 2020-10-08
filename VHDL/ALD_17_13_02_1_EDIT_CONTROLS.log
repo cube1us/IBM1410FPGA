@@ -1,0 +1,47 @@
+Generating HDL for page 17.13.02.1 EDIT CONTROLS at 10/8/2020 4:22:30 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_13_02_1_EDIT_CONTROLS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of PS_C_OR_R_OR_MINUS,PS_PLUS_SIGN_LATCH
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_G
+	and inputs of PS_1ST_SCAN,PS_E_OP_DOT_B_CYCLE_1,OUT_4D_C
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C, OUT_4D_C
+	and inputs of MS_UNITS_LATCH,MS_EXTENSION_LATCH
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_G
+	and inputs of OUT_4D_C,PS_E_OP_DOT_B_CYCLE_1,PS_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_G
+	and inputs of PS_C_OR_R_OR_MINUS,PS_MINUS_SIGN_LATCH
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_G
+	and inputs of PS_UNITS_LATCH,PS_NOT_BLANK,PS_NOT_CTRL_0
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of PS_NOT_C_CHAR,PS_NOT_R_CHAR,PS_NOT_MINUS_SYMBOL
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_K
+	and inputs of PS_NOT_SPACE,PS_E_OP_DOT_B_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_R
+	and inputs of OUT_DOT_2E,OUT_DOT_3H
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_2B_G,OUT_2C_G
+	and logic function of OR
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E
+	and inputs of OUT_2D_G,OUT_2E_G
+	and logic function of OR
+Generating Statement for block at 3H with output pin(s) of OUT_DOT_3H
+	and inputs of OUT_3F_G,OUT_3G_G,OUT_3H_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_CREDIT_OR_NOT_U_CTRL_CHAR
+	from gate output OUT_1H_R
+Generating output sheet edge signal assignment to 
+	signal MS_BLANKED_CREDIT_SYMBOL
+	from gate output OUT_DOT_1B
