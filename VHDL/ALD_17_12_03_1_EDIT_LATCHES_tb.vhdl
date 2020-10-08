@@ -103,9 +103,9 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
-
-
    -- Your test bench declarations go here
+
+   signal lastZeroSuppressLatchSig, lastZeroSuppressCtrlSig: std_logic;
 
 -- END USER TEST BENCH DECLARATIONS
    
@@ -177,44 +177,136 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   
+   variable lastZeroSuppressLatch, lastZeroSuppressCtrl: std_logic := '0';
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.12.03.1        ";
+   
+   -- Initial reset
+   
+   MS_LOGIC_GATE_B_1 <= '0';
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   MS_LOGIC_GATE_B_1 <= '1';
+   MS_LOGIC_GATE_D_1 <= '1';
+   wait for 30 ns;
 
-   for tt in 0 to 2**25 loop
+   check1(PS_0_SUPPRESS,'0',testName,"+S ZS Reset");
+   check1(MS_0_SUPPRESS,'1',testName,"-S ZS Reset");
+     
+   for tt in 0 to 2**16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      d := tv(0);
+      e := tv(1);
+      f := tv(2);
+      g := tv(3);
+      h := tv(4);
+      j := tv(5);
+      k := tv(6);
+      l := tv(7);
+      m := tv(8);
+      n := tv(9);
+      o := tv(10);
+      p := tv(11);
+      q := tv(12);
+      r := tv(13);
+      s := tv(14);
+      t := tv(15);
       
+      g1 := d and e;
+      g2 := m and g and l and j and k and q and n and o and p;
+      g3 := (m and q and l) or r or s or t;
+      g5 := h and (g1 or g2) and f;
+      
+      -- Signals to use on waveform display
+      
+      lastZeroSuppressLatchSig <= lastZeroSuppressLatch;
+      lastZeroSuppressCtrlSig <= lastZeroSuppressCtrl;
+      
+      -- Reset the output latch
+      
+      MS_LOGIC_GATE_B_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_B_1 <= '1';
+      wait for 30 ns;
+
+      check1(PS_0_SUPPRESS,'0',testName,"+S ZS Loop Reset");
+      check1(MS_0_SUPPRESS,'1',testName,"-S ZS Loop Reset");
+      
+      -- If Control latch was set last iteration, then set output latch now
+      
+      PS_LOGIC_GATE_C_1 <= '1';
+      wait for 30 ns;
+      PS_LOGIC_GATE_C_1 <= '0';
+      wait for 30 ns;
+
+      check1(PS_0_SUPPRESS,lastZeroSuppressCtrl,testName,"+S ZS from ctrl");      
+      check1(MS_0_SUPPRESS,not lastZeroSuppressCtrl,testName,"-S ZS from ctrl");
+      
+      -- Reset Control latch - should not affect the output latch
+      
+      MS_LOGIC_GATE_D_1 <= '0';
+      wait for 30 ns;
+      MS_LOGIC_GATE_D_1 <= '1';
       wait for 30 ns;
       
+      check1(PS_0_SUPPRESS,lastZeroSuppressCtrl,testName,"+S ZS from ctrl after ctrl reset");      
+      check1(MS_0_SUPPRESS,not lastZeroSuppressCtrl,testName,"-S ZS from ctrl after ctrl reset");
+      
+      -- Remember the setting of the output latch for the next iteration
+      
+      lastZeroSuppressLatch := PS_0_SUPPRESS;
+      lastZeroSuppressLatchSig <= lastZeroSuppressLatch;
+
+      -- Now maybe set the control latch      
+            
+      PS_ASSEMBLY_CH_WM_BIT <= d;
+      PS_1ST_SCAN <= e;
+      PS_E_OR_Z_OP_DOT_B_CYCLE <= f;
+      PS_NOT_CTRL_0 <= g;
+      PS_LAST_LOGIC_GATE_1 <= h;
+      PS_NOT_BLANK <= j;
+      PS_NOT_DECIMAL_CONTROL <= k;
+      PS_EXTENSION_LATCH <= l;
+      PS_2ND_SCAN <= m;
+      PS_NOT_COMMA <= n;
+      PS_NOT_MINUS_SYMBOL <= o;
+      PS_NOT_DECIMAL <= p;
+      PS_NOT_SIG_DIGIT <= q;
+      MS_1ST_SCAN <= not r;
+      MS_MQ_LATCH <= not s;
+      MS_3RD_SCAN <= not t;
+      wait for 30 ns;
+      
+      -- Remember the *expected* state of the control latch for the next iteratin
+      
+      g4 := g3 and h and PS_0_SUPPRESS;
+      g6 := g4 or g5;
+      lastZeroSuppressCtrl := g6;
+      lastZeroSuppressCtrlSig <= lastZeroSuppressCtrl;
+      
+      -- Reset the signals before the next iteration so reset works right
+
+      PS_ASSEMBLY_CH_WM_BIT <= '0';
+      PS_1ST_SCAN <= '0';
+      PS_E_OR_Z_OP_DOT_B_CYCLE <= '0';
+      PS_NOT_CTRL_0 <= '0';
+      PS_LAST_LOGIC_GATE_1 <= '0';
+      PS_NOT_BLANK <= '0';
+      PS_NOT_DECIMAL_CONTROL <= '0';
+      PS_EXTENSION_LATCH <= '0';
+      PS_2ND_SCAN <= '0';
+      PS_NOT_COMMA <= '0';
+      PS_NOT_MINUS_SYMBOL <= '0';
+      PS_NOT_DECIMAL <= '0';
+      PS_NOT_SIG_DIGIT <= '0';
+      MS_1ST_SCAN <= '1';
+      MS_MQ_LATCH <= '1';
+      MS_3RD_SCAN <= '1';
       
    end loop;
 
@@ -229,7 +321,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 200 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
