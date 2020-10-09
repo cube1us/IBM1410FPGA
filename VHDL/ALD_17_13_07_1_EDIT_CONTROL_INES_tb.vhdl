@@ -164,9 +164,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.13.07.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**12 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -180,24 +180,28 @@ uut_process: process
       k := tv(9);
       l := tv(10);
       m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
-      
+      g1 := h or j;
+
+		MS_STORE_B_CH_CHARACTER <= not a;
+		MS_WRITE_EDIT_BLANK <= not b;
+		MS_WRITE_EDIT_ASTERISK <= not c;
+		MS_FLOAT_DOLLAR_SIGN <= not d;
+		PS_NOT_SIG_DIGIT <= e;
+		PS_0_SUPPRESS <= f;
+		PS_DECIMAL_CONTROL <= g;
+		MS_ASTERISK_FILL <= not h;
+		MS_NOT_ASTERISK_FILL_OR_FL_DOL <= not j;
+		PS_NOT_DECIMAL_CONTROL <= k;
+		MS_SIG_DIGIT <= not l;
+		MS_NOT_0_SUPPRESS <= not m;
+		
       wait for 30 ns;
       
-      
+		check1(PS_WRITE_B_CHAR_OR_SPEC_CHAR,a or b or c,testName,"Write B Char or Spec Char");
+		check1(PS_3RD_SCAN_CONDITIONS,d or (e and g and f),testName,"3RD Scan Conditions");
+		check1(PS_LAST_EXECUTE_CONDITIONS,((l or m) and g and g1) or (g1 and k),
+		 testname,"Last Execute Conditions");		            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
