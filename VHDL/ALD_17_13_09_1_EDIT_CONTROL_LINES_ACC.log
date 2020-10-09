@@ -1,0 +1,33 @@
+Generating HDL for page 17.13.09.1 EDIT CONTROL LINES-ACC at 10/8/2020 8:36:56 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_13_09_1_EDIT_CONTROL_LINES_ACC_tb.vhdl, generating default test bench code.
+Removed 4 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3G to ignored block(s) or identical signal names
+Generating Statement for block at 3B with output pin(s) of OUT_3B_E
+	and inputs of PS_WRITE_B_CHAR_OR_SPEC_CHAR,PS_1ST_OR_2ND_SCAN,PS_B_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_3B_E
+	and logic function of EQUAL
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of PS_B_CH_WM_BIT_1,PS_3RD_SCAN_CONDITIONS,PS_E_OR_Z_DOT_2ND_SCAN_DOT_EXTENSION
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E
+	and inputs of PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION,PS_NOT_DECIMAL_CONTROL,PS_DECIMAL
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION,PS_NOT_DECIMAL,PS_WRITE_B_CHAR_OR_SPEC_CHAR
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_EDIT_SET_B_CYCLE_CTRL_C
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal MS_EDIT_SET_B_CYCLE_CTRL_D
+	from gate output OUT_3C_D
+Generating output sheet edge signal assignment to 
+	signal MS_EDIT_SET_B_CYCLE_CTRL_E
+	from gate output OUT_3E_E
+Generating output sheet edge signal assignment to 
+	signal MS_EDIT_SET_B_CYCLE_CTRL_F
+	from gate output OUT_3G_C
