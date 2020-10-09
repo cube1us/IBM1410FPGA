@@ -161,9 +161,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.13.06.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -176,24 +176,25 @@ uut_process: process
       j := tv(8);
       k := tv(9);
       l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PS_BLANK <= a;
+		PS_FLOAT_DOLLAR_SIGN <= b;
+		PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION <= c;
+		PS_E_OP_DOT_B_CYCLE_2 <= d;
+		PS_NOT_CTRL_0 <= e;
+		PS_1ST_SCAN <= f;
+		PS_E_OR_Z_OP_DOT_B_CYCLE <= g;
+		PS_0_SUPPRESS <= h;
+		PS_EXTENSION_LATCH <= j;
+		PS_2ND_SCAN <= k;
+		MS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION <= not l;
       
       wait for 30 ns;
       
+      check1(MS_SET_DOLLAR_SIGN,not(a and b and c),testName,"Set $");
+      check1(MS_SET_DOLLAR_SIGN_STAR_EDIT,not(a and b and c),testName,"Set $ *Edit");
+      check1(PS_USE_NO_WM_STAR_EDIT,(d and e and f) or (f and h and g) or (g and j and k) or l,
+         testName,"Use No WM");
       
    end loop;
 
