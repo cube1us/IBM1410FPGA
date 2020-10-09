@@ -1,0 +1,37 @@
+Generating HDL for page 17.13.08.1 EDIT CONTROL LINES-ACC at 10/8/2020 8:23:59 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_13_08_1_EDIT_CONTROL_LINES_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 2 outputs from Gate at 2H to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_P
+	and inputs of PS_NOT_CTRL_0
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PS_E_OP_DOT_B_CY_DOT_1ST_SCAN,PS_NOT_0_SUPPRESS,PS_B_CH_WM_BIT_1
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of PS_E_OR_Z_DOT_2ND_SCAN_DOT_EXTENSION,PS_LAST_EXECUTE_CONDITIONS,PS_B_CH_WM_BIT_1
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of OUT_4D_D,OUT_DOT_4B,OUT_4F_E
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_E
+	and inputs of PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION,PS_DECIMAL,PS_DECIMAL_CONTROL
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_P
+	and inputs of MS_0_SUPPRESS,MS_CONTROL_ZERO
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of OUT_5H_P,PS_B_CH_WM_BIT_1,PS_E_OP_DOT_B_CY_DOT_1ST_SCAN
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_Q
+	and inputs of OUT_4H_C
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_4A_P,OUT_4B_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_EXECUTE_CYCLE_STAR_EDIT
+	from gate output OUT_2E_C
+Generating output sheet edge signal assignment to 
+	signal MS_EDIT_SET_B_CYCLE_CTRL_B
+	from gate output OUT_2H_Q
