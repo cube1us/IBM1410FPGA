@@ -1,0 +1,35 @@
+Generating HDL for page 17.13.07.1 EDIT CONTROL INES at 10/8/2020 8:07:16 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_13_07_1_EDIT_CONTROL_INES_tb.vhdl, generating default test bench code.
+Generating Statement for block at 2A with output pin(s) of OUT_2A_E
+	and inputs of MS_STORE_B_CH_CHARACTER,MS_WRITE_EDIT_BLANK,MS_WRITE_EDIT_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_R
+	and inputs of MS_FLOAT_DOLLAR_SIGN,OUT_3C_C
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of PS_NOT_SIG_DIGIT,PS_DECIMAL_CONTROL,PS_0_SUPPRESS
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C, OUT_4D_C
+	and inputs of MS_ASTERISK_FILL,MS_NOT_ASTERISK_FILL_OR_FL_DOL
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_NoPin
+	and inputs of OUT_4D_C,PS_NOT_DECIMAL_CONTROL
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_A
+	and inputs of MS_SIG_DIGIT,MS_NOT_0_SUPPRESS
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_NoPin
+	and inputs of OUT_4D_C,OUT_4E_A,PS_DECIMAL_CONTROL
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of OUT_3D_NoPin,OUT_3E_NoPin
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal PS_WRITE_B_CHAR_OR_SPEC_CHAR
+	from gate output OUT_2A_E
+Generating output sheet edge signal assignment to 
+	signal PS_3RD_SCAN_CONDITIONS
+	from gate output OUT_2B_R
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_EXECUTE_CONDITIONS
+	from gate output OUT_2E_C
