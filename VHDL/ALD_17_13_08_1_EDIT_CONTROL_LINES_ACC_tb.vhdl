@@ -158,9 +158,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.13.08.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -173,24 +173,27 @@ uut_process: process
       j := tv(8);
       k := tv(9);
       l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := f and b and a and e;
+      g2 := c and d and e;
+      g3 := g and h and j;
 
+		PS_NOT_CTRL_0 <= a;
+		PS_NOT_0_SUPPRESS <= b;
+		PS_E_OR_Z_DOT_2ND_SCAN_DOT_EXTENSION <= c;
+		PS_LAST_EXECUTE_CONDITIONS <= d;
+		PS_B_CH_WM_BIT_1 <= e;
+		PS_E_OP_DOT_B_CY_DOT_1ST_SCAN <= f;
+		PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION <= g;
+		PS_DECIMAL <= h;
+		PS_DECIMAL_CONTROL <= j;
+		MS_0_SUPPRESS <= not k;
+		MS_CONTROL_ZERO <= not l;
       
       wait for 30 ns;
       
+      check1(MS_EDIT_SET_B_CYCLE_CTRL_B,not(f and e and (k or l)),testName,"Edit Set B Cycle Ctrl B");
+      check1(PS_LAST_EXECUTE_CYCLE_STAR_EDIT,g1 or g2 or g3,testName,"Last Execute Cycle *Edit");
       
    end loop;
 
