@@ -161,9 +161,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.13.09.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -174,26 +174,25 @@ uut_process: process
       g := tv(6);
       h := tv(7);
       j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      k := tv(9);      
 
+		PS_WRITE_B_CHAR_OR_SPEC_CHAR <= a;
+		PS_1ST_OR_2ND_SCAN <= b;
+		PS_B_CH_NOT_WM_BIT <= c;
+		PS_B_CH_WM_BIT_1 <= d;
+		PS_3RD_SCAN_CONDITIONS <= e;
+		PS_E_OR_Z_DOT_2ND_SCAN_DOT_EXTENSION <= f;
+		PS_E_OR_Z_DOT_3RD_SCAN_DOT_EXTENSION <= g;
+		PS_NOT_DECIMAL_CONTROL <= h;
+		PS_DECIMAL <= j;
+		PS_NOT_DECIMAL <= k;
       
       wait for 30 ns;
       
+      check1(MS_EDIT_SET_B_CYCLE_CTRL_C,not(a and b and c),testName,"Edit Set B Cycle Ctrl C");
+      check1(MS_EDIT_SET_B_CYCLE_CTRL_D,not(d and e and f),testName,"Edit Set B Cycle Ctrl D");
+      check1(MS_EDIT_SET_B_CYCLE_CTRL_E,not(g and h and j),testName,"Edit Set B Cycle Ctrl E");
+      check1(MS_EDIT_SET_B_CYCLE_CTRL_F,not(a and g and k),testName,"Edit Set B Cycle Ctrl F");       
       
    end loop;
 
