@@ -1,0 +1,67 @@
+Generating HDL for page 17.15.06.1 COMPARE MATRIX at 10/10/2020 6:44:43 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_15_06_1_COMPARE_MATRIX_tb.vhdl, generating default test bench code.
+Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1H to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of PS_HI_ZONE,PS_ALPH_OR_SPL_CHAR
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_F
+	and inputs of OUT_4A_NoPin,MS_ALPH_NO_NU,MS_ALPH_SPL_CHAR
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_A
+	and inputs of OUT_DOT_2B
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_SPL_CHAR_NO_NU,PS_NO_ZONES
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_LOW_ZONE,PS_NO_NUMERICS,PS_NO_ZONES
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of OUT_4C_NoPin,OUT_4D_NoPin,OUT_4E_NoPin
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_B
+	and inputs of OUT_DOT_2B
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_NO_NU_SPL_CHAR,PS_ZONES,PS_CMP_ZONE_EQUAL
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_E
+	and inputs of MS_HIGH_ADDER_CARRY,MS_ADDER_HIGH,OUT_4G_D
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of PS_ZONES,PS_HI_ZONE,PS_SPL_CHAR_OR_NO_NU
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_C
+	and inputs of OUT_DOT_2H
+	and logic function of EQUAL
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of PS_NO_NUMERICS,PS_CMP_ZONE_EQUAL
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_G
+	and inputs of OUT_4H_NoPin,MS_ADDER_EQUAL
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_F
+	and inputs of OUT_DOT_2H
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B, OUT_DOT_2B
+	and inputs of OUT_2B_F,PS_SIMULATE_CMP_HI_STAR_1311_SCAN,OUT_2D_D,OUT_2F_E
+	and logic function of OR
+Generating Statement for block at 2H with output pin(s) of OUT_DOT_2H, OUT_DOT_2H
+	and inputs of OUT_2H_G,PS_SIMULATE_CMP_EQ_STAR_1311_SCAN
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_CMP_HIGH
+	from gate output OUT_1B_A
+Generating output sheet edge signal assignment to 
+	signal MS_CMP_HIGH
+	from gate output OUT_1D_B
+Generating output sheet edge signal assignment to 
+	signal PS_CMP_EQUAL
+	from gate output OUT_1G_C
+Generating output sheet edge signal assignment to 
+	signal MS_CMP_EQUAL
+	from gate output OUT_1H_F
