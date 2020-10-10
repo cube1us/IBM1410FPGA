@@ -191,9 +191,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.14.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -202,28 +202,127 @@ uut_process: process
       e := tv(4);
       f := tv(5);
       g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
+      n := tv(11);
+      o := tv(12);
+      p := tv(13);
+      q := tv(14);
+      r := tv(15);
       
+      g1 := d and (q or r);
+      g2 := (p and n) or (n and o and g1);
+      g3 := c and not a and d and b;
+      g4 := l and k and m;
+      g5 := n and not f and not g and not j and g1;
+      g6 := g3 or e or g4 or g5;
+      
+      -- Reset
+      
+      MS_COMPUTER_RESET_1 <= '0';
+      wait for 30 ns;
+      MS_COMPUTER_RESET_1 <= '1';
       wait for 30 ns;
       
+      check1(PS_HIGH,'0',testName,"+S Loop Reset High");
+      check1(MS_HIGH,'1',testName,"-S Loop Reset High");
+      check1(LAMP_15A1A12,'0',testName,"Lamp Loop Reset");
+      
+      -- Test set first
+
+		PS_CMP_MODE_B_CYCLE <= d;
+      PS_LOGIC_GATE_F_1 <= n;		
+		PS_CMP_HIGH <= o;
+		PS_SET_HIGH_CY <= p;
+		MS_UNITS_LATCH <= not q;
+		MS_BODY_LATCH <= not r;
+		MS_CMP_HIGH <= '0'; -- Set to prevent a reset when we don't want one  -- yet.
+		wait for 30 ns; -- Maybe set latch
+      wait for 30 ns; -- If set, latch should stay set.		
+		
+		check1(PS_UNITS_OR_BODY_LATCHES,q or r,testName,"Units or Body Latches");
+		check1(PS_EQUAL_LOW_LATCHES_SET,g1,testName,"Equal or Low Latches Set");
+		
+      check1(PS_HIGH,g2,testName,"Set +S High");
+      check1(MS_HIGH,not g2,testName,"Set -S High");
+      check1(LAMP_15A1A12,g2,testName,"Set Lamp High");
+      
+      -- Now FORCE the latch set, even if it wasn't before
+
+      PS_LOGIC_GATE_F_1 <= '1';
+      PS_SET_HIGH_CY <= '1';
+      wait for 30 ns;
+      PS_LOGIC_GATE_F_1 <= '0';
+      PS_SET_HIGH_CY <= '0';
+      wait for 30 ns;
+      
+      check1(PS_HIGH,'1',testName,"Force Set +S High");
+      check1(MS_HIGH,'0',testName,"Force Set -S High");
+      check1(LAMP_15A1A12,'1',testName,"Force Set Lamp High");
+
+      -- Then test reset
+      
+      -- Make sure latch is not also being set!!
+         
+      PS_CMP_HIGH <= '0'; -- o
+      PS_SET_HIGH_CY <= '0'; -- p
+      wait for 30 ns;
+
+      -- Now maybe reset...
+
+		MS_1401_MODE <= not a;
+		PS_LOGIC_GATE_D_1 <= b;
+		PS_UNITS_LATCH <= c;
+		PS_CMP_MODE_B_CYCLE <= d;		
+		PS_PULL_OFF_CMP_HI_STAR_1311_SCAN <= e;
+      MS_SET_HIGH_CY <= not f;
+      MS_CMP_HIGH <= not g;
+      MS_CMP_EQUAL <= not j;
+      PS_1401_MODE <= k;
+      PS_COMPARE_OP_CODE <= l;
+      PS_I_RING_4_TIME <= m;
+      PS_LOGIC_GATE_F_1 <= n;
+		MS_UNITS_LATCH <= not q;
+      MS_BODY_LATCH <= not r;
+      
+      wait for 30 ns;  -- Possibly reset latch
+      
+      -- Test Reset (g6 means reset should have happened)
+
+      check1(MS_EQUAL_LOW_LATCHES_RESET,not g3,testname,"Equal Low Latches Reset");
+      check1(MS_1401_DOT_C_OP_DOT_I_RING_4_TIME,not g4,testName,"1401.C.I Ring 4");
+      
+      check1(PS_HIGH,not g6,testName,"+S High Reset");
+      check1(MS_HIGH,g6,testName,"-S High Reset");
+      check1(LAMP_15A1A12,not g6,testName,"Lamp High Reset");
+
+      -- Reset variables back.  Latches should not change.      
+
+		MS_1401_MODE <= '1';
+		PS_LOGIC_GATE_D_1 <= '0';
+		PS_UNITS_LATCH <= '0';
+		PS_CMP_MODE_B_CYCLE <= '0';
+		PS_PULL_OFF_CMP_HI_STAR_1311_SCAN <= '0';
+      MS_SET_HIGH_CY <= '1';
+      MS_CMP_HIGH <= '1';
+      MS_CMP_EQUAL <= '1';
+      PS_1401_MODE <= '0';
+      PS_COMPARE_OP_CODE <= '0';
+      PS_I_RING_4_TIME <= '0';
+      PS_LOGIC_GATE_F_1 <= '0';	
+      MS_CMP_HIGH <= '1';
+      PS_LOGIC_GATE_F_1 <= '0';      
+      PS_CMP_HIGH <= '0';
+      PS_SET_HIGH_CY <= '0';
+      MS_UNITS_LATCH <= '1';
+      MS_BODY_LATCH <= '1';      
+      wait for 30 ns;
+      
+      check1(PS_HIGH,not g6,testName,"+S High Still Reset");
+      check1(MS_HIGH,g6,testName,"-S High Still Reset");
+      check1(LAMP_15A1A12,not g6,testName,"Lamp High Still Reset");
       
    end loop;
 
@@ -238,7 +337,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
