@@ -156,44 +156,55 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   
+   variable aa, notaa, ab, notab, ba, notba, bb, notbb: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.15.04.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**4 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
-      
-      wait for 30 ns;
-      
+		PS_A_CH_A_BIT <= tv(0);
+		PS_A_CH_NOT_A_BIT <= not tv(0);
+		aa := tv(0);
+		notaa := not tv(0);
+
+   	PS_A_CH_B_BIT <= tv(1);
+		PS_A_CH_NOT_B_BIT <= not tv(1);
+		ab := tv(1);
+		notab := not tv(1);
+
+		PS_B_CH_A_BIT <= tv(2);
+		PS_B_CH_NOT_A_BIT <= not tv(2);
+		ba := tv(2);
+		notba := not tv(2);
+
+		PS_B_CH_B_BIT <= tv(3);
+		PS_B_CH_NOT_B_BIT <= not tv(3);
+		bb := tv(3);
+		notbb := not tv(3);
+		
+		g1 := ab and notbb;
+		g2 := aa and notba;
+		g3 := ab and bb;
+		g4 := notbb and notab;
+		g5 := notba and notaa;
+		g6 := aa and ba;
+		g7 := ba and not aa;
+		g8 := bb and notab;
+		
+		wait for 30 ns;
+		
+		check1(PS_HI_ZONE,g1 or (g2 and (g3 or g4)),testName,"High Zone");
+		check1(PS_CMP_ZONE_EQUAL,(g3 or g4) and (g5 or g6),testName,"CMP Zone Equal");
+		check1(MS_CMP_ZONE_UNEQUAL,not(PS_HI_ZONE or PS_LOW_ZONE),testName,"CMP Zone Unequal");
+		check1(PS_LOW_ZONE,g8 or (g7 and(g3 or g4)),testName,"Low Zone");
+		check1(PS_ZONES,(aa or ab) and (ba or bb),testName,"Zones");
+		check1(PS_NO_ZONES,(notaa and notab) or (notba and notbb),testName,"No Zones");
       
    end loop;
 
