@@ -1,0 +1,79 @@
+Generating HDL for page 17.15.03.1 COMPARE MATRIX at 10/10/2020 2:15:43 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_15_03_1_COMPARE_MATRIX_tb.vhdl, generating default test bench code.
+Removed 2 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2I to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_1
+	and inputs of PS_ALPH_B_CH,PS_NO_NU_A_CH
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_6
+	and inputs of PS_ALPH_B_CH,PS_SPL_CHAR_A_CH
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_ALPH_A_CH,PS_ALPH_B_CH
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of OUT_4C_NoPin,OUT_4D_NoPin
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_L
+	and inputs of OUT_3C_E
+	and logic function of EQUAL
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_SPL_CHAR_B_CH,PS_SPL_CHAR_A_CH
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_1
+	and inputs of PS_SPL_CHAR_B_CH,PS_ALPH_A_CH
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_6
+	and inputs of PS_NO_NU_B_CH,PS_ALPH_A_CH
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of OUT_4I_K,OUT_4H_C,OUT_4G_G
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G, OUT_4G_G
+	and inputs of PS_SPL_CHAR_B_CH,PS_NO_NU_A_CH
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_4G_G
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C, OUT_4H_C
+	and inputs of PS_NO_NU_B_CH,PS_NO_NU_A_CH
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_D
+	and inputs of OUT_4H_C
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_K, OUT_4I_K
+	and inputs of PS_NO_NU_B_CH,PS_SPL_CHAR_A_CH
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_P
+	and inputs of OUT_4I_K
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_ALPH_NO_NU
+	from gate output OUT_4A_1
+Generating output sheet edge signal assignment to 
+	signal MS_ALPH_SPL_CHAR
+	from gate output OUT_4B_6
+Generating output sheet edge signal assignment to 
+	signal PS_ALPH_OR_SPL_CHAR
+	from gate output OUT_2C_L
+Generating output sheet edge signal assignment to 
+	signal MS_SPL_CHAR_ALPH
+	from gate output OUT_4E_1
+Generating output sheet edge signal assignment to 
+	signal MS_NO_NU_ALPH
+	from gate output OUT_4F_6
+Generating output sheet edge signal assignment to 
+	signal PS_SPL_CHAR_OR_NO_NU
+	from gate output OUT_2F_C
+Generating output sheet edge signal assignment to 
+	signal PS_SPL_CHAR_NO_NU
+	from gate output OUT_2G_C
+Generating output sheet edge signal assignment to 
+	signal PS_NO_NUMERICS
+	from gate output OUT_2H_D
+Generating output sheet edge signal assignment to 
+	signal PS_NO_NU_SPL_CHAR
+	from gate output OUT_2I_P
