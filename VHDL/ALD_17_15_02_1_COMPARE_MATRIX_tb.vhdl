@@ -164,39 +164,46 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.15.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 64 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
       
+      PS_B_CH_1_BIT <= tv(HDL_1_BIT);
+      PS_B_CH_2_BIT <= tv(HDL_2_BIT);
+      PS_B_CH_4_BIT <= tv(HDL_4_BIT);
+      PS_B_CH_8_BIT <= tv(HDL_8_BIT);
+      PS_B_CH_A_BIT <= tv(HDL_A_BIT);
+      PS_B_CH_B_BIT <= tv(HDL_B_BIT);
+      
+      PS_B_CH_NOT_1_BIT <= not tv(HDL_1_BIT);
+      PS_B_CH_NOT_2_BIT <= not tv(HDL_2_BIT);
+      PS_B_CH_NOT_4_BIT <= not tv(HDL_4_BIT);
+      PS_B_CH_NOT_8_BIT <= not tv(HDL_8_BIT);
+      PS_B_CH_NOT_A_BIT <= not tv(HDL_A_BIT);
+      PS_B_CH_NOT_B_BIT <= not tv(HDL_B_BIT);
       wait for 30 ns;
+
+      a := PS_B_CH_NOT_8_BIT;
+      b := PS_B_CH_NOT_4_BIT;
+      c := PS_B_CH_NOT_2_BIT;
+      d := PS_B_CH_NOT_1_BIT;
+      e := PS_B_CH_2_BIT;
+      f := PS_B_CH_8_BIT;
+      g := PS_B_CH_4_BIT;
+      h := PS_B_CH_NOT_B_BIT;
+      j := PS_B_CH_A_BIT; 
+      k := PS_B_CH_1_BIT;
+      l := PS_B_CH_B_BIT;
+      m := PS_B_CH_NOT_A_BIT;
       
+      check1(PS_NO_NU_B_CH,a and b and c and d,testName,"No NU");
+      check1(PS_SPL_CHAR_B_CH,
+         (f and e and k) or (f and g) or (j and k and a and h and b and c),
+         testName,"Spl Char");
+      check1(PS_ALPH_B_CH,
+         (m and a and k) or (l and k and a) or (a and e) or (f and b and c) or (b and d and e) or (g and a),
+         testName,"Alpha");      
       
    end loop;
 
