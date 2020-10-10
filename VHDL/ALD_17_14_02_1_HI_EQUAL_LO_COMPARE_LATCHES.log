@@ -1,0 +1,63 @@
+Generating HDL for page 17.14.02.1 HI-EQUAL-LO COMPARE LATCHES at 10/10/2020 10:50:36 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_14_02_1_HI_EQUAL_LO_COMPARE_LATCHES_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Removed 2 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1C to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1E12
+Generating Statement for block at 1A with output pin(s) of OUT_1A_D
+	and inputs of OUT_DOT_3B
+	and logic function of NOT
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_D_Latch
+	and inputs of OUT_2B_E,MS_EQUAL_LOW_LATCHES_RESET
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_E_Latch, OUT_2B_E_Latch
+	and inputs of MS_COMPUTER_RESET_1,OUT_DOT_4F,OUT_DOT_3B
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of PS_SET_HIGH_CY,PS_LOGIC_GATE_F_1
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of OUT_4C_C,MS_1401_DOT_C_OP_DOT_I_RING_4_TIME,OUT_DOT_4D
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_F, OUT_1C_F
+	and inputs of OUT_2B_E
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PS_LOGIC_GATE_F_1,MS_CMP_LOW
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_E
+	and inputs of OUT_1C_F
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of 
+	and inputs of OUT_2D_E
+	and logic function of Lamp
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P
+	and inputs of PS_EQUAL_LOW_LATCHES_SET,MS_CMP_EQUAL
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PS_LOGIC_GATE_F_1,PS_CMP_LOW
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_R
+	and inputs of MS_SET_HIGH_CY,PS_EQUAL_LOW_LATCHES_SET
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B, OUT_DOT_3B
+	and inputs of OUT_3B_D,PS_PULL_OFF_CMP_LO_STAR_1311_SCAN,OUT_3C_C
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4D_G,OUT_4E_P
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
+	and inputs of OUT_4F_C,OUT_4G_R
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_LOW
+	from gate output OUT_1A_D
+Generating output sheet edge signal assignment to 
+	signal MS_LOW
+	from gate output OUT_1C_F
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
