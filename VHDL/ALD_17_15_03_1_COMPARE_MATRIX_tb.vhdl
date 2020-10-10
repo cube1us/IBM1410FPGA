@@ -164,9 +164,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.15.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -174,29 +174,26 @@ uut_process: process
       d := tv(3);
       e := tv(4);
       f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PS_ALPH_B_CH <= a;
+		PS_SPL_CHAR_B_CH <= b;
+		PS_NO_NU_B_CH <= c;
+		PS_ALPH_A_CH <= d;
+		PS_NO_NU_A_CH <= e;
+		PS_SPL_CHAR_A_CH <= f;
       
       wait for 30 ns;
       
+		check1(MS_ALPH_NO_NU,not(a and e),testName,"Alph : No NU");
+		check1(MS_ALPH_SPL_CHAR,not(a and f),testName,"Alph : Spl");
+		check1(PS_ALPH_OR_SPL_CHAR,(a and d) or (f and b),testName,"Alph:Alph or Spl:Spl");
+		check1(MS_SPL_CHAR_ALPH,not(d and b),testName,"Spl : Alph");
+		check1(PS_SPL_CHAR_OR_NO_NU,(b and e) or (e and c) or (f and c),testName,
+		 "Spl Char or No Nu");
+		check1(MS_NO_NU_ALPH,not(d and c),testName,"No Nu : Alph");
+		check1(PS_SPL_CHAR_NO_NU,b and e,testName,"Spl : No Nu");
+		check1(PS_NO_NUMERICS,e and c,testName,"No Numerics");
+		check1(PS_NO_NU_SPL_CHAR,f and c,testName,"No Nu : Spl");
       
    end loop;
 
