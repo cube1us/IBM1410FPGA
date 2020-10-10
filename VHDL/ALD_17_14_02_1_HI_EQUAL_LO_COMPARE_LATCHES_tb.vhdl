@@ -161,39 +161,104 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.14.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
 
+      g1 := k and h and f and not l;
+      g2 := d and f;
+      g3 := h and not g and f and not j;
+      g4 := c or a or e or g2 or g3;
       
+      -- Force latch Set
+      
+      MS_COMPUTER_RESET_1 <= '0';
+      wait for 30 ns;            
+      MS_COMPUTER_RESET_1 <= '1';
+      wait for 30 ns;            
+
+      check1(PS_LOW,'1',testName,"+S Low Loop Set");
+      check1(MS_LOW,'0',testName,"-S Low Loop Set");
+      check1(LAMP_15A1E12,'1',testName,"+S Lamp Loop Set");
+      
+		MS_EQUAL_LOW_LATCHES_RESET <= not a;
+		PS_PULL_OFF_CMP_LO_STAR_1311_SCAN <= c;
+		PS_SET_HIGH_CY <= d;
+		MS_1401_DOT_C_OP_DOT_I_RING_4_TIME <= not e;
+		PS_LOGIC_GATE_F_1 <= f;
+		MS_CMP_LOW <= not g;
+		PS_EQUAL_LOW_LATCHES_SET <= h;
+		MS_CMP_EQUAL <= not j;
+		PS_CMP_LOW <= '0'; -- Set later so it doesn't hold latch SET
+		MS_SET_HIGH_CY <= not l;      
       wait for 30 ns;
       
+      check1(PS_LOW,not g4,testName,"+S Low Reset");
+      check1(MS_LOW,g4,testName,"-S Low Reset");
+      check1(LAMP_15A1E12,not g4,testName,"+S Lamp Reset");
+      
+      -- Reset most of the reset variables - should not affect latch
+
+		MS_EQUAL_LOW_LATCHES_RESET <= '1';
+      PS_PULL_OFF_CMP_LO_STAR_1311_SCAN <= '0';
+      PS_SET_HIGH_CY <= '0';
+      MS_1401_DOT_C_OP_DOT_I_RING_4_TIME <= '1';
+      PS_LOGIC_GATE_F_1 <= '0';
+      MS_CMP_LOW <= not k;
+      MS_CMP_EQUAL <= '1';
+      wait for 30 ns;
+      
+      check1(PS_LOW,not g4,testName,"+S Low Still Reset");
+      check1(MS_LOW,g4,testName,"-S Low Still Reset");
+      check1(LAMP_15A1E12,not g4,testName,"+S Lamp Still Reset");
+      
+      -- Now, FORCE the latch reset
+      
+      PS_PULL_OFF_CMP_LO_STAR_1311_SCAN <= '1';
+      wait for 30 ns;
+      PS_PULL_OFF_CMP_LO_STAR_1311_SCAN <= '0';
+      wait for 30 ns;
+      
+      check1(PS_LOW,'0',testName,"+S Low Force Reset");
+      check1(MS_LOW,'1',testName,"-S Low Force Reset");
+      check1(LAMP_15A1E12,'0',testName,"+S Lamp Force Reset");
+      
+      -- Now, maybe set the latch
+      
+      PS_LOGIC_GATE_F_1 <= f;
+      PS_EQUAL_LOW_LATCHES_SET <= h;
+      PS_CMP_LOW <= k;
+      MS_SET_HIGH_CY <= not l;      
+      wait for 30 ns;
+      
+      check1(PS_LOW,g1,testName,"+S Low Set");
+      check1(MS_LOW,not g1,testName,"-S Set");
+      check1(LAMP_15A1E12,g1,testName,"+S Lamp Set");
+
+      -- Set the signals back to their starting state for the next iteration
+      
+      MS_EQUAL_LOW_LATCHES_RESET <= '1';
+      MS_COMPUTER_RESET_1 <= '1';
+      PS_PULL_OFF_CMP_LO_STAR_1311_SCAN <= '0';
+      PS_SET_HIGH_CY <= '0';
+      MS_1401_DOT_C_OP_DOT_I_RING_4_TIME <= '1';
+      PS_LOGIC_GATE_F_1 <= '0';
+      MS_CMP_LOW <= '1';
+      PS_EQUAL_LOW_LATCHES_SET <= '0';
+      MS_CMP_EQUAL <= '1';
+      PS_CMP_LOW <= '0';
+      MS_SET_HIGH_CY <= '1';
       
    end loop;
 
