@@ -170,13 +170,13 @@ uut_process: process
       j := tv(8);
       k := tv(9);
       
-      g1 := (c and d) nor (e and f);
-      g2 := (f and c) nor (e and d);
+      g1 := ((c and d) nor (e and f)) or b;
+      g2 := ((f and c) nor (e and d)) or b;
       g3 := (g and h) nor (j and k);
       g4 := (k and g) nor (j and h);
 
 		MV_2ND_CHECK_TEST_SWITCH <= not a;
-		-- MV_1ST_CHECK_TEST_SWITCH <= not b;
+		MV_1ST_CHECK_TEST_SWITCH <= not b;
 		PS_A_CH_1_BIT <= c;
 		PS_A_CH_8_BIT <= d;
 		PS_A_CH_NOT_1_BIT <= e;
