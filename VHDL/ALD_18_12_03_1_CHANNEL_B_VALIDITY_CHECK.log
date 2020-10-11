@@ -1,0 +1,66 @@
+Generating HDL for page 18.12.03.1 CHANNEL B VALIDITY CHECK at 10/11/2020 6:11:48 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_12_03_1_CHANNEL_B_VALIDITY_CHECK_tb.vhdl, generating default test bench code.
+Note: DOT Function at 2C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Added LAMP signal LAMP_11C8A13
+Added LAMP signal LAMP_15A1C19
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_B_CH_VC_NUMERICS_ODD,PS_B_CH_VC_NU_C_BIT
+	and logic function of AND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_B_CH_VC_NUMERICS_EVEN,PS_B_CH_VC_NOT_NU_C_BIT
+	and logic function of AND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B
+	and inputs of OUT_5A_NoPin,OUT_5B_NoPin
+	and logic function of NOR
+Generating Statement for block at 2B with output pin(s) of OUT_2B_F
+	and inputs of OUT_4B_B
+	and logic function of NOT
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_B_CH_VC_NUMERICS_ODD,PS_B_CH_VC_NOT_NU_C_BIT
+	and logic function of AND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of OUT_5C_NoPin,OUT_5D_NoPin
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of OUT_4C_C
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_3C_D
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_B_CH_VC_NU_C_BIT,PS_B_CH_VC_NUMERICS_EVEN
+	and logic function of AND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_P
+	and inputs of PS_1ST_SCAN,PS_CLEAR_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of OUT_5E_P,OUT_DOT_2C,PS_ERROR_SAMPLE
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A, OUT_2E_A, OUT_2E_A
+	and inputs of OUT_DOT_3E
+	and logic function of EQUAL
+Generating Statement for block at 3F with output pin(s) of OUT_3F_G
+	and inputs of MS_STORAGE_SCAN_LOAD,MS_DISPLAY_OR_ALTER_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D
+	and inputs of OUT_2E_A
+	and logic function of NOT
+Generating Statement for block at 1F with output pin(s) of 
+	and inputs of OUT_2F_D
+	and logic function of Lamp
+Generating Statement for block at 2G with output pin(s) of OUT_2G_E
+	and inputs of OUT_2E_A
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of 
+	and inputs of OUT_2G_E
+	and logic function of Lamp
+Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
+	and inputs of OUT_2B_F,OUT_2C_C
+	and logic function of OR
+Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
+	and inputs of OUT_3E_C,OUT_3F_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_B_CHANNEL_VC_ERROR
+	from gate output OUT_2E_A
