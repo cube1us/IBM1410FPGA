@@ -185,9 +185,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.18.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -205,19 +205,41 @@ uut_process: process
       o := tv(13);
       p := tv(14);
       q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := f and e and d and a;
+      g2 := h and k and d and g;
+      g3 := (m and l) or (o and n) or (q and p);
+      g4 := (d and g) and e and g3;
+      g5 := h and a and d;
+      g6 := b and d and not c;
+      g7 := (a and d) or (d and g);            
 
+		PS_COMPARE_OP_CODE <= a;
+		PS_CHAR_TEST_BRANCH_OP_CODE <= b;
+		MS_1401_MODE <= not c;
+		PS_B_CYCLE <= d;
+		PS_A_CH_WM_BIT <= e;
+		PS_B_CH_NOT_WM_BIT <= f;
+		PS_TABLE_SEARCH_OP_CODE <= g;
+		PS_B_CH_WM_BIT_1 <= h;
+		PS_CMP_MODE_B_CYCLE_STAR_1311 <= j;
+		PS_A_CH_NOT_WM_BIT <= k;
+		PS_OP_MOD_REG_4_BIT <= l;
+		PS_HIGH <= m;
+		PS_OP_MOD_REG_2_BIT <= n;
+		PS_EQUAL <= o;
+		PS_OP_MOD_REG_1_BIT <= p;
+		PS_LOW <= q;
       
       wait for 30 ns;
       
+      check1(PS_SET_HIGH_CY,g1 or g2,testName,"+S Sigh High CY");
+      check1(MS_SET_HIGH_CY,not(g1 or g2),testName,"1S Sigh High CY");
+      check1(PS_LAST_EXECUTE_CYCLE_STAR_TLU,g1 or g2 or g4 or g5,testName,"Last Exec Cycle *TLU");
+      check1(PS_CMP_MODE_B_CYCLE,(d and g) or (a and d) or j or g6,testName,"CMP Mode B Cycle");
+      check1(MS_CMP_MODE_SET_A_CYCLE_CTRL_A,not(k and f and g7),
+         testName,"CMP Mode Set A Cycle Ctrl A");
+      check1(PS_TLU_B_CYCLE,d and g,testName,"TLU B Cycle");               
       
    end loop;
 
