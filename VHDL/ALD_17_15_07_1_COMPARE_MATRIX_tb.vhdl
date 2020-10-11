@@ -170,9 +170,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.15.07.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**15 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -189,21 +189,31 @@ uut_process: process
       n := tv(12);
       o := tv(13);
       p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PS_LOW_ZONE <= a;
+		PS_ALPH_OR_SPL_CHAR <= b;
+		MS_SPL_CHAR_ALPH <= not c;
+		MS_NO_NU_ALPH <= not d;
+		PS_SIMULATE_CMP_LO_STAR_1311_SCAN <= e;
+		PS_SPL_CHAR_NO_NU <= f;
+		PS_CMP_ZONE_EQUAL <= g;
+		PS_HI_ZONE <= h;
+		PS_NO_NUMERICS <= j;
+		PS_ZONES <= k;
+		PS_NO_ZONES <= l;
+		PS_NO_NU_SPL_CHAR <= m;
+		MS_ADDER_LOW <= not n;
+		MS_LOW_ADDER_NO_CARRY <= not o;
+		PS_SPL_CHAR_OR_NO_NU <= p;
       
       wait for 30 ns;
       
+      check1(PS_CMP_LOW,
+         e or c or d or n or o or (a and b) or (l and m) or (f and k and g) or (h and j and l) or (p and a and k),
+         testName,"+S CMP LOW");
       
+      check1(MS_CMP_LOW,not PS_CMP_LOW,testName,"-S CMP LOW");
+               
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
