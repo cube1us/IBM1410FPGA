@@ -155,9 +155,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.12.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -168,27 +168,29 @@ uut_process: process
       g := tv(6);
       h := tv(7);
       j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+      g1 := (a and d) or (b and c);
+      g2 := (a and c) or (d and b);
+      
+		PS_B_CH_VC_NUMERICS_ODD <= a;
+		PS_B_CH_VC_NUMERICS_EVEN <= b;
+		PS_B_CH_VC_NOT_NU_C_BIT <= c;
+		PS_B_CH_VC_NU_C_BIT <= d;
+		PS_1ST_SCAN <= e;
+		PS_CLEAR_OP_CODE <= f;
+		PS_ERROR_SAMPLE <= g;
+		MS_STORAGE_SCAN_LOAD <= not h;
+		MS_DISPLAY_OR_ALTER_ROUTINE <= not j;
       
       wait for 30 ns;
       
-      
+      check1(MS_B_CHANNEL_VC_ERROR,
+         not((not e or not f) and not j and not h and g and (g1 or not g2)),testName,
+            "B Channel VC Error");
+            
+      check1(LAMP_11C8A13,not MS_B_CHANNEL_VC_ERROR,testName,"CE Lamp VC Error");            
+      check1(LAMP_15A1C19,not MS_B_CHANNEL_VC_ERROR,testName,"Console Lamp VC Error");            
+             
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
