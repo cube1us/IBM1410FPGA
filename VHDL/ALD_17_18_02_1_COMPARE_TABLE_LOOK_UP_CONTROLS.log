@@ -1,0 +1,57 @@
+Generating HDL for page 17.18.02.1 COMPARE TABLE LOOK-UP CONTROLS at 10/10/2020 8:48:41 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_18_02_1_COMPARE_TABLE_LOOK_UP_CONTROLS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 2 outputs from Dot Function at 1C to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_3F_F,PS_TLU_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_HIGH,PS_OP_MOD_REG_NOT_4_BIT
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_P
+	and inputs of PS_B_CH_NOT_WM_BIT,PS_A_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_EQUAL,PS_OP_MOD_REG_NOT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
+	and inputs of PS_LOW,PS_OP_MOD_REG_NOT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_F, OUT_3F_F
+	and inputs of OUT_4D_NoPin,OUT_4E_NoPin,OUT_4F_NoPin
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_D
+	and inputs of OUT_3F_F,PS_TLU_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_K
+	and inputs of PS_B_CH_WM_BIT_1,PS_A_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_C
+	and inputs of PS_A_CH_WM_BIT,MS_EXTENSION_LATCH
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_C
+	and inputs of OUT_4H_C,PS_TLU_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_C
+	and inputs of PS_TLU_B_CYCLE,PS_A_CH_WM_BIT,PS_UNITS_OR_BODY_LATCHES
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_1C_C,OUT_1D_P
+	and logic function of OR
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_1F_D,OUT_1G_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_STOP_AT_F_TLU
+	from gate output OUT_1H_C
+Generating output sheet edge signal assignment to 
+	signal MS_STOP_AT_J_TLU
+	from gate output OUT_1I_C
+Generating output sheet edge signal assignment to 
+	signal MS_TLU_SET_B_CYCLE_CTRL
+	from gate output OUT_DOT_1C
+Generating output sheet edge signal assignment to 
+	signal MS_TLU_SET_A_CYCLE_CTRL_B
+	from gate output OUT_DOT_1F
