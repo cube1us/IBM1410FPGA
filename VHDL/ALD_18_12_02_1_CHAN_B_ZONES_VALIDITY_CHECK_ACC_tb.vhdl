@@ -170,9 +170,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.12.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -183,26 +183,37 @@ uut_process: process
       g := tv(6);
       h := tv(7);
       j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := (a nor e) nor (c nor d);
+      g2 := (d nor a) nor (c nor e);
+      g3 := (f and j) nor (g and h);
+      g4 := (f and h) nor (j and g);
 
+		PS_B_CH_A_BIT <= a;
+		MV_3RD_CHECK_TEST_SWITCH <= not b;
+		PS_B_CH_NOT_A_BIT <= c;
+		PS_B_CH_NOT_B_BIT <= d;
+		PS_B_CH_B_BIT <= e;
+		PS_B_CH_C_BIT <= f;
+		PS_B_CH_NOT_C_BIT <= g;
+		PS_B_CH_NOT_WM_BIT <= h;
+		PS_B_CH_WM_BIT_1 <= j;
       
       wait for 30 ns;
       
+      check1(PS_B_CH_NOT_B_AND_NOT_A_BIT,not e and not a,testName,"B Ch Not B and Not A");
+      check1(PS_B_CH_B_AND_A_BIT,not c and not d,testName,"B Ch B and A");
+      check1(PS_B_CH_B_AND_NOT_A_BIT,not d and not a,testName,"B Ch B and Not A");
+      check1(PS_B_CH_NOT_B_AND_A_BIT,not e and not c,testName,"B Ch Not B and A");
+      
+      check1(PS_B_CH_VC_ZONE_C_BIT,g2,testName,"B Ch VC Zone C");
+      check1(PS_B_CH_VC_NOT_ZONE_C_BIT,g1,testName,"B Ch VC Not Zone C");
+      check1(PS_B_CH_VC_NU_C_BIT,((g2 and g4) nor (g1 and g3)) or b,testName,
+         "B Ch VC Nu C");
+      check1(PS_B_CH_VC_NOT_NU_C_BIT,((g2 and g3) nor (g4 and g1)) or b,testName,
+         "B Ch VC Not NU C");
+      
+                  
       
    end loop;
 
