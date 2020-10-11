@@ -1,0 +1,94 @@
+Generating HDL for page 17.18.01.1 COMPARE-TABLE LOOK-UP CONTROLS at 10/10/2020 8:26:03 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_18_01_1_COMPARE_TABLE_LOOK_UP_CONTROLS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 5D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 2 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2E to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C, OUT_5A_C, OUT_5A_C
+	and inputs of PS_B_CYCLE,PS_COMPARE_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_K, OUT_4A_K
+	and inputs of OUT_5A_C
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_D
+	and inputs of OUT_4A_K,PS_B_CH_NOT_WM_BIT,PS_A_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_G
+	and inputs of OUT_3A_D,OUT_3F_E
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_K, OUT_1A_K
+	and inputs of OUT_2A_G
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PS_CHAR_TEST_BRANCH_OP_CODE,MS_1401_MODE,PS_B_CYCLE
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_R
+	and inputs of PS_B_CYCLE
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of OUT_4A_K,PS_B_CH_WM_BIT_1
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_F, OUT_1C_F
+	and inputs of OUT_1A_K
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_K
+	and inputs of PS_TABLE_SEARCH_OP_CODE
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of OUT_5A_C,OUT_4B_C,OUT_DOT_5D
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_D
+	and inputs of OUT_3C_G,OUT_1C_F,OUT_3G_C
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of OUT_5A_C,OUT_DOT_5D
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_E
+	and inputs of OUT_4E_C,PS_B_CH_NOT_WM_BIT,PS_A_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PS_OP_MOD_REG_4_BIT,PS_HIGH
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_K, OUT_4F_K, OUT_4F_K
+	and inputs of OUT_DOT_5D
+	and logic function of NOT
+Generating Statement for block at 3F with output pin(s) of OUT_3F_E
+	and inputs of OUT_4F_K,PS_B_CH_WM_BIT_1,PS_A_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_NoPin
+	and inputs of PS_OP_MOD_REG_2_BIT,PS_EQUAL
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_F
+	and inputs of OUT_5F_NoPin,OUT_5G_NoPin,OUT_5H_NoPin
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of OUT_4F_K,OUT_4G_F,PS_A_CH_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of PS_OP_MOD_REG_1_BIT,PS_LOW
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D, OUT_DOT_5D, OUT_DOT_5D
+	and inputs of OUT_5C_R,OUT_5D_K
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4D_D,PS_CMP_MODE_B_CYCLE_STAR_1311
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_SET_HIGH_CY
+	from gate output OUT_1A_K
+Generating output sheet edge signal assignment to 
+	signal MS_SET_HIGH_CY
+	from gate output OUT_1C_F
+Generating output sheet edge signal assignment to 
+	signal PS_LAST_EXECUTE_CYCLE_STAR_TLU
+	from gate output OUT_1D_D
+Generating output sheet edge signal assignment to 
+	signal MS_CMP_MODE_SET_A_CYCLE_CTRL_A
+	from gate output OUT_2E_E
+Generating output sheet edge signal assignment to 
+	signal PS_TLU_B_CYCLE
+	from gate output OUT_4F_K
+Generating output sheet edge signal assignment to 
+	signal PS_CMP_MODE_B_CYCLE
+	from gate output OUT_DOT_4D
