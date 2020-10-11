@@ -1,0 +1,164 @@
+Generating HDL for page 18.12.01.1 CHANNEL B NUMERIC VALIDITY CHECK at 10/11/2020 1:26:46 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_12_01_1_CHANNEL_B_NUMERIC_VALIDITY_CHECK_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Ignoring Logic Block 4A with symbol R
+Ignoring Logic Block 4B with symbol R
+Ignoring Logic Block 4C with symbol R
+Ignoring Logic Block 2C with symbol R
+Ignoring Logic Block 4D with symbol R
+Ignoring Logic Block 2E with symbol R
+Ignoring Logic Block 4F with symbol R
+Ignoring Logic Block 4G with symbol R
+Ignoring Logic Block 2G with symbol R
+Ignoring Logic Block 4H with symbol R
+Ignoring Logic Block 4I with symbol R
+Ignoring Logic Block 2I with symbol R
+Removed 1 outputs from Gate at 5A to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5F to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5H to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 5I to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3I to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1I to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 3B to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 3D to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_G
+	and inputs of PS_B_CH_1_BIT,PS_B_CH_8_BIT
+	and logic function of NOR
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of MV_1ST_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_L, OUT_2A_L
+	and inputs of OUT_5A_G
+	and logic function of EQUAL
+Generating Statement for block at 1A with output pin(s) of OUT_1A_B, OUT_1A_B
+	and inputs of OUT_5B_C
+	and logic function of EQUAL
+Generating Statement for block at 5B with output pin(s) of OUT_5B_C
+	and inputs of PS_B_CH_NOT_1_BIT,PS_B_CH_NOT_8_BIT
+	and logic function of NOR
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of OUT_2A_L,OUT_1A_B
+	and logic function of NOR
+Generating Statement for block at 2B with output pin(s) of OUT_2B_NoPin
+	and inputs of OUT_DOT_3B,OUT_3G_F
+	and logic function of AND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_K
+	and inputs of MV_2ND_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_F
+	and inputs of PS_B_CH_NOT_8_BIT,PS_B_CH_1_BIT
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of MV_1ST_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_B
+	and inputs of OUT_2B_NoPin,OUT_2D_NoPin
+	and logic function of NOR
+Generating Statement for block at 5D with output pin(s) of OUT_5D_R
+	and inputs of PS_B_CH_NOT_1_BIT,PS_B_CH_8_BIT
+	and logic function of NOR
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_1D_A,OUT_1E_C
+	and logic function of NOR
+Generating Statement for block at 2D with output pin(s) of OUT_2D_NoPin
+	and inputs of OUT_DOT_3D,OUT_3I_R
+	and logic function of AND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_A, OUT_1D_A
+	and inputs of OUT_5C_F
+	and logic function of EQUAL
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C, OUT_1E_C
+	and inputs of OUT_5D_R
+	and logic function of EQUAL
+Generating Statement for block at 5F with output pin(s) of OUT_5F_G
+	and inputs of PS_B_CH_2_BIT,PS_B_CH_4_BIT
+	and logic function of NOR
+Generating Statement for block at 3F with output pin(s) of OUT_3F_Q, OUT_3F_Q
+	and inputs of OUT_5F_G
+	and logic function of EQUAL
+Generating Statement for block at 2F with output pin(s) of OUT_2F_NoPin
+	and inputs of OUT_DOT_3B,OUT_3I_R
+	and logic function of AND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_P
+	and inputs of MV_2ND_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of PS_B_CH_NOT_2_BIT,PS_B_CH_NOT_4_BIT
+	and logic function of NOR
+Generating Statement for block at 3G with output pin(s) of OUT_3G_F, OUT_3G_F
+	and inputs of OUT_3F_Q,OUT_1H_L
+	and logic function of NOR
+Generating Statement for block at 1G with output pin(s) of OUT_1G_C
+	and inputs of OUT_2F_NoPin,OUT_2H_NoPin
+	and logic function of NOR
+Generating Statement for block at 5H with output pin(s) of OUT_5H_F
+	and inputs of PS_B_CH_NOT_4_BIT,PS_B_CH_2_BIT
+	and logic function of NOR
+Generating Statement for block at 3H with output pin(s) of OUT_3H_K, OUT_3H_K
+	and inputs of OUT_5H_F
+	and logic function of EQUAL
+Generating Statement for block at 2H with output pin(s) of OUT_2H_NoPin
+	and inputs of OUT_3G_F,OUT_DOT_3D
+	and logic function of AND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_L
+	and inputs of OUT_5G_C
+	and logic function of EQUAL
+Generating Statement for block at 5I with output pin(s) of OUT_5I_R
+	and inputs of PS_B_CH_NOT_2_BIT,PS_B_CH_4_BIT
+	and logic function of NOR
+Generating Statement for block at 3I with output pin(s) of OUT_3I_R, OUT_3I_R
+	and inputs of OUT_3H_K,OUT_1I_B
+	and logic function of NOR
+Generating Statement for block at 1I with output pin(s) of OUT_1I_B, OUT_1I_B
+	and inputs of OUT_5I_R
+	and logic function of EQUAL
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B, OUT_DOT_3B
+	and inputs of OUT_3A_G,OUT_3B_G
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D, OUT_DOT_3D
+	and inputs of OUT_3C_C,OUT_3D_C
+	and logic function of OR
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_1F_P,OUT_1G_C
+	and logic function of OR
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_1B_K,OUT_1C_B
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_NOT_8_AND_NOT_1_BIT
+	from gate output OUT_2A_L
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_8_AND_1_BIT
+	from gate output OUT_1A_B
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_8_AND_NOT_1_BIT
+	from gate output OUT_1D_A
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_NOT_8_AND_1_BIT
+	from gate output OUT_1E_C
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_NOT_4_AND_NOT_2_BIT
+	from gate output OUT_3F_Q
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_4_AND_NOT_2_BIT
+	from gate output OUT_3H_K
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_NOT_4_AND_2_BIT
+	from gate output OUT_1I_B
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_VC_NUMERICS_EVEN
+	from gate output OUT_DOT_1F
+Generating output sheet edge signal assignment to 
+	signal PS_B_CH_VC_NUMERICS_ODD
+	from gate output OUT_DOT_1B
