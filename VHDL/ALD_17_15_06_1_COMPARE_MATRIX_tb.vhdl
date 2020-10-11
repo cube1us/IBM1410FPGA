@@ -182,9 +182,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "17.15.06.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**17 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -203,18 +203,34 @@ uut_process: process
       p := tv(14);
       q := tv(15);
       r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PS_ALPH_OR_SPL_CHAR <= a;
+		MS_ALPH_NO_NU <= not b;
+		MS_ALPH_SPL_CHAR <= not c;
+		PS_SIMULATE_CMP_HI_STAR_1311_SCAN <= d;
+		PS_SPL_CHAR_NO_NU <= e;
+		PS_NO_ZONES <= f;
+		PS_LOW_ZONE <= g;
+		PS_HI_ZONE <= h;
+		PS_NO_NU_SPL_CHAR <= j;
+		PS_CMP_ZONE_EQUAL <= k;
+		MS_HIGH_ADDER_CARRY <= not l;
+		MS_ADDER_HIGH <= not m;
+		PS_NO_NUMERICS <= n;
+		PS_ZONES <= o;
+		PS_SPL_CHAR_OR_NO_NU <= p;
+		MS_ADDER_EQUAL <= not q;
+		PS_SIMULATE_CMP_EQ_STAR_1311_SCAN <= r;
       
       wait for 30 ns;
       
+      check1(PS_CMP_HIGH,
+         d or b or c or l or m or (h and a) or (e and f) or (n and g and f) or (j and o and k) or (h and o and p),
+         testName,"+S CMP HIGH");
+      check1(MS_CMP_HIGH,not PS_CMP_HIGH,testName,"-S CMP HIGH");
+      
+      check1(PS_CMP_EQUAL,r or q or (n and k),testName,"+S Compare Equal");         
+      check1(MS_CMP_EQUAL,not PS_CMP_EQUAL,testName,"+S Compare Equal");         
       
    end loop;
 
@@ -229,7 +245,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 4 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
