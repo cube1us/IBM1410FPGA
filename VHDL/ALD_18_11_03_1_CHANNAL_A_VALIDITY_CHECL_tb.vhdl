@@ -161,9 +161,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.11.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -174,27 +174,27 @@ uut_process: process
       g := tv(6);
       h := tv(7);
       j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := (a and d) or (b and c);
+      g2 := (a and b) or (d and c);
 
+		PS_A_CH_VC_NUMERICS_ODD <= a;
+		PS_A_CH_VC_NOT_NU_C_BIT <= b;
+		PS_A_CH_VC_NUMERICS_EVEN <= c;
+		PS_A_CH_VC_NU_C_BIT <= d;
+		PS_ERROR_SAMPLE <= e;
+		MS_ASTERISK_A_CH_CHECK_CTRL <= not f;
+		MS_ANY_LAST_INPUT_CYCLE <= not g;
+		MS_DISPLAY_OR_ALTER_ROUTINE <= not h;
+		MS_INPUT_CYCLE_GRP_MK_WM_INSRT <= not j;
       
       wait for 30 ns;
       
-      
+      check1(MS_A_CH_VALID,g1,testName,"-S A Ch Valid");
+      check1(PS_A_CH_INVALID,not g2,testName,"+S A Ch Invalid");
+      check1(MS_A_CHANNEL_VC_ERROR,not(e and not f and not g and not h and not j and (g1 or not g2)),
+         testName,"A Ch VC Error");
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
