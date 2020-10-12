@@ -1,0 +1,58 @@
+Generating HDL for page 18.14.01.1 A CH SWITCHING CHECK at 10/12/2020 11:12:48 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_14_01_1_A_CH_SWITCHING_CHECK_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Added LAMP signal LAMP_15A1H20
+Generating Statement for block at 5B with output pin(s) of OUT_5B_P, OUT_5B_P, OUT_5B_P
+	and inputs of PS_GATE_F2_DATA_REG_TO_A_CH,MV_1ST_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_NoPin
+	and inputs of OUT_5B_P,OUT_5C_B,MV_2ND_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_B, OUT_5C_B, OUT_5C_B
+	and inputs of PS_GATE_E2_DATA_REG_TO_A_CH,MV_1ST_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_NoPin
+	and inputs of OUT_5D_A,MV_2ND_CHECK_TEST_SWITCH,OUT_5E_G
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_3B_NoPin,OUT_3C_NoPin
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_A, OUT_5D_A, OUT_5D_A
+	and inputs of MV_1ST_CHECK_TEST_SWITCH,PS_GATE_OP_MOD_REG_TO_A_CH
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_NoPin
+	and inputs of OUT_5B_P,OUT_5D_A,MV_3RD_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_C
+	and inputs of OUT_3D_NoPin,OUT_3E_NoPin
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_E
+	and inputs of OUT_2C_C,OUT_2D_C,OUT_DOT_3F
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_G, OUT_5E_G, OUT_5E_G
+	and inputs of MV_1ST_CHECK_TEST_SWITCH,PS_GATE_A_DATA_REG_TO_A_CH
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_NoPin
+	and inputs of OUT_5C_B,OUT_5E_G,MV_3RD_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_A, OUT_1E_A
+	and inputs of OUT_1D_E,PS_ERROR_SAMPLE
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_K
+	and inputs of OUT_5B_P
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of OUT_5C_B,OUT_5D_A,OUT_5E_G
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_B
+	and inputs of OUT_1E_A
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of 
+	and inputs of OUT_2G_B
+	and logic function of Lamp
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F
+	and inputs of OUT_4F_K,OUT_3G_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_A_CHARACTER_SELECT_ERROR
+	from gate output OUT_1E_A
