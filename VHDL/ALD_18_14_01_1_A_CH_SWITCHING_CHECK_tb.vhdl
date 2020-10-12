@@ -149,9 +149,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.14.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -161,27 +161,28 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+      g1 := (c and not d) or (a and not d) or b;
+      g2 := b or (e and not d) or (g and not d);
+      g3 := (a and not d) or (e and not d) or f;
+      g4 := f or (c and not d) or (g and not d);
+      g5 := not((c and not d) or (a and not d) or (e and not d) or (g and not d));
+
+		PS_GATE_F2_DATA_REG_TO_A_CH <= a;
+		MV_2ND_CHECK_TEST_SWITCH <= not b;
+		PS_GATE_E2_DATA_REG_TO_A_CH <= c;
+		MV_1ST_CHECK_TEST_SWITCH <= not d;
+		PS_GATE_OP_MOD_REG_TO_A_CH <= e;
+		MV_3RD_CHECK_TEST_SWITCH <= not f;
+		PS_GATE_A_DATA_REG_TO_A_CH <= g;
+		PS_ERROR_SAMPLE <= h;
       
       wait for 30 ns;
       
+      check1(MS_A_CHARACTER_SELECT_ERROR,not(((g1 and g2) or (g3 and g4) or g5) and h),
+         testName,"A Ch Select Error");
+      check1(LAMP_15A1H20,NOT MS_A_CHARACTER_SELECT_ERROR,testName,
+         "Lamp A Ch Select Error");
       
    end loop;
 
