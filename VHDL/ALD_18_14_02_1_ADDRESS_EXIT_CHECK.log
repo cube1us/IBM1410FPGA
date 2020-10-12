@@ -1,0 +1,53 @@
+Generating HDL for page 18.14.02.1 ADDRESS EXIT CHECK at 10/12/2020 12:45:01 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_14_02_1_ADDRESS_EXIT_CHECK_tb.vhdl, generating default test bench code.
+Ignoring Logic Block 2G with symbol L
+Processing extension from block at 2C (Database ID=265932) to 2D (Database ID=265934)
+Copied connection to extension input pin B to master block at 2C
+Copied mapped pin A from extension 2D to master block at 2C
+Copied mapped pin B from extension 2D to master block at 2C
+Copied mapped pin E from extension 2D to master block at 2C
+Copied mapped pin W from extension 2D to master block at 2C
+Removed 1 outputs from Gate at 3F to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1H19
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_AR_CH_VC_GROUP_TWO,PS_AR_CH_VC_GROUP_ONE
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_F
+	and inputs of OUT_4C_NoPin,OUT_4D_NoPin,MV_3RD_CHECK_TEST_SWITCH
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_H
+	and inputs of OUT_3C_F,OUT_3F_C,MS_START_RESET
+	and logic function of Trigger
+Generating Statement for block at 1C with output pin(s) of OUT_1C_D, OUT_1C_D
+	and inputs of OUT_2C_H,PS_ERROR_SAMPLE
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_AR_CH_VC_GROUP_TWO
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of OUT_5D_C,OUT_5E_K
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_K
+	and inputs of PS_AR_CH_VC_GROUP_ONE
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of OUT_1C_D
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of 
+	and inputs of OUT_2E_A
+	and logic function of Lamp
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of PS_LOGIC_GATE_F_1
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C, OUT_3F_C, OUT_3F_C
+	and inputs of OUT_5F_C
+	and logic function of NOT
+Generating Statement for block at 2F with output pin(s) of OUT_2F_K
+	and inputs of OUT_3F_C
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_ADDRESS_EXIT_ERROR
+	from gate output OUT_1C_D
+Generating output sheet edge signal assignment to 
+	signal MS_ADDRESS_EXIT_SAMPLE
+	from gate output OUT_2F_K
