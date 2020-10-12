@@ -146,9 +146,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.13.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -156,28 +156,22 @@ uut_process: process
       d := tv(3);
       e := tv(4);
       f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
       
+      g1 := (c and e) or (d and f);
+      g2 := (c and f) or (d and e);
+
+		PS_ERROR_SAMPLE <= a;
+		MS_DISPLAY_OR_ALTER_ROUTINE <= not b;
+		PS_ASSEMBLY_CH_NUMERICS_ODD <= c;
+		PS_ASSEMBLY_CH_NUMERICS_EVEN <= d;
+		PS_ASSEMBLY_CH_ZONES_ODD <= e;
+		PS_ASSEMBLY_CH_ZONES_EVEN <= f;
+
       wait for 30 ns;
+      
+      check1(MS_ASSEMBLY_CH_ERROR,not((g1 or not g2) and a and not b),testName,"Assy Ch error");
+      check1(LAMP_15A1A19,not MS_ASSEMBLY_CH_ERROR,testName,"Console Assy Ch Error Lamp");
+      check1(LAMP_11C8A10,not MS_ASSEMBLY_CH_ERROR,testName,"CE Assy Ch Error Lamp");
       
       
    end loop;
