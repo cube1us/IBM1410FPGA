@@ -152,9 +152,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.13.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -165,25 +165,26 @@ uut_process: process
       g := tv(6);
       h := tv(7);
       j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		g1 := (b and c) nor (d and e);
+		g2 := (b and d) nor (c and e);
+		g3 := (f and g) nor (h and j);
+		g4 := (f and j) nor (g and h);
       
+		MV_3RD_CHECK_TEST_SWITCH <= not a;
+		MS_ASSEMBLY_CH_A_BIT <= b;
+		MS_ASSEMBLY_CH_B_BIT <= c;
+		MS_ASSEMBLY_CH_NOT_B_BIT <= d;
+		MS_ASSEMBLY_CH_NOT_A_BIT <= e;
+		MS_ASSEMBLY_CH_C_CHAR_BIT <= f;
+		MS_ASSEMBLY_CH_WM_BIT <= g;
+		MS_ASSEMBLY_CH_NOT_C_CHAR_BIT <= h;
+		MS_ASSEMBLY_CH_NOT_WM_BIT <= j;
+		
       wait for 30 ns;
+      
+      check1(PS_ASSEMBLY_CH_ZONES_ODD,((g1 and g3) nor (g2 and g4)) or a,testName,"Assy Ch Zones Odd");
+      check1(PS_ASSEMBLY_CH_ZONES_EVEN,((g1 and g4) nor (g2 and g3)) or a,testName,"Assy Ch Zones Even");      
       
       
    end loop;
