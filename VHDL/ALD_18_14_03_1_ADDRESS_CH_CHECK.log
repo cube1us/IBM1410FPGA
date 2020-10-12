@@ -1,0 +1,131 @@
+Generating HDL for page 18.14.03.1 ADDRESS CH CHECK at 10/12/2020 1:17:23 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_14_03_1_ADDRESS_CH_CHECK_tb.vhdl, generating default test bench code.
+NOTE: Special signal LOGIC ZERO removed from sheet inputs list.
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5I has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+DOT Function at 3H has one output from a Trigger, one output from Non-Trigger
+   Trigger block pin C located at 2F, Non-trigger is located at 3H Output is to 2H
+   Using Trigger faux pin U as input side of pin C
+Ignoring Logic Block 5B with symbol L
+Ignoring Logic Block 5C with symbol L
+Ignoring Logic Block 4G with symbol L
+Found combinatorial loop (need D FF) at output of gate at 4H
+Found combinatorial loop (need D FF) at output of gate at 3I
+Processing extension from block at 2E (Database ID=266004) to 2F (Database ID=266005)
+Copied connection to extension input pin P to master block at 2E
+Copied connection to extension input pin L to master block at 2E
+Copied connection to extension input pin U to master block at 2E
+Copied connection from extension output pin C to master block at 2E
+Copied mapped pin D from extension 2F to master block at 2E
+Copied mapped pin K from extension 2F to master block at 2E
+Copied mapped pin L from extension 2F to master block at 2E
+Copied mapped pin V from extension 2F to master block at 2E
+Moved connection from extension 2F pin C to be from master at 2E
+Removed 1 outputs from Gate at 5F to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1F19
+Added LAMP signal LAMP_11C8A07
+Generating Statement for block at 5A with output pin(s) of OUT_5A_D
+	and inputs of PS_ADDR_CH_VC_GROUP_ONE
+	and logic function of NOT
+Generating Statement for block at 4A with output pin(s) of OUT_4A_R
+	and inputs of OUT_2H_Q
+	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of OUT_2A_P
+	and inputs of PS_ERROR_SAMPLE,OUT_2E_D
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_C, OUT_1A_C, OUT_1A_C
+	and inputs of OUT_2A_P
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of OUT_5A_D
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_1A_C
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of 
+	and inputs of OUT_2B_D
+	and logic function of Lamp
+Generating Statement for block at 4C with output pin(s) of OUT_4C_B
+	and inputs of PS_ADDR_CH_VC_GROUP_TWO
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_F
+	and inputs of OUT_DOT_4C
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_1A_C
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of 
+	and inputs of OUT_2C_C
+	and logic function of Lamp
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_ADDR_CH_VC_GROUP_TWO
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_B
+	and inputs of PS_ADDR_CH_VC_GROUP_ONE
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_R
+	and inputs of OUT_DOT_4F
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_R
+	and inputs of PS_1401_MODE,PS_LOGIC_GATE_A_1
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of OUT_5D_C
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D, OUT_2E_C
+	and inputs of OUT_5E_R,OUT_5F_C,MV_3RD_CHECK_TEST_SWITCH,MS_START_RESET,'0',OUT_3H_R
+	and logic function of Trigger
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C, OUT_5F_C
+	and inputs of PS_2ND_CLOCK_PULSE_2
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_B
+	and inputs of OUT_2H_Q
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_F
+	and inputs of PS_2ND_CLOCK_PULSE_2
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_R
+	and inputs of OUT_DOT_4F
+	and logic function of NOT
+Generating Statement for block at 4H with *latched* output pin(s) of OUT_4H_B_Latch
+	and inputs of OUT_DOT_3D
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_R
+	and inputs of OUT_DOT_4H
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_Q, OUT_2H_Q
+	and inputs of OUT_2E_C
+	and logic function of EQUAL
+Generating Statement for block at 5I with output pin(s) of OUT_5I_D
+	and inputs of OUT_DOT_4C
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_C
+	and inputs of OUT_DOT_5I
+	and logic function of NOT
+Generating Statement for block at 3I with *latched* output pin(s) of OUT_3I_D_Latch
+	and inputs of OUT_DOT_4H
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C, OUT_DOT_4C
+	and inputs of OUT_4A_R,OUT_4B_C,OUT_4C_B
+	and logic function of OR
+Generating Statement for block at 5I with output pin(s) of OUT_DOT_5I
+	and inputs of OUT_5G_F,OUT_5H_R,OUT_5I_D
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H, OUT_DOT_4H
+	and inputs of OUT_4H_B,OUT_4I_C
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F, OUT_DOT_4F
+	and inputs of OUT_4D_B,OUT_4E_D,OUT_4F_B
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3C_F,OUT_3D_R,OUT_3I_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ADDRESS_CH_ERROR
+	from gate output OUT_1A_C
+Generating D Flip Flop for block at 4H
+Generating D Flip Flop for block at 3I
