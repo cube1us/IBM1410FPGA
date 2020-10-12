@@ -87,6 +87,8 @@ procedure check1(
 
    -- Your test bench declarations go here
 
+   signal lastLatchSig: std_logic := '0';
+
 -- END USER TEST BENCH DECLARATIONS
    
 
@@ -147,46 +149,115 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   
+   variable lastLatch: std_logic := '0';
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.14.03.1        ";
+   
+   -- Test Reset and Set, and lamps
+   
+   PS_ERROR_SAMPLE <= '1';
+   
+   MS_START_RESET <= '0';
+   wait for 30 ns;
+   MS_START_RESET <= '1';   
+   wait for 30 ns;
+      
+   check1(MS_ADDRESS_CH_ERROR,'1',testName,"Addr Ch Error Reset Test");
+   check1(LAMP_15A1F19,NOT MS_ADDRESS_CH_ERROR,testName,"Addr Ch Error Console Lamp Reset Test");
+   check1(LAMP_11C8A07,NOT MS_ADDRESS_CH_ERROR,testName,"Addr Ch Error CE Lamp Reset Test");
 
-   for tt in 0 to 2**25 loop
+   MV_3RD_CHECK_TEST_SWITCH <= '0';
+   wait for 30 ns;
+   MV_3RD_CHECK_TEST_SWITCH <= '1';   
+   wait for 30 ns;
+      
+   check1(MS_ADDRESS_CH_ERROR,'0',testName,"Addr Ch Error Force Set Test");
+   check1(LAMP_15A1F19,NOT MS_ADDRESS_CH_ERROR,testName,"Addr Ch Error Console Lamp Force Set Test");
+   check1(LAMP_11C8A07,NOT MS_ADDRESS_CH_ERROR,testName,"Addr Ch Error CE Lamp Force Set Test");
+
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      
+      g1 := g and (not b  or c) and (not c or b);           -- Test trigger regen later
+      -- g2 := (not b or c) and (not c or b) and lastLatch; -- But do test latch regen here...
+      g2 := (not b or c) and (not c or b) and lastLatch;
 
-      
+      PS_ERROR_SAMPLE <= '1';
+   
+      MS_START_RESET <= '0';
       wait for 30 ns;
+      MS_START_RESET <= '1';   
+      wait for 30 ns;
+
+      check1(MS_ADDRESS_CH_ERROR,'1',testName,"Addr Ch Error Loop Reset");
+
+		PS_ERROR_SAMPLE <= a;
+		PS_ADDR_CH_VC_GROUP_ONE <= b;
+		PS_ADDR_CH_VC_GROUP_TWO <= c;
+		PS_1401_MODE <= e;
+		PS_LOGIC_GATE_A_1 <= f;
+		PS_2ND_CLOCK_PULSE_2 <= not g;  -- CP 2 is inverted before use as trigger clock     
+      wait for 30 ns;
+      PS_2ND_CLOCK_PULSE_2 <= '1';  -- CP 2 is inverted before use as trigger clock
+      wait for 90 ns;
       
+      check1(MS_ADDRESS_CH_ERROR,not a or not(g1 or g2) or (e and f),testName,"Address Ch Error");
+      lastLatch := (g1 and g) or g2;
+      lastLatchSig <= lastLatch;      
       
    end loop;
+   
+   -- Special Regen Test
+
+   -- First, allow it to set...
+   
+   -- The DEZ circuit would behave unpredictably if both the OutOFF pin were
+   -- forced high at the same time the DCSet pin is trying to force OutOFF Low
+   -- So, for this test, make sure OutOff is not being forced initially
+    
+   PS_ADDR_CH_VC_GROUP_ONE <= '0';
+   PS_ADDR_CH_VC_GROUP_TWO <= '0';
+   
+   -- Don't set it some other way.
+   PS_1401_MODE <= '1';
+   PS_LOGIC_GATE_A_1 <= '1';
+   PS_2ND_CLOCK_PULSE_2 <= '0';
+   wait for 30 ns;
+
+   PS_ERROR_SAMPLE <= '1';
+   
+   MV_3RD_CHECK_TEST_SWITCH <= '0';
+   -- Once the latch is set, the reset circuit via 3H is disabled
+   PS_ADDR_CH_VC_GROUP_TWO <= '1';      
+   wait for 30 ns;
+   MV_3RD_CHECK_TEST_SWITCH <= '1';   
+   wait for 30 ns;
+      
+   check1(MS_ADDRESS_CH_ERROR,'0',testName,"Set before Regen Test");
+
+   -- run the clock a few times...
+   
+   for tt in 0 to 4 loop
+      PS_2ND_CLOCK_PULSE_2 <= '0';
+      wait for 30 ns;
+      check1(MS_ADDRESS_CH_ERROR,'0',testName,"Addr Ch Error Regen CP 2 0");
+      PS_2ND_CLOCK_PULSE_2 <= '1';
+      wait for 30 ns;
+      check1(MS_ADDRESS_CH_ERROR,'0',testName,"Addr Ch Error Regen CP 2 1");
+   end loop;
+
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
