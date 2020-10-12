@@ -146,40 +146,53 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.14.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**5 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      f := tv(4);
 
-      
+      -- Reset the trigger
+      MS_START_RESET <= '0';
+      wait for 30 ns;
+      MS_START_RESET <= '1';
       wait for 30 ns;
       
+      check1(MS_ADDRESS_EXIT_ERROR,'1',testName,"Address Exit Error Loop Reset");
+      check1(LAMP_15A1H19,'0',testName,"Address Exit Error Lamp Loop Reset");
       
+      wait for 30 ns;
+
+		PS_ERROR_SAMPLE <= a;
+		PS_AR_CH_VC_GROUP_ONE <= b;
+		MV_3RD_CHECK_TEST_SWITCH <= not c;
+		PS_AR_CH_VC_GROUP_TWO <= d;
+				
+		PS_LOGIC_GATE_F_1 <= f;
+		wait for 30 ns;
+		check1(MS_ADDRESS_EXIT_SAMPLE, not f,testName,"-S Address Exit Sample");
+		
+		PS_LOGIC_GATE_F_1 <= '0';
+		wait for 90 ns;
+		
+		-- Reset the variables that can set the trigger - should not affect trigger
+      PS_AR_CH_VC_GROUP_ONE <= '0';
+      MV_3RD_CHECK_TEST_SWITCH <= '1';
+      PS_AR_CH_VC_GROUP_TWO <= '0';
+      wait for 30 ns;
+		
+		check1(MS_ADDRESS_EXIT_ERROR,
+		 not((c or (b and d) or (not b and not d)) and a and f),testName,
+		    "Address Exit Error");
+		    
+	   check1(LAMP_15A1H19,not MS_ADDRESS_EXIT_ERROR,testName,"Address Exit Error Lamp");
+
+		PS_ERROR_SAMPLE <= '0';
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
