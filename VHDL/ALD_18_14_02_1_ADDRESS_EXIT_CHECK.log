@@ -1,8 +1,9 @@
-Generating HDL for page 18.14.02.1 ADDRESS EXIT CHECK at 10/12/2020 12:45:01 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_14_02_1_ADDRESS_EXIT_CHECK_tb.vhdl, generating default test bench code.
+Generating HDL for page 18.14.02.1 ADDRESS EXIT CHECK at 10/12/2020 12:57:37 PM
+NOTE: Special signal LOGIC ZERO removed from sheet inputs list.
 Ignoring Logic Block 2G with symbol L
 Processing extension from block at 2C (Database ID=265932) to 2D (Database ID=265934)
 Copied connection to extension input pin B to master block at 2C
+Copied connection to extension input pin F to master block at 2C
 Copied mapped pin A from extension 2D to master block at 2C
 Copied mapped pin B from extension 2D to master block at 2C
 Copied mapped pin E from extension 2D to master block at 2C
@@ -16,7 +17,7 @@ Generating Statement for block at 3C with output pin(s) of OUT_3C_F
 	and inputs of OUT_4C_NoPin,OUT_4D_NoPin,MV_3RD_CHECK_TEST_SWITCH
 	and logic function of NAND
 Generating Statement for block at 2C with output pin(s) of OUT_2C_H
-	and inputs of OUT_3C_F,OUT_3F_C,MS_START_RESET
+	and inputs of OUT_3C_F,OUT_3F_C,MS_START_RESET,'0'
 	and logic function of Trigger
 Generating Statement for block at 1C with output pin(s) of OUT_1C_D, OUT_1C_D
 	and inputs of OUT_2C_H,PS_ERROR_SAMPLE
