@@ -1,10 +1,13 @@
-Generating HDL for page 18.14.08.1 1* MASTER ERROR CONTROL-ACC at 10/13/2020 12:25:36 PM
+Generating HDL for page 18.14.08.1 1* MASTER ERROR CONTROL-ACC at 10/13/2020 1:02:25 PM
 No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_14_08_1_1_MASTER_ERROR_CONTROL_ACC_tb.vhdl, generating default test bench code.
 Note: DOT Function at 3A has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 5A has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 3G has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 2G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+DOT Function at 3A has one output from a Trigger, one output from Non-Trigger
+   Trigger block pin D located at 4B, Non-trigger is located at 2A Output is to 1B
+   Using Trigger faux pin V as input side of pin D
 DOT Function at 4C has one output from a Trigger, one output from Non-Trigger
    Trigger block pin C located at 4C, Non-trigger is located at 4D Output is to 3C
    Using Trigger faux pin U as input side of pin C
@@ -34,11 +37,14 @@ Generating Statement for block at 4A with output pin(s) of OUT_4A_B
 Generating Statement for block at 3A with output pin(s) of OUT_3A_F
 	and inputs of MS_ADDRESS_SET_ROUTINE
 	and logic function of NOT
+Generating Statement for block at 2A with output pin(s) of OUT_2A_C
+	and inputs of OUT_4A_B,OUT_3A_F
+	and logic function of OR
 Generating Statement for block at 4B with output pin(s) of OUT_4B_D, OUT_4B_C
-	and inputs of OUT_1B_A,PS_2ND_CLOCK_PULSE_CLAMPED,MS_START_RESET,OUT_3C_C,OUT_4D_G
+	and inputs of OUT_1B_A,PS_2ND_CLOCK_PULSE_CLAMPED,MS_START_RESET,OUT_2A_C,OUT_3C_C,OUT_4D_G
 	and logic function of Trigger
 Generating Statement for block at 1B with output pin(s) of OUT_1B_A, OUT_1B_A, OUT_1B_A
-	and inputs of OUT_DOT_3A
+	and inputs of OUT_4B_D
 	and logic function of Special
 Generating Statement for block at 5C with output pin(s) of OUT_5C_R
 	and inputs of OUT_3C_C
@@ -85,9 +91,6 @@ Generating Statement for block at 3I with output pin(s) of OUT_3I_K
 Generating Statement for block at 1I with output pin(s) of OUT_1I_K
 	and inputs of OUT_1G_G
 	and logic function of NOT
-Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A
-	and inputs of OUT_4A_B,OUT_3A_F,OUT_4B_D
-	and logic function of OR
 Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
 	and inputs of OUT_5A_B,OUT_5C_R,OUT_5D_R
 	and logic function of OR
