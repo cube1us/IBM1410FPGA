@@ -152,39 +152,52 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.14.06.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**7 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
       
+      g1 := ((a and b) or d) or (f or g or h);
+      g2 := not((a and b) or d) or not(f or g or h);
+
+      MS_PROGRAM_RESET_3 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_3 <= '1';
       wait for 30 ns;
       
+      check1(MS_B_REG_RESET_ERROR,'1',testName,"B Reg Reset Error Loop Reset");
+      check1(LAMP_15A1C20,NOT MS_B_REG_RESET_ERROR,testName,"B Reg Reset Error Lamp Loop Reset");      
+
+		PS_LOGIC_GATE_E_1 <= a;
+		PS_2ND_OR_3RD_CHECK_TEST <= b;
+		PS_B_DATA_REG_RESET <= d;
+		PS_ERROR_SAMPLE <= e;
+		MS_ADDRESS_EXIT_SAMPLE <= not f;
+		MS_1ST_TRIGGER_CHECK <= not g;
+		MS_LOGIC_GATE_T <= not h;     
+      wait for 90 ns;
+            
+      check1(PS_LOG_GT_E_DOT_2ND_OR_3RD_CHK_TEST,a and b,testName,"LG E . 2nd+3rd Check test");
+      
+		PS_LOGIC_GATE_E_1 <= '0';
+		PS_2ND_OR_3RD_CHECK_TEST <= '0';
+		PS_B_DATA_REG_RESET <= '0';
+		MS_ADDRESS_EXIT_SAMPLE <= '1';
+		MS_1ST_TRIGGER_CHECK <= '1';
+		MS_LOGIC_GATE_T <= '1';     
+      wait for 90 ns;
+
+      check1(MS_B_REG_RESET_ERROR,not(e and g1 and g2),testName,"B Reg Reset Error Set");
+      check1(LAMP_15A1C20,NOT MS_B_REG_RESET_ERROR,testName,"B Reg Reset Error Lamp Set");      
+            
+		PS_ERROR_SAMPLE <= '0';
       
    end loop;
 
