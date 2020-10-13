@@ -146,39 +146,49 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.14.07.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      
+      g1 := (a or b or d) or (f or g);
+      g2 := not(a or b or d) or not(f or g);
 
+      -- Reset
       
+      MS_PROGRAM_RESET_3 <= '0';
       wait for 30 ns;
+      MS_PROGRAM_RESET_3 <= '1';
+      wait for 30 ns;      
+
+      check1(MS_A_REG_SET_ERROR,'1',testName,"A Reg Set Error Loop Reset");
+      check1(LAMP_15A1V01,NOT MS_A_REG_SET_ERROR,testName,"A Reg Set Error Lamp Loop Reset");
+
+		MS_1ST_TRIGGER_CHECK <= not a;
+		PS_SW_B_CH_TO_A_REG <= b;
+		PS_SW_AR_EXIT_CH_TO_A_REG <= d;
+		PS_ERROR_SAMPLE <= e;
+		MS_RESET_A_DATA_REG <= not f;
+		MS_LOG_GT_E_DOT_2ND_OR_3RD_CHK_TEST <= not g;      
+      wait for 90 ns;
       
+		MS_1ST_TRIGGER_CHECK <= '1';
+      PS_SW_B_CH_TO_A_REG <= '0';
+      PS_SW_AR_EXIT_CH_TO_A_REG <= '0';
+      MS_RESET_A_DATA_REG <= '1';
+      MS_LOG_GT_E_DOT_2ND_OR_3RD_CHK_TEST <= '1';      
+      wait for 90 ns;
+
+      check1(MS_A_REG_SET_ERROR,not(g1 and g2 and e),testName,"A Reg Set Error Loop Reset");
+      check1(LAMP_15A1V01,NOT MS_A_REG_SET_ERROR,testName,"A Reg Set Error Lamp Loop Reset");
+
+      PS_ERROR_SAMPLE <= '0';
       
    end loop;
 
