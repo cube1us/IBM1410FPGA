@@ -1,5 +1,5 @@
-Generating HDL for page 18.14.06.1 A AND B REG SET CHECKS FEAT-ACC at 10/13/2020 10:43:31 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_14_06_1_A_AND_B_REG_SET_CHECKS_FEAT_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 18.14.06.1 A AND B REG SET CHECKS FEAT-ACC at 10/13/2020 11:04:32 AM
+Old test bench file ALD_18_14_06_1_A_AND_B_REG_SET_CHECKS_FEAT_ACC_tb.vhdl 109 lines preserved and 35 declaration lines preserved
 Note: DOT Function at 4B has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 4E has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 3A with symbol L
@@ -79,7 +79,7 @@ Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E, OUT_DOT_4
 	and inputs of OUT_4E_R,OUT_4F_R
 	and logic function of OR
 Generating output sheet edge signal assignment to 
-	signal PS_LOG_GT_E_DOT_2ND_OR_3RD_CHK_TEST
+	signal MS_LOG_GT_E_DOT_2ND_OR_3RD_CHK_TEST
 	from gate output OUT_5B_D
 Generating output sheet edge signal assignment to 
 	signal MS_B_REG_RESET_ERROR
