@@ -167,6 +167,9 @@ uut_process: process
       MS_PROGRAM_RESET_3 <= '1';
       wait for 30 ns;      
 
+      check1(MS_OP_REG_SET_ERROR,'1',testName,"OP Reg Loop Reset");
+      check1(LAMP_15A1E20,'0',testName,"OP Reg Lamp Loop Reset");
+
 		MS_2ND_TRIGGER_CHECK <= not a;
 		PS_SET_OP_REG <= b;
 		MS_BLANK <= not c;
