@@ -146,39 +146,46 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.14.04.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      
+      g1 := a or (b and not c) or (f or g);
+      g2 := not (g or f) or not ((b and not c) or a);
 
+      -- Reset
       
+      MS_PROGRAM_RESET_3 <= '0';
       wait for 30 ns;
+      MS_PROGRAM_RESET_3 <= '1';
+      wait for 30 ns;      
+
+		MS_2ND_TRIGGER_CHECK <= not a;
+		PS_SET_OP_REG <= b;
+		MS_BLANK <= not c;
+		PS_ERROR_SAMPLE <= e;
+		MS_1ST_TRIGGER_CHECK <= not f;
+		MS_CHECK_OP_REG_SET <= not g;      
+      wait for 90 ns;  -- Set one or both triggers
+
+		MS_2ND_TRIGGER_CHECK <= '1';
+		PS_SET_OP_REG <= '0';
+		MS_BLANK <= '1';
+		MS_1ST_TRIGGER_CHECK <= '1';
+		MS_CHECK_OP_REG_SET <= '1';
+		wait for 30 ns;      
       
+      check1(MS_OP_REG_SET_ERROR,not(e and g1 and g2),testName,"-S Op Reg Set Error");
+      check1(LAMP_15A1E20,NOT MS_OP_REG_SET_ERROR,testName,"Op Reg Set Error Lamp");
+
+		PS_ERROR_SAMPLE <= '0';
       
    end loop;
 
