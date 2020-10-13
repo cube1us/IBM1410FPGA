@@ -173,9 +173,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.14.09.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**15 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -192,20 +192,31 @@ uut_process: process
       n := tv(12);
       o := tv(13);
       p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := (a and b) or (d and e) or (h and j) or k or f or not g or m;
 
+		PS_I_RING_1_TIME <= a;
+		PS_2_CHAR_ONLY_OP_CODES <= b;
+		PS_I_CYCLE <= c;
+		PS_1_ADDR_PLUS_MOD_OP_CODES <= d;
+		PS_I_RING_6_TIME <= e;
+		MS_STORAGE_SCAN_ROUTINE <= not f;
+		PS_A_CH_NOT_WM_BIT <= g;
+		PS_I_RING_11_TIME <= h;
+		PS_2_ADDR_PLUS_MOD_OP_CODES <= j;
+		MS_1401_DOT_I_CYCLE <= not k;
+		PS_B_CH_NOT_WM_BIT <= l;
+		MS_I_RING_OP_TIME <= not m;
+		PS_I_RING_OP_TIME <= n;
+		PS_LOGIC_GATE_F_1 <= o;
+		PS_B_CH_WM_BIT_2 <= p;
       
       wait for 30 ns;
       
+      check1(PS_OP_OR_OP_MOD_POSITION,g1,testName,"Op or Op Mod");
+      check1(MS_CHECK_OP_MOD_SET,not(c and g1 and o and not m and not f and l),testname,
+         "Check Op Mod Set");
+      check1(MS_CHECK_OP_REG_SET,not(o and p and c and n),testName,"Check Op Reg Set");      
       
    end loop;
 
