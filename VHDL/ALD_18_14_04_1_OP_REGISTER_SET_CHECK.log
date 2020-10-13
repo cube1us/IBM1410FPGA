@@ -1,0 +1,72 @@
+Generating HDL for page 18.14.04.1 OP REGISTER SET CHECK at 10/12/2020 8:41:15 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_14_04_1_OP_REGISTER_SET_CHECK_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Ignoring Logic Block 4A with symbol L
+Ignoring Logic Block 4G with symbol L
+Processing extension from block at 3B (Database ID=266096) to 3C (Database ID=266097)
+Copied connection to extension input pin A to master block at 3B
+Copied connection from extension output pin H to master block at 3B
+Copied connection from extension output pin H to master block at 3B
+Copied mapped pin F from extension 3C to master block at 3B
+Copied mapped pin H from extension 3C to master block at 3B
+Moved connection from extension 3C pin H to be from master at 3B
+Moved connection from extension 3C pin H to be from master at 3B
+Processing extension from block at 3E (Database ID=266102) to 3F (Database ID=266103)
+Copied connection to extension input pin Q to master block at 3E
+Copied connection from extension output pin D to master block at 3E
+Copied connection from extension output pin D to master block at 3E
+Copied mapped pin D from extension 3F to master block at 3E
+Copied mapped pin K from extension 3F to master block at 3E
+Copied mapped pin L from extension 3F to master block at 3E
+Copied mapped pin V from extension 3F to master block at 3E
+Moved connection from extension 3F pin D to be from master at 3E
+Moved connection from extension 3F pin D to be from master at 3E
+Removed 1 outputs from Dot Function at 4A to ignored block(s) or identical signal names
+Removed 1 outputs from Dot Function at 4E to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1E20
+Generating Statement for block at 5A with output pin(s) of OUT_5A_F
+	and inputs of MS_2ND_TRIGGER_CHECK
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_D
+	and inputs of OUT_5C_D
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_E, OUT_3B_E, OUT_3B_H, OUT_3B_H
+	and inputs of OUT_3B_H,OUT_DOT_4A,MS_PROGRAM_RESET_3,OUT_3B_E
+	and logic function of Trigger
+Generating Statement for block at 5C with output pin(s) of OUT_5C_D
+	and inputs of PS_SET_OP_REG,MS_BLANK
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_NoPin
+	and inputs of OUT_3B_E,OUT_3E_C
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_F, OUT_1D_F
+	and inputs of OUT_2C_NoPin,OUT_2E_NoPin,PS_ERROR_SAMPLE
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of MS_1ST_TRIGGER_CHECK
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C, OUT_3E_C, OUT_3E_D, OUT_3E_D
+	and inputs of OUT_3E_D,OUT_DOT_4E,MS_PROGRAM_RESET_3,OUT_3E_C
+	and logic function of Trigger
+Generating Statement for block at 2E with output pin(s) of OUT_2E_NoPin
+	and inputs of OUT_3B_H,OUT_3E_D
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_B
+	and inputs of MS_CHECK_OP_REG_SET
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_1D_F
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of 
+	and inputs of OUT_2G_C
+	and logic function of Lamp
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A, OUT_DOT_4A
+	and inputs of OUT_5B_D,OUT_5A_F
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E, OUT_DOT_4E
+	and inputs of OUT_5E_C,OUT_5F_B
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_OP_REG_SET_ERROR
+	from gate output OUT_1D_F
