@@ -124,6 +124,8 @@ procedure check1(
 
 
    -- Your test bench declarations go here
+   
+   signal lastErrorSampleSig: std_logic := '1';
 
 -- END USER TEST BENCH DECLARATIONS
    
@@ -202,46 +204,148 @@ uut_process: process
    variable testName: string(1 to 18);
    variable subtest: integer;
    variable tv: std_logic_vector(25 downto 0);
-   variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
+   variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,z2: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   
+   variable lastErrorSample: std_logic := '1';  -- In positive logic, trigger starts off "set"
 
    begin
 
    -- Your test bench code
+   
+   testName := "18.14.08.1        ";
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
-
-   for tt in 0 to 2**25 loop
+   -- First, a set test of the trigger.  We have to make sure that the pull on 
+   -- circuit is not active (the pull of is OK using the initial values.)
+   
+   MS_LAST_LOGIC_GATE_1 <= '0';  -- Disable pull on circuit.
+   MS_START_RESET <= '0';
+   wait for 30 ns;
+   MS_START_RESET <= '1';
+   wait for 30 ns;
+   
+   check1(PS_ERROR_SAMPLE,'0',testName,"+S Error Sample Initial Reset Test");
+   
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      f := tv(3);
+      g := tv(4);
+      h := tv(5);
+      j := tv(6);
+      s := tv(7);
+      
+      g1 := g or h;  -- Pull OFF (sets error)
+      g2 := (lastErrorSample and not b and not f and not c) or a; -- Pull ON (Resets error)
+      
+      -- If the trigger would be pulled both on and off in a tug of war, skip
+      -- that iteratin
       
       wait for 30 ns;
+      next when g1 = '1' and g2 = '1';
+   
+		MS_ADDRESS_SET_ROUTINE <= not a;
+		MS_LAST_LOGIC_GATE_1 <= not b;
+		MS_LOGIC_GATE_W <= not c;
+		MS_LOGIC_GATE_K <= not f;
+		MS_1401_CARD_PR_SAMPLE_B <= not g;
+		MS_1401_CARD_PR_ERR_SAMPLE <= not h;
+		MS_I_O_INTERLOCK_CHECK <= not j;
+		PS_1ST_CLOCK_PULSE_1 <= s;
+		wait for 30 ns; -- Input signal settling time
+		
+		-- Run the clock
+		
+		PS_2ND_CLOCK_PULSE_CLAMPED <= '1';
+		wait for 90 ns;
+		PS_2ND_CLOCK_PULSE_CLAMPED <= '0';
+      wait for 30 ns;
+
+      -- g2 := (PS_ERROR_SAMPLE and not b and not f and not c) or a; -- Pull ON (Resets error)
+
+      if(g1 = '1' and g2 = '0') then
+         check1(PS_ERROR_SAMPLE,'1',testName,"Error Sample Set");
+      elsif(g2 = '1' and g1 = '0') then
+         check1(PS_ERROR_SAMPLE,'0',testName,"Error Sample Reset");
+      else -- Neither g1 nor g2 set causes a toggle (both g1 and g2 set skips the loop, above)
+         check1(PS_ERROR_SAMPLE,not lastErrorSample,testName,"Error Sample Toggles?");
+      end if;
       
+      check1(PS_MASTER_ERROR,PS_ERROR_SAMPLE and j and s,testName,"+S Master Error w/Trigger");
+      check1(MS_MASTER_ERROR,not PS_MASTER_ERROR,testName,"-S Master Error w/Trigger");
+      check1(MS_MASTER_ERROR_STAR_AUTS_STAR,not PS_MASTER_ERROR,testName,
+         "-S Master Error *AUTS* w/Trigger");
+
+      lastErrorSample := PS_ERROR_SAMPLE;
+      lastErrorSampleSig <= lastErrorSample;      
+
+      -- Set the variables back
+      
+		MS_ADDRESS_SET_ROUTINE <= '1';
+		MS_LAST_LOGIC_GATE_1 <= '1';
+		MS_LOGIC_GATE_W <= '1';
+		MS_LOGIC_GATE_K <= '1';
+		MS_1401_CARD_PR_SAMPLE_B <= '1';
+		MS_1401_CARD_PR_ERR_SAMPLE <= '1';
+		wait for 30 ns;
+            
+   end loop;
+   
+   -- Now test the combinatorial stuff (having already tested the output and gate)
+   
+   -- First, set the trigger
+   
+	MS_1401_CARD_PR_SAMPLE_B <= '0';
+   MS_1401_CARD_PR_ERR_SAMPLE <= '0';  
+   wait for 30 ns;
+   
+   check1(PS_ERROR_SAMPLE,'1',testName,"Set Error Sample for Combinatorial Test");
+
+   for tt in 0 to 2**18 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      j := tv(0);
+      k := tv(1);
+      l := tv(2);
+      m := tv(3);
+      n := tv(4);
+      o := tv(5);
+      p := tv(6);
+      q := tv(7);
+      r := tv(8);
+      s := tv(9);
+      t := tv(10);
+      u := tv(11);
+      v := tv(12);
+      w := tv(13);
+      x := tv(14);
+      y := tv(15);
+      z := tv(16);
+      z2 := tv(17);
+      
+		MS_I_O_INTERLOCK_CHECK <= not j;
+      MS_INSTRUCTION_CHECK <= not k;
+      MS_RBC_INLK_CHECK <= not l;
+      MS_A_CHANNEL_VC_ERROR <= not m;
+      MS_B_CHANNEL_VC_ERROR <= not n;
+      MS_ASSEMBLY_CH_ERROR <= not o;
+      MS_A_REG_SET_ERROR <= not p;
+      MS_B_REG_RESET_ERROR <= not q;
+      MS_OP_REG_SET_ERROR <= not r;
+      PS_1ST_CLOCK_PULSE_1 <= s;
+      MS_B_CHAR_SEL_ERROR <= not t;
+      MS_ADDRESS_EXIT_ERROR <= not u;
+      MS_ADDRESS_CH_ERROR <= not v;
+      MS_1401_PUNCH_PRINT_ERROR <= not w;
+      MS_ADDRESS_CHECK <= not x;
+      MS_1401_CARD_PRINT_ERROR <= not y;
+      MS_A_CHARACTER_SELECT_ERROR <= not z;
+      MS_OP_MOD_REG_SET_ERROR <= not z2;
+      wait for 30 ns;
+      
+      check1(PS_MASTER_ERROR,s and (j or k or l or m or n or o or p or q or r or t or u or
+         v or w or x or y or z or z2),testName,"Master Error Combinatorial Test");
       
    end loop;
 
@@ -256,7 +360,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
