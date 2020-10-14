@@ -1,0 +1,136 @@
+Generating HDL for page 19.10.01.1 INTERRUPT MANUAL CONTROLS at 10/14/2020 10:57:35 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_01_1_INTERRUPT_MANUAL_CONTROLS_tb.vhdl, generating default test bench code.
+WARNING: Diagram block at coordinate 5E has 4 different output pins: B,K,D,E
+Note: DOT Function at 5C has input level(s) of C, and output level(s) of , Logic Function set to OR
+NOTE: DOT Function at 5C is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5D has input level(s) of C, and output level(s) of , Logic Function set to OR
+NOTE: DOT Function at 5D is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5F has input level(s) of C, and output level(s) of C, Logic Function set to OR
+NOTE: DOT Function at 5F is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5H has input level(s) of C, and output level(s) of C, Logic Function set to OR
+NOTE: DOT Function at 5H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 4I has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Ignoring Logic Block 2A with symbol R
+Ignoring Logic Block 1A with symbol R
+Ignoring Logic Block 3B with symbol CAP
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 1B
+Ignoring Logic Block 3C with symbol CAP
+Ignoring Logic Block 3D with symbol CAP
+Ignoring Logic Block 3E with symbol CAP
+Ignoring Logic Block 3F with symbol CAP
+Ignoring Logic Block 3G with symbol CAP
+Found combinatorial loop (need D FF) at output of gate at 4I
+Found combinatorial loop (need D FF) at output of gate at 2I
+Removed 1 outputs from Gate at 4A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4G to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A2K03
+Added LAMP signal LAMP_15A2K05
+Generating Statement for block at 5A with output pin(s) of OUT_5A_T, OUT_5A_T
+	and inputs of M36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 4A with output pin(s) of 
+	and inputs of OUT_5A_T
+	and logic function of Lamp
+Generating Statement for block at 3A with output pin(s) of 
+	and inputs of OUT_5A_T
+	and logic function of Lamp
+Generating Statement for block at 5B with output pin(s) of OUT_5B_N, OUT_5B_T, OUT_5B_T
+	and inputs of M36_VOLTS
+	and logic function of Switch
+WARNING: ALT switch for block at 5B appears to have more than two outputs 
+Generating Statement for block at 4B with output pin(s) of OUT_4B_X
+	and inputs of OUT_5B_N
+	and logic function of Resistor
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_K_Latch
+	and inputs of OUT_4B_X,OUT_1B_P
+	and logic function of NAND
+Generating Statement for block at 1B with *latched* output pin(s) of OUT_1B_P_Latch, OUT_1B_P_Latch
+	and inputs of OUT_2B_K,OUT_4C_X
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_X
+	and inputs of OUT_5B_T
+	and logic function of Resistor
+Generating Statement for block at 4D with output pin(s) of OUT_4D_X
+	and inputs of OUT_5E_B
+	and logic function of Resistor
+Generating Statement for block at 2D with output pin(s) of OUT_2D_B
+	and inputs of OUT_4D_X,OUT_DOT_5C
+	and logic function of NOR
+Generating Statement for block at 5E with output pin(s) of OUT_5E_B, OUT_5E_K, OUT_5E_D, OUT_5E_E
+	and inputs of OUT_5B_T
+	and logic function of Switch
+Generating Statement for block at 4E with output pin(s) of OUT_4E_X
+	and inputs of OUT_5E_K
+	and logic function of Resistor
+Generating Statement for block at 2E with output pin(s) of OUT_2E_G
+	and inputs of OUT_4E_X
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_2E_G,PS_1403_PRINT_BUFFER_BUSY
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_X
+	and inputs of OUT_5E_D
+	and logic function of Resistor
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of OUT_4F_X,OUT_DOT_5D
+	and logic function of NOR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_X
+	and inputs of OUT_5E_E
+	and logic function of Resistor
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A
+	and inputs of OUT_4G_X,OUT_DOT_5F
+	and logic function of NOR
+Generating Statement for block at 1G with output pin(s) of OUT_1G_K
+	and inputs of OUT_1E_C
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_L
+	and inputs of OUT_DOT_5H
+	and logic function of NOR
+Generating Statement for block at 3H with output pin(s) of OUT_3H_G, OUT_3H_G
+	and inputs of OUT_DOT_2G
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_4
+	and inputs of OUT_3H_G,OUT_2I_C
+	and logic function of NAND
+Generating Statement for block at 4I with *latched* output pin(s) of OUT_4I_P_Latch
+	and inputs of OUT_2I_C,MS_PROGRAM_RESET_6
+	and logic function of NAND
+Generating Statement for block at 2I with *latched* output pin(s) of OUT_2I_C_Latch, OUT_2I_C_Latch
+	and inputs of OUT_3H_G,OUT_DOT_4I
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
+	and inputs of MC_READER_BUSY,MC_READER_BUSY_JRJ
+	and logic function of AND
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of MC_PUNCH_BUSY,MC_PUNCH_BUSY_JRJ
+	and logic function of AND
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
+	and inputs of MC_PAPER_TAPE_READER_BUSY,MC_PAPER_TAPE_READY_BUSY_JRJ
+	and logic function of AND
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of MC_I_O_CLOCK_080_090_TIME,MC_I_O_CLOCK_080_090_TIME_JRJ
+	and logic function of AND
+Generating Statement for block at 4I with output pin(s) of OUT_DOT_4I
+	and inputs of OUT_4H_L,OUT_4I_P
+	and logic function of OR
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_2D_B,OUT_2F_C,OUT_2G_A,OUT_1G_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_PRIORITY_SW_ON
+	from gate output OUT_1B_P
+Generating output sheet edge signal assignment to 
+	signal MS_SEL_I_O_FINISH_PULSE
+	from gate output OUT_1H_4
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 1B
+Generating D Flip Flop for block at 4I
+Generating D Flip Flop for block at 2I
