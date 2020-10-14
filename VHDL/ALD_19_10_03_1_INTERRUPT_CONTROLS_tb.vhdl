@@ -188,9 +188,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "19.10.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -205,23 +205,51 @@ uut_process: process
       l := tv(10);
       m := tv(11);
       n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      p := tv(13);
+      q := tv(14);
+      r := tv(15);
 
+      -- Use signal "n" to reset the Outquiry latch one of two ways
       
+		MS_PROGRAM_RESET_6 <= n;
+      MS_I_OP_DOT_I_CYCLE_DOT_C <= not n;
       wait for 30 ns;
+		MS_PROGRAM_RESET_6 <= '1';
+      MS_I_OP_DOT_I_CYCLE_DOT_C <= '1';
+      MS_E_CH_IN_PROCESS <= '1';
+      wait for 30 ns;
+      check1(PS_OUTQUIRY_INTR_COND,'0',testName,"+S Outquiry Interrupt loop reset");
+      check1(MS_OUTQUIRY_INTR_COND,'1',testName,"1S Outquiry Interrupt loop reset");
       
+		PS_I_RING_6_TIME <= a;
+		PS_NOT_PERCENT_TYPE_OP_CODES <= b;
+		PS_I_CYCLE_1 <= c;
+		PS_INTERRUPT_REQUEST <= d;
+		MS_INTERRUPT_TEST_OP_CODE <= not e;
+		PS_PRIORITY_ALERT_MODE <= f;
+		PS_B_CH_NOT_WM_BIT <= g;
+		PS_LOGIC_GATE_Z <= h;
+		PS_INTERRUPT_BRANCH <= j;
+		PS_INT_OUTQUIRY_REQUEST <= k;
+		PS_I_OP_DOT_I_CYCLE_DOT_E <= l;
+		PS_B_CYCLE_1 <= m;
+		MS_E_CH_IN_PROCESS <= not p;
+		PS_NO_SCAN_1 <= q;
+		PS_INTERRUPT_TEST_OP_CODE <= r;      
+      wait for 30 ns; -- Maybe set latch, too
       
+      check1(PS_START_INTERRUPT,d and not e and f and b and g and a and c,testName,"+S Start Interrupt");
+      check1(MS_START_INTERRUPT,NOT PS_START_INTERRUPT,testName,"-S Start Interrupt");
+      check1(MS_SET_I_RING_INTERRUPT,not(h and j and m),testName,"Set I Ring Interrupt");
+      check1(PS_Y_OP_DOT_TEST_RESET,m and q and r,testName,"Y OP . Test Reset");
+      
+      -- Reset latch related variable so it won't be forced on during next iteration
+		PS_INT_OUTQUIRY_REQUEST <= '0';
+		wait for 30 ns;
+		
+		check1(PS_OUTQUIRY_INTR_COND,not p and k and l,testName,"+S Outquiry Interrupt Cond");
+		check1(MS_OUTQUIRY_INTR_COND,NOT PS_OUTQUIRY_INTR_COND,testName,"+S Outquiry Interrupt Cond");
+		
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -235,7 +263,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
