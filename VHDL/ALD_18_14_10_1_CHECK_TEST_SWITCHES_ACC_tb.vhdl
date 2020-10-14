@@ -155,39 +155,31 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.14.10.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**4 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PS_LOGIC_GATE_B_1 <= d;
+		SWITCH_MOM_1ST_TST_SW <= a;
+		SWITCH_MOM_2ND_TST_SW <= b;
+		SWITCH_MOM_3RD_TST_SW <= c;
       
       wait for 30 ns;
       
+      check1(MV_1ST_CHECK_TEST_SWITCH,not a,testName,"Ck Test 1");
+      check1(MV_2ND_CHECK_TEST_SWITCH,not b,testName,"Ck Test 2");
+      check1(MV_3RD_CHECK_TEST_SWITCH,not c,testName,"Ck Test 3");
+      
+      check1(MS_ANY_CHECK_TEST,not(a or b or c),testName,"Any Check Test");
+      check1(PS_2ND_OR_3RD_CHECK_TEST,b or c,testName,"2nd or 3rd Check Test");
+      
+      check1(MS_1ST_TRIGGER_CHECK,not(a and d),testName,"1st Trigger Check");
+      check1(MS_2ND_TRIGGER_CHECK,not(d and (b or c)),testName,"2nd Trigger Check");
       
    end loop;
 
