@@ -191,9 +191,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "19.10.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**19 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -214,17 +214,62 @@ uut_process: process
       r := tv(16);
       s := tv(17);
       t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
       
+      g1 := g or h or j or f or k or l or m or n or o or p;
+      
+      -- Reset the interrupt branch latch one of two ways, depending upon "t"
+      -- One of these will always be active
+      
+      MS_PROGRAM_SET_BRANCH_CTRL <= t;
+      MS_PROGRAM_RESET_6 <= not t;
+      wait for 30 ns;
+      MS_PROGRAM_SET_BRANCH_CTRL <= '1';
+      MS_PROGRAM_RESET_6 <= '1';
       wait for 30 ns;
       
+      check1(PS_INTERRUPT_BRANCH,'0',testName,"Interrupt Branch Loop Reset");
+
+		PS_I_RING_6_TIME <= a;
+		PS_NOT_PERCENT_TYPE_OP_CODES <= b;
+		PS_I_CYCLE_1 <= c;
+		MS_INTERRUPT_TEST_OP_CODE <= not d;
+		MS_NORMAL_MODE <= not e;
+		MS_INQUIRY_INTR_COND <= not f;
+		MS_SEL_I_O_UNIT_INTR_COND <= not g;
+		MS_E_CH_SEEK_INTR_COND <= not h;
+		MS_F_CH_SEEK_INTR_COND <= not j;
+		MS_E_CH_OVRLP_INTR_COND <= not k;
+		MS_F_CH_OVRLP_INTR_COND <= not l;
+		MS_OUTQUIRY_INTR_COND <= not m;
+		PS_INTERRUPT_REQUEST_STAR_SIF <= n;
+		PS_INTERRUPT_REQUEST_JRJ <= o;
+		PS_INTERRUPT_REQUEST_STAR_1414_STAR <= p;
+		PS_LOGIC_GATE_E_1 <= q;
+		PS_START_INTERRUPT <= r;
+      wait for 30 ns;
       
+      check1(PS_NOT_INTR_START,d or e or not b or not a or not c or not g1,testName,"Not Interrupt Start");
+      check1(PS_INTERRUPT_REQUEST,g1,testName,"Interrupt Request");
+      check1(PS_INTERRUPT_REQ_STAR_AUTS_STAR,g1,testName,"Interrupt Request");
+
+      -- Reset the variables that are required to set the latch -- if set, latch should stay that way
+      -- This, so that the later reset test can work, and for the next loop iteration.
+      
+		PS_LOGIC_GATE_E_1 <= '0';
+		PS_START_INTERRUPT <= '0';
+      wait for 30 ns;
+      check1(PS_INTERRUPT_BRANCH,q and r,testName,"Interrupt Branch");
+
+      -- Latch reset test if the latch was set earlier         
+		if(q = '1' and r = '1' and s = '1') then
+   		MS_I_OP_DOT_I_CYCLE_DOT_C <= not s;
+   		wait for 30 ns;
+   		check1(PS_INTERRUPT_BRANCH,'0',testName,"Interrupt Branch Reset");
+		end if;
+
+      -- Reset the reset signal as well, so it doesn't hold the latch reset.
+      MS_I_OP_DOT_I_CYCLE_DOT_C <= '1';
+		                  
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -238,7 +283,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 100 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
