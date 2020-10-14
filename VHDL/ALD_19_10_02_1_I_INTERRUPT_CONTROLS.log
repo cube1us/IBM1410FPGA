@@ -1,0 +1,62 @@
+Generating HDL for page 19.10.02.1 I* INTERRUPT CONTROLS at 10/14/2020 3:31:44 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_02_1_I_INTERRUPT_CONTROLS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 5G
+Found combinatorial loop (need D FF) at output of gate at 4G
+WARNING: During sheet edge merge, Logic block at 1E pin  outputs to two different signal names: +S INTERRUPT REQUEST vs. +S INTERRUPT REQ *AUTS*
+Removed 4 outputs from Gate at 3G to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PS_I_RING_6_TIME,PS_NOT_PERCENT_TYPE_OP_CODES,PS_I_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of MS_INTERRUPT_TEST_OP_CODE,MS_NORMAL_MODE,OUT_DOT_1E
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_G
+	and inputs of MS_INQUIRY_INTR_COND,MS_SEL_I_O_UNIT_INTR_COND,MS_E_CH_SEEK_INTR_COND
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_G
+	and inputs of MS_F_CH_SEEK_INTR_COND,MS_E_CH_OVRLP_INTR_COND,MS_F_CH_OVRLP_INTR_COND
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_F
+	and inputs of MS_OUTQUIRY_INTR_COND
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PS_LOGIC_GATE_E_1,PS_START_INTERRUPT
+	and logic function of NAND
+Generating Statement for block at 5G with *latched* output pin(s) of OUT_5G_A_Latch
+	and inputs of OUT_4G_G,MS_I_OP_DOT_I_CYCLE_DOT_C
+	and logic function of NAND
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_G_Latch, OUT_4G_G_Latch
+	and inputs of OUT_5F_NoPin,OUT_DOT_5G
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_Q
+	and inputs of OUT_4G_G
+	and logic function of EQUAL
+Generating Statement for block at 5H with output pin(s) of OUT_5H_C
+	and inputs of MS_PROGRAM_SET_BRANCH_CTRL,MS_PROGRAM_RESET_6
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_4B_C,OUT_4C_C
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of OUT_5G_A,OUT_5H_C
+	and logic function of OR
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E, OUT_DOT_1E, OUT_DOT_1E
+	and inputs of OUT_5D_G,OUT_5E_G,OUT_4E_F,PS_INTERRUPT_REQUEST_STAR_SIF,PS_INTERRUPT_REQUEST_JRJ,PS_INTERRUPT_REQUEST_STAR_1414_STAR
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_INTERRUPT_BRANCH
+	from gate output OUT_3G_Q
+Generating output sheet edge signal assignment to 
+	signal PS_NOT_INTR_START
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal PS_INTERRUPT_REQ_STAR_AUTS_STAR
+	from gate output OUT_DOT_1E
+Generating output sheet edge signal assignment to 
+	signal PS_INTERRUPT_REQUEST
+	from gate output OUT_DOT_1E
+Generating D Flip Flop for block at 5G
+Generating D Flip Flop for block at 4G
