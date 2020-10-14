@@ -1,0 +1,99 @@
+Generating HDL for page 18.14.11.1 MISC ERRORS at 10/13/2020 8:57:01 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_14_11_1_MISC_ERRORS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 2A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 1B
+Added LAMP signal LAMP_15A1B15
+Added LAMP signal LAMP_15A1W01
+Added LAMP signal LAMP_15A1W04
+Generating Statement for block at 3A with output pin(s) of OUT_3A_E
+	and inputs of PS_I_RING_1_OR_2_OR_5_OR_6_OR_10_TIME,PS_I_CYCLE,PS_B_CH_NOT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_C
+	and inputs of MS_1401_MODE
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_C
+	and inputs of PS_M_OR_L_OP_CODES,PS_B_OR_E_OR_F_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of OUT_5B_C,PS_WRAP_AROUND_CONDITIONS,OUT_5C_R
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of PS_ASSEMBLY_CH_A_OR_B_BITS,MS_OP_MOD_CHAR_TIME_STAR_ARS,PS_LOGIC_GATE_F_1
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_E_Latch
+	and inputs of MS_START_RESET,OUT_1B_D
+	and logic function of NAND
+Generating Statement for block at 1B with *latched* output pin(s) of OUT_1B_D_Latch, OUT_1B_D_Latch
+	and inputs of OUT_2B_E,OUT_DOT_2A,OUT_DOT_4B
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_R
+	and inputs of PS_B_CYCLE,PS_CLEAR_OP_CODE
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of PS_2ND_CLOCK_PULSE_2,PS_LOGIC_GATE_F_1,MS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C, OUT_3C_C
+	and inputs of OUT_1B_D,PS_ERROR_SAMPLE
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_A
+	and inputs of OUT_3C_C
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of 
+	and inputs of OUT_2C_A
+	and logic function of Lamp
+Generating Statement for block at 5D with output pin(s) of OUT_5D_C
+	and inputs of PS_I_RING_OP_TIME,PS_E_CH_2_CHAR_ONLY_OP_CODES,PS_E_CH_INTERLOCK
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of OUT_5D_C,OUT_5F_D,OUT_5E_C
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D, OUT_3D_D
+	and inputs of MS_1401_MODE,OUT_DOT_4D,PS_ERROR_SAMPLE
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of PS_I_RING_3_TIME,PS_E_CH_INTERLOCK,PS_PERCENT_OR_COML_AT
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of OUT_3D_D
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of 
+	and inputs of OUT_2E_D
+	and logic function of Lamp
+Generating Statement for block at 5F with output pin(s) of OUT_5F_D
+	and inputs of PS_F_CH_INTERLOCK,PS_LOZENGE_OR_ASTERISK,PS_I_RING_3_TIME
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_G
+	and inputs of MS_DISPLAY_OR_ALTER
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C, OUT_3H_C
+	and inputs of PS_INSTRUCTION_CHECK_GATE,PS_ERROR_SAMPLE
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_C
+	and inputs of OUT_3H_C
+	and logic function of NOT
+Generating Statement for block at 1I with output pin(s) of 
+	and inputs of OUT_2I_C
+	and logic function of Lamp
+Generating Statement for block at 2A with output pin(s) of OUT_DOT_2A
+	and inputs of OUT_3A_E,OUT_2A_C,OUT_3B_C
+	and logic function of OR
+Generating Statement for block at 4B with output pin(s) of OUT_DOT_4B
+	and inputs of OUT_4B_G,OUT_4C_G,OUT_5G_G
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4D_C,PS_INTERLOCK_F_CH_STAR_1414_STAR
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ADDRESS_CHECK
+	from gate output OUT_3C_C
+Generating output sheet edge signal assignment to 
+	signal MS_I_O_INTERLOCK_CHECK
+	from gate output OUT_3D_D
+Generating output sheet edge signal assignment to 
+	signal MS_INSTRUCTION_CHECK
+	from gate output OUT_3H_C
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 1B
