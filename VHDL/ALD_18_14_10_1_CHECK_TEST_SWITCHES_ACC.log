@@ -1,0 +1,118 @@
+Generating HDL for page 18.14.10.1 CHECK TEST SWITCHES-ACC at 10/13/2020 8:46:10 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_14_10_1_CHECK_TEST_SWITCHES_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4A has input level(s) of , and output level(s) of MIXED, Logic Function set to OR
+NOTE: DOT Function at 4A is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 4E has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
+NOTE: DOT Function at 4E is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 4H has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
+NOTE: DOT Function at 4H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Ignoring Logic Block 3A with symbol CAP
+Ignoring Logic Block 2A with symbol L
+Ignoring Logic Block 3B with symbol CAP
+Ignoring Logic Block 3C with symbol CAP
+Ignoring Logic Block 3D with symbol CAP
+Ignoring Logic Block 3E with symbol CAP
+Ignoring Logic Block 2E with symbol L
+Ignoring Logic Block 3F with symbol CAP
+Ignoring Logic Block 2F with symbol L
+Ignoring Logic Block 3G with symbol CAP
+Ignoring Logic Block 3H with symbol CAP
+Ignoring Logic Block 3I with symbol CAP
+Removed 2 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1H to ignored block(s) or identical signal names
+Removed 10 outputs from Dot Function at 4A to ignored block(s) or identical signal names
+Removed 10 outputs from Dot Function at 4E to ignored block(s) or identical signal names
+Removed 8 outputs from Dot Function at 4H to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_T, OUT_5A_T, OUT_5A_T, OUT_5A_T
+	and inputs of M36_VOLTS_ON_CONSOLE
+	and logic function of Switch
+WARNING: MOM switch for block at 5A appears to have more than two outputs 
+Generating Statement for block at 4A with output pin(s) of OUT_4A_X
+	and inputs of OUT_5A_T
+	and logic function of Resistor
+Generating Statement for block at 4B with output pin(s) of OUT_4B_X
+	and inputs of OUT_5A_T
+	and logic function of Resistor
+Generating Statement for block at 4C with output pin(s) of OUT_4C_X
+	and inputs of OUT_5A_T
+	and logic function of Resistor
+Generating Statement for block at 4D with output pin(s) of OUT_4D_X
+	and inputs of OUT_5A_T
+	and logic function of Resistor
+Generating Statement for block at 2D with output pin(s) of OUT_2D_E
+	and inputs of OUT_DOT_4E,OUT_DOT_4A,OUT_DOT_4H
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_R
+	and inputs of OUT_2D_E
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_T, OUT_5E_T, OUT_5E_T
+	and inputs of M36_VOLTS_ON_CONSOLE
+	and logic function of Switch
+WARNING: MOM switch for block at 5E appears to have more than two outputs 
+Generating Statement for block at 4E with output pin(s) of OUT_4E_X
+	and inputs of OUT_5E_T
+	and logic function of Resistor
+Generating Statement for block at 4F with output pin(s) of OUT_4F_X
+	and inputs of OUT_5E_T
+	and logic function of Resistor
+Generating Statement for block at 1F with output pin(s) of OUT_1F_Q
+	and inputs of OUT_1G_F
+	and logic function of EQUAL
+Generating Statement for block at 4G with output pin(s) of OUT_4G_X
+	and inputs of OUT_5E_T
+	and logic function of Resistor
+Generating Statement for block at 2G with output pin(s) of OUT_2G_NoPin
+	and inputs of OUT_DOT_4A
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_F
+	and inputs of OUT_2G_NoPin,PS_LOGIC_GATE_B_1
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_T, OUT_5H_T
+	and inputs of M36_VOLTS_ON_CONSOLE
+	and logic function of Switch
+Generating Statement for block at 4H with output pin(s) of OUT_4H_X
+	and inputs of OUT_5H_T
+	and logic function of Resistor
+Generating Statement for block at 1H with output pin(s) of OUT_1H_K
+	and inputs of OUT_1I_B
+	and logic function of EQUAL
+Generating Statement for block at 4I with output pin(s) of OUT_4I_R
+	and inputs of OUT_5H_T
+	and logic function of Resistor
+Generating Statement for block at 2I with output pin(s) of OUT_2I_P, OUT_2I_P
+	and inputs of OUT_DOT_4H,OUT_DOT_4E
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_B
+	and inputs of OUT_2I_P,PS_LOGIC_GATE_B_1
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A, OUT_DOT_4A, OUT_DOT_4A
+	and inputs of OUT_4A_X,OUT_4B_X,OUT_4C_X,OUT_4D_X
+	and logic function of AND
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E, OUT_DOT_4E, OUT_DOT_4E
+	and inputs of OUT_4E_X,OUT_4F_X,OUT_4G_X
+	and logic function of AND
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H, OUT_DOT_4H, OUT_DOT_4H
+	and inputs of OUT_4H_X,OUT_4I_R
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal MS_ANY_CHECK_TEST
+	from gate output OUT_1D_R
+Generating output sheet edge signal assignment to 
+	signal MS_1ST_TRIGGER_CHECK
+	from gate output OUT_1F_Q
+Generating output sheet edge signal assignment to 
+	signal MS_2ND_TRIGGER_CHECK
+	from gate output OUT_1H_K
+Generating output sheet edge signal assignment to 
+	signal PS_2ND_OR_3RD_CHECK_TEST
+	from gate output OUT_2I_P
+Generating output sheet edge signal assignment to 
+	signal MV_1ST_CHECK_TEST_SWITCH
+	from gate output OUT_DOT_4A
+Generating output sheet edge signal assignment to 
+	signal MV_2ND_CHECK_TEST_SWITCH
+	from gate output OUT_DOT_4E
+Generating output sheet edge signal assignment to 
+	signal MV_3RD_CHECK_TEST_SWITCH
+	from gate output OUT_DOT_4H
