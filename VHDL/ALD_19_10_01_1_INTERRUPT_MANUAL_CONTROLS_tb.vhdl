@@ -168,14 +168,16 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable switchPosition: integer;
+   variable switchValue: std_logic_vector(5 downto 0);
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "19.10.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**14 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -188,24 +190,72 @@ uut_process: process
       j := tv(8);
       k := tv(9);
       l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
       
+      -- Reset latches
+      
+      MS_PROGRAM_RESET_6 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_6 <= '1';
       wait for 30 ns;
       
+      check1(MS_SEL_I_O_FINISH_PULSE,'1',testName,"Finish Pulse Loop Reset");
+            
+		MC_READER_BUSY <= not b;
+		MC_READER_BUSY_JRJ <= not c;
+		PS_1403_PRINT_BUFFER_BUSY <= d;
+		MC_PUNCH_BUSY <= not e;
+		MC_PUNCH_BUSY_JRJ <= not f;
+		MC_PAPER_TAPE_READER_BUSY <= not g;
+		MC_PAPER_TAPE_READY_BUSY_JRJ <= not h;
+		MC_I_O_CLOCK_080_090_TIME <= not j;
+		MC_I_O_CLOCK_080_090_TIME_JRJ <= not k;
+		SWITCH_ALT_PRIORITY <= l;
+		SWITCH_ALT_PRIORITY_L <= not l;
+		
+		--  Switch should only be in one position at any given time
+		--  Switch is active LOW
+		
+		switchValue := "000000";
+		switchPosition := to_integer(unsigned(tv(13 downto 11)));
+		if(switchPosition > 0 and switchPosition < 6) then
+		   switchValue(switchPosition) := l;
+		end if;
+
+		SWITCH_ROT_I_O_UNIT <= switchValue;           
+      wait for 30 ns; -- Perhaps set the latch
+     
+      check1(PS_PRIORITY_SW_ON,SWITCH_ALT_PRIORITY,testName,"Priority Switch On"); 
+      
+      -- But at this point, the I/O that set the latch is still busy, so no finish pulse yet
+      
+      check1(MS_SEL_I_O_FINISH_PULSE,'1',testName,"No Finish Pulse - I/O in progress");
+      wait for 30 ns;
+      
+      -- Now, wait for the I/O to "end" which should generate a finish pulse
+      -- if that device is selected and the prority switch is on.
+
+      case switchPosition is
+         when 2 => g1 := b or c;
+         when 3 => g1 := d;
+         when 4 => g1 := e or f;
+         when 5 => g1 := g or h;
+         when others => g1 := '0';
+      end case;
+      
+      g1 := g1 and l;
+      
+      MC_READER_BUSY <= '1';
+      MC_READER_BUSY_JRJ <= '1';
+      PS_1403_PRINT_BUFFER_BUSY <= '0';
+      MC_PUNCH_BUSY <= '1';
+      MC_PUNCH_BUSY_JRJ <= '1';
+      MC_PAPER_TAPE_READER_BUSY <= '1';
+      MC_PAPER_TAPE_READY_BUSY_JRJ <= '1';
+      MC_I_O_CLOCK_080_090_TIME <= '1';
+      MC_I_O_CLOCK_080_090_TIME_JRJ <= '1';            
+      wait for 60 ns;
+      
+      check1(MS_SEL_I_O_FINISH_PULSE,not g1,testName,"Finish Pulse");
       
    end loop;
 
@@ -220,7 +270,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
