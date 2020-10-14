@@ -208,14 +208,24 @@ uut_process: process
    variable testName: string(1 to 18);
    variable subtest: integer;
    variable tv: std_logic_vector(25 downto 0);
-   variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
+   variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z, z2: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "18.14.11.1        ";
+
+
+   MS_START_RESET <= '0';
+   wait for 30 ns;
+   MS_START_RESET <= '1';
+   PS_ERROR_SAMPLE <= '1'; -- For reset test
+   wait for 30 ns;
+      
+   check1(MS_ADDRESS_CHECK,'1',testName,"Address Check Reset");
+   check1(LAMP_15A1B15,NOT MS_ADDRESS_CHECK,testName,"Address Check Lamp Reset");
 
    for tt in 0 to 2**25 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
@@ -223,28 +233,104 @@ uut_process: process
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
+      n := tv(11);
+      o := tv(12);
+      p := tv(13);
+      q := tv(14);
+      r := tv(15);
+      s := tv(16);
+      t := tv(17);
+      u := tv(18);
+      v := tv(19);
+      w := tv(20);
+      x := tv(21);
+      y := tv(22);
+      z := tv(23);
+      z2 := tv(24);
+      
+      g1 := not a and b and c and d and f and not g and k;
+      g2 := not(h and j) and l and not(m and n) and k and o and not p and not z;
+      g3 := (q and r and u) or (u and t and v) or (v and x and y);      
 
+      -- Reset the latch (no reset test needed for this latch - this is the only reset.)
+      
+      MS_START_RESET <= '0';
+      wait for 30 ns;
+      MS_START_RESET <= '1';
+      wait for 30 ns;
+
+      -- Don't check the reset - did that at the start -- to make it easier to scope.      
+
+		MS_1401_MODE <= not a;
+		PS_I_RING_1_OR_2_OR_5_OR_6_OR_10_TIME <= b;
+		PS_I_CYCLE <= c;
+		PS_B_CH_NOT_WM_BIT <= d;
+		PS_ASSEMBLY_CH_A_OR_B_BITS <= f;
+		MS_OP_MOD_CHAR_TIME_STAR_ARS <= not g;
+		PS_M_OR_L_OP_CODES <= h;
+		PS_B_OR_E_OR_F_CYCLE <= j;
+		PS_LOGIC_GATE_F_1 <= k;
+		PS_WRAP_AROUND_CONDITIONS <= l;
+		PS_B_CYCLE <= m;
+		PS_CLEAR_OP_CODE <= n;
+		PS_2ND_CLOCK_PULSE_2 <= o;
+		MS_STORAGE_SCAN_ROUTINE <= not p;
+		PS_I_RING_OP_TIME <= q;
+		PS_E_CH_2_CHAR_ONLY_OP_CODES <= r;
+		PS_INTERLOCK_F_CH_STAR_1414_STAR <= s;
+		PS_PERCENT_OR_COML_AT <= t;
+		PS_E_CH_INTERLOCK <= u;
+		PS_I_RING_3_TIME <= v;
+		PS_ERROR_SAMPLE <= w;
+		PS_F_CH_INTERLOCK <= x;
+		PS_LOZENGE_OR_ASTERISK <= y;
+		MS_DISPLAY_OR_ALTER <= not z;
+		PS_INSTRUCTION_CHECK_GATE <= z2;
+      wait for 30 ns; -- Maybe set latch
+      
+      check1(MS_INSTRUCTION_CHECK,not(w and z2),testName,"-S Instruction Check");
+      check1(LAMP_15A1W04,NOT MS_INSTRUCTION_CHECK,testName,"Instruction Check Lamp");
+      
+      check1(MS_I_O_INTERLOCK_CHECK,not(not a and w and (g3 or s)),testName,"I/O Interlock Check");
+      check1(LAMP_15A1W01,NOT MS_I_O_INTERLOCK_CHECK,testname,"I/O Interlock Check Lamp");
+      
+      -- Set the variables back for next iteration - should not affect the latch
+      
+		MS_1401_MODE <= '1';
+      PS_I_RING_1_OR_2_OR_5_OR_6_OR_10_TIME <= '0';
+      PS_I_CYCLE <= '0';
+      PS_B_CH_NOT_WM_BIT <= '0';
+      PS_ASSEMBLY_CH_A_OR_B_BITS <= '0';
+      MS_OP_MOD_CHAR_TIME_STAR_ARS <= '1';
+      PS_M_OR_L_OP_CODES <= '0';
+      PS_B_OR_E_OR_F_CYCLE <= '0';
+      PS_LOGIC_GATE_F_1 <= '0';
+      PS_WRAP_AROUND_CONDITIONS <= '0';
+      PS_B_CYCLE <= '0';
+      PS_CLEAR_OP_CODE <= '0';
+      PS_2ND_CLOCK_PULSE_2 <= '0';
+      MS_STORAGE_SCAN_ROUTINE <= '1';
+      PS_I_RING_OP_TIME <= '0';
+      PS_E_CH_2_CHAR_ONLY_OP_CODES <= '0';
+      PS_INTERLOCK_F_CH_STAR_1414_STAR <= '0';
+      PS_PERCENT_OR_COML_AT <= '0';
+      PS_E_CH_INTERLOCK <= '0';
+      PS_I_RING_3_TIME <= '0';
+      PS_F_CH_INTERLOCK <= '0';
+      PS_LOZENGE_OR_ASTERISK <= '0';
+      MS_DISPLAY_OR_ALTER <= '1';
+      PS_INSTRUCTION_CHECK_GATE <= '0';
+      wait for 30 ns;
+      
+      check1(MS_ADDRESS_CHECK,not((g1 or g2) and w),testName,"Address Check");
+      check1(LAMP_15A1B15,NOT MS_ADDRESS_CHECK,testName,"Address Check Lamp");
       
       wait for 30 ns;
       
@@ -262,7 +348,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 6000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
