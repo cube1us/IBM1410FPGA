@@ -1,0 +1,89 @@
+Generating HDL for page 19.10.08.1 1* INTERRUPT CONDITION LATCHES at 10/15/2020 10:54:21 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_08_1_1_INTERRUPT_CONDITION_LATCHES_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5D has input level(s) of C, and output level(s) of C, Logic Function set to OR
+NOTE: DOT Function at 5D is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5F has input level(s) of C, and output level(s) of C, Logic Function set to OR
+NOTE: DOT Function at 5F is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 3G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1I has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 4C
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 4G
+Found combinatorial loop (need D FF) at output of gate at 3G
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 6 outputs from Dot Function at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 4C with *latched* output pin(s) of OUT_4C_D_Latch
+	and inputs of OUT_DOT_3C,MS_I_OP_DOT_I_CYCLE_DOT_C,MS_PROGRAM_RESET_6
+	and logic function of NAND
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_G_Latch
+	and inputs of OUT_4C_D
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C, OUT_2C_C
+	and inputs of MS_E_CH_IN_PROCESS,OUT_DOT_3C
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_R
+	and inputs of OUT_2C_C
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_A
+	and inputs of OUT_DOT_5D,OUT_4H_K
+	and logic function of NOR
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of OUT_DOT_5F,OUT_4H_K
+	and logic function of NOR
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_E_Latch
+	and inputs of OUT_DOT_3G,MS_PROGRAM_RESET_6,MS_I_OP_DOT_I_CYCLE_DOT_C
+	and logic function of NAND
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_C_Latch
+	and inputs of OUT_4G_E
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C, OUT_2G_C
+	and inputs of OUT_DOT_3G,MS_F_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_R
+	and inputs of OUT_2G_C
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_K, OUT_4H_K
+	and inputs of OUT_DOT_1I
+	and logic function of NOT
+Generating Statement for block at 5I with output pin(s) of OUT_5I_NoPin
+	and inputs of PS_I_RING_OP_TIME,PS_I_CYCLE_1,PS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_R
+	and inputs of OUT_5I_NoPin
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C, OUT_DOT_3C
+	and inputs of OUT_3C_G,OUT_3D_A
+	and logic function of OR
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of MC_ANY_SEEK_COMP_STAR_E_CH_1405,MC_ANY_SEEK_COMP_STAR_E_CH_1301
+	and logic function of AND
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
+	and inputs of MC_ANY_SEEK_COMP_STAR_F_CH_1301,MC_ANY_SEEK_COMP_STAR_F_CH_1405
+	and logic function of AND
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G, OUT_DOT_3G
+	and inputs of OUT_3F_C,OUT_3G_C
+	and logic function of OR
+Generating Statement for block at 1I with output pin(s) of OUT_DOT_1I, OUT_DOT_1I
+	and inputs of OUT_4I_R,PS_I_OP_DOT_I_CYCLE_DOT_E_STAR_AUTS_STAR
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_SEEK_INTR_COND
+	from gate output OUT_2C_C
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_SEEK_INTR_COND
+	from gate output OUT_1C_R
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_SEEK_INTR_COND
+	from gate output OUT_2G_C
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_SEEK_INTR_COND
+	from gate output OUT_1G_R
+Generating output sheet edge signal assignment to 
+	signal PS_I_OP_DOT_I_CYCLE_DOT_E
+	from gate output OUT_DOT_1I
+Generating D Flip Flop for block at 4C
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 4G
+Generating D Flip Flop for block at 3G
