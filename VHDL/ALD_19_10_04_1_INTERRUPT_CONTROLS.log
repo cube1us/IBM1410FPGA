@@ -1,0 +1,25 @@
+Generating HDL for page 19.10.04.1 INTERRUPT CONTROLS at 10/14/2020 7:46:02 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_04_1_INTERRUPT_CONTROLS_tb.vhdl, generating default test bench code.
+Removed 6 outputs from Gate at 4E to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 5E with output pin(s) of OUT_5E_D
+	and inputs of PS_INTERRUPT_BRANCH,PS_B_CYCLE_1,MS_CONTROL_REG_DISABLE
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_B
+	and inputs of OUT_5E_D
+	and logic function of EQUAL
+Generating Statement for block at 3H with output pin(s) of OUT_3H_K, OUT_3H_K
+	and inputs of MS_INTERRUPT_TEST_OP_CODE
+	and logic function of NOT
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_3H_K
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal MS_INTERRUPT_DOT_B_CYCLE
+	from gate output OUT_4E_B
+Generating output sheet edge signal assignment to 
+	signal PS_INTERRUPT_TEST_OP_CODE
+	from gate output OUT_3H_K
+Generating output sheet edge signal assignment to 
+	signal PS_INTERRUPT_TEST_OP_CODE_1
+	from gate output OUT_2H_C
