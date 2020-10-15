@@ -1,0 +1,81 @@
+Generating HDL for page 19.10.07.1 INTERRUPT MODE LATCHES at 10/15/2020 9:44:26 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_07_1_INTERRUPT_MODE_LATCHES_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3D
+Found combinatorial loop (need D FF) at output of gate at 2D
+Found combinatorial loop (need D FF) at output of gate at 3H
+Found combinatorial loop (need D FF) at output of gate at 2H
+Added LAMP signal LAMP_15A1K23
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PS_INTERRUPT_BRANCH,PS_B_CYCLE_1,PS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of PS_INTERRUPT_TEST_OP_CODE,PS_B_CYCLE_1,PS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_P
+	and inputs of OUT_4B_C,OUT_DOT_4C
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_K
+	and inputs of OUT_DOT_3C
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of 
+	and inputs of OUT_2C_K
+	and logic function of Lamp
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of PS_X_SYMBOL_OP_MODIFIER,PS_NO_SCAN_1
+	and logic function of NAND
+Generating Statement for block at 3D with *latched* output pin(s) of OUT_3D_D_Latch
+	and inputs of OUT_2D_C,MS_PROGRAM_RESET_6
+	and logic function of NAND
+Generating Statement for block at 2D with *latched* output pin(s) of OUT_2D_C_Latch, OUT_2D_C_Latch
+	and inputs of OUT_DOT_3C,OUT_4E_NoPin
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_LOGIC_GATE_E_1,PS_Y_OP_DOT_TEST_RESET,PS_E_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
+	and inputs of PS_X_SYMBOL_OP_MODIFIER,PS_Y_OP_DOT_TEST_RESET,PS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_INTERRUPT_BRANCH,PS_B_CYCLE_1,PS_LOGIC_GATE_E_1
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of OUT_4F_NoPin,OUT_4G_NoPin
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of PS_LOGIC_GATE_E_1,PS_B_CYCLE_1,PS_NO_SCAN_1
+	and logic function of NAND
+Generating Statement for block at 3H with *latched* output pin(s) of OUT_3H_B_Latch, OUT_3H_B_Latch
+	and inputs of OUT_DOT_2H,OUT_DOT_4H
+	and logic function of NAND
+Generating Statement for block at 2H with *latched* output pin(s) of OUT_2H_K_Latch
+	and inputs of OUT_3H_B,MS_PROGRAM_RESET_6
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_G
+	and inputs of PS_INTERRUPT_TEST_OP_CODE,PS_E_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C, OUT_DOT_3C
+	and inputs of OUT_3C_P,OUT_3D_D
+	and logic function of OR
+Generating Statement for block at 2H with output pin(s) of OUT_DOT_2H
+	and inputs of OUT_2G_C,OUT_2H_K
+	and logic function of OR
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_G,OUT_4D_G
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H
+	and inputs of OUT_4H_G,OUT_4I_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_PRIORITY_ALERT_MODE
+	from gate output OUT_2D_C
+Generating output sheet edge signal assignment to 
+	signal MS_NORMAL_MODE
+	from gate output OUT_3H_B
+Generating D Flip Flop for block at 3D
+Generating D Flip Flop for block at 2D
+Generating D Flip Flop for block at 3H
+Generating D Flip Flop for block at 2H
