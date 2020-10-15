@@ -1,0 +1,90 @@
+Generating HDL for page 19.10.05.1 INTERRUPT CONDITION LATCHES at 10/14/2020 7:59:18 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_05_1_INTERRUPT_CONDITION_LATCHES_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 4B
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 4F
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 4H
+Found combinatorial loop (need D FF) at output of gate at 3H
+Removed 5 outputs from Gate at 4A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2H to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_B
+	and inputs of PS_I_RING_OP_TIME,PS_I_CYCLE_1,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_L, OUT_4A_L
+	and inputs of OUT_5A_B
+	and logic function of EQUAL
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_NoPin_Latch
+	and inputs of OUT_4A_L,OUT_3B_C,MS_PROGRAM_RESET_6
+	and logic function of NAND
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_C_Latch, OUT_3B_C_Latch
+	and inputs of OUT_4B_NoPin,OUT_4C_NoPin
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_ANY_INQUIRY_REQUEST,PS_I_OP_DOT_I_CYCLE_DOT_E
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_A, OUT_2D_A
+	and inputs of OUT_3B_C,MS_E_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_P
+	and inputs of OUT_2D_A
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PS_BRANCH_ON_STATUS_CH_1,PS_I_RING_5_TIME
+	and logic function of NAND
+Generating Statement for block at 4F with *latched* output pin(s) of OUT_4F_G_Latch
+	and inputs of OUT_5F_NoPin,OUT_3F_A,MS_PROGRAM_RESET_6
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_A_Latch, OUT_3F_A_Latch
+	and inputs of OUT_4F_G,MS_E_CH_OVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_K, OUT_2F_K
+	and inputs of OUT_3F_A,MS_E_CH_OVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_P
+	and inputs of OUT_2F_K
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of PS_I_RING_5_TIME,PS_BRANCH_ON_STATUS_CH_2
+	and logic function of NAND
+Generating Statement for block at 4H with *latched* output pin(s) of OUT_4H_C_Latch
+	and inputs of OUT_5H_NoPin,MS_PROGRAM_RESET_6,OUT_3H_D
+	and logic function of NAND
+Generating Statement for block at 3H with *latched* output pin(s) of OUT_3H_D_Latch, OUT_3H_D_Latch
+	and inputs of OUT_4H_C,MS_F_CH_OVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C, OUT_2H_C
+	and inputs of OUT_3H_D,MS_F_CH_OVLP_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_R
+	and inputs of OUT_2H_C
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_I_OP_DOT_I_CYCLE_DOT_C
+	from gate output OUT_4A_L
+Generating output sheet edge signal assignment to 
+	signal MS_INQUIRY_INTR_COND
+	from gate output OUT_2D_A
+Generating output sheet edge signal assignment to 
+	signal PS_INQUIRY_INTR_COND
+	from gate output OUT_1D_P
+Generating output sheet edge signal assignment to 
+	signal MS_E_CH_OVRLP_INTR_COND
+	from gate output OUT_2F_K
+Generating output sheet edge signal assignment to 
+	signal PS_E_CH_OVRLP_INTR_COND
+	from gate output OUT_1F_P
+Generating output sheet edge signal assignment to 
+	signal MS_F_CH_OVRLP_INTR_COND
+	from gate output OUT_2H_C
+Generating output sheet edge signal assignment to 
+	signal PS_F_CH_OVRLP_INTR_COND
+	from gate output OUT_1H_R
+Generating D Flip Flop for block at 4B
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 4F
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 4H
+Generating D Flip Flop for block at 3H
