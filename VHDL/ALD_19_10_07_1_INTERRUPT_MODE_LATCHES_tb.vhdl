@@ -155,41 +155,183 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "19.10.07.1        ";
 
-   for tt in 0 to 2**25 loop
+   -- First, test the Priority Alert Latch
+
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
       e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
 
+      g1 := c and j and d;
+      g2 := a and e and d;
+      g3 := d and e and b and h and g;
+      g5 := g2 or g3;
       
+      -- Reset the latch
+      
+      MS_PROGRAM_RESET_6 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_6 <= '1';
       wait for 30 ns;
       
+      check1(PS_PRIORITY_ALERT_MODE,'0',testName,"Priority Alert Loop Reset");
+      check1(LAMP_15A1K23,PS_PRIORITY_ALERT_MODE,testName,"Priority Alert Lamp Loop Reset");
       
+      -- Set the test vector, but make sure at least one reset variable is NOT set, so
+      -- the latch isn't pulled in two directions
+      
+		PS_INTERRUPT_BRANCH <= a;
+      PS_X_SYMBOL_OP_MODIFIER <= '0'; -- b;
+      PS_Y_OP_DOT_TEST_RESET <= c;
+      PS_LOGIC_GATE_E_1 <= d;
+      PS_B_CYCLE_1 <= e;
+      PS_NO_SCAN_1 <= g;
+      PS_INTERRUPT_TEST_OP_CODE <= h;
+      PS_E_SYMBOL_OP_MODIFIER <= j;
+      wait for 30 ns; -- Maybe set the latch
+      
+      -- Reset the set variables -- the latch shouold stay set.  This also allows
+      -- the reset test to function.
+
+		PS_INTERRUPT_BRANCH <= '0';
+      PS_X_SYMBOL_OP_MODIFIER <= '0';
+      PS_Y_OP_DOT_TEST_RESET <= '0';
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_B_CYCLE_1 <= '0';
+      PS_NO_SCAN_1 <= '0';
+      PS_INTERRUPT_TEST_OP_CODE <= '0';
+      PS_E_SYMBOL_OP_MODIFIER <= '0';
+      wait for 30 ns;
+      
+      check1(PS_PRIORITY_ALERT_MODE,g1,testName,"Priority Alert Set");
+      check1(LAMP_15A1K23,PS_PRIORITY_ALERT_MODE,testName,"Priority Alert Lamp Set");
+      
+      -- Now the reset test.  Set all the variables again execept at least one that 
+      -- will  prevent it from conflicting with the reset
+
+		PS_INTERRUPT_BRANCH <= a;
+      PS_X_SYMBOL_OP_MODIFIER <= b;
+      PS_Y_OP_DOT_TEST_RESET <= '0'; -- c
+      PS_LOGIC_GATE_E_1 <= d;
+      PS_B_CYCLE_1 <= e;
+      PS_NO_SCAN_1 <= g;
+      PS_INTERRUPT_TEST_OP_CODE <= h;
+      PS_E_SYMBOL_OP_MODIFIER <= j;
+      wait for 30 ns; -- Maybe reset the latch (if it was even set to begin with)
+
+      -- Put things back again for the next iteration.  If the latch should not change
+      
+      PS_INTERRUPT_BRANCH <= '0';
+      PS_X_SYMBOL_OP_MODIFIER <= '0';
+      PS_Y_OP_DOT_TEST_RESET <= '0';
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_B_CYCLE_1 <= '0';
+      PS_NO_SCAN_1 <= '0';
+      PS_INTERRUPT_TEST_OP_CODE <= '0';
+      PS_E_SYMBOL_OP_MODIFIER <= '0';
+      wait for 30 ns;
+
+      -- Latch is still set if it was set earlier and not reset by g5.
+      
+      check1(PS_PRIORITY_ALERT_MODE,g1 and not g5,testName,"Priority Alert Reset");
+      check1(LAMP_15A1K23,PS_PRIORITY_ALERT_MODE,testName,"Priority Alert Lamp Reset");
+            
    end loop;
+
+   -- Then test the NORMAL latch
+
+   for tt in 0 to 2**8 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      d := tv(3);
+      e := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+
+      g2 := a and e and d;
+      g4 := e and d and g and h and j;
+      g7 := b and c and d;
+      g6 := g7 or g2;
+      
+      -- Program Reset SETS this latch
+      
+      MS_PROGRAM_RESET_6 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_6 <= '1';
+      wait for 30 ns;
+      
+      check1(MS_NORMAL_MODE,'0',testName,"Normal Mode Loop Reset");
+      
+      -- Set the test vector, but make sure at least one SET variable is NOT set, so
+      -- the latch isn't pulled in two directions
+      
+		PS_INTERRUPT_BRANCH <= '0'; -- a;
+      PS_X_SYMBOL_OP_MODIFIER <= '0'; -- b;
+      PS_Y_OP_DOT_TEST_RESET <= c;
+      PS_LOGIC_GATE_E_1 <= d;
+      PS_B_CYCLE_1 <= e;
+      PS_NO_SCAN_1 <= g;
+      PS_INTERRUPT_TEST_OP_CODE <= h;
+      PS_E_SYMBOL_OP_MODIFIER <= j;
+      wait for 30 ns; -- Maybe RESET the latch
+      
+      -- Reset the set variables -- the latch shouold stay reset if it was reset.
+      -- This also allows the set test to function.
+
+		PS_INTERRUPT_BRANCH <= '0';
+      PS_X_SYMBOL_OP_MODIFIER <= '0';
+      PS_Y_OP_DOT_TEST_RESET <= '0';
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_B_CYCLE_1 <= '0';
+      PS_NO_SCAN_1 <= '0';
+      PS_INTERRUPT_TEST_OP_CODE <= '0';
+      PS_E_SYMBOL_OP_MODIFIER <= '0';
+      wait for 30 ns;
+      
+      check1(MS_NORMAL_MODE,g4,testName,"Normal Mode Reset"); -- if g4 is one, latch is reset
+      
+      -- Now the SET test.  Set all the variables again execept at least one that 
+      -- will prevent it from conflicting with the SET
+
+		PS_INTERRUPT_BRANCH <= a;
+      PS_X_SYMBOL_OP_MODIFIER <= b;
+      PS_Y_OP_DOT_TEST_RESET <= c;
+      PS_LOGIC_GATE_E_1 <= d;
+      PS_B_CYCLE_1 <= e;
+      PS_NO_SCAN_1 <= g;
+      PS_INTERRUPT_TEST_OP_CODE <= h;
+      PS_E_SYMBOL_OP_MODIFIER <= '0';
+      wait for 30 ns; -- Maybe SET the latch (if it was even reset to begin with)
+
+      -- Put things back again for the next iteration.  The latch should not change
+      
+      PS_INTERRUPT_BRANCH <= '0';
+      PS_X_SYMBOL_OP_MODIFIER <= '0';
+      PS_Y_OP_DOT_TEST_RESET <= '0';
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_B_CYCLE_1 <= '0';
+      PS_NO_SCAN_1 <= '0';
+      PS_INTERRUPT_TEST_OP_CODE <= '0';
+      PS_E_SYMBOL_OP_MODIFIER <= '0';
+      wait for 30 ns;
+
+      -- Latch is still reset if it was reset earlier and not set here
+      
+      check1(MS_NORMAL_MODE,not g6 and g4,testName,"Normal Mode Set");
+            
+   end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
