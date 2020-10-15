@@ -1,0 +1,61 @@
+Generating HDL for page 19.10.06.1 I-O UNIT INTERRUPT COND LATCHES at 10/14/2020 8:44:13 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_06_1_I_O_UNIT_INTERRUPT_COND_LATCHES_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 4A
+Found combinatorial loop (need D FF) at output of gate at 3A
+Found combinatorial loop (need D FF) at output of gate at 3D
+Found combinatorial loop (need D FF) at output of gate at 2D
+Found combinatorial loop (need D FF) at output of gate at 3E
+Found combinatorial loop (need D FF) at output of gate at 4F
+Found combinatorial loop (need D FF) at output of gate at 4G
+Found combinatorial loop (need D FF) at output of gate at 3G
+Removed 1 outputs from Gate at 2A to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_A, OUT_5A_A
+	and inputs of PS_Y_OP_DOT_TEST_RESET,PS_U_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_NoPin_Latch
+	and inputs of OUT_5A_A,OUT_3A_C,MS_PROGRAM_RESET_6
+	and logic function of NAND
+Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_C_Latch, OUT_3A_C_Latch
+	and inputs of OUT_4A_NoPin,OUT_4B_NoPin
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_A, OUT_2A_A
+	and inputs of OUT_3A_C,MS_E_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_G
+	and inputs of OUT_2A_A
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of PS_I_OP_DOT_I_CYCLE_DOT_E,OUT_2D_D
+	and logic function of NAND
+Generating Statement for block at 3D with *latched* output pin(s) of OUT_3D_NoPin_Latch
+	and inputs of OUT_5A_A,OUT_2D_D,MS_PROGRAM_RESET_6
+	and logic function of NAND
+Generating Statement for block at 2D with *latched* output pin(s) of OUT_2D_D_Latch, OUT_2D_D_Latch, OUT_2D_D_Latch
+	and inputs of OUT_3D_NoPin,OUT_3E_NoPin,MS_SEL_I_O_FINISH_PULSE
+	and logic function of NAND
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_NoPin_Latch
+	and inputs of PS_CONS_CLOCK_3_POS_1,PS_PRIORITY_SW_ON,OUT_4G_K
+	and logic function of NAND
+Generating Statement for block at 4F with *latched* output pin(s) of OUT_4F_C_Latch
+	and inputs of OUT_2D_D,PS_CONS_CLOCK_1_POS
+	and logic function of NAND
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_K_Latch, OUT_4G_K_Latch
+	and inputs of OUT_3G_B,PS_PRIORITY_SW_ON
+	and logic function of NAND
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_B_Latch
+	and inputs of OUT_4F_C,OUT_4G_K,MS_PROGRAM_RESET_6
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_SEL_I_O_UNIT_INTR_COND
+	from gate output OUT_2A_A
+Generating output sheet edge signal assignment to 
+	signal PS_SEL_I_O_UNIT_INTR_COND
+	from gate output OUT_1A_G
+Generating D Flip Flop for block at 4A
+Generating D Flip Flop for block at 3A
+Generating D Flip Flop for block at 3D
+Generating D Flip Flop for block at 2D
+Generating D Flip Flop for block at 3E
+Generating D Flip Flop for block at 4F
+Generating D Flip Flop for block at 4G
+Generating D Flip Flop for block at 3G
