@@ -1,0 +1,88 @@
+Generating HDL for page 19.10.09.1 TEST OP BR +NO BR CONDITION at 10/15/2020 1:10:59 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_09_1_TEST_OP_BR_NO_BR_CONDITION_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C
+	and inputs of PS_INTERRUPT_TEST_OP_CODE_1,PS_X_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_B
+	and inputs of PS_N_SYMBOL_OP_MODIFIER,PS_OUTQUIRY_INTR_COND,PS_INTERRUPT_TEST_OP_CODE_1
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_B
+	and inputs of OUT_4A_B
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_D
+	and inputs of PS_INTERRUPT_TEST_OP_CODE_1,PS_E_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_G
+	and inputs of OUT_5A_C,OUT_5B_D
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_INTERRUPT_TEST_OP_CODE_1,PS_INQUIRY_INTR_COND,PS_Q_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_NoPin
+	and inputs of MS_INQUIRY_INTR_COND,PS_Q_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_INTERRUPT_TEST_OP_CODE_1,PS_SEL_I_O_UNIT_INTR_COND,PS_U_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of OUT_5C_NoPin,OUT_5D_NoPin,OUT_5E_NoPin
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_NoPin
+	and inputs of MS_SEL_I_O_UNIT_INTR_COND,PS_U_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_F
+	and inputs of OUT_3C_NoPin,OUT_3D_NoPin,OUT_3E_NoPin
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C
+	and inputs of PS_INTERRUPT_TEST_OP_CODE_1,OUT_DOT_2D,PS_LAST_INSN_RO_CYCLE_1
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of PS_INTERRUPT_TEST_OP_CODE_1,PS_E_CH_OVRLP_INTR_COND,PS_ONE_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_NoPin
+	and inputs of MS_E_CH_OVRLP_INTR_COND,PS_ONE_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of PS_N_SYMBOL_OP_MODIFIER,MS_OUTQUIRY_INTR_COND
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_R
+	and inputs of OUT_3F_C
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_NoPin
+	and inputs of PS_INTERRUPT_TEST_OP_CODE_1,PS_F_CH_OVRLP_INTR_COND,PS_TWO_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_NoPin
+	and inputs of MS_F_CH_OVRLP_INTR_COND,PS_TWO_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of PS_INTERRUPT_TEST_OP_CODE_1,PS_E_CH_SEEK_INTR_COND,PS_S_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_D
+	and inputs of OUT_5G_NoPin,OUT_5H_NoPin,OUT_5I_NoPin
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_NoPin
+	and inputs of MS_E_CH_SEEK_INTR_COND,PS_S_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_F
+	and inputs of OUT_3G_NoPin,OUT_3H_NoPin,OUT_3I_D
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_NoPin
+	and inputs of PS_INTERRUPT_TEST_OP_CODE_1,PS_F_CH_SEEK_INTR_COND,PS_T_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of MS_F_CH_SEEK_INTR_COND,PS_T_SYMBOL_OP_MODIFIER
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_DOT_3A
+	and inputs of OUT_3A_B,PS_2ND_CND_A_BRANCH_STAR_SIF,PS_2ND_CND_A_BRANCH_STAR_SIF_JRJ,PS_2ND_CND_A_BRANCH_STAR_1414_STAR,OUT_4B_G,OUT_4D_D,OUT_4H_D
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_2D_F,PS_NO_BRANCH_CND_INTER_STAR_SIF,PS_NO_BRANCH_CND_INTER_STAR_SIF_JRJ,PS_NO_BRANCH_CND_INTER_STAR_1414_STAR,OUT_2F_R,OUT_2H_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_NO_BRANCH_CND_INTERRUPT
+	from gate output OUT_1D_C
+Generating output sheet edge signal assignment to 
+	signal PS_2ND_CND_A_BRANCH_STAR_INTR
+	from gate output OUT_DOT_3A
