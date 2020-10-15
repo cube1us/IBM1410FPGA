@@ -140,39 +140,25 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "19.10.04.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**4 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PS_INTERRUPT_BRANCH <= a;
+		PS_B_CYCLE_1 <= b;
+		MS_CONTROL_REG_DISABLE <= not c;
+		MS_INTERRUPT_TEST_OP_CODE <= not d;
       
       wait for 30 ns;
       
+      check1(MS_INTERRUPT_DOT_B_CYCLE,not(not c and b and a),testName,"Interrupt . B Cycle");
+      check1(PS_INTERRUPT_TEST_OP_CODE,d,testName,"Interrupt Test Op Code");
+      check1(PS_INTERRUPT_TEST_OP_CODE_1,d,testName,"Interrupt Test Op Code 1");
       
    end loop;
 
