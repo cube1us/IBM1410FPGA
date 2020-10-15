@@ -152,40 +152,102 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "19.10.06.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      f := tv(4);
+      h := tv(5);
+          
+      -- First reset the latches 
+      -- (I am not sure what happens with One . Only One latch, as when the reset hits,
+      -- both sides (set and reset) have an active output.  But once the program reset
+      -- goes away, that resolves
       
+      MS_PROGRAM_RESET_6 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_6 <= '1';
+      MS_E_CH_IN_PROCESS <= '1'; -- During reset to make output visible
+      wait for 30 ns;
+
+      check1(PS_SEL_I_O_UNIT_INTR_COND,'0',testName,"+S Loop Reset");
+      check1(MS_SEL_I_O_UNIT_INTR_COND,'1',testName,"-S Loop Reset");
+
+      -- At this point, the priority switch signal is off, so block 4G output is high
+      -- So now, maybe turn on the priority switch.  If h is true, then the output of
+      -- block at 4g goes low
+
+		PS_PRIORITY_SW_ON <= h;
+		wait for 30 ns;
+      
+      -- Next comes console clock 3.  That might set the I/O Interrupt latch: if the
+      -- switch is on and the output from 4G is high.
+      
+      PS_CONS_CLOCK_3_POS_1 <= '1';
+      wait for 30ns;
+      PS_CONS_CLOCK_3_POS_1 <= '0';
+      wait for 30ns;
+      
+      -- Now, if the I/O Interrupt Latch set and I Op.I Cycle.E goes active,
+      -- it will set the Delayed Interrupt Latch
+      
+		PS_I_OP_DOT_I_CYCLE_DOT_E <= d;
+		wait for 30 ns;
+		
+		-- Now, if the E Ch is not in process, and the delayed interrupt latch set,
+		-- we will set that in the output.  But we won't see if if the E Ch is in process.
+
+		MS_E_CH_IN_PROCESS <= not c;
+		wait for 30 ns;
+		
+		check1(PS_SEL_I_O_UNIT_INTR_COND,h and d and not c,testName,"1A"); 
+		check1(MS_SEL_I_O_UNIT_INTR_COND,not (h and d and not c),testName,"1B");
+		
+		-- OK, so now maybe the I/O Interrupt Latch got set because some I/O Finished
+				
+		MS_SEL_I_O_FINISH_PULSE <= not f;
+		wait for 30 ns;
+      MS_SEL_I_O_FINISH_PULSE <= '1';  -- The Finish pulse is gone by now.
       wait for 30 ns;
       
+		check1(PS_SEL_I_O_UNIT_INTR_COND,(h or f) and d and not c,testName,"1C"); 
+      check1(MS_SEL_I_O_UNIT_INTR_COND,not((h or f) and d and not c),testName,"1D");		                   
       
+      -- Next, maybe we reset the I/O Interrupt and Delayed Interrupt Latch
+      
+      -- First, Console Clock 1 will reset the One . Only one latch if the 
+      -- Interrupt latch was set
+      
+      PS_CONS_CLOCK_1_POS <= '1';
+      wait for 30 ns;
+      PS_CONS_CLOCK_1_POS <= '0';
+      wait for 30 ns;
+      
+      -- Maybe reset the I/O Unit Interrupt latch and Delayed Interrupt latches
+      -- (Signals a and b)
+      
+ 		PS_Y_OP_DOT_TEST_RESET <= a;
+		PS_U_SYMBOL_OP_MODIFIER <= b;		     
+      wait for 30 ns;
+
+		check1(PS_SEL_I_O_UNIT_INTR_COND,(h or f) and d and not c and not(a and b),testName,"1E"); 
+      check1(MS_SEL_I_O_UNIT_INTR_COND,not((h or f) and d and not c and not (a and b)),testName,"1F");		                   
+                                          
+      -- Set things back to their default state
+      
+		PS_Y_OP_DOT_TEST_RESET <= '0';
+      PS_U_SYMBOL_OP_MODIFIER <= '0';
+      MS_E_CH_IN_PROCESS <= '1';
+      PS_I_OP_DOT_I_CYCLE_DOT_E <= '0';
+      MS_SEL_I_O_FINISH_PULSE <= '1';
+      PS_CONS_CLOCK_3_POS_1 <= '0';
+      PS_PRIORITY_SW_ON <= '0';
+      PS_CONS_CLOCK_1_POS <= '0';
+                                                
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
