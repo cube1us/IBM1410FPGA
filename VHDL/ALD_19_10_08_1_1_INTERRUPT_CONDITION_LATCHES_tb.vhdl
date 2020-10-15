@@ -170,39 +170,109 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "19.10.08.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
       
+      g1 := (j and k and l) or m; 
+      
+      -- Reset the latches
+      
+      MS_PROGRAM_RESET_6 <= '0';      
       wait for 30 ns;
+      MS_PROGRAM_RESET_6 <= '1';
+      MS_E_CH_IN_PROCESS <= '1'; -- So we can verify reset
+      MS_F_CH_IN_PROCESS <= '1'; -- So we can verify reset
+      wait for 30 ns;
+
+      check1(PS_E_CH_SEEK_INTR_COND,'0',testName,"+S E Ch Intr Loop Reset");
+      check1(MS_E_CH_SEEK_INTR_COND,'1',testName,"+S E Ch Intr Loop Reset");
+      check1(PS_F_CH_SEEK_INTR_COND,'0',testName,"+S F Ch Intr Loop Reset");
+      check1(MS_F_CH_SEEK_INTR_COND,'1',testName,"+S F Ch Intr Loop Reset");
       
+      -- Set the signals, making sure that the latches are not forced to reset yet
+
+		MS_E_CH_IN_PROCESS <= not a;
+		MS_I_OP_DOT_I_CYCLE_DOT_C <= '1'; -- not b
+		MC_ANY_SEEK_COMP_STAR_E_CH_1405 <= not c;
+		MC_ANY_SEEK_COMP_STAR_E_CH_1301 <= not d;
+		MC_ANY_SEEK_COMP_STAR_F_CH_1301 <= not f;
+		MC_ANY_SEEK_COMP_STAR_F_CH_1405 <= not g;
+		MS_F_CH_IN_PROCESS <= not h;
+		PS_I_RING_OP_TIME <= j;
+		PS_I_CYCLE_1 <= k;
+		PS_LOGIC_GATE_E_1 <= l ;
+		PS_I_OP_DOT_I_CYCLE_DOT_E_STAR_AUTS_STAR <= m;      
+      wait for 30 ns; -- Maybe set the latches
+
+      check1(PS_I_OP_DOT_I_CYCLE_DOT_E,g1,testName,"I Op . I Cycle . E");
+      
+      -- Reset the set signals.  Latch should not change.  
+      -- This also sets us up for the reset test later by preventing conflicts.
+      
+      MS_I_OP_DOT_I_CYCLE_DOT_C <= '1';
+      MC_ANY_SEEK_COMP_STAR_E_CH_1405 <= '1';
+      MC_ANY_SEEK_COMP_STAR_E_CH_1301 <= '1';
+      MC_ANY_SEEK_COMP_STAR_F_CH_1301 <= '1';
+      MC_ANY_SEEK_COMP_STAR_F_CH_1405 <= '1';
+      PS_I_RING_OP_TIME <= '0';
+      PS_I_CYCLE_1 <= '0';
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_I_OP_DOT_I_CYCLE_DOT_E_STAR_AUTS_STAR <= '0';      
+            
+      check1(PS_E_CH_SEEK_INTR_COND,g1 and (c or d) and not a,testName,"+S E Ch Intr Set");
+      check1(MS_E_CH_SEEK_INTR_COND,NOT PS_E_CH_SEEK_INTR_COND,testName,"+S E Ch Intr Set");
+      check1(PS_F_CH_SEEK_INTR_COND,g1 and (f or g) and not h,testName,"+S F Ch Intr Set");
+      check1(MS_F_CH_SEEK_INTR_COND,NOT PS_F_CH_SEEK_INTR_COND,testName,"+S F Ch Intr Set");
+      
+      -- Reset Test
+      
+      -- Set the signals again, making sure that the latches are not forced to be still set
+
+      MS_E_CH_IN_PROCESS <= not a;
+      MS_I_OP_DOT_I_CYCLE_DOT_C <= not b;
+      MC_ANY_SEEK_COMP_STAR_E_CH_1405 <= '1';
+      MC_ANY_SEEK_COMP_STAR_E_CH_1301 <= '1';
+      MC_ANY_SEEK_COMP_STAR_F_CH_1301 <= '1';
+      MC_ANY_SEEK_COMP_STAR_F_CH_1405 <= '1';
+      MS_F_CH_IN_PROCESS <= not h;
+      PS_I_RING_OP_TIME <= j;
+      PS_I_CYCLE_1 <= k;
+      PS_LOGIC_GATE_E_1 <= l ;
+      PS_I_OP_DOT_I_CYCLE_DOT_E_STAR_AUTS_STAR <= m;      
+      wait for 30 ns; -- Maybe reset the latches
+      
+      -- Set the signals back in anticipation of the next iteration.  Should not affect the latches
+
+		MS_E_CH_IN_PROCESS <= not a; -- Leave as part of test
+      MS_I_OP_DOT_I_CYCLE_DOT_C <= '1';
+      MC_ANY_SEEK_COMP_STAR_E_CH_1405 <= '1';
+      MC_ANY_SEEK_COMP_STAR_E_CH_1301 <= '1';
+      MC_ANY_SEEK_COMP_STAR_F_CH_1301 <= '1';
+      MC_ANY_SEEK_COMP_STAR_F_CH_1405 <= '1';
+      MS_F_CH_IN_PROCESS <= not h; -- Leave as part of test
+      PS_I_RING_OP_TIME <= '0';
+      PS_I_CYCLE_1 <= '0';
+      PS_LOGIC_GATE_E_1 <= '0';
+      PS_I_OP_DOT_I_CYCLE_DOT_E_STAR_AUTS_STAR <= '0';      
+      wait for 30 ns;      
+      
+      check1(PS_E_CH_SEEK_INTR_COND,g1 and (c or d) and not a and not b,testName,"+S E Ch Intr Reset");
+      check1(MS_E_CH_SEEK_INTR_COND,NOT PS_E_CH_SEEK_INTR_COND,testName,"+S E Ch Intr Reset");
+      check1(PS_F_CH_SEEK_INTR_COND,g1 and (f or g) and not h and not b,testName,"+S F Ch Intr Reset");
+      check1(MS_F_CH_SEEK_INTR_COND,NOT PS_F_CH_SEEK_INTR_COND,testName,"+S F Ch Intr Reset");
       
    end loop;
 
