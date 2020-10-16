@@ -67,7 +67,17 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
-
+procedure checkLSMSDrivers(
+            checked: in STD_LOGIC_VECTOR(15 downto 0);
+            val: in STD_LOGIC_VECTOR(15 downto 0);
+            testname: in string;
+            test: in string) is
+            begin
+              for dvr in 1 to 16 loop
+                 assert checked(dvr-1) = val(dvr-1) report
+                    testname & " (" & test & ") line " & Integer'image(dvr) & " failed." severity failure; 
+              end loop;
+            end procedure;
 
    -- Your test bench declarations go here
 
@@ -128,41 +138,20 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "33.11.0%.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**16 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+   
+      PY_Y_LSMS_DRVR_BUS(14 downto 0) <= tv(14 downto 0);
+      PY_Y_RD_2 <= tv(15);
       
       wait for 30 ns;
       
+      checkLSMSDrivers(PV_Y_LSMS_DRV_IN_BUS,tv(15 downto 0),testName,"+V Y LSMS Drv");      
       
    end loop;
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
