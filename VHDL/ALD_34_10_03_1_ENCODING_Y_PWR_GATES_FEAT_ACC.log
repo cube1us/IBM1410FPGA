@@ -1,0 +1,62 @@
+Generating HDL for page 34.10.03.1 ENCODING Y PWR GATES FEAT-ACC at 10/16/2020 4:42:01 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_34_10_03_1_ENCODING_Y_PWR_GATES_FEAT_ACC_tb.vhdl, generating default test bench code.
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of MY_MEM_AR_NOT_THP0B,MY_MEM_AR_NOT_THP1B,MY_MEM_AR_THP2B,MY_MEM_AR_NOT_THP4B,MY_MEM_AR_THP8B
+	and logic function of NOR
+Generating Statement for block at 4B with output pin(s) of OUT_4B_P
+	and inputs of MY_MEM_AR_THP0B,MY_MEM_AR_THP1B,MY_MEM_AR_NOT_THP2B,MY_MEM_AR_NOT_THP4B,MY_MEM_AR_NOT_THP8B
+	and logic function of NOR
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of MY_MEM_AR_THP0B,MY_MEM_AR_NOT_THP1B,MY_MEM_AR_THP2B,MY_MEM_AR_NOT_THP4B,MY_MEM_AR_NOT_THP8B
+	and logic function of NOR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_P
+	and inputs of MY_MEM_AR_NOT_THP0B,MY_MEM_AR_THP1B,MY_MEM_AR_THP2B,MY_MEM_AR_NOT_THP4B,MY_MEM_AR_NOT_THP8B
+	and logic function of NOR
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of MY_MEM_AR_THP0B,MY_MEM_AR_NOT_THP1B,MY_MEM_AR_NOT_THP2B,MY_MEM_AR_THP4B,MY_MEM_AR_NOT_THP8B
+	and logic function of NOR
+Generating Statement for block at 2E with output pin(s) of OUT_2E_P
+	and inputs of MY_MEM_AR_NOT_THP0B,MY_MEM_AR_THP1B,MY_MEM_AR_NOT_THP2B,MY_MEM_AR_NOT_THP4B,MY_MEM_AR_THP8B
+	and logic function of NOR
+Generating Statement for block at 4F with output pin(s) of OUT_4F_P
+	and inputs of MY_MEM_AR_NOT_THP0B,MY_MEM_AR_THP1B,MY_MEM_AR_NOT_THP2B,MY_MEM_AR_THP4B,MY_MEM_AR_NOT_THP8B
+	and logic function of NOR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_G
+	and inputs of MY_MEM_AR_NOT_THP0B,MY_MEM_AR_NOT_THP1B,MY_MEM_AR_THP2B,MY_MEM_AR_THP4B,MY_MEM_AR_NOT_THP8B
+	and logic function of NOR
+Generating Statement for block at 4H with output pin(s) of OUT_4H_P
+	and inputs of MY_MEM_AR_NOT_THP0B,MY_MEM_AR_NOT_THP1B,MY_MEM_AR_NOT_THP2B,MY_MEM_AR_THP4B,MY_MEM_AR_THP8B
+	and logic function of NOR
+Generating Statement for block at 4I with output pin(s) of OUT_4I_G
+	and inputs of MY_MEM_AR_THP0B,MY_MEM_AR_NOT_THP1B,MY_MEM_AR_NOT_THP2B,MY_MEM_AR_NOT_THP4B,MY_MEM_AR_THP8B
+	and logic function of NOR
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_GATE_SEL_0K_1K
+	from gate output OUT_4A_G
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_GATE_SEL_1K_2K
+	from gate output OUT_4B_P
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_GATE_SEL_2K_3K
+	from gate output OUT_4C_G
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_GATE_SEL_3K_4K
+	from gate output OUT_4D_P
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_GATE_SEL_4K_5K
+	from gate output OUT_4E_G
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_GATE_SEL_9K_10K
+	from gate output OUT_2E_P
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_GATE_SEL_5K_6K
+	from gate output OUT_4F_P
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_GATE_SEL_6K_7K
+	from gate output OUT_4G_G
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_GATE_SEL_7K_8K
+	from gate output OUT_4H_P
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_GATE_SEL_8K_9K
+	from gate output OUT_4I_G
