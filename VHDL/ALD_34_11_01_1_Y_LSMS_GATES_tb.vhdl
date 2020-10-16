@@ -209,9 +209,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "33.11.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -223,25 +223,40 @@ uut_process: process
       h := tv(7);
       j := tv(8);
       k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PY_Y_LSMS_GATE_SEL_1K_2K <= a;
+		PY_Y_LSMS_GATE_SEL_0K_1K <= b;
+		PY_Y_LSMS_GATE_SEL_3K_4K <= c;
+		PY_Y_LSMS_GATE_SEL_2K_3K <= d;
+		PY_Y_LSMS_GATE_SEL_5K_6K <= e;
+		PY_Y_LSMS_GATE_SEL_4K_5K <= f;
+		PY_Y_LSMS_GATE_SEL_6K_7K <= g;
+		PY_Y_LSMS_GATE_SEL_7K_8K <= h;
+		PY_Y_LSMS_GATE_SEL_9K_10K <= j;
+		PY_Y_LSMS_GATE_SEL_8K_9K <= k;
       
       wait for 30 ns;
       
+		check1(MY_GATE_Y_LSMS_00_09XX_A,not b,testName,"00-09xx A");
+      check1(MY_GATE_Y_LSMS_00_09XX_B,not b,testName,"00-09xx A");
+      check1(MY_GATE_Y_LSMS_10_19XX_A,not a,testName,"10-19xx A");
+      check1(MY_GATE_Y_LSMS_10_19XX_B,not a,testName,"10-19xx A");
+      check1(MY_GATE_Y_LSMS_20_29XX_A,not d,testName,"20-29xx A");
+      check1(MY_GATE_Y_LSMS_20_29XX_B,not d,testName,"20-29xx A");
+      check1(MY_GATE_Y_LSMS_30_39XX_A,not c,testName,"30-39xx A");
+      check1(MY_GATE_Y_LSMS_30_39XX_B,not c,testName,"30-39xx A");
+      check1(MY_GATE_Y_LSMS_40_49XX_A,not f,testName,"40-49xx A");
+      check1(MY_GATE_Y_LSMS_40_49XX_B,not f,testName,"40-49xx A");
+      check1(MY_GATE_Y_LSMS_50_59XX_A,not e,testName,"50-59xx A");
+      check1(MY_GATE_Y_LSMS_50_59XX_B,not e,testName,"50-59xx A");
+      check1(MY_GATE_Y_LSMS_60_69XX_A,not g,testName,"60-69xx A");
+      check1(MY_GATE_Y_LSMS_60_69XX_B,not g,testName,"60-69xx A");
+      check1(MY_GATE_Y_LSMS_70_79XX_A,not h,testName,"70-79xx A");
+      check1(MY_GATE_Y_LSMS_70_79XX_B,not h,testName,"70-79xx A");
+      check1(MY_GATE_Y_LSMS_80_89XX_A,not k,testName,"80-89xx A");
+      check1(MY_GATE_Y_LSMS_80_89XX_B,not k,testName,"80-89xx A");
+      check1(MY_GATE_Y_LSMS_90_99XX_A,not j,testName,"90-99xx A");
+      check1(MY_GATE_Y_LSMS_90_99XX_B,not j,testName,"90-99xx A");
       
    end loop;
 
