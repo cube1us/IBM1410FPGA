@@ -209,9 +209,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "32.11.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -223,25 +223,39 @@ uut_process: process
       h := tv(7);
       j := tv(8);
       k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
-      
-      wait for 30 ns;
-      
+		PY_X_LSMS_GATE_SEL_10_19 <= a;
+		PY_X_LSMS_GATE_SEL_00_09 <= b;
+		PY_X_LSMS_GATE_SEL_30_39 <= c;
+		PY_X_LSMS_GATE_SEL_20_29 <= d;
+		PY_X_LSMS_GATE_SEL_50_59 <= e;
+		PY_X_LSMS_GATE_SEL_40_49 <= f;
+		PY_X_LSMS_GATE_SEL_70_79 <= g;
+		PY_X_LSMS_GATE_SEL_60_69 <= h;
+		PY_X_LSMS_GATE_SEL_80_89 <= j;
+		PY_X_LSMS_GATE_SEL_90_99 <= k;
+		wait for 30 ns;
+
+		check1(MV_GATE_X_LSMS_YY00_09_A,not b,testName,"00-09 A");
+		check1(MV_GATE_X_LSMS_YY00_09_B,not b,testName,"00-09 B");
+		check1(MV_GATE_X_LSMS_YY10_19_A,not a,testName,"10-19 A");
+		check1(MV_GATE_X_LSMS_YY10_19_B,not a,testName,"10-19 B");
+		check1(MV_GATE_X_LSMS_YY20_29_A,not d,testName,"20-29 A");
+		check1(MV_GATE_X_LSMS_YY20_29_B,not d,testName,"20-29 B");
+		check1(MV_GATE_X_LSMS_YY30_39_A,not c,testName,"30-39 A");
+		check1(MV_GATE_X_LSMS_YY30_39_B,not c,testName,"30-39 B");
+		check1(MV_GATE_X_LSMS_YY40_49_A,not f,testName,"40-49 A");
+		check1(MV_GATE_X_LSMS_YY40_49_B,not f,testName,"40-49 B");
+		check1(MV_GATE_X_LSMS_YY50_59_A,not e,testName,"50-59 A");
+		check1(MV_GATE_X_LSMS_YY50_59_B,not e,testName,"50-59 B");
+		check1(MV_GATE_X_LSMS_YY60_60_A,not h,testName,"60-69 A");
+		check1(MV_GATE_X_LSMS_YY60_69_B,not h,testName,"60-69 B");
+		check1(MV_GATE_X_LSMS_YY70_79_A,not g,testName,"70-79 A");
+		check1(MV_GATE_X_LSMS_YY70_79_B,not g,testName,"70-79 B");
+		check1(MV_GATE_X_LSMS_YY80_89_A,not j,testName,"80-89 A");
+		check1(MV_GATE_X_LSMS_YY80_89_B,not j,testName,"80-89 B");
+		check1(MV_GATE_X_LSMS_YY90_99_A,not k,testName,"90-99 A");
+		check1(MV_GATE_X_LSMS_YY90_99_B,not k,testName,"90-99 B");
       
    end loop;
 
