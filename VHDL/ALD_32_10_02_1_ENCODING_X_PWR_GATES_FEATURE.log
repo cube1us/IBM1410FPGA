@@ -1,5 +1,5 @@
-Generating HDL for page 32.10.02.1 ENCODING X PWR GATES FEATURE at 10/16/2020 12:59:37 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_32_10_02_1_ENCODING_X_PWR_GATES_FEATURE_tb.vhdl, generating default test bench code.
+Generating HDL for page 32.10.02.1 ENCODING X PWR GATES FEATURE at 10/16/2020 1:28:23 PM
+Old test bench file ALD_32_10_02_1_ENCODING_X_PWR_GATES_FEATURE_tb.vhdl 107 lines preserved and 35 declaration lines preserved
 Generating Statement for block at 4A with output pin(s) of OUT_4A_G
 	and inputs of MY_MEM_AR_NOT_TP0B,MY_MEM_AR_NOT_TP1B,MY_MEM_AR_TP2B,MY_MEM_AR_NOT_TP4B,MY_MEM_AR_TP8B
 	and logic function of NOR
@@ -82,7 +82,7 @@ Generating output sheet edge signal assignment to
 	signal PY_X_LSMS_GATE_SEL_70_79
 	from gate output OUT_4H_P
 Generating output sheet edge signal assignment to 
-	signal PY_MEM_AR_NOT_TP8B_JRJ
+	signal MY_MEM_AR_NOT_TP8B_JRJ
 	from gate output OUT_1H_C
 Generating output sheet edge signal assignment to 
 	signal PY_X_LSMS_GATE_SEL_80_89
