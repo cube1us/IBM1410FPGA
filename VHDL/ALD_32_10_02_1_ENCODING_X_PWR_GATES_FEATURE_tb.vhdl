@@ -231,12 +231,16 @@ uut_process: process
          end if;
       end loop;
       
-      results :=       
-		   PY_MEM_AR_NOT_TP8B_JRJ & 
+      results(4 downto 0) :=       
+		   MY_MEM_AR_NOT_TP8B_JRJ & 
          MY_MEM_AR_NOT_TP4B_JRJ & 
          MY_MEM_AR_NOT_TP2B_JRJ & 
          MY_MEM_AR_NOT_TP1B_JRJ & 
-         MY_MEM_AR_NOT_TP0B_JRJ; 
+         MY_MEM_AR_NOT_TP0B_JRJ;
+
+      for bitnum in 0 to 4 loop
+         check1(results(bitnum),tv(bitnum),testName,"-Y Mem AR NOT bit number " & Integer'image(bitnum) & " failed.");
+      end loop;
       
    end loop;
 
