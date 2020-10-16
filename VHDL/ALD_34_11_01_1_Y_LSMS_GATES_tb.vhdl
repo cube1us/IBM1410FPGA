@@ -238,25 +238,25 @@ uut_process: process
       wait for 30 ns;
       
 		check1(MY_GATE_Y_LSMS_00_09XX_A,not b,testName,"00-09xx A");
-      check1(MY_GATE_Y_LSMS_00_09XX_B,not b,testName,"00-09xx A");
+      check1(MY_GATE_Y_LSMS_00_09XX_B,not b,testName,"00-09xx B");
       check1(MY_GATE_Y_LSMS_10_19XX_A,not a,testName,"10-19xx A");
-      check1(MY_GATE_Y_LSMS_10_19XX_B,not a,testName,"10-19xx A");
+      check1(MY_GATE_Y_LSMS_10_19XX_B,not a,testName,"10-19xx B");
       check1(MY_GATE_Y_LSMS_20_29XX_A,not d,testName,"20-29xx A");
-      check1(MY_GATE_Y_LSMS_20_29XX_B,not d,testName,"20-29xx A");
+      check1(MY_GATE_Y_LSMS_20_29XX_B,not d,testName,"20-29xx B");
       check1(MY_GATE_Y_LSMS_30_39XX_A,not c,testName,"30-39xx A");
-      check1(MY_GATE_Y_LSMS_30_39XX_B,not c,testName,"30-39xx A");
+      check1(MY_GATE_Y_LSMS_30_39XX_B,not c,testName,"30-39xx B");
       check1(MY_GATE_Y_LSMS_40_49XX_A,not f,testName,"40-49xx A");
-      check1(MY_GATE_Y_LSMS_40_49XX_B,not f,testName,"40-49xx A");
+      check1(MY_GATE_Y_LSMS_40_49XX_B,not f,testName,"40-49xx B");
       check1(MY_GATE_Y_LSMS_50_59XX_A,not e,testName,"50-59xx A");
-      check1(MY_GATE_Y_LSMS_50_59XX_B,not e,testName,"50-59xx A");
+      check1(MY_GATE_Y_LSMS_50_59XX_B,not e,testName,"50-59xx B");
       check1(MY_GATE_Y_LSMS_60_69XX_A,not g,testName,"60-69xx A");
-      check1(MY_GATE_Y_LSMS_60_69XX_B,not g,testName,"60-69xx A");
+      check1(MY_GATE_Y_LSMS_60_69XX_B,not g,testName,"60-69xx B");
       check1(MY_GATE_Y_LSMS_70_79XX_A,not h,testName,"70-79xx A");
-      check1(MY_GATE_Y_LSMS_70_79XX_B,not h,testName,"70-79xx A");
+      check1(MY_GATE_Y_LSMS_70_79XX_B,not h,testName,"70-79xx B");
       check1(MY_GATE_Y_LSMS_80_89XX_A,not k,testName,"80-89xx A");
-      check1(MY_GATE_Y_LSMS_80_89XX_B,not k,testName,"80-89xx A");
+      check1(MY_GATE_Y_LSMS_80_89XX_B,not k,testName,"80-89xx B");
       check1(MY_GATE_Y_LSMS_90_99XX_A,not j,testName,"90-99xx A");
-      check1(MY_GATE_Y_LSMS_90_99XX_B,not j,testName,"90-99xx A");
+      check1(MY_GATE_Y_LSMS_90_99XX_B,not j,testName,"90-99xx B");
       
    end loop;
 
