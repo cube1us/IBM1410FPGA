@@ -1,0 +1,96 @@
+Generating HDL for page 33.10.01.1 Y LSMS DRVR ECDR 1-5 FEATURE at 10/16/2020 3:19:47 PM
+Note: DOT Function at 4A has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 2B has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 4D has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 1G has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 2E has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Generating Statement for block at 4A with output pin(s) of OUT_4A_F
+	and inputs of MY_MEM_AR_HP8B,MY_Y_WR_1
+	and logic function of NOR
+Generating Statement for block at 1A with output pin(s) of OUT_1A_G
+	and inputs of MY_MEM_AR_HP8B
+	and logic function of NOR
+Generating Statement for block at 4B with output pin(s) of OUT_4B_R
+	and inputs of MY_Y_RD_1,MY_MEM_AR_NOT_HP8B
+	and logic function of NOR
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of MY_MEM_AR_HP4B,MY_Y_WR_1
+	and logic function of NOR
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C
+	and inputs of MY_MEM_AR_HP4B
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of MY_MEM_AR_NOT_HP4B,MY_Y_RD_1
+	and logic function of NOR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_F
+	and inputs of MY_MEM_AR_HP2B,MY_Y_WR_1
+	and logic function of NOR
+Generating Statement for block at 4E with output pin(s) of OUT_4E_R
+	and inputs of MY_Y_RD_1,MY_MEM_AR_NOT_HP2B
+	and logic function of NOR
+Generating Statement for block at 2E with output pin(s) of OUT_2E_G
+	and inputs of MY_MEM_AR_HP1B,MY_Y_WR_1
+	and logic function of NOR
+Generating Statement for block at 1E with output pin(s) of OUT_1E_F
+	and inputs of MY_MEM_AR_HP2B
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of MY_MEM_AR_NOT_HP1B,MY_Y_RD_1
+	and logic function of NOR
+Generating Statement for block at 1F with output pin(s) of OUT_1F_R
+	and inputs of MY_MEM_AR_HP1B
+	and logic function of NOR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_F
+	and inputs of MY_MEM_AR_HP0B,MY_Y_WR_1
+	and logic function of NOR
+Generating Statement for block at 4H with output pin(s) of OUT_4H_R
+	and inputs of MY_MEM_AR_NOT_HP0B,MY_Y_RD_1
+	and logic function of NOR
+Generating Statement for block at 1I with output pin(s) of OUT_1I_F
+	and inputs of MY_MEM_AR_HP0B
+	and logic function of NOR
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
+	and inputs of OUT_4A_F,OUT_4B_R
+	and logic function of OR
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B
+	and inputs of OUT_2B_G,OUT_2C_C
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4D_F,OUT_4E_R
+	and logic function of OR
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_4G_F,OUT_4H_R
+	and logic function of OR
+Generating Statement for block at 2E with output pin(s) of OUT_DOT_2E
+	and inputs of OUT_2E_G,OUT_2F_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_NOT_HP8B_Z
+	from gate output OUT_1A_G
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_NOT_HP4B_Z
+	from gate output OUT_1B_C
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_NOT_HP2B_Z
+	from gate output OUT_1E_F
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_NOT_HP1B_Z
+	from gate output OUT_1F_R
+Generating output sheet edge signal assignment to 
+	signal MY_MEM_AR_NOT_HP0B_Z
+	from gate output OUT_1I_F
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_DRVR_1
+	from gate output OUT_DOT_4A
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_DRVR_2
+	from gate output OUT_DOT_2B
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_DRVR_3
+	from gate output OUT_DOT_4D
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_DRVR_5
+	from gate output OUT_DOT_1G
+Generating output sheet edge signal assignment to 
+	signal PY_Y_LSMS_DRVR_4
+	from gate output OUT_DOT_2E
