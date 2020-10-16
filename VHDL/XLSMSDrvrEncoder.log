@@ -1,0 +1,91 @@
+Generating HDL for group named XLSMSDrvrEncoderat 10/16/2020 9:38:48 AM containing pages: 
+	31.10.01.1, 31.10.02.1, 31.10.03.1, 31.10.04.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\XLSMSDrvrEncoder_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 4 pages...
+Found 17 signals on page 31.10.01.1
+Found 11 signals on page 31.10.02.1
+Found 13 signals on page 31.10.03.1
+Found 17 signals on page 31.10.04.1
+Found 14 unique input signals and 16 unique output signals, (30 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -Y MEM AR NOT UP0B originates outside the group.
+INFO:  Signal -Y MEM AR UP0B originates outside the group.
+INFO:  Signal -Y MEM AR UP1B originates outside the group.
+INFO:  Signal -Y MEM AR NOT UP1B originates outside the group.
+INFO:  Signal -Y MEM AR NOT UP2B originates outside the group.
+INFO:  Signal -Y MEM AR UP2B originates outside the group.
+INFO:  Signal -Y MEM AR NOT UP4B originates outside the group.
+INFO:  Signal -Y MEM AR UP4B originates outside the group.
+INFO:  Signal -Y MEM AR NOT UP8B originates outside the group.
+INFO:  Signal -Y MEM AR UP8B originates outside the group.
+INFO:  Signal -Y X WR 1 originates outside the group.
+INFO:  Signal -Y X RD 1 originates outside the group.
+INFO:  Signal -Y X RD 2 originates outside the group.
+INFO:  Signal -Y X WR 2 originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +Y X LSMS DRVR 1 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 2 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 3 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 4 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 5 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 6 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 7 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 8 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 9 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 10 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 11 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 14 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 12 is used outside the group.
+INFO:  Signal +Y X RD 2 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 15 is used outside the group.
+INFO:  Signal +Y X LSMS DRVR 13 is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal -Y MEM AR NOT UP0B replaced by Bus signal -Y MEM AR NOT UP BUS
+Input Signal -Y MEM AR UP0B replaced by Bus signal -Y MEM AR UP BUS
+Input Signal -Y MEM AR UP1B replaced by Bus signal -Y MEM AR UP BUS
+Input Signal -Y MEM AR NOT UP1B replaced by Bus signal -Y MEM AR NOT UP BUS
+Input Signal -Y MEM AR NOT UP2B replaced by Bus signal -Y MEM AR NOT UP BUS
+Input Signal -Y MEM AR UP2B replaced by Bus signal -Y MEM AR UP BUS
+Input Signal -Y MEM AR NOT UP4B replaced by Bus signal -Y MEM AR NOT UP BUS
+Input Signal -Y MEM AR UP4B replaced by Bus signal -Y MEM AR UP BUS
+Input Signal -Y MEM AR NOT UP8B replaced by Bus signal -Y MEM AR NOT UP BUS
+Input Signal -Y MEM AR UP8B replaced by Bus signal -Y MEM AR UP BUS
+DEBUG: Tentative bus +Y X LSMS DRVR BUS identified based on signal +Y X LSMS DRVR 1
+DEBUG: Added signal +Y X LSMS DRVR 2 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 3 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 4 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 5 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 6 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 7 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 8 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 9 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 10 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 11 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 14 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 12 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 15 to bus +Y X LSMS DRVR BUS
+DEBUG: Added signal +Y X LSMS DRVR 13 to bus +Y X LSMS DRVR BUS
+INFO: Bus +Y X LSMS DRVR BUS identified 
+Output signal +Y X LSMS DRVR 1 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 2 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 3 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 4 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 5 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 6 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 7 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 8 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 9 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 10 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 11 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 14 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 12 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 15 replaced by bus +Y X LSMS DRVR BUS
+Output signal +Y X LSMS DRVR 13 replaced by bus +Y X LSMS DRVR BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 31.10.01.1 (X LSMS DRVR ECDR 1-5 FEAT-ACC)
+Generating HDL associated with page 31.10.02.1 (X LSMS DRVR ECDR 6-8)
+Generating HDL associated with page 31.10.03.1 (X LSMS DRVR ECDR 9-11)
+Generating HDL associated with page 31.10.04.1 (X LSMS DRVR ECDR 12-15)

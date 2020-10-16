@@ -1,0 +1,79 @@
+Generating HDL for page 31.10.04.1 X LSMS DRVR ECDR 12-15 at 10/16/2020 9:37:41 AM
+Generating Statement for block at 4A with output pin(s) of OUT_4A_NoPin
+	and inputs of MY_MEM_AR_UP0B,MY_X_RD_2,MY_MEM_AR_UP8B
+	and logic function of OR
+Generating Statement for block at 2A with output pin(s) of OUT_2A_NoPin
+	and inputs of MY_MEM_AR_UP8B,MY_X_RD_2,MY_MEM_AR_UP2B
+	and logic function of OR
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of MY_MEM_AR_NOT_UP0B,MY_X_RD_2,MY_MEM_AR_NOT_UP8B
+	and logic function of OR
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4A_NoPin,OUT_4B_NoPin,OUT_4C_NoPin,OUT_4D_NoPin
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_NoPin
+	and inputs of MY_MEM_AR_NOT_UP2B,MY_X_RD_2,MY_MEM_AR_NOT_UP8B
+	and logic function of OR
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C
+	and inputs of OUT_2A_NoPin,OUT_2B_NoPin,OUT_2C_NoPin,OUT_2D_NoPin
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of MY_MEM_AR_UP0B,MY_MEM_AR_NOT_UP8B,MY_X_WR_2
+	and logic function of OR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_NoPin
+	and inputs of MY_MEM_AR_UP2B,MY_MEM_AR_NOT_UP8B,MY_X_WR_2
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of MY_MEM_AR_NOT_UP0B,MY_MEM_AR_UP8B,MY_X_WR_2
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_2D_NoPin
+	and inputs of MY_MEM_AR_NOT_UP2B,MY_X_WR_2,MY_MEM_AR_UP8B
+	and logic function of OR
+Generating Statement for block at 1E with output pin(s) of OUT_1E_G
+	and inputs of MY_X_RD_2
+	and logic function of NOR
+Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
+	and inputs of MY_MEM_AR_UP8B,MY_MEM_AR_UP1B,MY_X_RD_2
+	and logic function of OR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_NoPin
+	and inputs of MY_MEM_AR_UP8B,MY_X_RD_2,MY_MEM_AR_UP4B
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of MY_MEM_AR_NOT_UP8B,MY_MEM_AR_NOT_UP1B,MY_X_RD_2
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of OUT_4F_NoPin,OUT_4G_NoPin,OUT_4H_NoPin,OUT_4I_NoPin
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_NoPin
+	and inputs of MY_MEM_AR_NOT_UP8B,MY_X_RD_2,MY_MEM_AR_NOT_UP4B
+	and logic function of OR
+Generating Statement for block at 1G with output pin(s) of OUT_1G_C
+	and inputs of OUT_2F_NoPin,OUT_2G_NoPin,OUT_2H_NoPin,OUT_2I_NoPin
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of MY_X_WR_2,MY_MEM_AR_NOT_UP8B,MY_MEM_AR_UP1B
+	and logic function of OR
+Generating Statement for block at 2H with output pin(s) of OUT_2H_NoPin
+	and inputs of MY_X_WR_2,MY_MEM_AR_NOT_UP8B,MY_MEM_AR_UP4B
+	and logic function of OR
+Generating Statement for block at 4I with output pin(s) of OUT_4I_NoPin
+	and inputs of MY_MEM_AR_UP8B,MY_X_WR_2,MY_MEM_AR_NOT_UP1B
+	and logic function of OR
+Generating Statement for block at 2I with output pin(s) of OUT_2I_NoPin
+	and inputs of MY_MEM_AR_UP8B,MY_X_WR_2,MY_MEM_AR_NOT_UP4B
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PY_X_LSMS_DRVR_12
+	from gate output OUT_3B_C
+Generating output sheet edge signal assignment to 
+	signal PY_X_LSMS_DRVR_14
+	from gate output OUT_1B_C
+Generating output sheet edge signal assignment to 
+	signal PY_X_RD_2
+	from gate output OUT_1E_G
+Generating output sheet edge signal assignment to 
+	signal PY_X_LSMS_DRVR_13
+	from gate output OUT_3G_C
+Generating output sheet edge signal assignment to 
+	signal PY_X_LSMS_DRVR_15
+	from gate output OUT_1G_C
