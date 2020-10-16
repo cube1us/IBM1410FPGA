@@ -1,0 +1,122 @@
+Generating HDL for page 32.11.01.1 X LSMS GATES at 10/16/2020 2:47:25 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_32_11_01_1_X_LSMS_GATES_tb.vhdl, generating default test bench code.
+Generating Statement for block at 5A with output pin(s) of OUT_5A_D
+	and inputs of PY_X_LSMS_GATE_SEL_10_19
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_D
+	and inputs of PY_X_LSMS_GATE_SEL_10_19
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of PY_X_LSMS_GATE_SEL_00_09
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_D
+	and inputs of PY_X_LSMS_GATE_SEL_00_09
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_D
+	and inputs of PY_X_LSMS_GATE_SEL_30_39
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D
+	and inputs of PY_X_LSMS_GATE_SEL_30_39
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of PY_X_LSMS_GATE_SEL_20_29
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_D
+	and inputs of PY_X_LSMS_GATE_SEL_20_29
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_D
+	and inputs of PY_X_LSMS_GATE_SEL_50_59
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of PY_X_LSMS_GATE_SEL_50_59
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of PY_X_LSMS_GATE_SEL_40_49
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D
+	and inputs of PY_X_LSMS_GATE_SEL_40_49
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_D
+	and inputs of PY_X_LSMS_GATE_SEL_70_79
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of PY_X_LSMS_GATE_SEL_70_79
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_D
+	and inputs of PY_X_LSMS_GATE_SEL_60_69
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_D
+	and inputs of PY_X_LSMS_GATE_SEL_60_69
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_D
+	and inputs of PY_X_LSMS_GATE_SEL_90_99
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_D
+	and inputs of PY_X_LSMS_GATE_SEL_90_99
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_D
+	and inputs of PY_X_LSMS_GATE_SEL_80_89
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_D
+	and inputs of PY_X_LSMS_GATE_SEL_80_89
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY10_19_B
+	from gate output OUT_5A_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY10_19_A
+	from gate output OUT_4A_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY00_09_B
+	from gate output OUT_2A_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY00_09_A
+	from gate output OUT_1A_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY30_39_B
+	from gate output OUT_5C_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY30_39_A
+	from gate output OUT_4C_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY20_29_B
+	from gate output OUT_2C_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY20_29_A
+	from gate output OUT_1C_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY50_59_B
+	from gate output OUT_5E_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY50_59_A
+	from gate output OUT_4E_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY40_49_B
+	from gate output OUT_2E_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY40_49_A
+	from gate output OUT_1E_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY70_79_B
+	from gate output OUT_5G_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY70_79_A
+	from gate output OUT_4G_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY60_69_B
+	from gate output OUT_2G_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY60_60_A
+	from gate output OUT_1G_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY90_99_B
+	from gate output OUT_5I_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY90_99_A
+	from gate output OUT_4I_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY80_89_B
+	from gate output OUT_2I_D
+Generating output sheet edge signal assignment to 
+	signal MV_GATE_X_LSMS_YY80_89_A
+	from gate output OUT_1I_D
