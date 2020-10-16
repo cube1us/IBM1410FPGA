@@ -1,0 +1,57 @@
+Generating HDL for page 33.11.01.1 Y LSMS DRVRS 1-8 at 10/16/2020 3:52:19 PM
+Removed 4 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_D
+	and inputs of PY_Y_LSMS_DRVR_1
+	and logic function of EQUAL
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of PY_Y_LSMS_DRVR_2
+	and logic function of EQUAL
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of PY_Y_LSMS_DRVR_3
+	and logic function of EQUAL
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of PY_Y_LSMS_DRVR_4
+	and logic function of EQUAL
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of PY_Y_LSMS_DRVR_5
+	and logic function of EQUAL
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of PY_Y_LSMS_DRVR_6
+	and logic function of EQUAL
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of PY_Y_LSMS_DRVR_7
+	and logic function of EQUAL
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D
+	and inputs of PY_Y_LSMS_DRVR_8
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal PV_Y_LSMS_DRV_1_IN
+	from gate output OUT_3A_D
+Generating output sheet edge signal assignment to 
+	signal PV_Y_LSMS_DRV_2_IN
+	from gate output OUT_3B_D
+Generating output sheet edge signal assignment to 
+	signal PV_Y_LSMS_DRV_3_IN
+	from gate output OUT_3C_D
+Generating output sheet edge signal assignment to 
+	signal PV_Y_LSMS_DRV_4_IN
+	from gate output OUT_3D_D
+Generating output sheet edge signal assignment to 
+	signal PV_Y_LSMS_DRV_5_IN
+	from gate output OUT_3E_D
+Generating output sheet edge signal assignment to 
+	signal PV_Y_LSMS_DRV_6_IN
+	from gate output OUT_3F_D
+Generating output sheet edge signal assignment to 
+	signal PV_Y_LSMS_DRV_7_IN
+	from gate output OUT_3G_D
+Generating output sheet edge signal assignment to 
+	signal PV_Y_LSMS_DRV_8_IN
+	from gate output OUT_3H_D

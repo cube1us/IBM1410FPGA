@@ -1,0 +1,96 @@
+Generating HDL for group named YLSMSDriversat 10/16/2020 3:52:44 PM containing pages: 
+	33.11.01.1, 33.11.02.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\YLSMSDrivers_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 16 signals on page 33.11.01.1
+Found 16 signals on page 33.11.02.1
+Found 16 unique input signals and 16 unique output signals, (32 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +Y Y LSMS DRVR 1 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 2 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 3 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 4 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 5 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 6 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 7 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 8 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 9 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 10 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 11 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 12 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 14 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 13 originates outside the group.
+INFO:  Signal +Y Y RD 2 originates outside the group.
+INFO:  Signal +Y Y LSMS DRVR 15 originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +V Y LSMS DRV 1 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 2 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 3 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 4 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 5 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 6 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 7 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 8 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 10 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 9 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 11 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 12 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 13 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 14 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 15 IN is used outside the group.
+INFO:  Signal +V Y LSMS DRV 16 IN is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +Y Y LSMS DRVR 1 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 2 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 3 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 4 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 5 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 6 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 7 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 8 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 9 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 10 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 11 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 12 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 14 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 13 replaced by Bus signal +Y Y LSMS DRVR BUS
+Input Signal +Y Y LSMS DRVR 15 replaced by Bus signal +Y Y LSMS DRVR BUS
+DEBUG: Tentative bus +V Y LSMS DRV IN BUS identified based on signal +V Y LSMS DRV 1 IN
+DEBUG: Added signal +V Y LSMS DRV 2 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 3 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 4 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 5 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 6 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 7 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 8 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 10 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 9 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 11 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 12 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 13 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 14 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 15 IN to bus +V Y LSMS DRV IN BUS
+DEBUG: Added signal +V Y LSMS DRV 16 IN to bus +V Y LSMS DRV IN BUS
+INFO: Bus +V Y LSMS DRV IN BUS identified 
+Output signal +V Y LSMS DRV 1 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 2 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 3 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 4 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 5 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 6 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 7 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 8 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 10 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 9 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 11 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 12 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 13 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 14 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 15 IN replaced by bus +V Y LSMS DRV IN BUS
+Output signal +V Y LSMS DRV 16 IN replaced by bus +V Y LSMS DRV IN BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 33.11.01.1 (Y LSMS DRVRS 1-8)
+Generating HDL associated with page 33.11.02.1 (Y LSMS DRVRS 9-16)
