@@ -186,47 +186,58 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(25 downto 0);
+   variable tv: std_logic_vector(4 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable results: std_logic_vector(9 downto 0);
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "32.10.02.1        ";
 
-   for tt in 0 to 2**25 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+   for tt in 0 to 9 loop
+      tv := BCD.twoOfFive(tt);
 
+		MY_MEM_AR_TP0B <= not tv(0);
+		MY_MEM_AR_NOT_TP0B <= not(not tv(0));
+		MY_MEM_AR_TP1B <= not tv(1);
+		MY_MEM_AR_NOT_TP1B <= not(not tv(1));
+		MY_MEM_AR_TP2B <= not tv(2);
+		MY_MEM_AR_NOT_TP2B <= not(not tv(2));
+		MY_MEM_AR_TP4B <= not tv(3);
+		MY_MEM_AR_NOT_TP4B <= not(not tv(3));
+		MY_MEM_AR_TP8B <= not tv(4);
+		MY_MEM_AR_NOT_TP8B <= not(not tv(4));
+		
+		wait for 30 ns;
+		results := 
+		   PY_X_LSMS_GATE_SEL_90_99 &
+		   PY_X_LSMS_GATE_SEL_80_89 &
+		   PY_X_LSMS_GATE_SEL_70_79 & 
+		   PY_X_LSMS_GATE_SEL_60_69 & 
+		   PY_X_LSMS_GATE_SEL_50_59 & 
+		   PY_X_LSMS_GATE_SEL_40_49 & 
+		   PY_X_LSMS_GATE_SEL_30_39 & 
+		   PY_X_LSMS_GATE_SEL_20_29 & 
+		   PY_X_LSMS_GATE_SEL_10_19 & 
+		   PY_X_LSMS_GATE_SEL_00_09; 
       
-      wait for 30 ns;
+      for bitnum in 0 to 9 loop
+         if(bitnum = tt) then
+            check1(results(bitnum),'1',testName,"Gate Set " & Integer'image(tt) & " bitnum " & Integer'image(bitnum) & " failed");
+         else
+            check1(results(bitnum),'0',testName,"Gate NOT Set " & Integer'image(tt) & " bitnum " & Integer'image(bitnum) & " failed");
+         end if;
+      end loop;
       
+      results :=       
+		   PY_MEM_AR_NOT_TP8B_JRJ & 
+         MY_MEM_AR_NOT_TP4B_JRJ & 
+         MY_MEM_AR_NOT_TP2B_JRJ & 
+         MY_MEM_AR_NOT_TP1B_JRJ & 
+         MY_MEM_AR_NOT_TP0B_JRJ; 
       
    end loop;
 
