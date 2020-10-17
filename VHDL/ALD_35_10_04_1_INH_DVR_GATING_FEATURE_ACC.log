@@ -1,8 +1,22 @@
-Generating HDL for page 35.10.04.1 INH DVR GATING FEATURE-ACC at 10/17/2020 3:16:50 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_35_10_04_1_INH_DVR_GATING_FEATURE_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 35.10.04.1 INH DVR GATING FEATURE-ACC at 10/17/2020 3:31:53 PM
+Old test bench file ALD_35_10_04_1_INH_DVR_GATING_FEATURE_ACC_tb.vhdl 90 lines preserved and 35 declaration lines preserved
+Block at coordinate 3E is marked for No HDL Generation -- skipped.
+Block at coordinate 3F is marked for No HDL Generation -- skipped.
 Note: DOT Function at 3C has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
 Note: DOT Function at 3G has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
 Note: DOT Function at 5C has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+ERROR Processing DOT Function at 3C Connection id 271106 Reference to Diagram Block 271073 Could not be found in logicBlocks list.
+ERROR Processing DOT Function at 3G Connection id 271108 Reference to Diagram Block 271074 Could not be found in logicBlocks list.
+Error: During latch check, no result looking in logicBlocks for Connection Destination Gate database ID 271073 Connected from block at 5C (Database ID=271065)
+Error: During latch check, no result looking in logicBlocks for Connection Destination Gate database ID 271074 Connected from block at 5C (Database ID=271065)
+Error: During latch check, no result looking in logicBlocks for Connection Destination Gate database ID 271073 Connected from block at 5E (Database ID=271071)
+Error: During latch check, no result looking in logicBlocks for Connection Destination Gate database ID 271074 Connected from block at 5E (Database ID=271071)
+Error: During latch check, no result looking in logicBlocks for Connection Destination Gate database ID 271073 Connected from block at 4E (Database ID=271072)
+Error: During latch check, no result looking in logicBlocks for Connection Destination Gate database ID 271074 Connected from block at 4E (Database ID=271072)
+Error: During latch check, no result looking in logicBlocks for Connection Destination Gate database ID 271073 Connected from block at 5H (Database ID=271078)
+Error: During latch check, no result looking in logicBlocks for Connection Destination Gate database ID 271074 Connected from block at 5H (Database ID=271078)
+Error: During latch check, no result looking in logicBlocks for Connection Destination Gate database ID 271073 Connected from block at 4H (Database ID=271079)
+Error: During latch check, no result looking in logicBlocks for Connection Destination Gate database ID 271074 Connected from block at 4H (Database ID=271079)
 Generating Statement for block at 5C with output pin(s) of OUT_5C_F
 	and inputs of MY_MEM_AR_THP8B,MY_MEM_AR_THP2B
 	and logic function of NOR
@@ -24,12 +38,6 @@ Generating Statement for block at 5E with output pin(s) of OUT_5E_P
 Generating Statement for block at 4E with output pin(s) of OUT_4E_F, OUT_4E_F
 	and inputs of OUT_DOT_5C,OUT_4H_R
 	and logic function of NOR
-Generating Statement for block at 3E with output pin(s) of OUT_3E_R
-	and inputs of OUT_4E_F,MY_Z_PULSE
-	and logic function of NOR
-Generating Statement for block at 3F with output pin(s) of OUT_3F_F
-	and inputs of OUT_4E_F,MY_Z_PULSE
-	and logic function of NOR
 Generating Statement for block at 3G with output pin(s) of OUT_3G_C
 	and inputs of OUT_4H_R,MY_Z_PULSE
 	and logic function of NOR
@@ -48,11 +56,13 @@ Generating Statement for block at 3H with output pin(s) of OUT_3H_F
 Generating Statement for block at 1H with output pin(s) of OUT_1H_E
 	and inputs of OUT_3H_F
 	and logic function of EQUAL
+ERROR:  During generation, input is not from edge, and cannot find matching DOT function or Gate, Diagram Block 3C, connection database ID 271106
 Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
-	and inputs of OUT_3C_G,OUT_3E_R
+	and inputs of OUT_3C_G
 	and logic function of OR
+ERROR:  During generation, input is not from edge, and cannot find matching DOT function or Gate, Diagram Block 3G, connection database ID 271108
 Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G
-	and inputs of OUT_3F_F,OUT_3G_C
+	and inputs of OUT_3G_C
 	and logic function of OR
 Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C, OUT_DOT_5C, OUT_DOT_5C, OUT_DOT_5C
 	and inputs of OUT_5C_F,OUT_5E_P,OUT_5H_R
