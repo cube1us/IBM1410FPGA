@@ -1,0 +1,61 @@
+Generating HDL for page 35.10.03.1 CHAR GATING CHECK CKTS FEAT-ACC at 10/17/2020 1:24:29 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_35_10_03_1_CHAR_GATING_CHECK_CKTS_FEAT_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1A has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 1I has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G, OUT_4A_G, OUT_4A_G, OUT_4A_G
+	and inputs of PY_1ST_CHECK_TEST_STAR_SEE_NOTE_STAR,PY_SEL_CHR_1,PY_LD_CHR_2,PY_SEL_CHR_0,PY_LD_CHR_0
+	and logic function of NOR
+Generating Statement for block at 2A with output pin(s) of OUT_2A_F
+	and inputs of OUT_4A_G,OUT_4E_G
+	and logic function of NOR
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of OUT_4E_G,OUT_4I_G
+	and logic function of NOR
+Generating Statement for block at 4C with output pin(s) of OUT_4C_P, OUT_4C_P, OUT_4C_P, OUT_4C_P
+	and inputs of PY_SEL_CHR_3,PY_SEL_CHR_2,PY_LD_CHR_2,PY_LD_CHR_3,PY_2ND_CHECK_TEST_STAR_SEE_NOTE_STAR
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_4C_P,OUT_4I_G
+	and logic function of NOR
+Generating Statement for block at 2D with output pin(s) of OUT_2D_F
+	and inputs of OUT_4C_P,OUT_4G_P
+	and logic function of NOR
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G, OUT_4E_G, OUT_4E_G, OUT_4E_G
+	and inputs of PY_LD_CHR_0,PY_LD_CHR_1,PY_SEL_CHR_3,PY_1ST_CHECK_TEST_STAR_SEE_NOTE_STAR
+	and logic function of NOR
+Generating Statement for block at 2E with output pin(s) of OUT_2E_R
+	and inputs of OUT_4A_G,OUT_4G_P
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_F
+	and inputs of OUT_4A_G,OUT_4C_P
+	and logic function of NOR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_P, OUT_4G_P, OUT_4G_P, OUT_4G_P
+	and inputs of PY_SEL_CHR_1,PY_SEL_CHR_2,PY_1ST_CHECK_TEST_STAR_SEE_NOTE_STAR,PY_2ND_CHECK_TEST_STAR_SEE_NOTE_STAR
+	and logic function of NOR
+Generating Statement for block at 2G with output pin(s) of OUT_2G_R
+	and inputs of OUT_4C_P,OUT_4E_G
+	and logic function of NOR
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_4E_G,OUT_4G_P
+	and logic function of NOR
+Generating Statement for block at 4I with output pin(s) of OUT_4I_G, OUT_4I_G, OUT_4I_G, OUT_4I_G
+	and inputs of PY_SEL_CHR_0,PY_LD_CHR_1,PY_LD_CHR_3,PY_2ND_CHECK_TEST_STAR_SEE_NOTE_STAR
+	and logic function of NOR
+Generating Statement for block at 2I with output pin(s) of OUT_2I_G
+	and inputs of OUT_4G_P,OUT_4I_G
+	and logic function of NOR
+Generating Statement for block at 1I with output pin(s) of OUT_1I_C
+	and inputs of OUT_4A_G,OUT_4I_G
+	and logic function of NOR
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_2A_F,OUT_2B_G,OUT_2C_C,OUT_2D_F,OUT_2E_R
+	and logic function of OR
+Generating Statement for block at 1I with output pin(s) of OUT_DOT_1I
+	and inputs of OUT_2F_F,OUT_2G_R,OUT_2H_C,OUT_2I_G,OUT_1I_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PY_CHAR_SEL_ERROR_CHK_1
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal PY_CHAR_SEL_ERROR_CHK_2
+	from gate output OUT_DOT_1I
