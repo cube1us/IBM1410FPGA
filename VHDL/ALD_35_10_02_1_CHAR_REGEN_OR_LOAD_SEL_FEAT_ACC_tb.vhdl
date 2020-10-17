@@ -185,9 +185,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "35.10.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -195,29 +195,35 @@ uut_process: process
       d := tv(3);
       e := tv(4);
       f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
-      
+		MY_RO_CHR_0 <= not a;
+		MY_RO_CHR_1 <= not b;
+		MY_LOAD_MEMORY <= not c;
+		MY_REGEN_MEMORY <= not d;
+		MY_RO_CHR_2 <= not e;
+		MY_RO_CHR_3 <= not f;
+
       wait for 30 ns;
-      
+
+      check1(PY_LD_CHR_0,c and a,testName,"+Y LD Char 0");
+      check1(MY_LD_CHR_0,not PY_LD_CHR_0,testName,"-Y LD Char 0");
+      check1(MY_REGEN_CHR_0,c and a,testName,"-Y Regen Char 0");
+      check1(PY_SEL_CHR_0,a and d,testName,"+Y Sel Char 0");
+
+      check1(PY_LD_CHR_1,c and b,testName,"+Y LD Char 1");
+      check1(MY_LD_CHR_1,not PY_LD_CHR_1,testName,"-Y LD Char 1");
+      check1(MY_REGEN_CHR_1,c and b,testName,"-Y Regen Char 1");
+      check1(PY_SEL_CHR_1,b and d,testName,"+Y Sel Char 1");
+
+      check1(PY_LD_CHR_2,c and e,testName,"+Y LD Char 2");
+      check1(MY_LD_CHR_2,not PY_LD_CHR_2,testName,"-Y LD Char 2");
+      check1(MY_REGEN_CHR_2,c and e,testName,"-Y Regen Char 2");
+      check1(PY_SEL_CHR_2,e and d,testName,"+Y Sel Char 2");
+            
+      check1(PY_LD_CHR_3,c and f,testName,"+Y LD Char 3");
+      check1(MY_LD_CHR_3,not PY_LD_CHR_3,testName,"-Y LD Char 3");
+      check1(MY_REGEN_CHR_3,c and f,testName,"-Y Regen Char 3");
+      check1(PY_SEL_CHR_3,f and d,testName,"+Y Sel Char 3");
       
    end loop;
 
