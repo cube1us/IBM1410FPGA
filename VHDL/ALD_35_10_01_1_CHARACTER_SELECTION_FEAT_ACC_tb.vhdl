@@ -166,40 +166,28 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "35.10.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**5 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
-      
+      -- Only testing configuration S2 ( > 10K of memory) - the 10K config was not generated in the VHDL
+      -- because the logic would conflict with the > 20K version.
+      -- Also, this sheet only covers up to 40K (39,999)
+
+		MY_MEM_AR_TTHP0B <= not tv(0);
+		MY_MEM_AR_TTHP1B <= not tv(1);
+		MY_MEM_AR_TTHP2B <= not tv(2);
+		-- 4 Bit not involved
+		MY_MEM_AR_TTHP8B <= not tv(4);
+
       wait for 30 ns;
       
-      
+      check1(MY_RO_CHR_0,not(tv(2) and tv(4)),testName,"RO Char 0");
+      check1(MY_RO_CHR_1,not(tv(0) and tv(1)),testName,"RO Char 1");
+      check1(MY_RO_CHR_2,not(tv(0) and tv(2)),testName,"RO Char 2");
+      check1(MY_RO_CHR_3,not(tv(2) and tv(1)),testName,"RO Char 3");
+                  
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
