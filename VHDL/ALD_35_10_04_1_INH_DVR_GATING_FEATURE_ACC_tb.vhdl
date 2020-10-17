@@ -152,38 +152,32 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "35.10.04.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**5 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
       e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+      g1 := not(a and b) and not(c and d) and not(not c and not a);
       
+		MY_MEM_AR_THP8B <= not a;
+		MY_MEM_AR_THP2B <= not b;
+		MY_MEM_AR_THP4B <= not c;
+		MY_MEM_AR_THP0B <= not d;
+		MY_Z_PULSE <= not e;
+		MY_MEM_AR_NOT_THP4B <= c;
+		MY_MEM_AR_NOT_THP8B <= a;
+     
       wait for 30 ns;
+      
+      check1(PY_Z_GATE_FOR_5_9TH_A,g1 and e,testName,"+Y 5-9th A");
+      check1(PY_Z_GATE_FOR_5_9TH_B,g1 and e,testName,"+Y 5-9th B");
+      check1(PY_Z_GATE_FOR_0_4TH_A,not g1 and e,testName,"+Y 0-4th A");
+      check1(PY_Z_GATE_FOR_0_4TH_B,not g1 and e,testName,"+Y 0-4th B");
       
       
    end loop;
