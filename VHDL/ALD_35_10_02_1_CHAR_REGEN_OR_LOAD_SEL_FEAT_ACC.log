@@ -1,0 +1,110 @@
+Generating HDL for page 35.10.02.1 CHAR REGEN OR LOAD SEL FEAT-ACC at 10/17/2020 11:33:41 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_35_10_02_1_CHAR_REGEN_OR_LOAD_SEL_FEAT_ACC_tb.vhdl, generating default test bench code.
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of MY_RO_CHR_0,MY_LOAD_MEMORY
+	and logic function of NOR
+Generating Statement for block at 3A with output pin(s) of OUT_3A_A, OUT_3A_A
+	and inputs of OUT_4A_G
+	and logic function of EQUAL
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D, OUT_2A_D
+	and inputs of OUT_3A_A
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of OUT_1A_G
+	and inputs of OUT_2A_D
+	and logic function of NOR
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of MY_RO_CHR_0,MY_REGEN_MEMORY
+	and logic function of NOR
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F
+	and inputs of MY_RO_CHR_1,MY_LOAD_MEMORY
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E, OUT_3C_E
+	and inputs of OUT_4C_F
+	and logic function of EQUAL
+Generating Statement for block at 2C with output pin(s) of OUT_2C_A, OUT_2C_A
+	and inputs of OUT_3C_E
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_2C_A
+	and logic function of NOR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_R
+	and inputs of MY_RO_CHR_1,MY_REGEN_MEMORY
+	and logic function of NOR
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of MY_RO_CHR_2,MY_LOAD_MEMORY
+	and logic function of NOR
+Generating Statement for block at 3E with output pin(s) of OUT_3E_L, OUT_3E_L
+	and inputs of OUT_4E_G
+	and logic function of EQUAL
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D, OUT_2E_D
+	and inputs of OUT_3E_L
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of OUT_1E_G
+	and inputs of OUT_2E_D
+	and logic function of NOR
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of MY_RO_CHR_2,MY_REGEN_MEMORY
+	and logic function of NOR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_F
+	and inputs of MY_RO_CHR_3,MY_LOAD_MEMORY
+	and logic function of NOR
+Generating Statement for block at 3G with output pin(s) of OUT_3G_Q, OUT_3G_Q
+	and inputs of OUT_4G_F
+	and logic function of EQUAL
+Generating Statement for block at 2G with output pin(s) of OUT_2G_P, OUT_2G_P
+	and inputs of OUT_3G_Q
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of OUT_1G_C
+	and inputs of OUT_2G_P
+	and logic function of NOR
+Generating Statement for block at 4H with output pin(s) of OUT_4H_R
+	and inputs of MY_RO_CHR_3,MY_REGEN_MEMORY
+	and logic function of NOR
+Generating output sheet edge signal assignment to 
+	signal MY_REGEN_CHR_0
+	from gate output OUT_3A_A
+Generating output sheet edge signal assignment to 
+	signal MY_LD_CHR_0
+	from gate output OUT_2A_D
+Generating output sheet edge signal assignment to 
+	signal PY_LD_CHR_0
+	from gate output OUT_1A_G
+Generating output sheet edge signal assignment to 
+	signal PY_SEL_CHR_0
+	from gate output OUT_4B_C
+Generating output sheet edge signal assignment to 
+	signal MY_REGEN_CHR_1
+	from gate output OUT_3C_E
+Generating output sheet edge signal assignment to 
+	signal MY_LD_CHR_1
+	from gate output OUT_2C_A
+Generating output sheet edge signal assignment to 
+	signal PY_LD_CHR_1
+	from gate output OUT_1C_C
+Generating output sheet edge signal assignment to 
+	signal PY_SEL_CHR_1
+	from gate output OUT_4D_R
+Generating output sheet edge signal assignment to 
+	signal MY_REGEN_CHR_2
+	from gate output OUT_3E_L
+Generating output sheet edge signal assignment to 
+	signal MY_LD_CHR_2
+	from gate output OUT_2E_D
+Generating output sheet edge signal assignment to 
+	signal PY_LD_CHR_2
+	from gate output OUT_1E_G
+Generating output sheet edge signal assignment to 
+	signal PY_SEL_CHR_2
+	from gate output OUT_4F_C
+Generating output sheet edge signal assignment to 
+	signal MY_REGEN_CHR_3
+	from gate output OUT_3G_Q
+Generating output sheet edge signal assignment to 
+	signal MY_LD_CHR_3
+	from gate output OUT_2G_P
+Generating output sheet edge signal assignment to 
+	signal PY_LD_CHR_3
+	from gate output OUT_1G_C
+Generating output sheet edge signal assignment to 
+	signal PY_SEL_CHR_3
+	from gate output OUT_4H_R
