@@ -1,0 +1,71 @@
+Generating HDL for page 35.10.04.1 INH DVR GATING FEATURE-ACC at 10/17/2020 3:16:50 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_35_10_04_1_INH_DVR_GATING_FEATURE_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3C has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 3G has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5C has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Generating Statement for block at 5C with output pin(s) of OUT_5C_F
+	and inputs of MY_MEM_AR_THP8B,MY_MEM_AR_THP2B
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of OUT_DOT_5C,MY_Z_PULSE
+	and logic function of NOR
+Generating Statement for block at 1C with output pin(s) of OUT_1C_L
+	and inputs of OUT_DOT_3C
+	and logic function of EQUAL
+Generating Statement for block at 3D with output pin(s) of OUT_3D_R
+	and inputs of OUT_DOT_5C,MY_Z_PULSE
+	and logic function of NOR
+Generating Statement for block at 1D with output pin(s) of OUT_1D_A
+	and inputs of OUT_3D_R
+	and logic function of EQUAL
+Generating Statement for block at 5E with output pin(s) of OUT_5E_P
+	and inputs of MY_MEM_AR_THP4B,MY_MEM_AR_THP0B
+	and logic function of NOR
+Generating Statement for block at 4E with output pin(s) of OUT_4E_F, OUT_4E_F
+	and inputs of OUT_DOT_5C,OUT_4H_R
+	and logic function of NOR
+Generating Statement for block at 3E with output pin(s) of OUT_3E_R
+	and inputs of OUT_4E_F,MY_Z_PULSE
+	and logic function of NOR
+Generating Statement for block at 3F with output pin(s) of OUT_3F_F
+	and inputs of OUT_4E_F,MY_Z_PULSE
+	and logic function of NOR
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of OUT_4H_R,MY_Z_PULSE
+	and logic function of NOR
+Generating Statement for block at 1G with output pin(s) of OUT_1G_Q
+	and inputs of OUT_DOT_3G
+	and logic function of EQUAL
+Generating Statement for block at 5H with output pin(s) of OUT_5H_R
+	and inputs of MY_MEM_AR_NOT_THP4B,MY_MEM_AR_NOT_THP8B
+	and logic function of NOR
+Generating Statement for block at 4H with output pin(s) of OUT_4H_R, OUT_4H_R, OUT_4H_R
+	and inputs of OUT_DOT_5C
+	and logic function of NOR
+Generating Statement for block at 3H with output pin(s) of OUT_3H_F
+	and inputs of OUT_4H_R,MY_Z_PULSE
+	and logic function of NOR
+Generating Statement for block at 1H with output pin(s) of OUT_1H_E
+	and inputs of OUT_3H_F
+	and logic function of EQUAL
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3C_G,OUT_3E_R
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G
+	and inputs of OUT_3F_F,OUT_3G_C
+	and logic function of OR
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C, OUT_DOT_5C, OUT_DOT_5C, OUT_DOT_5C
+	and inputs of OUT_5C_F,OUT_5E_P,OUT_5H_R
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PY_Z_GATE_FOR_5_9TH_A
+	from gate output OUT_1C_L
+Generating output sheet edge signal assignment to 
+	signal PY_Z_GATE_FOR_5_9TH_B
+	from gate output OUT_1D_A
+Generating output sheet edge signal assignment to 
+	signal PY_Z_GATE_FOR_0_4TH_A
+	from gate output OUT_1G_Q
+Generating output sheet edge signal assignment to 
+	signal PY_Z_GATE_FOR_0_4TH_B
+	from gate output OUT_1H_E
