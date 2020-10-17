@@ -86,6 +86,8 @@ procedure check1(
     end procedure;
       
 
+signal charSelError: std_logic := '0';
+signal wantSelError: std_logic := '0';
 
    -- Your test bench declarations go here
 
@@ -151,13 +153,15 @@ uut_process: process
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
+   variable s0,s1,s2,s3,l0,l1,l2,l3: std_logic;
+   
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "35.10.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -169,25 +173,54 @@ uut_process: process
       h := tv(7);
       j := tv(8);
       k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
       
+      g1 := j or c or d or a or b;
+      g2 := e or f or d or h or k;
+      g3 := b or g or e or j;
+      g4 := c or f or j or k;
+      g5 := a or g or h or k;
+            
+		PY_SEL_CHR_0 <= a;
+		PY_LD_CHR_0 <= b;
+		PY_SEL_CHR_1 <= c;
+		PY_LD_CHR_2 <= d;
+		PY_SEL_CHR_3 <= e;
+		PY_SEL_CHR_2 <= f;
+		PY_LD_CHR_1 <= g;
+		PY_LD_CHR_3 <= h;
+		PY_1ST_CHECK_TEST_STAR_SEE_NOTE_STAR <= j;
+		PY_2ND_CHECK_TEST_STAR_SEE_NOTE_STAR <= k;
+		wait for 30 ns;
+		
+		-- It looks to me like this ALD does not catch all the possible select errors.
+		-- wantSelError reflects what I think it would ideally catch
+		-- charSelError reflects what it would actually catch
+      
+      wantSelError <= (a and (b or c or d or e or f or g or h)) or
+         (b and (c or d or e or f or g or h)) or
+         (c and (d or e or f or g or h)) or
+         (d and (e or f or g or h)) or (e and (f or g or h)) or
+         (f and (g or h)) or (g and h) or
+         not(a or b or c or d or e or f or g or h) or
+         PY_1ST_CHECK_TEST_STAR_SEE_NOTE_STAR or
+         PY_2ND_CHECK_TEST_STAR_SEE_NOTE_STAR;
+         
+      charSelError <= (PY_CHAR_SEL_ERROR_CHK_1 and PY_CHAR_SEL_ERROR_CHK_2) or
+         not(PY_CHAR_SEL_ERROR_CHK_1 or PY_CHAR_SEL_ERROR_CHK_2);
+                           
       wait for 30 ns;
+            
+      check1(PY_CHAR_SEL_ERROR_CHK_1,
+         (g1 and g3) or (g5 and g3) or (g5 and g2) or (g4 and g2) or (g4 and g1),
+         testName,"Char Sel Error Chk 1");
+         
+      check1(PY_CHAR_SEL_ERROR_CHK_2,
+         (g2 and g1) or (g3 and g2) or (g4 and g3) or (g4 and g5) or (g1 and g5),
+         testName,"Char Sel Error Chk 2");                     
       
+      if(wantSelError = '0' and charSelError = '1') then
+         assert false report "Unexpected want/select mismatch" severity failure;
+      end if;
       
    end loop;
 
