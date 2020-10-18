@@ -1,0 +1,105 @@
+Generating HDL for page 36.10.04.1 MEM SENSE AMS CHAR 3 at 10/17/2020 4:42:57 PM
+Note: DOT Function at 1A has a forced logic function of AND
+Note: DOT Function at 1B has a forced logic function of AND
+Note: DOT Function at 1C has a forced logic function of AND
+Note: DOT Function at 1D has a forced logic function of AND
+Note: DOT Function at 1E has a forced logic function of AND
+Note: DOT Function at 1F has a forced logic function of AND
+Note: DOT Function at 1G has a forced logic function of AND
+Note: DOT Function at 1H has a forced logic function of AND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_D
+	and inputs of PV_SENSE_CHAR_3_1_BIT_D1,PV_SENSE_CHAR_3_1_BIT_D2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of PV_SENSE_CHAR_3_1_BIT_B1,PV_SENSE_CHAR_3_1_BIT_B2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of PV_SENSE_CHAR_3_2_BIT_D1,PV_SENSE_CHAR_3_2_BIT_D2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of PV_SENSE_CHAR_3_2_BIT_B1,PV_SENSE_CHAR_3_2_BIT_B2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D
+	and inputs of PV_SENSE_CHAR_3_4_BIT_D1,PV_SENSE_CHAR_3_4_BIT_D2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of PV_SENSE_CHAR_3_4_BIT_B1,PV_SENSE_CHAR_3_4_BIT_B2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of PV_SENSE_CHAR_3_8_BIT_D1,PV_SENSE_CHAR_3_8_BIT_D2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of PV_SENSE_CHAR_3_8_BIT_B1,PV_SENSE_CHAR_3_8_BIT_B2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of PV_SENSE_CHAR_3_A_BIT_D1,PV_SENSE_CHAR_3_A_BIT_D2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of PV_SENSE_CHAR_3_A_BIT_B1,PV_SENSE_CHAR_3_A_BIT_B2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of PV_SENSE_CHAR_3_B_BIT_D1,PV_SENSE_CHAR_3_B_BIT_D2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D
+	and inputs of PV_SENSE_CHAR_3_B_BIT_B1,PV_SENSE_CHAR_3_B_BIT_B2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of PV_SENSE_CHAR_3_C_BIT_D1,PV_SENSE_CHAR_3_C_BIT_D2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_D
+	and inputs of PV_SENSE_CHAR_3_C_BIT_B1,PV_SENSE_CHAR_3_C_BIT_B2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_D
+	and inputs of PV_SENSE_CHAR_3_WM_BIT_D1,PV_SENSE_CHAR_3_WM_BIT_D2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_D
+	and inputs of PV_SENSE_CHAR_3_WM_BIT_B1,PV_SENSE_CHAR_3_WM_BIT_B2,PY_SENSE_STROBE_2
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_DOT_1A
+	and inputs of OUT_4A_D,OUT_2A_D
+	and logic function of AND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_4B_D,OUT_2B_D
+	and logic function of AND
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_4C_D,OUT_2C_D
+	and logic function of AND
+Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
+	and inputs of OUT_4D_D,OUT_2D_D
+	and logic function of AND
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E
+	and inputs of OUT_4E_D,OUT_2E_D
+	and logic function of AND
+Generating Statement for block at 1F with output pin(s) of OUT_DOT_1F
+	and inputs of OUT_4F_D,OUT_2F_D
+	and logic function of AND
+Generating Statement for block at 1G with output pin(s) of OUT_DOT_1G
+	and inputs of OUT_4G_D,OUT_2G_D
+	and logic function of AND
+Generating Statement for block at 1H with output pin(s) of OUT_DOT_1H
+	and inputs of OUT_4H_D,OUT_2H_D
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal MY_SA_CHAR_3_1_BIT
+	from gate output OUT_DOT_1A
+Generating output sheet edge signal assignment to 
+	signal MY_SA_CHAR_3_2_BIT
+	from gate output OUT_DOT_1B
+Generating output sheet edge signal assignment to 
+	signal MY_SA_CHAR_3_4_BIT
+	from gate output OUT_DOT_1C
+Generating output sheet edge signal assignment to 
+	signal MY_SA_CHAR_3_8_BIT
+	from gate output OUT_DOT_1D
+Generating output sheet edge signal assignment to 
+	signal MY_SA_CHAR_3_A_BIT
+	from gate output OUT_DOT_1E
+Generating output sheet edge signal assignment to 
+	signal MY_SA_CHAR_3_B_BIT
+	from gate output OUT_DOT_1F
+Generating output sheet edge signal assignment to 
+	signal MY_SA_CHAR_3_C_BIT
+	from gate output OUT_DOT_1G
+Generating output sheet edge signal assignment to 
+	signal MY_SA_CHAR_3_WM_BIT
+	from gate output OUT_DOT_1H

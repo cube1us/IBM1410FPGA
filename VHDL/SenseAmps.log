@@ -1,0 +1,378 @@
+Generating HDL for group named SenseAmpsat 10/17/2020 5:00:05 PM containing pages: 
+	36.10.01.1, 36.10.02.1, 36.10.03.1, 36.10.04.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\SenseAmps_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 4 pages...
+Found 41 signals on page 36.10.01.1
+Found 41 signals on page 36.10.02.1
+Found 41 signals on page 36.10.03.1
+Found 41 signals on page 36.10.04.1
+Found 130 unique input signals and 32 unique output signals, (162 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +V SENSE CHAR 0 1 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 1 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 1 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 1 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 2 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 2 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 2 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 2 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 4 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 4 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 4 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 4 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 8 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 8 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 8 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 8 BIT D2 originates outside the group.
+INFO:  Signal +Y SENSE STROBE 1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 A BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 A BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 A BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 A BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 B BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 B BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 B BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 B BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 C BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 C BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 C BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 C BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 WM BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 WM BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 WM BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 0 WM BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 1 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 1 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 1 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 1 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 2 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 2 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 2 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 2 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 4 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 4 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 4 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 4 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 8 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 8 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 8 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 8 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 A BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 A BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 A BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 A BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 B BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 B BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 B BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 B BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 C BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 C BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 C BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 C BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 WM BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 WM BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 WM BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 1 WM BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 1 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 1 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 1 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 1 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 2 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 2 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 2 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 2 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 4 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 4 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 4 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 4 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 8 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 8 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 8 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 8 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 A BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 A BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 A BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 A BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 B BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 B BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 B BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 B BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 C BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 C BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 C BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 C BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 WM BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 WM BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 WM BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 2 WM BIT D2 originates outside the group.
+INFO:  Signal +Y SENSE STROBE 2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 1 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 1 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 1 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 1 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 2 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 2 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 2 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 2 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 4 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 4 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 4 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 4 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 8 BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 8 BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 8 BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 8 BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 A BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 A BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 A BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 A BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 B BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 B BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 B BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 B BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 C BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 C BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 C BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 C BIT D2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 WM BIT B1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 WM BIT B2 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 WM BIT D1 originates outside the group.
+INFO:  Signal +V SENSE CHAR 3 WM BIT D2 originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -Y SA CHAR 0 1 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 0 2 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 0 4 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 0 8 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 0 A BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 0 B BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 0 C BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 0 WM BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 1 1 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 1 2 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 1 4 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 1 8 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 1 A BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 1 B BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 1 C BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 1 WM BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 2 1 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 2 2 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 2 4 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 2 8 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 2 A BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 2 B BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 2 C BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 2 WM BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 3 1 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 3 2 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 3 4 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 3 8 BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 3 A BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 3 B BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 3 C BIT is used outside the group.
+INFO:  Signal -Y SA CHAR 3 WM BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +V SENSE CHAR 0 1 BIT B1 replaced by Bus signal +V SENSE CHAR 0 B1 BUS
+Input Signal +V SENSE CHAR 0 1 BIT B2 replaced by Bus signal +V SENSE CHAR 0 B2 BUS
+Input Signal +V SENSE CHAR 0 1 BIT D1 replaced by Bus signal +V SENSE CHAR 0 D1 BUS
+Input Signal +V SENSE CHAR 0 1 BIT D2 replaced by Bus signal +V SENSE CHAR 0 D2 BUS
+Input Signal +V SENSE CHAR 0 2 BIT B1 replaced by Bus signal +V SENSE CHAR 0 B1 BUS
+Input Signal +V SENSE CHAR 0 2 BIT B2 replaced by Bus signal +V SENSE CHAR 0 B2 BUS
+Input Signal +V SENSE CHAR 0 2 BIT D1 replaced by Bus signal +V SENSE CHAR 0 D1 BUS
+Input Signal +V SENSE CHAR 0 2 BIT D2 replaced by Bus signal +V SENSE CHAR 0 D2 BUS
+Input Signal +V SENSE CHAR 0 4 BIT B1 replaced by Bus signal +V SENSE CHAR 0 B1 BUS
+Input Signal +V SENSE CHAR 0 4 BIT B2 replaced by Bus signal +V SENSE CHAR 0 B2 BUS
+Input Signal +V SENSE CHAR 0 4 BIT D1 replaced by Bus signal +V SENSE CHAR 0 D1 BUS
+Input Signal +V SENSE CHAR 0 4 BIT D2 replaced by Bus signal +V SENSE CHAR 0 D2 BUS
+Input Signal +V SENSE CHAR 0 8 BIT B1 replaced by Bus signal +V SENSE CHAR 0 B1 BUS
+Input Signal +V SENSE CHAR 0 8 BIT B2 replaced by Bus signal +V SENSE CHAR 0 B2 BUS
+Input Signal +V SENSE CHAR 0 8 BIT D1 replaced by Bus signal +V SENSE CHAR 0 D1 BUS
+Input Signal +V SENSE CHAR 0 8 BIT D2 replaced by Bus signal +V SENSE CHAR 0 D2 BUS
+Input Signal +V SENSE CHAR 0 A BIT B1 replaced by Bus signal +V SENSE CHAR 0 B1 BUS
+Input Signal +V SENSE CHAR 0 A BIT B2 replaced by Bus signal +V SENSE CHAR 0 B2 BUS
+Input Signal +V SENSE CHAR 0 A BIT D1 replaced by Bus signal +V SENSE CHAR 0 D1 BUS
+Input Signal +V SENSE CHAR 0 A BIT D2 replaced by Bus signal +V SENSE CHAR 0 D2 BUS
+Input Signal +V SENSE CHAR 0 B BIT B1 replaced by Bus signal +V SENSE CHAR 0 B1 BUS
+Input Signal +V SENSE CHAR 0 B BIT B2 replaced by Bus signal +V SENSE CHAR 0 B2 BUS
+Input Signal +V SENSE CHAR 0 B BIT D1 replaced by Bus signal +V SENSE CHAR 0 D1 BUS
+Input Signal +V SENSE CHAR 0 B BIT D2 replaced by Bus signal +V SENSE CHAR 0 D2 BUS
+Input Signal +V SENSE CHAR 0 C BIT B1 replaced by Bus signal +V SENSE CHAR 0 B1 BUS
+Input Signal +V SENSE CHAR 0 C BIT B2 replaced by Bus signal +V SENSE CHAR 0 B2 BUS
+Input Signal +V SENSE CHAR 0 C BIT D1 replaced by Bus signal +V SENSE CHAR 0 D1 BUS
+Input Signal +V SENSE CHAR 0 C BIT D2 replaced by Bus signal +V SENSE CHAR 0 D2 BUS
+Input Signal +V SENSE CHAR 0 WM BIT B1 replaced by Bus signal +V SENSE CHAR 0 B1 BUS
+Input Signal +V SENSE CHAR 0 WM BIT B2 replaced by Bus signal +V SENSE CHAR 0 B2 BUS
+Input Signal +V SENSE CHAR 0 WM BIT D1 replaced by Bus signal +V SENSE CHAR 0 D1 BUS
+Input Signal +V SENSE CHAR 0 WM BIT D2 replaced by Bus signal +V SENSE CHAR 0 D2 BUS
+Input Signal +V SENSE CHAR 1 1 BIT B1 replaced by Bus signal +V SENSE CHAR 1 B1 BUS
+Input Signal +V SENSE CHAR 1 1 BIT B2 replaced by Bus signal +V SENSE CHAR 1 B2 BUS
+Input Signal +V SENSE CHAR 1 1 BIT D1 replaced by Bus signal +V SENSE CHAR 1 D1 BUS
+Input Signal +V SENSE CHAR 1 1 BIT D2 replaced by Bus signal +V SENSE CHAR 1 D2 BUS
+Input Signal +V SENSE CHAR 1 2 BIT B1 replaced by Bus signal +V SENSE CHAR 1 B1 BUS
+Input Signal +V SENSE CHAR 1 2 BIT B2 replaced by Bus signal +V SENSE CHAR 1 B2 BUS
+Input Signal +V SENSE CHAR 1 2 BIT D1 replaced by Bus signal +V SENSE CHAR 1 D1 BUS
+Input Signal +V SENSE CHAR 1 2 BIT D2 replaced by Bus signal +V SENSE CHAR 1 D2 BUS
+Input Signal +V SENSE CHAR 1 4 BIT B1 replaced by Bus signal +V SENSE CHAR 1 B1 BUS
+Input Signal +V SENSE CHAR 1 4 BIT B2 replaced by Bus signal +V SENSE CHAR 1 B2 BUS
+Input Signal +V SENSE CHAR 1 4 BIT D1 replaced by Bus signal +V SENSE CHAR 1 D1 BUS
+Input Signal +V SENSE CHAR 1 4 BIT D2 replaced by Bus signal +V SENSE CHAR 1 D2 BUS
+Input Signal +V SENSE CHAR 1 8 BIT B1 replaced by Bus signal +V SENSE CHAR 1 B1 BUS
+Input Signal +V SENSE CHAR 1 8 BIT B2 replaced by Bus signal +V SENSE CHAR 1 B2 BUS
+Input Signal +V SENSE CHAR 1 8 BIT D1 replaced by Bus signal +V SENSE CHAR 1 D1 BUS
+Input Signal +V SENSE CHAR 1 8 BIT D2 replaced by Bus signal +V SENSE CHAR 1 D2 BUS
+Input Signal +V SENSE CHAR 1 A BIT B1 replaced by Bus signal +V SENSE CHAR 1 B1 BUS
+Input Signal +V SENSE CHAR 1 A BIT B2 replaced by Bus signal +V SENSE CHAR 1 B2 BUS
+Input Signal +V SENSE CHAR 1 A BIT D1 replaced by Bus signal +V SENSE CHAR 1 D1 BUS
+Input Signal +V SENSE CHAR 1 A BIT D2 replaced by Bus signal +V SENSE CHAR 1 D2 BUS
+Input Signal +V SENSE CHAR 1 B BIT B1 replaced by Bus signal +V SENSE CHAR 1 B1 BUS
+Input Signal +V SENSE CHAR 1 B BIT B2 replaced by Bus signal +V SENSE CHAR 1 B2 BUS
+Input Signal +V SENSE CHAR 1 B BIT D1 replaced by Bus signal +V SENSE CHAR 1 D1 BUS
+Input Signal +V SENSE CHAR 1 B BIT D2 replaced by Bus signal +V SENSE CHAR 1 D2 BUS
+Input Signal +V SENSE CHAR 1 C BIT B1 replaced by Bus signal +V SENSE CHAR 1 B1 BUS
+Input Signal +V SENSE CHAR 1 C BIT B2 replaced by Bus signal +V SENSE CHAR 1 B2 BUS
+Input Signal +V SENSE CHAR 1 C BIT D1 replaced by Bus signal +V SENSE CHAR 1 D1 BUS
+Input Signal +V SENSE CHAR 1 C BIT D2 replaced by Bus signal +V SENSE CHAR 1 D2 BUS
+Input Signal +V SENSE CHAR 1 WM BIT B1 replaced by Bus signal +V SENSE CHAR 1 B1 BUS
+Input Signal +V SENSE CHAR 1 WM BIT B2 replaced by Bus signal +V SENSE CHAR 1 B2 BUS
+Input Signal +V SENSE CHAR 1 WM BIT D1 replaced by Bus signal +V SENSE CHAR 1 D1 BUS
+Input Signal +V SENSE CHAR 1 WM BIT D2 replaced by Bus signal +V SENSE CHAR 1 D2 BUS
+Input Signal +V SENSE CHAR 2 1 BIT B1 replaced by Bus signal +V SENSE CHAR 2 B1 BUS
+Input Signal +V SENSE CHAR 2 1 BIT B2 replaced by Bus signal +V SENSE CHAR 2 B2 BUS
+Input Signal +V SENSE CHAR 2 1 BIT D1 replaced by Bus signal +V SENSE CHAR 2 D1 BUS
+Input Signal +V SENSE CHAR 2 1 BIT D2 replaced by Bus signal +V SENSE CHAR 2 D2 BUS
+Input Signal +V SENSE CHAR 2 2 BIT B1 replaced by Bus signal +V SENSE CHAR 2 B1 BUS
+Input Signal +V SENSE CHAR 2 2 BIT B2 replaced by Bus signal +V SENSE CHAR 2 B2 BUS
+Input Signal +V SENSE CHAR 2 2 BIT D1 replaced by Bus signal +V SENSE CHAR 2 D1 BUS
+Input Signal +V SENSE CHAR 2 2 BIT D2 replaced by Bus signal +V SENSE CHAR 2 D2 BUS
+Input Signal +V SENSE CHAR 2 4 BIT B1 replaced by Bus signal +V SENSE CHAR 2 B1 BUS
+Input Signal +V SENSE CHAR 2 4 BIT B2 replaced by Bus signal +V SENSE CHAR 2 B2 BUS
+Input Signal +V SENSE CHAR 2 4 BIT D1 replaced by Bus signal +V SENSE CHAR 2 D1 BUS
+Input Signal +V SENSE CHAR 2 4 BIT D2 replaced by Bus signal +V SENSE CHAR 2 D2 BUS
+Input Signal +V SENSE CHAR 2 8 BIT B1 replaced by Bus signal +V SENSE CHAR 2 B1 BUS
+Input Signal +V SENSE CHAR 2 8 BIT B2 replaced by Bus signal +V SENSE CHAR 2 B2 BUS
+Input Signal +V SENSE CHAR 2 8 BIT D1 replaced by Bus signal +V SENSE CHAR 2 D1 BUS
+Input Signal +V SENSE CHAR 2 8 BIT D2 replaced by Bus signal +V SENSE CHAR 2 D2 BUS
+Input Signal +V SENSE CHAR 2 A BIT B1 replaced by Bus signal +V SENSE CHAR 2 B1 BUS
+Input Signal +V SENSE CHAR 2 A BIT B2 replaced by Bus signal +V SENSE CHAR 2 B2 BUS
+Input Signal +V SENSE CHAR 2 A BIT D1 replaced by Bus signal +V SENSE CHAR 2 D1 BUS
+Input Signal +V SENSE CHAR 2 A BIT D2 replaced by Bus signal +V SENSE CHAR 2 D2 BUS
+Input Signal +V SENSE CHAR 2 B BIT B1 replaced by Bus signal +V SENSE CHAR 2 B1 BUS
+Input Signal +V SENSE CHAR 2 B BIT B2 replaced by Bus signal +V SENSE CHAR 2 B2 BUS
+Input Signal +V SENSE CHAR 2 B BIT D1 replaced by Bus signal +V SENSE CHAR 2 D1 BUS
+Input Signal +V SENSE CHAR 2 B BIT D2 replaced by Bus signal +V SENSE CHAR 2 D2 BUS
+Input Signal +V SENSE CHAR 2 C BIT B1 replaced by Bus signal +V SENSE CHAR 2 B1 BUS
+Input Signal +V SENSE CHAR 2 C BIT B2 replaced by Bus signal +V SENSE CHAR 2 B2 BUS
+Input Signal +V SENSE CHAR 2 C BIT D1 replaced by Bus signal +V SENSE CHAR 2 D1 BUS
+Input Signal +V SENSE CHAR 2 C BIT D2 replaced by Bus signal +V SENSE CHAR 2 D2 BUS
+Input Signal +V SENSE CHAR 2 WM BIT B1 replaced by Bus signal +V SENSE CHAR 2 B1 BUS
+Input Signal +V SENSE CHAR 2 WM BIT B2 replaced by Bus signal +V SENSE CHAR 2 B2 BUS
+Input Signal +V SENSE CHAR 2 WM BIT D1 replaced by Bus signal +V SENSE CHAR 2 D1 BUS
+Input Signal +V SENSE CHAR 2 WM BIT D2 replaced by Bus signal +V SENSE CHAR 2 D2 BUS
+Input Signal +V SENSE CHAR 3 1 BIT B1 replaced by Bus signal +V SENSE CHAR 3 B1 BUS
+Input Signal +V SENSE CHAR 3 1 BIT D1 replaced by Bus signal +V SENSE CHAR 3 D1 BUS
+Input Signal +V SENSE CHAR 3 1 BIT D2 replaced by Bus signal +V SENSE CHAR 3 D2 BUS
+Input Signal +V SENSE CHAR 3 1 BIT B2 replaced by Bus signal +V SENSE CHAR 3 B2 BUS
+Input Signal +V SENSE CHAR 3 2 BIT B1 replaced by Bus signal +V SENSE CHAR 3 B1 BUS
+Input Signal +V SENSE CHAR 3 2 BIT B2 replaced by Bus signal +V SENSE CHAR 3 B2 BUS
+Input Signal +V SENSE CHAR 3 2 BIT D1 replaced by Bus signal +V SENSE CHAR 3 D1 BUS
+Input Signal +V SENSE CHAR 3 2 BIT D2 replaced by Bus signal +V SENSE CHAR 3 D2 BUS
+Input Signal +V SENSE CHAR 3 4 BIT B1 replaced by Bus signal +V SENSE CHAR 3 B1 BUS
+Input Signal +V SENSE CHAR 3 4 BIT B2 replaced by Bus signal +V SENSE CHAR 3 B2 BUS
+Input Signal +V SENSE CHAR 3 4 BIT D1 replaced by Bus signal +V SENSE CHAR 3 D1 BUS
+Input Signal +V SENSE CHAR 3 4 BIT D2 replaced by Bus signal +V SENSE CHAR 3 D2 BUS
+Input Signal +V SENSE CHAR 3 8 BIT B1 replaced by Bus signal +V SENSE CHAR 3 B1 BUS
+Input Signal +V SENSE CHAR 3 8 BIT B2 replaced by Bus signal +V SENSE CHAR 3 B2 BUS
+Input Signal +V SENSE CHAR 3 8 BIT D1 replaced by Bus signal +V SENSE CHAR 3 D1 BUS
+Input Signal +V SENSE CHAR 3 8 BIT D2 replaced by Bus signal +V SENSE CHAR 3 D2 BUS
+Input Signal +V SENSE CHAR 3 A BIT B1 replaced by Bus signal +V SENSE CHAR 3 B1 BUS
+Input Signal +V SENSE CHAR 3 A BIT B2 replaced by Bus signal +V SENSE CHAR 3 B2 BUS
+Input Signal +V SENSE CHAR 3 A BIT D1 replaced by Bus signal +V SENSE CHAR 3 D1 BUS
+Input Signal +V SENSE CHAR 3 A BIT D2 replaced by Bus signal +V SENSE CHAR 3 D2 BUS
+Input Signal +V SENSE CHAR 3 B BIT B1 replaced by Bus signal +V SENSE CHAR 3 B1 BUS
+Input Signal +V SENSE CHAR 3 B BIT B2 replaced by Bus signal +V SENSE CHAR 3 B2 BUS
+Input Signal +V SENSE CHAR 3 B BIT D1 replaced by Bus signal +V SENSE CHAR 3 D1 BUS
+Input Signal +V SENSE CHAR 3 B BIT D2 replaced by Bus signal +V SENSE CHAR 3 D2 BUS
+Input Signal +V SENSE CHAR 3 C BIT B1 replaced by Bus signal +V SENSE CHAR 3 B1 BUS
+Input Signal +V SENSE CHAR 3 C BIT B2 replaced by Bus signal +V SENSE CHAR 3 B2 BUS
+Input Signal +V SENSE CHAR 3 C BIT D1 replaced by Bus signal +V SENSE CHAR 3 D1 BUS
+Input Signal +V SENSE CHAR 3 C BIT D2 replaced by Bus signal +V SENSE CHAR 3 D2 BUS
+Input Signal +V SENSE CHAR 3 WM BIT B1 replaced by Bus signal +V SENSE CHAR 3 B1 BUS
+Input Signal +V SENSE CHAR 3 WM BIT B2 replaced by Bus signal +V SENSE CHAR 3 B2 BUS
+Input Signal +V SENSE CHAR 3 WM BIT D1 replaced by Bus signal +V SENSE CHAR 3 D1 BUS
+Input Signal +V SENSE CHAR 3 WM BIT D2 replaced by Bus signal +V SENSE CHAR 3 D2 BUS
+DEBUG: Tentative bus -Y SA CHAR 0 BUS identified based on signal -Y SA CHAR 0 1 BIT
+DEBUG: Added signal -Y SA CHAR 0 2 BIT to bus -Y SA CHAR 0 BUS
+DEBUG: Added signal -Y SA CHAR 0 4 BIT to bus -Y SA CHAR 0 BUS
+DEBUG: Added signal -Y SA CHAR 0 8 BIT to bus -Y SA CHAR 0 BUS
+DEBUG: Added signal -Y SA CHAR 0 A BIT to bus -Y SA CHAR 0 BUS
+DEBUG: Added signal -Y SA CHAR 0 B BIT to bus -Y SA CHAR 0 BUS
+DEBUG: Added signal -Y SA CHAR 0 C BIT to bus -Y SA CHAR 0 BUS
+DEBUG: Added signal -Y SA CHAR 0 WM BIT to bus -Y SA CHAR 0 BUS
+DEBUG: Tentative bus -Y SA CHAR 1 BUS identified based on signal -Y SA CHAR 1 1 BIT
+DEBUG: Added signal -Y SA CHAR 1 2 BIT to bus -Y SA CHAR 1 BUS
+DEBUG: Added signal -Y SA CHAR 1 4 BIT to bus -Y SA CHAR 1 BUS
+DEBUG: Added signal -Y SA CHAR 1 8 BIT to bus -Y SA CHAR 1 BUS
+DEBUG: Added signal -Y SA CHAR 1 A BIT to bus -Y SA CHAR 1 BUS
+DEBUG: Added signal -Y SA CHAR 1 B BIT to bus -Y SA CHAR 1 BUS
+DEBUG: Added signal -Y SA CHAR 1 C BIT to bus -Y SA CHAR 1 BUS
+DEBUG: Added signal -Y SA CHAR 1 WM BIT to bus -Y SA CHAR 1 BUS
+DEBUG: Tentative bus -Y SA CHAR 2 BUS identified based on signal -Y SA CHAR 2 1 BIT
+DEBUG: Added signal -Y SA CHAR 2 2 BIT to bus -Y SA CHAR 2 BUS
+DEBUG: Added signal -Y SA CHAR 2 4 BIT to bus -Y SA CHAR 2 BUS
+DEBUG: Added signal -Y SA CHAR 2 8 BIT to bus -Y SA CHAR 2 BUS
+DEBUG: Added signal -Y SA CHAR 2 A BIT to bus -Y SA CHAR 2 BUS
+DEBUG: Added signal -Y SA CHAR 2 B BIT to bus -Y SA CHAR 2 BUS
+DEBUG: Added signal -Y SA CHAR 2 C BIT to bus -Y SA CHAR 2 BUS
+DEBUG: Added signal -Y SA CHAR 2 WM BIT to bus -Y SA CHAR 2 BUS
+DEBUG: Tentative bus -Y SA CHAR 3 BUS identified based on signal -Y SA CHAR 3 1 BIT
+DEBUG: Added signal -Y SA CHAR 3 2 BIT to bus -Y SA CHAR 3 BUS
+DEBUG: Added signal -Y SA CHAR 3 4 BIT to bus -Y SA CHAR 3 BUS
+DEBUG: Added signal -Y SA CHAR 3 8 BIT to bus -Y SA CHAR 3 BUS
+DEBUG: Added signal -Y SA CHAR 3 A BIT to bus -Y SA CHAR 3 BUS
+DEBUG: Added signal -Y SA CHAR 3 B BIT to bus -Y SA CHAR 3 BUS
+DEBUG: Added signal -Y SA CHAR 3 C BIT to bus -Y SA CHAR 3 BUS
+DEBUG: Added signal -Y SA CHAR 3 WM BIT to bus -Y SA CHAR 3 BUS
+INFO: Bus -Y SA CHAR 0 BUS identified 
+INFO: Bus -Y SA CHAR 1 BUS identified 
+INFO: Bus -Y SA CHAR 2 BUS identified 
+INFO: Bus -Y SA CHAR 3 BUS identified 
+Output signal -Y SA CHAR 0 1 BIT replaced by bus -Y SA CHAR 0 BUS
+Output signal -Y SA CHAR 0 2 BIT replaced by bus -Y SA CHAR 0 BUS
+Output signal -Y SA CHAR 0 4 BIT replaced by bus -Y SA CHAR 0 BUS
+Output signal -Y SA CHAR 0 8 BIT replaced by bus -Y SA CHAR 0 BUS
+Output signal -Y SA CHAR 0 A BIT replaced by bus -Y SA CHAR 0 BUS
+Output signal -Y SA CHAR 0 B BIT replaced by bus -Y SA CHAR 0 BUS
+Output signal -Y SA CHAR 0 C BIT replaced by bus -Y SA CHAR 0 BUS
+Output signal -Y SA CHAR 0 WM BIT replaced by bus -Y SA CHAR 0 BUS
+Output signal -Y SA CHAR 1 1 BIT replaced by bus -Y SA CHAR 1 BUS
+Output signal -Y SA CHAR 1 2 BIT replaced by bus -Y SA CHAR 1 BUS
+Output signal -Y SA CHAR 1 4 BIT replaced by bus -Y SA CHAR 1 BUS
+Output signal -Y SA CHAR 1 8 BIT replaced by bus -Y SA CHAR 1 BUS
+Output signal -Y SA CHAR 1 A BIT replaced by bus -Y SA CHAR 1 BUS
+Output signal -Y SA CHAR 1 B BIT replaced by bus -Y SA CHAR 1 BUS
+Output signal -Y SA CHAR 1 C BIT replaced by bus -Y SA CHAR 1 BUS
+Output signal -Y SA CHAR 1 WM BIT replaced by bus -Y SA CHAR 1 BUS
+Output signal -Y SA CHAR 2 1 BIT replaced by bus -Y SA CHAR 2 BUS
+Output signal -Y SA CHAR 2 2 BIT replaced by bus -Y SA CHAR 2 BUS
+Output signal -Y SA CHAR 2 4 BIT replaced by bus -Y SA CHAR 2 BUS
+Output signal -Y SA CHAR 2 8 BIT replaced by bus -Y SA CHAR 2 BUS
+Output signal -Y SA CHAR 2 A BIT replaced by bus -Y SA CHAR 2 BUS
+Output signal -Y SA CHAR 2 B BIT replaced by bus -Y SA CHAR 2 BUS
+Output signal -Y SA CHAR 2 C BIT replaced by bus -Y SA CHAR 2 BUS
+Output signal -Y SA CHAR 2 WM BIT replaced by bus -Y SA CHAR 2 BUS
+Output signal -Y SA CHAR 3 1 BIT replaced by bus -Y SA CHAR 3 BUS
+Output signal -Y SA CHAR 3 2 BIT replaced by bus -Y SA CHAR 3 BUS
+Output signal -Y SA CHAR 3 4 BIT replaced by bus -Y SA CHAR 3 BUS
+Output signal -Y SA CHAR 3 8 BIT replaced by bus -Y SA CHAR 3 BUS
+Output signal -Y SA CHAR 3 A BIT replaced by bus -Y SA CHAR 3 BUS
+Output signal -Y SA CHAR 3 B BIT replaced by bus -Y SA CHAR 3 BUS
+Output signal -Y SA CHAR 3 C BIT replaced by bus -Y SA CHAR 3 BUS
+Output signal -Y SA CHAR 3 WM BIT replaced by bus -Y SA CHAR 3 BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 36.10.01.1 (MEM SENSE AMPS CHAR 0)
+Generating HDL associated with page 36.10.02.1 (MEM SENSE AMPS CHAR 1)
+Generating HDL associated with page 36.10.03.1 (MEM SENSE AMPS CHAR 2)
+Generating HDL associated with page 36.10.04.1 (MEM SENSE AMS CHAR 3)
