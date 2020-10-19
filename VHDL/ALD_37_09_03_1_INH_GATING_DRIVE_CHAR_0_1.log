@@ -1,0 +1,97 @@
+Generating HDL for page 37.09.03.1 INH GATING DRIVE CHAR 0 + 1 at 10/19/2020 12:42:55 PM
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of PY_Z_GATE_FOR_0_4TH_A
+	and logic function of NOR
+Generating Statement for block at 2A with output pin(s) of OUT_2A_G
+	and inputs of PY_Z_GATE_FOR_5_9TH_A
+	and logic function of NOR
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PY_Z_GATE_FOR_0_4TH_A
+	and logic function of NOR
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of PY_Z_GATE_FOR_5_9TH_A
+	and logic function of NOR
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F
+	and inputs of PY_Z_GATE_FOR_0_4TH_A
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F
+	and inputs of PY_Z_GATE_FOR_5_9TH_A
+	and logic function of NOR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_R
+	and inputs of PY_Z_GATE_FOR_0_4TH_A
+	and logic function of NOR
+Generating Statement for block at 2D with output pin(s) of OUT_2D_R
+	and inputs of PY_Z_GATE_FOR_5_9TH_A
+	and logic function of NOR
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of PY_Z_GATE_FOR_0_4TH_A
+	and logic function of NOR
+Generating Statement for block at 2E with output pin(s) of OUT_2E_G
+	and inputs of PY_Z_GATE_FOR_5_9TH_A
+	and logic function of NOR
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of PY_Z_GATE_FOR_0_4TH_A
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of PY_Z_GATE_FOR_5_9TH_A
+	and logic function of NOR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_F
+	and inputs of PY_Z_GATE_FOR_0_4TH_A
+	and logic function of NOR
+Generating Statement for block at 2G with output pin(s) of OUT_2G_F
+	and inputs of PY_Z_GATE_FOR_5_9TH_A
+	and logic function of NOR
+Generating Statement for block at 4H with output pin(s) of OUT_4H_R
+	and inputs of PY_Z_GATE_FOR_0_4TH_A
+	and logic function of NOR
+Generating Statement for block at 2H with output pin(s) of OUT_2H_R
+	and inputs of PY_Z_GATE_FOR_5_9TH_A
+	and logic function of NOR
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_0_4TH_1
+	from gate output OUT_4A_G
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_5_9TH_1
+	from gate output OUT_2A_G
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_0_4TH_2
+	from gate output OUT_4B_C
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_5_9TH_2
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_0_4TH_3
+	from gate output OUT_4C_F
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_5_9TH_3
+	from gate output OUT_2C_F
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_0_4TH_4
+	from gate output OUT_4D_R
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_5_9TH_4
+	from gate output OUT_2D_R
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_0_4TH_5
+	from gate output OUT_4E_G
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_5_9TH_5
+	from gate output OUT_2E_G
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_0_4TH_6
+	from gate output OUT_4F_C
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_5_9TH_6
+	from gate output OUT_2F_C
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_0_4TH_7
+	from gate output OUT_4G_F
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_5_9TH_7
+	from gate output OUT_2G_F
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_0_4TH_8
+	from gate output OUT_4H_R
+Generating output sheet edge signal assignment to 
+	signal MY_Z_GATE_FOR_5_9TH_8
+	from gate output OUT_2H_R

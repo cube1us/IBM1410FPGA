@@ -1,0 +1,52 @@
+Generating HDL for group named InhibitGatingDriveat 10/19/2020 12:44:15 PM containing pages: 
+	37.09.03.1, 37.09.04.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\InhibitGatingDrive_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 2 pages...
+Found 18 signals on page 37.09.03.1
+Found 18 signals on page 37.09.04.1
+Found 4 unique input signals and 32 unique output signals, (36 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +Y Z GATE FOR 5-9TH A originates outside the group.
+INFO:  Signal +Y Z GATE FOR 0-4TH A originates outside the group.
+INFO:  Signal +Y Z GATE FOR 5-9TH B originates outside the group.
+INFO:  Signal +Y Z GATE FOR 0-4TH B originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal -Y Z GATE FOR 5-9TH 1 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 2 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 3 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 4 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 5 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 6 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 7 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 8 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 1 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 2 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 3 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 4 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 5 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 6 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 7 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 8 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 9 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 10 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 11 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 12 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 13 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 14 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 15 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 5-9TH 16 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 9 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 10 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 11 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 12 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 13 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 14 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 15 is used outside the group.
+INFO:  Signal -Y Z GATE FOR 0-4TH 16 is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 37.09.03.1 (INH GATING DRIVE CHAR 0 + 1)
+Generating HDL associated with page 37.09.04.1 (INH GATING DRIVE CHAR 2 + 3)
