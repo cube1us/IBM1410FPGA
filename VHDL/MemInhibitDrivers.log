@@ -1,4 +1,4 @@
-Generating HDL for group named MemInhibitDriversat 10/19/2020 4:45:50 PM containing pages: 
+Generating HDL for group named MemInhibitDriversat 10/19/2020 4:59:18 PM containing pages: 
 	37.11.01.1, 37.11.02.1, 37.11.03.1, 37.11.04.1
 No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\MemInhibitDrivers_tb.vhdl, FileNotFoundException , generating default test bench code.
 Building lists of signals on 4 pages...
@@ -171,142 +171,142 @@ Input Signal -Y INH CHAR 3 A BIT D replaced by Bus signal -Y INH CHAR 3 D BUS
 Input Signal -Y INH CHAR 3 B BIT D replaced by Bus signal -Y INH CHAR 3 D BUS
 Input Signal -Y INH CHAR 3 C BIT D replaced by Bus signal -Y INH CHAR 3 D BUS
 Input Signal -Y INH CHAR 3 WM BIT D replaced by Bus signal -Y INH CHAR 3 D BUS
-DEBUG: Tentative bus -V IN CHAR 0 D1 BUS identified based on signal -V INH CHAR 0 1 BIT D1
-DEBUG: Tentative bus -V IN CHAR 0 B1 BUS identified based on signal -V INH CHAR 0 1 BIT B1
-DEBUG: Added signal -V INH CHAR 0 2 BIT D1 to bus -V IN CHAR 0 D1 BUS
-DEBUG: Added signal -V INH CHAR 0 2 BIT B1 to bus -V IN CHAR 0 B1 BUS
-DEBUG: Added signal -V INH CHAR 0 4 BIT D1 to bus -V IN CHAR 0 D1 BUS
-DEBUG: Added signal -V INH CHAR 0 4 BIT B1 to bus -V IN CHAR 0 B1 BUS
-DEBUG: Added signal -V INH CHAR 0 8 BIT D1 to bus -V IN CHAR 0 D1 BUS
-DEBUG: Added signal -V INH CHAR 0 8 BIT B1 to bus -V IN CHAR 0 B1 BUS
-DEBUG: Added signal -V INH CHAR 0 A BIT D1 to bus -V IN CHAR 0 D1 BUS
-DEBUG: Added signal -V INH CHAR 0 A BIT B1 to bus -V IN CHAR 0 B1 BUS
-DEBUG: Added signal -V INH CHAR 0 B BIT D1 to bus -V IN CHAR 0 D1 BUS
-DEBUG: Added signal -V INH CHAR 0 B BIT B1 to bus -V IN CHAR 0 B1 BUS
-DEBUG: Added signal -V INH CHAR 0 C BIT D1 to bus -V IN CHAR 0 D1 BUS
-DEBUG: Added signal -V INH CHAR 0 C BIT B1 to bus -V IN CHAR 0 B1 BUS
-DEBUG: Added signal -V INH CHAR 0 WM BIT D1 to bus -V IN CHAR 0 D1 BUS
-DEBUG: Added signal -V INH CHAR 0 WM BIT B1 to bus -V IN CHAR 0 B1 BUS
-DEBUG: Tentative bus -V IN CHAR 1 D1 BUS identified based on signal -V INH CHAR 1 1 BIT D1
-DEBUG: Tentative bus -V IN CHAR 1 B1 BUS identified based on signal -V INH CHAR 1 1 BIT B1
-DEBUG: Added signal -V INH CHAR 1 2 BIT D1 to bus -V IN CHAR 1 D1 BUS
-DEBUG: Added signal -V INH CHAR 1 2 BIT B1 to bus -V IN CHAR 1 B1 BUS
-DEBUG: Added signal -V INH CHAR 1 4 BIT D1 to bus -V IN CHAR 1 D1 BUS
-DEBUG: Added signal -V INH CHAR 1 4 BIT B1 to bus -V IN CHAR 1 B1 BUS
-DEBUG: Added signal -V INH CHAR 1 8 BIT D1 to bus -V IN CHAR 1 D1 BUS
-DEBUG: Added signal -V INH CHAR 1 8 BIT B1 to bus -V IN CHAR 1 B1 BUS
-DEBUG: Added signal -V INH CHAR 1 A BIT D1 to bus -V IN CHAR 1 D1 BUS
-DEBUG: Added signal -V INH CHAR 1 A BIT B1 to bus -V IN CHAR 1 B1 BUS
-DEBUG: Added signal -V INH CHAR 1 B BIT D1 to bus -V IN CHAR 1 D1 BUS
-DEBUG: Added signal -V INH CHAR 1 B BIT B1 to bus -V IN CHAR 1 B1 BUS
-DEBUG: Added signal -V INH CHAR 1 C BIT D1 to bus -V IN CHAR 1 D1 BUS
-DEBUG: Added signal -V INH CHAR 1 C BIT B1 to bus -V IN CHAR 1 B1 BUS
-DEBUG: Added signal -V INH CHAR 1 WM BIT D1 to bus -V IN CHAR 1 D1 BUS
-DEBUG: Added signal -V INH CHAR 1 WM BIT B1 to bus -V IN CHAR 1 B1 BUS
-DEBUG: Tentative bus -V IN CHAR 2 D1 BUS identified based on signal -V INH CHAR 2 1 BIT D1
-DEBUG: Tentative bus -V IN CHAR 2 B1 BUS identified based on signal -V INH CHAR 2 1 BIT B1
-DEBUG: Added signal -V INH CHAR 2 2 BIT D1 to bus -V IN CHAR 2 D1 BUS
-DEBUG: Added signal -V INH CHAR 2 2 BIT B1 to bus -V IN CHAR 2 B1 BUS
-DEBUG: Added signal -V INH CHAR 2 4 BIT D1 to bus -V IN CHAR 2 D1 BUS
-DEBUG: Added signal -V INH CHAR 2 4 BIT B1 to bus -V IN CHAR 2 B1 BUS
-DEBUG: Added signal -V INH CHAR 2 8 BIT D1 to bus -V IN CHAR 2 D1 BUS
-DEBUG: Added signal -V INH CHAR 2 8 BIT B1 to bus -V IN CHAR 2 B1 BUS
-DEBUG: Added signal -V INH CHAR 2 A BIT D1 to bus -V IN CHAR 2 D1 BUS
-DEBUG: Added signal -V INH CHAR 2 A BIT B1 to bus -V IN CHAR 2 B1 BUS
-DEBUG: Added signal -V INH CHAR 2 B BIT D1 to bus -V IN CHAR 2 D1 BUS
-DEBUG: Added signal -V INH CHAR 2 B BIT B1 to bus -V IN CHAR 2 B1 BUS
-DEBUG: Added signal -V INH CHAR 2 C BIT D1 to bus -V IN CHAR 2 D1 BUS
-DEBUG: Added signal -V INH CHAR 2 C BIT B1 to bus -V IN CHAR 2 B1 BUS
-DEBUG: Added signal -V INH CHAR 2 WM BIT D1 to bus -V IN CHAR 2 D1 BUS
-DEBUG: Added signal -V INH CHAR 2 WM BIT B1 to bus -V IN CHAR 2 B1 BUS
-DEBUG: Tentative bus -V IN CHAR 3 D1 BUS identified based on signal -V INH CHAR 3 1 BIT D1
-DEBUG: Tentative bus -V IN CHAR 3 B1 BUS identified based on signal -V INH CHAR 3 1 BIT B1
-DEBUG: Added signal -V INH CHAR 3 2 BIT D1 to bus -V IN CHAR 3 D1 BUS
-DEBUG: Added signal -V INH CHAR 3 2 BIT B1 to bus -V IN CHAR 3 B1 BUS
-DEBUG: Added signal -V INH CHAR 3 4 BIT D1 to bus -V IN CHAR 3 D1 BUS
-DEBUG: Added signal -V INH CHAR 3 4 BIT B1 to bus -V IN CHAR 3 B1 BUS
-DEBUG: Added signal -V INH CHAR 3 8 BIT D1 to bus -V IN CHAR 3 D1 BUS
-DEBUG: Added signal -V INH CHAR 3 8 BIT B1 to bus -V IN CHAR 3 B1 BUS
-DEBUG: Added signal -V INH CHAR 3 A BIT D1 to bus -V IN CHAR 3 D1 BUS
-DEBUG: Added signal -V INH CHAR 3 A BIT B1 to bus -V IN CHAR 3 B1 BUS
-DEBUG: Added signal -V INH CHAR 3 B BIT D1 to bus -V IN CHAR 3 D1 BUS
-DEBUG: Added signal -V INH CHAR 3 B BIT B1 to bus -V IN CHAR 3 B1 BUS
-DEBUG: Added signal -V INH CHAR 3 C BIT D1 to bus -V IN CHAR 3 D1 BUS
-DEBUG: Added signal -V INH CHAR 3 C BIT B1 to bus -V IN CHAR 3 B1 BUS
-DEBUG: Added signal -V INH CHAR 3 WM BIT D1 to bus -V IN CHAR 3 D1 BUS
-DEBUG: Added signal -V INH CHAR 3 WM BIT B1 to bus -V IN CHAR 3 B1 BUS
-INFO: Bus -V IN CHAR 0 D1 BUS identified 
-INFO: Bus -V IN CHAR 0 B1 BUS identified 
-INFO: Bus -V IN CHAR 1 D1 BUS identified 
-INFO: Bus -V IN CHAR 1 B1 BUS identified 
-INFO: Bus -V IN CHAR 2 D1 BUS identified 
-INFO: Bus -V IN CHAR 2 B1 BUS identified 
-INFO: Bus -V IN CHAR 3 D1 BUS identified 
-INFO: Bus -V IN CHAR 3 B1 BUS identified 
-Output signal -V INH CHAR 0 1 BIT D1 replaced by bus -V IN CHAR 0 D1 BUS
-Output signal -V INH CHAR 0 1 BIT B1 replaced by bus -V IN CHAR 0 B1 BUS
-Output signal -V INH CHAR 0 2 BIT D1 replaced by bus -V IN CHAR 0 D1 BUS
-Output signal -V INH CHAR 0 2 BIT B1 replaced by bus -V IN CHAR 0 B1 BUS
-Output signal -V INH CHAR 0 4 BIT D1 replaced by bus -V IN CHAR 0 D1 BUS
-Output signal -V INH CHAR 0 4 BIT B1 replaced by bus -V IN CHAR 0 B1 BUS
-Output signal -V INH CHAR 0 8 BIT D1 replaced by bus -V IN CHAR 0 D1 BUS
-Output signal -V INH CHAR 0 8 BIT B1 replaced by bus -V IN CHAR 0 B1 BUS
-Output signal -V INH CHAR 0 A BIT D1 replaced by bus -V IN CHAR 0 D1 BUS
-Output signal -V INH CHAR 0 A BIT B1 replaced by bus -V IN CHAR 0 B1 BUS
-Output signal -V INH CHAR 0 B BIT D1 replaced by bus -V IN CHAR 0 D1 BUS
-Output signal -V INH CHAR 0 B BIT B1 replaced by bus -V IN CHAR 0 B1 BUS
-Output signal -V INH CHAR 0 C BIT D1 replaced by bus -V IN CHAR 0 D1 BUS
-Output signal -V INH CHAR 0 C BIT B1 replaced by bus -V IN CHAR 0 B1 BUS
-Output signal -V INH CHAR 0 WM BIT D1 replaced by bus -V IN CHAR 0 D1 BUS
-Output signal -V INH CHAR 0 WM BIT B1 replaced by bus -V IN CHAR 0 B1 BUS
-Output signal -V INH CHAR 1 1 BIT D1 replaced by bus -V IN CHAR 1 D1 BUS
-Output signal -V INH CHAR 1 1 BIT B1 replaced by bus -V IN CHAR 1 B1 BUS
-Output signal -V INH CHAR 1 2 BIT D1 replaced by bus -V IN CHAR 1 D1 BUS
-Output signal -V INH CHAR 1 2 BIT B1 replaced by bus -V IN CHAR 1 B1 BUS
-Output signal -V INH CHAR 1 4 BIT D1 replaced by bus -V IN CHAR 1 D1 BUS
-Output signal -V INH CHAR 1 4 BIT B1 replaced by bus -V IN CHAR 1 B1 BUS
-Output signal -V INH CHAR 1 8 BIT D1 replaced by bus -V IN CHAR 1 D1 BUS
-Output signal -V INH CHAR 1 8 BIT B1 replaced by bus -V IN CHAR 1 B1 BUS
-Output signal -V INH CHAR 1 A BIT D1 replaced by bus -V IN CHAR 1 D1 BUS
-Output signal -V INH CHAR 1 A BIT B1 replaced by bus -V IN CHAR 1 B1 BUS
-Output signal -V INH CHAR 1 B BIT D1 replaced by bus -V IN CHAR 1 D1 BUS
-Output signal -V INH CHAR 1 B BIT B1 replaced by bus -V IN CHAR 1 B1 BUS
-Output signal -V INH CHAR 1 C BIT D1 replaced by bus -V IN CHAR 1 D1 BUS
-Output signal -V INH CHAR 1 C BIT B1 replaced by bus -V IN CHAR 1 B1 BUS
-Output signal -V INH CHAR 1 WM BIT D1 replaced by bus -V IN CHAR 1 D1 BUS
-Output signal -V INH CHAR 1 WM BIT B1 replaced by bus -V IN CHAR 1 B1 BUS
-Output signal -V INH CHAR 2 1 BIT D1 replaced by bus -V IN CHAR 2 D1 BUS
-Output signal -V INH CHAR 2 1 BIT B1 replaced by bus -V IN CHAR 2 B1 BUS
-Output signal -V INH CHAR 2 2 BIT D1 replaced by bus -V IN CHAR 2 D1 BUS
-Output signal -V INH CHAR 2 2 BIT B1 replaced by bus -V IN CHAR 2 B1 BUS
-Output signal -V INH CHAR 2 4 BIT D1 replaced by bus -V IN CHAR 2 D1 BUS
-Output signal -V INH CHAR 2 4 BIT B1 replaced by bus -V IN CHAR 2 B1 BUS
-Output signal -V INH CHAR 2 8 BIT D1 replaced by bus -V IN CHAR 2 D1 BUS
-Output signal -V INH CHAR 2 8 BIT B1 replaced by bus -V IN CHAR 2 B1 BUS
-Output signal -V INH CHAR 2 A BIT D1 replaced by bus -V IN CHAR 2 D1 BUS
-Output signal -V INH CHAR 2 A BIT B1 replaced by bus -V IN CHAR 2 B1 BUS
-Output signal -V INH CHAR 2 B BIT D1 replaced by bus -V IN CHAR 2 D1 BUS
-Output signal -V INH CHAR 2 B BIT B1 replaced by bus -V IN CHAR 2 B1 BUS
-Output signal -V INH CHAR 2 C BIT D1 replaced by bus -V IN CHAR 2 D1 BUS
-Output signal -V INH CHAR 2 C BIT B1 replaced by bus -V IN CHAR 2 B1 BUS
-Output signal -V INH CHAR 2 WM BIT D1 replaced by bus -V IN CHAR 2 D1 BUS
-Output signal -V INH CHAR 2 WM BIT B1 replaced by bus -V IN CHAR 2 B1 BUS
-Output signal -V INH CHAR 3 1 BIT D1 replaced by bus -V IN CHAR 3 D1 BUS
-Output signal -V INH CHAR 3 1 BIT B1 replaced by bus -V IN CHAR 3 B1 BUS
-Output signal -V INH CHAR 3 2 BIT D1 replaced by bus -V IN CHAR 3 D1 BUS
-Output signal -V INH CHAR 3 2 BIT B1 replaced by bus -V IN CHAR 3 B1 BUS
-Output signal -V INH CHAR 3 4 BIT D1 replaced by bus -V IN CHAR 3 D1 BUS
-Output signal -V INH CHAR 3 4 BIT B1 replaced by bus -V IN CHAR 3 B1 BUS
-Output signal -V INH CHAR 3 8 BIT D1 replaced by bus -V IN CHAR 3 D1 BUS
-Output signal -V INH CHAR 3 8 BIT B1 replaced by bus -V IN CHAR 3 B1 BUS
-Output signal -V INH CHAR 3 A BIT D1 replaced by bus -V IN CHAR 3 D1 BUS
-Output signal -V INH CHAR 3 A BIT B1 replaced by bus -V IN CHAR 3 B1 BUS
-Output signal -V INH CHAR 3 B BIT D1 replaced by bus -V IN CHAR 3 D1 BUS
-Output signal -V INH CHAR 3 B BIT B1 replaced by bus -V IN CHAR 3 B1 BUS
-Output signal -V INH CHAR 3 C BIT D1 replaced by bus -V IN CHAR 3 D1 BUS
-Output signal -V INH CHAR 3 C BIT B1 replaced by bus -V IN CHAR 3 B1 BUS
-Output signal -V INH CHAR 3 WM BIT D1 replaced by bus -V IN CHAR 3 D1 BUS
-Output signal -V INH CHAR 3 WM BIT B1 replaced by bus -V IN CHAR 3 B1 BUS
+DEBUG: Tentative bus -V INH CHAR 0 D1 BUS identified based on signal -V INH CHAR 0 1 BIT D1
+DEBUG: Tentative bus -V INH CHAR 0 B1 BUS identified based on signal -V INH CHAR 0 1 BIT B1
+DEBUG: Added signal -V INH CHAR 0 2 BIT D1 to bus -V INH CHAR 0 D1 BUS
+DEBUG: Added signal -V INH CHAR 0 2 BIT B1 to bus -V INH CHAR 0 B1 BUS
+DEBUG: Added signal -V INH CHAR 0 4 BIT D1 to bus -V INH CHAR 0 D1 BUS
+DEBUG: Added signal -V INH CHAR 0 4 BIT B1 to bus -V INH CHAR 0 B1 BUS
+DEBUG: Added signal -V INH CHAR 0 8 BIT D1 to bus -V INH CHAR 0 D1 BUS
+DEBUG: Added signal -V INH CHAR 0 8 BIT B1 to bus -V INH CHAR 0 B1 BUS
+DEBUG: Added signal -V INH CHAR 0 A BIT D1 to bus -V INH CHAR 0 D1 BUS
+DEBUG: Added signal -V INH CHAR 0 A BIT B1 to bus -V INH CHAR 0 B1 BUS
+DEBUG: Added signal -V INH CHAR 0 B BIT D1 to bus -V INH CHAR 0 D1 BUS
+DEBUG: Added signal -V INH CHAR 0 B BIT B1 to bus -V INH CHAR 0 B1 BUS
+DEBUG: Added signal -V INH CHAR 0 C BIT D1 to bus -V INH CHAR 0 D1 BUS
+DEBUG: Added signal -V INH CHAR 0 C BIT B1 to bus -V INH CHAR 0 B1 BUS
+DEBUG: Added signal -V INH CHAR 0 WM BIT D1 to bus -V INH CHAR 0 D1 BUS
+DEBUG: Added signal -V INH CHAR 0 WM BIT B1 to bus -V INH CHAR 0 B1 BUS
+DEBUG: Tentative bus -V INH CHAR 1 D1 BUS identified based on signal -V INH CHAR 1 1 BIT D1
+DEBUG: Tentative bus -V INH CHAR 1 B1 BUS identified based on signal -V INH CHAR 1 1 BIT B1
+DEBUG: Added signal -V INH CHAR 1 2 BIT D1 to bus -V INH CHAR 1 D1 BUS
+DEBUG: Added signal -V INH CHAR 1 2 BIT B1 to bus -V INH CHAR 1 B1 BUS
+DEBUG: Added signal -V INH CHAR 1 4 BIT D1 to bus -V INH CHAR 1 D1 BUS
+DEBUG: Added signal -V INH CHAR 1 4 BIT B1 to bus -V INH CHAR 1 B1 BUS
+DEBUG: Added signal -V INH CHAR 1 8 BIT D1 to bus -V INH CHAR 1 D1 BUS
+DEBUG: Added signal -V INH CHAR 1 8 BIT B1 to bus -V INH CHAR 1 B1 BUS
+DEBUG: Added signal -V INH CHAR 1 A BIT D1 to bus -V INH CHAR 1 D1 BUS
+DEBUG: Added signal -V INH CHAR 1 A BIT B1 to bus -V INH CHAR 1 B1 BUS
+DEBUG: Added signal -V INH CHAR 1 B BIT D1 to bus -V INH CHAR 1 D1 BUS
+DEBUG: Added signal -V INH CHAR 1 B BIT B1 to bus -V INH CHAR 1 B1 BUS
+DEBUG: Added signal -V INH CHAR 1 C BIT D1 to bus -V INH CHAR 1 D1 BUS
+DEBUG: Added signal -V INH CHAR 1 C BIT B1 to bus -V INH CHAR 1 B1 BUS
+DEBUG: Added signal -V INH CHAR 1 WM BIT D1 to bus -V INH CHAR 1 D1 BUS
+DEBUG: Added signal -V INH CHAR 1 WM BIT B1 to bus -V INH CHAR 1 B1 BUS
+DEBUG: Tentative bus -V INH CHAR 2 D1 BUS identified based on signal -V INH CHAR 2 1 BIT D1
+DEBUG: Tentative bus -V INH CHAR 2 B1 BUS identified based on signal -V INH CHAR 2 1 BIT B1
+DEBUG: Added signal -V INH CHAR 2 2 BIT D1 to bus -V INH CHAR 2 D1 BUS
+DEBUG: Added signal -V INH CHAR 2 2 BIT B1 to bus -V INH CHAR 2 B1 BUS
+DEBUG: Added signal -V INH CHAR 2 4 BIT D1 to bus -V INH CHAR 2 D1 BUS
+DEBUG: Added signal -V INH CHAR 2 4 BIT B1 to bus -V INH CHAR 2 B1 BUS
+DEBUG: Added signal -V INH CHAR 2 8 BIT D1 to bus -V INH CHAR 2 D1 BUS
+DEBUG: Added signal -V INH CHAR 2 8 BIT B1 to bus -V INH CHAR 2 B1 BUS
+DEBUG: Added signal -V INH CHAR 2 A BIT D1 to bus -V INH CHAR 2 D1 BUS
+DEBUG: Added signal -V INH CHAR 2 A BIT B1 to bus -V INH CHAR 2 B1 BUS
+DEBUG: Added signal -V INH CHAR 2 B BIT D1 to bus -V INH CHAR 2 D1 BUS
+DEBUG: Added signal -V INH CHAR 2 B BIT B1 to bus -V INH CHAR 2 B1 BUS
+DEBUG: Added signal -V INH CHAR 2 C BIT D1 to bus -V INH CHAR 2 D1 BUS
+DEBUG: Added signal -V INH CHAR 2 C BIT B1 to bus -V INH CHAR 2 B1 BUS
+DEBUG: Added signal -V INH CHAR 2 WM BIT D1 to bus -V INH CHAR 2 D1 BUS
+DEBUG: Added signal -V INH CHAR 2 WM BIT B1 to bus -V INH CHAR 2 B1 BUS
+DEBUG: Tentative bus -V INH CHAR 3 D1 BUS identified based on signal -V INH CHAR 3 1 BIT D1
+DEBUG: Tentative bus -V INH CHAR 3 B1 BUS identified based on signal -V INH CHAR 3 1 BIT B1
+DEBUG: Added signal -V INH CHAR 3 2 BIT D1 to bus -V INH CHAR 3 D1 BUS
+DEBUG: Added signal -V INH CHAR 3 2 BIT B1 to bus -V INH CHAR 3 B1 BUS
+DEBUG: Added signal -V INH CHAR 3 4 BIT D1 to bus -V INH CHAR 3 D1 BUS
+DEBUG: Added signal -V INH CHAR 3 4 BIT B1 to bus -V INH CHAR 3 B1 BUS
+DEBUG: Added signal -V INH CHAR 3 8 BIT D1 to bus -V INH CHAR 3 D1 BUS
+DEBUG: Added signal -V INH CHAR 3 8 BIT B1 to bus -V INH CHAR 3 B1 BUS
+DEBUG: Added signal -V INH CHAR 3 A BIT D1 to bus -V INH CHAR 3 D1 BUS
+DEBUG: Added signal -V INH CHAR 3 A BIT B1 to bus -V INH CHAR 3 B1 BUS
+DEBUG: Added signal -V INH CHAR 3 B BIT D1 to bus -V INH CHAR 3 D1 BUS
+DEBUG: Added signal -V INH CHAR 3 B BIT B1 to bus -V INH CHAR 3 B1 BUS
+DEBUG: Added signal -V INH CHAR 3 C BIT D1 to bus -V INH CHAR 3 D1 BUS
+DEBUG: Added signal -V INH CHAR 3 C BIT B1 to bus -V INH CHAR 3 B1 BUS
+DEBUG: Added signal -V INH CHAR 3 WM BIT D1 to bus -V INH CHAR 3 D1 BUS
+DEBUG: Added signal -V INH CHAR 3 WM BIT B1 to bus -V INH CHAR 3 B1 BUS
+INFO: Bus -V INH CHAR 0 D1 BUS identified 
+INFO: Bus -V INH CHAR 0 B1 BUS identified 
+INFO: Bus -V INH CHAR 1 D1 BUS identified 
+INFO: Bus -V INH CHAR 1 B1 BUS identified 
+INFO: Bus -V INH CHAR 2 D1 BUS identified 
+INFO: Bus -V INH CHAR 2 B1 BUS identified 
+INFO: Bus -V INH CHAR 3 D1 BUS identified 
+INFO: Bus -V INH CHAR 3 B1 BUS identified 
+Output signal -V INH CHAR 0 1 BIT D1 replaced by bus -V INH CHAR 0 D1 BUS
+Output signal -V INH CHAR 0 1 BIT B1 replaced by bus -V INH CHAR 0 B1 BUS
+Output signal -V INH CHAR 0 2 BIT D1 replaced by bus -V INH CHAR 0 D1 BUS
+Output signal -V INH CHAR 0 2 BIT B1 replaced by bus -V INH CHAR 0 B1 BUS
+Output signal -V INH CHAR 0 4 BIT D1 replaced by bus -V INH CHAR 0 D1 BUS
+Output signal -V INH CHAR 0 4 BIT B1 replaced by bus -V INH CHAR 0 B1 BUS
+Output signal -V INH CHAR 0 8 BIT D1 replaced by bus -V INH CHAR 0 D1 BUS
+Output signal -V INH CHAR 0 8 BIT B1 replaced by bus -V INH CHAR 0 B1 BUS
+Output signal -V INH CHAR 0 A BIT D1 replaced by bus -V INH CHAR 0 D1 BUS
+Output signal -V INH CHAR 0 A BIT B1 replaced by bus -V INH CHAR 0 B1 BUS
+Output signal -V INH CHAR 0 B BIT D1 replaced by bus -V INH CHAR 0 D1 BUS
+Output signal -V INH CHAR 0 B BIT B1 replaced by bus -V INH CHAR 0 B1 BUS
+Output signal -V INH CHAR 0 C BIT D1 replaced by bus -V INH CHAR 0 D1 BUS
+Output signal -V INH CHAR 0 C BIT B1 replaced by bus -V INH CHAR 0 B1 BUS
+Output signal -V INH CHAR 0 WM BIT D1 replaced by bus -V INH CHAR 0 D1 BUS
+Output signal -V INH CHAR 0 WM BIT B1 replaced by bus -V INH CHAR 0 B1 BUS
+Output signal -V INH CHAR 1 1 BIT D1 replaced by bus -V INH CHAR 1 D1 BUS
+Output signal -V INH CHAR 1 1 BIT B1 replaced by bus -V INH CHAR 1 B1 BUS
+Output signal -V INH CHAR 1 2 BIT D1 replaced by bus -V INH CHAR 1 D1 BUS
+Output signal -V INH CHAR 1 2 BIT B1 replaced by bus -V INH CHAR 1 B1 BUS
+Output signal -V INH CHAR 1 4 BIT D1 replaced by bus -V INH CHAR 1 D1 BUS
+Output signal -V INH CHAR 1 4 BIT B1 replaced by bus -V INH CHAR 1 B1 BUS
+Output signal -V INH CHAR 1 8 BIT D1 replaced by bus -V INH CHAR 1 D1 BUS
+Output signal -V INH CHAR 1 8 BIT B1 replaced by bus -V INH CHAR 1 B1 BUS
+Output signal -V INH CHAR 1 A BIT D1 replaced by bus -V INH CHAR 1 D1 BUS
+Output signal -V INH CHAR 1 A BIT B1 replaced by bus -V INH CHAR 1 B1 BUS
+Output signal -V INH CHAR 1 B BIT D1 replaced by bus -V INH CHAR 1 D1 BUS
+Output signal -V INH CHAR 1 B BIT B1 replaced by bus -V INH CHAR 1 B1 BUS
+Output signal -V INH CHAR 1 C BIT D1 replaced by bus -V INH CHAR 1 D1 BUS
+Output signal -V INH CHAR 1 C BIT B1 replaced by bus -V INH CHAR 1 B1 BUS
+Output signal -V INH CHAR 1 WM BIT D1 replaced by bus -V INH CHAR 1 D1 BUS
+Output signal -V INH CHAR 1 WM BIT B1 replaced by bus -V INH CHAR 1 B1 BUS
+Output signal -V INH CHAR 2 1 BIT D1 replaced by bus -V INH CHAR 2 D1 BUS
+Output signal -V INH CHAR 2 1 BIT B1 replaced by bus -V INH CHAR 2 B1 BUS
+Output signal -V INH CHAR 2 2 BIT D1 replaced by bus -V INH CHAR 2 D1 BUS
+Output signal -V INH CHAR 2 2 BIT B1 replaced by bus -V INH CHAR 2 B1 BUS
+Output signal -V INH CHAR 2 4 BIT D1 replaced by bus -V INH CHAR 2 D1 BUS
+Output signal -V INH CHAR 2 4 BIT B1 replaced by bus -V INH CHAR 2 B1 BUS
+Output signal -V INH CHAR 2 8 BIT D1 replaced by bus -V INH CHAR 2 D1 BUS
+Output signal -V INH CHAR 2 8 BIT B1 replaced by bus -V INH CHAR 2 B1 BUS
+Output signal -V INH CHAR 2 A BIT D1 replaced by bus -V INH CHAR 2 D1 BUS
+Output signal -V INH CHAR 2 A BIT B1 replaced by bus -V INH CHAR 2 B1 BUS
+Output signal -V INH CHAR 2 B BIT D1 replaced by bus -V INH CHAR 2 D1 BUS
+Output signal -V INH CHAR 2 B BIT B1 replaced by bus -V INH CHAR 2 B1 BUS
+Output signal -V INH CHAR 2 C BIT D1 replaced by bus -V INH CHAR 2 D1 BUS
+Output signal -V INH CHAR 2 C BIT B1 replaced by bus -V INH CHAR 2 B1 BUS
+Output signal -V INH CHAR 2 WM BIT D1 replaced by bus -V INH CHAR 2 D1 BUS
+Output signal -V INH CHAR 2 WM BIT B1 replaced by bus -V INH CHAR 2 B1 BUS
+Output signal -V INH CHAR 3 1 BIT D1 replaced by bus -V INH CHAR 3 D1 BUS
+Output signal -V INH CHAR 3 1 BIT B1 replaced by bus -V INH CHAR 3 B1 BUS
+Output signal -V INH CHAR 3 2 BIT D1 replaced by bus -V INH CHAR 3 D1 BUS
+Output signal -V INH CHAR 3 2 BIT B1 replaced by bus -V INH CHAR 3 B1 BUS
+Output signal -V INH CHAR 3 4 BIT D1 replaced by bus -V INH CHAR 3 D1 BUS
+Output signal -V INH CHAR 3 4 BIT B1 replaced by bus -V INH CHAR 3 B1 BUS
+Output signal -V INH CHAR 3 8 BIT D1 replaced by bus -V INH CHAR 3 D1 BUS
+Output signal -V INH CHAR 3 8 BIT B1 replaced by bus -V INH CHAR 3 B1 BUS
+Output signal -V INH CHAR 3 A BIT D1 replaced by bus -V INH CHAR 3 D1 BUS
+Output signal -V INH CHAR 3 A BIT B1 replaced by bus -V INH CHAR 3 B1 BUS
+Output signal -V INH CHAR 3 B BIT D1 replaced by bus -V INH CHAR 3 D1 BUS
+Output signal -V INH CHAR 3 B BIT B1 replaced by bus -V INH CHAR 3 B1 BUS
+Output signal -V INH CHAR 3 C BIT D1 replaced by bus -V INH CHAR 3 D1 BUS
+Output signal -V INH CHAR 3 C BIT B1 replaced by bus -V INH CHAR 3 B1 BUS
+Output signal -V INH CHAR 3 WM BIT D1 replaced by bus -V INH CHAR 3 D1 BUS
+Output signal -V INH CHAR 3 WM BIT B1 replaced by bus -V INH CHAR 3 B1 BUS
 Generating list of internal signals/wires ...
 0 internal signals/wires found.
 Generating HDL prefixes...
