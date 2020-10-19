@@ -1,0 +1,81 @@
+Generating HDL for page 37.10.03.1 INFO INPUT GATING CHAR 2 at 10/19/2020 1:16:09 PM
+Note: DOT Function at 5A has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5B has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5C has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5D has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5E has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5F has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5G has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5H has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Generating Statement for block at 5A with output pin(s) of OUT_5A_G
+	and inputs of MY_ASSEMBLY_CH_1_BIT,MY_LD_CHR_2
+	and logic function of NOR
+Generating Statement for block at 5B with output pin(s) of OUT_5B_C
+	and inputs of MY_ASSEMBLY_CH_2_BIT,MY_LD_CHR_2
+	and logic function of NOR
+Generating Statement for block at 5C with output pin(s) of OUT_5C_F
+	and inputs of MY_ASSEMBLY_CH_4_BIT,MY_LD_CHR_2
+	and logic function of NOR
+Generating Statement for block at 5D with output pin(s) of OUT_5D_R
+	and inputs of MY_LD_CHR_2,MY_ASSEMBLY_CH_8_BIT
+	and logic function of NOR
+Generating Statement for block at 5E with output pin(s) of OUT_5E_G
+	and inputs of MY_ASSEMBLY_CH_A_BIT,MY_LD_CHR_2
+	and logic function of NOR
+Generating Statement for block at 5F with output pin(s) of OUT_5F_C
+	and inputs of MY_ASSEMBLY_CH_B_BIT,MY_LD_CHR_2
+	and logic function of NOR
+Generating Statement for block at 5G with output pin(s) of OUT_5G_F
+	and inputs of MY_ASSEMBLY_CH_C_BIT,MY_LD_CHR_2
+	and logic function of NOR
+Generating Statement for block at 5H with output pin(s) of OUT_5H_R
+	and inputs of MY_LD_CHR_2,MY_ASSEMBLY_CH_WM_BIT
+	and logic function of NOR
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
+	and inputs of OUT_5A_G,MY_INH_CHAR_2_1_BIT
+	and logic function of OR
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
+	and inputs of OUT_5B_C,MY_INH_CHAR_2_2_BIT
+	and logic function of OR
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
+	and inputs of OUT_5C_F,MY_INH_CHAR_2_4_BIT
+	and logic function of OR
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of OUT_5D_R,MY_INH_CHAR_2_8_BIT
+	and logic function of OR
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
+	and inputs of OUT_5E_G,MY_INH_CHAR_2_A_BIT
+	and logic function of OR
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
+	and inputs of OUT_5F_C,MY_INH_CHAR_2_B_BIT
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of OUT_5G_F,MY_INH_CHAR_2_C_BIT
+	and logic function of OR
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of OUT_5H_R,MY_INH_CHAR_2_WM_BIT
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_2_1_BIT_D
+	from gate output OUT_DOT_5A
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_2_2_BIT_D
+	from gate output OUT_DOT_5B
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_2_4_BIT_D
+	from gate output OUT_DOT_5C
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_2_8_BIT_D
+	from gate output OUT_DOT_5D
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_2_A_BIT_D
+	from gate output OUT_DOT_5E
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_2_B_BIT_D
+	from gate output OUT_DOT_5F
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_2_C_BIT_D
+	from gate output OUT_DOT_5G
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_2_WM_BIT_D
+	from gate output OUT_DOT_5H
