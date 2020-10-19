@@ -87,6 +87,17 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
+procedure checkChar(
+        checked: in STD_LOGIC_VECTOR(7 downto 0);
+        val: in STD_LOGIC_VECTOR(7 downto 0);
+        testname: in string;
+        test: in string) is
+        begin
+           for thebit in 0 to 7 loop
+             assert checked(thebit) = val(thebit) report
+                testname & " (" & test & ") bit " & Integer'image(thebit) & " failed." severity failure; 
+           end loop;
+        end procedure;
 
 
    -- Your test bench declarations go here
@@ -150,50 +161,89 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable tva, tv0, tv1, tv2, tv3: std_logic_vector(7 downto 0);
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   
+   variable load: std_logic;
+   variable go: std_logic_vector(7 downto 0);
+   
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "37.10.0%.1        ";
 
-   for tt in 0 to 2**25 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+   for charbits in 0 to 2**8 loop
+   
+      tva := std_logic_vector(to_unsigned(charbits,tv0'Length));
+      tv0 := tva(0) & tva(7 downto 1);
+      tv1 := tv0(0) & tv0(7 downto 1);
+      tv2 := tv1(0) & tv1(7 downto 1);
+      tv3 := tv2(0) & tv2(7 downto 1);
       
-      wait for 30 ns;
+      MY_ASSEMBLY_CH_BUS <= not tva;
+      MY_INH_CHAR_0_BUS <= not tv0;
+      MY_INH_CHAR_1_BUS <= not tv1;
+      MY_INH_CHAR_2_BUS <= not tv2;
+      MY_INH_CHAR_3_BUS <= not tv3;
       
+      for tt in 0 to 2**4 loop
+         tv := std_logic_vector(to_unsigned(tt,tv'Length));
+         a := tv(0);
+         b := tv(1);
+         c := tv(2);
+         d := tv(3);
+         
+         MY_LD_CHR_0 <= not a;
+         MY_LD_CHR_1 <= not b;
+         MY_LD_CHR_2 <= not c;
+         MY_LD_CHR_3 <= not d;
       
-   end loop;
-
+         wait for 30 ns;
+         
+         for charPlane in 0 to 3 loop
+            
+            -- go (gate output) is the output of the and gate shown in the ILD (ASM CH . LD CHR(charPlane))
+            
+            if(tv(charPlane) = '1') then
+               case charPlane is
+                  when 0 => go := tva;
+                  when 1 => go := tva;
+                  when 2 => go := tva;
+                  when 3 => go := tva;
+               end case;               
+            else
+               go := "00000000";
+            end if;
+            
+            -- Inhibit means write 0 to core.
+            -- This happens ONLY if (ASM Ch bit . load) == '0'  AND incoming inibit is "true"
+            
+            -- "go" represents ASMCH bits . load  (gate Output, in positive logic)
+            -- tv# represents Inhibit bits  (not-ed for -Y inputs of course)
+            
+            -- So, in POSITIVE LOGIC, Inhibit out = not go and tv#
+            -- BUT, this is a -Y signal.  So, invert that, yielding go or not(tv#)
+            
+            case charPlane is
+               when 0 =>
+                  checkChar(MY_INH_CHAR_0_D_BUS,go or not tv0,testname,"INH Char 0");
+               when 1 =>
+                  checkChar(MY_INH_CHAR_1_D_BUS,go or not tv1,testname,"INH Char 1");
+               when 2 =>
+                  checkChar(MY_INH_CHAR_2_D_BUS,go or not tv2,testname,"INH Char 2");
+               when 3 =>
+                  checkChar(MY_INH_CHAR_3_D_BUS,go or not tv3,testname,"INH Char 3");
+            end case;
+         
+         end loop;   -- CharPlane
+      
+      end loop;      -- tt
+   end loop;         -- CharBits
+   
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
