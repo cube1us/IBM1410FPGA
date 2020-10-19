@@ -1,0 +1,177 @@
+Generating HDL for page 36.11.01.1 B DATA REG CHAR 0 at 10/19/2020 11:13:37 AM
+Found combinatorial loop (need D FF) at output of gate at 5A
+Found combinatorial loop (need D FF) at output of gate at 4A
+Found combinatorial loop (need D FF) at output of gate at 5B
+Found combinatorial loop (need D FF) at output of gate at 4B
+Found combinatorial loop (need D FF) at output of gate at 5C
+Found combinatorial loop (need D FF) at output of gate at 4C
+Found combinatorial loop (need D FF) at output of gate at 5D
+Found combinatorial loop (need D FF) at output of gate at 4D
+Found combinatorial loop (need D FF) at output of gate at 5E
+Found combinatorial loop (need D FF) at output of gate at 4E
+Found combinatorial loop (need D FF) at output of gate at 5F
+Found combinatorial loop (need D FF) at output of gate at 4F
+Found combinatorial loop (need D FF) at output of gate at 5G
+Found combinatorial loop (need D FF) at output of gate at 4G
+Found combinatorial loop (need D FF) at output of gate at 5H
+Found combinatorial loop (need D FF) at output of gate at 4H
+Generating Statement for block at 5A with *latched* output pin(s) of OUT_5A_NoPin_Latch
+	and inputs of PY_B_DATA_REG_RESET_1,OUT_4A_NoPin
+	and logic function of OR
+Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_NoPin_Latch, OUT_4A_NoPin_Latch, OUT_4A_NoPin_Latch
+	and inputs of OUT_5A_NoPin,MY_SA_CHAR_0_1_BIT
+	and logic function of AND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_B
+	and inputs of OUT_4A_NoPin,MY_REGEN_CHR_0
+	and logic function of NOR
+Generating Statement for block at 2A with output pin(s) of OUT_2A_A
+	and inputs of OUT_4A_NoPin,MY_RO_CHR_0
+	and logic function of NOR
+Generating Statement for block at 5B with *latched* output pin(s) of OUT_5B_NoPin_Latch
+	and inputs of PY_B_DATA_REG_RESET_1,OUT_4B_NoPin
+	and logic function of OR
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_NoPin_Latch, OUT_4B_NoPin_Latch, OUT_4B_NoPin_Latch
+	and inputs of OUT_5B_NoPin,MY_SA_CHAR_0_2_BIT
+	and logic function of AND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of OUT_4B_NoPin,MY_REGEN_CHR_0
+	and logic function of NOR
+Generating Statement for block at 2B with output pin(s) of OUT_2B_E
+	and inputs of OUT_4B_NoPin,MY_RO_CHR_0
+	and logic function of NOR
+Generating Statement for block at 5C with *latched* output pin(s) of OUT_5C_NoPin_Latch
+	and inputs of PY_B_DATA_REG_RESET_1,OUT_4C_NoPin
+	and logic function of OR
+Generating Statement for block at 4C with *latched* output pin(s) of OUT_4C_NoPin_Latch, OUT_4C_NoPin_Latch, OUT_4C_NoPin_Latch
+	and inputs of OUT_5C_NoPin,MY_SA_CHAR_0_4_BIT
+	and logic function of AND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_B
+	and inputs of OUT_4C_NoPin,MY_REGEN_CHR_0
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_A
+	and inputs of OUT_4C_NoPin,MY_RO_CHR_0
+	and logic function of NOR
+Generating Statement for block at 5D with *latched* output pin(s) of OUT_5D_NoPin_Latch
+	and inputs of PY_B_DATA_REG_RESET_1,OUT_4D_NoPin
+	and logic function of OR
+Generating Statement for block at 4D with *latched* output pin(s) of OUT_4D_NoPin_Latch, OUT_4D_NoPin_Latch, OUT_4D_NoPin_Latch
+	and inputs of OUT_5D_NoPin,MY_SA_CHAR_0_8_BIT
+	and logic function of AND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of OUT_4D_NoPin,MY_REGEN_CHR_0
+	and logic function of NOR
+Generating Statement for block at 2D with output pin(s) of OUT_2D_E
+	and inputs of OUT_4D_NoPin,MY_RO_CHR_0
+	and logic function of NOR
+Generating Statement for block at 5E with *latched* output pin(s) of OUT_5E_NoPin_Latch
+	and inputs of PY_B_DATA_REG_RESET_1,OUT_4E_NoPin
+	and logic function of OR
+Generating Statement for block at 4E with *latched* output pin(s) of OUT_4E_NoPin_Latch, OUT_4E_NoPin_Latch, OUT_4E_NoPin_Latch
+	and inputs of OUT_5E_NoPin,MY_SA_CHAR_0_A_BIT
+	and logic function of AND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_B
+	and inputs of OUT_4E_NoPin,MY_REGEN_CHR_0
+	and logic function of NOR
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of OUT_4E_NoPin,MY_RO_CHR_0
+	and logic function of NOR
+Generating Statement for block at 5F with *latched* output pin(s) of OUT_5F_NoPin_Latch
+	and inputs of PY_B_DATA_REG_RESET_1,OUT_4F_NoPin
+	and logic function of OR
+Generating Statement for block at 4F with *latched* output pin(s) of OUT_4F_NoPin_Latch, OUT_4F_NoPin_Latch, OUT_4F_NoPin_Latch
+	and inputs of OUT_5F_NoPin,MY_SA_CHAR_0_B_BIT
+	and logic function of AND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of OUT_4F_NoPin,MY_REGEN_CHR_0
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_E
+	and inputs of OUT_4F_NoPin,MY_RO_CHR_0
+	and logic function of NOR
+Generating Statement for block at 5G with *latched* output pin(s) of OUT_5G_NoPin_Latch
+	and inputs of PY_B_DATA_REG_RESET_1,OUT_4G_NoPin
+	and logic function of OR
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_NoPin_Latch, OUT_4G_NoPin_Latch, OUT_4G_NoPin_Latch
+	and inputs of OUT_5G_NoPin,MY_SA_CHAR_0_C_BIT
+	and logic function of AND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_B
+	and inputs of OUT_4G_NoPin,MY_REGEN_CHR_0
+	and logic function of NOR
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A
+	and inputs of OUT_4G_NoPin,MY_RO_CHR_0
+	and logic function of NOR
+Generating Statement for block at 5H with *latched* output pin(s) of OUT_5H_NoPin_Latch
+	and inputs of PY_B_DATA_REG_RESET_1,OUT_4H_NoPin
+	and logic function of OR
+Generating Statement for block at 4H with *latched* output pin(s) of OUT_4H_NoPin_Latch, OUT_4H_NoPin_Latch, OUT_4H_NoPin_Latch
+	and inputs of OUT_5H_NoPin,MY_SA_CHAR_0_WM_BIT
+	and logic function of AND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D
+	and inputs of OUT_4H_NoPin,MY_REGEN_CHR_0
+	and logic function of NOR
+Generating Statement for block at 2H with output pin(s) of OUT_2H_E
+	and inputs of OUT_4H_NoPin,MY_RO_CHR_0
+	and logic function of NOR
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_0_1_BIT
+	from gate output OUT_3A_B
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_1_BIT_STAR_0_STAR
+	from gate output OUT_2A_A
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_0_2_BIT
+	from gate output OUT_3B_D
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_2_BIT_STAR_0_STAR
+	from gate output OUT_2B_E
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_0_4_BIT
+	from gate output OUT_3C_B
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_4_BIT_STAR_0_STAR
+	from gate output OUT_2C_A
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_0_8_BIT
+	from gate output OUT_3D_D
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_8_BIT_STAR_0_STAR
+	from gate output OUT_2D_E
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_0_A_BIT
+	from gate output OUT_3E_B
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_A_BIT_STAR_0_STAR
+	from gate output OUT_2E_A
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_0_B_BIT
+	from gate output OUT_3F_D
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_B_BIT_STAR_0_STAR
+	from gate output OUT_2F_E
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_0_C_BIT
+	from gate output OUT_3G_B
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_C_BIT_STAR_0_STAR
+	from gate output OUT_2G_A
+Generating output sheet edge signal assignment to 
+	signal MY_INH_CHAR_0_WM_BIT
+	from gate output OUT_3H_D
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_WM_BIT_STAR_0_STAR
+	from gate output OUT_2H_E
+Generating D Flip Flop for block at 5A
+Generating D Flip Flop for block at 4A
+Generating D Flip Flop for block at 5B
+Generating D Flip Flop for block at 4B
+Generating D Flip Flop for block at 5C
+Generating D Flip Flop for block at 4C
+Generating D Flip Flop for block at 5D
+Generating D Flip Flop for block at 4D
+Generating D Flip Flop for block at 5E
+Generating D Flip Flop for block at 4E
+Generating D Flip Flop for block at 5F
+Generating D Flip Flop for block at 4F
+Generating D Flip Flop for block at 5G
+Generating D Flip Flop for block at 4G
+Generating D Flip Flop for block at 5H
+Generating D Flip Flop for block at 4H

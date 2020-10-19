@@ -1,0 +1,296 @@
+Generating HDL for group named BDataRegat 10/18/2020 5:21:33 PM containing pages: 
+	36.11.01.1, 36.11.02.1, 36.11.03.1, 36.11.04.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\BDataReg_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 4 pages...
+Found 27 signals on page 36.11.01.1
+Found 27 signals on page 36.11.02.1
+Found 27 signals on page 36.11.03.1
+Found 27 signals on page 36.11.04.1
+Found 44 unique input signals and 64 unique output signals, (108 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal -Y RO CHR 0 originates outside the group.
+INFO:  Signal -Y REGEN CHR 0 originates outside the group.
+INFO:  Signal -Y SA CHAR 0 1 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 0 2 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 0 4 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 0 8 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 0 A BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 0 B BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 0 C BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 0 WM BIT originates outside the group.
+INFO:  Signal +Y B DATA REG RESET 1 originates outside the group.
+INFO:  Signal -Y RO CHR 1 originates outside the group.
+INFO:  Signal -Y REGEN CHR 1 originates outside the group.
+INFO:  Signal -Y SA CHAR 1 1 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 1 2 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 1 4 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 1 8 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 1 A BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 1 B BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 1 C BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 1 WM BIT originates outside the group.
+INFO:  Signal +Y B DATA REG RESET 2 originates outside the group.
+INFO:  Signal -Y RO CHR 2 originates outside the group.
+INFO:  Signal -Y REGEN CHR 2 originates outside the group.
+INFO:  Signal -Y SA CHAR 2 1 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 2 2 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 2 4 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 2 8 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 2 A BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 2 B BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 2 C BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 2 WM BIT originates outside the group.
+INFO:  Signal +Y B DATA REG RESET 3 originates outside the group.
+INFO:  Signal -Y RO CHR 3 originates outside the group.
+INFO:  Signal -Y REGEN CHR 3 originates outside the group.
+INFO:  Signal -Y SA CHAR 3 1 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 3 2 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 3 4 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 3 8 BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 3 B BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 3 C BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 3 WM BIT originates outside the group.
+INFO:  Signal -Y SA CHAR 3 A BIT originates outside the group.
+INFO:  Signal +Y B DATA REG RESET 4 originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S B DATA REG 1 BIT *0* is used outside the group.
+INFO:  Signal +S B DATA REG 2 BIT *0* is used outside the group.
+INFO:  Signal +S B DATA REG 4 BIT *0* is used outside the group.
+INFO:  Signal +S B DATA REG 8 BIT *0* is used outside the group.
+INFO:  Signal +S B DATA REG A BIT *0* is used outside the group.
+INFO:  Signal +S B DATA REG B BIT *0* is used outside the group.
+INFO:  Signal +S B DATA REG C BIT *0* is used outside the group.
+INFO:  Signal +S B DATA REG WM BIT *0* is used outside the group.
+INFO:  Signal -Y INH CHAR 0 1 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 0 2 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 0 4 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 0 8 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 0 A BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 0 B BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 0 C BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 0 WM BIT is used outside the group.
+INFO:  Signal +S B DATA REG 1 BIT *1* is used outside the group.
+INFO:  Signal +S B DATA REG 2 BIT *1* is used outside the group.
+INFO:  Signal +S B DATA REG 4 BIT *1* is used outside the group.
+INFO:  Signal +S B DATA REG 8 BIT *1* is used outside the group.
+INFO:  Signal +S B DATA REG A BIT *1* is used outside the group.
+INFO:  Signal +S B DATA REG B BIT *1* is used outside the group.
+INFO:  Signal +S B DATA REG C BIT *1* is used outside the group.
+INFO:  Signal +S B DATA REG WM BIT *1* is used outside the group.
+INFO:  Signal -Y INH CHAR 1 1 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 1 2 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 1 4 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 1 8 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 1 A BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 1 B BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 1 C BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 1 WM BIT is used outside the group.
+INFO:  Signal +S B DATA REG 1 BIT *2* is used outside the group.
+INFO:  Signal +S B DATA REG 2 BIT *2* is used outside the group.
+INFO:  Signal +S B DATA REG 4 BIT *2* is used outside the group.
+INFO:  Signal +S B DATA REG 8 BIT *2* is used outside the group.
+INFO:  Signal +S B DATA REG A BIT *2* is used outside the group.
+INFO:  Signal +S B DATA REG B BIT *2* is used outside the group.
+INFO:  Signal +S B DATA REG C BIT *2* is used outside the group.
+INFO:  Signal +S B DATA REG WM BIT *2* is used outside the group.
+INFO:  Signal -Y INH CHAR 2 1 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 2 2 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 2 4 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 2 8 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 2 A BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 2 B BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 2 C BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 2 WM BIT is used outside the group.
+INFO:  Signal +S B DATA REG 1 BIT *3* is used outside the group.
+INFO:  Signal +S B DATA REG 2 BIT *3* is used outside the group.
+INFO:  Signal +S B DATA REG 4 BIT *3* is used outside the group.
+INFO:  Signal +S B DATA REG 8 BIT *3* is used outside the group.
+INFO:  Signal +S B DATA REG A BIT *3* is used outside the group.
+INFO:  Signal +S B DATA REG B BIT *3* is used outside the group.
+INFO:  Signal +S B DATA REG C BIT *3* is used outside the group.
+INFO:  Signal +S B DATA REG WM BIT *3* is used outside the group.
+INFO:  Signal -Y INH CHAR 3 1 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 3 2 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 3 4 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 3 8 BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 3 A BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 3 B BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 3 C BIT is used outside the group.
+INFO:  Signal -Y INH CHAR 3 WM BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal -Y SA CHAR 0 1 BIT replaced by Bus signal -Y SA CHAR 0 BUS
+Input Signal -Y SA CHAR 0 2 BIT replaced by Bus signal -Y SA CHAR 0 BUS
+Input Signal -Y SA CHAR 0 4 BIT replaced by Bus signal -Y SA CHAR 0 BUS
+Input Signal -Y SA CHAR 0 8 BIT replaced by Bus signal -Y SA CHAR 0 BUS
+Input Signal -Y SA CHAR 0 A BIT replaced by Bus signal -Y SA CHAR 0 BUS
+Input Signal -Y SA CHAR 0 B BIT replaced by Bus signal -Y SA CHAR 0 BUS
+Input Signal -Y SA CHAR 0 C BIT replaced by Bus signal -Y SA CHAR 0 BUS
+Input Signal -Y SA CHAR 0 WM BIT replaced by Bus signal -Y SA CHAR 0 BUS
+Input Signal -Y SA CHAR 1 1 BIT replaced by Bus signal -Y SA CHAR 1 BUS
+Input Signal -Y SA CHAR 1 2 BIT replaced by Bus signal -Y SA CHAR 1 BUS
+Input Signal -Y SA CHAR 1 4 BIT replaced by Bus signal -Y SA CHAR 1 BUS
+Input Signal -Y SA CHAR 1 8 BIT replaced by Bus signal -Y SA CHAR 1 BUS
+Input Signal -Y SA CHAR 1 A BIT replaced by Bus signal -Y SA CHAR 1 BUS
+Input Signal -Y SA CHAR 1 B BIT replaced by Bus signal -Y SA CHAR 1 BUS
+Input Signal -Y SA CHAR 1 C BIT replaced by Bus signal -Y SA CHAR 1 BUS
+Input Signal -Y SA CHAR 1 WM BIT replaced by Bus signal -Y SA CHAR 1 BUS
+Input Signal -Y SA CHAR 2 1 BIT replaced by Bus signal -Y SA CHAR 2 BUS
+Input Signal -Y SA CHAR 2 2 BIT replaced by Bus signal -Y SA CHAR 2 BUS
+Input Signal -Y SA CHAR 2 4 BIT replaced by Bus signal -Y SA CHAR 2 BUS
+Input Signal -Y SA CHAR 2 8 BIT replaced by Bus signal -Y SA CHAR 2 BUS
+Input Signal -Y SA CHAR 2 A BIT replaced by Bus signal -Y SA CHAR 2 BUS
+Input Signal -Y SA CHAR 2 B BIT replaced by Bus signal -Y SA CHAR 2 BUS
+Input Signal -Y SA CHAR 2 C BIT replaced by Bus signal -Y SA CHAR 2 BUS
+Input Signal -Y SA CHAR 2 WM BIT replaced by Bus signal -Y SA CHAR 2 BUS
+Input Signal -Y SA CHAR 3 1 BIT replaced by Bus signal -Y SA CHAR 3 BUS
+Input Signal -Y SA CHAR 3 2 BIT replaced by Bus signal -Y SA CHAR 3 BUS
+Input Signal -Y SA CHAR 3 4 BIT replaced by Bus signal -Y SA CHAR 3 BUS
+Input Signal -Y SA CHAR 3 8 BIT replaced by Bus signal -Y SA CHAR 3 BUS
+Input Signal -Y SA CHAR 3 B BIT replaced by Bus signal -Y SA CHAR 3 BUS
+Input Signal -Y SA CHAR 3 C BIT replaced by Bus signal -Y SA CHAR 3 BUS
+Input Signal -Y SA CHAR 3 WM BIT replaced by Bus signal -Y SA CHAR 3 BUS
+Input Signal -Y SA CHAR 3 A BIT replaced by Bus signal -Y SA CHAR 3 BUS
+DEBUG: Tentative bus +S B DATA REG *0* BUS identified based on signal +S B DATA REG 1 BIT *0*
+DEBUG: Added signal +S B DATA REG 2 BIT *0* to bus +S B DATA REG *0* BUS
+DEBUG: Added signal +S B DATA REG 4 BIT *0* to bus +S B DATA REG *0* BUS
+DEBUG: Added signal +S B DATA REG 8 BIT *0* to bus +S B DATA REG *0* BUS
+DEBUG: Added signal +S B DATA REG A BIT *0* to bus +S B DATA REG *0* BUS
+DEBUG: Added signal +S B DATA REG B BIT *0* to bus +S B DATA REG *0* BUS
+DEBUG: Added signal +S B DATA REG C BIT *0* to bus +S B DATA REG *0* BUS
+DEBUG: Added signal +S B DATA REG WM BIT *0* to bus +S B DATA REG *0* BUS
+DEBUG: Tentative bus -Y INH CHAR 0 BUS identified based on signal -Y INH CHAR 0 1 BIT
+DEBUG: Added signal -Y INH CHAR 0 2 BIT to bus -Y INH CHAR 0 BUS
+DEBUG: Added signal -Y INH CHAR 0 4 BIT to bus -Y INH CHAR 0 BUS
+DEBUG: Added signal -Y INH CHAR 0 8 BIT to bus -Y INH CHAR 0 BUS
+DEBUG: Added signal -Y INH CHAR 0 A BIT to bus -Y INH CHAR 0 BUS
+DEBUG: Added signal -Y INH CHAR 0 B BIT to bus -Y INH CHAR 0 BUS
+DEBUG: Added signal -Y INH CHAR 0 C BIT to bus -Y INH CHAR 0 BUS
+DEBUG: Added signal -Y INH CHAR 0 WM BIT to bus -Y INH CHAR 0 BUS
+DEBUG: Tentative bus +S B DATA REG *1* BUS identified based on signal +S B DATA REG 1 BIT *1*
+DEBUG: Added signal +S B DATA REG 2 BIT *1* to bus +S B DATA REG *1* BUS
+DEBUG: Added signal +S B DATA REG 4 BIT *1* to bus +S B DATA REG *1* BUS
+DEBUG: Added signal +S B DATA REG 8 BIT *1* to bus +S B DATA REG *1* BUS
+DEBUG: Added signal +S B DATA REG A BIT *1* to bus +S B DATA REG *1* BUS
+DEBUG: Added signal +S B DATA REG B BIT *1* to bus +S B DATA REG *1* BUS
+DEBUG: Added signal +S B DATA REG C BIT *1* to bus +S B DATA REG *1* BUS
+DEBUG: Added signal +S B DATA REG WM BIT *1* to bus +S B DATA REG *1* BUS
+DEBUG: Tentative bus -Y INH CHAR 1 BUS identified based on signal -Y INH CHAR 1 1 BIT
+DEBUG: Added signal -Y INH CHAR 1 2 BIT to bus -Y INH CHAR 1 BUS
+DEBUG: Added signal -Y INH CHAR 1 4 BIT to bus -Y INH CHAR 1 BUS
+DEBUG: Added signal -Y INH CHAR 1 8 BIT to bus -Y INH CHAR 1 BUS
+DEBUG: Added signal -Y INH CHAR 1 A BIT to bus -Y INH CHAR 1 BUS
+DEBUG: Added signal -Y INH CHAR 1 B BIT to bus -Y INH CHAR 1 BUS
+DEBUG: Added signal -Y INH CHAR 1 C BIT to bus -Y INH CHAR 1 BUS
+DEBUG: Added signal -Y INH CHAR 1 WM BIT to bus -Y INH CHAR 1 BUS
+DEBUG: Tentative bus +S B DATA REG *2* BUS identified based on signal +S B DATA REG 1 BIT *2*
+DEBUG: Added signal +S B DATA REG 2 BIT *2* to bus +S B DATA REG *2* BUS
+DEBUG: Added signal +S B DATA REG 4 BIT *2* to bus +S B DATA REG *2* BUS
+DEBUG: Added signal +S B DATA REG 8 BIT *2* to bus +S B DATA REG *2* BUS
+DEBUG: Added signal +S B DATA REG A BIT *2* to bus +S B DATA REG *2* BUS
+DEBUG: Added signal +S B DATA REG B BIT *2* to bus +S B DATA REG *2* BUS
+DEBUG: Added signal +S B DATA REG C BIT *2* to bus +S B DATA REG *2* BUS
+DEBUG: Added signal +S B DATA REG WM BIT *2* to bus +S B DATA REG *2* BUS
+DEBUG: Tentative bus -Y INH CHAR 2 BUS identified based on signal -Y INH CHAR 2 1 BIT
+DEBUG: Added signal -Y INH CHAR 2 2 BIT to bus -Y INH CHAR 2 BUS
+DEBUG: Added signal -Y INH CHAR 2 4 BIT to bus -Y INH CHAR 2 BUS
+DEBUG: Added signal -Y INH CHAR 2 8 BIT to bus -Y INH CHAR 2 BUS
+DEBUG: Added signal -Y INH CHAR 2 A BIT to bus -Y INH CHAR 2 BUS
+DEBUG: Added signal -Y INH CHAR 2 B BIT to bus -Y INH CHAR 2 BUS
+DEBUG: Added signal -Y INH CHAR 2 C BIT to bus -Y INH CHAR 2 BUS
+DEBUG: Added signal -Y INH CHAR 2 WM BIT to bus -Y INH CHAR 2 BUS
+DEBUG: Tentative bus +S B DATA REG *3* BUS identified based on signal +S B DATA REG 1 BIT *3*
+DEBUG: Added signal +S B DATA REG 2 BIT *3* to bus +S B DATA REG *3* BUS
+DEBUG: Added signal +S B DATA REG 4 BIT *3* to bus +S B DATA REG *3* BUS
+DEBUG: Added signal +S B DATA REG 8 BIT *3* to bus +S B DATA REG *3* BUS
+DEBUG: Added signal +S B DATA REG A BIT *3* to bus +S B DATA REG *3* BUS
+DEBUG: Added signal +S B DATA REG B BIT *3* to bus +S B DATA REG *3* BUS
+DEBUG: Added signal +S B DATA REG C BIT *3* to bus +S B DATA REG *3* BUS
+DEBUG: Added signal +S B DATA REG WM BIT *3* to bus +S B DATA REG *3* BUS
+DEBUG: Tentative bus -Y INH CHAR 3 BUS identified based on signal -Y INH CHAR 3 1 BIT
+DEBUG: Added signal -Y INH CHAR 3 2 BIT to bus -Y INH CHAR 3 BUS
+DEBUG: Added signal -Y INH CHAR 3 4 BIT to bus -Y INH CHAR 3 BUS
+DEBUG: Added signal -Y INH CHAR 3 8 BIT to bus -Y INH CHAR 3 BUS
+DEBUG: Added signal -Y INH CHAR 3 A BIT to bus -Y INH CHAR 3 BUS
+DEBUG: Added signal -Y INH CHAR 3 B BIT to bus -Y INH CHAR 3 BUS
+DEBUG: Added signal -Y INH CHAR 3 C BIT to bus -Y INH CHAR 3 BUS
+DEBUG: Added signal -Y INH CHAR 3 WM BIT to bus -Y INH CHAR 3 BUS
+INFO: Bus +S B DATA REG *0* BUS identified 
+INFO: Bus -Y INH CHAR 0 BUS identified 
+INFO: Bus +S B DATA REG *1* BUS identified 
+INFO: Bus -Y INH CHAR 1 BUS identified 
+INFO: Bus +S B DATA REG *2* BUS identified 
+INFO: Bus -Y INH CHAR 2 BUS identified 
+INFO: Bus +S B DATA REG *3* BUS identified 
+INFO: Bus -Y INH CHAR 3 BUS identified 
+Output signal +S B DATA REG 1 BIT *0* replaced by bus +S B DATA REG *0* BUS
+Output signal +S B DATA REG 2 BIT *0* replaced by bus +S B DATA REG *0* BUS
+Output signal +S B DATA REG 4 BIT *0* replaced by bus +S B DATA REG *0* BUS
+Output signal +S B DATA REG 8 BIT *0* replaced by bus +S B DATA REG *0* BUS
+Output signal +S B DATA REG A BIT *0* replaced by bus +S B DATA REG *0* BUS
+Output signal +S B DATA REG B BIT *0* replaced by bus +S B DATA REG *0* BUS
+Output signal +S B DATA REG C BIT *0* replaced by bus +S B DATA REG *0* BUS
+Output signal +S B DATA REG WM BIT *0* replaced by bus +S B DATA REG *0* BUS
+Output signal -Y INH CHAR 0 1 BIT replaced by bus -Y INH CHAR 0 BUS
+Output signal -Y INH CHAR 0 2 BIT replaced by bus -Y INH CHAR 0 BUS
+Output signal -Y INH CHAR 0 4 BIT replaced by bus -Y INH CHAR 0 BUS
+Output signal -Y INH CHAR 0 8 BIT replaced by bus -Y INH CHAR 0 BUS
+Output signal -Y INH CHAR 0 A BIT replaced by bus -Y INH CHAR 0 BUS
+Output signal -Y INH CHAR 0 B BIT replaced by bus -Y INH CHAR 0 BUS
+Output signal -Y INH CHAR 0 C BIT replaced by bus -Y INH CHAR 0 BUS
+Output signal -Y INH CHAR 0 WM BIT replaced by bus -Y INH CHAR 0 BUS
+Output signal +S B DATA REG 1 BIT *1* replaced by bus +S B DATA REG *1* BUS
+Output signal +S B DATA REG 2 BIT *1* replaced by bus +S B DATA REG *1* BUS
+Output signal +S B DATA REG 4 BIT *1* replaced by bus +S B DATA REG *1* BUS
+Output signal +S B DATA REG 8 BIT *1* replaced by bus +S B DATA REG *1* BUS
+Output signal +S B DATA REG A BIT *1* replaced by bus +S B DATA REG *1* BUS
+Output signal +S B DATA REG B BIT *1* replaced by bus +S B DATA REG *1* BUS
+Output signal +S B DATA REG C BIT *1* replaced by bus +S B DATA REG *1* BUS
+Output signal +S B DATA REG WM BIT *1* replaced by bus +S B DATA REG *1* BUS
+Output signal -Y INH CHAR 1 1 BIT replaced by bus -Y INH CHAR 1 BUS
+Output signal -Y INH CHAR 1 2 BIT replaced by bus -Y INH CHAR 1 BUS
+Output signal -Y INH CHAR 1 4 BIT replaced by bus -Y INH CHAR 1 BUS
+Output signal -Y INH CHAR 1 8 BIT replaced by bus -Y INH CHAR 1 BUS
+Output signal -Y INH CHAR 1 A BIT replaced by bus -Y INH CHAR 1 BUS
+Output signal -Y INH CHAR 1 B BIT replaced by bus -Y INH CHAR 1 BUS
+Output signal -Y INH CHAR 1 C BIT replaced by bus -Y INH CHAR 1 BUS
+Output signal -Y INH CHAR 1 WM BIT replaced by bus -Y INH CHAR 1 BUS
+Output signal +S B DATA REG 1 BIT *2* replaced by bus +S B DATA REG *2* BUS
+Output signal +S B DATA REG 2 BIT *2* replaced by bus +S B DATA REG *2* BUS
+Output signal +S B DATA REG 4 BIT *2* replaced by bus +S B DATA REG *2* BUS
+Output signal +S B DATA REG 8 BIT *2* replaced by bus +S B DATA REG *2* BUS
+Output signal +S B DATA REG A BIT *2* replaced by bus +S B DATA REG *2* BUS
+Output signal +S B DATA REG B BIT *2* replaced by bus +S B DATA REG *2* BUS
+Output signal +S B DATA REG C BIT *2* replaced by bus +S B DATA REG *2* BUS
+Output signal +S B DATA REG WM BIT *2* replaced by bus +S B DATA REG *2* BUS
+Output signal -Y INH CHAR 2 1 BIT replaced by bus -Y INH CHAR 2 BUS
+Output signal -Y INH CHAR 2 2 BIT replaced by bus -Y INH CHAR 2 BUS
+Output signal -Y INH CHAR 2 4 BIT replaced by bus -Y INH CHAR 2 BUS
+Output signal -Y INH CHAR 2 8 BIT replaced by bus -Y INH CHAR 2 BUS
+Output signal -Y INH CHAR 2 A BIT replaced by bus -Y INH CHAR 2 BUS
+Output signal -Y INH CHAR 2 B BIT replaced by bus -Y INH CHAR 2 BUS
+Output signal -Y INH CHAR 2 C BIT replaced by bus -Y INH CHAR 2 BUS
+Output signal -Y INH CHAR 2 WM BIT replaced by bus -Y INH CHAR 2 BUS
+Output signal +S B DATA REG 1 BIT *3* replaced by bus +S B DATA REG *3* BUS
+Output signal +S B DATA REG 2 BIT *3* replaced by bus +S B DATA REG *3* BUS
+Output signal +S B DATA REG 4 BIT *3* replaced by bus +S B DATA REG *3* BUS
+Output signal +S B DATA REG 8 BIT *3* replaced by bus +S B DATA REG *3* BUS
+Output signal +S B DATA REG A BIT *3* replaced by bus +S B DATA REG *3* BUS
+Output signal +S B DATA REG B BIT *3* replaced by bus +S B DATA REG *3* BUS
+Output signal +S B DATA REG C BIT *3* replaced by bus +S B DATA REG *3* BUS
+Output signal +S B DATA REG WM BIT *3* replaced by bus +S B DATA REG *3* BUS
+Output signal -Y INH CHAR 3 1 BIT replaced by bus -Y INH CHAR 3 BUS
+Output signal -Y INH CHAR 3 2 BIT replaced by bus -Y INH CHAR 3 BUS
+Output signal -Y INH CHAR 3 4 BIT replaced by bus -Y INH CHAR 3 BUS
+Output signal -Y INH CHAR 3 8 BIT replaced by bus -Y INH CHAR 3 BUS
+Output signal -Y INH CHAR 3 A BIT replaced by bus -Y INH CHAR 3 BUS
+Output signal -Y INH CHAR 3 B BIT replaced by bus -Y INH CHAR 3 BUS
+Output signal -Y INH CHAR 3 C BIT replaced by bus -Y INH CHAR 3 BUS
+Output signal -Y INH CHAR 3 WM BIT replaced by bus -Y INH CHAR 3 BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 36.11.01.1 (B DATA REG CHAR 0)
+Generating HDL associated with page 36.11.02.1 (B DATA REG CHAR 1)
+Generating HDL associated with page 36.11.03.1 (B DATA REG CHAR 2)
+Generating HDL associated with page 36.11.04.1 (B DATA REG CHAR 3)
