@@ -1,0 +1,97 @@
+Generating HDL for page 37.11.04.1 MEM INH DVRS CHAR 3 at 10/19/2020 4:45:19 PM
+Generating Statement for block at 4A with output pin(s) of OUT_4A_D
+	and inputs of MY_INH_CHAR_3_1_BIT_D,MY_Z_GATE_FOR_5_9TH_13
+	and logic function of OR
+Generating Statement for block at 2A with output pin(s) of OUT_2A_D
+	and inputs of MY_INH_CHAR_3_1_BIT_D,MY_Z_GATE_FOR_0_4TH_13
+	and logic function of OR
+Generating Statement for block at 4B with output pin(s) of OUT_4B_D
+	and inputs of MY_INH_CHAR_3_2_BIT_D,MY_Z_GATE_FOR_5_9TH_13
+	and logic function of OR
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of MY_INH_CHAR_3_2_BIT_D,MY_Z_GATE_FOR_0_4TH_13
+	and logic function of OR
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D
+	and inputs of MY_INH_CHAR_3_4_BIT_D,MY_Z_GATE_FOR_5_9TH_14
+	and logic function of OR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of MY_INH_CHAR_3_4_BIT_D,MY_Z_GATE_FOR_0_4TH_14
+	and logic function of OR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of MY_INH_CHAR_3_8_BIT_D,MY_Z_GATE_FOR_5_9TH_14
+	and logic function of OR
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of MY_INH_CHAR_3_8_BIT_D,MY_Z_GATE_FOR_0_4TH_14
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of MY_INH_CHAR_3_A_BIT_D,MY_Z_GATE_FOR_5_9TH_15
+	and logic function of OR
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of MY_INH_CHAR_3_A_BIT_D,MY_Z_GATE_FOR_0_4TH_15
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_4F_D
+	and inputs of MY_INH_CHAR_3_B_BIT_D,MY_Z_GATE_FOR_5_9TH_15
+	and logic function of OR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D
+	and inputs of MY_INH_CHAR_3_B_BIT_D,MY_Z_GATE_FOR_0_4TH_15
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of MY_INH_CHAR_3_C_BIT_D,MY_Z_GATE_FOR_5_9TH_16
+	and logic function of OR
+Generating Statement for block at 2G with output pin(s) of OUT_2G_D
+	and inputs of MY_INH_CHAR_3_C_BIT_D,MY_Z_GATE_FOR_0_4TH_16
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_4H_D
+	and inputs of MY_INH_CHAR_3_WM_BIT_D,MY_Z_GATE_FOR_5_9TH_16
+	and logic function of OR
+Generating Statement for block at 2H with output pin(s) of OUT_2H_D
+	and inputs of MY_INH_CHAR_3_WM_BIT_D,MY_Z_GATE_FOR_0_4TH_16
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_1_BIT_B1
+	from gate output OUT_4A_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_1_BIT_D1
+	from gate output OUT_2A_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_2_BIT_B1
+	from gate output OUT_4B_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_2_BIT_D1
+	from gate output OUT_2B_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_4_BIT_B1
+	from gate output OUT_4C_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_4_BIT_D1
+	from gate output OUT_2C_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_8_BIT_B1
+	from gate output OUT_4D_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_8_BIT_D1
+	from gate output OUT_2D_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_A_BIT_B1
+	from gate output OUT_4E_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_A_BIT_D1
+	from gate output OUT_2E_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_B_BIT_B1
+	from gate output OUT_4F_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_B_BIT_D1
+	from gate output OUT_2F_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_C_BIT_B1
+	from gate output OUT_4G_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_C_BIT_D1
+	from gate output OUT_2G_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_WM_BIT_B1
+	from gate output OUT_4H_D
+Generating output sheet edge signal assignment to 
+	signal MV_INH_CHAR_3_WM_BIT_D1
+	from gate output OUT_2H_D
