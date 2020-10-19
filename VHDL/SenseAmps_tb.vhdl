@@ -105,6 +105,17 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
+procedure checkChar(
+        checked: in STD_LOGIC_VECTOR(7 downto 0);
+        val: in STD_LOGIC_VECTOR(7 downto 0);
+        testname: in string;
+        test: in string) is
+        begin
+          for thebit in 0 to 7 loop
+             assert checked(thebit) = val(thebit) report
+                testname & " (" & test & ") bit " & Integer'image(thebit) & " failed." severity failure; 
+          end loop;
+        end procedure;
 
 
    -- Your test bench declarations go here
@@ -156,16 +167,18 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+-- Don't need a clock for this test.
 
-   constant clk_period : time := 10 ns;
+--fpga_clk_process: process
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   constant clk_period : time := 10 ns;
+
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -177,7 +190,7 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(25 downto 0);
+   variable tvb1, tvb2, tvd1, tvd2: std_logic_vector(7 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
@@ -185,40 +198,82 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "36.10.0%.1        ";
+   
+   -- Set these to 1 or 0.  Doing in this way cuts the test in half!
+   
+   PY_SENSE_STROBE_1 <= '1';
+   PY_SENSE_STROBE_2 <= '1';
+   
+   
 
-   for tt in 0 to 2**25 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+   for b1 in 254 to 256 loop
+      tvb1 := std_logic_vector(to_unsigned(b1,tvb1'Length));
+      PV_SENSE_CHAR_0_B1_BUS <= tvb1;
+      PV_SENSE_CHAR_1_B1_BUS <= tvb1(0) & tvb1(7 downto 1);
+      PV_SENSE_CHAR_2_B1_BUS <= tvb1(1 downto 0) & tvb1(7 downto 2);
+      PV_SENSE_CHAR_3_B1_BUS <= tvb1(2 downto 0) & tvb1(7 downto 3);
+      
+      for b2 in 0 to 256 loop
+         tvb2 := std_logic_vector(to_unsigned(b2,tvb2'Length));
+         PV_SENSE_CHAR_0_B2_BUS <= tvb2;
+         PV_SENSE_CHAR_1_B2_BUS <= tvb2(0) & tvb2(7 downto 1);
+         PV_SENSE_CHAR_2_B2_BUS <= tvb2(1 downto 0) & tvb2(7 downto 2);
+         PV_SENSE_CHAR_3_B2_BUS <= tvb2(2 downto 0) & tvb2(7 downto 3);
 
-      
-      wait for 30 ns;
-      
-      
+         for d1 in 0 to 256 loop
+            tvd1 := std_logic_vector(to_unsigned(d1,tvd1'Length));
+            PV_SENSE_CHAR_0_D1_BUS <= tvd1;
+            PV_SENSE_CHAR_1_D1_BUS <= tvd1(0) & tvd1(7 downto 1);
+            PV_SENSE_CHAR_2_D1_BUS <= tvd1(1 downto 0) & tvd1(7 downto 2);
+            PV_SENSE_CHAR_3_D1_BUS <= tvd1(2 downto 0) & tvd1(7 downto 3);
+            
+            for d2 in 0 to 256 loop
+               tvd2 := std_logic_vector(to_unsigned(d2,tvd2'Length));
+               PV_SENSE_CHAR_0_D2_BUS <= tvd2;
+               PV_SENSE_CHAR_1_D2_BUS <= tvd2(0) & tvd2(7 downto 1);
+               PV_SENSE_CHAR_2_D2_BUS <= tvd2(1 downto 0) & tvd2(7 downto 2);
+               PV_SENSE_CHAR_3_D2_BUS <= tvd2(2 downto 0) & tvd2(7 downto 3);
+               
+               -- Do the "harder" test WITH strobe FIRST
+               
+--               for strobe in 1 downto 0 loop
+--                  if(strobe = 0) then
+--                     PY_SENSE_STROBE_1 <= '0';
+--                     PY_SENSE_STROBE_2 <= '0';
+--                  else
+--                     PY_SENSE_STROBE_1 <= '1';
+--                     PY_SENSE_STROBE_2 <= '1';
+--                  end if;
+                  
+                  wait for 1 ns;
+
+                  if(PY_SENSE_STROBE_1 = '0') then
+                     checkChar(MY_SA_CHAR_0_BUS,"11111111",testName,"Char 0 no strobe");
+                     checkChar(MY_SA_CHAR_1_BUS,"11111111",testName,"Char 0 no strobe");
+                     checkChar(MY_SA_CHAR_2_BUS,"11111111",testName,"Char 0 no strobe");
+                     checkChar(MY_SA_CHAR_3_BUS,"11111111",testName,"Char 0 no strobe");
+                  else
+                     checkChar(MY_SA_CHAR_0_BUS,not((tvb1 and tvb2) or (tvd1 and tvd2)),
+                        testName,"Char 0 w/strobe");
+                     checkChar(MY_SA_CHAR_1_BUS,
+                        not((tvb1(0) & tvb1(7 downto 1) and tvb2(0) & tvb2(7 downto 1)) 
+                           or (tvd1(0) & tvd1(7 downto 1) and tvd2(0) & tvd2(7 downto 1))),
+                           testName,"Char 1 w/strobe");                        
+                     checkChar(MY_SA_CHAR_2_BUS,
+                        not((tvb1(1 downto 0) & tvb1(7 downto 2) and tvb2(1 downto 0) & tvb2(7 downto 2))
+                            or (tvd1(1 downto 0) & tvd1(7 downto 2) and tvd2(1 downto 0) & tvd2(7 downto 2))),
+                              testName,"Char 2 w/strobe");
+                     checkChar(MY_SA_CHAR_3_BUS,
+                        not((tvb1(2 downto 0) & tvb1(7 downto 3) and tvb2(2 downto 0) & tvb2(7 downto 3))
+                            or (tvd1(2 downto 0) & tvd1(7 downto 3) and tvd2(2 downto 0) & tvd2(7 downto 3))),
+                              testName,"Char 0 w/strobe");
+                  end if;
+                  
+--               end loop;
+            end loop;
+         end loop;
+      end loop;
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -232,7 +287,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 10000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
