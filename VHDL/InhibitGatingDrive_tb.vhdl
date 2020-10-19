@@ -227,38 +227,54 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "37.09.0%.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**4 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
-      
+		PY_Z_GATE_FOR_5_9TH_A <= b;
+		PY_Z_GATE_FOR_0_4TH_A <= a;
+		PY_Z_GATE_FOR_5_9TH_B <= d;
+		PY_Z_GATE_FOR_0_4TH_B <= c;
+            
       wait for 30 ns;
+      
+		check1(MY_Z_GATE_FOR_5_9TH_1,not b,testName,"Z Gate for 5-9th 1");
+      check1(MY_Z_GATE_FOR_5_9TH_2,not b,testName,"Z Gate for 5-9th 2");
+      check1(MY_Z_GATE_FOR_5_9TH_3,not b,testName,"Z Gate for 5-9th 3");
+      check1(MY_Z_GATE_FOR_5_9TH_4,not b,testName,"Z Gate for 5-9th 4");
+      check1(MY_Z_GATE_FOR_5_9TH_5,not b,testName,"Z Gate for 5-9th 5");
+      check1(MY_Z_GATE_FOR_5_9TH_6,not b,testName,"Z Gate for 5-9th 6");
+      check1(MY_Z_GATE_FOR_5_9TH_7,not b,testName,"Z Gate for 5-9th 7");
+      check1(MY_Z_GATE_FOR_5_9TH_8,not b,testName,"Z Gate for 5-9th 8");
+      check1(MY_Z_GATE_FOR_0_4TH_1,not a,testName,"Z Gate for 0-4th 1");
+      check1(MY_Z_GATE_FOR_0_4TH_2,not a,testName,"Z Gate for 0-4th 2");
+      check1(MY_Z_GATE_FOR_0_4TH_3,not a,testName,"Z Gate for 0-4th 3");
+      check1(MY_Z_GATE_FOR_0_4TH_4,not a,testName,"Z Gate for 0-4th 4");
+      check1(MY_Z_GATE_FOR_0_4TH_5,not a,testName,"Z Gate for 0-4th 5");
+      check1(MY_Z_GATE_FOR_0_4TH_6,not a,testName,"Z Gate for 0-4th 6");
+      check1(MY_Z_GATE_FOR_0_4TH_7,not a,testName,"Z Gate for 0-4th 7");
+      check1(MY_Z_GATE_FOR_0_4TH_8,not a,testName,"Z Gate for 0-4th 8");
+      check1(MY_Z_GATE_FOR_5_9TH_9,not d,testName,"Z Gate for 5-9th 9");
+      check1(MY_Z_GATE_FOR_5_9TH_10,not d,testName,"Z Gate for 5-9th 10");
+      check1(MY_Z_GATE_FOR_5_9TH_11,not d,testName,"Z Gate for 5-9th 11");
+      check1(MY_Z_GATE_FOR_5_9TH_12,not d,testName,"Z Gate for 5-9th 12");
+      check1(MY_Z_GATE_FOR_5_9TH_13,not d,testName,"Z Gate for 5-9th 13");
+      check1(MY_Z_GATE_FOR_5_9TH_14,not d,testName,"Z Gate for 5-9th 14");
+      check1(MY_Z_GATE_FOR_5_9TH_15,not d,testName,"Z Gate for 5-9th 15");
+      check1(MY_Z_GATE_FOR_5_9TH_16,not d,testName,"Z Gate for 5-9th 16");
+      check1(MY_Z_GATE_FOR_0_4TH_9,not c,testName,"Z Gate for 0-4th 9");
+      check1(MY_Z_GATE_FOR_0_4TH_10,not c,testName,"Z Gate for 0-4th 10");
+      check1(MY_Z_GATE_FOR_0_4TH_11,not c,testName,"Z Gate for 0-4th 11");
+      check1(MY_Z_GATE_FOR_0_4TH_12,not c,testName,"Z Gate for 0-4th 12");
+      check1(MY_Z_GATE_FOR_0_4TH_13,not c,testName,"Z Gate for 0-4th 13");
+      check1(MY_Z_GATE_FOR_0_4TH_14,not c,testName,"Z Gate for 0-4th 14");
+      check1(MY_Z_GATE_FOR_0_4TH_15,not c,testName,"Z Gate for 0-4th 15");
+      check1(MY_Z_GATE_FOR_0_4TH_16,not c,testName,"Z Gate for 0-4th 16");
       
       
    end loop;
