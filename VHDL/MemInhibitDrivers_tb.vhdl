@@ -149,6 +149,17 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
+procedure checkChar(
+    checked: in STD_LOGIC_VECTOR(7 downto 0);
+    val: in STD_LOGIC_VECTOR(7 downto 0);
+    testname: in string;
+    test: in string) is
+    begin
+       for thebit in 0 to 7 loop
+         assert checked(thebit) = val(thebit) report
+            testname & " (" & test & ") bit " & Integer'image(thebit) & " failed." severity failure; 
+       end loop;
+    end procedure;
 
 
    -- Your test bench declarations go here
@@ -247,44 +258,95 @@ uut_process: process
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
+   variable gb, gd, tv0, tv1, tv2, tv3: std_logic_vector(7 downto 0);
+   
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "37.11.0%.1        ";
 
-   for tt in 0 to 2**25 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+   for charbits in 0 to 2**8 loop
+        tv0 := std_logic_vector(to_unsigned(charbits,tv0'Length));
+        tv1 := tv0(0) & tv0(7 downto 1);
+        tv2 := tv1(0) & tv1(7 downto 1);
+        tv3 := tv2(0) & tv2(7 downto 1);  
+        
+        MY_INH_CHAR_0_D_BUS <= not tv0;    
+        MY_INH_CHAR_1_D_BUS <= not tv1;    
+        MY_INH_CHAR_2_D_BUS <= not tv2;    
+        MY_INH_CHAR_3_D_BUS <= not tv3;    
+   
+      for tt in 0 to 2 loop
+         tv := std_logic_vector(to_unsigned(tt,tv'Length));
+         a := tv(0);
+         b := tv(1);
+         
+         -- The following signals are all derived from common input signals, in two
+         -- groups, so I didn't bother to test them individually.
 
+   		MY_Z_GATE_FOR_0_4TH_1 <= not a;
+   	  	MY_Z_GATE_FOR_0_4TH_2 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_3 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_4 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_5 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_6 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_7 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_8 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_5 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_6 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_7 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_8 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_9 <= not a;   
+         MY_Z_GATE_FOR_0_4TH_10 <= not a;
+         MY_Z_GATE_FOR_0_4TH_11 <= not a;
+         MY_Z_GATE_FOR_0_4TH_12 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_13 <= not a;
+         MY_Z_GATE_FOR_0_4TH_14 <= not a;
+         MY_Z_GATE_FOR_0_4TH_15 <= not a;
+   		MY_Z_GATE_FOR_0_4TH_16 <= not a;
+
+   		MY_Z_GATE_FOR_5_9TH_1 <= not b;
+   		MY_Z_GATE_FOR_5_9TH_2 <= not b;
+   		MY_Z_GATE_FOR_5_9TH_3 <= not b;
+   		MY_Z_GATE_FOR_5_9TH_4 <= not b;
+   		MY_Z_GATE_FOR_5_9TH_5 <= not b;
+         MY_Z_GATE_FOR_5_9TH_6 <= not b;
+         MY_Z_GATE_FOR_5_9TH_7 <= not b;
+         MY_Z_GATE_FOR_5_9TH_8 <= not b;
+   		MY_Z_GATE_FOR_5_9TH_9 <= not b;
+         MY_Z_GATE_FOR_5_9TH_10 <= not b;
+         MY_Z_GATE_FOR_5_9TH_11 <= not b;
+         MY_Z_GATE_FOR_5_9TH_12 <= not b;
+         MY_Z_GATE_FOR_5_9TH_13 <= not b;
+   		MY_Z_GATE_FOR_5_9TH_14 <= not b;      
+   		MY_Z_GATE_FOR_5_9TH_15 <= not b;
+         MY_Z_GATE_FOR_5_9TH_16 <= not b;   
       
-      wait for 30 ns;
-      
-      
+         wait for 30 ns;
+         
+         if(b = '1') then
+            gb := "11111111";
+         else
+            gb := "00000000";
+         end if; 
+
+         if(a = '1') then
+            gd := "11111111";
+         else
+            gd := "00000000";
+         end if; 
+         
+         checkChar(MV_INH_CHAR_0_D1_BUS,not(tv0 and gd),testName,"Inh Char 0 D1");
+         checkChar(MV_INH_CHAR_0_B1_BUS,not(tv0 and gb),testName,"Inh Char 0 B1");
+         checkChar(MV_INH_CHAR_1_D1_BUS,not(tv1 and gd),testName,"Inh Char 1 D1");
+         checkChar(MV_INH_CHAR_1_B1_BUS,not(tv1 and gb),testName,"Inh Char 1 B1");
+         checkChar(MV_INH_CHAR_2_D1_BUS,not(tv2 and gd),testName,"Inh Char 2 D1");
+         checkChar(MV_INH_CHAR_2_B1_BUS,not(tv2 and gb),testName,"Inh Char 2 B1");
+         checkChar(MV_INH_CHAR_3_D1_BUS,not(tv3 and gd),testName,"Inh Char 3 D1");
+         checkChar(MV_INH_CHAR_3_B1_BUS,not(tv3 and gb),testName,"Inh Char 3 B1");
+            
+      end loop;
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
