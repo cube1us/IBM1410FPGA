@@ -1,0 +1,138 @@
+Generating HDL for page 39.10.01.1 MEMORY CLK READ CYCLE FEAT-ACC at 10/20/2020 9:36:35 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_39_10_01_1_MEMORY_CLK_READ_CYCLE_FEAT_ACC_tb.vhdl, generating default test bench code.
+NOTE: Special signal LOGIC ONE removed from sheet inputs list.
+WARNING: Diagram block at coordinate 3B has 2 different output pins: A,Q
+WARNING: Diagram block at coordinate 5F has 2 different output pins: A,Q
+WARNING: Diagram block at coordinate 5I has 2 different output pins: A,Q
+Note: DOT Function at 5F has input level(s) of Y, and output level(s) of S, Logic Function set to OR
+DOT Function at 5F has one output from a Trigger, one output from Non-Trigger
+   Trigger block pin Q located at 5F, Non-trigger is located at 5G Output is to 3F
+   Using Trigger faux pin 7 as input side of pin Q
+Removed 1 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_A
+	and inputs of OUT_3B_A
+	and logic function of NOT
+Generating Statement for block at 1A with output pin(s) of OUT_1A_L
+	and inputs of OUT_2B_A
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_F
+	and inputs of OUT_4C_A
+	and logic function of NOR
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A, OUT_3B_Q
+	and inputs of OUT_4B_F,OUT_4D_P,MS_COMPUTER_RESET_2,'1','1'
+	and logic function of Trigger
+Generating Statement for block at 2B with output pin(s) of OUT_2B_A, OUT_2B_A, OUT_2B_A, OUT_2B_A
+	and inputs of OUT_3B_Q
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_1B_E
+	and inputs of OUT_2B_A
+	and logic function of EQUAL
+Generating Statement for block at 5C with output pin(s) of OUT_5C_G
+	and inputs of MY_START_MEM_CLOCK_M,MY_READ_CALL_M
+	and logic function of NOR
+Generating Statement for block at 4C with output pin(s) of OUT_4C_A, OUT_4C_A, OUT_4C_A
+	and inputs of OUT_5C_G
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A
+	and inputs of OUT_4C_A
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of OUT_4C_A
+	and logic function of NOT
+Generating Statement for block at 1C with output pin(s) of OUT_1C_Q
+	and inputs of OUT_2B_A
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_A
+	and inputs of OUT_3C_A
+	and logic function of DELAY
+	INFO: InvShiftRegister at 5D Delay: 425 ns, Clock Period is 10 ns
+Generating Statement for block at 4D with output pin(s) of OUT_4D_P, OUT_4D_P
+	and inputs of OUT_5D_A
+	and logic function of NOT
+Generating Statement for block at 3D with output pin(s) of OUT_3D_A
+	and inputs of OUT_4E_D
+	and logic function of EQUAL
+Generating Statement for block at 1D with output pin(s) of OUT_1D_A
+	and inputs of OUT_2B_A
+	and logic function of EQUAL
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D, OUT_4E_D
+	and inputs of OUT_5F_A
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_E
+	and inputs of OUT_4E_D
+	and logic function of EQUAL
+Generating Statement for block at 5F with output pin(s) of OUT_5F_A, OUT_5F_Q
+	and inputs of OUT_4D_P,OUT_1I_P,MS_COMPUTER_RESET_2,'1','1',OUT_5G_G
+	and logic function of Trigger
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of OUT_5F_Q
+	and logic function of NOT
+Generating Statement for block at 2F with output pin(s) of OUT_2F_A
+	and inputs of OUT_3F_D
+	and logic function of DELAY
+	INFO: InvShiftRegister at 2F Delay: 280 ns, Clock Period is 10 ns
+Generating Statement for block at 1F with output pin(s) of OUT_1F_A
+	and inputs of OUT_2F_A
+	and logic function of NOT
+Generating Statement for block at 5G with output pin(s) of OUT_5G_G
+	and inputs of MY_MEM_AR_TTHP4B
+	and logic function of NOR
+Generating Statement for block at 3G with output pin(s) of OUT_3G_L
+	and inputs of OUT_4H_P
+	and logic function of EQUAL
+Generating Statement for block at 4H with output pin(s) of OUT_4H_P, OUT_4H_P, OUT_4H_P
+	and inputs of OUT_5I_A
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_Q
+	and inputs of OUT_4H_P
+	and logic function of EQUAL
+Generating Statement for block at 5I with output pin(s) of OUT_5I_A, OUT_5I_Q
+	and inputs of OUT_1F_A,OUT_1I_P,MS_COMPUTER_RESET_2,'1','1'
+	and logic function of Trigger
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of OUT_5I_Q
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_A
+	and inputs of OUT_3I_D
+	and logic function of DELAY
+	INFO: InvShiftRegister at 2I Delay: 1100 ns, Clock Period is 10 ns
+Generating Statement for block at 1I with output pin(s) of OUT_1I_P, OUT_1I_P
+	and inputs of OUT_2I_A
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MY_B_DATA_REG_RESET
+	from gate output OUT_2A_A
+Generating output sheet edge signal assignment to 
+	signal PY_B_DATA_REG_RESET_1
+	from gate output OUT_1A_L
+Generating output sheet edge signal assignment to 
+	signal PY_B_DATA_REG_RESET_2
+	from gate output OUT_1B_E
+Generating output sheet edge signal assignment to 
+	signal PY_START_READ
+	from gate output OUT_2C_D
+Generating output sheet edge signal assignment to 
+	signal PY_B_DATA_REG_RESET_3
+	from gate output OUT_1C_Q
+Generating output sheet edge signal assignment to 
+	signal MY_Y_RD_1
+	from gate output OUT_3D_A
+Generating output sheet edge signal assignment to 
+	signal PY_B_DATA_REG_RESET_4
+	from gate output OUT_1D_A
+Generating output sheet edge signal assignment to 
+	signal MY_Y_RD_2
+	from gate output OUT_3E_E
+Generating output sheet edge signal assignment to 
+	signal MY_X_RD_1
+	from gate output OUT_3G_L
+Generating output sheet edge signal assignment to 
+	signal MY_X_RD_CND_CLK
+	from gate output OUT_4H_P
+Generating output sheet edge signal assignment to 
+	signal MY_X_RD_2
+	from gate output OUT_3H_Q
