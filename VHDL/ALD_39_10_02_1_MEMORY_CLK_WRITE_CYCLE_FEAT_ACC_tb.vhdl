@@ -152,36 +152,70 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "39.10.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**3 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      -- Reset
+      
+      MS_COMPUTER_RESET_2 <= '0';
+      wait for 30 ns;
+      MS_COMPUTER_RESET_2 <= '1';
+      wait for 30 ns;
 
+      check1(PY_START_WRITE,'0',testName,"Loop Reset Start Write");
+      check1(MY_Z_PULSE,'1',testName,"Loop Reset Z Pulse");
+      check1(MY_Y_WR_1,'1',testName,"Loop Reset Y Write 1");
+      check1(MY_Y_WR_2,'1',testName,"Loop Reset Y Write 2");
+      check1(MY_X_WR_1,'1',testName,"Loop Reset X Write 1");
+      check1(MY_X_WR_2,'1',testName,"Loop Reset X Write 2");
+      
+      MY_START_MEM_CLOCK <= not a;
+      MY_WRITE_CALL_M <= not b;
+      MY_MEM_AR_TTHP4B <= not c;
+      MY_MEM_AR_NOT_TTHP4B <= c;
+      wait for 90 ns; -- Trigger delay
+      MY_WRITE_CALL_M <= '1'; -- Reset for Next Iteration
+      
+      -- The write cycle starts off with a whimper - this signal
+      -- is only for the 60K  - 100K Z Frame...
+      
+      check1(PY_START_WRITE,a and b and c,testName,"Start Write");
+      
+      if(not(a = '1' and b = '1' and c = '0')) then
+         next; -- If we didn't start the process for 0-40K, no point in continuing this iteration
+      end if;
+      
+      wait for 150 ns; -- First Delay
+      wait for 90 ns;  -- Trigger Delay
+
+      check1(MY_Z_PULSE,'0',testName,"Cycle Step 1 Z Pulse");
+      check1(MY_Y_WR_1,'0',testName,"Cycle Step 1 Y Write 1");
+      check1(MY_Y_WR_2,'0',testName,"Cycle Step 1 Y Write 2");
+      check1(MY_X_WR_1,'1',testName,"Cycle Step 1 X Write 1");
+      check1(MY_X_WR_2,'1',testName,"Cycle Step 1 X Write 2");
+           
+      wait for 280 ns; -- Second Delay
+      wait for 90 ns;  -- Trigger Delay 
+      
+      check1(MY_Z_PULSE,'0',testName,"Cycle Step 2 Z Pulse");
+      check1(MY_Y_WR_1,'0',testName,"Cycle Step 2 Y Write 1");
+      check1(MY_Y_WR_2,'0',testName,"Cycle Step 2 Y Write 2");
+      check1(MY_X_WR_1,'0',testName,"Cycle Step 2 X Write 1");
+      check1(MY_X_WR_2,'0',testName,"Cycle Step 2 X Write 2");
+      
+      wait for 1200 ns; -- Final delay
+      wait for 90 ns;
+      
+      check1(MY_Z_PULSE,'1',testName,"End Z Pulse");
+      check1(MY_Y_WR_1,'1',testName,"End Y Write 1");
+      check1(MY_Y_WR_2,'1',testName,"End Y Write 2");
+      check1(MY_X_WR_1,'1',testName,"End X Write 1");
+      check1(MY_X_WR_2,'1',testName,"End X Write 2");            
       
       wait for 30 ns;
       
