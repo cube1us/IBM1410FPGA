@@ -36,7 +36,6 @@ entity ShiftRegister is
 
 --  Delay is in nanoseconds
 --  CLOCKTIMEUNIT in the FPGA Clock Time in nanoseconds
---  Inverted Output
 
     Generic(DELAY: INTEGER; CLOCKPERIOD: INTEGER);
 
