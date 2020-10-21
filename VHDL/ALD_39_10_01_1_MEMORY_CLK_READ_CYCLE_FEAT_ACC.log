@@ -1,5 +1,4 @@
-Generating HDL for page 39.10.01.1 MEMORY CLK READ CYCLE FEAT-ACC at 10/20/2020 9:46:13 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_39_10_01_1_MEMORY_CLK_READ_CYCLE_FEAT_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 39.10.01.1 MEMORY CLK READ CYCLE FEAT-ACC at 10/21/2020 8:33:58 AM
 NOTE: Special signal LOGIC ONE removed from sheet inputs list.
 WARNING: Diagram block at coordinate 3B has 2 different output pins: A,Q
 WARNING: Diagram block at coordinate 5F has 2 different output pins: A,Q
