@@ -164,40 +164,92 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
-
-   for tt in 0 to 2**25 loop
+   testName := "39.10.01.1        ";
+   
+   for tt in 0 to 2**3 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+      -- Reset
       
+      MS_COMPUTER_RESET_2 <= '0';
       wait for 30 ns;
+      MS_COMPUTER_RESET_2 <= '1';
+      wait for 30 ns;
+
+      check1(PY_START_READ,'0',testName,"Start Read Loop Reset");
+      check1(PY_B_DATA_REG_RESET_1,'0',testName,"Loop Reset B Data Reg Reset 1");
+      check1(PY_B_DATA_REG_RESET_2,'0',testName,"Loop Reset B Data Reg Reset 2");
+      check1(PY_B_DATA_REG_RESET_3,'0',testName,"Loop Reset B Data Reg Reset 3");
+      check1(PY_B_DATA_REG_RESET_4,'0',testName,"Loop Reset B Data Reg Reset 4");
+      check1(MY_B_DATA_REG_RESET,'1',testName,"Loop Reset -Y B Data Reg Reset");
+      check1(MY_Y_RD_1,'1',testName,"Loop Reset Y Read 1");
+      check1(MY_Y_RD_2,'1',testName,"Loop Reset Y Read 2");
+      check1(MY_X_RD_1,'1',testName,"Loop Reset X RD 1");
+      check1(MY_X_RD_2,'1',testName,"Loop Reset X RD 2");
+      check1(MY_X_RD_CND_CLK,'1',testName,"Loop Reset X RD 2");
+
+
+      MY_START_MEM_CLOCK_M <= not a;
+      MY_READ_CALL_M <= not b;
+      MY_MEM_AR_TTHP4B <= not c;
+      wait for 90 ns; -- Trigger delay
+      MY_START_MEM_CLOCK_M <= '1';
+      MY_READ_CALL_M <= '1';        -- Reset for next iteration
       
       
+      check1(PY_START_READ,a and b,testName,"Start Read");
+      check1(PY_B_DATA_REG_RESET_1,a and b,testName,"Start B Data Reg Reset 1");
+      check1(PY_B_DATA_REG_RESET_2,a and b,testName,"Start B Data Reg Reset 2");
+      check1(PY_B_DATA_REG_RESET_3,a and b,testName,"Start B Data Reg Reset 3");
+      check1(PY_B_DATA_REG_RESET_4,a and b,testName,"Start B Data Reg Reset 4");
+      check1(MY_B_DATA_REG_RESET,not(a and b),testName,"Start -Y B Data Reg Reset");
+      
+      if(not(a = '1' and b = '1')) then
+         next; -- If we didn't start the process, no point in continuing this iteration
+      end if;
+      
+      wait for 425 ns;  -- First Delay
+      wait for 90 ns;   -- Trigger time
+      
+      -- The B data register reset should be withdrawn by now
+
+      check1(PY_B_DATA_REG_RESET_1,'0',testName,"B Data Reg Reset Done 1");
+      check1(PY_B_DATA_REG_RESET_2,'0',testName,"B Data Reg Reset Done 2");
+      check1(PY_B_DATA_REG_RESET_3,'0',testName,"B Data Reg Reset Done 3");
+      check1(PY_B_DATA_REG_RESET_4,'0',testName,"B Data Reg Reset Done 4");
+      check1(MY_B_DATA_REG_RESET,'1',testName,"-Y B Data Reg Reset Done");
+
+      -- TTHP4B supresses the generation of X and Y Read pulses if the address is >= 40,000)
+      -- (Also, that would immediately reset the second trigger, so Y Rd wouldn't actually come active)
+      
+      -- At this point, Y Read should be active unless TTHP4B is on
+      
+      check1(MY_Y_RD_1,not(not c),testName,"Y Read 1");
+      check1(MY_Y_RD_2,not(not c),testName,"Y Read 2");
+      
+      wait for 280 ns;  -- Second delay
+      wait for 90 ns;   -- Trigger time      
+      
+      check1(MY_X_RD_1,not(not c),testName,"X RD 1");
+      check1(MY_X_RD_2,not(not c),testName,"X RD 2");
+      check1(MY_X_RD_CND_CLK,not(not c),testName,"X RD 2");
+                  
+      -- Keep X and Y active (if they were ever active) for 1100ns, then reset
+      
+      wait for 1100 ns;  -- Final delay
+      wait for 90 ns;    -- Trigger Delay 
+      
+      check1(MY_Y_RD_1,'1',testName,"Finish Y Read 1");
+      check1(MY_Y_RD_2,'1',testName,"Finish Y Read 2");
+      check1(MY_X_RD_1,'1',testName,"Finish X RD 1");
+      check1(MY_X_RD_2,'1',testName,"Finish X RD 2");
+      check1(MY_X_RD_CND_CLK,'1',testName,"Finish X RD 2");
+                                                      
+      wait for 30 ns;
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
