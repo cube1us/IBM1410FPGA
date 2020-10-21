@@ -1,0 +1,113 @@
+Generating HDL for page 39.10.02.1 MEMORY CLK WRITE CYCLE FEAT-ACC at 10/21/2020 4:09:38 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_39_10_02_1_MEMORY_CLK_WRITE_CYCLE_FEAT_ACC_tb.vhdl, generating default test bench code.
+NOTE: Special signal LOGIC ONE removed from sheet inputs list.
+WARNING: Diagram block at coordinate 5D has 2 different output pins: A,Q
+WARNING: Diagram block at coordinate 5I has 2 different output pins: A,Q
+Note: DOT Function at 4E has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 4G has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1H to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_A
+	and inputs of OUT_1E_P,OUT_4C_P,MS_COMPUTER_RESET_2,'1','1'
+	and logic function of Trigger
+Generating Statement for block at 4A with output pin(s) of OUT_4A_D
+	and inputs of OUT_5A_A
+	and logic function of NOT
+Generating Statement for block at 3B with output pin(s) of OUT_3B_A
+	and inputs of OUT_4C_P
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_4C_P, OUT_4C_P, OUT_4C_P
+	and inputs of OUT_5D_A
+	and logic function of NOT
+Generating Statement for block at 3C with output pin(s) of OUT_3C_E
+	and inputs of OUT_4C_P
+	and logic function of EQUAL
+Generating Statement for block at 5D with output pin(s) of OUT_5D_A, OUT_5D_Q
+	and inputs of OUT_1E_P,OUT_1I_D,MS_COMPUTER_RESET_2,'1','1'
+	and logic function of Trigger
+Generating Statement for block at 3D with output pin(s) of OUT_3D_A
+	and inputs of OUT_5D_Q
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_A
+	and inputs of OUT_3D_A
+	and logic function of DELAY
+	INFO: InvShiftRegister at 2D Delay: 280 ns, Clock Period is 10 ns
+Generating Statement for block at 1D with output pin(s) of OUT_1D_P
+	and inputs of OUT_2D_A
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C, OUT_5E_C
+	and inputs of MY_START_MEM_CLOCK,MY_WRITE_CALL_M
+	and logic function of NOR
+Generating Statement for block at 4E with output pin(s) of OUT_4E_A
+	and inputs of OUT_5E_C
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_A
+	and inputs of OUT_DOT_4E
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_A
+	and inputs of OUT_3E_A
+	and logic function of DELAY
+	INFO: InvShiftRegister at 2E Delay: 150 ns, Clock Period is 10 ns
+Generating Statement for block at 1E with output pin(s) of OUT_1E_P, OUT_1E_P
+	and inputs of OUT_2E_A
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of MY_MEM_AR_TTHP4B
+	and logic function of NOR
+Generating Statement for block at 4G with output pin(s) of OUT_4G_P
+	and inputs of OUT_5E_C
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of OUT_DOT_4G
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of OUT_1G_L
+	and inputs of OUT_2H_P
+	and logic function of EQUAL
+Generating Statement for block at 4H with output pin(s) of OUT_4H_F
+	and inputs of MY_MEM_AR_NOT_TTHP4B
+	and logic function of NOR
+Generating Statement for block at 2H with output pin(s) of OUT_2H_P, OUT_2H_P
+	and inputs of OUT_5I_A
+	and logic function of NOT
+Generating Statement for block at 1H with output pin(s) of OUT_1H_Q
+	and inputs of OUT_2H_P
+	and logic function of EQUAL
+Generating Statement for block at 5I with output pin(s) of OUT_5I_A, OUT_5I_Q
+	and inputs of OUT_1D_P,OUT_1I_D,MS_COMPUTER_RESET_2,'1','1'
+	and logic function of Trigger
+Generating Statement for block at 3I with output pin(s) of OUT_3I_D
+	and inputs of OUT_5I_Q
+	and logic function of NOT
+Generating Statement for block at 2I with output pin(s) of OUT_2I_A
+	and inputs of OUT_3I_D
+	and logic function of DELAY
+	INFO: InvShiftRegister at 2I Delay: 1200 ns, Clock Period is 10 ns
+Generating Statement for block at 1I with output pin(s) of OUT_1I_D, OUT_1I_D
+	and inputs of OUT_2I_A
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4E_A,OUT_4F_C
+	and logic function of OR
+Generating Statement for block at 4G with output pin(s) of OUT_DOT_4G
+	and inputs of OUT_4G_P,OUT_4H_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MY_Z_PULSE
+	from gate output OUT_4A_D
+Generating output sheet edge signal assignment to 
+	signal MY_Y_WR_1
+	from gate output OUT_3B_A
+Generating output sheet edge signal assignment to 
+	signal MY_Y_WR_2
+	from gate output OUT_3C_E
+Generating output sheet edge signal assignment to 
+	signal PY_START_WRITE
+	from gate output OUT_3G_P
+Generating output sheet edge signal assignment to 
+	signal MY_X_WR_1
+	from gate output OUT_1G_L
+Generating output sheet edge signal assignment to 
+	signal MY_X_WR_2
+	from gate output OUT_1H_Q
