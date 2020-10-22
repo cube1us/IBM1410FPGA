@@ -1,0 +1,62 @@
+Generating HDL for page 39.50.45.1 MISC POWERING FOR MEM-ACC at 10/22/2020 8:09:01 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_39_50_45_1_MISC_POWERING_FOR_MEM_ACC_tb.vhdl, generating default test bench code.
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of MY_LOAD_MEMORY
+	and logic function of NOR
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of OUT_4A_G
+	and logic function of NOR
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of MY_REGEN_MEMORY
+	and logic function of NOR
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4B_C
+	and logic function of NOR
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F
+	and inputs of PY_1ST_CHECK_TEST_STAR_SEE_NOTE_STAR
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_F
+	and inputs of OUT_4C_F
+	and logic function of NOR
+Generating Statement for block at 4D with output pin(s) of OUT_4D_R
+	and inputs of PY_2ND_CHECK_TEST_STAR_SEE_NOTE_STAR
+	and logic function of NOR
+Generating Statement for block at 3D with output pin(s) of OUT_3D_R
+	and inputs of OUT_4D_R
+	and logic function of NOR
+Generating Statement for block at 5E with output pin(s) of OUT_5E_E
+	and inputs of MY_READ_CALL
+	and logic function of EQUAL
+Generating Statement for block at 5F with output pin(s) of OUT_5F_L
+	and inputs of MY_WRITE_CALL
+	and logic function of EQUAL
+Generating Statement for block at 2H with output pin(s) of OUT_2H_F
+	and inputs of MS_COMPUTER_RESET_2
+	and logic function of NOR
+Generating Statement for block at 4I with output pin(s) of OUT_4I_A
+	and inputs of MY_START_MEM_CLOCK
+	and logic function of EQUAL
+Generating output sheet edge signal assignment to 
+	signal MY_LOAD_MEMORY_Z
+	from gate output OUT_3A_G
+Generating output sheet edge signal assignment to 
+	signal MY_REGEN_MEMORY_Z
+	from gate output OUT_3B_C
+Generating output sheet edge signal assignment to 
+	signal PY_1ST_CHECK_TEST_Z
+	from gate output OUT_3C_F
+Generating output sheet edge signal assignment to 
+	signal PY_2ND_CHECK_TEST_Z
+	from gate output OUT_3D_R
+Generating output sheet edge signal assignment to 
+	signal MY_READ_CALL_M
+	from gate output OUT_5E_E
+Generating output sheet edge signal assignment to 
+	signal MY_WRITE_CALL_M
+	from gate output OUT_5F_L
+Generating output sheet edge signal assignment to 
+	signal PY_COMPUTER_RESET
+	from gate output OUT_2H_F
+Generating output sheet edge signal assignment to 
+	signal MY_START_MEM_CLOCK_M
+	from gate output OUT_4I_A
