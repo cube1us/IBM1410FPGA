@@ -1,0 +1,62 @@
+Generating HDL for page 39.10.03.1 MEMORY CLOCK STROBE FEAT-ACC at 10/21/2020 8:24:02 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_39_10_03_1_MEMORY_CLOCK_STROBE_FEAT_ACC_tb.vhdl, generating default test bench code.
+NOTE: Special signal LOGIC ONE removed from sheet inputs list.
+Block at coordinate 4A is marked for No HDL Generation -- skipped.
+WARNING: Diagram block at coordinate 5H has 2 different output pins: A,Q
+Ignoring Logic Block 4E with symbol R
+Ignoring Logic Block 2E with symbol R
+Removed 1 outputs from Gate at 5C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2G to ignored block(s) or identical signal names
+Generating Statement for block at 5C with output pin(s) of OUT_5C_L
+	and inputs of MY_X_RD_CND_CLK
+	and logic function of NOR
+Generating Statement for block at 5D with output pin(s) of OUT_5D_D
+	and inputs of OUT_5C_L
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_A
+	and inputs of OUT_5D_D
+	and logic function of DELAY
+	INFO: ShiftRegister at 4D Delay: 310 ns, Clock Period is 10 ns
+Generating Statement for block at 3D with output pin(s) of OUT_3D_R
+	and inputs of OUT_4D_A
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_A
+	and inputs of OUT_3D_R
+	and logic function of DELAY
+	INFO: InvShiftRegister at 2D Delay: 10 ns, Clock Period is 10 ns
+Generating Statement for block at 1D with output pin(s) of OUT_1D_P
+	and inputs of OUT_2D_A
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_F
+	and inputs of OUT_5H_A
+	and logic function of NOR
+Generating Statement for block at 3F with output pin(s) of OUT_3F_D
+	and inputs of OUT_4F_F
+	and logic function of NOT
+Generating Statement for block at 3G with output pin(s) of OUT_3G_R
+	and inputs of OUT_5H_A
+	and logic function of NOR
+Generating Statement for block at 2G with output pin(s) of OUT_2G_E
+	and inputs of OUT_3G_R
+	and logic function of NOT
+Generating Statement for block at 5H with output pin(s) of OUT_5H_A, OUT_5H_A, OUT_5H_Q
+	and inputs of OUT_1D_P,OUT_2H_A,MS_COMPUTER_RESET_2,'1','1'
+	and logic function of Trigger
+Generating Statement for block at 4H with output pin(s) of OUT_4H_D
+	and inputs of OUT_5H_Q
+	and logic function of NOT
+Generating Statement for block at 3H with output pin(s) of OUT_3H_A
+	and inputs of OUT_4H_D
+	and logic function of DELAY
+	INFO: InvShiftRegister at 3H Delay: 425 ns, Clock Period is 10 ns
+Generating Statement for block at 2H with output pin(s) of OUT_2H_A
+	and inputs of OUT_3H_A
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal PY_SENSE_STROBE_1
+	from gate output OUT_3F_D
+Generating output sheet edge signal assignment to 
+	signal PY_SENSE_STROBE_2
+	from gate output OUT_2G_E
