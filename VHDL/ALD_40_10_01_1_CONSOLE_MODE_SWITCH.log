@@ -1,0 +1,87 @@
+Generating HDL for page 40.10.01.1 CONSOLE MODE SWITCH at 10/22/2020 2:23:45 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_40_10_01_1_CONSOLE_MODE_SWITCH_tb.vhdl, generating default test bench code.
+WARNING: Diagram block at coordinate 5C has 5 different output pins: A,B,K,D,E
+WARNING: Diagram block at coordinate 5D has 7 different output pins: F,G,H,J,L,M,N
+Block at coordinate 5E is marked for No HDL Generation -- skipped.
+Note: DOT Function at 5D has input level(s) of , and output level(s) of , Logic Function set to OR
+NOTE: DOT Function at 5D is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Ignoring Logic Block 3B with symbol CAP
+Ignoring Logic Block 2B with symbol L
+Ignoring Logic Block 3C with symbol CAP
+Ignoring Logic Block 2C with symbol L
+Ignoring Logic Block 3D with symbol CAP
+Ignoring Logic Block 3F with symbol CAP
+Ignoring Logic Block 3G with symbol CAP
+Ignoring Logic Block 2G with symbol L
+Ignoring Logic Block 3H with symbol CAP
+Ignoring Logic Block 2H with symbol L
+Processing extension from block at 5C (Database ID=274309) to 5D (Database ID=274310)
+Copied connection from extension output pin F to master block at 5C
+Copied connection from extension output pin G to master block at 5C
+Copied connection from extension output pin H to master block at 5C
+Copied connection from extension output pin J to master block at 5C
+Copied connection from extension output pin L to master block at 5C
+Copied connection from extension output pin M to master block at 5C
+Copied connection from extension output pin N to master block at 5C
+Moved connection from extension 5D pin G to be from master at 5C
+Moved connection from extension 5D pin J to be from master at 5C
+Moved connection from extension 5D pin M to be from master at 5C
+Moved connection from extension 5D pin F to be from master at 5C
+Moved connection from extension 5D pin H to be from master at 5C
+Moved connection from extension 5D pin L to be from master at 5C
+Moved connection from extension 5D pin N to be from master at 5C
+Removed 4 outputs from Gate at 4B to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4F to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 4G to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 4H to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_X
+	and inputs of OUT_5C_K
+	and logic function of Resistor
+Generating Statement for block at 5C with output pin(s) of OUT_5C_A, OUT_5C_B, OUT_5C_K, OUT_5C_D, OUT_5C_E, OUT_5C_E, OUT_5C_F, OUT_5C_G, OUT_5C_H, OUT_5C_J, OUT_5C_L, OUT_5C_M, OUT_5C_N
+	and inputs of CONS_36V
+	and logic function of Switch
+Generating Statement for block at 4C with output pin(s) of OUT_4C_X
+	and inputs of OUT_5C_E
+	and logic function of Resistor
+Generating Statement for block at 4D with output pin(s) of OUT_4D_X
+	and inputs of OUT_5C_G
+	and logic function of Resistor
+Generating Statement for block at 4F with output pin(s) of OUT_4F_X
+	and inputs of OUT_DOT_5D
+	and logic function of Resistor
+Generating Statement for block at 4G with output pin(s) of OUT_4G_X
+	and inputs of OUT_5C_J
+	and logic function of Resistor
+Generating Statement for block at 4H with output pin(s) of OUT_4H_X
+	and inputs of OUT_5C_M
+	and logic function of Resistor
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of OUT_5C_B,OUT_5C_D,OUT_5C_F,OUT_5C_H,OUT_5C_L,OUT_5C_N
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_MODE_SW_I_E_CYCLE_MODE
+	from gate output OUT_4B_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_MODE_SW_CE_MODE
+	from gate output OUT_5C_A
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_MODE_SW_ADDR_SET_MODE
+	from gate output OUT_5C_E
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_MODE_SW_ADDR_SET_MODE_JRJ
+	from gate output OUT_4C_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_MODE_SW_RUN_MODE
+	from gate output OUT_4D_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONSOLE_MODE_SW_STOP_POS
+	from gate output OUT_4F_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_MODE_SW_DISPLAY_MODE
+	from gate output OUT_4G_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_MODE_SW_ALTER_MODE
+	from gate output OUT_4H_X
