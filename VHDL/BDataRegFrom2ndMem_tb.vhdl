@@ -71,6 +71,17 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
+procedure checkChar(
+        checked: in STD_LOGIC_VECTOR(7 downto 0);
+        val: in STD_LOGIC_VECTOR(7 downto 0);
+        testname: in string;
+        test: in string) is
+        begin
+           for thebit in 0 to 7 loop
+             assert checked(thebit) = val(thebit) report
+                testname & " (" & test & ") bit " & Integer'image(thebit) & " failed." severity failure; 
+           end loop;
+        end procedure;
 
 
    -- Your test bench declarations go here
@@ -134,9 +145,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "39.50.60.1        ";  -- NOTE:  Remove X when editing to set correct length!
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -146,28 +157,39 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
       
+		PS_B_DATA_REG_STAR_0_STAR_Z_BUS <= tv(7 downto 0);
+		PS_B_DATA_REG_STAR_1_STAR_Z_BUS <= "00000000";
+		PS_B_DATA_REG_STAR_2_STAR_Z_BUS <= "00000000";
+		PS_B_DATA_REG_STAR_3_STAR_Z_BUS <= "00000000";
       wait for 30 ns;
+
+      checkChar(PS_B_DATA_REG_STAR_FROM_M2_STAR_BUS,tv(7 downto 0),testName,"B Data Reg *0*");
       
+		PS_B_DATA_REG_STAR_1_STAR_Z_BUS <= tv(7 downto 0);
+      PS_B_DATA_REG_STAR_0_STAR_Z_BUS <= "00000000";
+      PS_B_DATA_REG_STAR_2_STAR_Z_BUS <= "00000000";
+      PS_B_DATA_REG_STAR_3_STAR_Z_BUS <= "00000000";
+      wait for 30 ns;
+
+      checkChar(PS_B_DATA_REG_STAR_FROM_M2_STAR_BUS,tv(7 downto 0),testName,"B Data Reg *1*");
       
+		PS_B_DATA_REG_STAR_2_STAR_Z_BUS <= tv(7 downto 0);
+      PS_B_DATA_REG_STAR_0_STAR_Z_BUS <= "00000000";
+      PS_B_DATA_REG_STAR_1_STAR_Z_BUS <= "00000000";
+      PS_B_DATA_REG_STAR_3_STAR_Z_BUS <= "00000000";
+      wait for 30 ns;
+
+      checkChar(PS_B_DATA_REG_STAR_FROM_M2_STAR_BUS,tv(7 downto 0),testName,"B Data REg *2*");
+      
+		PS_B_DATA_REG_STAR_3_STAR_Z_BUS <= tv(7 downto 0);
+      PS_B_DATA_REG_STAR_0_STAR_Z_BUS <= "00000000";
+      PS_B_DATA_REG_STAR_1_STAR_Z_BUS <= "00000000";
+      PS_B_DATA_REG_STAR_2_STAR_Z_BUS <= "00000000";
+      wait for 30 ns;
+
+      checkChar(PS_B_DATA_REG_STAR_FROM_M2_STAR_BUS,tv(7 downto 0),testName,"B Data REg *3*");
+
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
