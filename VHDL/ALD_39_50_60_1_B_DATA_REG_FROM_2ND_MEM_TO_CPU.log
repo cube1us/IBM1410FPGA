@@ -1,5 +1,4 @@
-Generating HDL for page 39.50.60.1 B DATA REG FROM 2ND MEM TO CPU at 10/22/2020 8:48:39 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_39_50_60_1_B_DATA_REG_FROM_2ND_MEM_TO_CPU_tb.vhdl, generating default test bench code.
+Generating HDL for page 39.50.60.1 B DATA REG FROM 2ND MEM TO CPU at 10/22/2020 9:08:05 AM
 Note: DOT Function at 5A has input level(s) of S, and output level(s) of Y, Logic Function set to OR
 Note: DOT Function at 5B has input level(s) of S, and output level(s) of Y, Logic Function set to OR
 Note: DOT Function at 5C has input level(s) of S, and output level(s) of Y, Logic Function set to OR
@@ -88,7 +87,7 @@ Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
 	and inputs of PS_B_DATA_REG_A_BIT_STAR_0_STAR_Z,PS_B_DATA_REG_A_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_A_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_A_BIT_STAR_3_STAR_Z
 	and logic function of OR
 Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
-	and inputs of PS_B_DATA_REG_A_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_A_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_A_BIT_STAR_3_STAR_Z,PS_B_DATA_REG_B_BIT_STAR_0_STAR_Z
+	and inputs of PS_B_DATA_REG_B_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_B_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_B_BIT_STAR_3_STAR_Z,PS_B_DATA_REG_B_BIT_STAR_0_STAR_Z
 	and logic function of OR
 Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
 	and inputs of PS_B_DATA_REG_C_BIT_STAR_0_STAR_Z,PS_B_DATA_REG_C_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_C_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_C_BIT_STAR_3_STAR_Z

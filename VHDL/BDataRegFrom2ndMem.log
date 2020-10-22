@@ -1,9 +1,9 @@
-Generating HDL for group named BDataRegFrom2ndMemat 10/22/2020 8:50:41 AM containing pages: 
+Generating HDL for group named BDataRegFrom2ndMemat 10/22/2020 9:11:40 AM containing pages: 
 	39.50.60.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\BDataRegFrom2ndMem_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file BDataRegFrom2ndMem_tb.vhdl 107 lines preserved and 46 declaration lines preserved
 Building lists of signals on 1 pages...
 Found 40 signals on page 39.50.60.1
-Found 29 unique input signals and 8 unique output signals, (37 total unique signals)
+Found 32 unique input signals and 8 unique output signals, (40 total unique signals)
 Determining sources for all input signals...
 INFO:  Signal +S B DATA REG 1 BIT *0* Z originates outside the group.
 INFO:  Signal +S B DATA REG 1 BIT *1* Z originates outside the group.
@@ -26,6 +26,9 @@ INFO:  Signal +S B DATA REG A BIT *1* Z originates outside the group.
 INFO:  Signal +S B DATA REG A BIT *2* Z originates outside the group.
 INFO:  Signal +S B DATA REG A BIT *3* Z originates outside the group.
 INFO:  Signal +S B DATA REG B BIT *0* Z originates outside the group.
+INFO:  Signal +S B DATA REG B BIT *1* Z originates outside the group.
+INFO:  Signal +S B DATA REG B BIT *2* Z originates outside the group.
+INFO:  Signal +S B DATA REG B BIT *3* Z originates outside the group.
 INFO:  Signal +S B DATA REG C BIT *0* Z originates outside the group.
 INFO:  Signal +S B DATA REG C BIT *1* Z originates outside the group.
 INFO:  Signal +S B DATA REG C BIT *2* Z originates outside the group.
@@ -66,6 +69,9 @@ Input Signal +S B DATA REG A BIT *1* Z replaced by Bus signal +S B DATA REG *1* 
 Input Signal +S B DATA REG A BIT *2* Z replaced by Bus signal +S B DATA REG *2* Z BUS
 Input Signal +S B DATA REG A BIT *3* Z replaced by Bus signal +S B DATA REG *3* Z BUS
 Input Signal +S B DATA REG B BIT *0* Z replaced by Bus signal +S B DATA REG *0* Z BUS
+Input Signal +S B DATA REG B BIT *1* Z replaced by Bus signal +S B DATA REG *1* Z BUS
+Input Signal +S B DATA REG B BIT *2* Z replaced by Bus signal +S B DATA REG *2* Z BUS
+Input Signal +S B DATA REG B BIT *3* Z replaced by Bus signal +S B DATA REG *3* Z BUS
 Input Signal +S B DATA REG C BIT *0* Z replaced by Bus signal +S B DATA REG *0* Z BUS
 Input Signal +S B DATA REG C BIT *1* Z replaced by Bus signal +S B DATA REG *1* Z BUS
 Input Signal +S B DATA REG C BIT *2* Z replaced by Bus signal +S B DATA REG *2* Z BUS
