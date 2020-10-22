@@ -1,22 +1,19 @@
-Generating HDL for page 40.10.02.1 CONSOLE TAPE DENSITY SWITCHES at 10/22/2020 4:15:28 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_40_10_02_1_CONSOLE_TAPE_DENSITY_SWITCHES_tb.vhdl, generating default test bench code.
-WARNING: During sheet edge merge, Logic block at 5A pin N outputs to two different signal names: +S DENSITY SW 800+556 CH 1 vs. +S DENSITY SW 556+200 CH 1
-WARNING: During sheet edge merge, Logic block at 5B pin N outputs to two different signal names: +S DENSITY SW 800+556 CH 2 vs. +S DENSITY SW 556+200 CH 2
-Generating Statement for block at 5A with output pin(s) of OUT_5A_N, OUT_5A_N
+Generating HDL for page 40.10.02.1 CONSOLE TAPE DENSITY SWITCHES at 10/22/2020 4:32:11 PM
+Generating Statement for block at 5A with output pin(s) of OUT_5A_T, OUT_5A_N
 	and inputs of GROUND
 	and logic function of Switch
-Generating Statement for block at 5B with output pin(s) of OUT_5B_N, OUT_5B_N
+Generating Statement for block at 5B with output pin(s) of OUT_5B_T, OUT_5B_N
 	and inputs of GROUND
 	and logic function of Switch
 Generating output sheet edge signal assignment to 
 	signal PS_DENSITY_SW_556_OR_200_CH_1
-	from gate output OUT_5A_N
+	from gate output OUT_5A_T
 Generating output sheet edge signal assignment to 
 	signal PS_DENSITY_SW_800_OR_556_CH_1
 	from gate output OUT_5A_N
 Generating output sheet edge signal assignment to 
 	signal PS_DENSITY_SW_556_OR_200_CH_2
-	from gate output OUT_5B_N
+	from gate output OUT_5B_T
 Generating output sheet edge signal assignment to 
 	signal PS_DENSITY_SW_800_OR_556_CH_2
 	from gate output OUT_5B_N
