@@ -1,0 +1,118 @@
+Generating HDL for page 40.10.03.1 1*OFF-NORMAL IND + STORAGE SCAN S at 10/22/2020 5:13:24 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_40_10_03_1_1_OFF_NORMAL_IND_STORAGE_SCAN_S_tb.vhdl, generating default test bench code.
+WARNING: Diagram block at coordinate 5B has 2 different output pins: A,B
+WARNING: Diagram block at coordinate 4C has 4 different output pins: A,B,D,E
+WARNING: Diagram block at coordinate 5D has 2 different output pins: A,E
+WARNING: Diagram block at coordinate 3D has 4 different output pins: K,D,F,G
+WARNING: Diagram block at coordinate 5E has 2 different output pins: A,E
+WARNING: Diagram block at coordinate 4F has 4 different output pins: A,E,B,D
+WARNING: Diagram block at coordinate 4G has 4 different output pins: A,B,D,E
+WARNING: Diagram block at coordinate 5H has 5 different output pins: A,B,D,E,F
+Note: DOT Function at 1C has input level(s) of 1, and output level(s) of , Logic Function set to OR
+Note: DOT Function at 4H has input level(s) of 3, and output level(s) of , Logic Function set to OR
+NOTE: DOT Function at 4H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5H has input level(s) of 2, and output level(s) of , Logic Function set to OR
+NOTE: DOT Function at 5H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 4F has input level(s) of 4, and output level(s) of , Logic Function set to OR
+NOTE: DOT Function at 4F is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Ignoring Logic Block 2E with symbol CAP
+Ignoring Logic Block 1E with symbol L
+Ignoring Logic Block 2F with symbol CAP
+Ignoring Logic Block 2H with symbol CAP
+Processing extension from block at 5H (Database ID=274494) to 5I (Database ID=274498)
+Copied connection from extension output pin G to master block at 5H
+Moved connection from extension 5I pin G to be from master at 5H
+Removed 1 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
+Added LAMP signal LAMP_15A1K24
+Generating Statement for block at 3A with output pin(s) of OUT_3A_F
+	and inputs of OUT_4B_N
+	and logic function of Resistor
+Generating Statement for block at 2A with output pin(s) of OUT_2A_N
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 5B with output pin(s) of OUT_5B_A, OUT_5B_B
+	and inputs of 
+	and logic function of Switch
+Generating Statement for block at 4B with output pin(s) of OUT_4B_N, OUT_4B_T, OUT_4B_N
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+WARNING: TOG switch for block at 4B appears to have more than two outputs 
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_4B_N
+	and logic function of Resistor
+Generating Statement for block at 4C with output pin(s) of OUT_4C_A, OUT_4C_B, OUT_4C_D, OUT_4C_E
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A
+	and inputs of OUT_DOT_1C
+	and logic function of Resistor
+Generating Statement for block at 2C with output pin(s) of 
+	and inputs of OUT_3C_A
+	and logic function of Lamp
+Generating Statement for block at 5D with output pin(s) of OUT_5D_A, OUT_5D_E
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 3D with output pin(s) of OUT_3D_K, OUT_3D_D, OUT_3D_F, OUT_3D_G
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 5E with output pin(s) of OUT_5E_A, OUT_5E_E
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 3E with output pin(s) of OUT_3E_X
+	and inputs of OUT_DOT_4F
+	and logic function of Resistor
+Generating Statement for block at 5F with output pin(s) of OUT_5F_T
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 4F with output pin(s) of OUT_4F_A, OUT_4F_E, OUT_4F_B, OUT_4F_D
+	and inputs of MV_CONS_MODE_SW_CE_MODE
+	and logic function of Switch
+Generating Statement for block at 3F with output pin(s) of OUT_3F_X
+	and inputs of OUT_DOT_4F
+	and logic function of Resistor
+Generating Statement for block at 5G with output pin(s) of OUT_5G_T
+	and inputs of MV_36_VOLTS
+	and logic function of Switch
+Generating Statement for block at 4G with output pin(s) of OUT_4G_A, OUT_4G_B, OUT_4G_D, OUT_4G_E
+	and inputs of MV_CONS_MODE_SW_CE_MODE
+	and logic function of Switch
+Generating Statement for block at 5H with output pin(s) of OUT_5H_A, OUT_5H_B, OUT_5H_D, OUT_5H_E, OUT_5H_F, OUT_5H_G
+	and inputs of MV_CONS_MODE_SW_ADDR_SET_MODE
+	and logic function of Switch
+Generating Statement for block at 4H with output pin(s) of OUT_4H_A
+	and inputs of OUT_DOT_4H
+	and logic function of Resistor
+Generating Statement for block at 3H with output pin(s) of OUT_3H_X
+	and inputs of OUT_DOT_5H
+	and logic function of Resistor
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_5B_A,OUT_5B_B,OUT_4B_T,OUT_2A_N,OUT_4C_A,OUT_4C_B,OUT_4C_D,OUT_4C_E,OUT_5D_A,OUT_5D_E,OUT_3D_K,OUT_3D_D,OUT_3D_F,OUT_3D_G,OUT_5E_A,OUT_5E_E,OUT_5F_T,OUT_5G_T
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H
+	and inputs of OUT_4G_A,OUT_4G_B,OUT_4G_D,OUT_4G_E
+	and logic function of AND
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of OUT_5H_A,OUT_5H_B,OUT_5H_D,OUT_5H_E,OUT_5H_F,OUT_4H_A,OUT_5H_G
+	and logic function of AND
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F, OUT_DOT_4F
+	and inputs of OUT_4F_A,OUT_4F_E,OUT_4F_B,OUT_4F_D
+	and logic function of AND
+Generating output sheet edge signal assignment to 
+	signal MC_DISK_WRITE_NORMAL_STAR_F_CH
+	from gate output OUT_3A_F
+Generating output sheet edge signal assignment to 
+	signal MC_DISK_WRITE_NORMAL_STAR_E_CH
+	from gate output OUT_3B_F
+Generating output sheet edge signal assignment to 
+	signal MV_STORAGE_SCAN_MODE_1
+	from gate output OUT_3E_X
+Generating output sheet edge signal assignment to 
+	signal MV_STORAGE_SCAN_MODE_2
+	from gate output OUT_3F_X
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_CE_POUND_PRINT
+	from gate output OUT_3H_X
