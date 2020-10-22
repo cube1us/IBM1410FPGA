@@ -39,7 +39,6 @@ architecture behavioral of ALD_40_10_01_1_CONSOLE_MODE_SWITCH_tb is
 	signal FPGA_CLK: STD_LOGIC := '0';
 	signal CONS_36V: STD_LOGIC := '0';
 	signal SWITCH_ROT_MODE_SW: STD_LOGIC_VECTOR(12 downTo 0) := "0000000000000";
-	signal SWITCH_ROT: STD_LOGIC_VECTOR(12 downTo 0) := "0000000000000";
 
 	-- Outputs
 
@@ -82,7 +81,19 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
+procedure checkSwitch(
+        checked: in STD_LOGIC_VECTOR(7 downto 0);
+        val: in STD_LOGIC_VECTOR(7 downto 0);
+        testname: in string;
+        test: in string) is
+        begin
+           for thebit in 0 to 7 loop
+             assert checked(thebit) = val(thebit) report
+                testname & " (" & test & ") bit " & Integer'image(thebit) & " failed." severity failure; 
+           end loop;
+        end procedure;
 
+signal switchResults: std_logic_vector(7 downto 0);
 
    -- Your test bench declarations go here
 
@@ -97,7 +108,6 @@ procedure check1(
 		FPGA_CLK => FPGA_CLK,
 		CONS_36V => CONS_36V,
 		SWITCH_ROT_MODE_SW => SWITCH_ROT_MODE_SW,
-		SWITCH_ROT => SWITCH_ROT,
 		MV_CONS_MODE_SW_I_E_CYCLE_MODE => MV_CONS_MODE_SW_I_E_CYCLE_MODE,
 		MV_CONS_MODE_SW_ADDR_SET_MODE => MV_CONS_MODE_SW_ADDR_SET_MODE,
 		MV_CONS_MODE_SW_CE_MODE => MV_CONS_MODE_SW_CE_MODE,
@@ -143,47 +153,41 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(25 downto 0);
+   variable tv: std_logic_vector(12 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable expectedResults: std_logic_vector(7 downto 0);
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "40.10.01.1        ";
 
-   for tt in 0 to 2**25 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+   for tt in 1 to 12 loop
+   
+      tv := "0000000000000";
+      tv(tt) := '1';
+      
+      expectedResults := (tv(2) or tv(4) or tv(6) or tv(8) or tv(10) or tv(12)) &
+         tv(11) & tv(9) & tv(7) & tv(5) & tv(5) & tv(3) & tv(1);
+   
+      SWITCH_ROT_MODE_SW <= tv;
       
       wait for 30 ns;
       
+      switchResults <= not MV_CONSOLE_MODE_SW_STOP_POS &
+         not MV_CONS_MODE_SW_ALTER_MODE &
+         not MV_CONS_MODE_SW_DISPLAY_MODE &
+         not MV_CONS_MODE_SW_RUN_MODE &
+         not MV_CONS_MODE_SW_ADDR_SET_MODE &
+         not MV_CONS_MODE_SW_ADDR_SET_MODE_JRJ &
+         not MV_CONS_MODE_SW_I_E_CYCLE_MODE &
+         not MV_CONS_MODE_SW_CE_MODE;
+         
+      wait for 10 ns;
+      
+      checkSwitch(switchResults,expectedResults,testName,"Console Mode Switch");
       
    end loop;
 
