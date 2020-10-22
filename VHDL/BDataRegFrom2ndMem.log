@@ -1,0 +1,97 @@
+Generating HDL for group named BDataRegFrom2ndMemat 10/22/2020 8:50:41 AM containing pages: 
+	39.50.60.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\BDataRegFrom2ndMem_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 1 pages...
+Found 40 signals on page 39.50.60.1
+Found 29 unique input signals and 8 unique output signals, (37 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S B DATA REG 1 BIT *0* Z originates outside the group.
+INFO:  Signal +S B DATA REG 1 BIT *1* Z originates outside the group.
+INFO:  Signal +S B DATA REG 1 BIT *2* Z originates outside the group.
+INFO:  Signal +S B DATA REG 1 BIT *3* Z originates outside the group.
+INFO:  Signal +S B DATA REG 2 BIT *0* Z originates outside the group.
+INFO:  Signal +S B DATA REG 2 BIT *1* Z originates outside the group.
+INFO:  Signal +S B DATA REG 2 BIT *2* Z originates outside the group.
+INFO:  Signal +S B DATA REG 2 BIT *3* Z originates outside the group.
+INFO:  Signal +S B DATA REG 4 BIT *0* Z originates outside the group.
+INFO:  Signal +S B DATA REG 4 BIT *1* Z originates outside the group.
+INFO:  Signal +S B DATA REG 4 BIT *2* Z originates outside the group.
+INFO:  Signal +S B DATA REG 4 BIT *3* Z originates outside the group.
+INFO:  Signal +S B DATA REG 8 BIT *0* Z originates outside the group.
+INFO:  Signal +S B DATA REG 8 BIT *1* Z originates outside the group.
+INFO:  Signal +S B DATA REG 8 BIT *2* Z originates outside the group.
+INFO:  Signal +S B DATA REG 8 BIT *3* Z originates outside the group.
+INFO:  Signal +S B DATA REG A BIT *0* Z originates outside the group.
+INFO:  Signal +S B DATA REG A BIT *1* Z originates outside the group.
+INFO:  Signal +S B DATA REG A BIT *2* Z originates outside the group.
+INFO:  Signal +S B DATA REG A BIT *3* Z originates outside the group.
+INFO:  Signal +S B DATA REG B BIT *0* Z originates outside the group.
+INFO:  Signal +S B DATA REG C BIT *0* Z originates outside the group.
+INFO:  Signal +S B DATA REG C BIT *1* Z originates outside the group.
+INFO:  Signal +S B DATA REG C BIT *2* Z originates outside the group.
+INFO:  Signal +S B DATA REG C BIT *3* Z originates outside the group.
+INFO:  Signal +S B DATA REG WM BIT *0* Z originates outside the group.
+INFO:  Signal +S B DATA REG WM BIT *1* Z originates outside the group.
+INFO:  Signal +S B DATA REG WM BIT *2* Z originates outside the group.
+INFO:  Signal +S B DATA REG WM BIT *3* Z originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S B DATA REG 1 BIT *FROM M2* is used outside the group.
+INFO:  Signal +S B DATA REG 2 BIT *FROM M2* is used outside the group.
+INFO:  Signal +S B DATA REG 4 BIT *FROM M2* is used outside the group.
+INFO:  Signal +S B DATA REG 8 BIT *FROM M2* is used outside the group.
+INFO:  Signal +S B DATA REG A BIT *FROM M2* is used outside the group.
+INFO:  Signal +S B DATA REG B BIT *FROM M2* is used outside the group.
+INFO:  Signal +S B DATA REG C BIT *FROM M2* is used outside the group.
+INFO:  Signal +S B DATA REG WM BIT *FROM M2* is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S B DATA REG 1 BIT *0* Z replaced by Bus signal +S B DATA REG *0* Z BUS
+Input Signal +S B DATA REG 1 BIT *1* Z replaced by Bus signal +S B DATA REG *1* Z BUS
+Input Signal +S B DATA REG 1 BIT *2* Z replaced by Bus signal +S B DATA REG *2* Z BUS
+Input Signal +S B DATA REG 1 BIT *3* Z replaced by Bus signal +S B DATA REG *3* Z BUS
+Input Signal +S B DATA REG 2 BIT *0* Z replaced by Bus signal +S B DATA REG *0* Z BUS
+Input Signal +S B DATA REG 2 BIT *1* Z replaced by Bus signal +S B DATA REG *1* Z BUS
+Input Signal +S B DATA REG 2 BIT *2* Z replaced by Bus signal +S B DATA REG *2* Z BUS
+Input Signal +S B DATA REG 2 BIT *3* Z replaced by Bus signal +S B DATA REG *3* Z BUS
+Input Signal +S B DATA REG 4 BIT *0* Z replaced by Bus signal +S B DATA REG *0* Z BUS
+Input Signal +S B DATA REG 4 BIT *1* Z replaced by Bus signal +S B DATA REG *1* Z BUS
+Input Signal +S B DATA REG 4 BIT *2* Z replaced by Bus signal +S B DATA REG *2* Z BUS
+Input Signal +S B DATA REG 4 BIT *3* Z replaced by Bus signal +S B DATA REG *3* Z BUS
+Input Signal +S B DATA REG 8 BIT *0* Z replaced by Bus signal +S B DATA REG *0* Z BUS
+Input Signal +S B DATA REG 8 BIT *1* Z replaced by Bus signal +S B DATA REG *1* Z BUS
+Input Signal +S B DATA REG 8 BIT *2* Z replaced by Bus signal +S B DATA REG *2* Z BUS
+Input Signal +S B DATA REG 8 BIT *3* Z replaced by Bus signal +S B DATA REG *3* Z BUS
+Input Signal +S B DATA REG A BIT *0* Z replaced by Bus signal +S B DATA REG *0* Z BUS
+Input Signal +S B DATA REG A BIT *1* Z replaced by Bus signal +S B DATA REG *1* Z BUS
+Input Signal +S B DATA REG A BIT *2* Z replaced by Bus signal +S B DATA REG *2* Z BUS
+Input Signal +S B DATA REG A BIT *3* Z replaced by Bus signal +S B DATA REG *3* Z BUS
+Input Signal +S B DATA REG B BIT *0* Z replaced by Bus signal +S B DATA REG *0* Z BUS
+Input Signal +S B DATA REG C BIT *0* Z replaced by Bus signal +S B DATA REG *0* Z BUS
+Input Signal +S B DATA REG C BIT *1* Z replaced by Bus signal +S B DATA REG *1* Z BUS
+Input Signal +S B DATA REG C BIT *2* Z replaced by Bus signal +S B DATA REG *2* Z BUS
+Input Signal +S B DATA REG C BIT *3* Z replaced by Bus signal +S B DATA REG *3* Z BUS
+Input Signal +S B DATA REG WM BIT *0* Z replaced by Bus signal +S B DATA REG *0* Z BUS
+Input Signal +S B DATA REG WM BIT *1* Z replaced by Bus signal +S B DATA REG *1* Z BUS
+Input Signal +S B DATA REG WM BIT *2* Z replaced by Bus signal +S B DATA REG *2* Z BUS
+Input Signal +S B DATA REG WM BIT *3* Z replaced by Bus signal +S B DATA REG *3* Z BUS
+DEBUG: Tentative bus +S B DATA REG *FROM M2* BUS identified based on signal +S B DATA REG 1 BIT *FROM M2*
+DEBUG: Added signal +S B DATA REG 2 BIT *FROM M2* to bus +S B DATA REG *FROM M2* BUS
+DEBUG: Added signal +S B DATA REG 4 BIT *FROM M2* to bus +S B DATA REG *FROM M2* BUS
+DEBUG: Added signal +S B DATA REG 8 BIT *FROM M2* to bus +S B DATA REG *FROM M2* BUS
+DEBUG: Added signal +S B DATA REG A BIT *FROM M2* to bus +S B DATA REG *FROM M2* BUS
+DEBUG: Added signal +S B DATA REG B BIT *FROM M2* to bus +S B DATA REG *FROM M2* BUS
+DEBUG: Added signal +S B DATA REG C BIT *FROM M2* to bus +S B DATA REG *FROM M2* BUS
+DEBUG: Added signal +S B DATA REG WM BIT *FROM M2* to bus +S B DATA REG *FROM M2* BUS
+INFO: Bus +S B DATA REG *FROM M2* BUS identified 
+Output signal +S B DATA REG 1 BIT *FROM M2* replaced by bus +S B DATA REG *FROM M2* BUS
+Output signal +S B DATA REG 2 BIT *FROM M2* replaced by bus +S B DATA REG *FROM M2* BUS
+Output signal +S B DATA REG 4 BIT *FROM M2* replaced by bus +S B DATA REG *FROM M2* BUS
+Output signal +S B DATA REG 8 BIT *FROM M2* replaced by bus +S B DATA REG *FROM M2* BUS
+Output signal +S B DATA REG A BIT *FROM M2* replaced by bus +S B DATA REG *FROM M2* BUS
+Output signal +S B DATA REG B BIT *FROM M2* replaced by bus +S B DATA REG *FROM M2* BUS
+Output signal +S B DATA REG C BIT *FROM M2* replaced by bus +S B DATA REG *FROM M2* BUS
+Output signal +S B DATA REG WM BIT *FROM M2* replaced by bus +S B DATA REG *FROM M2* BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 39.50.60.1 (B DATA REG FROM 2ND MEM TO CPU)

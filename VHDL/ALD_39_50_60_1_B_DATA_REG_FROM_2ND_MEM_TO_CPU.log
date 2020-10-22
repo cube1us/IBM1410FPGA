@@ -1,0 +1,122 @@
+Generating HDL for page 39.50.60.1 B DATA REG FROM 2ND MEM TO CPU at 10/22/2020 8:48:39 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_39_50_60_1_B_DATA_REG_FROM_2ND_MEM_TO_CPU_tb.vhdl, generating default test bench code.
+Note: DOT Function at 5A has input level(s) of S, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5B has input level(s) of S, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5C has input level(s) of S, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5D has input level(s) of S, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5E has input level(s) of S, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5F has input level(s) of S, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5G has input level(s) of S, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 5H has input level(s) of S, and output level(s) of Y, Logic Function set to OR
+Ignoring Logic Block 4A with symbol R
+Ignoring Logic Block 4B with symbol R
+Ignoring Logic Block 4C with symbol R
+Ignoring Logic Block 4D with symbol R
+Ignoring Logic Block 4E with symbol R
+Ignoring Logic Block 4F with symbol R
+Ignoring Logic Block 4G with symbol R
+Ignoring Logic Block 4H with symbol R
+Removed 2 outputs from Dot Function at 5A to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 5B to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 5C to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 5D to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 5E to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 5F to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 5G to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 5H to ignored block(s) or identical signal names
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of OUT_DOT_5A
+	and logic function of NOR
+Generating Statement for block at 2A with output pin(s) of OUT_2A_G
+	and inputs of OUT_3A_G
+	and logic function of NOR
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_DOT_5B
+	and logic function of NOR
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_3B_C
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of OUT_DOT_5C
+	and logic function of NOR
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F
+	and inputs of OUT_3C_G
+	and logic function of NOR
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_DOT_5D
+	and logic function of NOR
+Generating Statement for block at 2D with output pin(s) of OUT_2D_R
+	and inputs of OUT_3D_C
+	and logic function of NOR
+Generating Statement for block at 3E with output pin(s) of OUT_3E_G
+	and inputs of OUT_DOT_5E
+	and logic function of NOR
+Generating Statement for block at 2E with output pin(s) of OUT_2E_G
+	and inputs of OUT_3E_G
+	and logic function of NOR
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of OUT_DOT_5F
+	and logic function of NOR
+Generating Statement for block at 2F with output pin(s) of OUT_2F_C
+	and inputs of OUT_3F_C
+	and logic function of NOR
+Generating Statement for block at 3G with output pin(s) of OUT_3G_F
+	and inputs of OUT_DOT_5G
+	and logic function of NOR
+Generating Statement for block at 2G with output pin(s) of OUT_2G_F
+	and inputs of OUT_3G_F
+	and logic function of NOR
+Generating Statement for block at 3H with output pin(s) of OUT_3H_R
+	and inputs of OUT_DOT_5H
+	and logic function of NOR
+Generating Statement for block at 2H with output pin(s) of OUT_2H_R
+	and inputs of OUT_3H_R
+	and logic function of NOR
+Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
+	and inputs of PS_B_DATA_REG_1_BIT_STAR_0_STAR_Z,PS_B_DATA_REG_1_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_1_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_1_BIT_STAR_3_STAR_Z
+	and logic function of OR
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
+	and inputs of PS_B_DATA_REG_2_BIT_STAR_0_STAR_Z,PS_B_DATA_REG_2_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_2_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_2_BIT_STAR_3_STAR_Z
+	and logic function of OR
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
+	and inputs of PS_B_DATA_REG_4_BIT_STAR_0_STAR_Z,PS_B_DATA_REG_4_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_4_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_4_BIT_STAR_3_STAR_Z
+	and logic function of OR
+Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
+	and inputs of PS_B_DATA_REG_8_BIT_STAR_0_STAR_Z,PS_B_DATA_REG_8_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_8_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_8_BIT_STAR_3_STAR_Z
+	and logic function of OR
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
+	and inputs of PS_B_DATA_REG_A_BIT_STAR_0_STAR_Z,PS_B_DATA_REG_A_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_A_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_A_BIT_STAR_3_STAR_Z
+	and logic function of OR
+Generating Statement for block at 5F with output pin(s) of OUT_DOT_5F
+	and inputs of PS_B_DATA_REG_A_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_A_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_A_BIT_STAR_3_STAR_Z,PS_B_DATA_REG_B_BIT_STAR_0_STAR_Z
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of PS_B_DATA_REG_C_BIT_STAR_0_STAR_Z,PS_B_DATA_REG_C_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_C_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_C_BIT_STAR_3_STAR_Z
+	and logic function of OR
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of PS_B_DATA_REG_WM_BIT_STAR_0_STAR_Z,PS_B_DATA_REG_WM_BIT_STAR_1_STAR_Z,PS_B_DATA_REG_WM_BIT_STAR_2_STAR_Z,PS_B_DATA_REG_WM_BIT_STAR_3_STAR_Z
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_1_BIT_STAR_FROM_M2_STAR
+	from gate output OUT_2A_G
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_2_BIT_STAR_FROM_M2_STAR
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_4_BIT_STAR_FROM_M2_STAR
+	from gate output OUT_2C_F
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_8_BIT_STAR_FROM_M2_STAR
+	from gate output OUT_2D_R
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_A_BIT_STAR_FROM_M2_STAR
+	from gate output OUT_2E_G
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_B_BIT_STAR_FROM_M2_STAR
+	from gate output OUT_2F_C
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_C_BIT_STAR_FROM_M2_STAR
+	from gate output OUT_2G_F
+Generating output sheet edge signal assignment to 
+	signal PS_B_DATA_REG_WM_BIT_STAR_FROM_M2_STAR
+	from gate output OUT_2H_R
