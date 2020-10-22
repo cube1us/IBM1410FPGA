@@ -1,0 +1,82 @@
+Generating HDL for page 39.50.40.1 ASSEMBLY CH POWERING TO 2ND MEM at 10/22/2020 8:00:24 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_39_50_40_1_ASSEMBLY_CH_POWERING_TO_2ND_MEM_tb.vhdl, generating default test bench code.
+Removed 3 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3E to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_G
+	and inputs of MY_ASSEMBLY_CH_1_BIT
+	and logic function of NOR
+Generating Statement for block at 3A with output pin(s) of OUT_3A_A
+	and inputs of OUT_4A_G
+	and logic function of NOT
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of MY_ASSEMBLY_CH_2_BIT
+	and logic function of NOR
+Generating Statement for block at 3B with output pin(s) of OUT_3B_D
+	and inputs of OUT_4B_C
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F
+	and inputs of MY_ASSEMBLY_CH_4_BIT
+	and logic function of NOR
+Generating Statement for block at 3C with output pin(s) of OUT_3C_P
+	and inputs of OUT_4C_F
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_R
+	and inputs of MY_ASSEMBLY_CH_8_BIT
+	and logic function of NOR
+Generating Statement for block at 3D with output pin(s) of OUT_3D_A
+	and inputs of OUT_4D_R
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_G
+	and inputs of MY_ASSEMBLY_CH_A_BIT
+	and logic function of NOR
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D
+	and inputs of OUT_4E_G
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of MY_ASSEMBLY_CH_B_BIT
+	and logic function of NOR
+Generating Statement for block at 3F with output pin(s) of OUT_3F_P
+	and inputs of OUT_4F_C
+	and logic function of NOT
+Generating Statement for block at 4G with output pin(s) of OUT_4G_F
+	and inputs of MY_ASSEMBLY_CH_C_BIT
+	and logic function of NOR
+Generating Statement for block at 3G with output pin(s) of OUT_3G_A
+	and inputs of OUT_4G_F
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_R
+	and inputs of MY_ASSEMBLY_CH_WM_BIT
+	and logic function of NOR
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D
+	and inputs of OUT_4H_R
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MY_ASSEMBLY_CH_1_BIT_Z
+	from gate output OUT_3A_A
+Generating output sheet edge signal assignment to 
+	signal MY_ASSEMBLY_CH_2_BIT_Z
+	from gate output OUT_3B_D
+Generating output sheet edge signal assignment to 
+	signal MY_ASSEMBLY_CH_4_BIT_Z
+	from gate output OUT_3C_P
+Generating output sheet edge signal assignment to 
+	signal MY_ASSEMBLY_CH_8_BIT_Z
+	from gate output OUT_3D_A
+Generating output sheet edge signal assignment to 
+	signal MY_ASSEMBLY_CH_A_BIT_Z
+	from gate output OUT_3E_D
+Generating output sheet edge signal assignment to 
+	signal MY_ASSEMBLY_CH_B_BIT_Z
+	from gate output OUT_3F_P
+Generating output sheet edge signal assignment to 
+	signal MY_ASSEMBLY_CH_C_BIT_Z
+	from gate output OUT_3G_A
+Generating output sheet edge signal assignment to 
+	signal MY_ASSEMBLY_CH_WM_BIT_Z
+	from gate output OUT_3H_D
