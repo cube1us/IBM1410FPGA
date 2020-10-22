@@ -149,39 +149,30 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "39.50.70.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
       e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      g := tv(5);
+      
+		PY_CHAR_SEL_ERROR_CHK_1 <= a;
+      MY_CHAR_SEL_ERROR_CHK_1_STAR_2_STAR <= not b;
+      PY_CHAR_SEL_ERROR_CHK_2 <= c;
+      MY_CHAR_SEL_ERROR_CHK_2_STAR_2_STAR <= not d;
+      MY_MEM_AR_TTHP4B <= not e;  -- (e is TTH position 4 bit)
+      MY_MEM_AR_NOT_TTHP4B <= not(not e);  -- i.e., "e"
+      PY_B_DATA_REG_RESET_1 <= g;
       
       wait for 30 ns;
       
+      check1(PS_CHAR_SEL_ERROR_CHK_1,(b and e) or (a and not e),testName,"Char Sel Error Chk 1");
+      check1(PS_CHAR_SEL_ERROR_CHK_2,(c and not e) or (d and e),testName,"Char Sel Error Chk 2");
+      check1(PS_B_DATA_REG_RESET,PY_B_DATA_REG_RESET_1,testName,"B Data Reg Reset");       
       
    end loop;
 
