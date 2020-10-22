@@ -167,9 +167,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "39.50.40.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -179,27 +179,28 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		MY_ASSEMBLY_CH_1_BIT <= a;
+		MY_ASSEMBLY_CH_2_BIT <= b;
+		MY_ASSEMBLY_CH_4_BIT <= c;
+		MY_ASSEMBLY_CH_8_BIT <= d;
+		MY_ASSEMBLY_CH_A_BIT <= e;
+		MY_ASSEMBLY_CH_B_BIT <= f;
+		MY_ASSEMBLY_CH_C_BIT <= g;
+		MY_ASSEMBLY_CH_WM_BIT <= h;
       
       wait for 30 ns;
+
+		check1(MY_ASSEMBLY_CH_1_BIT_Z,a,testName,"1 Bit");
+		check1(MY_ASSEMBLY_CH_2_BIT_Z,b,testName,"2 Bit");
+		check1(MY_ASSEMBLY_CH_4_BIT_Z,c,testName,"4 Bit");
+		check1(MY_ASSEMBLY_CH_8_BIT_Z,d,testName,"8 Bit");
+		check1(MY_ASSEMBLY_CH_A_BIT_Z,e,testName,"A Bit");
+		check1(MY_ASSEMBLY_CH_B_BIT_Z,f,testName,"B Bit");
+		check1(MY_ASSEMBLY_CH_C_BIT_Z,g,testName,"C Bit");
+		check1(MY_ASSEMBLY_CH_WM_BIT_Z,h,testName,"WM Bit");
       
+
       
    end loop;
 
