@@ -134,42 +134,34 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
-
-   for tt in 0 to 2**25 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
-      
-      wait for 30 ns;
-      
-      
-   end loop;
-
+   testName := "39.10.03.1        ";
+   
+   -- Wait for delays to stabilize
+   
+   wait for 500 ns;
+   
+   -- Reset
+   
+   MS_COMPUTER_RESET_2 <= '0';
+   wait for 90 ns;
+   MS_COMPUTER_RESET_2 <= '1';
+   wait for 90 ns;
+   
+   check1(PY_SENSE_STROBE_1,'0',testName,"Reset Sense Strobe 1");
+   check1(PY_SENSE_STROBE_2,'0',testName,"Reset Sense Strobe 2");
+   
+   MY_X_RD_CND_CLK <= '0';
+   wait for 90 ns; -- Trigger setup
+   wait for 350 ns; -- 310 + 10 + margin
+   
+   check1(PY_SENSE_STROBE_1,'1',testName,"Sense Strobe 1");
+   check1(PY_SENSE_STROBE_2,'1',testName,"Sense Strobe 2");
+   
+   wait for 425 ns; -- wait for reset
+   
+   check1(PY_SENSE_STROBE_1,'0',testName,"End Sense Strobe 1");
+   check1(PY_SENSE_STROBE_2,'0',testName,"End Sense Strobe 2");
+   
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
