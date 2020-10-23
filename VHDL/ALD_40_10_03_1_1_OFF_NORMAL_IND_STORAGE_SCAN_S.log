@@ -1,4 +1,4 @@
-Generating HDL for page 40.10.03.1 1*OFF-NORMAL IND + STORAGE SCAN S at 10/22/2020 5:39:03 PM
+Generating HDL for page 40.10.03.1 1*OFF-NORMAL IND + STORAGE SCAN S at 10/23/2020 11:40:32 AM
 No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_40_10_03_1_1_OFF_NORMAL_IND_STORAGE_SCAN_S_tb.vhdl, generating default test bench code.
 WARNING: Diagram block at coordinate 5B has 2 different output pins: A,B
 WARNING: Diagram block at coordinate 4C has 4 different output pins: A,B,D,E
@@ -8,7 +8,7 @@ WARNING: Diagram block at coordinate 5E has 2 different output pins: A,E
 WARNING: Diagram block at coordinate 4F has 4 different output pins: A,E,B,D
 WARNING: Diagram block at coordinate 4G has 4 different output pins: A,B,D,E
 WARNING: Diagram block at coordinate 5H has 5 different output pins: A,B,D,E,F
-Note: DOT Function at 1C has input level(s) of 1, and output level(s) of , Logic Function set to OR
+Note: DOT Function at 1C has input level(s) of MIXED, and output level(s) of , Logic Function set to OR
 Note: DOT Function at 4H has input level(s) of 3, and output level(s) of , Logic Function set to OR
 NOTE: DOT Function at 4H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Note: DOT Function at 5H has input level(s) of 2, and output level(s) of , Logic Function set to OR
