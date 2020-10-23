@@ -1,6 +1,8 @@
-Generating HDL for page 13.42.10.1 CPU-CONSOLE CONTROLS at 7/27/2020 7:09:17 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_42_10_1_CPU_CONSOLE_CONTROLS_tb.vhdl, generating default test bench code.
-WARNING: Diagram block at coordinate 5G has 2 different output pins: D,A
+Generating HDL for page 13.42.10.1 CPU-CONSOLE CONTROLS at 10/23/2020 1:58:37 PM
+WARNING: Diagram block at coordinate 5G has 2 different output pins: K,A
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3I has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 4D
 Found combinatorial loop (need D FF) at output of gate at 3D
 Ignoring Logic Block 3F with symbol CAP
@@ -61,7 +63,7 @@ Generating Statement for block at 1E with output pin(s) of OUT_1E_C, OUT_1E_C
 	and inputs of OUT_1F_P
 	and logic function of EQUAL
 Generating Statement for block at 4F with output pin(s) of OUT_4F_X, OUT_4F_X
-	and inputs of OUT_5G_D
+	and inputs of OUT_5G_K
 	and logic function of Resistor
 Generating Statement for block at 2F with output pin(s) of OUT_2F_C
 	and inputs of PS_MASTER_ERROR,OUT_3G_C
@@ -70,7 +72,7 @@ Generating Statement for block at 1F with output pin(s) of OUT_1F_P
 	and inputs of OUT_DOT_2F
 	and logic function of SS
 	INFO: SingleShot at 1F pulse time: 1000 ns, Clock Period is 10 ns
-Generating Statement for block at 5G with output pin(s) of OUT_5G_D, OUT_5G_A
+Generating Statement for block at 5G with output pin(s) of OUT_5G_K, OUT_5G_A
 	and inputs of M36_VOLTS
 	and logic function of Switch
 Generating Statement for block at 3G with output pin(s) of OUT_3G_C
