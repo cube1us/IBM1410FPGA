@@ -40,7 +40,7 @@ architecture behavioral of ALD_13_42_10_1_CPU_CONSOLE_CONTROLS_tb is
 		PS_PROCESS_ROUTINE:	 in STD_LOGIC;
 		MS_LAST_EX_DOT_NEXT_TO_LAST:	 in STD_LOGIC;
 		MS_I_O_LAST_EX_DOT_Z:	 in STD_LOGIC;
-		SWITCH_ROT_CHECK_CTRL:	 in STD_LOGIC_VECTOR(5 downTo 0);
+		SWITCH_ROT_CHECK_CTRL_DK2:	 in STD_LOGIC_VECTOR(5 downTo 0);
 		MC_CPU_READY_TO_TID:	 out STD_LOGIC;
 		MS_STOPPED_AT_CYCLE_END:	 out STD_LOGIC;
 		PS_STOPPED_AT_CYCLE_END:	 out STD_LOGIC;
@@ -73,7 +73,7 @@ architecture behavioral of ALD_13_42_10_1_CPU_CONSOLE_CONTROLS_tb is
 	signal PS_PROCESS_ROUTINE: STD_LOGIC := '0';
 	signal MS_LAST_EX_DOT_NEXT_TO_LAST: STD_LOGIC := '1';
 	signal MS_I_O_LAST_EX_DOT_Z: STD_LOGIC := '1';
-	signal SWITCH_ROT_CHECK_CTRL: STD_LOGIC_VECTOR(5 downTo 0) := "000000";
+	signal SWITCH_ROT_CHECK_CTRL_DK2: STD_LOGIC_VECTOR(5 downTo 0) := "000000";
 
 	-- Outputs
 
@@ -145,7 +145,7 @@ procedure check1(
 		PS_PROCESS_ROUTINE => PS_PROCESS_ROUTINE,
 		MS_LAST_EX_DOT_NEXT_TO_LAST => MS_LAST_EX_DOT_NEXT_TO_LAST,
 		MS_I_O_LAST_EX_DOT_Z => MS_I_O_LAST_EX_DOT_Z,
-		SWITCH_ROT_CHECK_CTRL => SWITCH_ROT_CHECK_CTRL,
+		SWITCH_ROT_CHECK_CTRL_DK2 => SWITCH_ROT_CHECK_CTRL_DK2,
 		MC_CPU_READY_TO_TID => MC_CPU_READY_TO_TID,
 		MS_STOPPED_AT_CYCLE_END => MS_STOPPED_AT_CYCLE_END,
 		PS_STOPPED_AT_CYCLE_END => PS_STOPPED_AT_CYCLE_END,
@@ -334,14 +334,14 @@ uut_process: process
    MS_STOP_KEY_LATCH <= '0';  -- Start test with this set
    PS_CONS_STOP_PRINT_COMPLETE <= '0';
    PS_MASTER_ERROR <= '0';
-   SWITCH_ROT_CHECK_CTRL <= "000000";  -- Neutral position
+   SWITCH_ROT_CHECK_CTRL_DK2 <= "000000";  -- Neutral position
    wait for 30 ns;
    check1(MV_ERROR_CTRL_RESET_DOT_RESTART,'1',testName,"4A");
    check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"4B");
    
    -- Set switch to reset + restart
    
-   SWITCH_ROT_CHECK_CTRL <= "010000";
+   SWITCH_ROT_CHECK_CTRL_DK2 <= "001000";
    wait for 30 ns;
    check1(MV_ERROR_CTRL_RESET_DOT_RESTART,'0',testName,"4C");
    check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"4D");
@@ -378,7 +378,7 @@ uut_process: process
    
    -- -S Stop Key Latch still at 1 (off)
    PS_1ST_CLOCK_PULSE_1 <= '1'; 
-   SWITCH_ROT_CHECK_CTRL <= "000010"; -- Set to Error Restart (no reset)
+   SWITCH_ROT_CHECK_CTRL_DK2 <= "000010"; -- Set to Error Restart (no reset)
    wait for 30 ns;
    check1(MV_ERROR_CTRL_RESET_DOT_RESTART,'1',testName,"5A");
    check1(MS_AUTOMATIC_COMPUTER_RESET,'1',testName,"5B");
