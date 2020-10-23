@@ -177,42 +177,102 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
-
+   
+   variable tvAddrEntry, tvStorScan, tvCycleCtrl, tvCheckCtrl: std_logic_vector(12 downto 0);
+   
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "40.10.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      b := tv(0);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
 
-      
+		MV_CONS_MODE_SW_CE_MODE <= not b;
+		MV_CONS_MODE_SW_ADDR_SET_MODE <= not c;
+		
+		SWITCH_TOG_AUTO_START_PL1 <= not d; -- This switch appears to be active LOW.
+		SWITCH_TOG_WR_INHIBIT_PL1 <= e;
+		SWITCH_TOG_INHIBIT_PO_PL1 <= not f;  -- This switch is active low
+		SWITCH_TOG_ASTERISK_PL1 <= not g;    -- This switch is active low
+		
+      for addrEntry in 1 to 7 loop
+   		tvAddrEntry := "0000000000000";
+         tvAddrEntry(addrEntry) := '1';
+         SWITCH_ROT_ADDR_ENTRY_DK1 <= tvAddrEntry;
+         SWITCH_ROT_ADDR_ENTRY_DKA <= tvAddrEntry;
+         -- Deck 2 is fed from Address Set Mode switch
+         if(c = '1') then
+            SWITCH_ROT_ADDR_ENTRY_DK2 <= tvAddrEntry;
+         else
+            SWITCH_ROT_ADDR_ENTRY_DK2 <= "0000000000000";            
+         end if;                  
+         
+         for storScan in 1 to 5 loop
+      		tvStorScan := "0000000000000";
+            tvStorScan(storScan) := '1';
+            SWITCH_ROT_STOR_SCAN_DK1 <= tvStorScan;
+            -- Decks 3 and 4 are fed from Console Mode Switch in CE position
+            if(b = '1') then
+               SWITCH_ROT_STOR_SCAN_DK3 <= tvStorScan;
+               SWITCH_ROT_STOR_SCAN_DK4 <= tvStorScan;
+            else
+               SWITCH_ROT_STOR_SCAN_DK3 <= "0000000000000";
+               SWITCH_ROT_STOR_SCAN_DK4 <= "0000000000000";
+            end if;
+            
+            for cycleCtrl in 1 to 3 loop
+         		tvCycleCtrl := "0000000000000";
+               tvCycleCtrl(cycleCtrl) := '1';
+               SWITCH_ROT_CYCLE_CTRL_DK1 <= tvCycleCtrl;
+               
+               for checkCtrl in 1 to 3 loop
+            		tvCheckCtrl := "0000000000000";               
+                  tvCheckCtrl(checkCtrl) := '1';
+                  SWITCH_ROT_CHECK_CTRL_DK1 <= tvCheckCtrl;
+                  
+                  wait for 30 ns;
+               
+                  check1(MC_DISK_WRITE_NORMAL_STAR_F_CH,e,testname,"Disk Write Normal F Ch");
+                  check1(MC_DISK_WRITE_NORMAL_STAR_E_CH,e,testname,"Disk Write Normal E Ch");
+                  
+                  -- The off normal lamp has no driver or inverter in front of it, so it
+                  -- has backwards logic - lit on -V
+                  
+                  check1(LAMP_15A1K24,e or d or tvAddrEntry(1) or  tvAddrEntry(2) or
+                     tvAddrEntry(3) or tvAddrEntry(4) or tvAddrEntry(6) or tvAddrEntry(7) or
+                     tvStorScan(1) or tvStorScan(2) or tvStorScan(4) or tvStorScan(5) or
+                     tvCycleCtrl(1) or tvCycleCtrl(3) or tvCheckCtrl(1) or tvCheckCtrl(3) or
+                     not f or not g,testName,"Off Normal");
+               
+                  check1(MV_STORAGE_SCAN_MODE_1,
+                     not((tvStorScan(1) or tvStorScan(2) or tvStorScan(4) or tvStorScan(5)) and b),
+                     testName,"Storage Scan Mode 1");
+               
+                  check1(MV_STORAGE_SCAN_MODE_2,MV_STORAGE_SCAN_MODE_1,                        
+                        testName,"Storage Scan Mode 1");
+                        
+                  check1(MV_CONS_CE_POUND_PRINT,
+                     not(((tvAddrEntry(1) or tvAddrEntry(2) or tvAddrEntry(3) or
+                     tvAddrEntry(4) or tvAddrEntry(6) or tvAddrEntry(7)) and c) or 
+                     ((tvStorScan(1) or tvStorScan(2) or tvStorScan(4) or tvStorScan(5)) and b)),
+                     testName,"CONS CE # Print");        
+               
+               end loop;
+
+            end loop;
+            
+         end loop;
+                           
+      end loop;   
+            
       wait for 30 ns;
       
       
