@@ -1,4 +1,4 @@
-Generating HDL for page 40.10.03.1 1*OFF-NORMAL IND + STORAGE SCAN S at 10/23/2020 2:09:06 PM
+Generating HDL for page 40.10.03.1 1*OFF-NORMAL IND + STORAGE SCAN S at 10/23/2020 3:44:15 PM
 WARNING: Diagram block at coordinate 5B has 2 different output pins: A,B
 WARNING: Diagram block at coordinate 4C has 4 different output pins: A,B,D,E
 WARNING: Diagram block at coordinate 5D has 2 different output pins: A,K
@@ -7,7 +7,7 @@ WARNING: Diagram block at coordinate 5E has 2 different output pins: A,K
 WARNING: Diagram block at coordinate 4F has 4 different output pins: A,E,B,D
 WARNING: Diagram block at coordinate 4G has 4 different output pins: A,B,D,E
 WARNING: Diagram block at coordinate 5H has 6 different output pins: A,B,D,F,G,K
-Note: DOT Function at 1C has input level(s) of MIXED, and output level(s) of , Logic Function set to OR
+Note: DOT Function at 1C has a forced logic function of NAND
 Note: DOT Function at 4H has input level(s) of 3, and output level(s) of , Logic Function set to OR
 NOTE: DOT Function at 4H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Note: DOT Function at 5H has input level(s) of 2, and output level(s) of , Logic Function set to OR
@@ -89,7 +89,7 @@ Generating Statement for block at 3H with output pin(s) of OUT_3H_X
 	and logic function of Resistor
 Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
 	and inputs of OUT_5B_A,OUT_5B_B,OUT_4B_T,OUT_2A_N,OUT_4C_A,OUT_4C_B,OUT_4C_D,OUT_4C_E,OUT_5D_A,OUT_5D_K,OUT_3D_K,OUT_3D_D,OUT_3D_F,OUT_3D_G,OUT_5E_A,OUT_5E_K,OUT_5F_T,OUT_5G_T
-	and logic function of OR
+	and logic function of NAND
 Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H
 	and inputs of OUT_4G_A,OUT_4G_B,OUT_4G_D,OUT_4G_E
 	and logic function of AND
