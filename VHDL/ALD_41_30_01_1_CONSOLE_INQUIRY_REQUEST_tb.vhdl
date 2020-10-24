@@ -134,38 +134,43 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "41.30.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**3 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      d := tv(2);
       
+      -- Reset the latch
+      
+      MS_PROGRAM_RESET_4 <= '0';
       wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
+      wait for 30 ns;
+
+      check1(MS_CONS_INQUIRY_REQUEST,'1',testName,"Loop Reset Inquiry Request");
+
+      -- Maybe set the latch
+
+		MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO <= not d;
+		wait for 30 ns; -- Latch sets - maybe
+		MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO <= '1';
+      wait for 30 ns; -- Latch should not change
+
+      check1(MS_CONS_INQUIRY_REQUEST,not d,testName,"Inquiry Request Set");
+      
+      -- Maybe reset the latch
+
+		PS_CONS_RELEASE_OR_CANCEL <= a;
+		MS_LAST_INSN_RO_CYCLE <= not b;
+		wait for 30 ns; -- Latch resets - maybe
+		
+		PS_CONS_RELEASE_OR_CANCEL <= '0';
+      MS_LAST_INSN_RO_CYCLE <= '1';
+      wait for 30 ns; -- latch should not change
+
+      check1(MS_CONS_INQUIRY_REQUEST,not(d and not(a and not b)),testName,"Inquiry Request Reset");
       
       
    end loop;
