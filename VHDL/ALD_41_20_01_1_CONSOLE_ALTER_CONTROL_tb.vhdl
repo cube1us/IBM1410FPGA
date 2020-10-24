@@ -194,40 +194,261 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "41.20.01.1        ";
+   
+   -- First just test the wrap around latch and Display End of Memory
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**6 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      n := tv(0);
+      q := tv(1);
+      r := tv(2);
+      s := tv(3);
+      t := tv(4);
+      u := tv(5);
+
+      -- Reset one of two ways...
+
+		MS_LOGIC_GATE_D_1 <= not n;
+		MS_STOP_KEY_LATCH <= n;
+      wait for 30 ns;
+		MS_LOGIC_GATE_D_1 <= '1';
+      MS_STOP_KEY_LATCH <= '1';
+      wait for 30 ns;  -- Reset the latch
+      
+      -- Enable output gate so we can test what the latch did 
+
+		PS_LOGIC_GATE_C_1 <= '1';
+      PS_DISPLAY_ROUTINE_2 <= '1';
+      wait for 30 ns;
+   
+      check1(MS_DISPLAY_END_OF_MEMORY,'1',testName,"Reset Display end of Memory");
+      
+      -- Then maybe set the latch, and maybe not enable the output gate
+      
+		PS_LOGIC_GATE_C_1 <= q;
+      PS_DISPLAY_ROUTINE_2 <= s;
+		PS_2ND_CLOCK_PULSE_2 <= r;
+		PS_LOGIC_GATE_F_1 <= t;
+		PS_WRAP_AROUND_CONDITIONS <= u;      
+      wait for 30 ns;
+      
+      check1(MS_DISPLAY_END_OF_MEMORY,not(q and s and t and u and r),testName,"Display end of Memory");            
+      
+      -- Reset the variables to enable subsequent reset in the next iteration
+
+		PS_LOGIC_GATE_C_1 <= '0';
+      PS_DISPLAY_ROUTINE_2 <= '0';
+		PS_2ND_CLOCK_PULSE_2 <= '0';
+		PS_LOGIC_GATE_F_1 <= '0';
+		PS_WRAP_AROUND_CONDITIONS <= '0';      
+      
+   end loop;
+   
+   -- Next, test the WM CND Alter latch
+   
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      e := tv(3);
+      j := tv(4);
+      l := tv(5);
+      m := tv(6);
+      s := tv(7);
       
+      -- Initial reset one of two ways
+      
+      MS_CONS_PRINTER_END_OF_LINE <= not a;
+      MS_PROGRAM_RESET_4 <= a;
+      wait for 30 ns;
+      MS_CONS_PRINTER_END_OF_LINE <= '1';
+      MS_PROGRAM_RESET_4 <= '1';
       wait for 30 ns;
       
+      check1(MS_UNGATED_ALTER_ROUTINE,'1',testName,"WM Cnd Alter Loop Reset");
       
+      -- Reset signals should be 0 at this point, no issues
+      
+      PS_B_CH_WM_BIT_1 <= c;
+      PS_CONS_MX_33_POS <= l;
+      PS_DISPLAY_ROUTINE_2 <= s;
+      wait for 30 ns; -- Maybe set the latch
+      
+      check1(MS_UNGATED_ALTER_ROUTINE,not(c and l and s),testName,"WM Cnd Alter Set");
+      
+      -- Make sure we don't continue to set it, and test reset.  Latch should stay put.
+      
+      PS_DISPLAY_ROUTINE_2 <= '0';
+      wait for 30 ns; -- Latch should stay set.
+      
+      check1(MS_UNGATED_ALTER_ROUTINE,not(c and l and s),testName,"WM Cnd Alter Verify Set");
+      
+      PS_CLOCK_STOPPED <= b;
+      PS_B_CH_WM_BIT_1 <= c;
+      MS_CONSOLE_SET_START_CND <= not e;
+      MV_CONS_MODE_SW_ALTER_MODE <= not j;
+      PS_CONS_MX_33_POS <= l;
+      MS_CONS_RESET_START_CONDITION <= not m;
+      wait for 30 ns;
+      
+      check1(MS_UNGATED_ALTER_ROUTINE,
+         not(c and l and s and not((b and c and l and j) or m or e)),
+         testName,"WM Cnd Alter Reset");
+         
+      -- Reset the signals for the next iteration
+      
+      PS_CLOCK_STOPPED <= '0';
+      PS_B_CH_WM_BIT_1 <= '0';
+      MS_CONSOLE_SET_START_CND <= '1';
+      MV_CONS_MODE_SW_ALTER_MODE <= '1';
+      PS_CONS_MX_33_POS <= '0';
+      MS_CONS_RESET_START_CONDITION <= '1';
+      PS_DISPLAY_ROUTINE_2 <= '0';
+      
+   end loop;   
+
+   -- Onward to the Full Line Cnd Latch
+   
+   for tt in 0 to 2**9 loop
+         tv := std_logic_vector(to_unsigned(tt,tv'Length));
+         b := tv(0);
+         e := tv(1);
+         j := tv(2);
+         l := tv(3);
+         m := tv(4);
+         p := tv(5);
+         q := tv(6);
+         s := tv(7);
+         x := tv(8);  -- Controls setting Wrap Around
+   
+         -- Reset both the wraparound latch and the latch under test
+         
+         MS_PROGRAM_RESET_4 <= '0';
+         MS_LOGIC_GATE_D_1 <= '0';
+         wait for 30 ns;
+         MS_PROGRAM_RESET_4 <= '1';
+         MS_LOGIC_GATE_D_1 <= '1';
+         wait for 30 ns;
+         
+         check1(MS_UNGATED_ALTER_ROUTINE,'1',testName,"Full Line Cnd Alter Loop Reset");
+         
+         -- Then maybe set the Wrap around latch
+         
+         PS_LOGIC_GATE_F_1 <= x;
+         PS_WRAP_AROUND_CONDITIONS <= x;
+         PS_2ND_CLOCK_PULSE_2 <= x;
+         wait for 30 ns;
+         
+         -- Maybe set latch under test (make sure the reset signals won't interfere - reset at end)
+         
+         PS_CONS_PRINTER_END_OF_LINE <= p;
+         PS_LOGIC_GATE_C_1 <= q;
+         PS_DISPLAY_ROUTINE_2 <= s;         
+         wait for 30 ns;
+         
+         -- The following check won't always be run.
+         check1(MS_DISPLAY_END_OF_MEMORY,not (x and q and s),testName,"Check Set Wrap Around Latch");
+         
+         check1(MS_UNGATED_ALTER_ROUTINE,
+            not((p and s) or (x and s and q)),testName,"Set Full Line Cnd Alter");
+            
+         -- Now remove the setting signals - latch should not change
+
+         PS_CONS_PRINTER_END_OF_LINE <= '0';
+         PS_LOGIC_GATE_C_1 <= '0';
+         PS_DISPLAY_ROUTINE_2 <= '0';
+         wait for 30 ns;
+
+         check1(MS_UNGATED_ALTER_ROUTINE,
+            not((p and s) or (x and s and q)),testName,"Verify Set Full Line Cnd Alter");
+            
+         -- Now, maybe reset the latch                           
+
+         PS_CLOCK_STOPPED <= b;
+         MS_CONSOLE_SET_START_CND <= not e;
+         MV_CONS_MODE_SW_ALTER_MODE <= not j;
+         PS_CONS_MX_33_POS <= l;
+         MS_CONS_RESET_START_CONDITION <= not m;
+         PS_CONS_PRINTER_END_OF_LINE <= p;
+         wait for 30 ns;
+
+         check1(MS_UNGATED_ALTER_ROUTINE,
+            not(((p and s) or (x and s and q)) and 
+               not(e or m or (j and l and p and b) or (b and j and x)) ),
+               testName,"Reset Full Line Cnd Alter");
+            
+         -- Reset the variables for the next iteration
+
+         PS_CLOCK_STOPPED <= '0';
+         MS_CONSOLE_SET_START_CND <= '1';
+         MV_CONS_MODE_SW_ALTER_MODE <= '1';
+         PS_CONS_MX_33_POS <= '0';
+         MS_CONS_RESET_START_CONDITION <= '1';
+         PS_CONS_PRINTER_END_OF_LINE <= '0';
+
+   end loop;      
+   
+   for tt in 0 to 2**8 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      f := tv(0);
+      g := tv(1);
+      h := tv(2);
+      j := tv(3);
+      k := tv(4);
+      o := tv(5);
+      x := tv(6);  -- Controls setting WM CND Alter
+      y := tv(7);  -- Controls setting Full Line Cnd Alter
+      
+      -- Reset latches
+      
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
+      wait for 30 ns;
+      
+      check1(MS_UNGATED_ALTER_ROUTINE,'1',testName,"Loop Reset Alter Routine input latches");
+      check1(PS_ALTER_ROUTINE,'0',testName,"Loop Reset +S Alter Routine");
+      check1(MS_ALTER_ROUTINE,'1',testName,"Loop Reset -S Alter Routine");
+      
+      -- Maybe set one or both of the incoming latches
+      
+      PS_B_CH_WM_BIT_1 <= x;
+      PS_CONS_MX_33_POS <= x;
+      PS_DISPLAY_ROUTINE_2 <= x or y;
+      PS_CONS_PRINTER_END_OF_LINE <= y;
+      wait for 30 ns;
+      
+      check1(MS_UNGATED_ALTER_ROUTINE,not(x or y),testName,"Verify WM or Full Line Cnd Latch Set");                   
+      
+		
+		PS_START_KEY_2 <= f;
+		PS_CONS_MX_32_OR_33_POS <= g;
+      PS_MASTER_ERROR <= h;
+      MV_CONS_MODE_SW_ALTER_MODE <= not j;
+      PS_CONSOLE_HOME_POSITION <= k;
+      MS_STOP_KEY_LATCH <= not o;
+      wait for 30 ns;
+      
+      check1(PS_ALTER_ROUTINE,j and not o and not(g and h) and (x or y),testName,"+S Alter Routine");
+      check1(MS_ALTER_ROUTINE,NOT PS_ALTER_ROUTINE,testName,"-S Alter Routine");
+      check1(MS_CONS_ALTER_MX_GATE,not(PS_ALTER_ROUTINE and k and f),testName,"Cons Alter MX Gate");
+      
+      -- Reset the signals for the next iteration
+      
+      PS_B_CH_WM_BIT_1 <= '0';
+      PS_CONS_MX_33_POS <= '0';
+      PS_DISPLAY_ROUTINE_2 <= '0';
+      PS_CONS_PRINTER_END_OF_LINE <= '0';
+      
+		PS_START_KEY_2 <= '0';
+      PS_CONS_MX_32_OR_33_POS <= '0';
+      PS_MASTER_ERROR <= '0';
+      MV_CONS_MODE_SW_ALTER_MODE <= '1';
+      PS_CONSOLE_HOME_POSITION <= '0';
+      MS_STOP_KEY_LATCH <= '1';            
+
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
