@@ -1,0 +1,129 @@
+Generating HDL for page 41.20.01.1 CONSOLE ALTER CONTROL at 10/24/2020 1:13:20 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_41_20_01_1_CONSOLE_ALTER_CONTROL_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 4A
+Found combinatorial loop (need D FF) at output of gate at 3A
+Found combinatorial loop (need D FF) at output of gate at 4F
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 4G
+Found combinatorial loop (need D FF) at output of gate at 3G
+Removed 4 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 7 outputs from Gate at 2D to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
+	and inputs of PS_B_CH_WM_BIT_1,PS_CONS_MX_33_POS,PS_DISPLAY_ROUTINE_2
+	and logic function of NAND
+Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_C_Latch
+	and inputs of OUT_3A_D,MS_CONS_PRINTER_END_OF_LINE,MS_PROGRAM_RESET_4
+	and logic function of NAND
+Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_D_Latch
+	and inputs of OUT_5A_NoPin,OUT_DOT_4A
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_K
+	and inputs of PS_CLOCK_STOPPED
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_E
+	and inputs of OUT_DOT_5B,MS_CONS_RESET_START_CONDITION,MS_CONSOLE_SET_START_CND
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_C
+	and inputs of OUT_4D_C
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_D
+	and inputs of PS_B_CH_WM_BIT_1,PS_CONS_MX_33_POS,OUT_4E_R
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_P
+	and inputs of MS_STOP_KEY_LATCH,OUT_5D_P
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_2D_A
+	and logic function of NOT
+Generating Statement for block at 5D with output pin(s) of OUT_5D_P
+	and inputs of PS_CONS_MX_32_OR_33_POS,PS_MASTER_ERROR
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C, OUT_4D_C
+	and inputs of OUT_DOT_4A,OUT_DOT_4F
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_E
+	and inputs of OUT_4D_C,OUT_4E_R
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_A, OUT_2D_A, OUT_2D_A
+	and inputs of OUT_DOT_3D
+	and logic function of Special
+Generating Statement for block at 4E with output pin(s) of OUT_4E_R, OUT_4E_R, OUT_4E_R, OUT_4E_R
+	and inputs of MV_CONS_MODE_SW_ALTER_MODE
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D
+	and inputs of OUT_2D_A,PS_START_KEY_2,PS_CONSOLE_HOME_POSITION
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_E
+	and inputs of OUT_4E_R,PS_CLOCK_STOPPED,OUT_3G_D
+	and logic function of NAND
+Generating Statement for block at 4F with *latched* output pin(s) of OUT_4F_G_Latch
+	and inputs of OUT_5F_E,OUT_3F_C,MS_PROGRAM_RESET_4
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_C_Latch
+	and inputs of OUT_DOT_4F,OUT_4I_K,OUT_3H_D
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of PS_CLOCK_STOPPED
+	and logic function of NAND
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_C_Latch
+	and inputs of OUT_3G_D,MS_LOGIC_GATE_D_1,MS_STOP_KEY_LATCH
+	and logic function of NAND
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_D_Latch, OUT_3G_D_Latch, OUT_3G_D_Latch
+	and inputs of OUT_4G_C,OUT_3I_NoPin
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_E
+	and inputs of OUT_4E_R,PS_CONS_MX_33_POS,PS_CONS_PRINTER_END_OF_LINE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of MS_CONSOLE_SET_START_CND,MS_CONS_RESET_START_CONDITION,OUT_DOT_5H
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_D, OUT_3H_D
+	and inputs of OUT_3G_D,PS_DISPLAY_ROUTINE_2,PS_LOGIC_GATE_C_1
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_K
+	and inputs of PS_CONS_PRINTER_END_OF_LINE,PS_DISPLAY_ROUTINE_2
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_NoPin
+	and inputs of PS_LOGIC_GATE_F_1,PS_WRAP_AROUND_CONDITIONS,PS_2ND_CLOCK_PULSE_2
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A, OUT_DOT_4A
+	and inputs of OUT_4A_C,OUT_4B_E
+	and logic function of OR
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B
+	and inputs of OUT_5B_K,OUT_5C_D
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3C_P,OUT_3D_E
+	and logic function of OR
+Generating Statement for block at 5H with output pin(s) of OUT_DOT_5H
+	and inputs of OUT_5G_C,OUT_5H_E
+	and logic function of OR
+Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F, OUT_DOT_4F
+	and inputs of OUT_4F_G,OUT_4H_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_UNGATED_ALTER_ROUTINE
+	from gate output OUT_3B_C
+Generating output sheet edge signal assignment to 
+	signal MS_ALTER_ROUTINE
+	from gate output OUT_1C_C
+Generating output sheet edge signal assignment to 
+	signal PS_ALTER_ROUTINE
+	from gate output OUT_2D_A
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_ALTER_MX_GATE
+	from gate output OUT_1E_D
+Generating output sheet edge signal assignment to 
+	signal MS_DISPLAY_END_OF_MEMORY
+	from gate output OUT_3H_D
+Generating D Flip Flop for block at 4A
+Generating D Flip Flop for block at 3A
+Generating D Flip Flop for block at 4F
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 4G
+Generating D Flip Flop for block at 3G
