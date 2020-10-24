@@ -179,39 +179,83 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "41.10.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
       
+      g1 := a and j and c and d;
+
+      -- Reset one of two ways at the beginning
+      
+      MS_STOP_KEY_LATCH <= not b;
+      MS_PROGRAM_RESET_4 <= b;
+      wait for 30 ns;
+      MS_STOP_KEY_LATCH <= '1';
+      MS_PROGRAM_RESET_4 <= '1';
       wait for 30 ns;
       
+      check1(PS_ADDRESS_SET_ROUTINE,'0',testName,"+S Address Set Routine Loop Reset");
+      check1(MS_ADDRESS_SET_ROUTINE,'1',testName,"-S Address Set Routine Loop Reset");
+
+      -- Maybe set the latch (while keeping enough reset signals at bay so it can set if it wants to)
+      
+      MS_CONSOLE_ROUTINE_START <= not f;
+
+      PS_CONS_CLOCK_3_POS <= d;
+      MS_DISPLAY_ROUTINE <= not g;
+      MS_STORAGE_SCAN_ROUTINE <= not h;
+      PS_CONS_MX_X1A_POS <= j;
+      PS_CONS_MX_35_POS <= k;
+      MS_CONS_MX_Y6_POS <= l;
+      MS_UNGATED_ALTER_ROUTINE <= not m;      
+      wait for 30 ns;
+      
+      MS_CONSOLE_ROUTINE_START <= '1';
+      wait for 30 ns; -- Latch should stay set if it set in the first place
+     
+      check1(PS_ADDRESS_SET_ROUTINE,f,testName,"+S Address Set Routine");
+      check1(MS_ADDRESS_SET_ROUTINE,not f,testName,"-S Address Set Routine");
+      check1(MS_ADDRESS_SET_UNLOCK,not(f and l and j),testName,"Address Set Unlock");
+      check1(MS_CONS_CYCLE_START_RESET,not(f or g or h),testName,"Cons Cycle Start Reset");
+      check1(MS_CONS_CYCLE_START_CND,not((f or g or h) and k and d),testName,"Cons Cycle Start Cnd");
+      check1(MS_DISPLAY_OR_ALTER_ROUTINE,not(g or m),testName,"Display or Alter Routine");
+      
+      -- Next, maybe reset the latch with the last two signals (with the set signal off already)
+                           
+		PS_CONS_PRINTER_STROBE <= a;
+      PS_CONS_MX_Y5_POS <= c;      
+      wait for 30 ns;  -- Maybe reset the latch (noting that it might not have set in the first place)
+      
+      check1(PS_ADDR_SET_KEYBOARD_LOCK,g1,testName,"+S Addr Set Keybd Lock");
+      check1(MS_ADDR_SET_KEYBOARD_LOCK,not g1,testName,"-S Addr Set Keybd Lock");
+      
+      check1(PS_ADDRESS_SET_ROUTINE,f and not g1,testName,"Reset +S Address Set Routine");
+      check1(MS_ADDRESS_SET_ROUTINE,NOT PS_ADDRESS_SET_ROUTINE,testName,"Reset -S Address Set Routine");
+      
+      -- Reset the variables so reset at top will work right (no, do NOT assemble the Minions)      
+
+		PS_CONS_PRINTER_STROBE <= '0';
+      PS_CONS_MX_Y5_POS <= '0';      
+      PS_CONS_CLOCK_3_POS <= '0';
+      MS_CONSOLE_ROUTINE_START <= '1';
+      MS_DISPLAY_ROUTINE <= '1';
+      MS_STORAGE_SCAN_ROUTINE <= '1';
+      PS_CONS_MX_X1A_POS <= '0';
+      PS_CONS_MX_35_POS <= '0';
+      MS_CONS_MX_Y6_POS <= '0';
+      MS_UNGATED_ALTER_ROUTINE <= '1';      
       
    end loop;
 
