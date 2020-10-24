@@ -1,0 +1,27 @@
+Generating HDL for page 41.30.01.1 CONSOLE INQUIRY REQUEST at 10/24/2020 5:49:57 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_41_30_01_1_CONSOLE_INQUIRY_REQUEST_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 2E
+Found combinatorial loop (need D FF) at output of gate at 1E
+Ignoring Logic Block 1F with symbol CAP
+Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C
+	and inputs of OUT_1E_D
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_CONS_RELEASE_OR_CANCEL,MS_LAST_INSN_RO_CYCLE
+	and logic function of NAND
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_C_Latch
+	and inputs of OUT_4E_NoPin,MS_PROGRAM_RESET_4,OUT_1E_D
+	and logic function of NAND
+Generating Statement for block at 1E with *latched* output pin(s) of OUT_1E_D_Latch, OUT_1E_D_Latch
+	and inputs of OUT_2E_C,OUT_2F_X
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_X
+	and inputs of MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO
+	and logic function of Resistor
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_INQUIRY_REQUEST
+	from gate output OUT_1D_C
+Generating D Flip Flop for block at 2E
+Generating D Flip Flop for block at 1E
