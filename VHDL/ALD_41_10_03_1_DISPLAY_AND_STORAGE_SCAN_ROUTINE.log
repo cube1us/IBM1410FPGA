@@ -1,0 +1,102 @@
+Generating HDL for page 41.10.03.1 DISPLAY AND STORAGE SCAN ROUTINE at 10/24/2020 11:11:08 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_41_10_03_1_DISPLAY_AND_STORAGE_SCAN_ROUTINE_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 2C
+Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop (need D FF) at output of gate at 2F
+Ignoring Logic Block 2H with symbol R
+Removed 3 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 7 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 8 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_C
+	and inputs of MS_CONS_MX_Y6_POS,MS_CONS_MX_31_POS
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_K
+	and inputs of OUT_2B_C
+	and logic function of EQUAL
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PS_CONS_CLOCK_1_POS,PS_CONS_PRINTER_NOT_BUSY,PS_STOP_KEY_LATCH
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C, OUT_2B_C
+	and inputs of OUT_3C_P
+	and logic function of NOT
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_P_Latch, OUT_3C_P_Latch
+	and inputs of MS_PROGRAM_RESET_4,OUT_DOT_4A,OUT_2C_NoPin
+	and logic function of NAND
+Generating Statement for block at 2C with *latched* output pin(s) of OUT_2C_NoPin_Latch, OUT_2C_NoPin_Latch
+	and inputs of OUT_3C_P,OUT_3D_F
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_B
+	and inputs of OUT_2C_NoPin
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of MV_CONS_MODE_SW_DISPLAY_MODE
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_F
+	and inputs of OUT_4D_NoPin,PS_CONSOLE_ROUTINE_START
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of OUT_3F_G
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
+	and inputs of PS_STOP_KEY_LATCH,PS_CLOCK_STOPPED
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_G_Latch, OUT_3F_G_Latch
+	and inputs of OUT_4F_NoPin,MS_PROGRAM_RESET_4,OUT_2F_A
+	and logic function of NAND
+Generating Statement for block at 2F with *latched* output pin(s) of OUT_2F_A_Latch, OUT_2F_A_Latch
+	and inputs of OUT_3F_G,OUT_3G_G
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_H, OUT_1F_H
+	and inputs of OUT_2F_A
+	and logic function of Special
+Generating Statement for block at 4G with output pin(s) of OUT_4G_K, OUT_4G_K
+	and inputs of MV_STORAGE_SCAN_MODE_1
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of OUT_4G_K,PS_CONSOLE_ROUTINE_START
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of OUT_1F_H,MS_DISPLAY_OR_ALTER
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_P
+	and inputs of OUT_4H_G
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_C
+	and inputs of OUT_4G_K
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A, OUT_DOT_4A
+	and inputs of OUT_4A_C,OUT_4B_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_DISPLAY_ROUTINE_1
+	from gate output OUT_1A_K
+Generating output sheet edge signal assignment to 
+	signal PS_DISPLAY_ROUTINE_2
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal MS_DISPLAY_ROUTINE
+	from gate output OUT_1C_B
+Generating output sheet edge signal assignment to 
+	signal PS_STORAGE_SCAN_ROUTINE
+	from gate output OUT_2E_D
+Generating output sheet edge signal assignment to 
+	signal MS_STORAGE_SCAN_ROUTINE
+	from gate output OUT_1F_H
+Generating output sheet edge signal assignment to 
+	signal MY_WRAP_AROUND_MODE
+	from gate output OUT_3H_P
+Generating output sheet edge signal assignment to 
+	signal MS_STORAGE_SCAN_MODE
+	from gate output OUT_2I_C
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_DISPLAY_ROUTINE
+	from gate output OUT_DOT_4A
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 2C
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 2F
