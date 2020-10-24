@@ -176,9 +176,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "41.10.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**12 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -191,23 +191,61 @@ uut_process: process
       j := tv(8);
       k := tv(9);
       l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      n := tv(11);
       
+      g1 := not d and b and c and g;
+      g2 := k and a and g1;
+      g3 := g1 and h and (e or f);
+
+      -- Reset one of two different ways
+         
+      MS_CONS_CYCLE_START_CND <= l;
+      MS_PROGRAM_RESET_4 <= not l;
+      wait for 30 ns;       
+      MS_CONS_CYCLE_START_CND <= '1';
+      MS_PROGRAM_RESET_4 <= '1';
       wait for 30 ns;
+      
+      check1(PS_CONSOLE_CYCLE_START,'0',testName,"+S Console Cycle Start Loop Reset");       
+      check1(MS_CONSOLE_CYCLE_START,'1',testName,"-S Console Cycle Start Loop Reset");       
+
+		PS_STOPPED_AT_CYCLE_END <= a;
+		PS_CONSOLE_HOME_POSITION <= b;
+		PS_START_KEY_2 <= c;
+		MS_CONS_CYCLE_START_RESET <= not d;
+		MV_CONS_MODE_SW_DISPLAY_MODE <= not e;
+		MV_STORAGE_SCAN_MODE_1 <= not f;
+		PS_CONS_CLOCK_3_POS <= g;
+		PS_STOPPED_AT_LAST_EXEC_CYCLE <= h;
+		MV_CONS_ADDRESS_ENTRY_NORMAL_2 <= not j;
+		MV_CONS_MODE_SW_ADDR_SET_MODE_JRJ <= not k;
+		PS_CONS_CLOCK_1_POS <= n;
+		wait for 30 ns; -- Maybe set latch
+
+      check1(PS_CONSOLE_CYCLE_START,g2 or g3,testName,"+S Console Cycle Start");       
+      check1(MS_CONSOLE_CYCLE_START,not PS_CONSOLE_CYCLE_START,testName,"-S Console Cycle Start");
+      check1(MS_PROGRAM_SET_BRANCH_CTRL,not((g2 or g3) and (f or j)),testName,"Program Set Branch Control");
+      check1(MS_CONS_RESET_START_CONDITION,not((g2 or g3) and not k),testName,"Cons Reset Start Condition");
+      check1(PS_CONSOLE_ROUTINE_START,(g2 or g3) and n,testName,"+S Console Routine Start");
+      check1(MS_CONSOLE_ROUTINE_START,NOT PS_CONSOLE_ROUTINE_START,testName,"+S Console Routine Start");
+             
+      -- Reset the variables -- should not affect the latch      		
+
+		PS_STOPPED_AT_CYCLE_END <= '0';
+		PS_CONSOLE_HOME_POSITION <= '0';
+		PS_START_KEY_2 <= '0';
+		MS_CONS_CYCLE_START_RESET <= '1';
+		MV_CONS_MODE_SW_DISPLAY_MODE <= '1';
+		MV_STORAGE_SCAN_MODE_1 <= '1';
+		PS_CONS_CLOCK_3_POS <= '0';
+		PS_STOPPED_AT_LAST_EXEC_CYCLE <= '0';
+		MV_CONS_ADDRESS_ENTRY_NORMAL_2 <= '1';
+		MV_CONS_MODE_SW_ADDR_SET_MODE_JRJ <= '1';
+		PS_CONS_CLOCK_1_POS <= '0';
+		wait for 30 ns; -- Latch should stay put
+      
+      check1(PS_CONSOLE_CYCLE_START,g2 or g3,testName,"Status quo +S Console Cycle Start");       
+      check1(MS_CONSOLE_CYCLE_START,not PS_CONSOLE_CYCLE_START,testName,"Status quo -S Console Cycle Start");
       
       
    end loop;
