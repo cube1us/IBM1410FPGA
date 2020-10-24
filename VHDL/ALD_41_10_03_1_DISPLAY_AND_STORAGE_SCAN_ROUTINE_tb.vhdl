@@ -176,9 +176,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "41.10.03.1        "; 
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -186,30 +186,74 @@ uut_process: process
       d := tv(3);
       e := tv(4);
       f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
 
+      -- Reset the latches
       
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
       wait for 30 ns;
       
+      check1(PS_DISPLAY_ROUTINE_1,'0',testName,"+S Display Routine 1 Loop Reset");
+      check1(PS_DISPLAY_ROUTINE_2,'0',testName,"+S Display Routine 2 Loop Reset");
+      check1(MS_DISPLAY_ROUTINE,'1',testName,"-S Display Routine Loop Reset");
+      check1(PS_STORAGE_SCAN_ROUTINE,'0',testName,"+S Storage Scan Routine Loop Reset");
+      check1(MS_STORAGE_SCAN_ROUTINE,'1',testName,"-S Storage Scan Routine Loop Reset");
+
+      -- Maybe set a latch or two...
+
+      MV_CONS_MODE_SW_DISPLAY_MODE <= not f;
+      PS_CONSOLE_ROUTINE_START <= h;
+      MV_STORAGE_SCAN_MODE_1 <= not k;
+      MS_DISPLAY_OR_ALTER <= not l;
+      wait for 30 ns; -- Maybe set latches
       
+      check1(MS_STORAGE_SCAN_MODE,not k,testName,"Storage Scan Mode");
+      check1(PS_DISPLAY_ROUTINE_1,h and f,testName,"+S Display Routine 1");
+      check1(PS_DISPLAY_ROUTINE_2,PS_DISPLAY_ROUTINE_1,testName,"+S Display Routine 2");
+      check1(MS_DISPLAY_ROUTINE,NOT PS_DISPLAY_ROUTINE_1,testName,"-S Display Routine");
+      check1(PS_STORAGE_SCAN_ROUTINE,h and k,testName,"+S Storage Scan Routine");
+      check1(MS_STORAGE_SCAN_ROUTINE,not PS_STORAGE_SCAN_ROUTINE,testName,"-S Storage Scan Routine");
+      check1(MY_WRAP_AROUND_MODE,not((h and k) or l),testName,"Wrap Around Mode");
+
+      -- Now, pull off the set signals and give the resets their turn      
+
+      MV_CONS_MODE_SW_DISPLAY_MODE <= '1';
+      PS_CONSOLE_ROUTINE_START <= '0';
+      MV_STORAGE_SCAN_MODE_1 <= '1';
+      MS_DISPLAY_OR_ALTER <= '1';
+      wait for 30 ns;
+      
+      MS_CONS_MX_Y6_POS <= not a;
+      MS_CONS_MX_31_POS <= not b;
+      PS_CONS_CLOCK_1_POS <= c;
+      PS_CONS_PRINTER_NOT_BUSY <= d;
+      PS_STOP_KEY_LATCH <= e;
+      PS_CLOCK_STOPPED <= j;      
+      wait for 30 ns;
+      
+      check1(PS_DISPLAY_ROUTINE_1,h and f and not(not a and not b and c and d and e),testName,
+         "Reset +S Display Routine 1");
+      check1(PS_DISPLAY_ROUTINE_2,PS_DISPLAY_ROUTINE_1,testName,"Reset +S Display Routine 2");
+      check1(MS_DISPLAY_ROUTINE,NOT PS_DISPLAY_ROUTINE_1,testName,"Reset -S Display Routine");
+      check1(PS_STORAGE_SCAN_ROUTINE,h and k and not(j and e),testName,
+         "Reset +S Storage Scan Routine");
+      check1(MS_STORAGE_SCAN_ROUTINE,not PS_STORAGE_SCAN_ROUTINE,testName,
+         "Reset-S Storage Scan Routine");
+                  
+      -- Reset the signals.                  
+
+      MS_CONS_MX_Y6_POS <= '1';
+      MS_CONS_MX_31_POS <= '1';
+      PS_CONS_CLOCK_1_POS <= '0';
+      PS_CONS_PRINTER_NOT_BUSY <= '0';
+      PS_STOP_KEY_LATCH <= '0';
+      PS_CLOCK_STOPPED <= '0';      
+                  
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
