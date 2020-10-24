@@ -1,0 +1,78 @@
+Generating HDL for page 41.30.02.1 CONSOLE INQUIRY CONTROL at 10/24/2020 6:11:21 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_41_30_02_1_CONSOLE_INQUIRY_CONTROL_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5B
+Found combinatorial loop (need D FF) at output of gate at 4B
+Ignoring Logic Block 3G with symbol L
+Ignoring Logic Block 2G with symbol CAP
+Ignoring Logic Block 2I with symbol CAP
+Removed 1 outputs from Gate at 4A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
+Generating Statement for block at 4A with output pin(s) of OUT_4A_R, OUT_4A_R, OUT_4A_R, OUT_4A_R, OUT_4A_R
+	and inputs of OUT_5B_C
+	and logic function of NOT
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of OUT_4A_R
+	and logic function of NAND
+Generating Statement for block at 5B with *latched* output pin(s) of OUT_5B_C_Latch, OUT_5B_C_Latch
+	and inputs of OUT_4B_D,MS_MASTER_ERROR,PS_E_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_D_Latch
+	and inputs of OUT_5B_C,OUT_5C_NoPin
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_E_CH_IN_PROCESS,PS_E_CH_SELECT_UNIT_T_DOT_INPUT,PS_CONSOLE_HOME_POSITION
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of OUT_4A_R,PS_E_CH_MOVE_MODE
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_K
+	and inputs of OUT_4A_R,PS_CONS_MX_32_POS
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_B
+	and inputs of OUT_4A_R,PS_CONSOLE_HOME_POSITION
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D
+	and inputs of MS_LAST_INSN_RO_CYCLE,PS_E_CH_IN_PROCESS,OUT_3F_X
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_X, OUT_3F_X, OUT_3F_X
+	and inputs of PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC
+	and logic function of Resistor
+Generating Statement for block at 2F with output pin(s) of OUT_2F_P
+	and inputs of OUT_3F_X
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_2F_P,OUT_3H_X
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_X
+	and inputs of MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO
+	and logic function of Resistor
+Generating output sheet edge signal assignment to 
+	signal PS_CONSOLE_READ_OP
+	from gate output OUT_4A_R
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_READ_OP
+	from gate output OUT_3A_G
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MOVE_READ_OP
+	from gate output OUT_3C_C
+Generating output sheet edge signal assignment to 
+	signal MS_INQUIRY_KEYBOARD_UNLOCK
+	from gate output OUT_3D_K
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_INQUIRY_MX_GATE
+	from gate output OUT_3E_B
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_CANCEL_KEY_RESET
+	from gate output OUT_2E_D
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_INQUIRY_CANCEL_KEY_STAR_NC
+	from gate output OUT_3F_X
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_RELEASE_OR_CANCEL
+	from gate output OUT_1F_C
+Generating D Flip Flop for block at 5B
+Generating D Flip Flop for block at 4B
