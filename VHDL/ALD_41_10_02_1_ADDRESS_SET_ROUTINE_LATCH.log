@@ -1,0 +1,86 @@
+Generating HDL for page 41.10.02.1 ADDRESS SET ROUTINE LATCH at 10/24/2020 10:19:11 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_41_10_02_1_ADDRESS_SET_ROUTINE_LATCH_tb.vhdl, generating default test bench code.
+Note: DOT Function at 5B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 4D
+Found combinatorial loop (need D FF) at output of gate at 3D
+Removed 9 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4H to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_K
+	and inputs of PS_CONS_PRINTER_STROBE,PS_CONS_CLOCK_3_POS
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of OUT_DOT_5B
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_P
+	and inputs of PS_CONS_MX_Y5_POS,PS_CONS_MX_X1A_POS
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_R
+	and inputs of MS_STOP_KEY_LATCH
+	and logic function of NOT
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_H_Latch, OUT_3C_H_Latch, OUT_3C_H_Latch
+	and inputs of OUT_DOT_4C
+	and logic function of EQUAL
+Generating Statement for block at 4D with *latched* output pin(s) of OUT_4D_C_Latch
+	and inputs of OUT_3D_G,OUT_DOT_5B,MS_PROGRAM_RESET_4
+	and logic function of NAND
+Generating Statement for block at 3D with *latched* output pin(s) of OUT_3D_G_Latch, OUT_3D_G_Latch
+	and inputs of OUT_3C_H,MS_CONSOLE_ROUTINE_START
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_B, OUT_2D_B
+	and inputs of OUT_3D_G
+	and logic function of EQUAL
+Generating Statement for block at 2E with output pin(s) of OUT_2E_D, OUT_2E_D
+	and inputs of OUT_3C_H,MS_DISPLAY_ROUTINE,MS_STORAGE_SCAN_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_2E_D
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_C
+	and inputs of OUT_2E_D,PS_CONS_MX_35_POS,PS_CONS_CLOCK_3_POS
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_E
+	and inputs of OUT_2D_B,PS_CONS_MX_X1A_POS,MS_CONS_MX_Y6_POS
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of MS_DISPLAY_ROUTINE,MS_UNGATED_ALTER_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_R
+	and inputs of OUT_5H_NoPin
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B, OUT_DOT_5B, OUT_DOT_5B
+	and inputs of OUT_5B_K,OUT_5C_P
+	and logic function of OR
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_R,OUT_4D_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_ADDR_SET_KEYBOARD_LOCK
+	from gate output OUT_4B_C
+Generating output sheet edge signal assignment to 
+	signal MS_ADDRESS_SET_ROUTINE
+	from gate output OUT_3C_H
+Generating output sheet edge signal assignment to 
+	signal PS_ADDRESS_SET_ROUTINE
+	from gate output OUT_2D_B
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_CYCLE_START_RESET
+	from gate output OUT_1E_C
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_CYCLE_START_CND
+	from gate output OUT_1F_C
+Generating output sheet edge signal assignment to 
+	signal MS_ADDRESS_SET_UNLOCK
+	from gate output OUT_1G_E
+Generating output sheet edge signal assignment to 
+	signal MS_DISPLAY_OR_ALTER_ROUTINE
+	from gate output OUT_4H_R
+Generating output sheet edge signal assignment to 
+	signal MS_ADDR_SET_KEYBOARD_LOCK
+	from gate output OUT_DOT_5B
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 4D
+Generating D Flip Flop for block at 3D
