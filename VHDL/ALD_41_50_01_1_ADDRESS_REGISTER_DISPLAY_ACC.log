@@ -1,0 +1,40 @@
+Generating HDL for page 41.50.01.1 ADDRESS REGISTER DISPLAY-ACC at 10/24/2020 8:52:13 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_41_50_01_1_ADDRESS_REGISTER_DISPLAY_ACC_tb.vhdl, generating default test bench code.
+Ignoring Logic Block 5B with symbol L
+Removed 9 outputs from Gate at 4C to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_K
+	and inputs of MS_STOPPED_AT_CYCLE_END
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_B
+	and inputs of OUT_5A_K,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of MS_CE_ADDR_REG_READ_OUT,MS_CONS_ADDR_REG_EXIT_GATE,MS_PROGRAM_RESET_4
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of OUT_5C_C
+	and logic function of Special
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of PS_CONS_MX_X1_POS,PS_CONS_STOP_PRINT_LATCH
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_C
+	and inputs of PS_CONS_MX_X2_POS,PS_CONS_STOP_PRINT_LATCH
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_K
+	and inputs of PS_CONS_STOP_PRINT_LATCH,PS_CONS_MX_X3_POS
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MV_CE_ADDRESS_RO_ENABLE
+	from gate output OUT_4A_B
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_INHIBIT_AR_RO
+	from gate output OUT_4C_C
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_RO_IAR
+	from gate output OUT_3G_G
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_RO_AAR
+	from gate output OUT_3H_C
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_RO_BAR
+	from gate output OUT_3I_K
