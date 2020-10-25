@@ -161,40 +161,36 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "41.50.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
 
-      
-      wait for 30 ns;
-      
-      
+		MS_STOPPED_AT_CYCLE_END <= not a;
+		PP_SPECIAL_OR_12V_FOR_REL_DRIVERS <= '1'; -- Special - logic 1 given how HDL generates
+		MS_CE_ADDR_REG_READ_OUT <= not c;
+		MS_CONS_ADDR_REG_EXIT_GATE <= not d;
+		MS_PROGRAM_RESET_4 <= not e;
+		PS_CONS_MX_X1_POS <= f;
+		PS_CONS_MX_X2_POS <= g;
+		PS_CONS_STOP_PRINT_LATCH <= h;
+		PS_CONS_MX_X3_POS <= j;
+		wait for 30 ns;
+		
+		check1(MV_CE_ADDRESS_RO_ENABLE,not(a),testName,"CE Addr RO Enable");
+      check1(MS_CONSOLE_INHIBIT_AR_RO,not(c or d or e),testName,"Console Inhibit AR RO");
+      check1(MS_CONSOLE_RO_IAR,not(f and h),testName,"Console RO IAR");
+      check1(MS_CONSOLE_RO_AAR,not(g and h),testName,"Console RO AAR");
+      check1(MS_CONSOLE_RO_BAR,not(j and h),testName,"Console RO BAR");
+		      
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
