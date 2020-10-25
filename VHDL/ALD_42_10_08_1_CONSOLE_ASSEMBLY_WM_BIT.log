@@ -1,0 +1,30 @@
+Generating HDL for page 42.10.08.1 CONSOLE ASSEMBLY WM BIT at 10/25/2020 10:18:05 AM
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 1 outputs from Gate at 2D to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of PS_A_DATA_REG_WM_BIT,PS_CONS_MX_22_POS
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of PS_B_CH_WM_BIT_1,PS_CONS_B_DATA_CH_GATE
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_F
+	and inputs of OUT_4B_NoPin,OUT_4C_NoPin,OUT_4D_NoPin
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
+	and inputs of PS_ASSEMBLY_CH_WM_BIT,PS_CONS_MX_24_POS
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_L
+	and inputs of OUT_DOT_3D
+	and logic function of EQUAL
+Generating Statement for block at 4E with output pin(s) of OUT_4E_D
+	and inputs of PS_CONS_E2_REG_GATE,PS_E2_REG_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of OUT_4E_D
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
+	and inputs of OUT_3C_F,OUT_3E_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_OUTPUT_WM_BIT
+	from gate output OUT_2D_L

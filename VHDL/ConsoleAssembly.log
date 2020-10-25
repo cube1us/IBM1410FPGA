@@ -1,0 +1,230 @@
+Generating HDL for group named ConsoleAssemblyat 10/25/2020 10:18:38 AM containing pages: 
+	42.10.01.1, 42.10.02.1, 42.10.03.1, 42.10.04.1, 42.10.05.1
+	42.10.06.1, 42.10.07.1, 42.10.08.1
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ConsoleAssembly_tb.vhdl, FileNotFoundException , generating default test bench code.
+Building lists of signals on 8 pages...
+Found 26 signals on page 42.10.01.1
+Found 27 signals on page 42.10.02.1
+Found 25 signals on page 42.10.03.1
+Found 26 signals on page 42.10.04.1
+Found 24 signals on page 42.10.05.1
+Found 21 signals on page 42.10.06.1
+Found 27 signals on page 42.10.07.1
+Found 9 signals on page 42.10.08.1
+Found 97 unique input signals and 8 unique output signals, (105 total unique signals)
+Determining sources for all input signals...
+INFO:  Signal +S OP REG 1 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 1 BIT originates outside the group.
+INFO:  Signal +S AR EXIT CH 1 BIT originates outside the group.
+INFO:  Signal +S B CH 1 BIT originates outside the group.
+INFO:  Signal +S A DATA REG 1 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 1 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG 1 BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG 1 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG 1 BIT originates outside the group.
+INFO:  Signal +S F CH U SEL REG 1 BIT originates outside the group.
+INFO:  Signal +S E2 REG 1 BIT originates outside the group.
+INFO:  Signal +S CONS MX 24 POS originates outside the group.
+INFO:  Signal +S CONS ADDR REG EXIT GATE originates outside the group.
+INFO:  Signal +S CONS MX 26 POS originates outside the group.
+INFO:  Signal +S CONS MX 19 POS originates outside the group.
+INFO:  Signal +S CONS MX 27 POS originates outside the group.
+INFO:  Signal +S CONS MX 20 POS originates outside the group.
+INFO:  Signal +S CONS MX 28 POS originates outside the group.
+INFO:  Signal +S CONS MX 22 POS originates outside the group.
+INFO:  Signal +S CONS MX 29 POS originates outside the group.
+INFO:  Signal +S CONS B DATA CH GATE originates outside the group.
+INFO:  Signal +S CONS E2 REG GATE originates outside the group.
+INFO:  Signal -S SPECIAL CHAR A C E I originates outside the group.
+INFO:  Signal -S SPECIAL CHAR R originates outside the group.
+INFO:  Signal -S SPECIAL CHAR POUND originates outside the group.
+INFO:  Signal +S OP REG 2 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 2 BIT originates outside the group.
+INFO:  Signal +S AR EXIT CH 2 BIT originates outside the group.
+INFO:  Signal +S B CH 2 BIT originates outside the group.
+INFO:  Signal +S A DATA REG 2 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 2 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG 2 BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG 2 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG 2 BIT originates outside the group.
+INFO:  Signal +S F CH U SEL REG 2 BIT originates outside the group.
+INFO:  Signal +S E2 REG 2 BIT originates outside the group.
+INFO:  Signal -S SPECIAL CHAR S originates outside the group.
+INFO:  Signal -S SPECIAL CHAR C originates outside the group.
+INFO:  Signal -S SPECIAL CHAR B originates outside the group.
+INFO:  Signal +S OP REG 4 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 4 BIT originates outside the group.
+INFO:  Signal +S AR CH 4 BIT *TRANSLATOR* originates outside the group.
+INFO:  Signal +S B CH 4 BIT originates outside the group.
+INFO:  Signal +S A DATA REG 4 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 4 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG 4 BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG 4 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG 4 BIT originates outside the group.
+INFO:  Signal +S F CH U SEL REG 4 BIT originates outside the group.
+INFO:  Signal +S E2 REG 4 BIT originates outside the group.
+INFO:  Signal -S SPECIAL CHAR E originates outside the group.
+INFO:  Signal -S SPECIAL CHAR D originates outside the group.
+INFO:  Signal +S OP REG 8 BIT originates outside the group.
+INFO:  Signal +S OP MOD REG 8 BIT originates outside the group.
+INFO:  Signal +S AR EXIT CH 8 BIT originates outside the group.
+INFO:  Signal +S B CH 8 BIT originates outside the group.
+INFO:  Signal +S A DATA REG 8 BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH 8 BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG 8 BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG 8 BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG 8 BIT originates outside the group.
+INFO:  Signal +S F CH U SEL REG 8 BIT originates outside the group.
+INFO:  Signal +S E2 REG 8 BIT originates outside the group.
+INFO:  Signal -S SPECIAL CHAR I originates outside the group.
+INFO:  Signal +S OP REG A BIT originates outside the group.
+INFO:  Signal +S OP MOD REG A BIT originates outside the group.
+INFO:  Signal +S AR CH VC GROUP ONE originates outside the group.
+INFO:  Signal +S AR CH VC GROUP TWO originates outside the group.
+INFO:  Signal +S B CH A BIT originates outside the group.
+INFO:  Signal +S A DATA REG A BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH A BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG A BIT originates outside the group.
+INFO:  Signal +S F CH U SEL REG A BIT originates outside the group.
+INFO:  Signal +S E2 REG A BIT originates outside the group.
+INFO:  Signal +S OP REG B BIT originates outside the group.
+INFO:  Signal +S OP MOD REG B BIT originates outside the group.
+INFO:  Signal +S B CH B BIT originates outside the group.
+INFO:  Signal +S A DATA REG B BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH B BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG B BIT originates outside the group.
+INFO:  Signal +S F CH U SEL REG B BIT originates outside the group.
+INFO:  Signal +S E2 REG B BIT originates outside the group.
+INFO:  Signal +S OP REG C BIT originates outside the group.
+INFO:  Signal +S OP MOD REG C BIT originates outside the group.
+INFO:  Signal +S AR EXIT CH C BIT originates outside the group.
+INFO:  Signal +S B CH C BIT originates outside the group.
+INFO:  Signal +S A DATA REG C BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH C CHAR BIT originates outside the group.
+INFO:  Signal +S E CH UNIT NU REG C BIT originates outside the group.
+INFO:  Signal +S E CH U SEL REG C BIT originates outside the group.
+INFO:  Signal +S F CH UNIT NU REG C BIT originates outside the group.
+INFO:  Signal +S F CH U SEL REG C BIT originates outside the group.
+INFO:  Signal +S E2 REG C BIT originates outside the group.
+INFO:  Signal +S B CH WM BIT 1 originates outside the group.
+INFO:  Signal +S A DATA REG WM BIT originates outside the group.
+INFO:  Signal +S ASSEMBLY CH WM BIT originates outside the group.
+INFO:  Signal +S E2 REG WM BIT originates outside the group.
+Determining destinations for all output signals...
+INFO:  Signal +S CONSOLE OUTPUT 1 BIT is used outside the group.
+INFO:  Signal +S CONSOLE OUTPUT 2 BIT is used outside the group.
+INFO:  Signal +S CONSOLE OUTPUT 4 BIT is used outside the group.
+INFO:  Signal +S CONSOLE OUTPUT 8 BIT is used outside the group.
+INFO:  Signal +S CONSOLE OUTPUT A BIT is used outside the group.
+INFO:  Signal +S CONSOLE OUTPUT B BIT is used outside the group.
+INFO:  Signal +S CONSOLE OUTPUT C BIT is used outside the group.
+INFO:  Signal +S CONS OUTPUT WM BIT is used outside the group.
+Removing 0 output signals that do not have destinations outside the group...
+Removing 0 input signals that originate inside the group...
+Input Signal +S OP REG 1 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP MOD REG 1 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S AR EXIT CH 1 BIT replaced by Bus signal +S AR EXIT CH BUS
+Input Signal +S B CH 1 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A DATA REG 1 BIT replaced by Bus signal +S A DATA REG BUS
+Input Signal +S ASSEMBLY CH 1 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E CH UNIT NU REG 1 BIT replaced by Bus signal +S E CH U NU REG BUS
+Input Signal +S E CH U SEL REG 1 BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S F CH UNIT NU REG 1 BIT replaced by Bus signal +S F CH U NU REG BUS
+Input Signal +S F CH U SEL REG 1 BIT replaced by Bus signal +S F CH U SEL REG BUS
+Input Signal +S E2 REG 1 BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S CONS MX 24 POS replaced by Bus signal +S CONS MX POS BUS
+Input Signal +S CONS MX 26 POS replaced by Bus signal +S CONS MX POS BUS
+Input Signal +S CONS MX 19 POS replaced by Bus signal +S CONS MX POS BUS
+Input Signal +S CONS MX 27 POS replaced by Bus signal +S CONS MX POS BUS
+Input Signal +S CONS MX 20 POS replaced by Bus signal +S CONS MX POS BUS
+Input Signal +S CONS MX 28 POS replaced by Bus signal +S CONS MX POS BUS
+Input Signal +S CONS MX 22 POS replaced by Bus signal +S CONS MX POS BUS
+Input Signal +S CONS MX 29 POS replaced by Bus signal +S CONS MX POS BUS
+Input Signal +S OP REG 2 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP MOD REG 2 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S AR EXIT CH 2 BIT replaced by Bus signal +S AR EXIT CH BUS
+Input Signal +S B CH 2 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A DATA REG 2 BIT replaced by Bus signal +S A DATA REG BUS
+Input Signal +S ASSEMBLY CH 2 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E CH UNIT NU REG 2 BIT replaced by Bus signal +S E CH U NU REG BUS
+Input Signal +S E CH U SEL REG 2 BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S F CH UNIT NU REG 2 BIT replaced by Bus signal +S F CH U NU REG BUS
+Input Signal +S F CH U SEL REG 2 BIT replaced by Bus signal +S F CH U SEL REG BUS
+Input Signal +S E2 REG 2 BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S OP REG 4 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP MOD REG 4 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S AR CH 4 BIT *TRANSLATOR* replaced by Bus signal +S AR CH *TRANSLATOR* BUS
+Input Signal +S B CH 4 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A DATA REG 4 BIT replaced by Bus signal +S A DATA REG BUS
+Input Signal +S ASSEMBLY CH 4 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E CH UNIT NU REG 4 BIT replaced by Bus signal +S E CH U NU REG BUS
+Input Signal +S E CH U SEL REG 4 BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S F CH UNIT NU REG 4 BIT replaced by Bus signal +S F CH U NU REG BUS
+Input Signal +S F CH U SEL REG 4 BIT replaced by Bus signal +S F CH U SEL REG BUS
+Input Signal +S E2 REG 4 BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S OP REG 8 BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP MOD REG 8 BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S AR EXIT CH 8 BIT replaced by Bus signal +S AR EXIT CH BUS
+Input Signal +S B CH 8 BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A DATA REG 8 BIT replaced by Bus signal +S A DATA REG BUS
+Input Signal +S ASSEMBLY CH 8 BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E CH UNIT NU REG 8 BIT replaced by Bus signal +S E CH U NU REG BUS
+Input Signal +S E CH U SEL REG 8 BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S F CH UNIT NU REG 8 BIT replaced by Bus signal +S F CH U NU REG BUS
+Input Signal +S F CH U SEL REG 8 BIT replaced by Bus signal +S F CH U SEL REG BUS
+Input Signal +S E2 REG 8 BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S OP REG A BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP MOD REG A BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S B CH A BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A DATA REG A BIT replaced by Bus signal +S A DATA REG BUS
+Input Signal +S ASSEMBLY CH A BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E CH U SEL REG A BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S F CH U SEL REG A BIT replaced by Bus signal +S F CH U SEL REG BUS
+Input Signal +S E2 REG A BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S OP REG B BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP MOD REG B BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S B CH B BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A DATA REG B BIT replaced by Bus signal +S A DATA REG BUS
+Input Signal +S ASSEMBLY CH B BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E CH U SEL REG B BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S F CH U SEL REG B BIT replaced by Bus signal +S F CH U SEL REG BUS
+Input Signal +S E2 REG B BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S OP REG C BIT replaced by Bus signal +S OP REG BUS
+Input Signal +S OP MOD REG C BIT replaced by Bus signal +S OP MOD REG BUS
+Input Signal +S AR EXIT CH C BIT replaced by Bus signal +S AR EXIT CH BUS
+Input Signal +S B CH C BIT replaced by Bus signal +S B CH BUS
+Input Signal +S A DATA REG C BIT replaced by Bus signal +S A DATA REG BUS
+Input Signal +S E CH UNIT NU REG C BIT replaced by Bus signal +S E CH U NU REG BUS
+Input Signal +S E CH U SEL REG C BIT replaced by Bus signal +S E CH U SEL REG BUS
+Input Signal +S F CH UNIT NU REG C BIT replaced by Bus signal +S F CH U NU REG BUS
+Input Signal +S F CH U SEL REG C BIT replaced by Bus signal +S F CH U SEL REG BUS
+Input Signal +S E2 REG C BIT replaced by Bus signal +S E2 REG BUS
+Input Signal +S A DATA REG WM BIT replaced by Bus signal +S A DATA REG BUS
+Input Signal +S ASSEMBLY CH WM BIT replaced by Bus signal +S ASSEMBLY CH BUS
+Input Signal +S E2 REG WM BIT replaced by Bus signal +S E2 REG BUS
+DEBUG: Tentative bus +S CONSOLE OUTPUT BUS identified based on signal +S CONSOLE OUTPUT 1 BIT
+DEBUG: Added signal +S CONSOLE OUTPUT 2 BIT to bus +S CONSOLE OUTPUT BUS
+DEBUG: Added signal +S CONSOLE OUTPUT 4 BIT to bus +S CONSOLE OUTPUT BUS
+DEBUG: Added signal +S CONSOLE OUTPUT 8 BIT to bus +S CONSOLE OUTPUT BUS
+DEBUG: Added signal +S CONSOLE OUTPUT A BIT to bus +S CONSOLE OUTPUT BUS
+DEBUG: Added signal +S CONSOLE OUTPUT B BIT to bus +S CONSOLE OUTPUT BUS
+DEBUG: Added signal +S CONSOLE OUTPUT C BIT to bus +S CONSOLE OUTPUT BUS
+INFO: Bus +S CONSOLE OUTPUT BUS identified 
+Output signal +S CONSOLE OUTPUT 1 BIT replaced by bus +S CONSOLE OUTPUT BUS
+Output signal +S CONSOLE OUTPUT 2 BIT replaced by bus +S CONSOLE OUTPUT BUS
+Output signal +S CONSOLE OUTPUT 4 BIT replaced by bus +S CONSOLE OUTPUT BUS
+Output signal +S CONSOLE OUTPUT 8 BIT replaced by bus +S CONSOLE OUTPUT BUS
+Output signal +S CONSOLE OUTPUT A BIT replaced by bus +S CONSOLE OUTPUT BUS
+Output signal +S CONSOLE OUTPUT B BIT replaced by bus +S CONSOLE OUTPUT BUS
+Output signal +S CONSOLE OUTPUT C BIT replaced by bus +S CONSOLE OUTPUT BUS
+Generating list of internal signals/wires ...
+0 internal signals/wires found.
+Generating HDL prefixes...
+Generating HDL associated with page 42.10.01.1 (CONSOLE ASSEMBLY 1 BIT)
+Generating HDL associated with page 42.10.02.1 (CONSOLE ASSEMBLY 2 BIT)
+Generating HDL associated with page 42.10.03.1 (CONSOLE ASSEMBLY 4 BIT)
+Generating HDL associated with page 42.10.04.1 (CONSOLE ASSEMBLY 8 BIT)
+Generating HDL associated with page 42.10.05.1 (CONSOLE ASSEMBLY A BIT)
+Generating HDL associated with page 42.10.06.1 (CONSOLE ASSEMBLY B BIT)
+Generating HDL associated with page 42.10.07.1 (CONSOLE ASSEMBLY C BIT)
+Generating HDL associated with page 42.10.08.1 (CONSOLE ASSEMBLY WM BIT)

@@ -1,0 +1,44 @@
+Generating HDL for page 42.10.06.1 CONSOLE ASSEMBLY B BIT at 10/25/2020 10:18:02 AM
+Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of PS_OP_REG_B_BIT,PS_CONS_MX_19_POS
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_NoPin
+	and inputs of PS_OP_MOD_REG_B_BIT,PS_CONS_MX_20_POS
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_F
+	and inputs of OUT_5B_NoPin,OUT_5C_NoPin,OUT_5D_NoPin
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_NoPin
+	and inputs of PS_E_CH_U_SEL_REG_B_BIT,PS_CONS_MX_26_POS
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of PS_A_DATA_REG_B_BIT,PS_CONS_MX_22_POS
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_NoPin
+	and inputs of PS_B_CH_B_BIT,PS_CONS_B_DATA_CH_GATE
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_F
+	and inputs of OUT_3C_NoPin,OUT_3D_NoPin,OUT_3E_NoPin
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+	and inputs of PS_F_CH_U_SEL_REG_B_BIT,PS_CONS_MX_28_POS
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_F
+	and inputs of OUT_5E_NoPin,OUT_5F_NoPin,MS_SPECIAL_CHAR_R
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_NoPin
+	and inputs of PS_ASSEMBLY_CH_B_BIT,PS_CONS_MX_24_POS
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PS_E2_REG_B_BIT,PS_CONS_E2_REG_GATE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D
+	and inputs of MS_SPECIAL_CHAR_A_C_E_I,MS_SPECIAL_CHAR_B,MS_SPECIAL_CHAR_D
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
+	and inputs of OUT_4C_F,OUT_2D_F,OUT_4E_F,OUT_4G_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_CONSOLE_OUTPUT_B_BIT
+	from gate output OUT_DOT_2D
