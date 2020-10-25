@@ -1,0 +1,51 @@
+Generating HDL for page 41.40.01.1 CONSOLE PROGRAM PRINT OUT CONTROL at 10/24/2020 8:28:29 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_41_40_01_1_CONSOLE_PROGRAM_PRINT_OUT_CONTROL_tb.vhdl, generating default test bench code.
+Note: DOT Function at 5B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 5B
+Found combinatorial loop (need D FF) at output of gate at 4B
+Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4D to ignored block(s) or identical signal names
+Generating Statement for block at 5B with *latched* output pin(s) of OUT_5B_R_Latch
+	and inputs of OUT_4B_K,MS_MASTER_ERROR
+	and logic function of NAND
+Generating Statement for block at 4B with *latched* output pin(s) of OUT_4B_K_Latch
+	and inputs of OUT_DOT_5B,OUT_5D_D
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of PS_E_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of OUT_4D_F
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_D
+	and inputs of PS_CONSOLE_HOME_POSITION,PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT,PS_E_CH_IN_PROCESS
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_F, OUT_4D_F, OUT_4D_F, OUT_4D_F
+	and inputs of OUT_DOT_5B
+	and logic function of NOT
+Generating Statement for block at 3E with output pin(s) of OUT_3E_NoPin
+	and inputs of OUT_4D_F,PS_E_CH_MOVE_MODE
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_D
+	and inputs of OUT_3E_NoPin
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of OUT_4D_F,PS_CONSOLE_HOME_POSITION
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_DOT_5B, OUT_DOT_5B
+	and inputs of OUT_5B_R,OUT_5C_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_WRITE_OP
+	from gate output OUT_3C_G
+Generating output sheet edge signal assignment to 
+	signal PS_CONSOLE_WRITE_OP
+	from gate output OUT_4D_F
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MOVE_WRITE_OP
+	from gate output OUT_1E_D
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_PRG_PRT_OUT_MX_GATE
+	from gate output OUT_3F_C
+Generating D Flip Flop for block at 5B
+Generating D Flip Flop for block at 4B
