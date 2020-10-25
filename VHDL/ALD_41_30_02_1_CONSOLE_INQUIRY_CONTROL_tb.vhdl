@@ -170,40 +170,68 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "41.30.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      b := tv(0);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
 
+      -- Reset
       
+      MS_MASTER_ERROR <= '0';
+      wait for 30 ns;
+      MS_MASTER_ERROR <= '1';
       wait for 30 ns;
       
+      check1(PS_CONSOLE_READ_OP,'0',testName,"Loop Reset +S Console Read Op");
+      check1(MS_CONSOLE_READ_OP,'1',testName,"Loop Reset -S Console Read Op");
       
+      -- Now, maybe set the latch  (make sure we do not reset it here)
+      
+		PS_E_CH_IN_PROCESS <= '1';
+		
+      PS_E_CH_SELECT_UNIT_T_DOT_INPUT <= c;
+      PS_E_CH_MOVE_MODE <= d;
+      PS_CONS_MX_32_POS <= e;
+      PS_CONSOLE_HOME_POSITION <= f;
+      MS_LAST_INSN_RO_CYCLE <= not g;
+      PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= h;
+      MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO <= not j;
+      wait for 30 ns;
+
+      -- Withdraw the set inputs - latch should not change  
+      PS_E_CH_SELECT_UNIT_T_DOT_INPUT <= '0';
+      wait for 30 ns;      
+      
+      check1(PS_CONSOLE_READ_OP,c and f,testName,"Set +S Console Read Op");
+      check1(MS_CONSOLE_READ_OP,NOT PS_CONSOLE_READ_OP,testName,"Set -S Console Read Op");
+      check1(MS_CONS_MOVE_READ_OP,not(PS_CONSOLE_READ_OP and d),testName,"Cons Move Read Op");
+      check1(MS_INQUIRY_KEYBOARD_UNLOCK,not(PS_CONSOLE_READ_OP and e),testName,"Inq Keybd Unlock");
+      check1(MS_CONS_INQUIRY_MX_GATE,not(PS_CONSOLE_READ_OP and f),testName,"Cons Inq. MX Gate");
+      check1(MS_CONS_CANCEL_KEY_RESET,not(not g and h),testName,"Cons Cancel Key Reset");
+      check1(PS_CONS_RELEASE_OR_CANCEL,h or j,testName,"Cons Release or Cancel");
+      check1(PS_CONS_INQUIRY_CANCEL_KEY_STAR_NC,h,testName,"Cons Inq. Cancel Key");
+            
+      -- Maybe reset the latch
+      PS_CONSOLE_HOME_POSITION <= '0';
+      PS_E_CH_IN_PROCESS <= b;
+      wait for 30 ns;
+      
+      check1(PS_CONSOLE_READ_OP,c and f and not(not b),testName,"Reset +S Console Read Op");
+      check1(MS_CONSOLE_READ_OP,NOT PS_CONSOLE_READ_OP,testName,"Reset -S Console Read Op");
+      check1(MS_CONS_CANCEL_KEY_RESET,not(not g and b and h),testName,"Reset - Cons Cancel Key Reset");
+      
+      -- Reset the reset for the next iteration
+
+      PS_E_CH_IN_PROCESS <= '1';
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
