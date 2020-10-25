@@ -146,39 +146,54 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "41.40.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**4 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      b := tv(0);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
 
+      -- Reset
       
+      MS_MASTER_ERROR <= '0';
+      wait for 30 ns;
+      MS_MASTER_ERROR <= '1';
       wait for 30 ns;
       
+      check1(PS_CONSOLE_WRITE_OP,'0',testName,"Loop Reset +S Console Write Op");
+      check1(MS_CONSOLE_WRITE_OP,'1',testName,"Loop Reset -S Console Write Op");
+      
+      -- Now, maybe set the latch  (make sure we do not reset it here)
+      
+      PS_E_CH_IN_PROCESS <= '1';
+      PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT <= b;
+      PS_E_CH_MOVE_MODE <= d;
+      PS_CONSOLE_HOME_POSITION <= e;
+      wait for 30 ns;
+      
+      -- Withdraw the set inputs - latch should not change
+      PS_E_CH_SELECT_UNIT_T_DOT_OUTPUT <= '0';
+
+      check1(PS_CONSOLE_WRITE_OP,e and b,testName,"Set +S Console Write Op");
+      check1(MS_CONSOLE_WRITE_OP,NOT PS_CONSOLE_WRITE_OP,testName,"Set -S Console Write Op");
+      check1(PS_CONS_MOVE_WRITE_OP,PS_CONSOLE_WRITE_OP and d,testName,"Cons Move Write Op");
+      check1(MS_CONS_PRG_PRT_OUT_MX_GATE,not(PS_CONSOLE_WRITE_OP and e),testName,"Cons Prt Out MX Gate");
+      
+      -- Maybe reset the latch
+      PS_E_CH_IN_PROCESS <= c;
+      wait for 30 ns;
+      
+      check1(PS_CONSOLE_WRITE_OP,e and b and not(not c),testName,"Reset +S Console Write Op");
+      check1(MS_CONSOLE_WRITE_OP,NOT PS_CONSOLE_WRITE_OP,testName,"Reset -S Console Write Op");
+      
+      -- Reset the signals for the next iteration
+
+      PS_E_CH_IN_PROCESS <= '1';
+      PS_CONSOLE_HOME_POSITION <= '0';
+                  
+      wait for 30 ns;      
       
    end loop;
 
