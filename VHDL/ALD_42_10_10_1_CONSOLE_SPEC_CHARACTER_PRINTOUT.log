@@ -1,0 +1,101 @@
+Generating HDL for page 42.10.10.1 CONSOLE SPEC CHARACTER PRINTOUT at 10/26/2020 12:56:11 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_42_10_10_1_CONSOLE_SPEC_CHARACTER_PRINTOUT_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1F to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2H to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2I to ignored block(s) or identical signal names
+Removed 2 outputs from Dot Function at 1B to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B
+	and inputs of PS_ALTER_ROUTINE,OUT_DOT_3D
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of MV_CONS_ADDRESS_ENTRY_NORMAL_2
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of OUT_3B_G,OUT_DOT_3D
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of PS_ADDRESS_SET_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F, OUT_2C_F
+	and inputs of PS_CONS_CYCLE_STOP,OUT_DOT_3D
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_D
+	and inputs of OUT_2A_B,OUT_2C_F
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_R
+	and inputs of MS_CONS_MX_30_POS
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of PS_DISPLAY_ROUTINE_2,OUT_DOT_3D
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_E, OUT_2E_E
+	and inputs of PS_CONS_ERROR_STOP,OUT_DOT_3D
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_2E_E,OUT_2F_F
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_B
+	and inputs of MS_CONS_MX_35_POS
+	and logic function of NOT
+Generating Statement for block at 2F with output pin(s) of OUT_2F_F, OUT_2F_F
+	and inputs of PS_CONSOLE_READ_OP,OUT_DOT_3D
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_B
+	and inputs of OUT_DOT_1E
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_E
+	and inputs of OUT_DOT_3D,PS_CONSOLE_WRITE_OP
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_D
+	and inputs of OUT_DOT_3D,PS_CONS_NORMAL_STOP
+	and logic function of NAND
+Generating Statement for block at 3I with output pin(s) of OUT_3I_C
+	and inputs of MV_CONS_CE_POUND_PRINT
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_C
+	and inputs of OUT_3I_C,OUT_DOT_3D,PS_ADDRESS_SET_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
+	and inputs of OUT_2B_G,OUT_3C_C
+	and logic function of OR
+Generating Statement for block at 1E with output pin(s) of OUT_DOT_1E
+	and inputs of OUT_1C_D,OUT_1E_C
+	and logic function of OR
+Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D, OUT_DOT_3D, OUT_DOT_3D, OUT_DOT_3D, OUT_DOT_3D, OUT_DOT_3D, OUT_DOT_3D, OUT_DOT_3D, OUT_DOT_3D
+	and inputs of OUT_3D_R,OUT_3F_B
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_SPECIAL_CHAR_C
+	from gate output OUT_2C_F
+Generating output sheet edge signal assignment to 
+	signal MS_SPECIAL_CHAR_D
+	from gate output OUT_2D_D
+Generating output sheet edge signal assignment to 
+	signal MS_SPECIAL_CHAR_E
+	from gate output OUT_2E_E
+Generating output sheet edge signal assignment to 
+	signal MS_SPECIAL_CHAR_I
+	from gate output OUT_2F_F
+Generating output sheet edge signal assignment to 
+	signal MS_SPECIAL_CHAR_A_C_E_I
+	from gate output OUT_1F_B
+Generating output sheet edge signal assignment to 
+	signal MS_SPECIAL_CHAR_R
+	from gate output OUT_2G_E
+Generating output sheet edge signal assignment to 
+	signal MS_SPECIAL_CHAR_S
+	from gate output OUT_2H_D
+Generating output sheet edge signal assignment to 
+	signal MS_SPECIAL_CHAR_POUND
+	from gate output OUT_2I_C
+Generating output sheet edge signal assignment to 
+	signal MS_SPECIAL_CHAR_B
+	from gate output OUT_DOT_1B
