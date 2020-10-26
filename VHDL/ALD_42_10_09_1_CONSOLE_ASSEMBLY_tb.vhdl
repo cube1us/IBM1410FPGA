@@ -176,9 +176,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "42.10.09.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**13 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -193,22 +193,29 @@ uut_process: process
       l := tv(10);
       m := tv(11);
       n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
-      
+		MS_CONSOLE_READ_OP <= not a;
+		MS_DISPLAY_ROUTINE <= not b;
+		MS_ADDRESS_SET_ROUTINE <= not c;
+		MS_ALTER_ROUTINE <= not d;
+		PS_CONS_MX_32_OR_33_POS <= e;
+		PS_DISPLAY_ROUTINE_2 <= f;
+		MS_CONS_MX_23_POS <= not g;
+		PS_CONSOLE_WRITE_OP <= h ;
+		PS_CONS_MX_32_POS <= j ;
+		MS_CONS_MX_X3_POS <= not k;
+		MS_CONS_MX_X2_POS <= not l;
+		MS_CONS_MX_X1_POS <= not m;
+		MV_2ND_CHECK_TEST_SWITCH <= not n;
+		
       wait for 30 ns;
       
+      check1(PS_GATE_CONSOLE_PRTR_TO_E1_IN,a or b or c or d,testName,"+S Gate Console to E1");
+      check1(MS_GATE_CONSOLE_PRTR_TO_E1_IN,not(a or b or c or d),testName,"+S Gate Console to E1");
+      check1(PS_CONS_B_DATA_CH_GATE,(e and f) or g,testName,"Cons B Data Ch Gate");
+      check1(PS_CONS_E2_REG_GATE,h and j,testName,"Cons E2 Reg Gate");
+      check1(PS_CONS_ADDR_REG_EXIT_GATE,k or l or m or n,testName,"Cons Addr Reg Exit Gate");
+      check1(MS_CONS_ADDR_REG_EXIT_GATE,not(k or l or m or n),testName,"Cons Addr Reg Exit Gate");
       
    end loop;
 
