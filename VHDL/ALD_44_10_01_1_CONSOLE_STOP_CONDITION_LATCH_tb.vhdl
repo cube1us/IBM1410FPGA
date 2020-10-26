@@ -230,11 +230,12 @@ uut_process: process
 		
 		check1(PS_CONSOLE_STOP_CONDITION_LATCH,g2,testName,"Set Cons Stop Cond Latch");
 
---    Don't understand why the following fails - it has to do with the DOT function at 3B
+      -- The Inhibit switch stops the print out even if this condition latch is set.
+      -- Man, that took a long time to work through.
 
---		check1(PS_CONS_STOP_PRINT_COMP_COND,
---		    NOT PS_CONSOLE_STOP_CONDITION_LATCH,
---		    testName,"Set Cons Stop Print Comp Cond");
+		check1(PS_CONS_STOP_PRINT_COMP_COND,
+		    NOT PS_CONSOLE_STOP_CONDITION_LATCH or k,
+		    testName,"Set Cons Stop Print Comp Cond");
 
 		check1(MS_CONSOLE_STOPPED,not(a and PS_CONS_STOP_PRINT_COMP_COND),testName,
 		    "Set Console Stopped");		    
