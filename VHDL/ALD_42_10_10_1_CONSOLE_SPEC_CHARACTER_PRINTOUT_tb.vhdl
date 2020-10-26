@@ -182,9 +182,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "42.10.10.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**12 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -198,24 +198,34 @@ uut_process: process
       k := tv(9);
       l := tv(10);
       m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
       
+      g1 := e or g;
+
+		PS_ALTER_ROUTINE <= a;
+		MV_CONS_ADDRESS_ENTRY_NORMAL_2 <= not b;
+		PS_CONS_CYCLE_STOP <= c;
+		PS_DISPLAY_ROUTINE_2 <= d;
+		MS_CONS_MX_30_POS <= not e;
+		PS_CONS_ERROR_STOP <= f;
+		MS_CONS_MX_35_POS <= not g;
+		PS_CONSOLE_READ_OP <= h;
+		PS_CONSOLE_WRITE_OP <=j ;
+		PS_CONS_NORMAL_STOP <= k;
+		PS_ADDRESS_SET_ROUTINE <= l;
+		MV_CONS_CE_POUND_PRINT <= not m;
+	      
       wait for 30 ns;
       
-      
+      check1(MS_SPECIAL_CHAR_B,not(b and l and g1),testName,"Special B");
+      check1(MS_SPECIAL_CHAR_C,not(c and g1),testName,"Special C");
+      check1(MS_SPECIAL_CHAR_D,not(d and g1),testName,"Special D");
+      check1(MS_SPECIAL_CHAR_E,not(f and g1),testName,"Special E");
+      check1(MS_SPECIAL_CHAR_A_C_E_I,not((a or c or f or h) and g1),testName,"Special A, C, E or I");
+      check1(MS_SPECIAL_CHAR_I,not(h and g1),testName,"Special I");
+      check1(MS_SPECIAL_CHAR_R,not(j and g1),testName,"Special R");
+      check1(MS_SPECIAL_CHAR_S,not(k and g1),testName,"Special S");
+      check1(MS_SPECIAL_CHAR_POUND,not(m and l and g1),testName,"Special #");
+                  
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
