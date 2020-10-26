@@ -179,40 +179,88 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "44.10.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      f := tv(3);
+      g := tv(4);
+      h := tv(5);
+      j := tv(6);
+      k := tv(7);
+      l := tv(8);
+      
+      g1 := not k and f and not g and not h and not j;
+      g2 := g1 or (not j and l);
+      g3 := not j and l;
+
+      -- Reset the latch
+      
+      MS_CONS_START_STOP_PRINT_OUT <= '0';
+      SWITCH_MOM_STARTPRINT <= '1'; -- Keep this from forcing it on...
+      wait for 30 ns;
+      MS_CONS_START_STOP_PRINT_OUT <= '1';
+      wait for 30 ns;
 
       
+      check1(PS_CONSOLE_STOP_CONDITION_LATCH,'0',testName,"Cons Stop Cond Latch Loop Reset");
+      
+      -- Maybe set the latch, holding the reset signals at bay except for the inhibit printout switch
+
+		PS_CONSOLE_HOME_POSITION <= a;
+		PS_CLOCK_STOPPED <= c;
+		PS_2ND_CLOCK_PULSE_2 <= f;
+		MS_DISPLAY_ROUTINE <= not g;
+		MV_CONS_MODE_SW_ALTER_MODE <= not h;
+		MS_CONS_STOP_PRINT_LATCH <= not j;
+		SWITCH_TOG_INHIBIT_PO_PL2 <= k; -- On inhibits printout
+		SWITCH_MOM_STARTPRINT <= not l; -- OFF starts printout (HDL is active high)
+		wait for 30 ns;
+		
+		check1(PS_CONSOLE_STOP_CONDITION_LATCH,g2,testName,"Set Cons Stop Cond Latch");
+		check1(PS_CONS_STOP_PRINT_COMP_COND,
+		    NOT PS_CONSOLE_STOP_CONDITION_LATCH or SWITCH_TOG_INHIBIT_PO_PL2,
+		    testName,"Set Cons Stop Print Comp Cond");
+		check1(MS_CONSOLE_STOPPED,not(a and NOT PS_CONSOLE_STOP_CONDITION_LATCH),testName,
+		    "Set Console Stopped");
+      check1(MS_CONS_STOP_PRINT_OUT_COND,not(PS_CONSOLE_STOP_CONDITION_LATCH and a and c),testName,
+         "Set Cons Stop Print Out Cond");
+      check1(MV_START_PRINT_SWITCH,not l,testName,"Start Print Switch");      						      
       wait for 30 ns;
-      
-      
+
+      -- Then maybe reset the latch...
+
+		MS_PROGRAM_RESET_4 <= not b;
+		-- Keep latch from being forced to stay set, as well...
+		PS_2ND_CLOCK_PULSE_2 <= '0';
+		SWITCH_MOM_STARTPRINT <= '1';  -- This means switch is OFF.
+		wait for 30 ns;
+
+		-- check1(PS_CONSOLE_STOP_CONDITION_LATCH,g2 and not b,testName,
+		--     "Reset Cons Stop Cond Latch");
+		check1(PS_CONS_STOP_PRINT_COMP_COND,NOT PS_CONSOLE_STOP_CONDITION_LATCH,testName,
+		    "Reset Cons Stop Print Comp Cond");
+		check1(MS_CONSOLE_STOPPED,not(a and NOT PS_CONSOLE_STOP_CONDITION_LATCH),testName,
+		    "Reset Console Stopped");
+      check1(MS_CONS_STOP_PRINT_OUT_COND,not(PS_CONSOLE_STOP_CONDITION_LATCH and a and c),testName,
+          "Reset Cons Stop Print Oout Cond");
+            
+      -- Reset variables for next iteration
+            
+   	PS_CONSOLE_HOME_POSITION <= '0';
+      MS_CONS_START_STOP_PRINT_OUT <= '1';
+      PS_CLOCK_STOPPED <= '0';
+      MS_PROGRAM_RESET_4 <= '1';
+      PS_2ND_CLOCK_PULSE_2 <= '0';
+      MS_DISPLAY_ROUTINE <= '1';
+      MV_CONS_MODE_SW_ALTER_MODE <= '1';
+      MS_CONS_STOP_PRINT_LATCH <= '1';
+      SWITCH_TOG_INHIBIT_PO_PL2 <= '0';
+      SWITCH_MOM_STARTPRINT <= '1'; -- This switch is upside down, active low
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
