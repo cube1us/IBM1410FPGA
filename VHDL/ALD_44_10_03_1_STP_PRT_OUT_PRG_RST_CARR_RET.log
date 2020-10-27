@@ -1,0 +1,56 @@
+Generating HDL for page 44.10.03.1 STP PRT OUT + PRG RST CARR RET at 10/27/2020 12:19:23 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_44_10_03_1_STP_PRT_OUT_PRG_RST_CARR_RET_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 4F
+Found combinatorial loop (need D FF) at output of gate at 3F
+Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Generating Statement for block at 5C with output pin(s) of OUT_5C_K, OUT_5C_K, OUT_5C_K
+	and inputs of PS_PROGRAM_RESET,MV_ERROR_CTRL_RESET_DOT_RESTART
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_C
+	and inputs of OUT_5C_K
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_K
+	and inputs of MS_CONS_STOP_RESET,OUT_5C_K
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_NoPin
+	and inputs of OUT_4C_C,PS_CONS_PRINTER_C2_CAM_NO
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_C
+	and inputs of OUT_4D_K,PS_CONS_PRINTER_NOT_BUSY,OUT_4F_G
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of OUT_5C_K,PS_CONS_STOP_PRINT_COMPLETE
+	and logic function of NAND
+Generating Statement for block at 4F with *latched* output pin(s) of OUT_4F_G_Latch, OUT_4F_G_Latch
+	and inputs of OUT_5F_NoPin,OUT_DOT_3G
+	and logic function of NAND
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_D_Latch
+	and inputs of OUT_2D_NoPin,OUT_4F_G
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_D
+	and inputs of MS_CONS_STOP_RESET
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_C
+	and inputs of OUT_5G_D,PS_CONS_CHECK_STROBE
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of OUT_4G_C
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_NoPin
+	and inputs of OUT_DOT_3G,MS_CONSOLE_CHECK_STROBE_1
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_F
+	and inputs of OUT_2G_NoPin
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G, OUT_DOT_3G
+	and inputs of OUT_3F_D,OUT_3G_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_STOP_PGM_RES_CARRIAGE_RETURN
+	from gate output OUT_3E_C
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_STOP_CR_COMPLETE
+	from gate output OUT_1G_F
+Generating D Flip Flop for block at 4F
+Generating D Flip Flop for block at 3F
