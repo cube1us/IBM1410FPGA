@@ -1,0 +1,114 @@
+Generating HDL for page 45.20.01.1 CONS CYCLE CTRL MATRIX DRIVE at 10/27/2020 3:01:08 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_20_01_1_CONS_CYCLE_CTRL_MATRIX_DRIVE_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1I has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Ignoring Logic Block 1C with symbol L
+Ignoring Logic Block 2D with symbol L
+Ignoring Logic Block 1D with symbol L
+Ignoring Logic Block 2F with symbol L
+Ignoring Logic Block 2I with symbol L
+Removed 2 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2G to ignored block(s) or identical signal names
+Removed 3 outputs from Dot Function at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_G
+	and inputs of MS_CONS_STOP_RESET
+	and logic function of NAND
+Generating Statement for block at 4A with output pin(s) of OUT_4A_B
+	and inputs of OUT_5A_G,PS_CONS_STOP_CR_COMPLETE,PS_MASTER_ERROR
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_K
+	and inputs of OUT_4A_B,MS_PROGRAM_RESET_4
+	and logic function of NAND
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B, OUT_2A_B
+	and inputs of OUT_3A_K
+	and logic function of EQUAL
+Generating Statement for block at 1A with output pin(s) of OUT_1A_D
+	and inputs of OUT_2A_B
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_3C_L
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C
+	and inputs of OUT_2A_B
+	and logic function of NOT
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D
+	and inputs of PS_CONS_MX_Y6_POS,PS_CONS_CLOCK_1_POS,PS_CONS_PRINTER_NOT_BUSY
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_L, OUT_3C_L
+	and inputs of OUT_DOT_4C
+	and logic function of EQUAL
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of OUT_3C_L
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of PS_PRTR_LOCKED_CND_PROCEED,MS_CONSOLE_CHECK_STROBE_1
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of PS_CONS_PRINTER_NOT_BUSY,PS_CONS_CLOCK_2_POS,PS_PRTR_LOCKED_CND_PROCEED
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_L, OUT_3E_L
+	and inputs of OUT_DOT_4E
+	and logic function of EQUAL
+Generating Statement for block at 2E with output pin(s) of OUT_2E_R
+	and inputs of OUT_3E_L
+	and logic function of NOT
+Generating Statement for block at 4F with output pin(s) of OUT_4F_G
+	and inputs of MS_CONSOLE_CHECK_STROBE_1
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of PS_CONS_MX_X1A_POS,PS_CONS_PRINTER_STROBE,PS_CONS_CLOCK_4_POS
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D
+	and inputs of OUT_4G_NoPin
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_F
+	and inputs of OUT_3E_L
+	and logic function of NOT
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of PS_ALTER_ROUTINE,PS_D_CYCLE
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_F
+	and inputs of OUT_DOT_4H
+	and logic function of NOT
+Generating Statement for block at 4I with output pin(s) of OUT_4I_D
+	and inputs of PS_NO_SCAN,PS_LOGIC_GATE_D_1
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_D,OUT_4D_C
+	and logic function of OR
+Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E
+	and inputs of OUT_4E_C,OUT_4F_G
+	and logic function of OR
+Generating Statement for block at 4H with output pin(s) of OUT_DOT_4H
+	and inputs of OUT_4H_G,OUT_4I_D
+	and logic function of OR
+Generating Statement for block at 1I with output pin(s) of OUT_DOT_1I
+	and inputs of OUT_3G_D,OUT_3H_F
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_Y_DC_RESET
+	from gate output OUT_1A_D
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_X_DRIVE_1
+	from gate output OUT_2B_D
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_X_DC_RESET
+	from gate output OUT_1B_C
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_X_DRIVE_2
+	from gate output OUT_2C_D
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_Y_DRIVE_1
+	from gate output OUT_2E_R
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_Y_DRIVE_2
+	from gate output OUT_2G_F
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_ADDR_DRIVE
+	from gate output OUT_DOT_1I
