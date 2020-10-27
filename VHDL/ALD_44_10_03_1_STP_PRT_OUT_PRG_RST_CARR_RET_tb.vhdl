@@ -82,6 +82,7 @@ procedure check1(
     end procedure;
       
 
+signal sigG1, sigG2, sigG3, sigG4, sigLast: std_logic;
 
    -- Your test bench declarations go here
 
@@ -144,14 +145,27 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   
+   variable lastState: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
-
-   for tt in 0 to 2**25 loop
+   testName := "44.10.03.1        ";
+   
+   -- Force a SET
+   
+   PS_PROGRAM_RESET <= '1';
+   MV_ERROR_CTRL_RESET_DOT_RESTART <= '1';
+   PS_CONS_PRINTER_C2_CAM_NO <= '1';
+   MS_CONSOLE_CHECK_STROBE_1 <= '1';
+   wait for 30 ns;
+   check1(PS_CONS_STOP_CR_COMPLETE,'1',testName,"Cons Stop Cr Complete Initial reset");
+   
+   lastState := '1';
+   
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -161,28 +175,45 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := a and not b;
+      g2 := (g and d) or (c and g1);
+      g3 := not g1 and f;
+      
+      g4 := (lastState or g2) and not g3; -- Expected New latch state
 
+      -- If we would be both setting and resetting the latch, skip this iteration
+      
+      if(g2 = '1' and g3 = '1') then
+         next;
+      end if;
+      
+      -- Maybe set the latch or maybe reset it -- or maybe neither.
+      
+		PS_PROGRAM_RESET <= a;
+      MV_ERROR_CTRL_RESET_DOT_RESTART <= not b;
+      PS_CONS_PRINTER_C2_CAM_NO <= c;
+      MS_CONS_STOP_RESET <= not d;
+      PS_CONS_PRINTER_NOT_BUSY <= e;
+      PS_CONS_STOP_PRINT_COMPLETE <= f;
+      PS_CONS_CHECK_STROBE <= g;
+      MS_CONSOLE_CHECK_STROBE_1 <= not h;            
+
+      sigG1 <= g1;
+      sigG2 <= g2;
+      sigG3 <= g3;
+      sigG4 <= g4;
+      sigLast <= lastState;
       
       wait for 30 ns;
       
-      
+      check1(PS_CONS_STOP_CR_COMPLETE,g4 and not h,testName,
+         "Cons Stop Cr Complete");
+      check1(MS_STOP_PGM_RES_CARRIAGE_RETURN,not(not g4 and (g1 or d) and e),
+         testname,"Set Stop PGM Res CR");
+         
+      lastState := g4;  -- Starting state for next time
+         
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
