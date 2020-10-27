@@ -197,39 +197,85 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "44.10.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**15 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
+      n := tv(11);
+      o := tv(12);
+      p := tv(13);
+      q := tv(14);
       
+      g1 := (h or j) and f and e and d;
+
+      -- Reset the latch one of two ways
+      
+      MS_PROGRAM_RESET_4 <= c;
+      MS_CONSOLE_STOPPED <= not c;
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
+      MS_CONSOLE_STOPPED <= '1';
       wait for 30 ns;
       
+      check1(PS_CONS_STOP_PRINT_LATCH,'0',testName,"Loop Reset +S Cons Stop Print Latch");
+      check1(MS_CONS_STOP_PRINT_LATCH,'1',testName,"Loop Reset -S Cons Stop Print Latch");
+      
+		PS_CONSOLE_STOP_CONDITION_LATCH <= a;
+      PS_CONSOLE_HOME_POSITION <= d;
+      PS_CONS_CLOCK_4_POS <= e;
+      PS_CONS_STOP_CR_COMPLETE <= f;
+      PS_CONS_STOP_PRINT_COMP_COND <= g;
+      MS_CONS_STOP_PRINT_OUT_COND <= not h;
+      MV_START_PRINT_SWITCH <= not j;
+      PS_CONS_MX_35_POS <= k;
+      PS_CONS_CLOCK_3_POS <= l;
+      PS_MASTER_ERROR <= m;
+      MV_CONS_CYCLE_CTRL_LOGIC_STEP <= not n;
+      MV_CONS_CYCLE_CTRL_STOR_SCAN <= not o;
+      MV_CONS_MODE_SW_I_E_CYCLE_MODE <= not p;
+      MS_MASTER_ERROR <= not q;            
+      wait for 30 ns;
+      
+		check1(PS_CONS_STOP_PRINT_LATCH,g1,testName,"Set +S Cons Stop Print Latch");
+      check1(MS_CONS_STOP_PRINT_LATCH,not g1,testName,"Set -S Cons Stop Print Latch");
+      check1(MS_CONS_STOP_PRINT_MX_GATE,not(g1 and a),testName,"Set Cons Stop Print MX Gate");
+      check1(PS_CONS_STOP_PRINT_COMPLETE,not g1 and g,testName,"Set Cons Stop Print Complete");
+      check1(MS_CONS_STOP_RESET,not(not g1 and (h or j)),testName,"Set Cons Stop Reset");
+      check1(MS_CONS_START_STOP_PRINT_OUT,not(g1 and k and l),testName,"Set Cons Start Stop Print Out");
+      check1(PS_CONS_ERROR_STOP,g1 and m,testName,"Set Error Stop");
+      check1(PS_LOGIC_STEP_OR_IE_OR_STG_CY_STAR_AUTS_STAR,n or o or p,testName,"Logic Step + IE + Storage Cycle");
+      check1(PS_CONS_CYCLE_STOP,g1 and not q and (n or o or p),testName,"Set Cons Cycle Stop");
+      check1(PS_CONS_NORMAL_STOP,g1 and not q,testName,"Set Cons Normal Stop");
+      wait for 30 ns;
+      
+      -- Reset the variables so we don't hold latch set for next loop iteration reset
+      
+  		PS_CONSOLE_STOP_CONDITION_LATCH <= '0';
+      PS_CONSOLE_HOME_POSITION <= '0';
+      PS_CONS_CLOCK_4_POS <= '0';
+      PS_CONS_STOP_CR_COMPLETE <= '0';
+      PS_CONS_STOP_PRINT_COMP_COND <= '0';
+      MS_CONS_STOP_PRINT_OUT_COND <= '1';
+      MV_START_PRINT_SWITCH <= '1';
+      PS_CONS_MX_35_POS <= '0';
+      PS_CONS_CLOCK_3_POS <= '0';
+      PS_MASTER_ERROR <= '0';
+      MV_CONS_CYCLE_CTRL_LOGIC_STEP <= '1';
+      MV_CONS_CYCLE_CTRL_STOR_SCAN <= '1';
+      MV_CONS_MODE_SW_I_E_CYCLE_MODE <= '1';
+      MS_MASTER_ERROR <= '1';            
+
       
    end loop;
 
@@ -244,7 +290,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 10 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
