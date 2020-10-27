@@ -75,6 +75,17 @@ procedure check1(
     assert checked = val report testname & " (" & test & ") failed." severity failure;
     end procedure;
       
+procedure checkState(
+        checked: in STD_LOGIC_VECTOR(4 downto 1);
+        val: in STD_LOGIC_VECTOR(4 downto 1);
+        testname: in string;
+        test: in string) is
+        begin
+           for thebit in 1 to 4 loop
+             assert checked(thebit) = val(thebit) report
+                testname & " (" & test & ") bit " & Integer'image(thebit) & " failed." severity failure; 
+           end loop;
+        end procedure;
 
 
    -- Your test bench declarations go here
@@ -135,46 +146,47 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   
+   variable nextState: std_logic_vector(4 downto 1) := "0001";
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.10.01.1        ";
 
-   for tt in 0 to 2**25 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+   -- Reset
+   
+   MS_PROGRAM_RESET_4 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_4 <= '1';
+   wait for 30 ns;
+   
+   for tt in 1 to 22 loop
+   
+      checkState(PS_CONS_CLOCK_4_POS & PS_CONS_CLOCK_3_POS & PS_CONS_CLOCK_2_POS & PS_CONS_CLOCK_1_POS,
+         nextState,testName,"Console Clock State check");
+      check1(PS_CONS_CLOCK_3_POS_1,PS_CONS_CLOCK_3_POS,testName,"CC3");
 
-      
+      nextState := PS_CONS_CLOCK_3_POS & PS_CONS_CLOCK_2_POS & PS_CONS_CLOCK_1_POS & PS_CONS_CLOCK_4_POS;
+            
+      PS_OSCILLATOR <= '1';
+      wait for 30 ns;
+      PS_OSCILLATOR <= '0';
       wait for 30 ns;
       
-      
    end loop;
+   
+   -- Test Reset again
+   
+   MS_PROGRAM_RESET_4 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_4 <= '1';
+   wait for 30 ns;
+   nextState := "0001";   
+   checkState(PS_CONS_CLOCK_4_POS & PS_CONS_CLOCK_3_POS & PS_CONS_CLOCK_2_POS & PS_CONS_CLOCK_1_POS,
+      nextState,testName,"Reset Console Clock State check");
+
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
