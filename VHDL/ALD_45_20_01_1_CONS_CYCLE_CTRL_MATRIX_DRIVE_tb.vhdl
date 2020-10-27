@@ -191,9 +191,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.20.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**17 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -212,19 +212,36 @@ uut_process: process
       p := tv(14);
       q := tv(15);
       r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		MS_PROGRAM_RESET_4 <= not a;
+		MS_CONS_STOP_RESET <= not b;
+		PS_MASTER_ERROR <= c;
+		PS_CONS_STOP_CR_COMPLETE <= d;
+		PS_CONS_MX_Y6_POS <= e;
+		PS_CONS_CLOCK_1_POS <= f;
+		PS_CONS_PRINTER_NOT_BUSY <= g;
+		PS_PRTR_LOCKED_CND_PROCEED <= h;
+		PS_CONS_CLOCK_2_POS <= j;
+		MS_CONSOLE_CHECK_STROBE_1 <= not k;
+		PS_CONS_MX_X1A_POS <= l;
+		PS_CONS_PRINTER_STROBE <= m;
+		PS_CONS_CLOCK_4_POS <= n;
+		PS_ALTER_ROUTINE <= o;
+		PS_D_CYCLE <= p;
+		PS_NO_SCAN <= q;
+		PS_LOGIC_GATE_D_1 <= r;
       
       wait for 30 ns;
-      
-      
+
+		check1(MS_CONS_MX_Y_DC_RESET,not((b and c and d) or a),testName,"CONS MX Y DC Reset");
+		check1(MS_CONS_MX_X_DC_RESET,MS_CONS_MX_Y_DC_RESET,testName,"CONS MX X DC Reset");
+		check1(PS_CONS_MX_X_DRIVE_1,e and f and g and h and not k,testName,"Cons MX X Drive 1");
+		check1(PS_CONS_MX_X_DRIVE_2,PS_CONS_MX_X_DRIVE_1,testName,"Cons MX X Drive 2");
+		check1(PS_CONS_MX_Y_DRIVE_1,g and j and h and not k,testName,"Cons MX Y Drive 1");
+		check1(PS_CONS_MX_Y_DRIVE_2,PS_CONS_MX_Y_DRIVE_1,testName,"Cons MX Y Drive 2");
+		check1(PS_CONS_MX_ADDR_DRIVE,(l and m and n) or (o and p and q and r),testName,
+		    "Cons MX Addr Drive");
+            
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -238,7 +255,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 5 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
