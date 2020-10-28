@@ -1,0 +1,110 @@
+Generating HDL for page 45.20.03.1 CONS CYCLE CTRL MATRIX Y3+Y4-ACC at 10/28/2020 1:43:56 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_20_03_1_CONS_CYCLE_CTRL_MATRIX_Y3_Y4_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 5C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Processing extension from block at 3C (Database ID=276853) to 3D (Database ID=276856)
+Copied connection to extension input pin K to master block at 3C
+Copied connection to extension input pin L to master block at 3C
+Copied connection to extension input pin Q to master block at 3C
+Copied connection to extension input pin H to master block at 3C
+Copied connection to extension input pin R to master block at 3C
+Copied connection from extension output pin B to master block at 3C
+Copied mapped pin A from extension 3D to master block at 3C
+Copied mapped pin B from extension 3D to master block at 3C
+Copied mapped pin D from extension 3D to master block at 3C
+Copied mapped pin E from extension 3D to master block at 3C
+Copied mapped pin F from extension 3D to master block at 3C
+Copied mapped pin H from extension 3D to master block at 3C
+Moved connection from extension 3D pin B to be from master at 3C
+Processing extension from block at 3G (Database ID=276863) to 3H (Database ID=276864)
+Copied connection to extension input pin K to master block at 3G
+Copied connection to extension input pin L to master block at 3G
+Copied connection to extension input pin R to master block at 3G
+Copied connection to extension input pin Q to master block at 3G
+Copied connection to extension input pin H to master block at 3G
+Copied connection from extension output pin B to master block at 3G
+Copied mapped pin A from extension 3H to master block at 3G
+Copied mapped pin B from extension 3H to master block at 3G
+Copied mapped pin D from extension 3H to master block at 3G
+Copied mapped pin E from extension 3H to master block at 3G
+Copied mapped pin F from extension 3H to master block at 3G
+Copied mapped pin H from extension 3H to master block at 3G
+Moved connection from extension 3H pin B to be from master at 3G
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 2D to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2H to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_C
+	and inputs of OUT_2H_B,MS_CONS_MX_X6_POS
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_A
+	and inputs of MS_DISPLAY_ROUTINE,MS_ALTER_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_B, OUT_4C_B
+	and inputs of OUT_5B_C,OUT_DOT_5C,MS_END_STOP_DATA
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_P, OUT_3C_B
+	and inputs of OUT_4C_B,PS_CONS_MX_Y_DRIVE_1,OUT_4I_G,PS_CONS_MX_ADDR_DRIVE,OUT_2D_R,PS_CONS_MX_Y_DRIVE_1,PS_CONS_MX_ADDR_DRIVE,MS_CONS_MX_Y_DC_RESET,OUT_2D_R
+	and logic function of Trigger
+Generating Statement for block at 2C with output pin(s) of OUT_2C_K
+	and inputs of OUT_3C_P
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_G
+	and inputs of PS_CONS_MX_X6_POS,OUT_2H_B
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_R, OUT_2D_R, OUT_2D_R, OUT_2D_R
+	and inputs of OUT_3C_B
+	and logic function of NOT
+Generating Statement for block at 1E with output pin(s) of OUT_1E_3
+	and inputs of OUT_2D_R,PS_CONS_MX_X6_POS
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of MS_CONS_MX_X6_POS,PS_CONS_MX_Y2_POS
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_G
+	and inputs of MS_ALTER_ROUTINE,MS_CONSOLE_READ_OP,MS_CONSOLE_WRITE_OP
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_D, OUT_4G_D
+	and inputs of OUT_5F_NoPin,OUT_DOT_5G
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P, OUT_3G_B
+	and inputs of OUT_4G_D,PS_CONS_MX_Y_DRIVE_1,PS_RESET_CONS_MX_Y2_POS,PS_CONS_MX_ADDR_DRIVE,OUT_4C_B,PS_CONS_MX_Y_DRIVE_1,OUT_4I_G,PS_CONS_MX_ADDR_DRIVE,MS_CONS_MX_Y_DC_RESET
+	and logic function of Trigger
+Generating Statement for block at 2G with output pin(s) of OUT_2G_P
+	and inputs of OUT_3G_P
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_G
+	and inputs of PS_CONS_MX_Y2_POS,PS_CONS_MX_X6_POS
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_B, OUT_2H_B, OUT_2H_B, OUT_2H_B
+	and inputs of OUT_3G_B
+	and logic function of NOT
+Generating Statement for block at 5I with output pin(s) of OUT_5I_NoPin
+	and inputs of OUT_2H_B,PS_ADDRESS_SET_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 4I with output pin(s) of OUT_4I_G, OUT_4I_G
+	and inputs of OUT_5I_NoPin
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_DOT_5C
+	and inputs of OUT_5C_A,OUT_5D_G
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of OUT_5G_G,OUT_5H_G
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_Y4_POS
+	from gate output OUT_2C_K
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_Y4_POS
+	from gate output OUT_2D_R
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_OP_COMPLETE
+	from gate output OUT_1E_3
+Generating output sheet edge signal assignment to 
+	signal PS_SET_CONS_MX_Y3_POS
+	from gate output OUT_4G_D
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_Y3_POS
+	from gate output OUT_2G_P
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_Y3_POS
+	from gate output OUT_2H_B
