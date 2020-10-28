@@ -164,41 +164,195 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.20.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**9 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      b := tv(1);
+      c := tv(2);
+      f := tv(3);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+
+      g1 := g and not h and not j;
+      
+      -- Reset 
+      
+      MS_CONS_MX_Y_DC_RESET <= '0';
+      wait for 30 ns;
+      MS_CONS_MX_Y_DC_RESET <= '1';
+      wait for 30 ns;
+      
+      check1(PS_CONS_MX_Y1_POS,'0',testName,"Init +S Y1");
+      check1(MS_CONS_MX_Y1_POS,'1',testName,"Init -S Y1");
+      
+      -- Now, maybe set the trigger.  First, the setup
+
+		PS_ALTER_ROUTINE <= a;
+		PS_CONS_MX_X6_POS <= b;
+		PS_CONS_MX_X1A_POS <= c;
+		PS_CONS_MX_Y_DRIVE_1 <= '0';
+		PS_CONS_MX_ADDR_DRIVE <= '0'; -- Involved in reset
+		PS_CONS_MX_Y6_POS <= g;
+		MS_ADDRESS_SET_COMPLETE <= not h;
+		MS_DISPLAY_ADDR_COMPLETE <= not j;
+		PS_SET_CONS_MX_Y3_POS <= k;
+
+      -- Then run the Y Drive clock to maybe set the trigger
+      
+      PS_CONS_MX_Y_DRIVE_1 <= '1';
+      wait for 90 ns;
+      PS_CONS_MX_Y_DRIVE_1 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_Y1_POS,g1,testName,"Set +S Y1");
+      check1(MS_CONS_MX_Y1_POS,not g1,testName,"Set -S Y1");
+
+      -- Reset the set side signals.  Should not disturb the trigger at this point
+
+		PS_ALTER_ROUTINE <= '0';
+		PS_CONS_MX_X6_POS <= '0';
+		PS_CONS_MX_X1A_POS <= '0';
+		PS_CONS_MX_Y6_POS <= '0';
+		MS_ADDRESS_SET_COMPLETE <= '1';
+		MS_DISPLAY_ADDR_COMPLETE <= '1';
+		PS_SET_CONS_MX_Y3_POS <= '0';		
+
+      check1(PS_CONS_MX_Y1_POS,g1,testName,"Set check +S Y1");
+      check1(MS_CONS_MX_Y1_POS,not g1,testName,"Set check -S Y1");
+      
+      -- Now, reset the trigger using one of two signals
+      -- (in real operation, this would advance the trigger as well if it were set)
+      
+		PS_CONS_MX_ADDR_DRIVE <= f;
+		PS_CONS_MX_Y_DRIVE_1 <= not f;
+      wait for 90 ns;
+      
+      check1(PS_CONS_MX_Y1_POS,'0',testName,"Reset +S Y1");
+      check1(MS_CONS_MX_Y1_POS,'1',testName,"Reset -S Y1");
+      
+		PS_CONS_MX_ADDR_DRIVE <= '0';
+      PS_CONS_MX_Y_DRIVE_1 <= '0';
+      wait for 90 ns;
+      
+      check1(PS_CONS_MX_Y1_POS,'0',testName,"Reset Check +S Y1");
+      check1(MS_CONS_MX_Y1_POS,'1',testName,"Reset Check -S Y1");
+      
+      wait for 30 ns;      
+      
+   end loop;
+   
+   
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
 
+      g1 := g and not h and not j;
+      -- Reset Y1 AND Y2
       
+      MS_CONS_MX_Y_DC_RESET <= '0';
+      wait for 30 ns;
+      MS_CONS_MX_Y_DC_RESET <= '1';
       wait for 30 ns;
       
+      check1(PS_CONS_MX_Y2_POS,'0',testname,"Init +S Y2");      
+      check1(MS_CONS_MX_Y2_POS,'1',testname,"Init -S Y2");
       
-   end loop;
+      -- Maybe set Y1      
+
+		PS_ALTER_ROUTINE <= '0';
+		PS_CONS_MX_X6_POS <= '0';
+		PS_CONS_MX_X1A_POS <= '0';
+		PS_CONS_MX_Y6_POS <= g;
+		MS_ADDRESS_SET_COMPLETE <= not h;
+		MS_DISPLAY_ADDR_COMPLETE <= not j;
+		PS_SET_CONS_MX_Y3_POS <= k;
+
+      -- Then run the Y Drive clock to maybe set the trigger
+      
+      PS_CONS_MX_Y_DRIVE_1 <= '1';
+      wait for 90 ns;
+      PS_CONS_MX_Y_DRIVE_1 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_Y1_POS,g1,testName,"Y2 test Set +S Y1");
+      check1(MS_CONS_MX_Y1_POS,not g1,testName,"Y2 test Set -S Y1");
+
+      -- Turn off the Y1 set side signals    
+      
+		PS_CONS_MX_Y6_POS <= '0';
+      MS_ADDRESS_SET_COMPLETE <= '1';
+      MS_DISPLAY_ADDR_COMPLETE <= '1';
+      PS_SET_CONS_MX_Y3_POS <= '0';      
+      
+      -- Now, reset the trigger using one of two advance signals
+      -- This may also set Y2
+      
+      PS_CONS_MX_ADDR_DRIVE <= f;
+      PS_CONS_MX_Y_DRIVE_1 <= not f;
+      wait for 90 ns;
+
+      PS_CONS_MX_ADDR_DRIVE <= '0';
+      PS_CONS_MX_Y_DRIVE_1 <= '0';
+      
+      wait for 90 ns;
+      
+      check1(PS_CONS_MX_Y1_POS,'0',testName,"Y2 Test Advance +S Y1");
+      check1(MS_CONS_MX_Y1_POS,'1',testName,"Y2 Test Advance -S Y1");
+      
+      -- And check Y2 to see if it was supposed to set and if so, did it?
+      
+      check1(PS_CONS_MX_Y2_POS,g1,testName,"Set +S Y2");
+      check1(MS_CONS_MX_Y2_POS,not g1,testName,"Set 1S Y2");
+      
+      -- If it wasn't supposed to set, ignore the rest of the test
+      
+      if(g1 = '0') then
+         next;
+      end if;
+
+      -- Set up signals for a possible Y2 reset
+
+		PS_ALTER_ROUTINE <= a;
+		PS_CONS_MX_X6_POS <= b;
+		PS_CONS_MX_X1A_POS <= c;
+		PS_CONS_MX_Y6_POS <= '0'; -- So Y1 doesn't set again
+		MS_ADDRESS_SET_COMPLETE <= '1';
+		MS_DISPLAY_ADDR_COMPLETE <= '1';
+		PS_SET_CONS_MX_Y3_POS <= k;
+		wait for 30 ns;
+		
+		check1(PS_RESET_CONS_MX_Y2_POS,(g1 and a and b) or (g1 and c),testName,
+		 "Reset CONS MX Y2 POS");
+      
+      -- Possibly run one of the two gate off / ac reset signals.  Note that at this point
+      -- Y1 is off.
+
+      PS_CONS_MX_ADDR_DRIVE <= f;
+      PS_CONS_MX_Y_DRIVE_1 <= d;
+      wait for 90 ns;
+
+      PS_CONS_MX_ADDR_DRIVE <= '0';
+      PS_CONS_MX_Y_DRIVE_1 <= '0';
+      wait for 90 ns;
+      
+      g3 := (f and (c or (a and b))) or (d and k); -- If true, should reset
+      
+      check1(PS_CONS_MX_Y2_POS,g1 and not g3,testName,"+S Y2 Reset Test");
+      check1(MS_CONS_MX_Y2_POS,not(g1 and not g3),testName,"-S Y2 Reset Test");
+      
+   end loop;   
 
    assert false report "Simulation Ended NORMALLY" severity failure;
 
