@@ -171,14 +171,16 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   
+   variable y3gateon1, y3gateon2, y3gateoff1, y3gateoff2, y3set, y4set: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.20.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**11 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -186,30 +188,110 @@ uut_process: process
       d := tv(3);
       e := tv(4);
       f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      j := tv(6);
+      k := tv(7);
+      l := tv(8);
+      m := tv(9);
+      n := tv(10);
 
-      
+      y3gateon1 := (not a and m) or (not c and not j and not k and e and m);
+      y3gateon2 := l;
+      y3gateoff1 := n;  -- Y3 itself is implied
+      y3gateoff2 := a or (not b and not c and e); -- Y3 itself is implied
+      y3set := (y3gateon1 and not f) or (y3gateon2 and f);
+      y4set := (not a or (not b and not c and e) or d) and not f;  -- assumes y3 is set...
+           
+      -- Reset
+
+      MS_CONS_MX_Y_DC_RESET <= '0';
+      wait for 30 ns;
+      MS_CONS_MX_Y_DC_RESET <= '1';
       wait for 30 ns;
       
+      check1(PS_CONS_MX_Y3_POS,'0',testname,"Init +S Y3");      
+      check1(MS_CONS_MX_Y3_POS,'1',testname,"Init -S Y3");
+      check1(PS_CONS_MX_Y4_POS,'0',testname,"Init +S Y4");      
+      check1(MS_CONS_MX_Y4_POS,'1',testname,"Init -S Y4");
+
+      -- Now maybe set the trigger.  First, the setup.
+      -- Since all of the GateOff inputs are qualified by the trigger itself,
+      -- we can use all of the non AC variables.
+      -- Also, since y3 is not set, Y4 will not set at this point either.
       
+		MS_CONS_MX_X6_POS <= not a;
+      MS_DISPLAY_ROUTINE <= not b;
+      MS_ALTER_ROUTINE <= not c;
+      MS_END_STOP_DATA <= '1';  -- Don't set yet, as it can set Y4
+      PS_CONS_MX_X6_POS <= e;
+      MS_CONSOLE_READ_OP <= not j;
+      MS_CONSOLE_WRITE_OP <= not k;
+      PS_RESET_CONS_MX_Y2_POS <= l;
+      PS_CONS_MX_Y2_POS <= m;
+      PS_ADDRESS_SET_ROUTINE <= n;            
+      wait for 30 ns;
+      
+      -- Run one of the clocks
+      
+      PS_CONS_MX_ADDR_DRIVE <= f;
+      PS_CONS_MX_Y_DRIVE_1 <= not f;
+      wait for 90 ns;
+      PS_CONS_MX_ADDR_DRIVE <= '0';
+      PS_CONS_MX_Y_DRIVE_1 <= '0';
+      wait for 90 ns;
+      
+      check1(PS_CONS_MX_Y3_POS,y3set,testName,"+S Y3 Set");
+      check1(MS_CONS_MX_Y3_POS,not PS_CONS_MX_Y3_POS,testName,"-S Y3 Set");
+      check1(PS_SET_CONS_MX_Y3_POS,y3gateon1,testname,"Set Cons MX Y3");
+
+      check1(PS_CONS_MX_Y4_POS,'0',testname,"Y3 Set - +S Y4");      
+      check1(MS_CONS_MX_Y4_POS,'1',testname,"Y3 Set - -S Y4");
+      
+      if(y3set = '0') then
+         next;
+      end if;
+      
+      -- Set up for a possible reset by removing the gate on signals
+      -- At this point Y4 may ALSO set
+      
+      PS_CONS_MX_Y2_POS <= '0';
+      PS_RESET_CONS_MX_Y2_POS <= '0';
+      MS_END_STOP_DATA <= not d;  -- Set this now.  It may reset Y3 and set Y4       
+      wait for 30 ns;
+      
+      -- Again, run one of the clocks (note that coming into this point Y3 is set)
+      
+      PS_CONS_MX_ADDR_DRIVE <= f;
+      PS_CONS_MX_Y_DRIVE_1 <= not f;
+      wait for 90 ns;
+      PS_CONS_MX_ADDR_DRIVE <= '0';
+      PS_CONS_MX_Y_DRIVE_1 <= '0';
+      wait for 90 ns;
+      
+      check1(PS_CONS_MX_Y3_POS,not(n and f) and not(y4set),testName,"Reset +S Y3 Pos");
+      check1(MS_CONS_MX_Y3_POS,not PS_CONS_MX_Y3_POS,testName,"Reset -S Y3 Pos");         
+
+      -- Check the possible y4 set
+      
+      check1(PS_CONS_MX_Y4_POS,y4set or (n and f),testName,"+S Y4 Set");
+      check1(MS_CONS_MX_Y4_POS,not PS_CONS_MX_Y4_POS,testName,"-S Y4 Set");
+      
+      check1(MS_CONSOLE_OP_COMPLETE,not(PS_CONS_MX_Y4_POS and PS_CONS_MX_X6_POS),
+         testName,"Console Op Complete");
+      
+      -- With the next clock of EITHER sort, Y4 should reset
+      -- Just need to make sure it isn't forced set.
+      
+      PS_CONS_MX_ADDR_DRIVE <= f;
+      PS_CONS_MX_Y_DRIVE_1 <= not f;
+      MS_END_STOP_DATA <= '1';       
+      wait for 90 ns;
+      PS_CONS_MX_ADDR_DRIVE <= '0';
+      PS_CONS_MX_Y_DRIVE_1 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_Y4_POS,'0',testname,"+S Y4 Reset");      
+      check1(MS_CONS_MX_Y4_POS,'1',testname,"-S Y4 Reset");
+                              
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
