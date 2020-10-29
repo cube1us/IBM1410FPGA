@@ -183,45 +183,160 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
-
+   
+   variable y5gateon1, y6reset: std_logic;
+   
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.20.04.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**13 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
       e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      l := tv(8);
+      m := tv(9);
+      n := tv(10);
+      o := tv(11);
+      p := tv(12);
 
-      
+      y5gateon1 := (n or m or l) and not j;
+      y6reset := not(not d and e and g);
+
+      -- Reset
+
+      MS_CONS_MX_Y_DC_RESET <= '0';
+      wait for 30 ns;
+      MS_CONS_MX_Y_DC_RESET <= '1';
       wait for 30 ns;
       
+      check1(PS_CONS_MX_Y5_POS,'0',testname,"Init +S Y5");      
+      check1(MS_CONS_MX_Y5_POS,'1',testname,"Init -S Y5");
+      check1(PS_CONS_MX_Y6_POS,'0',testname,"Init +S Y6");      
+      check1(MS_CONS_MX_Y6_POS,'1',testname,"Init -S Y6");
+
+      -- Now maybe set the trigger.  First, the setup.
+      -- Since the gateoff for Y5 is Y5 itself, we can use all of the 
+      -- non AC variables.
+      -- Also, Since Y5 is not set, Y6 will not set at this point either.
+
+		MS_CONS_GATE_POS_30 <= '1'; -- Prevent Y6 from setting too early in the test
+		MS_DISPLAY_ROUTINE <= not c;
+		MS_ADDRESS_SET_ROUTINE <= not d;
+		PS_CONS_MX_X1A_POS <= e;
+		PS_DISPLAY_ROUTINE_2 <= g;
+		PS_CONS_MX_Y4_POS <= h;
+		MS_CONSOLE_OP_COMPLETE <= not j;
+		MS_CONSOLE_CYCLE_START <= not l;
+		MS_CONS_STOP_PRINT_MX_GATE <= not m;
+		MS_CONS_MX_Y4_POS <= not n;
+		PS_CONS_MX_X5_POS <= o;
+		PS_CONS_STOP_PRINT_LATCH <= p;
+
+      -- Run one of the clocks
       
+      PS_CONS_MX_Y_DRIVE_2 <= b;
+      PS_CONS_MX_ADDR_DRIVE <= not b;
+      wait for 90 ns;
+      PS_CONS_MX_ADDR_DRIVE <= '0';
+      PS_CONS_MX_Y_DRIVE_2 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_Y5_POS,(y5gateon1 and b) or (h and not b),testname,"+S Y5 Set");
+      check1(MS_CONS_MX_Y5_POS,NOT PS_CONS_MX_Y5_POS,testname,"-S Y5 Set");
+      
+      -- Checks we need to do while Y5 might be set or not set
+      
+      check1(MS_END_STOP_DATA,not(PS_CONS_MX_Y5_POS and o and p),testName,
+         "END STOP DATA");
+         
+      -- If it was not supposed to be set, there is little point continuing
+      
+      if(PS_CONS_MX_Y5_POS = '0') then
+         next;
+      end if;
+      
+      -- Set up for a possible reset by removing the gate on signals
+
+      PS_CONS_MX_Y4_POS <= '0';
+      MS_CONS_MX_Y4_POS <= '1';
+      MS_CONSOLE_OP_COMPLETE <= '0';
+		MS_CONS_GATE_POS_30 <= not a;
+            
+      -- Run one of the two clocks again (only the Y drive clock will reset Y5)      
+      
+      PS_CONS_MX_Y_DRIVE_2 <= b;
+      PS_CONS_MX_ADDR_DRIVE <= not b;
+      wait for 90 ns;
+      PS_CONS_MX_ADDR_DRIVE <= '0';
+      PS_CONS_MX_Y_DRIVE_2 <= '0';
+      wait for 90 ns;
+      
+      -- The only way Y5 stays set is if the Y Drive signal didn't activate
+      
+      check1(PS_CONS_MX_Y5_POS,not b,testName,"+S Y5 Reset");
+      check1(MS_CONS_MX_Y5_POS,NOT PS_CONS_MX_Y5_POS,testName,"-S Y5 Reset");
+
+      -- Check the Y6 set.  It's complicated...  It can set from Y5 only if
+      -- we didnt get to X5 (variable o) or the Console Print Latch (variable p).
+      -- But it can also set without Y5 under the same conditions if Consolte Gate
+      -- Position 30 is set (variable a).  Only one clock can actually set it.            
+
+      check1(PS_CONS_MX_Y6_POS,
+         (((y5gateon1 and b) or (h and not b)) or a) and (not o or not p) and b,testName,
+         "+S Y6 Set");
+      check1(MS_CONS_MX_Y6_POS,not PS_CONS_MX_Y6_POS,testName,"-S Y6 Set"); 
+      
+      -- Checks we need to make with Y6 maybe set or maybe not set
+
+      check1(PS_CONS_ADDRESS_COMPLETE,PS_CONS_MX_Y6_POS and not d and e,testName,
+         "Cons Address Complete"); 
+         
+      check1(MS_DISPLAY_ADDR_COMPLETE,not(PS_CONS_ADDRESS_COMPLETE and g),testName,
+         "Display Addr Complete");
+           
+      check1(MS_ADDRESS_SET_COMPLETE,not(PS_CONS_ADDRESS_COMPLETE and not c),testName,
+         "Address Set Complete");
+                  
+      if(PS_CONS_MX_Y6_POS = '0') then
+         next;
+      end if;
+
+      -- We need to make sure nothing holds Y6 from resetting
+      
+      MS_CONS_GATE_POS_30 <= '1';
+      
+      -- Run the clocks a couple of times - nothing should change, unless certain 
+      -- conditions are met
+      
+      PS_CONS_MX_Y_DRIVE_2 <= b;
+      PS_CONS_MX_ADDR_DRIVE <= not b;
+      wait for 90 ns;
+      PS_CONS_MX_ADDR_DRIVE <= '0';
+      PS_CONS_MX_Y_DRIVE_2 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_Y6_POS,not(y6reset),testName,"+S Y6 Continuation 1");
+      check1(MS_CONS_MX_Y6_POS,not PS_CONS_MX_Y6_POS,testName,"-S Y6 Continuation 1"); 
+
+      PS_CONS_MX_Y_DRIVE_2 <= b;
+      PS_CONS_MX_ADDR_DRIVE <= not b;
+      wait for 90 ns;
+      PS_CONS_MX_ADDR_DRIVE <= '0';
+      PS_CONS_MX_Y_DRIVE_2 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_Y6_POS,not y6reset,testName,"+S Y6 Continuation 2");
+      check1(MS_CONS_MX_Y6_POS,not PS_CONS_MX_Y6_POS,testName,"-S Y6 Continuation 2"); 
+           
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -235,7 +350,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
