@@ -1,0 +1,122 @@
+Generating HDL for page 45.20.05.1 CONSOLE CYCLE CTRL MATRIX X1A-X3 at 10/28/2020 9:49:18 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_20_05_1_CONSOLE_CYCLE_CTRL_MATRIX_X1A_X3_tb.vhdl, generating default test bench code.
+Processing extension from block at 2A (Database ID=277074) to 2B (Database ID=277076)
+Copied connection to extension input pin F to master block at 2A
+Copied connection to extension input pin B to master block at 2A
+Copied connection from extension output pin E to master block at 2A
+Copied mapped pin A from extension 2B to master block at 2A
+Copied mapped pin B from extension 2B to master block at 2A
+Copied mapped pin E from extension 2B to master block at 2A
+Copied mapped pin W from extension 2B to master block at 2A
+Moved connection from extension 2B pin E to be from master at 2A
+Processing extension from block at 2C (Database ID=277078) to 2D (Database ID=277079)
+Copied connection to extension input pin L to master block at 2C
+Copied connection to extension input pin P to master block at 2C
+Copied connection from extension output pin C to master block at 2C
+Copied mapped pin C from extension 2D to master block at 2C
+Copied mapped pin P from extension 2D to master block at 2C
+Copied mapped pin Q from extension 2D to master block at 2C
+Copied mapped pin U from extension 2D to master block at 2C
+Moved connection from extension 2D pin C to be from master at 2C
+Processing extension from block at 2E (Database ID=277082) to 2F (Database ID=277086)
+Copied connection to extension input pin F to master block at 2E
+Copied connection to extension input pin B to master block at 2E
+Copied connection from extension output pin E to master block at 2E
+Copied mapped pin A from extension 2F to master block at 2E
+Copied mapped pin B from extension 2F to master block at 2E
+Copied mapped pin E from extension 2F to master block at 2E
+Copied mapped pin W from extension 2F to master block at 2E
+Moved connection from extension 2F pin E to be from master at 2E
+Processing extension from block at 2H (Database ID=277092) to 2I (Database ID=277093)
+Copied connection to extension input pin K to master block at 2H
+Copied connection to extension input pin L to master block at 2H
+Copied connection to extension input pin H to master block at 2H
+Copied connection from extension output pin B to master block at 2H
+Copied mapped pin A from extension 2I to master block at 2H
+Copied mapped pin B from extension 2I to master block at 2H
+Copied mapped pin D from extension 2I to master block at 2H
+Copied mapped pin E from extension 2I to master block at 2H
+Copied mapped pin F from extension 2I to master block at 2H
+Copied mapped pin H from extension 2I to master block at 2H
+Moved connection from extension 2I pin B to be from master at 2H
+Removed 1 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 1I to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8A04
+Generating Statement for block at 2A with output pin(s) of OUT_2A_H, OUT_2A_E
+	and inputs of OUT_1D_C,PS_CONS_MX_X_DRIVE_2,OUT_1B_D,MS_CONS_MX_X_DC_RESET
+	and logic function of Trigger
+Generating Statement for block at 1A with output pin(s) of OUT_1A_C
+	and inputs of OUT_2A_H
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_D, OUT_1B_D
+	and inputs of OUT_2A_E
+	and logic function of NOT
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D, OUT_2C_C
+	and inputs of OUT_1F_D,PS_CONS_MX_X_DRIVE_2,OUT_1D_C,MS_CONS_MX_X_DC_RESET
+	and logic function of Trigger
+Generating Statement for block at 1C with output pin(s) of OUT_1C_D
+	and inputs of OUT_2C_D
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_C, OUT_1D_C, OUT_1D_C
+	and inputs of OUT_2C_C
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_H, OUT_2E_E
+	and inputs of OUT_4F_F,PS_CONS_MX_X_DRIVE_2,OUT_1F_D,MS_CONS_MX_X_DC_RESET
+	and logic function of Trigger
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_2E_H
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of PS_CONS_STOP_PRINT_LATCH,PS_CONS_MX_X6_POS
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_F
+	and inputs of OUT_5F_NoPin
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_D, OUT_1F_D, OUT_1F_D
+	and inputs of OUT_2E_E
+	and logic function of NOT
+Generating Statement for block at 2G with output pin(s) of OUT_2G_A
+	and inputs of OUT_1H_F
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of 
+	and inputs of OUT_2G_A
+	and logic function of Lamp
+Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
+	and inputs of PS_CONS_MX_X6_POS,PS_ADDRESS_SET_ROUTINE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_G
+	and inputs of OUT_5H_NoPin
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_P, OUT_2H_B
+	and inputs of OUT_4H_G,PS_CONS_MX_X_DRIVE_2,PS_CONS_ADDRESS_COMPLETE,PS_CONS_MX_Y_DRIVE_2,MS_CONS_MX_X_DC_RESET
+	and logic function of Trigger
+Generating Statement for block at 1H with output pin(s) of OUT_1H_F, OUT_1H_F
+	and inputs of OUT_2H_P
+	and logic function of NOT
+Generating Statement for block at 1I with output pin(s) of OUT_1I_C
+	and inputs of OUT_2H_B
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_X3_POS
+	from gate output OUT_1A_C
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_X3_POS
+	from gate output OUT_1B_D
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_X2_POS
+	from gate output OUT_1C_D
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_X2_POS
+	from gate output OUT_1D_C
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_X1_POS
+	from gate output OUT_1E_C
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_X1_POS
+	from gate output OUT_1F_D
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_X1A_POS
+	from gate output OUT_1H_F
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_X1A_POS
+	from gate output OUT_1I_C
