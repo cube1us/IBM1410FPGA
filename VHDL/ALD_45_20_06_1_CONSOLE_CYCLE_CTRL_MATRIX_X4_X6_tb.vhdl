@@ -169,46 +169,241 @@ uut_process: process
    variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
+   variable setX4, setMGL, setX5, setX6, resetX6: std_logic;
+   
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   -- It was too hard to test this with both X and Y drives at the same time
+   -- So, first test with X drive
 
-   for tt in 0 to 2**25 loop
+   testName := "45.20.06.1 X DRIVE";
+
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      c := tv(1);
+      f := tv(2);
+      h := tv(3);
+      j := tv(4);
+      k := tv(5);
+      l := tv(6);
+      m := tv(7);
+      n := tv(8);
       
+      setX4 := j;
+      setMGL := (k or l or m) and n;
+
+      -- Reset the X triggers (X6 actually SETS) and the Matrix Gate Latch
+      
+      MS_CONS_MX_X_DC_RESET <= '0';
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_CONS_MX_X_DC_RESET <= '1';
+      MS_PROGRAM_RESET_4 <= '1';
+      wait for 30 ns;
+            
+      check1(PS_CONS_MX_X4_POS,'0',testName,"Init X4");
+      check1(PS_CONS_MX_X5_POS,'0',testName,"Init X5");
+      check1(PS_CONS_MX_X6_POS,'1',testName,"Init +S X6");
+      check1(MS_CONS_MX_X6_POS,'0',testName,"Init -S X6");
+      check1(MS_CONS_GATE_POS_30,'1',testName,"Init MGL");
+                  
+      -- Maybe set the X4 Trigger and/or the Matrix Gate Latch
+      
+		MS_ADDRESS_SET_COMPLETE <= '1'; -- Keep this from confusing X6 tests
+      MS_END_STOP_DATA <= not c;
+      MS_DISPLAY_ADDR_COMPLETE <= not f;
+      PS_CONS_MX_X3_POS <= j;
+      MS_CONS_ALTER_MX_GATE <= not k;
+      MS_CONS_INQUIRY_MX_GATE <= not l;
+      MS_CONS_PRG_PRT_OUT_MX_GATE <= not m;
+      PS_CONS_CLOCK_4_POS <= n;      
       wait for 30 ns;
       
+      check1(MS_CONS_GATE_POS_30,not(setMGL),testName,"Set MGL");
+      
+      -- Run the clock
+      
+      PS_CONS_MX_X_DRIVE_1 <= '1';
+      wait for 90 ns;
+      PS_CONS_MX_X_DRIVE_1 <= '0';
+      wait for 90 ns;
+
+      -- Check if X4 did the right thing...
+      
+      check1(PS_CONS_MX_X4_POS,setX4,testName,"Set X4");
+      
+      -- Make suer we don't force X5 to reset or X4 to set again
+      
+      MS_END_STOP_DATA <= '1';
+      PS_CONS_MX_X3_POS <= '0'; -- Would have reset upon setting X4 anyway
+      
+      -- Maybe set X5 (and reset X4)
+      
+      PS_CONS_MX_X_DRIVE_1 <= '1';
+      wait for 90 ns;
+      PS_CONS_MX_X_DRIVE_1 <= '0';
+      wait for 90 ns;
+
+      setX5 := setX4;
+
+      check1(PS_CONS_MX_X4_POS,'0',testName,"Reset X4");
+      check1(PS_CONS_MX_X5_POS,setX5,testName,"Set X5");
+      
+      -- On the next X clock, X5 should be reset and X6 should set (if X5 was set)
+      
+      PS_CONS_MX_X_DRIVE_1 <= '1';
+      wait for 90 ns;
+      PS_CONS_MX_X_DRIVE_1 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_X5_POS,'0',testName,"Reset X5");
+      
+      check1(PS_CONS_MX_X6_POS,setX5,testName,"Set +S X6");
+      check1(MS_CONS_MX_X6_POS,not(PS_CONS_MX_X6_POS),testName,"Set -S X6");
+      
+      -- One more and X6 should reset (if it was not set from X5 it already is reset)
+
+      PS_CONS_MX_X_DRIVE_1 <= '1';
+      wait for 90 ns;
+      PS_CONS_MX_X_DRIVE_1 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_X6_POS,'0',testName,"Reset +S X6");
+      check1(MS_CONS_MX_X6_POS,not(PS_CONS_MX_X6_POS),testName,"Reset -S X6");
+      
+      -- X6 can set another way, so test that
+      
+		MS_ADDRESS_SET_COMPLETE <= not a;
+		wait for 30 ns;
+		
+      check1(PS_CONS_MX_X5_POS,'0',testName,"Reset X5 Verify");
+		
+      PS_CONS_MX_X_DRIVE_1 <= '1';
+      wait for 90 ns;
+      PS_CONS_MX_X_DRIVE_1 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_X6_POS,a,testName,"Set +S X6 #2");
+      check1(MS_CONS_MX_X6_POS,not(PS_CONS_MX_X6_POS),testName,"Set -S X6 #2");
+      
+      -- Reset variables for the next iteration
+            
+		MS_ADDRESS_SET_COMPLETE <= '1';
+      MS_END_STOP_DATA <= '1';
+      MS_DISPLAY_ADDR_COMPLETE <= '1';
+      PS_CONS_MX_X3_POS <= '0';
+      MS_CONS_ALTER_MX_GATE <= '1';
+      MS_CONS_INQUIRY_MX_GATE <= '1';
+      MS_CONS_PRG_PRT_OUT_MX_GATE <= '1';
+      PS_CONS_CLOCK_4_POS <= '0';   
+      
+      -- Maybe reset the Matrix Gate Latch
+      
+      MS_CONS_MX_30_POS <= not h;
+      wait for 30 ns;
+      MS_CONS_MX_30_POS <= '1';
+      wait for 30 ns;
+      
+      check1(MS_CONS_GATE_POS_30,not(setMGL and not h),testName,"Reset MGL");   
+                                          
+   end loop;
+   
+   -- Now, test the Y Drive.  Only involves X5 and X6
+
+   testName := "45.20.06.1 Y DRIVE";
+
+   for tt in 0 to 2**9 loop
+      tv := std_logic_vector(to_unsigned(tt,tv'Length));
+      a := tv(0);
+      c := tv(1);
+      f := tv(2);
+      h := tv(3);
+      j := tv(4);
+      k := tv(5);
+      l := tv(6);
+      m := tv(7);
+      n := tv(8);
+      
+      setMGL := (k or l or m) and n;
+
+      -- Reset the X triggers (X6 actually SETS) and the Matrix Gate Latch
+      
+      MS_CONS_MX_X_DC_RESET <= '0';
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_CONS_MX_X_DC_RESET <= '1';
+      MS_PROGRAM_RESET_4 <= '1';
+      wait for 30 ns;
+            
+      check1(PS_CONS_MX_X5_POS,'0',testName,"Init X5");
+      check1(PS_CONS_MX_X6_POS,'1',testName,"Init +S X6");
+      check1(MS_CONS_MX_X6_POS,'0',testName,"Init -S X6");
+      check1(MS_CONS_GATE_POS_30,'1',testName,"Init MGL");
+                        
+		MS_ADDRESS_SET_COMPLETE <= a;
+      MS_END_STOP_DATA <= '1'; -- Avoid confusing X5 Set Test
+      MS_DISPLAY_ADDR_COMPLETE <= not f;
+      PS_CONS_MX_X3_POS <= j;
+      MS_CONS_ALTER_MX_GATE <= not k;
+      MS_CONS_INQUIRY_MX_GATE <= not l;
+      MS_CONS_PRG_PRT_OUT_MX_GATE <= not m;
+      PS_CONS_CLOCK_4_POS <= n;      
+      wait for 30 ns;
+      
+      check1(MS_CONS_GATE_POS_30,not(setMGL),testName,"Set MGL");
+      
+      -- Run the clock, maybe setting X5 (and resetting X6)
+      
+      PS_CONS_MX_Y_DRIVE_2 <= '1';
+      wait for 90 ns;
+      PS_CONS_MX_Y_DRIVE_2 <= '0';
+      wait for 90 ns;
+      
+      check1(PS_CONS_MX_X5_POS,setMGL or f,testName,"Set X5");
+      check1(PS_CONS_MX_X6_POS,not(setMGL or f),testName,"Reset +S X6");
+      check1(MS_CONS_MX_X6_POS,not PS_CONS_MX_X6_POS,testName,"Reset -S X6");
+      
+      -- Now, maybe advance to the End Stop, resetting X5 and setting X6
+      
+      MS_END_STOP_DATA <= not c;
+      MS_DISPLAY_ADDR_COMPLETE <= '1';  -- Avoid confusing reset X5 / set X6
+
+      -- Reset the MGL so it doesn't mess up this test as well
+
+      PS_CONS_CLOCK_4_POS <= '0';
+      MS_CONS_MX_30_POS <= '0';
+      wait for 30 ns;
+      MS_CONS_MX_30_POS <= '1';
+      wait for 30 ns;
+      
+      check1(MS_CONS_GATE_POS_30,'1',testName,"Reset MGL");         
+      
+      PS_CONS_MX_Y_DRIVE_2 <= '1';
+      wait for 90 ns;
+      PS_CONS_MX_Y_DRIVE_2 <= '0';
+      wait for 90 ns;
+      
+      check1(PS_CONS_MX_X5_POS,(setMGL or f) and not c,testName,"Reset X5");
+      check1(PS_CONS_MX_X6_POS,c or not(setMGL or f),testName,"Set +S X6");
+      check1(MS_CONS_MX_X6_POS,not PS_CONS_MX_X6_POS,testName,"Set -S X6");            
+      
+      -- Reset the variables for the next iteration
+
+		MS_ADDRESS_SET_COMPLETE <= '1';
+      MS_END_STOP_DATA <= '1';
+      MS_DISPLAY_ADDR_COMPLETE <= '1';
+      PS_CONS_MX_X3_POS <= '0';
+      MS_CONS_ALTER_MX_GATE <= '1';
+      MS_CONS_INQUIRY_MX_GATE <= '1';
+      MS_CONS_PRG_PRT_OUT_MX_GATE <= '1';
+      PS_CONS_CLOCK_4_POS <= '0';   
       
    end loop;
 
+   
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
