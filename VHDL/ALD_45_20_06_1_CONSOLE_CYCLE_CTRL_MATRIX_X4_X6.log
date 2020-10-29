@@ -1,0 +1,105 @@
+Generating HDL for page 45.20.06.1 CONSOLE CYCLE CTRL MATRIX X4-X6 at 10/29/2020 8:11:38 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_20_06_1_CONSOLE_CYCLE_CTRL_MATRIX_X4_X6_tb.vhdl, generating default test bench code.
+Found combinatorial loop (need D FF) at output of gate at 5G
+Found combinatorial loop (need D FF) at output of gate at 4G
+Processing extension from block at 3A (Database ID=277156) to 3B (Database ID=277157)
+Copied connection to extension input pin K to master block at 3A
+Copied connection to extension input pin L to master block at 3A
+Copied connection to extension input pin R to master block at 3A
+Copied connection to extension input pin Q to master block at 3A
+Copied connection from extension output pin B to master block at 3A
+Copied mapped pin A from extension 3B to master block at 3A
+Copied mapped pin B from extension 3B to master block at 3A
+Copied mapped pin D from extension 3B to master block at 3A
+Copied mapped pin E from extension 3B to master block at 3A
+Copied mapped pin F from extension 3B to master block at 3A
+Copied mapped pin H from extension 3B to master block at 3A
+Moved connection from extension 3B pin B to be from master at 3A
+Processing extension from block at 3D (Database ID=277161) to 3E (Database ID=277162)
+Copied connection to extension input pin R to master block at 3D
+Copied connection to extension input pin K to master block at 3D
+Copied connection to extension input pin L to master block at 3D
+Copied connection to extension input pin Q to master block at 3D
+Copied connection to extension input pin H to master block at 3D
+Copied connection from extension output pin B to master block at 3D
+Copied mapped pin A from extension 3E to master block at 3D
+Copied mapped pin B from extension 3E to master block at 3D
+Copied mapped pin D from extension 3E to master block at 3D
+Copied mapped pin E from extension 3E to master block at 3D
+Copied mapped pin F from extension 3E to master block at 3D
+Copied mapped pin H from extension 3E to master block at 3D
+Moved connection from extension 3E pin B to be from master at 3D
+Processing extension from block at 3G (Database ID=277168) to 3H (Database ID=277171)
+Copied connection to extension input pin L to master block at 3G
+Copied connection to extension input pin P to master block at 3G
+Copied connection from extension output pin C to master block at 3G
+Copied mapped pin D from extension 3H to master block at 3G
+Copied mapped pin K from extension 3H to master block at 3G
+Copied mapped pin L from extension 3H to master block at 3G
+Copied mapped pin V from extension 3H to master block at 3G
+Moved connection from extension 3H pin C to be from master at 3G
+Removed 1 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 5 outputs from Gate at 1B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_F
+	and inputs of MS_ADDRESS_SET_COMPLETE,OUT_1D_NoPin
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_P, OUT_3A_B
+	and inputs of OUT_5A_F,PS_CONS_MX_X_DRIVE_1,OUT_5B_G,PS_CONS_MX_Y_DRIVE_2,MS_CONS_MX_X_DC_RESET,OUT_1B_A,PS_CONS_MX_X_DRIVE_1,OUT_5F_G,PS_CONS_MX_Y_DRIVE_2
+	and logic function of Trigger
+Generating Statement for block at 1A with output pin(s) of OUT_1A_C
+	and inputs of OUT_3A_P
+	and logic function of NAND
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G, OUT_5B_G
+	and inputs of MS_END_STOP_DATA
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_A, OUT_1B_A
+	and inputs of OUT_3A_B
+	and logic function of Special
+Generating Statement for block at 3D with output pin(s) of OUT_3D_P, OUT_3D_B
+	and inputs of OUT_1H_B,PS_CONS_MX_X_DRIVE_1,OUT_5F_G,PS_CONS_MX_Y_DRIVE_2,OUT_5B_G,OUT_1E_R,PS_CONS_MX_X_DRIVE_1,PS_CONS_MX_Y_DRIVE_2,MS_CONS_MX_X_DC_RESET
+	and logic function of Trigger
+Generating Statement for block at 1D with output pin(s) of OUT_1D_NoPin
+	and inputs of OUT_3D_P
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_R, OUT_1E_R
+	and inputs of OUT_3D_B
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_G, OUT_5F_G
+	and inputs of OUT_5G_E,MS_DISPLAY_ADDR_COMPLETE
+	and logic function of NAND
+Generating Statement for block at 5G with *latched* output pin(s) of OUT_5G_E_Latch, OUT_5G_E_Latch, OUT_5G_E_Latch
+	and inputs of OUT_4G_F,MS_PROGRAM_RESET_4,MS_CONS_MX_30_POS
+	and logic function of NAND
+Generating Statement for block at 4G with *latched* output pin(s) of OUT_4G_F_Latch
+	and inputs of OUT_5G_E,OUT_4H_NoPin
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_C
+	and inputs of PS_CONS_MX_X3_POS,PS_CONS_MX_X_DRIVE_1,OUT_1H_B,MS_CONS_MX_X_DC_RESET
+	and logic function of Trigger
+Generating Statement for block at 5H with output pin(s) of OUT_5H_C
+	and inputs of MS_CONS_ALTER_MX_GATE,MS_CONS_INQUIRY_MX_GATE,MS_CONS_PRG_PRT_OUT_MX_GATE
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of OUT_5H_C,PS_CONS_CLOCK_4_POS
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_B, OUT_1H_B, OUT_1H_B
+	and inputs of OUT_3G_C
+	and logic function of NOT
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_X6_POS
+	from gate output OUT_1A_C
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_X6_POS
+	from gate output OUT_1B_A
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_X5_POS
+	from gate output OUT_1E_R
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_GATE_POS_30
+	from gate output OUT_5G_E
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_X4_POS
+	from gate output OUT_1H_B
+Generating D Flip Flop for block at 5G
+Generating D Flip Flop for block at 4G
