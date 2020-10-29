@@ -167,40 +167,121 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.20.05.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**5 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
       
+      g1 := c and d and a;
+      g2 := d and e and a;
+      
+      -- Reset
+      
+      MS_CONS_MX_X_DC_RESET <= '0';
+      wait for 30 ns;
+      MS_CONS_MX_X_DC_RESET <= '1';
       wait for 30 ns;
       
+      check1(PS_CONS_MX_X1_POS,'0',testName,"Init +S MX X1");
+      check1(MS_CONS_MX_X1_POS,'1',testName,"Init -S MX X1");
+      check1(PS_CONS_MX_X2_POS,'0',testName,"Init +S MX X2");
+      check1(MS_CONS_MX_X2_POS,'1',testName,"Init -S MX X2");
+      check1(PS_CONS_MX_X3_POS,'0',testName,"Init +S MX X3");
+      check1(MS_CONS_MX_X3_POS,'1',testName,"Init -S MX X3");
+      check1(PS_CONS_MX_X1A_POS,'0',testName,"Init +S MX X1A");
+      check1(MS_CONS_MX_X1A_POS,'1',testName,"Init -S MX X1A");
+
+      -- Now, maybe set X1
+
+		PS_CONS_STOP_PRINT_LATCH <= c;
+		PS_CONS_MX_X6_POS <= d;
+      PS_CONS_MX_X_DRIVE_2 <= a;
+      wait for 90 ns;
+      PS_CONS_MX_X_DRIVE_2 <= '0';
+		PS_CONS_STOP_PRINT_LATCH <= '0';
+      PS_CONS_MX_X6_POS <= '0';
+      wait for 90 ns;
       
+      check1(PS_CONS_MX_X1_POS,g1,testName,"Set +S X1");
+      check1(MS_CONS_MX_X1_POS,NOT PS_CONS_MX_X1_POS,testName,"Set -S X1");
+      
+      -- On to maybe set X2 (after which X1 will not be set regardless)
+      
+      PS_CONS_MX_X_DRIVE_2 <= a;
+      wait for 90 ns;
+      PS_CONS_MX_X_DRIVE_2 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_X1_POS,'0',testName,"Set X2 - Reset +S X1");
+      check1(MS_CONS_MX_X1_POS,NOT PS_CONS_MX_X1_POS,testName,"Set X2 - Reset -S X1");
+      check1(PS_CONS_MX_X2_POS,g1,testName,"Set +S MX X2");
+      check1(MS_CONS_MX_X2_POS,NOT PS_CONS_MX_X2_POS,testName,"Set -S MX X2");
+      
+      -- Same story for X2 / X3
+
+      PS_CONS_MX_X_DRIVE_2 <= a;
+      wait for 90 ns;
+      PS_CONS_MX_X_DRIVE_2 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_X1_POS,'0',testName,"Set X3 - Reset +S X1");
+      check1(MS_CONS_MX_X1_POS,NOT PS_CONS_MX_X1_POS,testName,"Set X3 - Reset -S X1");
+      check1(PS_CONS_MX_X2_POS,'0',testName,"Set X3 - Reset +S MX X2");
+      check1(MS_CONS_MX_X2_POS,NOT PS_CONS_MX_X2_POS,testName,"Set X3 - Reset -S MX X2");      
+      check1(PS_CONS_MX_X3_POS,g1,testName,"Set +S MX X3");
+      check1(MS_CONS_MX_X3_POS,NOT PS_CONS_MX_X3_POS,testName,"Set -S MX X3");
+      
+      -- And then X3 gets reset (if it was set in the first place...)
+
+      PS_CONS_MX_X_DRIVE_2 <= a;
+      wait for 90 ns;
+      PS_CONS_MX_X_DRIVE_2 <= '0';
+      wait for 90 ns;
+
+      check1(PS_CONS_MX_X1_POS,'0',testName,"Reset X3 - Reset +S X1");
+      check1(MS_CONS_MX_X1_POS,NOT PS_CONS_MX_X1_POS,testName,"Reset X3 - Reset -S X1");
+      check1(PS_CONS_MX_X2_POS,'0',testName,"Reset X3 - Reset +S MX X2");
+      check1(MS_CONS_MX_X2_POS,NOT PS_CONS_MX_X2_POS,testName,"Reset X3 - Reset -S MX X2");      
+      check1(PS_CONS_MX_X3_POS,'0',testName,"Reset +S MX X3");
+      check1(MS_CONS_MX_X3_POS,NOT PS_CONS_MX_X3_POS,testName,"Reset -S MX X3");
+            
+      check1(PS_CONS_MX_X1A_POS,'0',testName,"Init2 +S MX X1A");
+      check1(MS_CONS_MX_X1A_POS,'1',testName,"Init2 -S MX X1A");
+      check1(LAMP_11C8A04,'0',testName,"Init2 MX X1A Lamp");
+
+		-- Then maybe set X1A
+		
+		PS_ADDRESS_SET_ROUTINE <= e;
+		PS_CONS_MX_X6_POS <= d;		
+      PS_CONS_MX_X_DRIVE_2 <= a;
+      wait for 90 ns;
+		PS_ADDRESS_SET_ROUTINE <= '0'; -- To prevent issues with reset later
+		PS_CONS_MX_X6_POS <= '0'; -- Ditto
+      PS_CONS_MX_X_DRIVE_2 <= '0';
+      wait for 90 ns;
+      
+		check1(PS_CONS_MX_X1A_POS,g2,testName,"Set +S X1A");
+		check1(MS_CONS_MX_X1A_POS,NOT PS_CONS_MX_X1A_POS,testName,"Set -S X1A");		
+      check1(LAMP_11C8A04,g2,testName,"Set MX X1A Lamp");
+		
+		PS_CONS_MX_Y_DRIVE_2 <= g;
+		wait for 30 ns;
+		PS_CONS_ADDRESS_COMPLETE <= f;
+      wait for 90 ns;            
+		PS_CONS_ADDRESS_COMPLETE <= '0';
+      PS_CONS_MX_Y_DRIVE_2 <= '0';      
+      wait for 90 ns;
+      
+		check1(PS_CONS_MX_X1A_POS,g2 and not(f and g),testName,"Reset +S X1A");
+      check1(MS_CONS_MX_X1A_POS,NOT PS_CONS_MX_X1A_POS,testName,"Reset -S X1A");      
+      check1(LAMP_11C8A04,PS_CONS_MX_X1A_POS,testName,"Reset MX X1A Lamp");
+                       
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
