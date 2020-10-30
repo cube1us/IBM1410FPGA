@@ -1,0 +1,76 @@
+Generating HDL for page 45.20.09.1 CONS CYCLE CTRL MATRIX INTRSCTNS at 10/30/2020 3:28:48 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_20_09_1_CONS_CYCLE_CTRL_MATRIX_INTRSCTNS_tb.vhdl, generating default test bench code.
+Removed 5 outputs from Gate at 2A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3G to ignored block(s) or identical signal names
+Added LAMP signal LAMP_11C8B05
+Added LAMP signal LAMP_11C8B04
+Generating Statement for block at 5A with output pin(s) of OUT_5A_C
+	and inputs of PS_CONS_MX_Y2_POS,PS_CONS_MX_X6_POS
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_B, OUT_3A_B, OUT_3A_B
+	and inputs of OUT_5A_C
+	and logic function of EQUAL
+Generating Statement for block at 2A with output pin(s) of OUT_2A_B
+	and inputs of OUT_3A_B
+	and logic function of NOT
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_3A_B
+	and logic function of NOT
+Generating Statement for block at 1B with output pin(s) of 
+	and inputs of OUT_2B_D
+	and logic function of Lamp
+Generating Statement for block at 5C with output pin(s) of OUT_5C_D
+	and inputs of PS_CONS_MX_X6_POS,PS_CONS_MX_Y3_POS
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_A, OUT_3C_A, OUT_3C_A
+	and inputs of OUT_5C_D
+	and logic function of EQUAL
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_3C_A
+	and logic function of NOT
+Generating Statement for block at 2D with output pin(s) of OUT_2D_B
+	and inputs of OUT_3C_A
+	and logic function of NOT
+Generating Statement for block at 1D with output pin(s) of 
+	and inputs of OUT_2D_B
+	and logic function of Lamp
+Generating Statement for block at 5E with output pin(s) of OUT_5E_D
+	and inputs of PS_CONS_MX_X6_POS,PS_CONS_MX_Y4_POS
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_D
+	and inputs of OUT_3G_D
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of PS_CONS_MX_X6_POS,PS_CONS_MX_Y5_POS
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_D, OUT_3G_D
+	and inputs of OUT_5G_C
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_D
+	and inputs of MS_ADDRESS_SET_ROUTINE,PS_CONS_MX_X1A_POS,PS_CONS_MX_Y6_POS
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_32_POS
+	from gate output OUT_3A_B
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_32_POS
+	from gate output OUT_2A_B
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_33_POS
+	from gate output OUT_3C_A
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_33_POS
+	from gate output OUT_1C_C
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_34_POS
+	from gate output OUT_5E_D
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_35_POS
+	from gate output OUT_2F_D
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_35_POS
+	from gate output OUT_3G_D
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_MX_6A_POS
+	from gate output OUT_5I_D
