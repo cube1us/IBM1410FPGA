@@ -158,9 +158,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.20.07.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**7 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -169,27 +169,23 @@ uut_process: process
       e := tv(4);
       f := tv(5);
       g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		PS_CONS_MX_Y1_POS <= a;
+		PS_CONS_MX_Y2_POS <= b;
+		PS_CONS_MX_Y3_POS <= c;
+		PS_CONS_MX_X4_POS <= d;
+		PS_CONS_MX_Y4_POS <= e;
+		PS_CONS_MX_Y5_POS <= f;
+		PS_CONS_MX_Y6_POS <= g;
       
       wait for 30 ns;
+
+		check1(PS_CONS_MX_19_POS,a and d,testName,"Cons MX 19 Pos");
+		check1(PS_CONS_MX_20_POS,b and d,testName,"Cons MX 20 Pos");
+		check1(MS_CONS_MX_21_POS,not(c and d),testName,"Cons MX 21 Pos");
+		check1(PS_CONS_MX_22_POS,e and d,testName,"Cons MX 22 Pos");
+		check1(MS_CONS_MX_23_POS,not(f and d),testName,"Cons MX 23 Pos");
+		check1(PS_CONS_MX_24_POS,g and d,testName,"Cons MX 24 Pos");
       
       
    end loop;
