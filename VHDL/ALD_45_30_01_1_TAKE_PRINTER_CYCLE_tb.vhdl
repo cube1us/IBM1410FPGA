@@ -209,9 +209,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.30.01.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**24 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -231,18 +231,89 @@ uut_process: process
       q := tv(15);
       r := tv(16);
       s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      u := tv(18);
+      v := tv(19);
+      w := tv(20);
+      x := tv(21);
+      y := tv(22);
+      z := tv(23);
       
+      g1 := not z and not c and d and not e and not f and not g and not h;
+      g2 := not u and v and w and x and y;
+      g3 := not a and not b and not k and not n and j and not l and q and 
+         not g2 and ((not o and m) or not p) and not g1;
+      
+      -- Reset the latch
+      
+      PS_START_KEY_2 <= '0'; -- don't reset this way
+      PS_CONS_CLOCK_2_POS <= '0';
+      MS_RESET_DISPLAY_ROUTINE <= '0'; -- DO reset this way
+      wait for 30 ns;
+      MS_RESET_DISPLAY_ROUTINE <= '1';
       wait for 30 ns;
       
+      check1(PS_TAKE_CONSOLE_PRINTER_CYCLE,'0',testName,"Init +S Take Console Printer Cycle");
+      check1(MS_TAKE_CONSOLE_PRINTER_CYCLE,
+         not PS_TAKE_CONSOLE_PRINTER_CYCLE,testName,"Init -S Take Console Printer Cycle");      
+
+		MS_CONS_MX_28_POS <= not a;
+		MS_CONS_MX_29_POS <= not b;
+		MS_CONS_MX_Y1_POS <= not c;
+		PS_CONS_MX_X6_POS <= d;
+		MS_CONS_MX_Y3_POS <= not e;
+		MS_CONS_MX_Y4_POS <= not f;
+		MS_CONS_MX_Y5_POS <= not g;
+		MS_CONS_MX_Y6_POS <= not h;
+		PS_CONS_PRINTER_NOT_BUSY <= j;
+		MS_ALTER_KEYBOARD_UNLOCK <= not k;
+		MS_ADDRESS_SET_UNLOCK <= not l;
+		PS_CONSOLE_STROBE_GATE <= m;
+		MS_INQUIRY_KEYBOARD_UNLOCK <= not n;
+		MS_MASTER_ERROR <= not o;
+		PS_CONS_MX_32_OR_33_POS <= p;
+		PS_PRTR_LOCKED_CND_PROCEED <= q;
+		MS_START_KEY <= not u;
+		PS_DISPLAY_ROUTINE_2 <= v;
+		PS_CONS_MX_33_POS <= w;
+		PS_B_CH_WM_BIT_1 <= x;
+		PS_CONS_WM_CONTROL <= y;
+		MS_CONS_MX_Y2_POS <= not z;
       
+      wait for 30 ns;
+                  
+      check1(PS_CONSOLE_HOME_POSITION,g1,testName,"+S Console Home Position");
+      check1(MS_CONSOLE_HOME_POSITION,not g1,testName,"-S Console Home Position");
+      check1(LAMP_11C8A05,g1,testName,"Console Home Position Lamp");
+      
+      check1(PS_TAKE_CONSOLE_PRINTER_CYCLE,g3,testName,"+S Take Console Printer Cycle"); 
+      check1(MS_TAKE_CONSOLE_PRINTER_CYCLE,
+            not PS_TAKE_CONSOLE_PRINTER_CYCLE,testName,"-S Take Console Printer Cycle");      
+                        
+      -- Maybe reset the latch (if it was even set to begin with...)
+      
+		PS_DISPLAY_ROUTINE_2 <= '0'; -- Make sure we don't hold the latch set.
+		
+		PS_START_KEY_2 <= r;
+      PS_CONS_CLOCK_2_POS <= s;
+      wait for 30 ns;
+      
+      -- Recalculate variables with a changed g2 equation, as resetting the latch 
+      -- may case Take Console Printer Cycle to *activate*.
+      
+      g2 := not u and v and w and x and y and not(r and s);
+      g3 := not a and not b and not k and not n and j and not l and q and 
+         not g2 and ((not o and m) or not p) and not g1;
+      
+
+      check1(PS_TAKE_CONSOLE_PRINTER_CYCLE,g3,testName,
+         "Reset +S Display WM Control Latch"); 
+      check1(MS_TAKE_CONSOLE_PRINTER_CYCLE,
+            not PS_TAKE_CONSOLE_PRINTER_CYCLE,testName,"Reset -S Display Wm Control Latch");      
+      
+      -- Then make sure we don't keep the printer cycle logic turned on for next iteration
+      
+      MS_CONS_MX_28_POS <= '0';
+                  
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -256,7 +327,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 3000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
