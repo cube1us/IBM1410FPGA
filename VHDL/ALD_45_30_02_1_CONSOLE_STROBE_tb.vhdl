@@ -164,9 +164,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.30.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -178,24 +178,28 @@ uut_process: process
       h := tv(7);
       j := tv(8);
       k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      
+      g1 := (a and (b or c or d)) or (g and (c or d)) or (h and (j or k));
+      g2 := g1 and e;
 
+		PS_DISPLAY_ROUTINE_2 <= a;
+		MS_CONS_MX_30_POS <= not b;
+		MS_CONS_MX_33_POS <= not c;
+		MS_CONS_MX_32_POS <= not d;
+		PS_CONS_PRINTER_STROBE <= e;
+		MS_E_CH_IN_PROCESS <= not f;
+		PS_ALTER_ROUTINE <= g;
+		PS_CONS_MX_32_POS <= h;
+		MS_CONSOLE_READ_OP <= not j;
+		MS_CONSOLE_WRITE_OP <= not k;
       
       wait for 30 ns;
+
+		check1(MS_CONSOLE_STROBE,not(g2 and not f),testName,"-S CONSOLE STROBE");
+      check1(PS_CONSOLE_STROBE,g2,testName,"+S CONSOLE STROBE");
+      check1(PS_CONSOLE_STROBE_GATE,g1,testName,"+S CONSOLE STROBE GATE");
+      check1(MS_ALTER_KEYBOARD_UNLOCK,not((c or d) and g),testName,"Alter Keybd Unlock");
+      check1(PS_CONS_MX_32_OR_33_POS,c or d,testName,"MX 32+33");
       
       
    end loop;
