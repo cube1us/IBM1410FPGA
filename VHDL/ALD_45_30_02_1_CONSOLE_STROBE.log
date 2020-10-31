@@ -1,0 +1,53 @@
+Generating HDL for page 45.30.02.1 CONSOLE STROBE at 10/31/2020 8:13:50 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_30_02_1_CONSOLE_STROBE_tb.vhdl, generating default test bench code.
+Removed 1 outputs from Gate at 4D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 1D to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 4E to ignored block(s) or identical signal names
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of PS_DISPLAY_ROUTINE_2,OUT_5C_C
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C
+	and inputs of MS_CONS_MX_30_POS,MS_CONS_MX_33_POS,MS_CONS_MX_32_POS
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of MS_E_CH_IN_PROCESS,OUT_1D_F
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C, OUT_4D_C
+	and inputs of PS_ALTER_ROUTINE,OUT_4E_K
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_F, OUT_3D_F
+	and inputs of OUT_4B_NoPin,OUT_4D_C,OUT_4F_NoPin
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_D
+	and inputs of OUT_3D_F,PS_CONS_PRINTER_STROBE
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_F, OUT_1D_F
+	and inputs of OUT_2D_D
+	and logic function of NOT
+Generating Statement for block at 5E with output pin(s) of OUT_5E_C
+	and inputs of MS_CONS_MX_33_POS,MS_CONS_MX_32_POS
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_K, OUT_4E_K
+	and inputs of OUT_5E_C
+	and logic function of EQUAL
+Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
+	and inputs of PS_CONS_MX_32_POS,OUT_5G_D
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_D
+	and inputs of MS_CONSOLE_READ_OP,MS_CONSOLE_WRITE_OP
+	and logic function of NAND
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_STROBE
+	from gate output OUT_1C_C
+Generating output sheet edge signal assignment to 
+	signal MS_ALTER_KEYBOARD_UNLOCK
+	from gate output OUT_4D_C
+Generating output sheet edge signal assignment to 
+	signal PS_CONSOLE_STROBE_GATE
+	from gate output OUT_3D_F
+Generating output sheet edge signal assignment to 
+	signal PS_CONSOLE_STROBE
+	from gate output OUT_1D_F
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_MX_32_OR_33_POS
+	from gate output OUT_4E_K
