@@ -164,43 +164,180 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.01.1        ";
 
-   for tt in 0 to 2**25 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+   -- What with a trigger, a latch and feedback, this test is just testing
+   -- the sequence of operations for an output cycle as described in the
+   -- IBM 1415 CE manual, figure 20, page 21.
+   
+   -- Start with a reset..
+   
+   MS_PROGRAM_RESET_4 <= '0';
+   wait for 30 ns;
+   MS_PROGRAM_RESET_4 <= '1';
+   wait for 30 ns;
 
-      
-      wait for 30 ns;
-      
-      
-   end loop;
+   check1(PS_CONS_CHECK_STROBE,'0',testName,"Init +S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE,'1',testName,"Init -S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE_1,'1',testName,"Init -S Cons Check Strobe 1");
+   check1(PS_CONS_PRINTER_C2_CAM_NO,'0',testName,"Init Cons Printer C2 Cam NO");
+   check1(PS_CONS_CYCLE_LATCH_SET,'0',testName,"Init Cons Cycle Latch Set");
+   check1(PS_CONS_CYCLE_LATCH_RESET,'0',testName,"Init Cons Cycle Latch Reset");
+   check1(PS_CND_RES_CONS_PRTR_NOT_BUSY,'1',testName,"Init Cnd Res Cons Ptrt Not Busy");
+   
+   -- wait for 30 ms;
+   wait for 100 ns;
 
-   assert false report "Simulation Ended NORMALLY" severity failure;
+   -- Run through the console clocks - nothing should change
+   
+   PS_CONS_CLOCK_1_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_1_POS <= '0';
+   PS_CONS_CLOCK_2_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_2_POS <= '0';
+   PS_CONS_CLOCK_3_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_3_POS <= '0';
+   PS_CONS_CLOCK_4_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_4_POS <= '0';
+   wait for 30 ns;
+   
+   check1(PS_CONS_CHECK_STROBE,'0',testName,"Init 2 +S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE,'1',testName,"Init 2 -S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE_1,'1',testName,"Init 2 -S Cons Check Strobe 1");
+   check1(PS_CONS_PRINTER_C2_CAM_NO,'0',testName,"Init 2 Cons Printer C2 Cam NO");
+   check1(PS_CONS_CYCLE_LATCH_SET,'0',testName,"Init 2 Cons Cycle Latch Set");
+   check1(PS_CONS_CYCLE_LATCH_RESET,'0',testName,"Init 2 Cons Cycle Latch Reset");
+   check1(PS_CND_RES_CONS_PRTR_NOT_BUSY,'1',testName,"Init 2 Cnd Res Cons Ptrt Not Busy");
+     
+   -- wait for 30 ms;
+   wait for 100 ns;
+   
+   -- Trigger the beginning of the cycle
+   
+   MV_CONS_PRINTER_C2_CAM_NO <= '0';
+   MV_CONS_PRINTER_C2_CAM_NC <= '1';
+   PS_CONS_CLOCK_1_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_1_POS <= '0';
+   PS_CONS_CLOCK_2_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_2_POS <= '0';
+   PS_CONS_CLOCK_3_POS <= '1';
+   wait for 90 ns; -- trigger setup time
+   
+   check1(PS_CONS_CHECK_STROBE,'1',testName,"C2NO CC3 +S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE,'0',testName,"C2NO CC3 -S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE_1,'0',testName,"C2NO CC3 -S Cons Check Strobe 1");
+   check1(PS_CONS_PRINTER_C2_CAM_NO,'1',testName,"C2NO CC3 Cons Printer C2 Cam NO");
+   check1(PS_CONS_CYCLE_LATCH_SET,'0',testName,"C2NO CC3 Cons Cycle Latch Set");
+   check1(PS_CONS_CYCLE_LATCH_RESET,'0',testName,"C2NO CC3 Cons Cycle Latch Reset");
+   check1(PS_CND_RES_CONS_PRTR_NOT_BUSY,'1',testName,"C2NO CC3 Cnd Res Cons Prtr Not Busy");        
+   
+   PS_CONS_CLOCK_3_POS <= '0';
+   PS_CONS_CLOCK_4_POS <= '1';
+   wait for 30 ns;
+
+   -- CC1 should then turn off Type Start Ctrl (turn OFF +S CND RES CONS PRTR NOT BUSY)
+   
+   PS_CONS_CLOCK_4_POS <= '0';
+   PS_CONS_CLOCK_1_POS <= '1';
+   wait for 30 ns;
+
+   check1(PS_CONS_CHECK_STROBE,'1',testName,"C2NO CC1 +S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE,'0',testName,"C2NO CC1 -S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE_1,'0',testName,"C2NO CC1 -S Cons Check Strobe 1");
+   check1(PS_CONS_PRINTER_C2_CAM_NO,'1',testName,"C2NO CC1 Cons Printer C2 Cam NO");
+   check1(PS_CONS_CYCLE_LATCH_SET,'0',testName,"C2NO CC1 Cons Cycle Latch Set");
+   check1(PS_CONS_CYCLE_LATCH_RESET,'0',testName,"C2NO CC1 Cons Cycle Latch Reset");
+   check1(PS_CND_RES_CONS_PRTR_NOT_BUSY,'0',testName,"C2NO CC1 Cnd Res Cons Ptrt Not Busy");                 
+   
+   PS_CONS_CLOCK_1_POS <= '0';
+   PS_CONS_CLOCK_2_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_2_POS <= '0';
+   PS_CONS_CLOCK_3_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_3_POS <= '0';
+   PS_CONS_CLOCK_4_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_4_POS <= '0';
+
+   -- Now we wait for the shaft to rotate (the S/S to time out -- debounce?)
+   
+   wait for 21 ms;
+   
+   -- Now CAM 2 has rotated to 135 degrees
+   
+   MV_CONS_PRINTER_C2_CAM_NO <= '1';
+   MV_CONS_PRINTER_C2_CAM_NC <= '0';
+   PS_CONS_CLOCK_1_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_1_POS <= '0';
+   PS_CONS_CLOCK_2_POS <= '1';
+   wait for 30 ns;
+   PS_CONS_CLOCK_2_POS <= '0';
+   PS_CONS_CLOCK_3_POS <= '1';
+   wait for 30 ns; -- trigger setup time
+   
+   -- At this point the check strobe becomes inactive
+
+   check1(PS_CONS_CHECK_STROBE,'0',testName,"C2NC CC3 +S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE,'1',testName,"C2NC CC3 -S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE_1,'1',testName,"C2NC CC3 -S Cons Check Strobe 1");
+   check1(PS_CONS_PRINTER_C2_CAM_NO,'0',testName,"C2NC CC3 Cons Printer C2 Cam NO");
+   check1(PS_CONS_CYCLE_LATCH_SET,'0',testName,"C2NC CC3 Cons Cycle Latch Set");
+   check1(PS_CONS_CYCLE_LATCH_RESET,'0',testName,"C2NC CC3 Cons Cycle Latch Reset");
+   check1(PS_CND_RES_CONS_PRTR_NOT_BUSY,'0',testName,"C2NC CC3 Cnd Res Cons Prtr Not Busy");                 
+   
+   -- At CC4, the Cycle Latch Set should activate
+   
+   PS_CONS_CLOCK_3_POS <= '0';
+   PS_CONS_CLOCK_4_POS <= '1';
+   wait for 30 ns;
+
+   check1(PS_CONS_CHECK_STROBE,'0',testName,"C2NC CC4 +S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE,'1',testName,"C2NC CC4 -S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE_1,'1',testName,"C2NC CC4 -S Cons Check Strobe 1");
+   check1(PS_CONS_PRINTER_C2_CAM_NO,'0',testName,"C2NC CC4 Cons Printer C2 Cam NO");
+   check1(PS_CONS_CYCLE_LATCH_SET,'1',testName,"C2NC CC4 Cons Cycle Latch Set");
+   check1(PS_CONS_CYCLE_LATCH_RESET,'0',testName,"C2NC CC4 Cons Cycle Latch Reset");
+   check1(PS_CND_RES_CONS_PRTR_NOT_BUSY,'0',testName,"C2NC C34 Cnd Res Cons Prtr Not Busy"); -- ???
+   
+   -- At the next CC1, Cycle latch set goes away, and cycle latch reset activates               
+
+   PS_CONS_CLOCK_4_POS <= '0';
+   PS_CONS_CLOCK_1_POS <= '1';
+   wait for 30 ns;
+
+   check1(PS_CONS_CHECK_STROBE,'0',testName,"C2NC CC4+1 +S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE,'1',testName,"C2NC CC4+1 -S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE_1,'1',testName,"C2NC CC4+1 -S Cons Check Strobe 1");
+   check1(PS_CONS_PRINTER_C2_CAM_NO,'0',testName,"C2NC CC4+1 Cons Printer C2 Cam NO");
+   check1(PS_CONS_CYCLE_LATCH_SET,'0',testName,"C2NC CC4+1 Cons Cycle Latch Set");
+   check1(PS_CONS_CYCLE_LATCH_RESET,'1',testName,"C2NC CC4+1 Cons Cycle Latch Reset");
+   check1(PS_CND_RES_CONS_PRTR_NOT_BUSY,'0',testName,"C2NC CC4+1 Cnd Res Cons Prtr Not Busy"); -- ???
+   
+   -- Then at CC2, the cycle latch reset goes away, the console goes not busy,
+   -- and we are back at the beginning.
+
+   PS_CONS_CLOCK_1_POS <= '0';
+   PS_CONS_CLOCK_2_POS <= '1';
+   wait for 30 ns;
+
+   check1(PS_CONS_CHECK_STROBE,'0',testName,"C2NC CC4+2 +S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE,'1',testName,"C2NC CC4+2 -S Cons Check Strobe");
+   check1(MS_CONSOLE_CHECK_STROBE_1,'1',testName,"C2NC CC4+2 -S Cons Check Strobe 1");
+   check1(PS_CONS_PRINTER_C2_CAM_NO,'0',testName,"C2NC CC4+2 Cons Printer C2 Cam NO");
+   check1(PS_CONS_CYCLE_LATCH_SET,'0',testName,"C2NC CC4+2 Cons Cycle Latch Set");
+   check1(PS_CONS_CYCLE_LATCH_RESET,'0',testName,"C2NC CC4+2 Cons Cycle Latch Reset");
+   check1(PS_CND_RES_CONS_PRTR_NOT_BUSY,'1',testName,"C2NC CC4+2 Cnd Res Cons Prtr Not Busy"); -- ???
+   
+
+   
+   assert false report "Simulation Ended NORMALLY" severity failure;      
 
    wait;
    end process;
@@ -211,7 +348,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 200 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
