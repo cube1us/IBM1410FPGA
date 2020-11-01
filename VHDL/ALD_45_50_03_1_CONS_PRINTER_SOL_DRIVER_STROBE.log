@@ -1,0 +1,68 @@
+Generating HDL for page 45.50.03.1 CONS PRINTER SOL DRIVER STROBE at 11/1/2020 2:19:49 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_03_1_CONS_PRINTER_SOL_DRIVER_STROBE_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 2B
+Found combinatorial loop (need D FF) at output of gate at 1B
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 1C
+Found combinatorial loop (need D FF) at output of gate at 2E
+Found combinatorial loop (need D FF) at output of gate at 1E
+Removed 1 outputs from Gate at 1F to ignored block(s) or identical signal names
+Generating Statement for block at 1A with output pin(s) of OUT_1A_C
+	and inputs of PS_CONS_CLOCK_4_POS,OUT_1B_D
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_NoPin_Latch
+	and inputs of MS_PROGRAM_RESET_4,OUT_1B_D,MS_CONSOLE_CHECK_STROBE
+	and logic function of NAND
+Generating Statement for block at 1B with *latched* output pin(s) of OUT_1B_D_Latch, OUT_1B_D_Latch, OUT_1B_D_Latch
+	and inputs of OUT_2B_NoPin,OUT_DOT_3C
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_E
+	and inputs of PS_PRTR_LOCKED_CND_PROCEED,PS_CONS_CHAR_CONTROL,MS_KEYBOARD_UNLOCK
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_G
+	and inputs of OUT_5C_E,MS_TAKE_CONSOLE_PRINTER_CYCLE,MS_CONS_FN_CONTROL
+	and logic function of NAND
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_P_Latch
+	and inputs of OUT_DOT_4C,OUT_2E_E
+	and logic function of NAND
+Generating Statement for block at 1C with *latched* output pin(s) of OUT_1C_NoPin_Latch
+	and inputs of OUT_1B_D,PS_CONS_PRINTER_SHIFT_COMPLETE,PS_CONS_CLOCK_1_POS
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of MS_CONS_WM_CONTROL,MS_CONS_ERROR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_K
+	and inputs of PS_CONS_CLOCK_3_POS_1,PS_CND_RES_CONS_PRTR_NOT_BUSY
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_P
+	and inputs of MS_CONS_BACK_SPACE_CONTROL,MS_CONS_PRINTER_END_OF_LINE
+	and logic function of NAND
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_E_Latch, OUT_2E_E_Latch
+	and inputs of OUT_1E_D,MS_PROGRAM_RESET_4,MS_CONSOLE_CHECK_STROBE
+	and logic function of NAND
+Generating Statement for block at 1E with *latched* output pin(s) of OUT_1E_D_Latch, OUT_1E_D_Latch
+	and inputs of OUT_1C_NoPin,OUT_2E_E
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_K
+	and inputs of OUT_1E_D
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
+	and inputs of OUT_4C_G,OUT_4D_G,OUT_4E_P
+	and logic function of OR
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
+	and inputs of OUT_3C_P,OUT_3D_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_RESET_CONS_PRTR_NOT_BUSY
+	from gate output OUT_1A_C
+Generating output sheet edge signal assignment to 
+	signal PS_SOLENOID_DRIVER_STROBE
+	from gate output OUT_1F_K
+Generating D Flip Flop for block at 2B
+Generating D Flip Flop for block at 1B
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 1C
+Generating D Flip Flop for block at 2E
+Generating D Flip Flop for block at 1E
