@@ -194,9 +194,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.05.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**19 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -213,20 +213,46 @@ uut_process: process
       n := tv(12);
       o := tv(13);
       p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      r := tv(15);
+      s := tv(16);
+      t := tv(17);
+      u := tv(18);
+      
+      g1 := (not a and not b and not c and not d) or (e and f);
+      g2 := (g and not h and not j) or (not l and n and not k);
+      g3 := (n and t) or (not g1 and g2);
+      g4 := (g1 and g2) or p or (n and o);
 
+		PP_SPECIAL_OR_12V_FOR_REL_DRIVERS <= '1'; -- Needs a 1 because of how HDL generates
+		
+		MS_CONSOLE_OUTPUT_8_BIT <= not a;
+		MS_CONSOLE_OUTPUT_4_BIT <= not b;
+		MS_CONSOLE_OUTPUT_2_BIT <= not c;
+		MS_CONSOLE_OUTPUT_1_BIT <= not d;
+		PS_CONSOLE_OUTPUT_8_BIT <= e;
+		PS_CONSOLE_OUTPUT_4_BIT <= f;
+		PS_CONS_CHAR_CONTROL <= g;
+		MS_CONSOLE_CHECK_STROBE <= not h;
+		MS_KEYBOARD_UNLOCK <= not j;
+		MS_ALTER_INQUIRY_UNLOCK <= not k;
+		MS_CONSOLE_OUTPUT_ERROR <= not l;
+		MV_CONS_PRINTER_C3_OR_C4_NO <= not m;
+		PS_CONS_BACK_SPACE_CONTROL <= n;
+		PS_CONSOLE_OUTPUT_ERROR <= o;
+		MS_CONS_WM_CONTROL <= not p;
+		MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC <= not r;
+		MS_CONS_BACK_SPACE_CONTROL <= not s;
+		PS_ALTER_INQUIRY_UNLOCK <= t;
+		MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO <= not u;
       
       wait for 30 ns;
-      
+
+      check1(MS_8_4_2_1_BIT,not(a or b or c or d),testName,"-S 8 4 2 1 Bit");
+      check1(PW_UPPER_CASE_SHIFT_SOLENOID,not r and g4 and not m,testName,"UC Shift");
+      check1(PS_CONS_PRINTER_SHIFT_COMPLETE,
+         (not(not u and g3) and not m and not(not r and g4)) or s,
+         testName,"Printer Shift Complete");
+      check1(PW_LOWER_CASE_SHIFT_SOLENOID,not m and g3 and not u,testName,"LC Shift");      
       
    end loop;
 
@@ -241,7 +267,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
