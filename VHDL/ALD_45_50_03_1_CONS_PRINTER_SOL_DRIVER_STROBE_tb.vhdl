@@ -173,39 +173,113 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.03.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**13 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
       b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      j := tv(6);
+      l := tv(7);
+      m := tv(8);
+      n := tv(9);
+      o := tv(10);
+      p := tv(11);
+      q := tv(12);      
+      
+      g1 := not g and f and d;
+      g2 := g1 or q or j or l or m or p or e;
+      g3 := n and g2;
       
       wait for 30 ns;
       
+      -- Reset
+      
+      MS_CONSOLE_CHECK_STROBE <= '1';
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
+      PS_CONS_CLOCK_4_POS <= '1'; -- So we can see latch output
+      wait for 30 ns;
+      
+      check1(MS_RESET_CONS_PRTR_NOT_BUSY,'1',testName,"Init Reset Cons Prtr not Busy");
+      check1(PS_SOLENOID_DRIVER_STROBE,'0',testName,"Init Solenoid Drive Strobe");
+      
+      -- Prepare to perhaps set type start latch
+      
+		PS_CONS_PRINTER_SHIFT_COMPLETE <= b;
+      PS_PRTR_LOCKED_CND_PROCEED <= d;
+      MS_TAKE_CONSOLE_PRINTER_CYCLE <= not e;
+      PS_CONS_CHAR_CONTROL <= f;
+      MS_KEYBOARD_UNLOCK <= not g;
+      MS_CONS_FN_CONTROL <= not j;
+      MS_CONS_WM_CONTROL <= not l;
+      MS_CONS_ERROR_CONTROL <= not m;
+      PS_CND_RES_CONS_PRTR_NOT_BUSY <= n;
+      MS_CONS_BACK_SPACE_CONTROL <= not p;
+      MS_CONS_PRINTER_END_OF_LINE <= not q;
+      wait for 30 ns;
+
+      check1(MS_RESET_CONS_PRTR_NOT_BUSY,'1',testName,"Before CC3 Cons Prtr not Busy");
+      check1(PS_SOLENOID_DRIVER_STROBE,'0',testName,"Before CC3 Solenoid Drive Strobe");
+      
+      -- Run CC3 to maybe set the type start latch
+
+      PS_CONS_CLOCK_3_POS_1 <= '1';
+      wait for 30 ns;
+      PS_CONS_CLOCK_3_POS_1 <= '0';
+      wait for 30 ns;
+      
+      check1(MS_RESET_CONS_PRTR_NOT_BUSY,not g3,testName,"Set Cons Prtr not Busy");
+      check1(PS_SOLENOID_DRIVER_STROBE,'0',testName,"Do not yet set Solenoid Drive Strobe");
+      
+      -- Remove the latch inputs, and leave CC4 set - latch should not change
+      
+      PS_PRTR_LOCKED_CND_PROCEED <= '0';
+      MS_TAKE_CONSOLE_PRINTER_CYCLE <= '1';
+      PS_CONS_CHAR_CONTROL <= '0';
+      MS_KEYBOARD_UNLOCK <= '1';
+      MS_CONS_FN_CONTROL <= '1';
+      MS_CONS_WM_CONTROL <= '1';
+      MS_CONS_ERROR_CONTROL <= '1';
+      PS_CND_RES_CONS_PRTR_NOT_BUSY <= '0';
+      MS_CONS_BACK_SPACE_CONTROL <= '1';
+      MS_CONS_PRINTER_END_OF_LINE <= '1';
+      wait for 30 ns;         
+
+      check1(MS_RESET_CONS_PRTR_NOT_BUSY,not g3,testName,"Check Set Cons Prtr not Busy");
+      check1(PS_SOLENOID_DRIVER_STROBE,'0',testName,"Check Do not yet set Solenoid Drive Strobe");
+      
+      -- Drop CC4 - the reset cons prtr not busy should go false
+      
+      PS_CONS_CLOCK_4_POS <= '0';
+      wait for 30 ns;
+
+      check1(MS_RESET_CONS_PRTR_NOT_BUSY,'1',testName,"Check 2 Set Cons Prtr not Busy");
+
+      -- Maybe set the solenoid driver strobe at CC1
+      
+      PS_CONS_CLOCK_1_POS <= '1';
+      wait for 30 ns;
+      PS_CONS_CLOCK_1_POS <= '0';
+      wait for 30 ns;
+      
+      check1(PS_SOLENOID_DRIVER_STROBE,g3 and b,testName,"Set Solenoid Drive Strobe");
+      
+      -- Re-enable CC4 so we can see both latches
+      
+      PS_CONS_CLOCK_4_POS <= '1';
+
+      -- Maybe reset them
+
+		MS_CONSOLE_CHECK_STROBE <= not o;
+      wait for 30 ns;      
+      
+      check1(MS_RESET_CONS_PRTR_NOT_BUSY,not(g3 and not o),testName,"Reset Cons Prtr not Busy");
+      check1(PS_SOLENOID_DRIVER_STROBE,g3 and b and not o,testName,"Set Solenoid Drive Strobe");
       
    end loop;
 
@@ -220,7 +294,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
