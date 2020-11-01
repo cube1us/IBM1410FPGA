@@ -1,0 +1,125 @@
+Generating HDL for page 45.50.02.1 CONSOLE I-O PRINTER STROBE at 11/1/2020 9:39:02 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_02_1_CONSOLE_I_O_PRINTER_STROBE_tb.vhdl, generating default test bench code.
+Note: DOT Function at 1C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Ignoring Logic Block 2A with symbol CAP
+Ignoring Logic Block 2B with symbol L
+Ignoring Logic Block 5D with symbol L
+Ignoring Logic Block 4D with symbol CAP
+Ignoring Logic Block 4E with symbol L
+Found combinatorial loop (need D FF) at output of gate at 3E
+Found combinatorial loop (need D FF) at output of gate at 2E
+Ignoring Logic Block 4F with symbol CAP
+Ignoring Logic Block 1F with symbol L
+Found combinatorial loop (need D FF) at output of gate at 3H
+Found combinatorial loop (need D FF) at output of gate at 2H
+Processing extension from block at 1G (Database ID=277839) to 1H (Database ID=277840)
+Copied connection to extension input pin K to master block at 1G
+Copied connection to extension input pin L to master block at 1G
+Copied connection to extension input pin H to master block at 1G
+Copied connection from extension output pin B to master block at 1G
+Copied mapped pin A from extension 1H to master block at 1G
+Copied mapped pin B from extension 1H to master block at 1G
+Copied mapped pin D from extension 1H to master block at 1G
+Copied mapped pin E from extension 1H to master block at 1G
+Copied mapped pin F from extension 1H to master block at 1G
+Copied mapped pin H from extension 1H to master block at 1G
+Moved connection from extension 1H pin B to be from master at 1G
+Removed 2 outputs from Gate at 5A to ignored block(s) or identical signal names
+Removed 6 outputs from Gate at 1A to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5C to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 5E to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_R, OUT_5A_R, OUT_5A_R
+	and inputs of MV_CONS_PRINTER_SPACE_NO
+	and logic function of Resistor
+Generating Statement for block at 4A with output pin(s) of OUT_4A_F
+	and inputs of OUT_5A_R,OUT_3C_NoPin
+	and logic function of NAND
+Generating Statement for block at 3A with output pin(s) of OUT_3A_NoPin
+	and inputs of OUT_3B_G,PS_CONS_CHECK_STROBE
+	and logic function of NAND
+Generating Statement for block at 1A with output pin(s) of OUT_1A_D, OUT_1A_D, OUT_1A_D
+	and inputs of OUT_1G_B
+	and logic function of NOT
+Generating Statement for block at 5B with output pin(s) of OUT_5B_NoPin
+	and inputs of OUT_5E_B,OUT_4C_A
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of OUT_3A_NoPin,OUT_5B_NoPin
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of OUT_5A_R
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_NoPin
+	and inputs of OUT_1A_D,PS_CONS_CLOCK_3_POS_1
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_J, OUT_5C_J
+	and inputs of MV_CONS_PRINTER_C1_CAM_NO
+	and logic function of Resistor
+Generating Statement for block at 4C with output pin(s) of OUT_4C_A
+	and inputs of OUT_5C_J
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_NoPin
+	and inputs of PS_CONS_CHECK_STROBE,PS_CONS_CHAR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of PS_CONS_CHAR_CONTROL,PS_CONS_CYCLE_LATCH_SET
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_D
+	and inputs of OUT_5E_B
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_E
+	and inputs of OUT_5C_J,OUT_3D_D,MS_CONSOLE_CHECK_STROBE_1
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_K
+	and inputs of MS_CONS_BACK_SPACE_CONTROL,MS_WM_INPUT
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_B, OUT_5E_B
+	and inputs of MV_CONS_PRINTER_C1_CAM_NC
+	and logic function of Resistor
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_G_Latch, OUT_3E_G_Latch, OUT_3E_G_Latch
+	and inputs of OUT_2D_E,MS_PROGRAM_RESET_4,OUT_2E_G
+	and logic function of NAND
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_G_Latch
+	and inputs of OUT_1B_NoPin,OUT_3E_G
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C, OUT_1E_C
+	and inputs of OUT_1A_D
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_P
+	and inputs of OUT_1E_C,PS_CONS_CLOCK_3_POS_1
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_E
+	and inputs of OUT_4A_F,OUT_4B_C,OUT_3E_G
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_P, OUT_1G_B
+	and inputs of OUT_2H_G,PS_CONS_CLOCK_1_POS,OUT_1G_P,PS_CONS_CLOCK_1_POS,MS_PROGRAM_RESET_4
+	and logic function of Trigger
+Generating Statement for block at 3H with *latched* output pin(s) of OUT_3H_K_Latch
+	and inputs of OUT_3E_G,OUT_2H_G
+	and logic function of NAND
+Generating Statement for block at 2H with *latched* output pin(s) of OUT_2H_G_Latch, OUT_2H_G_Latch
+	and inputs of OUT_3H_K,OUT_DOT_3G
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_DOT_1C
+	and inputs of OUT_1C_C,OUT_1D_K
+	and logic function of OR
+Generating Statement for block at 3G with output pin(s) of OUT_DOT_3G
+	and inputs of OUT_3F_P,OUT_3G_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MV_CONS_PRINTER_SPACE_NO_JRJ
+	from gate output OUT_5A_R
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_PRINTER_STROBE
+	from gate output OUT_1A_D
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_PRINTER_STROBE
+	from gate output OUT_1E_C
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_WM_INPUT_RESET
+	from gate output OUT_DOT_1C
+Generating D Flip Flop for block at 3E
+Generating D Flip Flop for block at 2E
+Generating D Flip Flop for block at 3H
+Generating D Flip Flop for block at 2H
