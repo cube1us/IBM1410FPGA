@@ -170,39 +170,117 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.02.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := not d;
       
       wait for 30 ns;
       
+      -- Reset the Print Strobe Reset latch and Printer Strobe Trigger
+      -- (Note that at this point the Console Strobe Gate Latch is in an undefined state)
+      
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
+      wait for 30 ns;
+      
+      check1(PS_CONS_PRINTER_STROBE,'0',testName,"Init +S Console Printer Strobe");
+      check1(MS_CONS_PRINTER_STROBE,'1',testName,"Init -S Console Printer Strobe");      
+      
+      -- Maybe set the Console Strobe Gate Latch
+      
+		MV_CONS_PRINTER_SPACE_NO <= not a;
+      PS_CONS_CHECK_STROBE <= b;
+      MV_CONS_PRINTER_C1_CAM_NO <= not d;
+      PS_CONS_CHAR_CONTROL <= e;
+      PS_CONS_CYCLE_LATCH_SET <= f;
+      MS_CONSOLE_CHECK_STROBE_1 <= not g;
+      MS_CONS_BACK_SPACE_CONTROL <= not h;
+      MS_WM_INPUT <= not j;
+      MV_CONS_PRINTER_C1_CAM_NC <= not k;
+      wait for 30 ns;
+      
+      check1(MV_CONS_PRINTER_SPACE_NO,not a,testName,"Cons Printer Space NO");
+      check1(MS_CONS_WM_INPUT_RESET,not(e and f and not h and not j),testName,"Cons WM Input Reset"); 
+      
+      check1(PS_CONS_PRINTER_STROBE,'0',testName,"+S Console Printer Strobe Step 1");
+      check1(MS_CONS_PRINTER_STROBE,not PS_CONS_PRINTER_STROBE,testName,
+         "-S Console Printer Strobe Step 1");      
+
+      -- Run CC1 - nothing should really change
+      
+      PS_CONS_CLOCK_1_POS <= '1';
+      wait for 30 ns;
+      PS_CONS_CLOCK_1_POS <= '0';
+      wait for 30 ns;
+
+      check1(PS_CONS_PRINTER_STROBE,'0',testName,"+S Console Printer Strobe Step CC1");
+      check1(MS_CONS_PRINTER_STROBE,not PS_CONS_PRINTER_STROBE,testName,
+         "-S Console Printer Strobe Step CC1");
+         
+      -- Run CC3.  This MIGHT set the Console Strobe Gate
+      -- (No CC2 in this test)      
+      
+      g1 := (d or (a and b)) and ((b and e) or a);
+      
+      PS_CONS_CLOCK_3_POS_1 <= '1';
+      wait for 30 ns;
+      PS_CONS_CLOCK_3_POS_1 <= '0';
+      wait for 30 ns;
+
+      -- Then run CC1 again, which will set Console Printer Strobe IF the
+      -- Console Strobe Gate latch is set      
+      
+      PS_CONS_CLOCK_1_POS <= '1';
+      wait for 30 ns;
+      PS_CONS_CLOCK_1_POS <= '0';
+      wait for 30 ns;
+
+      check1(PS_CONS_PRINTER_STROBE,g1,testName,"+S Console Printer Strobe Step CC3-CC1");
+      check1(MS_CONS_PRINTER_STROBE,not PS_CONS_PRINTER_STROBE,testName,
+         "-S Console Printer Strobe Step CC3-CC1");
+      
+      -- If the console printer strobe is not set, move to the next iteration.
+                  
+      if(g1 = '0') then
+         next;
+      end if;      
+
+      -- If it was set, we need to proceed through reset, so run CC3 again
+      -- This should reset the Console Strobe Gate Latch, but not change the
+      -- Console Printer Strobe Latch.  We have to turn on Console Check Strobe
+      -- so that the Print Strobe Reset latch isn't held reset.
+      
+      PS_CONS_CLOCK_3_POS_1 <= '1';
+      MS_CONSOLE_CHECK_STROBE_1 <= '0';
+      wait for 30 ns;
+      PS_CONS_CLOCK_3_POS_1 <= '0';
+      wait for 30 ns;
+
+      check1(PS_CONS_PRINTER_STROBE,g1,testName,"+S Console Printer Strobe Step CC3-CC1-CC3");
+      check1(MS_CONS_PRINTER_STROBE,not PS_CONS_PRINTER_STROBE,testName,
+         "-S Console Printer Strobe Step CC3-CC1-CC3");
+      
+      -- Now, run CC1 and the console printer strobe should reset
+
+      PS_CONS_CLOCK_1_POS <= '1';
+      wait for 30 ns;
+      PS_CONS_CLOCK_1_POS <= '0';
+      wait for 30 ns;
+
+      check1(PS_CONS_PRINTER_STROBE,'0',testName,"+S Console Printer Strobe Step RESET");
+      check1(MS_CONS_PRINTER_STROBE,not PS_CONS_PRINTER_STROBE,testName,
+         "-S Console Printer Strobe Step RESET");
       
    end loop;
 
