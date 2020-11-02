@@ -164,39 +164,35 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.06.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**6 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
 
+		PS_CONSOLE_OUTPUT_2_BIT <= a;
+		PP_SPECIAL_OR_12V_FOR_REL_DRIVERS <= '1';
+		PS_CONSOLE_OUTPUT_4_BIT <= c;
+		PS_SOLENOID_DRIVER_STROBE <= d;
+		PS_CONS_CHAR_CONTROL <= e;
+		PS_CONSOLE_OUTPUT_8_BIT <= f;
+		PS_CONSOLE_OUTPUT_1_BIT <= g;
       
       wait for 30 ns;
       
+		check1(MS_CONSOLE_OUTPUT_2_BIT,not a,testName,"-S 2 Bit");
+      check1(PW_CONS_PRINTER_R1_SOLENOID,d and not a and e,testName,"R1 Solenoid");
+      check1(PW_CONS_PRINTER_R2A_SOLENOID,e and (not f or c) and d,testName,"R2A Solenoid");
+      check1(MS_CONSOLE_OUTPUT_4_BIT,not c,testName,"-S 4 Bit");
+      check1(MS_CONSOLE_OUTPUT_8_BIT,not f,testName,"-S 8 Bit");
+      check1(PW_CONS_PRINTER_R2_SOLENOID,e and not c and not f and d,testName,"R2 Solenoid");
+      check1(MS_CONSOLE_OUTPUT_1_BIT,not g,testName,"T");
+      check1(PW_CONS_PRINTER_R5_SOLENOID,d and e and ((not g and f) or (g and not f)),testName,"R5");
       
    end loop;
 
