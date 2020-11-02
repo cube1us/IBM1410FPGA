@@ -1,0 +1,52 @@
+Generating HDL for page 45.50.08.1 CONSOLE PRINTER NOT BUSY LATCH at 11/2/2020 5:24:07 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_08_1_CONSOLE_PRINTER_NOT_BUSY_LATCH_tb.vhdl, generating default test bench code.
+Note: DOT Function at 5E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 1B to ignored block(s) or identical signal names
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_C_Latch, OUT_3B_C_Latch
+	and inputs of OUT_DOT_2B,MS_RESET_CONS_PRTR_NOT_BUSY,MS_KEYBOARD_UNLOCK_SET
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_P_Latch
+	and inputs of OUT_3B_C,MS_PROGRAM_RESET_4
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_Q
+	and inputs of OUT_DOT_2B
+	and logic function of EQUAL
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of MS_KEYBOARD_LOCK_SET,OUT_3D_NoPin
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_NoPin
+	and inputs of PS_CONS_CYCLE_LATCH_SET,MS_CONS_PRINTER_LAST_COLUMN,OUT_4E_E
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_P
+	and inputs of MS_CONS_BACK_SPACE_CONTROL,PS_CONS_CHAR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_E, OUT_4E_E
+	and inputs of MS_CONS_FN_CONTROL,OUT_DOT_5E,OUT_5G_D
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_K
+	and inputs of MS_KEYBOARD_UNLOCK,MS_CONSOLE_OUTPUT_ERROR
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_D
+	and inputs of MS_CONS_BACK_SPACE_CONTROL,MS_CONSOLE_OUTPUT_ERROR,PS_CONS_ERROR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_DOT_5E
+	and inputs of OUT_5E_P,OUT_5F_K
+	and logic function of OR
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B, OUT_DOT_2B
+	and inputs of OUT_2B_P,OUT_2C_D
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_PRINTER_NOT_BUSY
+	from gate output OUT_3B_C
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_PRINTER_NOT_BUSY
+	from gate output OUT_1B_Q
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_PRTR_NOT_BUSY_SET
+	from gate output OUT_4E_E
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
