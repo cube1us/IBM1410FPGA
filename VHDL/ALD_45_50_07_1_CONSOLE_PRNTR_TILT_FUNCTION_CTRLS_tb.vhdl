@@ -209,40 +209,67 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.07.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**18 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      b := tv(0);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
+      n := tv(11);
+      o := tv(12);
+      p := tv(13);
+      q := tv(14);
+      r := tv(15);
+      s := tv(16);
+      t := tv(17);
+      
+      PP_SPECIAL_OR_12V_FOR_REL_DRIVERS <= '1';  -- +12V, actually
 
+		PS_CONS_CHAR_CONTROL <= b;
+		MS_CONS_ERROR_CONTROL <= not c;
+		MS_CONS_WM_CONTROL <= not d;
+		PS_CONSOLE_OUTPUT_A_BIT <= e;
+		PS_SOLENOID_DRIVER_STROBE <= f;
+		PS_CONS_BACK_SPACE_CONTROL <= g;
+		PS_CONSOLE_OUTPUT_B_BIT <= h;
+		PS_CONSOLE_CARRIAGE_RETURN <= j;
+		MS_STOP_PGM_RES_CARRIAGE_RETURN <= not k;
+		PS_CONSOLE_OUTPUT_C_BIT <= l;
+		PS_FUNCTION_CONTROL <= m;
+		PS_CONSOLE_SPACE_FUNCTION <= n;
+		PS_CONSOLE_OUTPUT_8_BIT <= o;
+		MS_CONSOLE_OUTPUT_4_BIT <= not p;
+		MS_CONS_PRINTER_END_OF_LINE <= not q;
+		PS_CONSOLE_OUTPUT_2_BIT <= r;
+		PS_CONSOLE_OUTPUT_1_BIT <= s;
+		PS_KEYBOARD_UNLOCK <= t;
       
       wait for 30 ns;
       
+      g1 := l and h and e and o and not p and r and s;
       
+      check1(MS_CONS_OUTPUT_CBA8_421,not g1,testName,"CBA8-421");
+		check1(MS_CONSOLE_OUTPUT_A_BIT,not e,testName,"-S A Bit");
+      check1(PW_CONS_PRINTER_T1_SOLENOID,f and ((not e and b) or c),testName,"T1 Solenoid");
+      check1(PW_CONS_PRINTER_T2_SOLENOID,f and ((not h and b) or c),testName,"T2 Solenoid");
+      check1(MS_CONSOLE_OUTPUT_B_BIT,not h,testName,"-S B Bit");
+      check1(PW_CONS_PRINTER_CHK_SOLENOID,f and (d or c or (b and (not l or g1))),
+         testName,"CHK Solenoid");
+      check1(PW_BACKSPACE_SOLENOID,f and g,testName,"BackSpace Solenoid");
+      check1(MS_CONS_GATED_CARRIAGE_RETURN,not(j and f),testName,"Gated CR");
+      check1(PW_CARRIAGE_RETURN_SOLENOID,(f and j) or k,testName,"CR Solenoid");
+      check1(PW_SPACE_SOLENOID,m and n and f and not q,testName,"Space Solenoid");
+      check1(MW_KEYBOARD_LOCK_SOLENOID,not(not t),testName,"Keyboard Lock Solenoid");
+           
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
@@ -256,7 +283,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 20 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
