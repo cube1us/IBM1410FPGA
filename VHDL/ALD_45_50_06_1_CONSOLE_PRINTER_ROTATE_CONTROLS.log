@@ -1,0 +1,82 @@
+Generating HDL for page 45.50.06.1 CONSOLE PRINTER ROTATE CONTROLS at 11/2/2020 2:15:25 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_06_1_CONSOLE_PRINTER_ROTATE_CONTROLS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 2F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 1 outputs from Gate at 5E to ignored block(s) or identical signal names
+Generating Statement for block at 5B with output pin(s) of OUT_5B_G, OUT_5B_G
+	and inputs of PS_CONSOLE_OUTPUT_2_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_D
+	and inputs of OUT_5B_G,PS_CONS_CHAR_CONTROL,PS_SOLENOID_DRIVER_STROBE
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_B
+	and inputs of OUT_2B_D,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_C
+	and inputs of PS_CONSOLE_OUTPUT_8_BIT,OUT_5E_F
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_E
+	and inputs of OUT_4D_C,PS_CONS_CHAR_CONTROL,PS_SOLENOID_DRIVER_STROBE
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_G
+	and inputs of OUT_2D_E,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_F, OUT_5E_F, OUT_5E_F
+	and inputs of PS_CONSOLE_OUTPUT_4_BIT
+	and logic function of NOT
+Generating Statement for block at 2E with output pin(s) of OUT_2E_K
+	and inputs of OUT_5E_F,PS_CONS_CHAR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_D, OUT_5F_D, OUT_5F_D
+	and inputs of PS_CONSOLE_OUTPUT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_P
+	and inputs of OUT_5F_D,PS_SOLENOID_DRIVER_STROBE
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_A
+	and inputs of OUT_DOT_2F,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_NoPin
+	and inputs of OUT_5F_D,PS_CONSOLE_OUTPUT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_B, OUT_5H_B
+	and inputs of PS_CONSOLE_OUTPUT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_NoPin
+	and inputs of OUT_5H_B,PS_CONSOLE_OUTPUT_8_BIT
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_A
+	and inputs of OUT_4G_NoPin,OUT_4H_NoPin
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of OUT_3H_A,PS_SOLENOID_DRIVER_STROBE,PS_CONS_CHAR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 1H with output pin(s) of OUT_1H_C
+	and inputs of OUT_2H_C,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_DOT_2F
+	and inputs of OUT_2E_K,OUT_2F_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_OUTPUT_2_BIT
+	from gate output OUT_5B_G
+Generating output sheet edge signal assignment to 
+	signal PW_CONS_PRINTER_R1_SOLENOID
+	from gate output OUT_1B_B
+Generating output sheet edge signal assignment to 
+	signal PW_CONS_PRINTER_R2A_SOLENOID
+	from gate output OUT_1D_G
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_OUTPUT_4_BIT
+	from gate output OUT_5E_F
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_OUTPUT_8_BIT
+	from gate output OUT_5F_D
+Generating output sheet edge signal assignment to 
+	signal PW_CONS_PRINTER_R2_SOLENOID
+	from gate output OUT_1F_A
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_OUTPUT_1_BIT
+	from gate output OUT_5H_B
+Generating output sheet edge signal assignment to 
+	signal PW_CONS_PRINTER_R5_SOLENOID
+	from gate output OUT_1H_C
