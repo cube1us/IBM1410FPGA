@@ -1,0 +1,130 @@
+Generating HDL for page 45.50.07.1 CONSOLE PRNTR TILT+FUNCTION CTRLS at 11/2/2020 3:49:50 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_07_1_CONSOLE_PRNTR_TILT_FUNCTION_CTRLS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 5G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Generating Statement for block at 5A with output pin(s) of OUT_5A_G, OUT_5A_G
+	and inputs of PS_CONSOLE_OUTPUT_A_BIT
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_NoPin
+	and inputs of OUT_5A_G,PS_CONS_CHAR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_F
+	and inputs of OUT_4B_NoPin,MS_CONS_ERROR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_2B_G
+	and inputs of OUT_3B_F,PS_SOLENOID_DRIVER_STROBE
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_B
+	and inputs of OUT_2B_G,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_C, OUT_5C_C
+	and inputs of PS_CONSOLE_OUTPUT_B_BIT
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_NoPin
+	and inputs of OUT_5C_C,PS_CONS_CHAR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_G
+	and inputs of OUT_4C_NoPin,MS_CONS_ERROR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+	and inputs of OUT_3C_G,PS_SOLENOID_DRIVER_STROBE
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_G
+	and inputs of OUT_2C_C,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_3E_G,MS_CONS_WM_CONTROL,MS_CONS_ERROR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_G
+	and inputs of OUT_3D_C,PS_SOLENOID_DRIVER_STROBE
+	and logic function of NAND
+Generating Statement for block at 1D with output pin(s) of OUT_1D_A
+	and inputs of OUT_2D_G,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_NoPin
+	and inputs of PS_CONSOLE_OUTPUT_C_BIT,OUT_DOT_5G
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_G
+	and inputs of OUT_4E_NoPin,PS_CONS_CHAR_CONTROL
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_C
+	and inputs of PS_SOLENOID_DRIVER_STROBE,PS_CONS_BACK_SPACE_CONTROL
+	and logic function of NAND
+Generating Statement for block at 1E with output pin(s) of OUT_1E_C
+	and inputs of OUT_2E_C,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C, OUT_4F_C
+	and inputs of PS_CONSOLE_CARRIAGE_RETURN,PS_SOLENOID_DRIVER_STROBE
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_P
+	and inputs of OUT_4F_C,MS_STOP_PGM_RES_CARRIAGE_RETURN
+	and logic function of NAND
+Generating Statement for block at 2F with output pin(s) of OUT_2F_K
+	and inputs of OUT_3F_P
+	and logic function of NAND
+Generating Statement for block at 1F with output pin(s) of OUT_1F_B
+	and inputs of OUT_2F_K,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_D
+	and inputs of PS_CONSOLE_OUTPUT_C_BIT,PS_CONSOLE_OUTPUT_B_BIT
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+	and inputs of PS_SOLENOID_DRIVER_STROBE,PS_FUNCTION_CONTROL,PS_CONSOLE_SPACE_FUNCTION
+	and logic function of NAND
+Generating Statement for block at 1G with output pin(s) of OUT_1G_G
+	and inputs of OUT_DOT_2G,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_D
+	and inputs of PS_CONSOLE_OUTPUT_A_BIT,PS_CONSOLE_OUTPUT_8_BIT,MS_CONSOLE_OUTPUT_4_BIT
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_C
+	and inputs of MS_CONS_PRINTER_END_OF_LINE
+	and logic function of NAND
+Generating Statement for block at 5I with output pin(s) of OUT_5I_K
+	and inputs of PS_CONSOLE_OUTPUT_2_BIT,PS_CONSOLE_OUTPUT_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2I with output pin(s) of OUT_2I_P
+	and inputs of PS_KEYBOARD_UNLOCK
+	and logic function of NAND
+Generating Statement for block at 1I with output pin(s) of OUT_1I_A
+	and inputs of OUT_2I_P,PP_SPECIAL_OR_12V_FOR_REL_DRIVERS
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G, OUT_DOT_5G
+	and inputs of OUT_5G_D,OUT_5H_D,OUT_5I_K
+	and logic function of OR
+Generating Statement for block at 2G with output pin(s) of OUT_DOT_2G
+	and inputs of OUT_2G_C,OUT_2H_C
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_OUTPUT_A_BIT
+	from gate output OUT_5A_G
+Generating output sheet edge signal assignment to 
+	signal PW_CONS_PRINTER_T1_SOLENOID
+	from gate output OUT_1B_B
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_OUTPUT_B_BIT
+	from gate output OUT_5C_C
+Generating output sheet edge signal assignment to 
+	signal PW_CONS_PRINTER_T2_SOLENOID
+	from gate output OUT_1C_G
+Generating output sheet edge signal assignment to 
+	signal PW_CONS_PRINTER_CHK_SOLENOID
+	from gate output OUT_1D_A
+Generating output sheet edge signal assignment to 
+	signal PW_BACKSPACE_SOLENOID
+	from gate output OUT_1E_C
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_GATED_CARRIAGE_RETURN
+	from gate output OUT_4F_C
+Generating output sheet edge signal assignment to 
+	signal PW_CARRIAGE_RETURN_SOLENOID
+	from gate output OUT_1F_B
+Generating output sheet edge signal assignment to 
+	signal PW_SPACE_SOLENOID
+	from gate output OUT_1G_G
+Generating output sheet edge signal assignment to 
+	signal MW_KEYBOARD_LOCK_SOLENOID
+	from gate output OUT_1I_A
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_OUTPUT_CBA8_421
+	from gate output OUT_DOT_5G
