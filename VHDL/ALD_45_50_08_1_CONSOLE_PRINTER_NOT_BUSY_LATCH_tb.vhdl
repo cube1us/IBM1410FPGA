@@ -164,40 +164,73 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.08.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**9 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      d := tv(0);
+      e := tv(1);
+      f := tv(2);
+      g := tv(3);
+      h := tv(4);
+      j := tv(5);
+      k := tv(6);
+      l := tv(7);
+      m := tv(8);
 
+      -- First, set the latch
       
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
       wait for 30 ns;
       
+      check1(PS_CONS_PRINTER_NOT_BUSY,'1',testName,"Init +S Cons Not Busy");
+      check1(MS_CONS_PRINTER_NOT_BUSY,not PS_CONS_PRINTER_NOT_BUSY,testName,"Init -S Cons Not Busy");
       
+      -- Then, reset one of two ways, before we set the other signals
+      
+      MS_RESET_CONS_PRTR_NOT_BUSY <= d;
+      MS_KEYBOARD_UNLOCK_SET <= not d; 
+      wait for 30 ns;
+      MS_RESET_CONS_PRTR_NOT_BUSY <= '1';
+      MS_KEYBOARD_UNLOCK_SET <= '1'; 
+      wait for 30 ns;
+
+      check1(PS_CONS_PRINTER_NOT_BUSY,'0',testName,"Init Reset +S Cons Not Busy");
+      check1(MS_CONS_PRINTER_NOT_BUSY,not PS_CONS_PRINTER_NOT_BUSY,testName,"Init Reset -S Cons Not Busy");
+
+		MS_KEYBOARD_LOCK_SET <= not d;
+		PS_CONS_CYCLE_LATCH_SET <= e;
+		MS_CONS_PRINTER_LAST_COLUMN <= not f;
+		MS_CONS_FN_CONTROL <= not g;
+		MS_CONS_BACK_SPACE_CONTROL <= not h;
+		PS_CONS_CHAR_CONTROL <= j;
+		MS_KEYBOARD_UNLOCK <= not k;
+		MS_CONSOLE_OUTPUT_ERROR <= not l;
+		PS_CONS_ERROR_CONTROL <= m;
+      
+      g1 := (not k and j and not h and not l) or (not l and not h and m) or g;
+      g2 := (g1 and e and not f) or d;
+      
+      wait for 30 ns; -- Maybe set the latch
+      
+      check1(PS_CONS_PRTR_NOT_BUSY_SET,g1,testName,"Set Cons Not Busy Set");
+      check1(PS_CONS_PRINTER_NOT_BUSY,g2 or d,testName,"Set +S Cons Not Busy");
+      check1(MS_CONS_PRINTER_NOT_BUSY,not PS_CONS_PRINTER_NOT_BUSY,testName,"Set -S Cons Not Busy");
+            
+      -- Set the variables back so we don't hold the latch set
+
+		MS_KEYBOARD_LOCK_SET <= '1';
+      PS_CONS_CYCLE_LATCH_SET <= '0';
+      MS_CONS_PRINTER_LAST_COLUMN <= '1';
+      MS_CONS_FN_CONTROL <= '1';
+      MS_CONS_BACK_SPACE_CONTROL <= '1';
+      PS_CONS_CHAR_CONTROL <= '0';
+      MS_KEYBOARD_UNLOCK <= '1';
+      MS_CONSOLE_OUTPUT_ERROR <= '1';
+      PS_CONS_ERROR_CONTROL <= '0';
+                  
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
