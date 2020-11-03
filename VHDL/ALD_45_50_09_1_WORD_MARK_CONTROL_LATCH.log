@@ -1,0 +1,67 @@
+Generating HDL for page 45.50.09.1 WORD MARK CONTROL LATCH at 11/3/2020 7:44:44 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_09_1_WORD_MARK_CONTROL_LATCH_tb.vhdl, generating default test bench code.
+Note: DOT Function at 5G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3C
+Found combinatorial loop (need D FF) at output of gate at 2C
+Ignoring Logic Block 4F with symbol CAP
+Ignoring Logic Block 1F with symbol L
+Removed 5 outputs from Gate at 2B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 5E to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3E to ignored block(s) or identical signal names
+Generating Statement for block at 2B with output pin(s) of OUT_2B_C
+	and inputs of OUT_3C_D
+	and logic function of EQUAL
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_D_Latch, OUT_3C_D_Latch
+	and inputs of OUT_2C_E,MS_PROGRAM_RESET_4,OUT_4D_E
+	and logic function of NAND
+Generating Statement for block at 2C with *latched* output pin(s) of OUT_2C_E_Latch, OUT_2C_E_Latch
+	and inputs of OUT_3C_D,OUT_3E_D,OUT_3F_K
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_E
+	and inputs of PS_CONS_BACK_SPACE_CONTROL,PS_CONS_CYCLE_LATCH_RESET
+	and logic function of NAND
+Generating Statement for block at 5E with output pin(s) of OUT_5E_X, OUT_5E_X
+	and inputs of MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO
+	and logic function of Resistor
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of OUT_5E_X
+	and logic function of NAND
+Generating Statement for block at 3E with output pin(s) of OUT_3E_D, OUT_3E_D
+	and inputs of OUT_4E_C,PS_CONS_CYCLE_LATCH_SET,MS_CONS_MOVE_READ_OP
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_K, OUT_3F_K
+	and inputs of PS_CONS_OUTPUT_WM_BIT,OUT_4G_K
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_P
+	and inputs of PS_CONS_CLOCK_3_POS_1,PS_TAKE_CONSOLE_PRINTER_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_K, OUT_4G_K
+	and inputs of OUT_DOT_5G
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_K
+	and inputs of MS_CONSOLE_SPACE_FUNCTION,MS_CONSOLE_CARRIAGE_RETURN
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of OUT_5G_P,OUT_5H_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_WM_CONTROL
+	from gate output OUT_2B_C
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_WM_CONTROL
+	from gate output OUT_2C_E
+Generating output sheet edge signal assignment to 
+	signal MS_WM_INPUT
+	from gate output OUT_5E_X
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_WM_INPUT_SET
+	from gate output OUT_3E_D
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_WM_OUTPUT_SET
+	from gate output OUT_3F_K
+Generating output sheet edge signal assignment to 
+	signal PS_SET_FIRST_CYCLE_LATCH
+	from gate output OUT_4G_K
+Generating D Flip Flop for block at 3C
+Generating D Flip Flop for block at 2C
