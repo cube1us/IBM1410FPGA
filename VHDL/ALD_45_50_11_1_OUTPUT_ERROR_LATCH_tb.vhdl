@@ -173,39 +173,103 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.11.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**13 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
+      n := tv(11);
+      o := tv(12);
 
+      g1 := f and not e;
+      g8 := l and g1;
+      g2 := not f and not e;
+      g3 := not g8 and j and not k and not m and not n;
+      g4 := (g or g1) and not h and g3;
+      g5 := g3 and l and o;
+      g6 := g4 or g5;
+      g7 := a and b and not c;
       
+      -- Reset
+      
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
       wait for 30 ns;
       
+      check1(PS_CONSOLE_OUTPUT_ERROR,'0',testName,"Init +S Console Output Error");
+      check1(MS_CONSOLE_OUTPUT_ERROR,'1',testName,"Init -S Console Output Error");            
+
+      -- Maybe set the WM Period Latch
+
+		MS_CONS_PRINTER_STROBE <= not e;
+		MS_CONS_OUTPUT_CBA8_421 <= not f;
+      wait for 30 ns;
+		MS_CONS_PRINTER_STROBE <= '0'; -- This keeps the WM Period latch where it is
+      wait for 30 ns;
+      
+      -- Maybe set the Cons Output Error Latch
+      
+		MB_CONS_PRINTER_EVEN_BIT_CHECK <= not g;
+		MS_CONSOLE_WM_CHARACTER <= not h;
+		PS_CONS_PRINTER_STROBE <= j;
+		MS_KEYBOARD_UNLOCK <= not k;
+		PS_CONSOLE_WM_CHARACTER <= l;
+		MV_CONS_PRINTER_SPACE_NO_JRJ <= not m;
+		MS_CONS_MX_X1A_POS <= not n;
+		MV_CONS_PRINTER_ODD_BIT_CHECK <= not o;      
+      wait for 30 ns;
+      
+      check1(PS_CONS_DATA_CHECK,g6,testName,"Cons Data Check");      
+      check1(PS_CONSOLE_OUTPUT_ERROR,g6,testName,"Set +S Console Output Error");
+      check1(MS_CONSOLE_OUTPUT_ERROR,not PS_CONSOLE_OUTPUT_ERROR,testName,"Set +S Console Output Error");           
+      
+      -- Now, maybe reset the Console Output Error Latch
+      -- First, we have to remove the printer strobe...  That should not affect the latc.
+      
+      PS_CONS_PRINTER_STROBE <= '0';
+      wait for 30 ns;
+
+      check1(PS_CONSOLE_OUTPUT_ERROR,g6,testName,"Check Set +S Console Output Error");
+      check1(MS_CONSOLE_OUTPUT_ERROR,not PS_CONSOLE_OUTPUT_ERROR,testName,"Check Set +S Console Output Error");           
+      
+      -- Then maybe reset...
+                  
+		PS_CONS_CHECK_STROBE <= a;
+      PS_CONS_ERROR_CONTROL <= b;
+      MS_CONS_CYCLE_LATCH_SET <= not c;
+      wait for 30 ns;
+      
+      check1(PS_CONSOLE_OUTPUT_ERROR,g6 and not g7,testName,"Check Set +S Console Output Error");
+      check1(MS_CONSOLE_OUTPUT_ERROR,not PS_CONSOLE_OUTPUT_ERROR,testName,"Check Set +S Console Output Error");
+      
+      -- Now, put the strobe back to its former state, and maybe reset the WM Period Latch           
+      
+      PS_CONS_PRINTER_STROBE <= j;
+		MS_CONS_PRINTER_STROBE <= not e;
+      MS_CONS_OUTPUT_CBA8_421 <= not f;     
+      wait for 30 ns;
+      
+      check1(PS_CONS_DATA_CHECK,g6 and (g5 or not g2 or g),testName,
+         "WM Period Latch Reset - Cons Data Check");      
+      
+      -- Put critical signals back to their initial values so reset works next iteration
+      
+		PS_CONS_CHECK_STROBE <= '0';
+      PS_CONS_ERROR_CONTROL <= '0';
+      MS_CONS_CYCLE_LATCH_SET <= '1';
+      MS_CONS_OUTPUT_CBA8_421 <= '1'; 
+		PS_CONS_PRINTER_STROBE <= '0';                      
       
    end loop;
 
