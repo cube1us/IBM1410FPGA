@@ -158,39 +158,72 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.12.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      b := tv(0);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
       
+      -- Reset
+      
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
       wait for 30 ns;
       
+      check1(PS_CONS_ERROR_CONTROL,'0',testName,"Init +S Cons Error Control");
+      check1(MS_CONS_ERROR_CONTROL,'1',testName,"Init -S Cons Error Control");
+      
+      -- Maybe set the latch (holding off reset signals for now)
+      
+      PS_CONS_BACK_SPACE_CONTROL <= e;
+      PS_CONSOLE_OUTPUT_ERROR <= f;
+      PS_CONS_CLOCK_3_POS <= g;
+      MS_CONS_CHAR_CONTROL <= not h;
+      PS_CONS_CYCLE_LATCH_SET <= j;      
+      wait for 30 ns;
+
+      check1(PS_CONS_ERROR_CONTROL,f and not h and j and e,testName,"Set +S Cons Error Control");
+      check1(MS_CONS_ERROR_CONTROL,not PS_CONS_ERROR_CONTROL,testName,"Set -S Cons Error Control");
+
+      -- Reset the setting signals so a reset can happen later.  This should not affect the lach.
+
+      PS_CONS_BACK_SPACE_CONTROL <= '0';
+      PS_CONSOLE_OUTPUT_ERROR <= '0';
+      MS_CONS_CHAR_CONTROL <= '1';
+      PS_CONS_CYCLE_LATCH_SET <= '0';      
+      wait for 30 ns;
+      
+      check1(PS_CONS_ERROR_CONTROL,f and not h and j and e,testName,"Check Set +S Cons Error Control");
+      check1(MS_CONS_ERROR_CONTROL,not PS_CONS_ERROR_CONTROL,testName,"Check Set -S Cons Error Control");
+      
+      -- Then, perhaps, reset the latch
+      
+		PS_CONS_PRINTER_NOT_BUSY <= b;
+      PS_CONS_CYCLE_LATCH_RESET <= c;
+      PS_CONS_PRINTER_END_OF_LINE <= d;
+      wait for 30 ns;
+
+      check1(PS_CONS_ERROR_CONTROL,
+         (f and not h and j and e) and not((b and c) or (c and d)),
+          testName,"Reset +S Cons Error Control");
+      check1(MS_CONS_ERROR_CONTROL,not PS_CONS_ERROR_CONTROL,testName,"Reset -S Cons Error Control");
+      
+      check1(MS_END_OF_CHAR_RESET,not(b and c),testName,"End of Char Reset");
+      check1(MS_END_OF_LINE_RESET,not(d and g),testName,"End of Line Reset");
+      
+      -- Unset the reset variables, for the next iteration.
+      
+		PS_CONS_PRINTER_NOT_BUSY <= '0';
+      PS_CONS_CYCLE_LATCH_RESET <= '0';
+      PS_CONS_PRINTER_END_OF_LINE <= '0';
       
    end loop;
 
