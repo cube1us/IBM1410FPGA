@@ -167,39 +167,87 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.10.1        ";
 
    for tt in 0 to 2**25 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      b := tv(0);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
 
+      g1 := l and not k and j and not f;
+      g2 := m and not n;
+      g3 := g1 or g2 or e;
       
+      g4 := d and (f or g or h);
+      g5 := b or c or g4;
+      
+      -- Reset
+      
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
       wait for 30 ns;
       
+      check1(PS_CONS_CHAR_CONTROL,'0',testName,"Init +S Cons Char Control");
+      check1(MS_CONS_CHAR_CONTROL,'1',testName,"Init -S Cons Char Control");
+      
+      -- Now, the possible set signals get set, perhaps setting the latch
+      
+      MS_KEYBOARD_UNLOCK_SET <= not e;
+      MS_CONSOLE_OUTPUT_ERROR <= not f; -- This one persists through the rest of the test
+      PS_CONS_BACK_SPACE_CONTROL <= j;
+      MS_CONS_WM_CONTROL <= not k;
+      PS_CONS_CYCLE_LATCH_SET <= l;
+      PS_SET_FIRST_CYCLE_LATCH <= m;
+      PS_CONS_OUTPUT_WM_BIT <= n;                 
+      wait for 30 ns;
+      
+      check1(MS_CONS_OUTPUT_WM_BIT,not n,testname,"-S Cons Output Wm Bit");            
+      
+      -- Reset the setting signals so they don't give us trouble resetting later.
+      -- Latch should be unaffected
+
+      MS_KEYBOARD_UNLOCK_SET <= '1';
+      PS_CONS_BACK_SPACE_CONTROL <= '0';
+      MS_CONS_WM_CONTROL <= '1';
+      PS_CONS_CYCLE_LATCH_SET <= '0';
+      PS_SET_FIRST_CYCLE_LATCH <= '0';
+      PS_CONS_OUTPUT_WM_BIT <= '0';
+      wait for 30 ns;
+
+      check1(PS_CONS_CHAR_CONTROL,g3,testName,"Set +S Cons Char Control");
+      check1(MS_CONS_CHAR_CONTROL,not PS_CONS_CHAR_CONTROL,testName,"Set -S Cons Char Control");
+      
+      -- Perhaps reset the latch
+      
+		MS_KEYBOARD_LOCK_SET <= not b;
+      MS_CONS_WM_INPUT_SET <= not c;
+      PS_CONS_CYCLE_LATCH_RESET <= d;
+      MS_CONS_PRINTER_NOT_BUSY <= not g;
+      MS_CONS_PRINTER_END_OF_LINE <= not h;
+      wait for 30 ns;
+      
+      check1(PS_CONS_CHAR_CONTROL,g3 and not g5,testName,"Reset +S Cons Char Control");
+      check1(MS_CONS_CHAR_CONTROL,not PS_CONS_CHAR_CONTROL,testName,"Reset -S Cons Char Control");
+
+      -- Put the resetting signals back to their defaults for next iteration
+      
+		MS_KEYBOARD_LOCK_SET <= '1';
+      MS_CONS_WM_INPUT_SET <= '1';
+      PS_CONS_CYCLE_LATCH_RESET <= '0';
+      MS_CONSOLE_OUTPUT_ERROR <= '1';      
+      MS_CONS_PRINTER_NOT_BUSY <= '1';
+      MS_CONS_PRINTER_END_OF_LINE <= '1';
+            
       
    end loop;
 
