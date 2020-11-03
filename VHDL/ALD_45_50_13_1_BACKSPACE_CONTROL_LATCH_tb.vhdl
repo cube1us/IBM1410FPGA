@@ -161,38 +161,72 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.13.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      b := tv(0);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
       
+      g1 := k and g and l;
+      g2 := k and not j and not e and  h;
+      g3 := g1 or g2;
+      g4 := (f and d) or (d and not c and g and not b);
+
+      -- Reset
+      
+      MS_PROGRAM_RESET_4 <= '0';
       wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
+      wait for 30 ns;
+
+      check1(PS_CONS_BACK_SPACE_CONTROL,'0',testName,"Init +S Backspace Control");
+      check1(MS_CONS_BACK_SPACE_CONTROL,'1',testName,"Init -S Backspace Control");
+      
+      -- Assign the signals, except one to prevent the latch from resettting
+      -- during the set test
+      
+		MS_CONS_WM_CONTROL <= not b;
+      MS_CONSOLE_OUTPUT_ERROR <= not c;
+      -- PS_CONS_CYCLE_LATCH_RESET <= d; -- Hold off on this one
+      MS_WM_INPUT <= not e;
+      PS_CONS_ERROR_CONTROL <= f;
+      PS_CONS_CHAR_CONTROL <= g;
+      PS_CONS_WM_CONTROL <= h;
+      MS_CONS_PRINTER_NOT_BUSY <= not j;
+      PS_CONS_CYCLE_LATCH_SET <= k;
+      PS_CONSOLE_OUTPUT_ERROR <= l;      
+      wait for 30 ns;
+      
+      check1(MS_CONS_ERROR_BACKSPACE_SET,not(k and g and l),testName,"Cons Error Backspace Set");
+      check1(PS_CONS_BACK_SPACE_CONTROL,g3,testName,"Set +S Backspace Control");
+      check1(MS_CONS_BACK_SPACE_CONTROL,not PS_CONS_BACK_SPACE_CONTROL,testName,"Set -S Backspace Control");
+            
+      -- Reset enough signals so the reset test will work.  The latch should be unaffected
+      
+      PS_CONS_CYCLE_LATCH_SET <= '0';
+      wait for 30 ns;
+      
+      check1(PS_CONS_BACK_SPACE_CONTROL,g3,testName,"Check set +S Backspace Control");
+      check1(MS_CONS_BACK_SPACE_CONTROL,not PS_CONS_BACK_SPACE_CONTROL,testName,"Check set -S Backspace Control");
+            
+      -- Maybe reset the latch
+      
+      PS_CONS_CYCLE_LATCH_RESET <= d;
+      wait for 30 ns;
+            
+      check1(PS_CONS_BACK_SPACE_CONTROL,g3 and not g4,testName,"Reset +S Backspace Control");
+      check1(MS_CONS_BACK_SPACE_CONTROL,not PS_CONS_BACK_SPACE_CONTROL,testName,"Reset -S Backspace Control");
+      
+      PS_CONS_CYCLE_LATCH_RESET <= '0';   -- Avoid interfering with next iteration.      
       
       
    end loop;
