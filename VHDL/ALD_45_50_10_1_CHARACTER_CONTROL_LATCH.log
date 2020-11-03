@@ -1,0 +1,64 @@
+Generating HDL for page 45.50.10.1 CHARACTER CONTROL LATCH at 11/3/2020 12:39:57 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_10_1_CHARACTER_CONTROL_LATCH_tb.vhdl, generating default test bench code.
+Note: DOT Function at 3B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Removed 6 outputs from Gate at 2A to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_H
+	and inputs of OUT_DOT_3B
+	and logic function of Special
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_C_Latch
+	and inputs of OUT_DOT_2B,MS_PROGRAM_RESET_4,MS_KEYBOARD_LOCK_SET
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_P_Latch
+	and inputs of OUT_DOT_3B,OUT_DOT_3F
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_D
+	and inputs of PS_CONS_CYCLE_LATCH_RESET,OUT_5D_NoPin
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_D
+	and inputs of OUT_4C_D,MS_CONS_WM_INPUT_SET
+	and logic function of NAND
+Generating Statement for block at 2C with output pin(s) of OUT_2C_F
+	and inputs of MS_KEYBOARD_UNLOCK_SET,OUT_3H_NoPin
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_K
+	and inputs of OUT_DOT_2B
+	and logic function of NAND
+Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
+	and inputs of MS_CONSOLE_OUTPUT_ERROR,MS_CONS_PRINTER_NOT_BUSY,MS_CONS_PRINTER_END_OF_LINE
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_G
+	and inputs of MS_CONSOLE_OUTPUT_ERROR,PS_CONS_BACK_SPACE_CONTROL
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_P
+	and inputs of MS_CONS_WM_CONTROL,PS_CONS_CYCLE_LATCH_SET
+	and logic function of NAND
+Generating Statement for block at 4H with output pin(s) of OUT_4H_D, OUT_4H_D
+	and inputs of PS_CONS_OUTPUT_WM_BIT
+	and logic function of NAND
+Generating Statement for block at 3H with output pin(s) of OUT_3H_NoPin
+	and inputs of OUT_4H_D,PS_SET_FIRST_CYCLE_LATCH
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B, OUT_DOT_3B
+	and inputs of OUT_3B_C,OUT_3C_D
+	and logic function of OR
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B, OUT_DOT_2B
+	and inputs of OUT_2B_P,OUT_2C_F
+	and logic function of OR
+Generating Statement for block at 3F with output pin(s) of OUT_DOT_3F
+	and inputs of OUT_3F_G,OUT_3G_P
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_CONS_CHAR_CONTROL
+	from gate output OUT_2A_H
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_CHAR_CONTROL
+	from gate output OUT_1C_K
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_OUTPUT_WM_BIT
+	from gate output OUT_4H_D
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
