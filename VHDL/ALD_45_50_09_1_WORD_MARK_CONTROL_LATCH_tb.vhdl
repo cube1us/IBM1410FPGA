@@ -170,39 +170,74 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.09.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      d := tv(0);
+      e := tv(1);
+      f := tv(2);
+      g := tv(3);
+      h := tv(4);
+      j := tv(5);
+      k := tv(6);
+      l := tv(7);
 
+      g1 := h and not k and not l and j;
+      g2 := e and not d and f;
+      g3 := g2 or (g and g1);
+      
+      -- Reset
+      
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
+      wait for 30 ns;
+      
+      check1(PS_CONS_WM_CONTROL,'0',testName,"Init +S WM Control");
+      check1(MS_CONS_WM_CONTROL,'1',testName,"Init -S WM Control");
+      
+      -- Maybe set the latch
+
+		MS_CONS_MOVE_READ_OP <= not d;
+		MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= not e;
+		PS_CONS_CYCLE_LATCH_SET <= f;
+		PS_CONS_OUTPUT_WM_BIT <= g;
+		PS_CONS_CLOCK_3_POS_1 <= h;
+		PS_TAKE_CONSOLE_PRINTER_CYCLE <= j;
+		MS_CONSOLE_SPACE_FUNCTION <= not k;
+		MS_CONSOLE_CARRIAGE_RETURN <= not l;
       
       wait for 30 ns;
       
+      check1(MS_CONS_WM_INPUT_SET,not(g2),testName,"Cons Input Set");
+      check1(MS_WM_INPUT,not e,testName,"-S WM Input");
+      check1(MS_CONS_WM_OUTPUT_SET,not(g1 and g),testName,"Cons Out Set");
+      check1(PS_SET_FIRST_CYCLE_LATCH,g1,testName,"Set First Cycle Latch");
+      check1(PS_CONS_WM_CONTROL,g3,testName,"Set +S Cons Wm Control");
+      check1(MS_CONS_WM_CONTROL,not PS_CONS_WM_CONTROL,testName,"Set -S Cons Wm Control");
+      
+      -- Reset some inputs - the latch should not be affected
+            
+      MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= '1';
+      PS_CONS_OUTPUT_WM_BIT <= '0';
+      wait for 30 ns;
+      
+      check1(PS_CONS_WM_CONTROL,g3,testName,"Check Set +S Cons Wm Control");
+      check1(MS_CONS_WM_CONTROL,not PS_CONS_WM_CONTROL,testName,"Check Set +S Cons Wm Control");
+      
+      -- Perhaps reset the latch.  Rather then use new variables, I just
+      -- "borrowed" some used to reset other signals
+      
+      PS_CONS_BACK_SPACE_CONTROL <= d;
+      PS_CONS_CYCLE_LATCH_RESET <= e;
+      wait for 30 ns;
+      PS_CONS_BACK_SPACE_CONTROL <= '0';
+      PS_CONS_CYCLE_LATCH_RESET <= '0';
+      wait for 30 ns;
+
+      check1(PS_CONS_WM_CONTROL,g3 and not(d and e),testName,"Reset +S Cons Wm Control");
+      check1(MS_CONS_WM_CONTROL,not PS_CONS_WM_CONTROL,testName,"Reset +S Cons Wm Control");
       
    end loop;
 
