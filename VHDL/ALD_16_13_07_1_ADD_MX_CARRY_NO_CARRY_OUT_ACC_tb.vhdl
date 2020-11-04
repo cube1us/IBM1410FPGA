@@ -186,46 +186,60 @@ uut_process: process
    variable tv: std_logic_vector(25 downto 0);
    variable a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
+   variable aq0, aq2, aq4, aq6, aq8, bq0, bq2, bq4, bq6, bq8: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        ";
+   testName := "16.13.07.1        ";
 
-   for tt in 0 to 2**23 loop
+   for tt in 0 to 2**10 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      i := tv(8);
-      j := tv(9);
-      k := tv(10);
-      l := tv(11);
-      m := tv(12);
-      n := tv(13);
-      o := tv(14);
-      p := tv(15);
-      q := tv(16);
-      r := tv(17);
-      s := tv(18);
-      t := tv(19);
-      u := tv(20);
-      v := tv(21);
-      w := tv(22);
-      x := tv(23);
-      y := tv(24);
-      z := tv(25);
+      aq0 := tv(0);
+      aq2 := tv(1);
+      aq4 := tv(2);
+      aq6 := tv(3);
+      aq8 := tv(4);
+      bq0 := tv(5);
+      bq2 := tv(6);
+      bq4 := tv(7);
+      bq6 := tv(8);
+      bq8 := tv(9);
 
+   	PB_ADD_AQ0_DOT_BQ0 <= aq0 and bq0;
+      PB_ADD_AQ0_DOT_BQ2 <= aq0 and bq2;
+      PB_ADD_AQ2_DOT_BQ0 <= aq2 and bq0;
+      PB_ADD_AQ0_DOT_BQ4 <= aq0 and bq4;
+      PB_ADD_AQ2_DOT_BQ2 <= aq2 and bq2;
+      PB_ADD_AQ4_DOT_BQ2 <= aq4 and bq2;
+      PB_ADD_AQ6_DOT_BQ0 <= aq6 and bq0;
+      PB_ADD_AQ2_DOT_BQ4 <= aq2 and bq4;
+      PB_ADD_AQ0_DOT_BQ6 <= aq0 and bq6;
+      PB_ADD_AQ8_DOT_BQ8 <= aq8 and bq8;
+      PB_ADD_AQ8_DOT_BQ6 <= aq8 and bq6;
+      PB_ADD_AQ6_DOT_BQ8 <= aq6 and bq8;
+      PB_ADD_AQ8_DOT_BQ4 <= aq8 and bq4;
+      PB_ADD_AQ6_DOT_BQ6 <= aq6 and bq6;
+      PB_ADD_AQ4_DOT_BQ8 <= aq4 and bq8;
+      PB_ADD_AQ8_DOT_BQ2 <= aq8 and bq2;
+      PB_ADD_AQ6_DOT_BQ4 <= aq6 and bq4;
+      PB_ADD_AQ4_DOT_BQ6 <= aq4 and bq6;
+      PB_ADD_AQ2_DOT_BQ8 <= aq2 and bq8;
+      PB_ADD_AQ4_DOT_BQ0 <= aq4 and bq0;
       
       wait for 30 ns;
+
+      check1(PS_ADDER_MX_NO_CARRY_OUT,(aq0 and bq0) or (aq0 and bq2) or (aq2 and bq0) or
+         (aq0 and bq4) or (aq2 and bq2) or (aq4 and bq0) or (aq6 and bq0) or (aq4 and bq2) or
+         (aq2 and bq4) or (aq0 and bq6), testName,"+S NO CARRY");
+      check1(MB_ADDER_MX_NO_CARRY_OUT,NOT PS_ADDER_MX_NO_CARRY_OUT,testName,"-B No Carry");
       
-      
+      check1(PS_ADDER_MX_CARRY_OUT,(aq8 and bq8) or (aq8 and bq6) or (aq6 and bq8) or
+         (aq8 and bq4) or (aq6 and bq6) or (aq4 and bq8) or (aq8 and bq2) or
+         (aq6 and bq4) or (aq4 and bq6) or (aq2 and bq8),testName,"+S Carry");
+      check1(MB_ADDER_MX_CARRY_OUT,not PS_ADDER_MX_CARRY_OUT,testName,"-B Carry");         
+                                 
    end loop;
 
    assert false report "Simulation Ended NORMALLY" severity failure;
