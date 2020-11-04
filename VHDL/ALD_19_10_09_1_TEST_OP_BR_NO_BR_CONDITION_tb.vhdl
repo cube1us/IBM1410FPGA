@@ -189,16 +189,18 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+-- No test clock needed, and this one will run long...
 
-   constant clk_period : time := 10 ns;
+--fpga_clk_process: process
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   constant clk_period : time := 10 ns;
+
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -210,17 +212,17 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(25 downto 0);
-   variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
+   variable tv: std_logic_vector(31 downto 0);
+   variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q1,q2,q3,r,s,t,u,v,w,x1,x2,y1,y2,y3,z1,z2: std_logic;
    variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
    begin
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "19.10.09.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to (2**31)-1 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -237,20 +239,66 @@ uut_process: process
       n := tv(12);
       o := tv(13);
       p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      q1 := tv(15);
+      q2 := tv(16);
+      q3 := tv(17);
+      r := tv(18);
+      s := tv(19);
+      t := tv(20);
+      u := tv(21);
+      v := tv(22);
+      w := tv(23);
+      x1 := tv(24);
+      x2 := tv(25);
+      y1 := tv(26);
+      y2 := tv(27);
+      y3 := tv(28);
+      z1 := tv(29);
+      z2 := tv(30);
 
+		PS_X_SYMBOL_OP_MODIFIER <= a;
+		PS_OUTQUIRY_INTR_COND <= b;
+		PS_N_SYMBOL_OP_MODIFIER <= c;
+		PS_2ND_CND_A_BRANCH_STAR_SIF <= d;
+		PS_2ND_CND_A_BRANCH_STAR_SIF_JRJ <= e;
+		PS_2ND_CND_A_BRANCH_STAR_1414_STAR <= f;
+		PS_E_SYMBOL_OP_MODIFIER <= g;
+		MS_INQUIRY_INTR_COND <= not h;
+		PS_INQUIRY_INTR_COND <= j;
+		PS_Q_SYMBOL_OP_MODIFIER <= k;
+		MS_SEL_I_O_UNIT_INTR_COND <= not l;
+		PS_SEL_I_O_UNIT_INTR_COND <= m;
+		PS_INTERRUPT_TEST_OP_CODE_1 <= n;
+		PS_U_SYMBOL_OP_MODIFIER <= o;
+		MS_E_CH_OVRLP_INTR_COND <= not p;
+		PS_NO_BRANCH_CND_INTER_STAR_SIF <= q1;
+		PS_NO_BRANCH_CND_INTER_STAR_SIF_JRJ <= q2;
+		PS_NO_BRANCH_CND_INTER_STAR_1414_STAR <= q3;
+		PS_LAST_INSN_RO_CYCLE_1 <= r;
+		MS_F_CH_OVRLP_INTR_COND <= not s;
+		PS_E_CH_OVRLP_INTR_COND <= t;
+		PS_ONE_SYMBOL_OP_MODIFIER <= u;
+		MS_OUTQUIRY_INTR_COND <= not v;
+		PS_F_CH_OVRLP_INTR_COND <= w;
+		PS_TWO_SYMBOL_OP_MODIFIER <= x1;
+		MS_E_CH_SEEK_INTR_COND <= not x2;
+		PS_S_SYMBOL_OP_MODIFIER <= y2;
+		PS_E_CH_SEEK_INTR_COND <= y1;
+		MS_F_CH_SEEK_INTR_COND <= not y3;
+		PS_T_SYMBOL_OP_MODIFIER <= z2;
+		PS_F_CH_SEEK_INTR_COND <= z1;
       
-      wait for 30 ns;
+      wait for 10 ns; -- Shorten the test time
       
+      check1(PS_2ND_CND_A_BRANCH_STAR_INTR,
+         (c and b and n) or (a and n) or (g and n) or f or d or e or (j and k and n) or
+         (n and m and o) or (n and t and u) or (w and x1 and n) or (y1 and y2 and n) or
+         (z1 and z2 and n), testName,"2ND Cnd A Branch *INTR");
+         
+      check1(MS_NO_BRANCH_CND_INTERRUPT,
+         not(n and r and (q1 or q2 or q3 or (not v and c) or (not h and k) or (not l and o) or
+         (not p and u) or (not s and x1) or (not x2 and y2) or (not y3 and z2))),
+         testName,"No Branch Cnd Interrupt"); 
       
    end loop;
 
@@ -265,7 +313,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 12000 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
