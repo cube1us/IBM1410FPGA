@@ -167,9 +167,9 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "39.50.45.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**8 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
@@ -179,26 +179,26 @@ uut_process: process
       f := tv(5);
       g := tv(6);
       h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
 
+		MY_LOAD_MEMORY <= not a;
+		MY_REGEN_MEMORY <= not b;
+		PY_1ST_CHECK_TEST_STAR_SEE_NOTE_STAR <= c;
+		PY_2ND_CHECK_TEST_STAR_SEE_NOTE_STAR <= d;
+		MY_READ_CALL <= not e;
+		MY_WRITE_CALL <= not f;
+		MS_COMPUTER_RESET_2 <= not g;
+		MY_START_MEM_CLOCK <= not h;
       
       wait for 30 ns;
+
+		check1(MY_LOAD_MEMORY_Z,not a,testName,"Load Mem Z");
+		check1(MY_REGEN_MEMORY_Z,not b,testName,"Regen Mem Z");
+		check1(PY_1ST_CHECK_TEST_Z,c,testName,"1st Check Test Z");
+		check1(PY_2ND_CHECK_TEST_Z,d,testName,"2nd Check Test Z");
+		check1(MY_READ_CALL_M,not e,testName,"Read Call M");
+		check1(MY_WRITE_CALL_M,not f,testName,"Write Call M");
+		check1(PY_COMPUTER_RESET,g,testName,"Computer Reset");
+		check1(MY_START_MEM_CLOCK_M,not h,testName,"Start Mem Clock M");
       
       
    end loop;
