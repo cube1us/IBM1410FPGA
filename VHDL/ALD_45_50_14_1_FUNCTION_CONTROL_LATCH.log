@@ -1,0 +1,85 @@
+Generating HDL for page 45.50.14.1 FUNCTION CONTROL LATCH at 11/4/2020 7:35:42 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_14_1_FUNCTION_CONTROL_LATCH_tb.vhdl, generating default test bench code.
+Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 3B
+Found combinatorial loop (need D FF) at output of gate at 2B
+Removed 2 outputs from Gate at 2A to ignored block(s) or identical signal names
+Generating Statement for block at 2A with output pin(s) of OUT_2A_A
+	and inputs of OUT_DOT_2B
+	and logic function of NOT
+Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_C_Latch, OUT_3B_C_Latch
+	and inputs of OUT_DOT_2B,MS_PROGRAM_RESET_4,MS_END_OF_CHAR_RESET
+	and logic function of NAND
+Generating Statement for block at 2B with *latched* output pin(s) of OUT_2B_H_Latch
+	and inputs of OUT_3B_C,MS_END_OF_LINE_RESET
+	and logic function of NAND
+Generating Statement for block at 1B with output pin(s) of OUT_1B_C
+	and inputs of OUT_3B_C
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_4C_E, OUT_4C_E, OUT_4C_E
+	and inputs of MS_CONS_MX_34_POS,MS_CONS_PRINTER_END_OF_LINE,MS_CONS_MX_6A_POS
+	and logic function of NAND
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
+	and inputs of OUT_4C_E
+	and logic function of NAND
+Generating Statement for block at 1C with output pin(s) of OUT_1C_C
+	and inputs of OUT_4C_E,PS_CONS_CLOCK_3_POS_1,PS_TAKE_CONSOLE_PRINTER_CYCLE
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_D
+	and inputs of PS_TAKE_CONSOLE_PRINTER_CYCLE,PS_CONS_CLOCK_3_POS_1,OUT_DOT_2F
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_C
+	and inputs of OUT_DOT_2F
+	and logic function of NAND
+Generating Statement for block at 2D with output pin(s) of OUT_2D_P
+	and inputs of OUT_1C_C,OUT_4D_D
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of MS_CONS_MX_31_POS,MS_CONS_MX_25_POS,MS_CONS_MX_21_POS
+	and logic function of NAND
+Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
+	and inputs of MS_CONS_ADDR_REG_EXIT_GATE,MS_CONS_MX_X6_POS
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_F
+	and inputs of OUT_5F_NoPin,PS_CONS_MX_Y6_POS
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_C
+	and inputs of OUT_4F_F,OUT_DOT_5G
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_C
+	and inputs of PS_CONS_MOVE_WRITE_OP,MS_CONS_OUTPUT_WM_BIT,PS_CONSOLE_OUTPUT_C_BIT
+	and logic function of NAND
+Generating Statement for block at 5H with output pin(s) of OUT_5H_E
+	and inputs of MS_CONSOLE_OUTPUT_B_BIT,MS_CONSOLE_OUTPUT_A_BIT,MS_8_4_2_1_BIT
+	and logic function of NAND
+Generating Statement for block at 2B with output pin(s) of OUT_DOT_2B, OUT_DOT_2B
+	and inputs of OUT_2B_H,OUT_2D_P
+	and logic function of OR
+Generating Statement for block at 2F with output pin(s) of OUT_DOT_2F, OUT_DOT_2F, OUT_DOT_2F
+	and inputs of OUT_4E_C,OUT_3F_C
+	and logic function of OR
+Generating Statement for block at 5G with output pin(s) of OUT_DOT_5G
+	and inputs of OUT_5G_C,OUT_5H_E
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_CONS_FN_CONTROL
+	from gate output OUT_2A_A
+Generating output sheet edge signal assignment to 
+	signal PS_FUNCTION_CONTROL
+	from gate output OUT_1B_C
+Generating output sheet edge signal assignment to 
+	signal PS_CONSOLE_CARRIAGE_RETURN
+	from gate output OUT_4C_E
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_CARRIAGE_RETURN
+	from gate output OUT_3C_C
+Generating output sheet edge signal assignment to 
+	signal MS_CONSOLE_SPACE_FUNCTION
+	from gate output OUT_3D_C
+Generating output sheet edge signal assignment to 
+	signal PS_CONSOLE_SPACE_FUNCTION
+	from gate output OUT_DOT_2F
+Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2B
