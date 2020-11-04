@@ -39,6 +39,7 @@ entity SMS_DEM is
         DCRESET: IN STD_LOGIC := '1';
         GATEON:  IN STD_LOGIC;
         ACSET:   IN STD_LOGIC;
+        DCSET:   IN STD_LOGIC := '1';
         DCRFORCE: IN STD_LOGIC := '0';   -- Used for Wired OR output being forced
 	DCSFORCE: IN STD_LOGIC := '0';   -- used for Wired OR output being forced
         OUTOFF:  OUT STD_LOGIC;
@@ -66,7 +67,7 @@ begin
             RSTAGE1 <= '0';
             RSTAGE2 <= '0';
             RSTAGE3 <= '0';            
-        elsif(DCSFORCE = '1') then
+        elsif(DCSET = '0' OR DCSFORCE = '1') then
             OUTON <= '1';
             OUTOFF <= '0';
             SSTAGE1 <= '0';
