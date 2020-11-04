@@ -135,16 +135,16 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
---fpga_clk_process: process
+fpga_clk_process: process
 
---   constant clk_period : time := 10 ns;
+   constant clk_period : time := 10 ns;
 
---   begin
---      fpga_clk <= '0';
---      wait for clk_period / 2;
---      fpga_clk <= '1';
---      wait for clk_period / 2;
---   end process;
+   begin
+      fpga_clk <= '0';
+      wait for clk_period / 2;
+      fpga_clk <= '1';
+      wait for clk_period / 2;
+   end process;
 
 --
 -- End of TestBenchFPGAClock.vhdl
@@ -165,9 +165,7 @@ uut_process: process
    -- Your test bench code
 
    testName := "14.71.33.1        ";
-   
-   FPGA_CLK <= '1';  -- Not needed for this combinatorial test.
-  
+     
    for tt in 0 to 32768 loop  
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0); 
