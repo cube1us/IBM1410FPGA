@@ -170,38 +170,51 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.16.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2*7 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
       b := tv(1);
       c := tv(2);
       d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
       
+      g1 := b or c or d;
+      g2 := not g and not h and not f and g1;
+
+      -- Set or reset the Lock Cond Proceed Trigger
+      
+      MV_KEYBOARD_LOCK_MODE_STAR_NO <= not a;
+      MV_KEYBOARD_UNLOCK_MODE <= a;
+      wait for 90 ns; -- Trigger setup time
+      PS_CONS_CLOCK_4_POS <= '1';
       wait for 30 ns;
+      PS_CONS_CLOCK_4_POS <= '0';
+      wait for 30 ns;
+      
+      -- Set the remainder of the signals
+      
+		MS_ALTER_KEYBOARD_UNLOCK <= not b;
+      MS_INQUIRY_KEYBOARD_UNLOCK <= not c;
+      MS_ADDRESS_SET_UNLOCK <= not d;
+      MS_CONS_BACK_SPACE_CONTROL <= not f;
+      MS_CONS_WM_CONTROL <= not g;
+      MS_CONS_FN_CONTROL <= not h;
+      wait for 30 ns;
+      
+      
+      check1(PS_ALTER_INQUIRY_UNLOCK,g1,testName,"+S Alter Inquiry Unlock");
+      check1(MS_ALTER_INQUIRY_UNLOCK,not g1,testName,"-S Alter Inquiry Unlock");
+      check1(PS_KEYBOARD_UNLOCK,g2,testName,"+S Keyboard Unlock");
+      check1(MS_KEYBOARD_UNLOCK,not PS_KEYBOARD_UNLOCK,testName,"+S Keyboard Unlock");
+
+      check1(PS_PRTR_LOCKED_CND_PROCEED,a,testName,"Prtr Locked Cnd Proceed");
+      
+      check1(MS_KEYBOARD_UNLOCK_SET,not(g1 and g2 and a),testName,"Keyboard Unlock Set");
+      check1(MS_KEYBOARD_LOCK_SET,not(not a and not g2),testName,"Keyboard Lock Set");
       
       
    end loop;
