@@ -785,6 +785,7 @@ uut_process: process
    PS_B_CH_NOT_BUS <= "11111111";
    
    testName := "12.13.05.1";
+   
    check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"SA");
    check1(PS_LAST_INSN_RO_CYCLE_1,'0',testName,"SB");
    check1(PS_LAST_INSN_RO_CYCLE_2,'0',testName,"SC");
@@ -919,11 +920,215 @@ uut_process: process
    PS_1401_MODE_1 <= '0'; 
    PS_ARITH_TYPE_OP_CODES <= '0';
 
+   testName:= "12.13.06.1";
+   
+   PS_1401_MODE <= '0';
+   MS_UNIT_CTRL_OP_CODE <= '0';
+   MS_NOT_PERCENT_TYPE_OP_CODES <= '1';
+   MS_TWO_ADDRESS_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_RD_1ST_ADDR_TO_A_AND_C_AR,'0',testName,"S1");
+   check1(PS_RD_2ND_ADDR_TO_B_AND_D_AR,'0',testName,"S2");
+   
+   MS_NOT_PERCENT_TYPE_OP_CODES <= '0';
+   wait for 30 ns;
+   check1(PS_RD_1ST_ADDR_TO_A_AND_C_AR,'1',testName,"1A");
+   check1(PS_RD_2ND_ADDR_TO_B_AND_D_AR,'0',testName,"1B");
+   MS_NOT_PERCENT_TYPE_OP_CODES <= '1';
+   
+   MS_TWO_ADDRESS_OP_CODES <= '0';
+   wait for 30 ns;
+   check1(PS_RD_1ST_ADDR_TO_A_AND_C_AR,'0',testName,"1C");
+   check1(PS_RD_2ND_ADDR_TO_B_AND_D_AR,'1',testName,"1D");
+   MS_TWO_ADDRESS_OP_CODES <= '1';
 
+   PS_1401_MODE <= '1';
+   MS_UNIT_CTRL_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_RD_1ST_ADDR_TO_A_AND_C_AR,'1',testName,"1C");
+   check1(PS_RD_2ND_ADDR_TO_B_AND_D_AR,'1',testName,"1D");
+   
+   testName := "12.13.07.1";
+   
+   -- +S LAST INSN RO CYCLE COND is internal, so test via 12.13.05.1
+   
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"S1");
 
+   -- 1
+
+   PS_B_CH_NOT_BUS <= "00111111";  -- Set all bits BA8421
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"1A");
+   check1(MS_1401_UNCOND_BRANCH,'1',testName,"1B");
+   check1(PS_1401_LAST_I_CYCLE,'0',testName,"1C");
+   PS_1401_COND_TEST_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"1D");
+   check1(MS_1401_UNCOND_BRANCH,'1',testName,"1E");
+   check1(PS_1401_LAST_I_CYCLE,'0',testName,"1F");
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"1G");
+   check1(MS_1401_UNCOND_BRANCH,'0',testName,"1H");
+   check1(PS_1401_LAST_I_CYCLE,'1',testName,"1I");
    
    
+   PS_B_CH_NOT_BUS <= "00000000";
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"1J");
+   check1(MS_1401_UNCOND_BRANCH,'1',testName,"1K");
+   check1(PS_1401_LAST_I_CYCLE,'0',testName,"1L");   
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '0';
+   PS_1401_COND_TEST_OP_CODE <= '0';      
+      
+   -- 2
+   
+   PS_1401_POUND_SIGN_OP_CODE <= '1';
+   PS_D_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"2A");
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"2B");
+   PS_1401_POUND_SIGN_OP_CODE <= '0';
+   PS_D_CYCLE <= '0';
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '0';
+     
+   -- 3
+   
+   PS_SET_WORD_MARK_OP_CODE <= '1';
+   PS_I_RING_HDL_BUS(11) <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"3A");
+   PS_1401_MODE_1 <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"3B");
+   
+   -- 4
+   
+   PS_SET_WORD_MARK_OP_CODE <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"4A");
+   PS_CLEAR_OP_CODE <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"4B");
+   PS_CLEAR_OP_CODE <= '0';
+   PS_I_RING_HDL_BUS(11) <= '0';
+   PS_1401_MODE_1 <= '0';
+   
+   -- 5
+   
+   PS_C_CYCLE_1 <= '1';
+   PS_C_CYCLE_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"5A");   
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"5B");
+   PS_C_CYCLE_OP_CODES <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"5C");   
+   PS_C_CYCLE_1 <= '0';
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '0';
+   
+   -- 6
+   
+   PS_D_CYCLE <= '1';
+   PS_MPLY_OR_DIV_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"6A");
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '1';   
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"6B");
+   PS_MPLY_OR_DIV_OP_CODES <= '0';
+   PS_I_RING_6_OR_1401_AND_8_TIME <= '0';   
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"6C");
+   
+   -- 7
+   
+   PS_ADD_TYPE_OP_CODES <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"7A");
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'1',testName,"7B");
+   PS_ADD_TYPE_OP_CODES <= '0';
+   wait for 30 ns;
+   check1(PS_LAST_INSN_RO_CYCLE,'0',testName,"7C");
+   PS_I_RING_1_OR_1401_AND_3_TIME <= '0';
+   wait for 30 ns;
+   
+   -- 8
+   
+   check1(MS_1401_CLEAR_DOT_I_RING_11,'1',testName,"8A");
+   PS_CLEAR_OP_CODE <= '1';
+   PS_I_RING_HDL_BUS(11) <= '1';
+   wait for 30 ns;
+   check1(MS_1401_CLEAR_DOT_I_RING_11,'1',testName,"8B");
+   PS_1401_MODE_1 <= '1';
+   wait for 30 ns;
+   check1(MS_1401_CLEAR_DOT_I_RING_11,'0',testName,"8C");
+   
+   -- 9 -- Note:  Some of this gate/ signal tested during test 1 of this page
 
+   PS_B_CH_WM_BIT_2 <= '0';
+   PS_I_RING_HDL_BUS(11) <= '0';
+   wait for 30 ns;
+   check1(MS_1401_UNCOND_BRANCH,'1',testName,"9A");
+   check1(MS_1401_NO_OP_DOT_LIROC,'1',testName,"9B");
+   check1(MS_1401_CLEAR_DOT_I_RING_11,'1',testName,"9C");   
+   wait for 30 ns;
+   check1(PS_1401_LAST_I_CYCLE,'0',testName,"9D");
+   MS_1401_NO_OP_DOT_LIROC <= '0';
+   wait for 30 ns;
+   check1(PS_1401_LAST_I_CYCLE,'1',testName,"9E");
+   MS_1401_NO_OP_DOT_LIROC <= '1';
+   
+   -- +S 1401 I CYCLE NEXT
+   PS_MPLY_OR_DIV_OP_CODES <= '0';
+   PS_ARITH_TYPE_OP_CODES <= '0';
+   MS_I_RING_HDL_BUS(0) <= '1';
+   PS_1401_MODE_1 <= '1';
+   PS_I_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_1401_LAST_I_CYCLE,'0',testName,"9F");
+   
+   PS_B_CH_WM_BIT_2 <= '1';
+   wait for 30 ns;
+   check1(PS_1401_LAST_I_CYCLE,'1',testName,"9G");
+   PS_1401_MODE_1 <= '0';
+   PS_I_CYCLE <= '0';
+   
+   -- 10
+   
+   MS_LOGIC_GATE_D_1 <= '1';
+   MS_LOGIC_GATE_C_1 <= '1';
+   MS_STORAGE_SCAN_ROUTINE <= '1';
+   MS_1401_NO_OP_DOT_LIROC <= '0';
+   wait for 30 ns;
+   check1(PS_1401_LAST_I_CYCLE,'1',testName,"10A");
+   check1(MS_1401_LAST_I_CYCLE,'0',testName,"10B");
+   
+   MS_LOGIC_GATE_D_1 <= '0';
+   wait for 30 ns;
+   check1(MS_1401_LAST_I_CYCLE,'1',testName,"10C");
+   MS_LOGIC_GATE_D_1 <= '1';
+   MS_LOGIC_GATE_C_1 <= '0';
+   wait for 30 ns;
+   check1(MS_1401_LAST_I_CYCLE,'1',testName,"10D");
+   MS_LOGIC_GATE_C_1 <= '1';
+   MS_STORAGE_SCAN_ROUTINE <= '0';
+   wait for 30 ns;
+   check1(MS_1401_LAST_I_CYCLE,'1',testName,"10E");
+   MS_STORAGE_SCAN_ROUTINE <= '1';
+   MS_1401_NO_OP_DOT_LIROC <= '1';
+   PS_B_CH_BUS(HDL_WM_BIT) <= '0';
+   wait for 30 ns;
+   check1(MS_1401_LAST_I_CYCLE,'1',testName,"10F");
+   check1(PS_1401_LAST_I_CYCLE,'0',testName,"10G");
+
+   
    wait;
    end process;
 
