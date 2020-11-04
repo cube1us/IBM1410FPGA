@@ -1042,6 +1042,31 @@ uut_process: process
    wait for 30 ns;
    check1(PS_SET_B_CYCLE_CTRL,'0',testName,"6O");
    
+   --   Test page 12.12.45.1
+         
+   testName := "Test 12.12.45.1 01";
+   
+   -- 1
+
+   check1(PS_SET_X_CYCLE_CTRL,'0',testname,"1");
+   MS_SET_X_CYCLE_CTRL_A <= '0';
+   wait for 30 ns;
+   check1(PS_SET_X_CYCLE_CTRL,'1',testname,"1A");
+   MS_SET_X_CYCLE_CTRL_A <= '1';
+   wait for 30 ns;
+   check1(PS_SET_X_CYCLE_CTRL,'0',testname,"1C");
+
+   PS_A_RING_2_OR_3_OR_4_OR_5_TIME <= '1';
+   PS_X_CYCLE <= '1';
+   wait for 30 ns;
+   check1(PS_SET_X_CYCLE_CTRL,'1',testname,"1D");
+   PS_1401_MODE_1 <= '1';   
+   wait for 30 ns;
+   check1(PS_SET_X_CYCLE_CTRL,'1',testname,"1E");
+   PS_A_RING_4_TIME <= '1';
+   wait for 30 ns;
+   check1(PS_SET_X_CYCLE_CTRL,'0',testname,"1F");
+   
    wait;
    end process;
 
