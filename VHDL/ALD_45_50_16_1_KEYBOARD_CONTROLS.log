@@ -1,4 +1,4 @@
-Generating HDL for page 45.50.16.1 KEYBOARD CONTROLS at 11/4/2020 11:18:12 AM
+Generating HDL for page 45.50.16.1 KEYBOARD CONTROLS at 11/4/2020 11:30:06 AM
 No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_16_1_KEYBOARD_CONTROLS_tb.vhdl, generating default test bench code.
 Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 4A with symbol L
@@ -22,7 +22,7 @@ Removed 3 outputs from Gate at 3D to ignored block(s) or identical signal names
 Removed 3 outputs from Gate at 2E to ignored block(s) or identical signal names
 Removed 2 outputs from Gate at 1I to ignored block(s) or identical signal names
 Generating Statement for block at 5A with output pin(s) of OUT_5A_X, OUT_5A_X
-	and inputs of MV_KEYBOARD_LOCK_NODE_STAR_NO
+	and inputs of MV_KEYBOARD_LOCK_MODE_STAR_NO
 	and logic function of Resistor
 Generating Statement for block at 5B with output pin(s) of OUT_5B_D
 	and inputs of MS_ALTER_KEYBOARD_UNLOCK,MS_INQUIRY_KEYBOARD_UNLOCK,MS_ADDRESS_SET_UNLOCK
