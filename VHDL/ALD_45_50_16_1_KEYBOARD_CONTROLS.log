@@ -1,0 +1,107 @@
+Generating HDL for page 45.50.16.1 KEYBOARD CONTROLS at 11/4/2020 11:18:12 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_16_1_KEYBOARD_CONTROLS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Ignoring Logic Block 4A with symbol L
+Ignoring Logic Block 3A with symbol CAP
+Ignoring Logic Block 3C with symbol CAP
+Ignoring Logic Block 5I with symbol L
+Processing extension from block at 2H (Database ID=278992) to 2I (Database ID=278993)
+Copied connection to extension input pin E to master block at 2H
+Copied connection to extension input pin A to master block at 2H
+Copied connection from extension output pin B to master block at 2H
+Copied mapped pin B from extension 2I to master block at 2H
+Copied mapped pin K from extension 2I to master block at 2H
+Copied mapped pin P from extension 2I to master block at 2H
+Copied mapped pin T from extension 2I to master block at 2H
+Moved connection from extension 2I pin B to be from master at 2H
+Removed 2 outputs from Gate at 5A to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 4C to ignored block(s) or identical signal names
+Removed 1 outputs from Gate at 2C to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 3D to ignored block(s) or identical signal names
+Removed 3 outputs from Gate at 2E to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1I to ignored block(s) or identical signal names
+Generating Statement for block at 5A with output pin(s) of OUT_5A_X, OUT_5A_X
+	and inputs of MV_KEYBOARD_LOCK_NODE_STAR_NO
+	and logic function of Resistor
+Generating Statement for block at 5B with output pin(s) of OUT_5B_D
+	and inputs of MS_ALTER_KEYBOARD_UNLOCK,MS_INQUIRY_KEYBOARD_UNLOCK,MS_ADDRESS_SET_UNLOCK
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_B, OUT_4B_B
+	and inputs of OUT_5C_B
+	and logic function of NAND
+Generating Statement for block at 3B with output pin(s) of OUT_3B_G
+	and inputs of OUT_4B_B,OUT_1H_D
+	and logic function of NAND
+Generating Statement for block at 5C with output pin(s) of OUT_5C_B, OUT_5C_B, OUT_5C_B, OUT_5C_B
+	and inputs of OUT_5B_D
+	and logic function of EQUAL
+Generating Statement for block at 4C with output pin(s) of OUT_4C_X, OUT_4C_X
+	and inputs of MV_KEYBOARD_UNLOCK_MODE
+	and logic function of Resistor
+Generating Statement for block at 2C with output pin(s) of OUT_2C_D
+	and inputs of OUT_5C_B,OUT_1I_C,OUT_3D_H
+	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_1
+	and inputs of OUT_5C_B,MS_CONS_BACK_SPACE_CONTROL
+	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_H, OUT_3D_H, OUT_3D_H
+	and inputs of OUT_DOT_4D
+	and logic function of NOT
+Generating Statement for block at 4E with output pin(s) of OUT_4E_3
+	and inputs of MS_CONS_WM_CONTROL,MS_CONS_FN_CONTROL
+	and logic function of NAND
+Generating Statement for block at 2E with output pin(s) of OUT_2E_B
+	and inputs of OUT_3D_H
+	and logic function of NOT
+Generating Statement for block at 5F with output pin(s) of OUT_5F_G
+	and inputs of OUT_5A_X
+	and logic function of NAND
+Generating Statement for block at 4F with output pin(s) of OUT_4F_C
+	and inputs of OUT_4C_X,OUT_5F_G
+	and logic function of NAND
+Generating Statement for block at 3F with output pin(s) of OUT_3F_K
+	and inputs of OUT_4F_C
+	and logic function of NAND
+Generating Statement for block at 5G with output pin(s) of OUT_5G_K
+	and inputs of OUT_4C_X
+	and logic function of NAND
+Generating Statement for block at 4G with output pin(s) of OUT_4G_P
+	and inputs of OUT_5A_X,OUT_5G_K
+	and logic function of NAND
+Generating Statement for block at 3G with output pin(s) of OUT_3G_G
+	and inputs of OUT_4G_P
+	and logic function of NAND
+Generating Statement for block at 2H with output pin(s) of OUT_2H_F, OUT_2H_B
+	and inputs of OUT_3F_K,PS_CONS_CLOCK_4_POS,OUT_3G_G,PS_CONS_CLOCK_4_POS
+	and logic function of Trigger
+Generating Statement for block at 1H with output pin(s) of OUT_1H_D
+	and inputs of OUT_2H_F
+	and logic function of NOT
+Generating Statement for block at 1I with output pin(s) of OUT_1I_C, OUT_1I_C
+	and inputs of OUT_2H_B
+	and logic function of NOT
+Generating Statement for block at 4D with output pin(s) of OUT_DOT_4D
+	and inputs of OUT_4D_1,OUT_4E_3
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal MS_ALTER_INQUIRY_UNLOCK
+	from gate output OUT_4B_B
+Generating output sheet edge signal assignment to 
+	signal MS_KEYBOARD_LOCK_SET
+	from gate output OUT_3B_G
+Generating output sheet edge signal assignment to 
+	signal PS_ALTER_INQUIRY_UNLOCK
+	from gate output OUT_5C_B
+Generating output sheet edge signal assignment to 
+	signal MS_KEYBOARD_UNLOCK_SET
+	from gate output OUT_2C_D
+Generating output sheet edge signal assignment to 
+	signal PS_KEYBOARD_UNLOCK
+	from gate output OUT_3D_H
+Generating output sheet edge signal assignment to 
+	signal MS_KEYBOARD_UNLOCK
+	from gate output OUT_2E_B
+Generating output sheet edge signal assignment to 
+	signal PS_PRTR_LOCKED_CND_PROCEED
+	from gate output OUT_1I_C
