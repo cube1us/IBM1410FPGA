@@ -152,39 +152,93 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.15.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**4 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
       a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
+      d := tv(1);
+      f := tv(2);
+      g := tv(3);
       
+      g1 := f and g;
+      g2 := (a and g1) or (g1 and d);
+
+      -- Reset the printer last column latch
+                  
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;
+      MS_PROGRAM_RESET_4 <= '1';
+      wait for 30 ns;
+
+      check1(MS_CONS_PRINTER_LAST_COLUMN,'1',testName,"Init Last Col");
+            
+      -- Reset the Last Column latch as well
+      
+      PS_CONS_CYCLE_LATCH_SET <= '1';
+      wait for 30 ns;
+      PS_CONS_CYCLE_LATCH_SET <= '0';
+      wait for 30 ns;
+
+      check1(PS_CONS_PRINTER_END_OF_LINE,'0',testName,"Init +S Cons EOL");
+      check1(MS_CONS_PRINTER_END_OF_LINE,'1',testName,"Init -S Cons EOL");
+      
+      -- Mauybe set  the last column latch
+      
+      MV_CONS_PRINTER_LAST_COLUMN_SET <= not f;
+      PS_CONS_PRINTER_STROBE <= g;      
+      wait for 30 ns;
+
+      check1(MS_CONS_PRINTER_LAST_COLUMN,not g1,testName,"Set Prtr Last Col");
+
+      -- Remove those inputs.  The latch should be unaffected
+
+      MV_CONS_PRINTER_LAST_COLUMN_SET <= '1';
+      PS_CONS_PRINTER_STROBE <= '0';      
+      wait for 30 ns;
+
+      check1(MS_CONS_PRINTER_LAST_COLUMN,not g1,testName,"Check Set Prtr Last Col");
+
+      -- Now, maybe set the End of Line Latch
+
+		PS_KEYBOARD_UNLOCK <= a;
+      PS_CONS_PRTR_NOT_BUSY_SET <= d;
+      PS_CONS_CYCLE_LATCH_SET <= '1';
+      wait for 60 ns;
+     
+      check1(PS_CONS_PRINTER_END_OF_LINE,g2,testName,"Set +S Cons EOL");
+      check1(MS_CONS_PRINTER_END_OF_LINE,not PS_CONS_PRINTER_END_OF_LINE,testName,"Set -S Cons EOL");
+      
+      -- Then reset those inputs, the latch should not change.
+
+		PS_KEYBOARD_UNLOCK <= '0';
+      PS_CONS_PRTR_NOT_BUSY_SET <= '0';
+      PS_CONS_CYCLE_LATCH_SET <= '0';
+      wait for 30 ns;
+     
+      check1(PS_CONS_PRINTER_END_OF_LINE,g2,testName,"Check set +S Cons EOL");
+      check1(MS_CONS_PRINTER_END_OF_LINE,not PS_CONS_PRINTER_END_OF_LINE,
+         testName,"Check set -S Cons EOL");
+      
+      -- Next, maybe reset Printer Last column Latch (it may not have ever set...)
+      
+      PS_CONS_CYCLE_LATCH_RESET <= '1';
+      wait for 30 ns;
+      PS_CONS_CYCLE_LATCH_RESET <= '0';
       wait for 30 ns;
       
+      check1(MS_CONS_PRINTER_LAST_COLUMN,not(g1 and not g2),testName,"Reset Cons Prtr Last Col.");
+      
+      -- And then maybe reset Printer EOL latch...
+      -- Either way, after this, it should NOT be set
+      
+      PS_CONS_CYCLE_LATCH_SET <= '1';
+      wait for 30 ns;
+      PS_CONS_CYCLE_LATCH_SET <= '0';
+      wait for 30 ns;
+
+      check1(PS_CONS_PRINTER_END_OF_LINE,'0',testName,"Reset +S Cons EOL");
+      check1(MS_CONS_PRINTER_END_OF_LINE,not PS_CONS_PRINTER_END_OF_LINE,testName,"Reset -S Cons EOL");            
       
    end loop;
 
