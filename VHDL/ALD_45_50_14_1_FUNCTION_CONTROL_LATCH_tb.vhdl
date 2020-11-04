@@ -197,39 +197,95 @@ uut_process: process
 
    -- Your test bench code
 
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
+   testName := "45.50.14.1        ";
 
-   for tt in 0 to 2**25 loop
+   for tt in 0 to 2**19 loop
       tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
+      b := tv(0);
+      c := tv(1);
+      d := tv(2);
+      e := tv(3);
+      f := tv(4);
+      g := tv(5);
+      h := tv(6);
+      j := tv(7);
+      k := tv(8);
+      l := tv(9);
+      m := tv(10);
+      n := tv(11);
+      o := tv(12);
+      p := tv(13);
+      q := tv(14);
+      r := tv(15);
+      s := tv(16);
+      t := tv(17);
+      u := tv(18);
+      
+      g1 := d or e or f;
+      g2 := p and not q and r and not s and not t and not u;
+      g3 := m and (n or o);
+      g5 := g2 or j or k or l or g3;
+      g6 := c or (g5 and g and h) or (h and g and g1);
+      
+      -- Reset
+      
+      MS_PROGRAM_RESET_4 <= '0';
+      wait for 30 ns;       
+      MS_PROGRAM_RESET_4 <= '1';
+      wait for 30 ns;       
+      
+      check1(PS_FUNCTION_CONTROL,'0',testName,"Init +S Console FN control");
+      check1(MS_CONS_FN_CONTROL,'1',testName,"Init -S Console FN control");      
 
+		MS_END_OF_LINE_RESET <= not c;
+		MS_CONS_MX_6A_POS <= not d;
+		MS_CONS_MX_34_POS <= not e;
+		MS_CONS_PRINTER_END_OF_LINE <= not f;
+		PS_TAKE_CONSOLE_PRINTER_CYCLE <= g;
+		PS_CONS_CLOCK_3_POS_1 <= h;
+		MS_CONS_MX_31_POS <= not j;
+		MS_CONS_MX_25_POS <= not k;
+		MS_CONS_MX_21_POS <= not l;
+		PS_CONS_MX_Y6_POS <= m;
+		MS_CONS_ADDR_REG_EXIT_GATE <= not n;
+		MS_CONS_MX_X6_POS <= not o;
+		PS_CONS_MOVE_WRITE_OP <= p;
+		MS_CONS_OUTPUT_WM_BIT <= not q;
+		PS_CONSOLE_OUTPUT_C_BIT <= r;
+		MS_CONSOLE_OUTPUT_B_BIT <= not s;
+		MS_CONSOLE_OUTPUT_A_BIT <= not t;
+		MS_8_4_2_1_BIT <= not u;
       
+      wait for 30 ns;  -- Maybe set the latch
+      
+      check1(PS_CONSOLE_CARRIAGE_RETURN,g1,testName,"+S Console Carriage Return");
+      check1(MS_CONSOLE_CARRIAGE_RETURN,not g1,testName,"-S Console Carriage Return");
+      check1(PS_CONSOLE_SPACE_FUNCTION,g5,testName,"+S Console Space Function");
+      check1(MS_CONSOLE_SPACE_FUNCTION,not g5,testName,"-S Console Space Function");
+      check1(PS_FUNCTION_CONTROL,g6,testName,"Set +S Console FN control");
+      check1(MS_CONS_FN_CONTROL,not PS_FUNCTION_CONTROL,testName,"Set -S Console FN control");
+      
+      -- Remove critical signals used in setting the latch.  Latch should be unaffected
+      
+      MS_END_OF_LINE_RESET <= '1';
+		PS_TAKE_CONSOLE_PRINTER_CYCLE <= '0';
+		PS_CONS_CLOCK_3_POS_1 <= '0';
+		wait for 30 ns;
+
+      check1(PS_FUNCTION_CONTROL,g6,testName,"Check set +S Console FN control");
+      check1(MS_CONS_FN_CONTROL,not PS_FUNCTION_CONTROL,testName,"Check set -S Console FN control");
+      
+      -- Perhaps reset the latch
+
+      MS_END_OF_CHAR_RESET <= not b;
       wait for 30 ns;
+
+      check1(PS_FUNCTION_CONTROL,g6 and not b,testName,"Reset +S Console FN control");
+      check1(MS_CONS_FN_CONTROL,not PS_FUNCTION_CONTROL,testName,"Reset -S Console FN control");
       
+      -- Set the reset signal back to its default.
+
+      MS_END_OF_CHAR_RESET <= '1';
       
    end loop;
 
@@ -244,7 +300,7 @@ uut_process: process
 
 stop_simulation: process
    begin
-   wait for 2 ms;  -- Determines how long your simulation runs
+   wait for 200 ms;  -- Determines how long your simulation runs
    assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
    end process;
 
