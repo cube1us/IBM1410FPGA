@@ -1,7 +1,9 @@
-Generating HDL for page 12.15.02.1 1* SINGLE CYCLE CONTROL at 7/4/2020 9:53:56 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_15_02_1_1_SINGLE_CYCLE_CONTROL_tb.vhdl, generating default test bench code.
+Generating HDL for page 12.15.02.1 1* SINGLE CYCLE CONTROL at 11/7/2020 11:28:59 AM
+Old test bench file ALD_12_15_02_1_1_SINGLE_CYCLE_CONTROL_tb.vhdl 89 lines preserved and 32 declaration lines preserved
 WARNING: Diagram block at coordinate 5B has 2 different output pins: N,T
 WARNING: Diagram block at coordinate 5F has 2 different output pins: N,T
+Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1D has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 3B
 Found combinatorial loop (need D FF) at output of gate at 2B
 Ignoring Logic Block 3C with symbol CAP
