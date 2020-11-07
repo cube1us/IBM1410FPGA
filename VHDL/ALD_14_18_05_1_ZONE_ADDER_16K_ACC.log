@@ -1,5 +1,9 @@
-Generating HDL for page 14.18.05.1 ZONE ADDR 16K-ACC at 8/26/2020 3:47:15 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_05_1_ZONE_ADDR_16K_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 14.18.05.1 ZONE ADDER 16K-ACC at 11/7/2020 9:03:47 AM
+Old test bench file ALD_14_18_05_1_ZONE_ADDER_16K_ACC_tb.vhdl 141 lines preserved and 32 declaration lines preserved
+Note: DOT Function at 1A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3E has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Generating Statement for block at 5A with output pin(s) of OUT_5A_C
 	and inputs of PS_ADDER_CARRY
 	and logic function of NAND
