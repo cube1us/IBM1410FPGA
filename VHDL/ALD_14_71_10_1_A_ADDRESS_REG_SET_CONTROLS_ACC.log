@@ -1,7 +1,8 @@
-Generating HDL for page 14.71.10.1 A ADDRESS REG SET CONTROLS-ACC at 9/4/2020 5:25:49 PM
-Old test bench file ALD_14_71_10_1_A_ADDRESS_REG_SET_CONTROLS_ACC_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+Generating HDL for page 14.71.10.1 A ADDRESS REG SET CONTROLS-ACC at 11/7/2020 3:43:29 PM
+Old test bench file ALD_14_71_10_1_A_ADDRESS_REG_SET_CONTROLS_ACC_tb.vhdl 191 lines preserved and 32 declaration lines preserved
 WARNING: Diagram block at coordinate 5G has 5 different output pins: A,B,K,D,E
 WARNING: Diagram block at coordinate 5H has 2 different output pins: F,G
+Note: DOT Function at 4B has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 4F with symbol CAP
 Ignoring Logic Block 1F with symbol CAP
 Ignoring Logic Block 3G with symbol CAP
