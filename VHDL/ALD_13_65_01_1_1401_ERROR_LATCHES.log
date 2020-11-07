@@ -1,4 +1,5 @@
-Generating HDL for page 13.65.01.1 1401 ERROR LATCHES at 8/6/2020 12:35:58 PM
+Generating HDL for page 13.65.01.1 1401 ERROR LATCHES at 11/7/2020 2:17:13 PM
+Note: DOT Function at 3B has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 3B
 Found combinatorial loop (need D FF) at output of gate at 1B
 Ignoring Logic Block 3H with symbol L

@@ -1,6 +1,6 @@
-Generating HDL for group named I1401ErrorLatchesat 8/7/2020 3:41:17 PM containing pages: 
+Generating HDL for group named I1401ErrorLatchesat 11/7/2020 2:18:03 PM containing pages: 
 	13.65.01.1, 13.65.02.1, 13.65.03.1, 13.65.08.1
-Old test bench file I1401ErrorLatches_tb.vhdl 249 lines preserved and 32 declaration lines preserved
+Old test bench file I1401ErrorLatches_tb.vhdl 326 lines preserved and 32 declaration lines preserved
 Building lists of signals on 4 pages...
 Found 8 signals on page 13.65.01.1
 Found 22 signals on page 13.65.02.1
