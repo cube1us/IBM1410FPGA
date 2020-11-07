@@ -1,5 +1,5 @@
-Generating HDL for page 16.30.08.1 MISC CTRLA at 10/4/2020 4:11:32 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_16_30_08_1_MISC_CTRLA_tb.vhdl, generating default test bench code.
+Generating HDL for page 16.30.08.1 MISC CTRLS at 11/7/2020 10:24:17 AM
+Old test bench file ALD_16_30_08_1_MISC_CTRLS_tb.vhdl 80 lines preserved and 35 declaration lines preserved
 Removed 1 outputs from Gate at 3A to ignored block(s) or identical signal names
 Removed 2 outputs from Gate at 2C to ignored block(s) or identical signal names
 Removed 5 outputs from Gate at 2E to ignored block(s) or identical signal names
