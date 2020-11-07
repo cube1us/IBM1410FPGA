@@ -1,6 +1,7 @@
-Generating HDL for page 14.17.18.1 ADDRESS STOP-ACC at 8/24/2020 8:30:31 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_17_18_1_ADDRESS_STOP_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 14.17.18.1 ADDRESS STOP-ACC at 11/7/2020 3:37:11 PM
+Old test bench file ALD_14_17_18_1_ADDRESS_STOP_ACC_tb.vhdl 291 lines preserved and 32 declaration lines preserved
 WARNING: Diagram block at coordinate 5B has 4 different output pins: B,K,D,E
+Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Removed 2 outputs from Gate at 1D to ignored block(s) or identical signal names
 Generating Statement for block at 3A with output pin(s) of OUT_3A_NoPin
 	and inputs of OUT_5B_B,MS_NO_SCAN
