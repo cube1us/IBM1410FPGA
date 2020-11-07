@@ -1,6 +1,13 @@
-Generating HDL for page 14.71.41.1 ADDRESS MODIFIER CONTROL at 9/7/2020 1:17:04 PM
+Generating HDL for page 14.71.41.1 ADDRESS MODIFIER CONTROL at 11/7/2020 4:19:56 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_41_1_ADDRESS_MODIFIER_CONTROL_tb.vhdl, generating default test bench code.
 WARNING: Diagram block at coordinate 5G has 4 different output pins: A,B,D,E
+Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5G has input level(s) of 5, and output level(s) of , Logic Function set to OR
 NOTE: DOT Function at 5G is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5H has input level(s) of 5, and output level(s) of , Logic Function set to OR
 NOTE: DOT Function at 5H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Ignoring Logic Block 3F with symbol CAP
 Ignoring Logic Block 3G with symbol CAP

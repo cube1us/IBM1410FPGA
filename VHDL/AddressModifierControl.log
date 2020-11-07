@@ -1,6 +1,6 @@
-Generating HDL for group named AddressModifierControlat 9/7/2020 11:17:50 AM containing pages: 
+Generating HDL for group named AddressModifierControlat 11/7/2020 4:20:28 PM containing pages: 
 	14.71.40.1, 14.71.41.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\AddressModifierControl_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file AddressModifierControl_tb.vhdl 249 lines preserved and 32 declaration lines preserved
 Building lists of signals on 2 pages...
 Found 12 signals on page 14.71.40.1
 Found 21 signals on page 14.71.41.1
