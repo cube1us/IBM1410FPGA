@@ -1,5 +1,5 @@
-Generating HDL for page 19.10.02.1 I* INTERRUPT CONTROLS at 10/14/2020 3:31:44 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_02_1_I_INTERRUPT_CONTROLS_tb.vhdl, generating default test bench code.
+Generating HDL for page 19.10.02.1 1* INTERRUPT CONTROLS at 11/7/2020 7:46:36 AM
+Old test bench file ALD_19_10_02_1_1_INTERRUPT_CONTROLS_tb.vhdl 141 lines preserved and 35 declaration lines preserved
 Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 5G has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 1E has input level(s) of S, and output level(s) of S, Logic Function set to OR
