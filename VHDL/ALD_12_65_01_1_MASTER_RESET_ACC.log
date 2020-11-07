@@ -1,4 +1,6 @@
-Generating HDL for page 12.65.01.1 MASTER RESET-ACC at 7/18/2020 2:05:24 PM
+Generating HDL for page 12.65.01.1 MASTER RESET-ACC at 11/7/2020 1:24:57 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_65_01_1_MASTER_RESET_ACC_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4E has input level(s) of , and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 4E is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Ignoring Logic Block 3B with symbol L
 Ignoring Logic Block 3D with symbol CAP

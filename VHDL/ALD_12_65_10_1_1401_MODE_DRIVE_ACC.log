@@ -1,4 +1,5 @@
-Generating HDL for page 12.65.10.1 1401 MODE DRIVE-ACC at 7/18/2020 10:15:01 AM
+Generating HDL for page 12.65.10.1 1401 MODE DRIVE-ACC at 11/7/2020 1:25:10 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_65_10_1_1401_MODE_DRIVE_ACC_tb.vhdl, generating default test bench code.
 Ignoring Logic Block 3A with symbol L
 Ignoring Logic Block 3B with symbol CAP
 Processing extension from block at 1A (Database ID=215983) to 1B (Database ID=215984)
