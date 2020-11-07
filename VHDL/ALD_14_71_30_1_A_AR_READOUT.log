@@ -1,8 +1,12 @@
-Generating HDL for page 14.71.30.1 A AR READOUT at 9/6/2020 12:15:39 PM
-Old test bench file ALD_14_71_30_1_A_AR_READOUT_tb.vhdl 60 lines preserved and 32 declaration lines preserved
+Generating HDL for page 14.71.30.1 A AR READOUT at 11/7/2020 3:54:35 PM
+Old test bench file ALD_14_71_30_1_A_AR_READOUT_tb.vhdl 153 lines preserved and 32 declaration lines preserved
 Block at coordinate 4H is marked for No HDL Generation -- skipped.
 WARNING: Diagram block at coordinate 2H has 4 different output pins: A,B,K,D
 WARNING: Diagram block at coordinate 2I has 3 different output pins: E,F,G
+Note: DOT Function at 5A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5G has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 3G with symbol CAP
 Processing extension from block at 2H (Database ID=245050) to 2I (Database ID=245051)
 Copied connection from extension output pin E to master block at 2H
