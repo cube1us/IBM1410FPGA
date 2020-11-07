@@ -1,5 +1,5 @@
-Generating HDL for page 14.18.03.1 ZONE ADDR 16K-ACC at 8/25/2020 12:50:31 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_03_1_ZONE_ADDR_16K_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 14.18.03.1 ZONE ADDER 16K-ACC at 11/7/2020 7:58:50 AM
+Old test bench file ALD_14_18_03_1_ZONE_ADDER_16K_ACC_tb.vhdl 142 lines preserved and 35 declaration lines preserved
 Ignoring Logic Block 4I with symbol R
 Removed 1 outputs from Gate at 5F to ignored block(s) or identical signal names
 Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
