@@ -435,7 +435,7 @@ uut_process: process
 
    -- Reset tests
 
-   SWITCH_ROT_STOR_SCAN <= "001000";  -- Storage scan OFF
+   SWITCH_ROT_STOR_SCAN_DK6 <= "001000";  -- Storage scan OFF
    
    wait for 1 us;
    MS_PROGRAM_RESET_1 <= '0';
@@ -579,12 +579,12 @@ uut_process: process
    wait for 30 ns;
    
    assert PS_STOP_AT_F = '0' report "+S STOP AT F set (17)" severity failure;
-   SWITCH_ROT_STOR_SCAN <= "010000";  -- STOR SCAN REGEN 
+   SWITCH_ROT_STOR_SCAN_DK6 <= "010000";  -- STOR SCAN REGEN 
    wait for 30 ns;
    PS_STORAGE_SCAN_ROUTINE <= '1';
    wait for 30 ns;
    assert PS_STOP_AT_F = '1' report "+S STOP AT F not set (17)" severity failure;
-   SWITCH_ROT_STOR_SCAN <= "001000";  -- STOR SCAN OFF
+   SWITCH_ROT_STOR_SCAN_DK6 <= "001000";  -- STOR SCAN OFF
    PS_STORAGE_SCAN_ROUTINE <= '0';
    wait for 30 ns;
 
@@ -633,14 +633,14 @@ uut_process: process
 
    assert PS_STOP_AT_H = '0' report "+S STOP AT H set (3)" severity failure;
    assert PS_STOP_AT_K = '0' report "+S STOP AT K set (3A)" severity failure;
-   PS_A_RING_4_TIME <= '1';
+   PS_A_RING_BUS(4) <= '1';
    PS_X_CYCLE <= '1';
    PS_1401_MODE_1 <= '1';
    wait for 30 ns;
    assert PS_STOP_AT_K = '1' report "+S STOP AT K not set (3A)" severity failure;
    assert PS_STOP_AT_H = '0' report "+S STOP AT H set (3B)" severity failure;
    -- +S X CYCLE already set above
-   PS_A_RING_4_TIME <= '0';
+   PS_A_RING_BUS(4) <= '0';
    PS_1401_MODE_1 <= '0';
    wait for 30 ns;
    assert PS_STOP_AT_H = '1' report "+S STOP AT H not set (3)" severity failure;
@@ -700,12 +700,12 @@ uut_process: process
    assert MS_STORAGE_SCAN_LOAD = '1' report "-S STORAGE SCAN LOAD not 1 (2)" severity failure;
    -- -S ADDRESS SET ROUTINE already '1'
    PS_STORAGE_SCAN_ROUTINE <= '1';
-   SWITCH_ROT_STOR_SCAN <= "000010";  -- STORAGE SCAN SET TO LOAD 
+   SWITCH_ROT_STOR_SCAN_DK6 <= "000010";  -- STORAGE SCAN SET TO LOAD 
    wait for 30 ns;
    assert PS_STOP_AT_K = '1' report "+S STOP AT K not set (2)" severity failure;
    assert MS_STORAGE_SCAN_LOAD = '0' report "-S STORAGE SCAN LOAD not 0 (2)" severity failure;
    PS_STORAGE_SCAN_ROUTINE <= '0';
-   SWITCH_ROT_STOR_SCAN <= "001000";  -- STORAGE SCAN SET TO OFF    
+   SWITCH_ROT_STOR_SCAN_DK6 <= "001000";  -- STORAGE SCAN SET TO OFF    
    wait for 30 ns;
    
    --   Begin the sequential tests
