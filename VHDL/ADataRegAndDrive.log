@@ -1,7 +1,7 @@
-Generating HDL for group named ADataRegAndDriveat 9/9/2020 11:42:56 AM containing pages: 
+Generating HDL for group named ADataRegAndDriveat 11/7/2020 9:51:41 AM containing pages: 
 	15.39.01.1, 15.39.02.1, 15.39.03.1, 15.39.04.1, 15.39.05.1
 	15.39.06.1, 15.39.07.1, 15.39.08.1
-Old test bench file ADataRegAndDrive_tb.vhdl 60 lines preserved and 35 declaration lines preserved
+Old test bench file ADataRegAndDrive_tb.vhdl 266 lines preserved and 35 declaration lines preserved
 Building lists of signals on 8 pages...
 Found 17 signals on page 15.39.01.1
 Found 17 signals on page 15.39.02.1
@@ -240,7 +240,7 @@ Generating list of internal signals/wires ...
 Generating HDL prefixes...
 Generating HDL associated with page 15.39.01.1 (A DATA REG 1 BIT AND DRIVE-ACC)
 Generating HDL associated with page 15.39.02.1 (A DATA REG 2 BIT AND DRIVE-ACC)
-Generating HDL associated with page 15.39.03.1 (A DATA REG 4 BIT AND DRIVE)
+Generating HDL associated with page 15.39.03.1 (A DATA REG 4 BIT AND DRIVE-ACC)
 Generating HDL associated with page 15.39.04.1 (A DATA REG 8 BIT AND DRIVE-ACC)
 Generating HDL associated with page 15.39.05.1 (A DATA REG A BIT AND DRIVE-ACC)
 Generating HDL associated with page 15.39.06.1 (A DATA REG B BIT AND DRIVE-ACC)

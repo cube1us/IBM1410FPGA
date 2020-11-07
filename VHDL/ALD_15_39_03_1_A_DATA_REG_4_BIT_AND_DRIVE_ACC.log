@@ -1,4 +1,5 @@
-Generating HDL for page 15.39.03.1 A DATA REG 4 BIT AND DRIVE at 9/9/2020 11:22:34 AM
+Generating HDL for page 15.39.03.1 A DATA REG 4 BIT AND DRIVE-ACC at 11/7/2020 9:48:36 AM
+Note: DOT Function at 4E has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 5B
 Found combinatorial loop (need D FF) at output of gate at 4B
 Removed 4 outputs from Gate at 3E to ignored block(s) or identical signal names
