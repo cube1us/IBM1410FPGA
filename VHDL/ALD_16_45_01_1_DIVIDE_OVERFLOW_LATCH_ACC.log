@@ -1,4 +1,4 @@
-Generating HDL for page 16.45.01.1 DIVIDE OVERFLOW LATCH at 10/5/2020 4:58:40 PM
+Generating HDL for page 16.45.01.1 DIVIDE OVERFLOW LATCH-ACC at 11/7/2020 10:34:04 AM
 Note: DOT Function at 3E has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 3B
 Found combinatorial loop (need D FF) at output of gate at 2B

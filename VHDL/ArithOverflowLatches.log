@@ -1,6 +1,6 @@
-Generating HDL for group named ArithOverflowLatchesat 10/5/2020 4:59:08 PM containing pages: 
+Generating HDL for group named ArithOverflowLatchesat 11/7/2020 10:34:32 AM containing pages: 
 	16.45.01.1, 16.45.02.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ArithOverflowLatches_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file ArithOverflowLatches_tb.vhdl 172 lines preserved and 35 declaration lines preserved
 Building lists of signals on 2 pages...
 Found 9 signals on page 16.45.01.1
 Found 9 signals on page 16.45.02.1
@@ -29,5 +29,5 @@ Page 16.45.02.1 generates Lamp Output LAMP_15A1F12
 Generating list of internal signals/wires ...
 0 internal signals/wires found.
 Generating HDL prefixes...
-Generating HDL associated with page 16.45.01.1 (DIVIDE OVERFLOW LATCH)
+Generating HDL associated with page 16.45.01.1 (DIVIDE OVERFLOW LATCH-ACC)
 Generating HDL associated with page 16.45.02.1 (ARITH OVERFLOW LATCH-ACC)
