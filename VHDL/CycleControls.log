@@ -1,4 +1,4 @@
-Generating HDL for group named CycleControlsat 6/26/2020 2:57:27 PM containing pages: 
+Generating HDL for group named CycleControlsat 11/7/2020 11:15:25 AM containing pages: 
 	12.12.20.1, 12.12.21.1, 12.12.23.1, 12.12.30.1, 12.12.31.1
 	12.12.32.1, 12.12.33.1
 Old test bench file CycleControls_tb.vhdl 600 lines preserved and 54 declaration lines preserved
@@ -130,6 +130,7 @@ Removing 8 input signals that originate inside the group...
 Signal +S NEXT TO LAST LOGIC GATE is output from the group, but also used as an input inside the group.
 Signal -S D CYCLE CTRL is output from the group, but also used as an input inside the group.
 Signal -S STORAGE SCAN LOAD is output from the group, but also used as an input inside the group.
+Input Signal +S A RING 4 TIME replaced by Bus signal +S A RING BUS
 Generating list of internal signals/wires ...
 5 internal signals/wires found.
 Generating HDL prefixes...
