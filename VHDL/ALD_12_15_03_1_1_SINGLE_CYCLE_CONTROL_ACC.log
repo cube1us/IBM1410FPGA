@@ -1,6 +1,13 @@
-Generating HDL for page 12.15.03.1 1* SINGLE CYCLE CONTROL-ACC at 7/6/2020 1:58:26 PM
-Old test bench file ALD_12_15_03_1_1_SINGLE_CYCLE_CONTROL_ACC_tb.vhdl 222 lines preserved and 32 declaration lines preserved
-NOTE: DOT Function at 4G is fed only by rotary switch(es) and/or resistors. Changing logic function to AND
+Generating HDL for page 12.15.03.1 1* SINGLE CYCLE CONTROL-ACC at 11/7/2020 11:39:25 AM
+Old test bench file ALD_12_15_03_1_1_SINGLE_CYCLE_CONTROL_ACC_tb.vhdl 237 lines preserved and 32 declaration lines preserved
+Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4G has input level(s) of , and output level(s) of S, Logic Function set to OR
+NOTE: DOT Function at 4G is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 2G has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 4A
 Found combinatorial loop (need D FF) at output of gate at 3A
 Found combinatorial loop (need D FF) at output of gate at 4C
