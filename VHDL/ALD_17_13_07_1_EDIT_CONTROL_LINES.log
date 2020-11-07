@@ -1,5 +1,5 @@
-Generating HDL for page 17.13.07.1 EDIT CONTROL INES at 10/8/2020 8:07:16 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_17_13_07_1_EDIT_CONTROL_INES_tb.vhdl, generating default test bench code.
+Generating HDL for page 17.13.07.1 EDIT CONTROL LINES at 11/7/2020 10:47:11 AM
+Old test bench file ALD_17_13_07_1_EDIT_CONTROL_LINES_tb.vhdl 100 lines preserved and 35 declaration lines preserved
 Generating Statement for block at 2A with output pin(s) of OUT_2A_E
 	and inputs of MS_STORE_B_CH_CHARACTER,MS_WRITE_EDIT_BLANK,MS_WRITE_EDIT_ASTERISK
 	and logic function of NAND
