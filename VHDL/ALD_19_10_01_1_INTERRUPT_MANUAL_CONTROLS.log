@@ -1,5 +1,5 @@
-Generating HDL for page 19.10.01.1 INTERRUPT MANUAL CONTROLS at 10/14/2020 10:57:35 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_01_1_INTERRUPT_MANUAL_CONTROLS_tb.vhdl, generating default test bench code.
+Generating HDL for page 19.10.01.1 INTERRUPT MANUAL CONTROLS at 11/7/2020 5:11:08 PM
+Old test bench file ALD_19_10_01_1_INTERRUPT_MANUAL_CONTROLS_tb.vhdl 146 lines preserved and 35 declaration lines preserved
 WARNING: Diagram block at coordinate 5E has 4 different output pins: B,K,D,E
 Note: DOT Function at 5C has input level(s) of C, and output level(s) of , Logic Function set to OR
 NOTE: DOT Function at 5C is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
