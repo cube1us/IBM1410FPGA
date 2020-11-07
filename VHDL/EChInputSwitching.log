@@ -1,7 +1,7 @@
-Generating HDL for group named EChInputSwitchingat 9/18/2020 10:43:55 AM containing pages: 
+Generating HDL for group named EChInputSwitchingat 11/7/2020 10:00:34 AM containing pages: 
 	15.60.01.1, 15.60.02.1, 15.60.03.1, 15.60.04.1, 15.60.05.1
 	15.60.06.1, 15.60.07.1, 15.60.08.1
-Old test bench file EChInputSwitching_tb.vhdl 97 lines preserved and 35 declaration lines preserved
+Old test bench file EChInputSwitching_tb.vhdl 162 lines preserved and 35 declaration lines preserved
 Building lists of signals on 8 pages...
 Found 18 signals on page 15.60.01.1
 Found 17 signals on page 15.60.02.1
@@ -209,4 +209,4 @@ Generating HDL associated with page 15.60.04.1 (E CH INPUT SWITCHING 8 BIT-ACC)
 Generating HDL associated with page 15.60.05.1 (E CH INPUT SWITCHING A BIT-ACC)
 Generating HDL associated with page 15.60.06.1 (E CH INPUT SWITCHING B BIT-ACC)
 Generating HDL associated with page 15.60.07.1 (E CH INPUT SWITCHING C BIT-ACC)
-Generating HDL associated with page 15.60.08.1 (E CH INPUT SWITCHING WM BIT)
+Generating HDL associated with page 15.60.08.1 (E CH INPUT SWITCHING WM BIT-ACC)

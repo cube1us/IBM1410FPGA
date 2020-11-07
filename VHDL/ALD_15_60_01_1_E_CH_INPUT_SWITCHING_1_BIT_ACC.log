@@ -1,4 +1,4 @@
-Generating HDL for page 15.60.01.1 E CH INPUT SWITCHING 1 BIT-ACC at 9/18/2020 10:35:50 AM
+Generating HDL for page 15.60.01.1 E CH INPUT SWITCHING 1 BIT-ACC at 11/7/2020 10:04:52 AM
 Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 5G has input level(s) of C, and output level(s) of , Logic Function set to OR
 NOTE: DOT Function at 5G is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
