@@ -1,5 +1,5 @@
-Generating HDL for page 18.14.10.1 CHECK TEST SWITCHES-ACC at 10/13/2020 8:46:10 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_14_10_1_CHECK_TEST_SWITCHES_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 18.14.10.1 CHECK TEST SWITCHES-ACC at 11/7/2020 5:03:29 PM
+Old test bench file ALD_18_14_10_1_CHECK_TEST_SWITCHES_ACC_tb.vhdl 88 lines preserved and 35 declaration lines preserved
 Note: DOT Function at 4A has input level(s) of , and output level(s) of MIXED, Logic Function set to OR
 NOTE: DOT Function at 4A is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Note: DOT Function at 4E has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
