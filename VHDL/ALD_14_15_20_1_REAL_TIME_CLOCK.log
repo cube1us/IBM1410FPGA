@@ -1,4 +1,4 @@
-Generating HDL for page 14.15.20.1 REAL TIME CLOCK at 8/20/2020 11:34:11 AM
+Generating HDL for page 14.15.20.1 REAL TIME CLOCK at 11/7/2020 2:26:36 PM
 WARNING: Diagram block at coordinate 3B has 3 different output pins: A,K,D
 WARNING: Diagram block at coordinate 2C has 3 different output pins: F,H,J
 WARNING: Diagram block at coordinate 3D has 5 different output pins: B,A,K,D,E
@@ -6,6 +6,16 @@ WARNING: Diagram block at coordinate 2E has 5 different output pins: F,G,H,J,L
 WARNING: Diagram block at coordinate 3F has 5 different output pins: A,B,K,D,E
 WARNING: Diagram block at coordinate 2G has 5 different output pins: F,G,H,J,L
 WARNING: Diagram block at coordinate 3H has 3 different output pins: A,B,K
+Note: DOT Function at 3A has input level(s) of C, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3B has input level(s) of C, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3C has input level(s) of C, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2B has input level(s) of C, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2C has input level(s) of C, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1D has input level(s) of C, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3D has input level(s) of C, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3E has input level(s) of C, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2E has input level(s) of C, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2F has input level(s) of C, and output level(s) of S, Logic Function set to OR
 Generating Statement for block at 4B with output pin(s) of OUT_4B_F, OUT_4B_F
 	and inputs of MS_REAL_TIME_CLOCK_GATE_A
 	and logic function of NOT

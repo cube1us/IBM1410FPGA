@@ -1,6 +1,6 @@
-Generating HDL for group named RealTimeClockat 8/19/2020 4:54:20 PM containing pages: 
+Generating HDL for group named RealTimeClockat 11/7/2020 2:27:54 PM containing pages: 
 	14.15.20.1, 14.15.21.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\RealTimeClock_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file RealTimeClock_tb.vhdl 227 lines preserved and 45 declaration lines preserved
 Building lists of signals on 2 pages...
 Found 14 signals on page 14.15.20.1
 Found 21 signals on page 14.15.21.1
