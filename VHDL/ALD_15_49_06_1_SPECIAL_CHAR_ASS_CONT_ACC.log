@@ -1,5 +1,5 @@
-Generating HDL for page 15.49.06.1 SPECIAL CHAR ASS CONT-ACC at 9/13/2020 4:21:41 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_49_06_1_SPECIAL_CHAR_ASS_CONT_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 15.49.06.1 SPECIAL CHAR ASS CONT-ACC at 11/7/2020 4:57:00 PM
+Old test bench file ALD_15_49_06_1_SPECIAL_CHAR_ASS_CONT_ACC_tb.vhdl 112 lines preserved and 35 declaration lines preserved
 Note: DOT Function at 4H has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 3A with symbol CAP
 Ignoring Logic Block 2A with symbol L
