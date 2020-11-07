@@ -1,4 +1,5 @@
-Generating HDL for page 14.17.17.1 ADDRESS STOP-ACC at 8/23/2020 10:22:54 AM
+Generating HDL for page 14.17.17.1 ADDRESS STOP-ACC at 11/7/2020 2:54:55 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_17_17_1_ADDRESS_STOP_ACC_tb.vhdl, generating default test bench code.
 WARNING: Diagram block at coordinate 5A has 5 different output pins: A,B,K,D,E
 WARNING: Diagram block at coordinate 5B has 5 different output pins: F,G,H,J,L
 WARNING: Diagram block at coordinate 5C has 5 different output pins: A,B,K,D,E
@@ -7,15 +8,26 @@ WARNING: Diagram block at coordinate 5F has 5 different output pins: A,B,K,D,E
 WARNING: Diagram block at coordinate 5G has 5 different output pins: F,G,H,J,L
 WARNING: Diagram block at coordinate 5H has 5 different output pins: A,B,K,D,E
 WARNING: Diagram block at coordinate 5I has 5 different output pins: F,G,H,J,L
+Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5A has input level(s) of 2, and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 5A is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 4A has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 4A is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5B has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 5B is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5D has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 5D is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5C has input level(s) of 1, and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 5C is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 4F has input level(s) of 2, and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 4F is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5F has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 5F is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5G has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 5G is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5H has input level(s) of 1, and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 5H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 5I has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
 NOTE: DOT Function at 5I is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
 Processing extension from block at 5A (Database ID=239604) to 5B (Database ID=239605)
 Copied connection from extension output pin F to master block at 5A
