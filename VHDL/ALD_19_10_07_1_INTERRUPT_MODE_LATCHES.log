@@ -1,5 +1,5 @@
-Generating HDL for page 19.10.07.1 INTERRUPT MODE LATCHES at 10/15/2020 9:44:26 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_19_10_07_1_INTERRUPT_MODE_LATCHES_tb.vhdl, generating default test bench code.
+Generating HDL for page 19.10.07.1 INTERRUPT MODE LATCHES at 11/8/2020 5:08:09 PM
+Old test bench file ALD_19_10_07_1_INTERRUPT_MODE_LATCHES_tb.vhdl 238 lines preserved and 35 declaration lines preserved
 Note: DOT Function at 3C has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 2H has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
@@ -8,7 +8,7 @@ Found combinatorial loop (need D FF) at output of gate at 3D
 Found combinatorial loop (need D FF) at output of gate at 2D
 Found combinatorial loop (need D FF) at output of gate at 3H
 Found combinatorial loop (need D FF) at output of gate at 2H
-Added LAMP signal LAMP_15A1K23
+Added LAMP signal LAMP_15A1K22
 Generating Statement for block at 4B with output pin(s) of OUT_4B_C
 	and inputs of PS_INTERRUPT_BRANCH,PS_B_CYCLE_1,PS_LOGIC_GATE_E_1
 	and logic function of NAND
