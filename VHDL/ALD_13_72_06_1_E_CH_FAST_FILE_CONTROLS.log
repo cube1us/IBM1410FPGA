@@ -1,0 +1,34 @@
+Generating HDL for page 13.72.06.1 E CH FAST FILE CONTROLS at 11/8/2020 11:09:16 AM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_72_06_1_E_CH_FAST_FILE_CONTROLS_tb.vhdl, generating default test bench code.
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Found combinatorial loop (need D FF) at output of gate at 4C
+Found combinatorial loop (need D FF) at output of gate at 3C
+Generating Statement for block at 3A with output pin(s) of OUT_3A_G
+	and inputs of MS_PROGRAM_RESET,OUT_4B_C
+	and logic function of NAND
+Generating Statement for block at 4B with output pin(s) of OUT_4B_C
+	and inputs of PS_E_CH_DISCON_LATCH
+	and logic function of NAND
+Generating Statement for block at 4C with *latched* output pin(s) of OUT_4C_K_Latch
+	and inputs of PS_E_CH_SEL_UNIT_F_LATCHED,OUT_3C_P
+	and logic function of NAND
+Generating Statement for block at 3C with *latched* output pin(s) of OUT_3C_P_Latch
+	and inputs of OUT_DOT_4C,OUT_1G_G
+	and logic function of NAND
+Generating Statement for block at 2G with output pin(s) of OUT_2G_F
+	and inputs of PS_F_CH_IN_PROCESS
+	and logic function of NOT
+Generating Statement for block at 1G with output pin(s) of OUT_1G_G
+	and inputs of PS_LOGIC_GATE_E_OR_V,PS_LOZENGE_OR_ASTERISK
+	and logic function of NAND
+Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C, OUT_DOT_4C
+	and inputs of OUT_3A_G,OUT_4C_K
+	and logic function of OR
+Generating output sheet edge signal assignment to 
+	signal PS_BLOCK_E_CH_FILE_START_GT
+	from gate output OUT_2G_F
+Generating output sheet edge signal assignment to 
+	signal MS_COMP_DSBLE_E_CH
+	from gate output OUT_DOT_4C
+Generating D Flip Flop for block at 4C
+Generating D Flip Flop for block at 3C
