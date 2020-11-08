@@ -1,8 +1,8 @@
-Generating HDL for page 18.13.03.1 ASSEMBLY CHANNEL VALIDITY CHECK at 10/12/2020 10:40:21 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_18_13_03_1_ASSEMBLY_CHANNEL_VALIDITY_CHECK_tb.vhdl, generating default test bench code.
+Generating HDL for page 18.13.03.1 ASSEMBLY CHANNEL VALIDITY CHECK at 11/8/2020 5:02:23 PM
+Old test bench file ALD_18_13_03_1_ASSEMBLY_CHANNEL_VALIDITY_CHECK_tb.vhdl 90 lines preserved and 35 declaration lines preserved
 Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 3B has input level(s) of S, and output level(s) of S, Logic Function set to OR
-Added LAMP signal LAMP_15A1A19
+Added LAMP signal LAMP_15A1B19
 Added LAMP signal LAMP_11C8A10
 Generating Statement for block at 5A with output pin(s) of OUT_5A_NoPin
 	and inputs of PS_ASSEMBLY_CH_NUMERICS_ODD,PS_ASSEMBLY_CH_ZONES_ODD
