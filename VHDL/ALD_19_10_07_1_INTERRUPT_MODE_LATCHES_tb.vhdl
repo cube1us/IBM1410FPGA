@@ -182,7 +182,7 @@ uut_process: process
       wait for 30 ns;
       
       check1(PS_PRIORITY_ALERT_MODE,'0',testName,"Priority Alert Loop Reset");
-      check1(LAMP_15A1K23,PS_PRIORITY_ALERT_MODE,testName,"Priority Alert Lamp Loop Reset");
+      check1(LAMP_15A1K22,PS_PRIORITY_ALERT_MODE,testName,"Priority Alert Lamp Loop Reset");
       
       -- Set the test vector, but make sure at least one reset variable is NOT set, so
       -- the latch isn't pulled in two directions
@@ -211,7 +211,7 @@ uut_process: process
       wait for 30 ns;
       
       check1(PS_PRIORITY_ALERT_MODE,g1,testName,"Priority Alert Set");
-      check1(LAMP_15A1K23,PS_PRIORITY_ALERT_MODE,testName,"Priority Alert Lamp Set");
+      check1(LAMP_15A1K22,PS_PRIORITY_ALERT_MODE,testName,"Priority Alert Lamp Set");
       
       -- Now the reset test.  Set all the variables again execept at least one that 
       -- will  prevent it from conflicting with the reset
@@ -241,7 +241,7 @@ uut_process: process
       -- Latch is still set if it was set earlier and not reset by g5.
       
       check1(PS_PRIORITY_ALERT_MODE,g1 and not g5,testName,"Priority Alert Reset");
-      check1(LAMP_15A1K23,PS_PRIORITY_ALERT_MODE,testName,"Priority Alert Lamp Reset");
+      check1(LAMP_15A1K22,PS_PRIORITY_ALERT_MODE,testName,"Priority Alert Lamp Reset");
             
    end loop;
 
