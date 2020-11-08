@@ -1,4 +1,5 @@
-Generating HDL for page 40.10.03.1 1*OFF-NORMAL IND + STORAGE SCAN S at 10/23/2020 3:44:15 PM
+Generating HDL for page 40.10.03.1 1*OFF-NORMAL IND + STORAGE SCAN S at 11/8/2020 5:13:04 PM
+Old test bench file ALD_40_10_03_1_1_OFF_NORMAL_IND_STORAGE_SCAN_S_tb.vhdl 156 lines preserved and 35 declaration lines preserved
 WARNING: Diagram block at coordinate 5B has 2 different output pins: A,B
 WARNING: Diagram block at coordinate 4C has 4 different output pins: A,B,D,E
 WARNING: Diagram block at coordinate 5D has 2 different output pins: A,K
@@ -25,7 +26,7 @@ Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
 Removed 4 outputs from Gate at 3E to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 3F to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
-Added LAMP signal LAMP_15A1K24
+Added LAMP signal LAMP_15A1K21
 Generating Statement for block at 3A with output pin(s) of OUT_3A_F
 	and inputs of OUT_4B_N
 	and logic function of Resistor
