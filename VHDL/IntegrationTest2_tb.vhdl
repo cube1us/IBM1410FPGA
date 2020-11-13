@@ -13,6 +13,12 @@ use WORK.ALL;
 -- End of include from HDLTemplate.vhdl
 
 entity IntegrationTest2_tb is
+   PORT (
+      CLK: in  STD_LOGIC;
+      SW:  in  STD_LOGIC_VECTOR(15 downto 0);
+      LED: out STD_LOGIC_VECTOR(15 downto 0) 
+);
+   
 end IntegrationTest2_tb;
 
 architecture behavioral of IntegrationTest2_tb is
@@ -1730,25 +1736,27 @@ architecture behavioral of IntegrationTest2_tb is
    constant MX_X1A_POS: integer := 7;
    constant MX_X6A_POS: integer := 8;
 
-procedure check1(
-    checked: in STD_LOGIC;
-    val: in STD_LOGIC;
-    testname: in string;
-    test: in string) is
-    begin    
-    assert checked = val report testname & " (" & test & ") failed." severity failure;
-    end procedure;
+--procedure check1(
+--    checked: in STD_LOGIC;
+--    val: in STD_LOGIC;
+--    testname: in string;
+--    test: in string) is
+--    begin    
+--    assert checked = val report testname & " (" & test & ") failed." severity failure;
+--    end procedure;
       
 
 
-   -- Your test bench declarations go here
+--   -- Your test bench declarations go here
+   signal MS_COMPUTER_RESET: std_logic := '1';
+   signal MS_PROGRAM_RESET: std_logic := '1';
 
--- END USER TEST BENCH DECLARATIONS
+---- END USER TEST BENCH DECLARATIONS
    
 
 	begin
 
-	-- Instantiate the Unit Under Test (UUT)
+--	-- Instantiate the Unit Under Test (UUT)
 
 	UUT: IntegrationTest2 port map(
 		FPGA_CLK => FPGA_CLK,
@@ -2607,85 +2615,85 @@ procedure check1(
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
---
--- End of TestBenchFPGAClock.vhdl
---   
+----
+---- End of TestBenchFPGAClock.vhdl
 
--- Place your test bench code in the uut_process
+
+   FPGA_CLK <= CLK;
+   
+   MS_COMPUTER_RESET_1 <= MS_COMPUTER_RESET;
+   MS_PROGRAM_RESET_2 <= MS_PROGRAM_RESET;   
+   MS_PROGRAM_RESET_6 <= MS_PROGRAM_RESET;
+   
+   
+----   
+
+---- Place your test bench code in the uut_process
 
 uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
-   variable tv: std_logic_vector(25 downto 0);
-   variable a,b,c,d,e,f,g,h,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z: std_logic;
-   variable g1, g2, g3, g4, g5, g6, g7, g8, g9, g10: std_logic;
 
    begin
-
+   
+   SWITCH_ROT_STOR_SCAN_DK1 <= "0000000001000";  -- Storage Scan Off
+   SWITCH_ROT_STOR_SCAN_DK3 <= "0000000001000";  -- Storage Scan Off
+   SWITCH_ROT_STOR_SCAN_DK4 <= "0000000001000";  -- Storage Scan Off
+   SWITCH_ROT_STOR_SCAN_DK5 <= "0000000001000";  -- Storage Scan Off
+   SWITCH_ROT_STOR_SCAN_DK6 <= "001000";  -- Storage Scan Off
+   MS_COMPUTER_RESET <= '0';
+   MS_PROGRAM_RESET <= '0';
+   wait for 1 us;
+   MS_COMPUTER_RESET <= '1';
+   MS_PROGRAM_RESET <= '1';
+   
+   PS_CONS_CLOCK_1_POS <= '1';
+   wait for 30 ns;
+   -- PS_CONS_CLOCK_1_POS <= '0';
+   PS_CONS_CLOCK_3_POS_1 <= '1';
+      
+   wait for 1 us;
+   SWITCH_ROT_MODE_SW_DK <= "0000000000010";
+   SWITCH_ROT_MODE_SW_DK1 <= "0000000000010";
+   wait for 1 us;
+   SWITCH_MOM_CONS_START <= '1';
+   wait for 1 ms;
+   SWITCH_MOM_CONS_START <= '0';
+   PS_CONS_CLOCK_1_POS <= '0';
+   PS_CONS_CLOCK_3_POS_1 <= '0';
+   wait for 50 us;
+   SWITCH_MOM_CONS_STOP_PL1 <= '1';
+   wait for 1 us;
+   -- Help out the stop if instruction readout isn't working
+   MS_MASTER_ERROR <= '0';
+   SWITCH_MOM_CONS_STOP_PL1 <= '0';
+   
    -- Your test bench code
-
-   testName := "15.49.04.1        X";  -- NOTE:  Remove X when editing to set correct length!
-
-   for tt in 0 to 2**25 loop
-      tv := std_logic_vector(to_unsigned(tt,tv'Length));
-      a := tv(0);
-      b := tv(1);
-      c := tv(2);
-      d := tv(3);
-      e := tv(4);
-      f := tv(5);
-      g := tv(6);
-      h := tv(7);
-      j := tv(8);
-      k := tv(9);
-      l := tv(10);
-      m := tv(11);
-      n := tv(12);
-      o := tv(13);
-      p := tv(14);
-      q := tv(15);
-      r := tv(16);
-      s := tv(17);
-      t := tv(18);
-      u := tv(19);
-      v := tv(20);
-      w := tv(21);
-      x := tv(22);
-      y := tv(23);
-      z := tv(24);
-
-      
-      wait for 30 ns;
-      
-      
-   end loop;
-
-   assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
    end process;
 
--- The following is needed for older VHDL simulations to
--- terminate the simulation process.  If your environment
--- does not need it, it may be deleted.
+---- The following is needed for older VHDL simulations to
+---- terminate the simulation process.  If your environment
+---- does not need it, it may be deleted.
 
-stop_simulation: process
-   begin
-   wait for 2 ms;  -- Determines how long your simulation runs
-   assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
-   end process;
+--stop_simulation: process
+--   begin
+--   wait for 2 ms;  -- Determines how long your simulation runs
+--   assert false report "Simulation Ended NORMALLY (TIMEOUT)" severity failure;
+--   end process;
 
 -- END USER TEST BENCH PROCESS
    
