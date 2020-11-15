@@ -1,7 +1,8 @@
-Generating HDL for page 11.10.02.1 1*LOGIC GATE RING CLK PULSES-ACC at 6/26/2020 12:22:34 PM
-Old test bench file ALD_11_10_02_1_1_LOGIC_GATE_RING_CLK_PULSES_ACC_tb.vhdl 50 lines preserved and 0 declaration lines preserved
-WARNING: Diagram block at coordinate 3A has 2 different output pins: J,F
-WARNING: Diagram block at coordinate 3B has 2 different output pins: J,B
+Generating HDL for page 11.10.02.1 1*LOGIC GATE RING CLK PULSES-ACC at 11/13/2020 1:44:18 PM
+NOTE: Special signal LOGIC ONE removed from sheet inputs list.
+Note: DOT Function at 3B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
 DOT Function at 3B has one output from a Trigger, one output from Non-Trigger
    Trigger block pin B located at 3B, Non-trigger is located at 3D Output is to 2B
    Using Trigger faux pin T as input side of pin B
@@ -9,13 +10,11 @@ Processing extension from block at 3A (Database ID=187430) to 3B (Database ID=18
 Copied connection to extension input pin E to master block at 3A
 Copied connection to extension input pin A to master block at 3A
 Copied connection to extension input pin T to master block at 3A
-Copied connection from extension output pin J to master block at 3A
 Copied connection from extension output pin B to master block at 3A
 Copied mapped pin B from extension 3B to master block at 3A
 Copied mapped pin K from extension 3B to master block at 3A
 Copied mapped pin P from extension 3B to master block at 3A
 Copied mapped pin T from extension 3B to master block at 3A
-Moved connection from extension 3B pin J to be from master at 3A
 Moved connection from extension 3B pin B to be from master at 3A
 Processing extension from block at 1C (Database ID=187443) to 1D (Database ID=187444)
 Copied connection from extension output pin G to master block at 1C
@@ -35,8 +34,8 @@ Removed 21 outputs from Gate at 1C to ignored block(s) or identical signal names
 Removed 3 outputs from Gate at 3H to ignored block(s) or identical signal names
 Removed 4 outputs from Gate at 2H to ignored block(s) or identical signal names
 Added LAMP signal LAMP_15A1K24
-Generating Statement for block at 3A with output pin(s) of OUT_3A_J, OUT_3A_F, OUT_3A_J, OUT_3A_B
-	and inputs of OUT_3A_J,PS_OSCILLATOR,OUT_3A_J,PS_OSCILLATOR_DELAYED,OUT_3D_D
+Generating Statement for block at 3A with output pin(s) of OUT_3A_F, OUT_3A_B
+	and inputs of '1',PS_OSCILLATOR,'1',PS_OSCILLATOR_DELAYED,OUT_3D_D
 	and logic function of Trigger
 Generating Statement for block at 2A with output pin(s) of OUT_2A_D, OUT_2A_D, OUT_2A_D, OUT_2A_D
 	and inputs of OUT_3A_F
