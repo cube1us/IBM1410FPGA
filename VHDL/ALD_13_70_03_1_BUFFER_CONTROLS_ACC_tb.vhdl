@@ -294,6 +294,7 @@ uut_process: process
    wait for 90 ns;
    
    MS_E_CH_BUSY_BUS <= '0';  -- Pretend Channel is busy - system waits
+   wait for 30 ns; -- Setup time before clock hits
    PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
    wait for 30 ns;
    PS_1ST_CLOCK_PULSE_CLAMPED <= '0';
@@ -301,6 +302,7 @@ uut_process: process
    check1(PS_1401_CARD_PR_ERR_SAMPLE,'0',testName,"2E"); 
 
    MS_E_CH_BUSY_BUS <= '1';  -- Not busy any more
+   wait for 30 ns; -- Setup time before clock hits
    PS_1ST_CLOCK_PULSE_CLAMPED <= '1';   
    wait for 30 ns; 
    PS_1ST_CLOCK_PULSE_CLAMPED <= '0';

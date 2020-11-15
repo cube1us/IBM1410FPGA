@@ -370,6 +370,8 @@ uut_process: process
    wait for 30 ns;
    PS_1ST_CLOCK_PULSE_CLAMPED_A <= '1';
    wait for 30 ns;
+   PS_1ST_CLOCK_PULSE_CLAMPED_A <= '0';
+   wait for 30 ns;
    
    check1(MS_F_CH_END_OF_2ND_ADDR_TRF,'1',testName,"6A");
    check1(PS_F_CH_2ND_ADDR_TRF,'1',testname,"6B");   

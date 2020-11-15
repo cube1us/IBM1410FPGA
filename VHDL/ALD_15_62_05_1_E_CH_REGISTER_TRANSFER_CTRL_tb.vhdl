@@ -237,6 +237,10 @@ uut_process: process
       PS_E_CYCLE <= n;
       PS_INPUT_CYCLE_NOT_LAST_INPUT <= o;
       PS_INPUT_CYCLE_DOT_LOAD <= p;
+      
+      -- Need time between DCRFORCE going away and the clock
+      
+      wait for 30 ns;
                   
       PS_1ST_CLOCK_PULSE_1 <= '1';
       PS_2ND_CLOCK_PULSE_2 <= '0';

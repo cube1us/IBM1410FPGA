@@ -214,8 +214,8 @@ uut_process: process
       
       -- Initial conditions are such that the latch will be RESET at this point
       
-      check1(PS_RESET_F2_FULL_LATCH,'0',testName,"Init Set +S Reset E2 Full");           
-      check1(MS_RESET_F2_FULL_LATCH,'1',testName,"Init Set -S Reset E2 Full");                       
+      check1(PS_RESET_F2_FULL_LATCH,'0',testName,"Init Set +S Reset F2 Full");           
+      check1(MS_RESET_F2_FULL_LATCH,'1',testName,"Init Set -S Reset F2 Full");                       
       
       PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= g;
       PS_LOGIC_GATE_EARLY_F <= h;
@@ -226,13 +226,17 @@ uut_process: process
       PS_F_CYCLE <= n;
       PS_INPUT_CYCLE_NOT_LAST_INPUT <= o;
       PS_INPUT_CYCLE_DOT_LOAD <= p;
-                  
+      
+      -- Setup time (DCRFORCE going away)
+      
+      wait for 30 ns;
+
       PS_1ST_CLOCK_PULSE_1 <= '1';
       PS_2ND_CLOCK_PULSE_2 <= '0';
       wait for 30 ns;
 
-      check1(PS_RESET_F2_FULL_LATCH,g1 or l or g2 or k,testName,"Set +S Reset E2 Full");
-      check1(MS_RESET_F2_FULL_LATCH,NOT(g1 or l or g2 or k),testName,"Set +S Reset E2 Full");
+      check1(PS_RESET_F2_FULL_LATCH,g1 or l or g2 or k,testName,"Set +S Reset F2 Full");
+      check1(MS_RESET_F2_FULL_LATCH,NOT(g1 or l or g2 or k),testName,"Set +S Reset F2 Full");
       
       PS_FILE_OP_DOT_D_CY_DOT_NO_SCAN <= '0';
       PS_LOGIC_GATE_EARLY_F <= '0';
