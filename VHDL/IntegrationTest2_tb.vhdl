@@ -2615,28 +2615,64 @@ architecture behavioral of IntegrationTest2_tb is
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
---fpga_clk_process: process
+fpga_clk_process: process
 
---   constant clk_period : time := 10 ns;
+   constant clk_period : time := 10 ns;
 
---   begin
---      fpga_clk <= '0';
---      wait for clk_period / 2;
---      fpga_clk <= '1';
---      wait for clk_period / 2;
---   end process;
+   begin
+      fpga_clk <= '0';
+      wait for clk_period / 2;
+      fpga_clk <= '1';
+      wait for clk_period / 2;
+   end process;
 
-----
+--
 ---- End of TestBenchFPGAClock.vhdl
 
 
-   FPGA_CLK <= CLK;
+   -- FPGA_CLK <= CLK;
    
-   MS_COMPUTER_RESET_1 <= MS_COMPUTER_RESET;
-   MS_PROGRAM_RESET_2 <= MS_PROGRAM_RESET;   
-   MS_PROGRAM_RESET_6 <= MS_PROGRAM_RESET;
+   LED(9 downto 0) <= LAMPS_LOGIC_GATE_RING;
    
+   LED(15) <= LAMP_15A1K24; -- Stop
    
+   -- A channel Validity, B Channel Validity, Assembly Channel Validity
+   -- Address Channel validity, Address Exit Channel validity
+   
+   LED(14) <= LAMP_15A1A19 or LAMP_15A1C19 or LAMP_15A1B19 or 
+      LAMP_15A1F19 or LAMP_15A1H19;
+   
+   -- Register Set checks
+   
+   LED(13) <= LAMP_15A1V01 or LAMP_15A1C20 or LAMP_15A1E20 or LAMP_15A1F20;
+   
+   -- Character Select Checks
+   
+   LED(12) <= LAMP_15A1H20 or LAMP_15A1K20;
+   
+   LED(11) <= LAMP_15A1W04; -- Instruction Check
+   LED(10) <= LAMP_15A1B15; -- Address Check   
+   
+-- Signal "copies"
+
+   PV_SENSE_CHAR_0_B2_BUS <= PV_SENSE_CHAR_0_B1_BUS;
+   PV_SENSE_CHAR_0_D1_BUS <= PV_SENSE_CHAR_0_B1_BUS;
+   PV_SENSE_CHAR_0_D2_BUS <= PV_SENSE_CHAR_0_B1_BUS;
+   
+   SWITCH_ROT_STOR_SCAN_DK3 <= SWITCH_ROT_STOR_SCAN_DK1;
+   SWITCH_ROT_STOR_SCAN_DK4 <= SWITCH_ROT_STOR_SCAN_DK1;
+   SWITCH_ROT_STOR_SCAN_DK5 <= SWITCH_ROT_STOR_SCAN_DK1;
+   SWITCH_ROT_STOR_SCAN_DK6 <= SWITCH_ROT_STOR_SCAN_DK1(5 downto 0); -- Need to fix switch
+   
+   SWITCH_ROT_CYCLE_CTRL_DK2 <= SWITCH_ROT_CYCLE_CTRL_DK1(5 downto 0); -- Need to fix switch
+
+   SWITCH_ROT_CHECK_CTRL_DK2 <= SWITCH_ROT_CHECK_CTRL_DK1(5 downto 0);
+
+   SWITCH_ROT_MODE_SW_DK1 <= SWITCH_ROT_MODE_SW_DK;
+   
+   MV_CONS_PRINTER_C2_CAM_NO <= not MV_CONS_PRINTER_C2_CAM_NC;
+   MV_CONS_PRINTER_C1_CAM_NO <= not MV_CONS_PRINTER_C1_CAM_NC;
+
 ----   
 
 ---- Place your test bench code in the uut_process
@@ -2648,40 +2684,45 @@ uut_process: process
 
    begin
    
-   SWITCH_ROT_STOR_SCAN_DK1 <= "0000000001000";  -- Storage Scan Off
-   SWITCH_ROT_STOR_SCAN_DK3 <= "0000000001000";  -- Storage Scan Off
-   SWITCH_ROT_STOR_SCAN_DK4 <= "0000000001000";  -- Storage Scan Off
-   SWITCH_ROT_STOR_SCAN_DK5 <= "0000000001000";  -- Storage Scan Off
-   SWITCH_ROT_STOR_SCAN_DK6 <= "001000";  -- Storage Scan Off
-   MS_COMPUTER_RESET <= '0';
-   MS_PROGRAM_RESET <= '0';
-   wait for 1 us;
-   MS_COMPUTER_RESET <= '1';
-   MS_PROGRAM_RESET <= '1';
-   
-   PS_CONS_CLOCK_1_POS <= '1';
-   wait for 30 ns;
-   -- PS_CONS_CLOCK_1_POS <= '0';
-   PS_CONS_CLOCK_3_POS_1 <= '1';
+   MV_CONS_PRINTER_C2_CAM_NC <= '1';
+   MV_CONS_PRINTER_C1_CAM_NC <= '1';
+   SWITCH_MOM_STARTPRINT <= '1';  -- This switch is "backwards"
+
       
-   wait for 1 us;
-   SWITCH_ROT_MODE_SW_DK <= "0000000000010";
-   SWITCH_ROT_MODE_SW_DK1 <= "0000000000010";
-   wait for 1 us;
+   SWITCH_ROT_STOR_SCAN_DK1 <= "0000000001000";  -- Storage Scan Off
+   
+   SWITCH_ROT_CYCLE_CTRL_DK1 <= "0000000000100"; -- Cycle Control Off
+   
+   SWITCH_ROT_CHECK_CTRL_DK1 <= "0000000000100"; -- Check Control Stop Normal
+   
+   SWITCH_ROT_MODE_SW_DK <= "0000010000000"; -- Run Mode
+   
+   PV_SENSE_CHAR_0_B1_BUS <= "11111011";  -- CWBA8-21  (WM + period)
+   
+   wait for 30 ns;  -- Otherwise the power on reset doesn't /IntegrationTest2_tb/MS_PROGRAM_RESET_6work right.
+   SWITCH_REL_PWR_ON_RST <= '1';
+   wait for 500 us;   
+   SWITCH_REL_PWR_ON_RST <= '0';
+   wait for 30 ms;
+   
+--   SWITCH_MOM_CO_CPR_RST <= '1';
+--   wait for 500 us;
+--   SWITCH_MOM_CO_CPR_RST <= '0';           
+--   wait for 30 ms;   
+      
    SWITCH_MOM_CONS_START <= '1';
    wait for 1 ms;
    SWITCH_MOM_CONS_START <= '0';
-   PS_CONS_CLOCK_1_POS <= '0';
-   PS_CONS_CLOCK_3_POS_1 <= '0';
    wait for 50 us;
    SWITCH_MOM_CONS_STOP_PL1 <= '1';
    wait for 1 us;
    -- Help out the stop if instruction readout isn't working
-   MS_MASTER_ERROR <= '0';
    SWITCH_MOM_CONS_STOP_PL1 <= '0';
    
    -- Your test bench code
 
+   assert false report "Simulation Ended NORMALLY" severity failure;
+   
    wait;
    end process;
 
