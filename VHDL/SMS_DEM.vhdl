@@ -56,7 +56,7 @@ begin
 
     GROUND <= '1';
 
-    SMS_DEM_PROCESS: process(FPGA_CLK, ACSET, ACRESET, DCRESET, DCRFORCE, DCSFORCE)
+    SMS_DEM_PROCESS: process(FPGA_CLK, ACSET, ACRESET, DCSET, DCRESET, DCRFORCE, DCSFORCE)
         begin
         if(DCRESET = '0' OR DCRFORCE = '1') then
             OUTOFF <= '1';
