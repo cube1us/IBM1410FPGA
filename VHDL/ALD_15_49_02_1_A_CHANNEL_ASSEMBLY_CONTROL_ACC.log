@@ -1,7 +1,7 @@
-Generating HDL for page 15.49.02.1 A CHANNEL ASSEMBLY CONTROL-ACC at 9/12/2020 5:27:42 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_49_02_1_A_CHANNEL_ASSEMBLY_CONTROL_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 15.49.02.1 A CHANNEL ASSEMBLY CONTROL-ACC at 11/16/2020 3:15:21 PM
+NOTE: Special signal LOGIC ZERO removed from sheet inputs list.
 Note: DOT Function at 3H has input level(s) of S, and output level(s) of S, Logic Function set to OR
-Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3D has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Removed 1 outputs from Gate at 5E to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 2G to ignored block(s) or identical signal names
@@ -51,8 +51,10 @@ Generating Statement for block at 5I with output pin(s) of OUT_5I_E
 Generating Statement for block at 3H with output pin(s) of OUT_DOT_3H, OUT_DOT_3H
 	and inputs of OUT_4G_G,OUT_3H_E
 	and logic function of OR
+WARNING: Input connection from edge connection named LOGIC ZERO to a DOT function on page 15.49.02.1 coordinate 3D is also used as input to other page(s):
+    13.70.02.1 13.70.03.1 15.62.03.1 18.14.02.1 18.14.03.1 
 Generating Statement for block at 3D with output pin(s) of OUT_DOT_3D
-	and inputs of OUT_3D_D,PS_BLOCK_USE_A_CH_WM
+	and inputs of OUT_3D_D,'0'
 	and logic function of OR
 Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
 	and inputs of OUT_2B_C,OUT_2D_C

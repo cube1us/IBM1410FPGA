@@ -1,10 +1,10 @@
-Generating HDL for group named EChWordSeparatorCtrlat 9/11/2020 12:31:55 PM containing pages: 
+Generating HDL for group named EChWordSeparatorCtrlat 11/16/2020 3:23:56 PM containing pages: 
 	15.41.11.1, 15.41.12.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\EChWordSeparatorCtrl_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file EChWordSeparatorCtrl_tb.vhdl 195 lines preserved and 35 declaration lines preserved
 Building lists of signals on 2 pages...
 Found 13 signals on page 15.41.11.1
-Found 22 signals on page 15.41.12.1
-Found 26 unique input signals and 9 unique output signals, (34 total unique signals)
+Found 21 signals on page 15.41.12.1
+Found 26 unique input signals and 8 unique output signals, (33 total unique signals)
 Determining sources for all input signals...
 INFO:  Signal -S E CH WORD SEPARATOR originates outside the group.
 INFO:  Signal -S E1 INPUT WM BIT originates outside the group.
@@ -41,7 +41,6 @@ INFO:  Signal -S E CH RESET is used outside the group.
 INFO:  Signal -S E CH RESET CORR REC LENGTH is used outside the group.
 INFO:  Signal -S F OR K E CH RESET is used outside the group.
 INFO:  Signal -S E CH RESET 1 is used outside the group.
-INFO:  Signal +S BLOCK USE A CH WM is used outside the group.
 Removing 0 output signals that do not have destinations outside the group...
 Removing 1 input signals that originate inside the group...
 Signal -S E CH RESET is output from the group, but also used as an input inside the group.

@@ -1,4 +1,6 @@
-Generating HDL for page 15.41.12.1 E CH WORD SEPARATOR CONTROL-ACC at 9/11/2020 3:04:36 PM
+Generating HDL for page 15.41.12.1 E CH WORD SEPARATOR CONTROL-ACC at 11/16/2020 3:22:52 PM
+Note: DOT Function at 3A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4H has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Removed 14 outputs from Gate at 2A to ignored block(s) or identical signal names
 Removed 5 outputs from Gate at 1D to ignored block(s) or identical signal names
 Generating Statement for block at 4A with output pin(s) of OUT_4A_E, OUT_4A_E

@@ -29,7 +29,7 @@ architecture behavioral of ALD_15_49_02_1_A_CHANNEL_ASSEMBLY_CONTROL_ACC_tb is
 		MS_I_CYCLE:	 in STD_LOGIC;
 		PS_LOAD_CYCLE:	 in STD_LOGIC;
 		MS_CONTROL_REG_DISABLE:	 in STD_LOGIC;
-		PS_BLOCK_USE_A_CH_WM:	 in STD_LOGIC;
+		-- PS_BLOCK_USE_A_CH_WM:	 in STD_LOGIC;
 		MV_ASTERISK_INS_CONSOLE_SW_OFF:	 in STD_LOGIC;
 		MS_A_CH_VALID:	 in STD_LOGIC;
 		PS_INPUT_CYCLE:	 in STD_LOGIC;
@@ -56,7 +56,7 @@ architecture behavioral of ALD_15_49_02_1_A_CHANNEL_ASSEMBLY_CONTROL_ACC_tb is
 	signal MS_I_CYCLE: STD_LOGIC := '1';
 	signal PS_LOAD_CYCLE: STD_LOGIC := '0';
 	signal MS_CONTROL_REG_DISABLE: STD_LOGIC := '1';
-	signal PS_BLOCK_USE_A_CH_WM: STD_LOGIC := '0';
+	-- signal PS_BLOCK_USE_A_CH_WM: STD_LOGIC := '0';
 	signal MV_ASTERISK_INS_CONSOLE_SW_OFF: STD_LOGIC := '1';
 	signal MS_A_CH_VALID: STD_LOGIC := '1';
 	signal PS_INPUT_CYCLE: STD_LOGIC := '0';
@@ -125,7 +125,7 @@ procedure check1(
 		MS_I_CYCLE => MS_I_CYCLE,
 		PS_LOAD_CYCLE => PS_LOAD_CYCLE,
 		MS_CONTROL_REG_DISABLE => MS_CONTROL_REG_DISABLE,
-		PS_BLOCK_USE_A_CH_WM => PS_BLOCK_USE_A_CH_WM,
+		-- PS_BLOCK_USE_A_CH_WM => PS_BLOCK_USE_A_CH_WM,
 		MV_ASTERISK_INS_CONSOLE_SW_OFF => MV_ASTERISK_INS_CONSOLE_SW_OFF,
 		MS_A_CH_VALID => MS_A_CH_VALID,
 		PS_INPUT_CYCLE => PS_INPUT_CYCLE,
@@ -209,7 +209,7 @@ uut_process: process
       
       g1 := k and not m and not n;
       g2 := i or j;
-      g3 := f and g1 and g2 and not h;
+      g3 := f and g1 and g2; -- and not h;
       g4 := b and d and c;      
       
 	   MS_STD_A_CYCLE_OPS_DOT_A_CYCLE <= not a;
@@ -219,7 +219,7 @@ uut_process: process
       MS_I_CYCLE <= not e;
       PS_LOAD_CYCLE <= f;
       MS_CONTROL_REG_DISABLE <= not g;
-      PS_BLOCK_USE_A_CH_WM <= h;
+      -- PS_BLOCK_USE_A_CH_WM <= h;
       MV_ASTERISK_INS_CONSOLE_SW_OFF <= not i;
       MS_A_CH_VALID <= not j;
       PS_INPUT_CYCLE <= k;
