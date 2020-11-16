@@ -1,4 +1,4 @@
-Generating HDL for group named IntegrationTest2at 11/8/2020 5:20:26 PM containing pages: 
+Generating HDL for group named IntegrationTest2at 11/16/2020 4:51:36 PM containing pages: 
 	11.04.00.0, 11.04.01.0, 11.04.02.0, 11.04.02.3, 11.04.03.0
 	11.04.03.3, 11.04.04.0, 11.04.04.3, 11.04.05.0, 11.04.05.3
 	11.04.06.0, 11.04.06.3, 11.04.06.4, 11.04.07.0, 11.04.07.3
@@ -153,10 +153,11 @@ Generating HDL for group named IntegrationTest2at 11/8/2020 5:20:26 PM containin
 	45.50.03.1, 45.50.05.1, 45.50.06.1, 45.50.07.1, 45.50.08.1
 	45.50.09.1, 45.50.10.1, 45.50.11.1, 45.50.12.1, 45.50.13.1
 	45.50.14.1, 45.50.15.1, 45.50.16.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\IntegrationTest2_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file IntegrationTest2_tb.vhdl 137 lines preserved and 37 declaration lines preserved
 Building lists of signals on 744 pages...
 Found 4 signals on page 11.10.01.1
-Found 19 signals on page 11.10.02.1
+Found 20 signals on page 11.10.02.1
+Note: Special signal LOGIC ONE ignored for group generation.
 Found 5 signals on page 11.10.05.1
 Found 11 signals on page 11.10.06.1
 Found 10 signals on page 11.10.07.1
@@ -384,7 +385,7 @@ Found 32 signals on page 13.73.01.1
 Found 20 signals on page 13.73.02.1
 Found 24 signals on page 13.73.03.1
 Found 23 signals on page 13.73.04.1
-Found 30 signals on page 13.74.01.1
+Found 28 signals on page 13.74.01.1
 Found 17 signals on page 13.74.02.1
 Found 14 signals on page 14.10.01.1
 Found 14 signals on page 14.10.02.1
@@ -580,9 +581,10 @@ Found 13 signals on page 15.41.07.1
 Found 8 signals on page 15.41.08.1
 Found 13 signals on page 15.41.10.1
 Found 13 signals on page 15.41.11.1
-Found 22 signals on page 15.41.12.1
+Found 21 signals on page 15.41.12.1
 Found 43 signals on page 15.49.01.1
 Found 22 signals on page 15.49.02.1
+Note: Special signal LOGIC ZERO ignored for group generation.
 Found 20 signals on page 15.49.03.1
 Found 27 signals on page 15.49.04.1
 Found 33 signals on page 15.49.05.1
@@ -914,7 +916,7 @@ Found 14 signals on page 45.50.13.1
 Found 26 signals on page 45.50.14.1
 Found 11 signals on page 45.50.15.1
 Found 17 signals on page 45.50.16.1
-Found 3587 unique input signals and 3501 unique output signals, (3990 total unique signals)
+Found 3584 unique input signals and 3498 unique output signals, (3987 total unique signals)
 Determining sources for all input signals...
 INFO:  Signal +P SPECIAL +12V POWER FOR OSC originates outside the group.
 INFO:  Signal +S OSCILLATOR originates inside the group.
@@ -1258,8 +1260,7 @@ INFO:  Signal +S F2 REG FULL originates inside the group.
 INFO:  Signal +S 2ND CLOCK PULSE 2 originates inside the group.
 INFO:  Signal -S LOGIC GATE D OR U originates inside the group.
 INFO:  Signal -S PROGRAM RESET 2 originates inside the group.
-INFO:  Signal -S F CH FILE OP originates inside the group.
-INFO:  Signal +S FILE OP DLY EXTENSION originates inside the group.
+INFO:  Signal +S FILE OP.D CY.EXTENSION originates inside the group.
 INFO:  Signal +S LOGIC GATE C 1 originates inside the group.
 INFO:  Signal +S I RING 1 TIME originates inside the group.
 INFO:  Signal +S I RING 1 OR 6 TIME originates inside the group.
@@ -1892,7 +1893,6 @@ INFO:  Signal -S E CH FILE.NO TRANSFER BUS originates inside the group.
 INFO:  Signal +S FILE RING 7 LATCH originates inside the group.
 INFO:  Signal -S E CH UNIT NUMBER 0 originates inside the group.
 INFO:  Signal -S FILE SET E CH NO TRANS B originates inside the group.
-INFO:  Signal +S FILE OP.D CY.EXTENSION originates inside the group.
 INFO:  Signal +S E CH UNIT NUMBER 0 originates inside the group.
 INFO:  Signal +S E CH UNGATED SAMPLE A originates inside the group.
 INFO:  Signal +S LOGIC GATE C + D originates inside the group.
@@ -3013,7 +3013,6 @@ INFO:  Signal +S OUTPUT WM CYCLE originates inside the group.
 INFO:  Signal +B OUTPUT WM CYCLE originates inside the group.
 INFO:  Signal +B OUTPUT CYCLE originates inside the group.
 INFO:  Signal +S E CH SELECT UNIT 2 originates inside the group.
-INFO:  Signal +S BLOCK USE A CH WM originates inside the group.
 INFO:  Signal -S A CH VALID originates inside the group.
 INFO:  Signal -S F CH OUTPUT WM CYCLE*1414* originates outside the group.
 INFO:  Signal +S E CH UNIT NUMBER 1 originates inside the group.
@@ -5580,8 +5579,6 @@ INFO:  Signal -S FILE OP.D CYCLE is used only inside the group.
 INFO:  Signal -S FILE OP.LAST INSN RO CYCLE is used only inside the group.
 INFO:  Signal -S FILE OP.D CY.U+Y is used only inside the group.
 INFO:  Signal +S FILE OP is used only inside the group.
-INFO:  Signal -S F CH FILE OP is used only inside the group.
-INFO:  Signal +S FILE OP DLY EXTENSION is used only inside the group.
 INFO:  Signal -S FILE OP.D CY.2ND SCAN is used only inside the group.
 INFO:  Signal -S FILE OP TAKE EXTENSION CYCLE is used only inside the group.
 INFO:  Signal +S FILE OP.D CY.EXTENSION is used only inside the group.
@@ -6373,7 +6370,6 @@ INFO:  Signal -S E CH RESET is used only inside the group.
 INFO:  Signal -S E CH RESET CORR REC LENGTH is used only inside the group.
 INFO:  Signal -S F OR K E CH RESET is used only inside the group.
 INFO:  Signal -S E CH RESET 1 is used only inside the group.
-INFO:  Signal +S BLOCK USE A CH WM is used only inside the group.
 INFO:  Signal -S 1401 STORE AR.C CYCLE is used only inside the group.
 INFO:  Signal +B USE NO WM is used only inside the group.
 INFO:  Signal -B USE NO ZONES is used only inside the group.
@@ -8005,8 +8001,8 @@ INFO:  Signal -S ALTER INQUIRY UNLOCK is used only inside the group.
 INFO:  Signal +S ALTER INQUIRY UNLOCK is used only inside the group.
 INFO:  Signal -S KEYBOARD UNLOCK SET is used only inside the group.
 INFO:  Signal -S KEYBOARD LOCK SET is used only inside the group.
-Removing 2858 output signals that do not have destinations outside the group...
-Removing 3098 input signals that originate inside the group...
+Removing 2855 output signals that do not have destinations outside the group...
+Removing 3095 input signals that originate inside the group...
 Signal +S LOGIC GATE E 1 is output from the group, but also used as an input inside the group.
 Signal -S MASTER ERROR is output from the group, but also used as an input inside the group.
 Signal +S A CH NOT WM BIT is output from the group, but also used as an input inside the group.
@@ -9586,9 +9582,10 @@ Output signal LAMP_11C8D11 replaced by bus LAMPS_ASSM_CH
 Output signal LAMP_11C8C10 replaced by bus LAMPS_ASSM_CH_NOT
 Output signal LAMP_11C8C11 replaced by bus LAMPS_ASSM_CH
 Generating list of internal signals/wires ...
-2826 internal signals/wires found.
+2823 internal signals/wires found.
 Generating HDL prefixes...
 Generating HDL associated with page 11.10.01.1 (LOGIC CLOCK-ACC)
+Note: Special signal LOGIC ONE ignored for page declaration.
 Generating HDL associated with page 11.10.02.1 (1*LOGIC GATE RING CLK PULSES-ACC)
 Generating HDL associated with page 11.10.05.1 (LOGIC GATE RING ADVAN PULSES-ACC)
 Generating HDL associated with page 11.10.06.1 (SPECIAL LAST GATES-ACC)
@@ -10015,6 +10012,7 @@ Generating HDL associated with page 15.41.10.1 (E CH FULL CONTROL-ACC)
 Generating HDL associated with page 15.41.11.1 (E CH WORD SEPARATOR CONTROL-ACC)
 Generating HDL associated with page 15.41.12.1 (E CH WORD SEPARATOR CONTROL-ACC)
 Generating HDL associated with page 15.49.01.1 (BLANK ASSEMBLY CONTROL-ACC)
+Note: Special signal LOGIC ZERO ignored for page declaration.
 Generating HDL associated with page 15.49.02.1 (A CHANNEL ASSEMBLY CONTROL-ACC)
 Generating HDL associated with page 15.49.03.1 (A CHANNEL ASSEMBLY CONTROL-ACC)
 Generating HDL associated with page 15.49.04.1 (B CHANNEL ASSEMBLY CONTROL-ACC)
