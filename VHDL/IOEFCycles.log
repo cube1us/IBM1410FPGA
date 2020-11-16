@@ -1,7 +1,7 @@
-Generating HDL for group named IOEFCyclesat 6/29/2020 2:11:22 PM containing pages: 
+Generating HDL for group named IOEFCyclesat 11/16/2020 4:25:40 PM containing pages: 
 	12.12.60.1, 12.12.61.1, 12.12.62.1, 12.12.63.1, 12.12.64.1
 	12.12.65.1, 12.12.66.1, 12.12.67.1
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\IOEFCycles_tb.vhdl, FileNotFoundException , generating default test bench code.
+Old test bench file IOEFCycles_tb.vhdl 622 lines preserved and 32 declaration lines preserved
 Building lists of signals on 8 pages...
 Found 43 signals on page 12.12.60.1
 Found 3 signals on page 12.12.61.1
@@ -89,8 +89,8 @@ INFO:  Signal -S F CYCLE REQUIRED originates inside the group.
 INFO:  Signal -S F CYCLE CTRL originates inside the group.
 INFO:  Signal -S PROGRAM RESET 2 originates outside the group.
 INFO:  Signal +S F CYCLE REQUIRED originates inside the group.
-INFO:  Signal -S F CH FILE OP originates outside the group.
-INFO:  Signal +S FILE OP DLY EXTENSION originates outside the group.
+INFO:  Signal -S FILE OP originates outside the group.
+INFO:  Signal +S FILE OP.D CY.EXTENSION originates outside the group.
 Determining destinations for all output signals...
 INFO:  Signal +S COMP DISABLE CYCLE is used outside the group.
 INFO:  Signal -S E CYCLE.ANY LAST GATE is used outside the group.
@@ -132,6 +132,12 @@ Page 12.12.66.1 generates Lamp Output LAMP_15A1E10
 Page 12.12.66.1 generates Lamp Output LAMP_11C8E15
 Page 12.12.67.1 generates Lamp Output LAMP_15A1F10
 Page 12.12.67.1 generates Lamp Output LAMP_11C8F15
+DEBUG: Tentative bus LAMPS CYCLE CONSOLE identified based on signal LAMP_15A1E10
+DEBUG: Tentative bus LAMPS CYCLE CE identified based on signal LAMP_11C8E15
+DEBUG: Added signal LAMP_15A1F10 to bus LAMPS CYCLE CONSOLE
+DEBUG: Added signal LAMP_11C8F15 to bus LAMPS CYCLE CE
+INFO: Bus LAMPS CYCLE CONSOLE NOT generated.  Found 2 members of 8 Total members 
+INFO: Bus LAMPS CYCLE CE NOT generated.  Found 2 members of 8 Total members 
 Generating list of internal signals/wires ...
 5 internal signals/wires found.
 Generating HDL prefixes...

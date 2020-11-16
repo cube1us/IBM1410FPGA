@@ -1,6 +1,7 @@
-Generating HDL for page 13.74.01.1 FILE CONTROLS-ACC at 8/16/2020 12:45:18 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_13_74_01_1_FILE_CONTROLS_ACC_tb.vhdl, generating default test bench code.
-Removed 2 outputs from Gate at 3A to ignored block(s) or identical signal names
+Generating HDL for page 13.74.01.1 FILE CONTROLS-ACC at 11/16/2020 4:36:51 PM
+Old test bench file ALD_13_74_01_1_FILE_CONTROLS_ACC_tb.vhdl 283 lines preserved and 32 declaration lines preserved
+Note: DOT Function at 4G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Removed 3 outputs from Gate at 3A to ignored block(s) or identical signal names
 Removed 11 outputs from Gate at 4B to ignored block(s) or identical signal names
 Removed 5 outputs from Gate at 2D to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 3E to ignored block(s) or identical signal names
@@ -8,7 +9,7 @@ Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 1F to ignored block(s) or identical signal names
 Removed 2 outputs from Gate at 2H to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 1H to ignored block(s) or identical signal names
-Removed 3 outputs from Gate at 2I to ignored block(s) or identical signal names
+Removed 4 outputs from Gate at 2I to ignored block(s) or identical signal names
 Removed 3 outputs from Dot Function at 4G to ignored block(s) or identical signal names
 Generating Statement for block at 4A with output pin(s) of OUT_4A_C
 	and inputs of OUT_4B_A
