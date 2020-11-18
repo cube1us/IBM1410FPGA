@@ -1,5 +1,6 @@
-Generating HDL for page 45.50.02.1 CONSOLE I-O PRINTER STROBE at 11/1/2020 9:39:02 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_02_1_CONSOLE_I_O_PRINTER_STROBE_tb.vhdl, generating default test bench code.
+Generating HDL for page 45.50.02.1 CONSOLE I-O PRINTER STROBE at 11/18/2020 4:48:22 PM
+Old test bench file ALD_45_50_02_1_CONSOLE_I_O_PRINTER_STROBE_tb.vhdl 174 lines preserved and 35 declaration lines preserved
+NOTE: Special signal GROUND removed from sheet inputs list.
 Note: DOT Function at 1C has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 3G has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 2A with symbol CAP
