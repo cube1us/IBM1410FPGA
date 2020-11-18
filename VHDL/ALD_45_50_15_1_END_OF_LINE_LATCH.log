@@ -1,5 +1,6 @@
-Generating HDL for page 45.50.15.1 END OF LINE LATCH at 11/4/2020 9:23:39 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_15_1_END_OF_LINE_LATCH_tb.vhdl, generating default test bench code.
+Generating HDL for page 45.50.15.1 END OF LINE LATCH at 11/18/2020 4:48:44 PM
+Old test bench file ALD_45_50_15_1_END_OF_LINE_LATCH_tb.vhdl 150 lines preserved and 35 declaration lines preserved
+NOTE: Special signal GROUND removed from sheet inputs list.
 Found combinatorial loop (need D FF) at output of gate at 5A
 Found combinatorial loop (need D FF) at output of gate at 4A
 Found combinatorial loop (need D FF) at output of gate at 3A
