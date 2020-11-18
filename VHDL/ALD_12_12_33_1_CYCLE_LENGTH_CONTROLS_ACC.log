@@ -1,5 +1,6 @@
-Generating HDL for page 12.12.33.1 CYCLE LENGTH CONTROLS-ACC at 11/7/2020 11:13:48 AM
+Generating HDL for page 12.12.33.1 CYCLE LENGTH CONTROLS-ACC at 11/18/2020 1:51:46 PM
 Old test bench file ALD_12_12_33_1_CYCLE_LENGTH_CONTROLS_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
+NOTE: Special signal GROUND removed from sheet inputs list.
 WARNING: Diagram block at coordinate 5I has 4 different output pins: A,B,D,E
 Note: DOT Function at 5I has input level(s) of 6, and output level(s) of , Logic Function set to OR
 NOTE: DOT Function at 5I is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND

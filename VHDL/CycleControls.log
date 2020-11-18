@@ -1,4 +1,4 @@
-Generating HDL for group named CycleControlsat 11/7/2020 11:15:25 AM containing pages: 
+Generating HDL for group named CycleControlsat 11/18/2020 1:54:12 PM containing pages: 
 	12.12.20.1, 12.12.21.1, 12.12.23.1, 12.12.30.1, 12.12.31.1
 	12.12.32.1, 12.12.33.1
 Old test bench file CycleControls_tb.vhdl 600 lines preserved and 54 declaration lines preserved
@@ -10,7 +10,8 @@ Found 29 signals on page 12.12.30.1
 Found 12 signals on page 12.12.31.1
 Found 18 signals on page 12.12.32.1
 Found 14 signals on page 12.12.33.1
-Found 77 unique input signals and 35 unique output signals, (104 total unique signals)
+Note: Special signal GROUND ignored for group generation.
+Found 76 unique input signals and 35 unique output signals, (103 total unique signals)
 Determining sources for all input signals...
 INFO:  Signal -S LOGIC GATE D 1 originates outside the group.
 INFO:  Signal +S SET A CYCLE CTRL originates outside the group.
@@ -88,7 +89,6 @@ INFO:  Signal +S A RING 4 TIME originates outside the group.
 INFO:  Signal +S 1401 MODE 1 originates outside the group.
 INFO:  Signal -S ADDRESS SET ROUTINE originates outside the group.
 INFO:  Signal -V 36 VOLTS originates outside the group.
-INFO:  Signal GROUND originates outside the group.
 Determining destinations for all output signals...
 INFO:  Signal +S A CYCLE CTRL is used outside the group.
 INFO:  Signal -S A CYCLE CTRL is used outside the group.
@@ -140,4 +140,5 @@ Generating HDL associated with page 12.12.23.1 (I AND X CYCLE CTRL LATCHES-ACC)
 Generating HDL associated with page 12.12.30.1 (CYCLE LENGTH CONTROLS-ACC)
 Generating HDL associated with page 12.12.31.1 (CYCLE LENGTH CONTROLS-ACC)
 Generating HDL associated with page 12.12.32.1 (CYCLE LENGTH CONTROLS-ACC)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 12.12.33.1 (CYCLE LENGTH CONTROLS-ACC)
