@@ -1,5 +1,6 @@
-Generating HDL for page 45.50.05.1 CONSOLE PRINTER SHIFT CONTROLS at 11/1/2020 4:58:19 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_45_50_05_1_CONSOLE_PRINTER_SHIFT_CONTROLS_tb.vhdl, generating default test bench code.
+Generating HDL for page 45.50.05.1 CONSOLE PRINTER SHIFT CONTROLS at 11/18/2020 3:31:01 PM
+Old test bench file ALD_45_50_05_1_CONSOLE_PRINTER_SHIFT_CONTROLS_tb.vhdl 122 lines preserved and 35 declaration lines preserved
+NOTE: Special signal GROUND removed from sheet inputs list.
 Note: DOT Function at 5A has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 2E with symbol CAP
 Ignoring Logic Block 1E with symbol L
