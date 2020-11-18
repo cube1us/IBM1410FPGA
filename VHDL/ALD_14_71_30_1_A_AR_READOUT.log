@@ -1,5 +1,6 @@
-Generating HDL for page 14.71.30.1 A AR READOUT at 11/7/2020 3:54:35 PM
+Generating HDL for page 14.71.30.1 A AR READOUT at 11/18/2020 2:25:11 PM
 Old test bench file ALD_14_71_30_1_A_AR_READOUT_tb.vhdl 153 lines preserved and 32 declaration lines preserved
+NOTE: Special signal GROUND removed from sheet inputs list.
 Block at coordinate 4H is marked for No HDL Generation -- skipped.
 WARNING: Diagram block at coordinate 2H has 4 different output pins: A,B,K,D
 WARNING: Diagram block at coordinate 2I has 3 different output pins: E,F,G
