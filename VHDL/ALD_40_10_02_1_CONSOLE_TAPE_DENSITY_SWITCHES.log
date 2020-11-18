@@ -1,4 +1,7 @@
-Generating HDL for page 40.10.02.1 CONSOLE TAPE DENSITY SWITCHES at 10/22/2020 4:32:11 PM
+Generating HDL for page 40.10.02.1 CONSOLE TAPE DENSITY SWITCHES at 11/18/2020 2:56:11 PM
+Old test bench file ALD_40_10_02_1_CONSOLE_TAPE_DENSITY_SWITCHES_tb.vhdl 80 lines preserved and 35 declaration lines preserved
+NOTE: Special signal GROUND removed from sheet inputs list.
+WARNING: no sheet inputs found for page 40.10.02.1 (Database ID 274376)
 Generating Statement for block at 5A with output pin(s) of OUT_5A_T, OUT_5A_N
 	and inputs of GROUND
 	and logic function of Switch
