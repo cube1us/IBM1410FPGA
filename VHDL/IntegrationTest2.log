@@ -1,4 +1,4 @@
-Generating HDL for group named IntegrationTest2at 11/16/2020 4:51:36 PM containing pages: 
+Generating HDL for group named IntegrationTest2at 11/18/2020 4:28:08 PM containing pages: 
 	11.04.00.0, 11.04.01.0, 11.04.02.0, 11.04.02.3, 11.04.03.0
 	11.04.03.3, 11.04.04.0, 11.04.04.3, 11.04.05.0, 11.04.05.3
 	11.04.06.0, 11.04.06.3, 11.04.06.4, 11.04.07.0, 11.04.07.3
@@ -209,6 +209,7 @@ Found 29 signals on page 12.12.30.1
 Found 12 signals on page 12.12.31.1
 Found 18 signals on page 12.12.32.1
 Found 14 signals on page 12.12.33.1
+Note: Special signal GROUND ignored for group generation.
 Found 11 signals on page 12.12.40.1
 Found 24 signals on page 12.12.41.1
 Found 23 signals on page 12.12.42.1
@@ -537,6 +538,7 @@ Found 15 signals on page 14.71.24.1
 Found 15 signals on page 14.71.25.1
 Found 15 signals on page 14.71.26.1
 Found 34 signals on page 14.71.30.1
+Note: Special signal GROUND ignored for group generation.
 Found 24 signals on page 14.71.31.1
 Found 21 signals on page 14.71.32.1
 Found 16 signals on page 14.71.33.1
@@ -589,6 +591,7 @@ Found 20 signals on page 15.49.03.1
 Found 27 signals on page 15.49.04.1
 Found 33 signals on page 15.49.05.1
 Found 24 signals on page 15.49.06.1
+Note: Special signal GROUND ignored for group generation.
 Found 19 signals on page 15.50.01.1
 Found 19 signals on page 15.50.02.1
 Found 19 signals on page 15.50.03.1
@@ -614,6 +617,7 @@ Found 20 signals on page 15.56.06.1
 Found 15 signals on page 15.56.08.1
 Found 16 signals on page 15.56.09.1
 Found 18 signals on page 15.60.01.1
+Note: Special signal GROUND ignored for group generation.
 Found 17 signals on page 15.60.02.1
 Found 17 signals on page 15.60.03.1
 Found 17 signals on page 15.60.04.1
@@ -867,6 +871,7 @@ Found 40 signals on page 39.50.60.1
 Found 10 signals on page 39.50.70.1
 Found 9 signals on page 40.10.01.1
 Found 5 signals on page 40.10.02.1
+Note: Special signal GROUND ignored for group generation.
 Found 8 signals on page 40.10.03.1
 Found 19 signals on page 41.10.01.1
 Found 20 signals on page 41.10.02.1
@@ -887,6 +892,7 @@ Found 9 signals on page 42.10.08.1
 Found 19 signals on page 42.10.09.1
 Found 21 signals on page 42.10.10.1
 Found 17 signals on page 44.10.01.1
+Note: Special signal GROUND ignored for group generation.
 Found 26 signals on page 44.10.02.1
 Found 10 signals on page 44.10.03.1
 Found 7 signals on page 45.10.01.1
@@ -903,20 +909,25 @@ Found 29 signals on page 45.30.01.1
 Found 15 signals on page 45.30.02.1
 Found 15 signals on page 45.50.01.1
 Found 17 signals on page 45.50.02.1
+Note: Special signal GROUND ignored for group generation.
 Found 18 signals on page 45.50.03.1
 Found 25 signals on page 45.50.05.1
+Note: Special signal GROUND ignored for group generation.
 Found 15 signals on page 45.50.06.1
 Found 30 signals on page 45.50.07.1
 Found 15 signals on page 45.50.08.1
 Found 17 signals on page 45.50.09.1
 Found 16 signals on page 45.50.10.1
 Found 18 signals on page 45.50.11.1
+Note: Special signal GROUND ignored for group generation.
 Found 13 signals on page 45.50.12.1
 Found 14 signals on page 45.50.13.1
 Found 26 signals on page 45.50.14.1
 Found 11 signals on page 45.50.15.1
+Note: Special signal GROUND ignored for group generation.
 Found 17 signals on page 45.50.16.1
-Found 3584 unique input signals and 3498 unique output signals, (3987 total unique signals)
+Note: Special signal GROUND ignored for group generation.
+Found 3583 unique input signals and 3498 unique output signals, (3986 total unique signals)
 Determining sources for all input signals...
 INFO:  Signal +P SPECIAL +12V POWER FOR OSC originates outside the group.
 INFO:  Signal +S OSCILLATOR originates inside the group.
@@ -1121,7 +1132,6 @@ INFO:  Signal +S I RING 5 OR 10 TIME originates inside the group.
 INFO:  Signal +S A RING 4 TIME originates inside the group.
 INFO:  Signal -S ADDRESS SET ROUTINE originates inside the group.
 INFO:  Signal -V 36 VOLTS originates outside the group.
-INFO:  Signal GROUND originates outside the group.
 INFO:  Signal +S OP MOD REG NOT B BIT originates inside the group.
 INFO:  Signal +S OP MOD REG A BIT originates inside the group.
 INFO:  Signal +S A CH NOT RECORD MARK originates inside the group.
@@ -9637,6 +9647,7 @@ Generating HDL associated with page 12.12.23.1 (I AND X CYCLE CTRL LATCHES-ACC)
 Generating HDL associated with page 12.12.30.1 (CYCLE LENGTH CONTROLS-ACC)
 Generating HDL associated with page 12.12.31.1 (CYCLE LENGTH CONTROLS-ACC)
 Generating HDL associated with page 12.12.32.1 (CYCLE LENGTH CONTROLS-ACC)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 12.12.33.1 (CYCLE LENGTH CONTROLS-ACC)
 Generating HDL associated with page 12.12.40.1 (A CYCLE CONTROLS)
 Generating HDL associated with page 12.12.41.1 (A CYCLE CONTROL-ACC)
@@ -9965,6 +9976,7 @@ Generating HDL associated with page 14.71.23.1 (D AR RESET)
 Generating HDL associated with page 14.71.24.1 (I AR RESET)
 Generating HDL associated with page 14.71.25.1 (E AR RESET-ACC)
 Generating HDL associated with page 14.71.26.1 (F AR RESET-ACC)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 14.71.30.1 (A AR READOUT)
 Generating HDL associated with page 14.71.31.1 (B AR READOUT)
 Generating HDL associated with page 14.71.32.1 (C AR READOUT)
@@ -10017,6 +10029,7 @@ Generating HDL associated with page 15.49.02.1 (A CHANNEL ASSEMBLY CONTROL-ACC)
 Generating HDL associated with page 15.49.03.1 (A CHANNEL ASSEMBLY CONTROL-ACC)
 Generating HDL associated with page 15.49.04.1 (B CHANNEL ASSEMBLY CONTROL-ACC)
 Generating HDL associated with page 15.49.05.1 (B CHANNEL ASSEMBLY CONTROL-ACC)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 15.49.06.1 (SPECIAL CHAR ASS CONT-ACC)
 Generating HDL associated with page 15.50.01.1 (NUM ASSEM 1.NOT 1 BITS FEATURE)
 Generating HDL associated with page 15.50.02.1 (NUM ASSEM 2.NOT 2 BITS FEATURE)
@@ -10042,6 +10055,7 @@ Generating HDL associated with page 15.56.05.1 (F CH UNIT NUMBER DECODE)
 Generating HDL associated with page 15.56.06.1 (F CH UNIT NUMBER DECODE)
 Generating HDL associated with page 15.56.08.1 (F CH UNIT SELECT REGISTER)
 Generating HDL associated with page 15.56.09.1 (F CH UNIT SELECT REGISTER)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 15.60.01.1 (E CH INPUT SWITCHING 1 BIT-ACC)
 Generating HDL associated with page 15.60.02.1 (E CH INPUT SWITCHING 2 BIT-ACC)
 Generating HDL associated with page 15.60.03.1 (E CH INPUT SWITCHING 4 BIT-ACC)
@@ -10295,6 +10309,7 @@ Generating HDL associated with page 39.50.45.1 (MISC POWERING FOR MEM-ACC)
 Generating HDL associated with page 39.50.60.1 (B DATA REG FROM 2ND MEM TO CPU)
 Generating HDL associated with page 39.50.70.1 (CHAR SEL ERR GATE AND B RESET-ACC)
 Generating HDL associated with page 40.10.01.1 (CONSOLE MODE SWITCH)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 40.10.02.1 (CONSOLE TAPE DENSITY SWITCHES)
 Generating HDL associated with page 40.10.03.1 (1*OFF-NORMAL IND + STORAGE SCAN S)
 Generating HDL associated with page 41.10.01.1 (CONSOLE CYCLE START)
@@ -10315,6 +10330,7 @@ Generating HDL associated with page 42.10.07.1 (CONSOLE ASSEMBLY C BIT)
 Generating HDL associated with page 42.10.08.1 (CONSOLE ASSEMBLY WM BIT)
 Generating HDL associated with page 42.10.09.1 (CONSOLE ASSEMBLY)
 Generating HDL associated with page 42.10.10.1 (CONSOLE SPEC CHARACTER PRINTOUT)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 44.10.01.1 (CONSOLE STOP CONDITION LATCH)
 Generating HDL associated with page 44.10.02.1 (1* CONSOLE STOP PRINT LATCH)
 Generating HDL associated with page 44.10.03.1 (STP PRT OUT + PRG RST CARR RET)
@@ -10331,17 +10347,22 @@ Generating HDL associated with page 45.20.09.1 (CONS CYCLE CTRL MATRIX INTRSCTNS
 Generating HDL associated with page 45.30.01.1 (TAKE PRINTER CYCLE)
 Generating HDL associated with page 45.30.02.1 (CONSOLE STROBE)
 Generating HDL associated with page 45.50.01.1 (CONS PRINTER CYCLE LATCH PULSES)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 45.50.02.1 (CONSOLE I-O PRINTER STROBE)
 Generating HDL associated with page 45.50.03.1 (CONS PRINTER SOL DRIVER STROBE)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 45.50.05.1 (CONSOLE PRINTER SHIFT CONTROLS)
 Generating HDL associated with page 45.50.06.1 (CONSOLE PRINTER ROTATE CONTROLS)
 Generating HDL associated with page 45.50.07.1 (CONSOLE PRNTR TILT+FUNCTION CTRLS)
 Generating HDL associated with page 45.50.08.1 (CONSOLE PRINTER NOT BUSY LATCH)
 Generating HDL associated with page 45.50.09.1 (WORD MARK CONTROL LATCH)
 Generating HDL associated with page 45.50.10.1 (CHARACTER CONTROL LATCH)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 45.50.11.1 (OUTPUT ERROR LATCH)
 Generating HDL associated with page 45.50.12.1 (ERROR CONTROL LATCH)
 Generating HDL associated with page 45.50.13.1 (BACKSPACE CONTROL LATCH)
 Generating HDL associated with page 45.50.14.1 (FUNCTION CONTROL LATCH)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 45.50.15.1 (END OF LINE LATCH)
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 45.50.16.1 (KEYBOARD CONTROLS)
