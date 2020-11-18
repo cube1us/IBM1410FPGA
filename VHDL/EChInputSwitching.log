@@ -1,9 +1,10 @@
-Generating HDL for group named EChInputSwitchingat 11/7/2020 10:00:34 AM containing pages: 
+Generating HDL for group named EChInputSwitchingat 11/18/2020 2:48:16 PM containing pages: 
 	15.60.01.1, 15.60.02.1, 15.60.03.1, 15.60.04.1, 15.60.05.1
 	15.60.06.1, 15.60.07.1, 15.60.08.1
 Old test bench file EChInputSwitching_tb.vhdl 162 lines preserved and 35 declaration lines preserved
 Building lists of signals on 8 pages...
 Found 18 signals on page 15.60.01.1
+Note: Special signal GROUND ignored for group generation.
 Found 17 signals on page 15.60.02.1
 Found 17 signals on page 15.60.03.1
 Found 17 signals on page 15.60.04.1
@@ -11,7 +12,7 @@ Found 17 signals on page 15.60.05.1
 Found 17 signals on page 15.60.06.1
 Found 19 signals on page 15.60.07.1
 Found 13 signals on page 15.60.08.1
-Found 74 unique input signals and 16 unique output signals, (90 total unique signals)
+Found 73 unique input signals and 16 unique output signals, (89 total unique signals)
 Determining sources for all input signals...
 INFO:  Signal -S GATE BIT SENSE SWITCH originates outside the group.
 INFO:  Signal +S ASSEMBLY CH 1 BIT originates outside the group.
@@ -28,7 +29,6 @@ INFO:  Signal -S GATE E CH FILE TO E1 IN originates outside the group.
 INFO:  Signal -V CONS PRTR TO CPU 1 BIT*R5 OP originates outside the group.
 INFO:  Signal -S GATE CONSOLE PRTR TO E1 IN originates outside the group.
 INFO:  Signal -V 36 VOLTS originates outside the group.
-INFO:  Signal GROUND originates outside the group.
 INFO:  Signal +S ASSEMBLY CH 2 BIT originates outside the group.
 INFO:  Signal +S E1 INPUT 2 BIT *SIF originates outside the group.
 INFO:  Signal +S E1 INPUT 2 BIT*1412-19 originates outside the group.
@@ -202,6 +202,7 @@ Output signal +S E1 INPUT WM BIT replaced by bus +S E1 INPUT BUS
 Generating list of internal signals/wires ...
 0 internal signals/wires found.
 Generating HDL prefixes...
+Note: Special signal GROUND ignored for page declaration.
 Generating HDL associated with page 15.60.01.1 (E CH INPUT SWITCHING 1 BIT-ACC)
 Generating HDL associated with page 15.60.02.1 (E CH INPUT SWITCHING 2 BIT-ACC)
 Generating HDL associated with page 15.60.03.1 (E CH INPUT SWITCHING 4 BIT-ACC)

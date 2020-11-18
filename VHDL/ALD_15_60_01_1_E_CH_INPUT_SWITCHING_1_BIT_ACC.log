@@ -1,4 +1,6 @@
-Generating HDL for page 15.60.01.1 E CH INPUT SWITCHING 1 BIT-ACC at 11/7/2020 10:04:52 AM
+Generating HDL for page 15.60.01.1 E CH INPUT SWITCHING 1 BIT-ACC at 11/18/2020 2:47:53 PM
+No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_60_01_1_E_CH_INPUT_SWITCHING_1_BIT_ACC_tb.vhdl, generating default test bench code.
+NOTE: Special signal GROUND removed from sheet inputs list.
 Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 5G has input level(s) of C, and output level(s) of , Logic Function set to OR
 NOTE: DOT Function at 5G is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
