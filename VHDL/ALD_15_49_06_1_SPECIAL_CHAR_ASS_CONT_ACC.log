@@ -1,5 +1,6 @@
-Generating HDL for page 15.49.06.1 SPECIAL CHAR ASS CONT-ACC at 11/7/2020 4:57:00 PM
+Generating HDL for page 15.49.06.1 SPECIAL CHAR ASS CONT-ACC at 11/18/2020 2:40:44 PM
 Old test bench file ALD_15_49_06_1_SPECIAL_CHAR_ASS_CONT_ACC_tb.vhdl 112 lines preserved and 35 declaration lines preserved
+NOTE: Special signal GROUND removed from sheet inputs list.
 Note: DOT Function at 4H has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 3A with symbol CAP
 Ignoring Logic Block 2A with symbol L
