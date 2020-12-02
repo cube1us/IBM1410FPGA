@@ -46,17 +46,19 @@ end DFlipFlop;
 
 architecture Behavioral of DFlipFlop is
 
-	signal QTemp: std_logic;
+	-- signal QTemp: std_logic;
 
 begin
 
-	Q <= QTemp;
-	QBar <= not QTemp;
+	-- Q <= QTemp;
+	-- QBar <= not QTemp;
 
-	DFlipFlop_process: process(C,D)
+	DFlipFlop_process: process(C)
 	begin
 	if rising_edge(C) then
-		QTemp <= D;
+		-- QTemp <= D;
+		Q <= D;
+		QBar <= not D;
 	end if;
 	end process;
 
