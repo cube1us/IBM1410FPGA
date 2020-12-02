@@ -55,7 +55,7 @@ signal SSTAGE1, SSTAGE2, SSTAGE3: STD_LOGIC;
 
 begin
 
-process(FPGA_CLK, IN1, IN2, IN3)
+process(FPGA_CLK, IN1, IN2, IN3, count)
 begin	
 	if(FPGA_CLK'event and FPGA_CLK = '1') then
 	   if(count /= 0) then
