@@ -58,8 +58,7 @@ begin
 process(FPGA_CLK)
 begin
 	if(FPGA_CLK'event and FPGA_CLK = '1') then
-		FIFO(BUCKETS-2 downto 0) <= FIFO(BUCKETS-1 downto 1);
-		FIFO(BUCKETS-1) <= FIFO_IN;
+		FIFO <= FIFO_IN & FIFO(BUCKETS-1 downto 1);
 	end if;
 end process;
 
