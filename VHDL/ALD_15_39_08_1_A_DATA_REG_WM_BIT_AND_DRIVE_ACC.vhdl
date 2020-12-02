@@ -47,7 +47,9 @@ architecture behavioral of ALD_15_39_08_1_A_DATA_REG_WM_BIT_AND_DRIVE_ACC is
 	signal OUT_5G_K: STD_LOGIC;
 	signal OUT_2G_C: STD_LOGIC;
 	signal OUT_1H_Q: STD_LOGIC;
-
+	
+	signal OUT_FIX: STD_LOGIC;
+   
 begin
 
 	OUT_2A_C <= NOT OUT_3D_C;
@@ -60,7 +62,7 @@ begin
 
 	SMS_AEK_3D: entity SMS_AEK
 	    port map (
-		IN1 => OUT_4D_E,	-- Pin D
+		IN1 => OUT_FIX, -- OUT_4D_E,	-- Pin D
 		OUT1 => OUT_3D_C,
 		IN2 => OPEN );
 
@@ -92,6 +94,12 @@ begin
 		C => FPGA_CLK,
 		D => OUT_4B_C_Latch,
 		Q => OUT_4B_C,
+		QBar => OPEN );
+
+	Latch_FIX1: entity DFlipFlop port map (
+		C => FPGA_CLK,
+		D => OUT_4D_E,
+		Q => OUT_FIX,
 		QBar => OPEN );
 
 
