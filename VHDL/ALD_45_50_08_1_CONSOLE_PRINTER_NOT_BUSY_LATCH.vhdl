@@ -47,6 +47,8 @@ architecture behavioral of ALD_45_50_08_1_CONSOLE_PRINTER_NOT_BUSY_LATCH is
 	signal OUT_5G_D: STD_LOGIC;
 	signal OUT_DOT_5E: STD_LOGIC;
 	signal OUT_DOT_2B: STD_LOGIC;
+	
+	signal OUT_FIX: STD_LOGIC;
 
 begin
 
@@ -63,7 +65,7 @@ begin
 	OUT_DOT_2B <= OUT_2B_P OR OUT_2C_D;
 
 	MS_CONS_PRINTER_NOT_BUSY <= OUT_3B_C;
-	PS_CONS_PRINTER_NOT_BUSY <= OUT_1B_Q;
+	PS_CONS_PRINTER_NOT_BUSY <= OUT_FIX; -- OUT_1B_Q;
 	PS_CONS_PRTR_NOT_BUSY_SET <= OUT_4E_E;
 
 	Latch_3B: entity DFlipFlop port map (
@@ -76,6 +78,14 @@ begin
 		C => FPGA_CLK,
 		D => OUT_2B_P_Latch,
 		Q => OUT_2B_P,
+		QBar => OPEN );
+
+   -- Added to break combinatorial loop 11/21/2020
+
+	Latch_FIX: entity DFlipFlop port map (
+		C => FPGA_CLK,
+		D => OUT_1B_Q,
+		Q => OUT_FIX,
 		QBar => OPEN );
 
 
