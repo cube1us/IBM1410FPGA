@@ -2695,7 +2695,9 @@ uut_process: process
    
    PV_SENSE_CHAR_0_B1_BUS <= "11111011";  -- CWBA8-21  (WM + period)
    
-   wait for 30 ns;  -- Otherwise the power on reset doesn't /IntegrationTest2_tb/MS_PROGRAM_RESET_6work right.
+   wait for 30 ns;  -- Otherwise the power on reset doesn't work right.
+   SWITCH_REL_PWR_ON_RST <= '0';
+   wait for 1 ms;
    SWITCH_REL_PWR_ON_RST <= '1';
    wait for 500 us;   
    SWITCH_REL_PWR_ON_RST <= '0';
