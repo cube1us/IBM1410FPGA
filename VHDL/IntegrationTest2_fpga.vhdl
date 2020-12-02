@@ -7,21 +7,24 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;  -- For use in test benches only
+-- use IEEE.NUMERIC_STD.ALL;  -- For use in test benches only
+use IEEE.std_logic_unsigned.all;
 use WORK.ALL;
 
 -- End of include from HDLTemplate.vhdl
 
-entity IntegrationTest2_tb is
+entity IntegrationTest2_fpga is
    PORT (
       CLK: in  STD_LOGIC;
       SW:  in  STD_LOGIC_VECTOR(15 downto 0);
-      LED: out STD_LOGIC_VECTOR(15 downto 0) 
+      LED: out STD_LOGIC_VECTOR(15 downto 0);
+      btnC, btnL, btnR, btnU, btnD, btnCpuReset: in STD_LOGIC      
 );
    
-end IntegrationTest2_tb;
+end IntegrationTest2_fpga;
 
-architecture behavioral of IntegrationTest2_tb is
+
+architecture behavioral of IntegrationTest2_fpga is
 
 	-- Component Declaration for the Unit Under Test (UUT)
 
@@ -30,7 +33,7 @@ architecture behavioral of IntegrationTest2_tb is
 		FPGA_CLK: in STD_LOGIC;
 		PP_SPECIAL_OR_12V_POWER_FOR_OSC: in STD_LOGIC;
 		MV_36_VOLTS: in STD_LOGIC;
-		GROUND: in STD_LOGIC;
+		-- GROUND: in STD_LOGIC;
 		PS_INSTRUCTION_CHECK_GATE_STAR_1311: in STD_LOGIC;
 		MS_FORMS_STACK_GO_F_CH_STAR_1414_STAR: in STD_LOGIC;
 		PS_COMP_DISABLE_CYCLE_STAR_1412_19: in STD_LOGIC;
@@ -869,12 +872,23 @@ architecture behavioral of IntegrationTest2_tb is
 		LAMPS_ASSM_CH: out STD_LOGIC_VECTOR (7 downTo 0));
 	end component;
 
+   component debounce IS
+      GENERIC(
+         clk_freq    : INTEGER := 100000000;  --system clock frequency in Hz
+         stable_time : INTEGER := 10);         --time button must remain stable in ms
+      PORT(
+         clk     : IN  STD_LOGIC;  --input clock
+         reset_n : IN  STD_LOGIC;  --asynchronous active low reset
+         button  : IN  STD_LOGIC;  --input signal to be debounced
+         result  : OUT STD_LOGIC); --debounced signal
+   END component;
+
 	-- Inputs
 
-	signal FPGA_CLK: STD_LOGIC := '0';
+	signal FPGA_CLK: STD_LOGIC; --  := '0';
 	signal PP_SPECIAL_OR_12V_POWER_FOR_OSC: STD_LOGIC := '0';
 	signal MV_36_VOLTS: STD_LOGIC := '1';
-	signal GROUND: STD_LOGIC := '0';
+	-- signal GROUND: STD_LOGIC := '0';
 	signal PS_INSTRUCTION_CHECK_GATE_STAR_1311: STD_LOGIC := '0';
 	signal MS_FORMS_STACK_GO_F_CH_STAR_1414_STAR: STD_LOGIC := '1';
 	signal PS_COMP_DISABLE_CYCLE_STAR_1412_19: STD_LOGIC := '0';
@@ -1086,14 +1100,14 @@ architecture behavioral of IntegrationTest2_tb is
 	signal MY_CHAR_SEL_ERROR_CHK_1_STAR_2_STAR: STD_LOGIC := '1';
 	signal MY_CHAR_SEL_ERROR_CHK_2_STAR_2_STAR: STD_LOGIC := '1';
 	signal CONS_36V: STD_LOGIC := '0';
-	signal MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO: STD_LOGIC := '1';
-	signal PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC: STD_LOGIC := '0';
-	signal MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO: STD_LOGIC := '1';
-	signal MV_CONS_PRINTER_C2_CAM_NC: STD_LOGIC := '1';
-	signal MV_CONS_PRINTER_C2_CAM_NO: STD_LOGIC := '1';
-	signal MV_CONS_PRINTER_SPACE_NO: STD_LOGIC := '1';
-	signal MV_CONS_PRINTER_C1_CAM_NO: STD_LOGIC := '1';
-	signal MV_CONS_PRINTER_C1_CAM_NC: STD_LOGIC := '1';
+	signal MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO: STD_LOGIC; -- := '1';
+	signal PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC: STD_LOGIC; -- := '0';
+	signal MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO: STD_LOGIC; -- := '1';
+	signal MV_CONS_PRINTER_C2_CAM_NC: STD_LOGIC; -- := '1';
+	signal MV_CONS_PRINTER_C2_CAM_NO: STD_LOGIC; -- := '1';
+	signal MV_CONS_PRINTER_SPACE_NO: STD_LOGIC; -- := '1';
+	signal MV_CONS_PRINTER_C1_CAM_NO: STD_LOGIC; -- := '1';
+	signal MV_CONS_PRINTER_C1_CAM_NC: STD_LOGIC; -- := '1';
 	signal MV_CONS_PRINTER_C3_OR_C4_NO: STD_LOGIC := '1';
 	signal MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC: STD_LOGIC := '1';
 	signal MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO: STD_LOGIC := '1';
@@ -1746,10 +1760,16 @@ architecture behavioral of IntegrationTest2_tb is
 --    end procedure;
       
 
-
 --   -- Your test bench declarations go here
-   signal MS_COMPUTER_RESET: std_logic := '1';
-   signal MS_PROGRAM_RESET: std_logic := '1';
+
+   signal initSystem: STD_LOGIC := '1';
+   signal notInitSystem: STD_LOGIC;
+
+   constant TMR_CNTR_MAX : std_logic_vector(26 downto 0) := "101111101011110000100000000"; --100,000,000 = clk cycles per second
+   constant TMR_CNTR_100 : std_logic_vector(26 downto 0) := "000000000011000011010100000"; -- 1ms reset start time
+   constant TMR_CNTR_200 : std_logic_vector(26 downto 0) := "000000000100100100111110000"; -- 1.5ms reset end time (0.5ms reset)
+   signal tmrCntr : std_logic_vector(26 downto 0) := (others => '0');
+
 
 ---- END USER TEST BENCH DECLARATIONS
    
@@ -1759,10 +1779,10 @@ architecture behavioral of IntegrationTest2_tb is
 --	-- Instantiate the Unit Under Test (UUT)
 
 	UUT: IntegrationTest2 port map(
-		FPGA_CLK => FPGA_CLK,
+		FPGA_CLK => CLK,
 		PP_SPECIAL_OR_12V_POWER_FOR_OSC => PP_SPECIAL_OR_12V_POWER_FOR_OSC,
 		MV_36_VOLTS => MV_36_VOLTS,
-		GROUND => GROUND,
+		-- GROUND => GROUND,
 		PS_INSTRUCTION_CHECK_GATE_STAR_1311 => PS_INSTRUCTION_CHECK_GATE_STAR_1311,
 		MS_FORMS_STACK_GO_F_CH_STAR_1414_STAR => MS_FORMS_STACK_GO_F_CH_STAR_1414_STAR,
 		PS_COMP_DISABLE_CYCLE_STAR_1412_19 => PS_COMP_DISABLE_CYCLE_STAR_1412_19,
@@ -2599,6 +2619,12 @@ architecture behavioral of IntegrationTest2_tb is
 		LAMPS_A_CH => LAMPS_A_CH,
 		LAMPS_ASSM_CH_NOT => LAMPS_ASSM_CH_NOT,
 		LAMPS_ASSM_CH => LAMPS_ASSM_CH);
+				
+startButton: debounce port map(
+            clk => FPGA_CLK,
+            reset_n => notInitSystem,
+            button => btnC,
+            result => SWITCH_MOM_CONS_START);
 
 -- START USER TEST BENCH PROCESS
 
@@ -2615,24 +2641,53 @@ architecture behavioral of IntegrationTest2_tb is
 -- Process to simulate the FPGA clock for a VHDL test bench
 --
 
-fpga_clk_process: process
+--fpga_clk_process: process
 
-   constant clk_period : time := 10 ns;
+--   constant clk_period : time := 10 ns;
 
-   begin
-      fpga_clk <= '0';
-      wait for clk_period / 2;
-      fpga_clk <= '1';
-      wait for clk_period / 2;
-   end process;
+--   begin
+--      fpga_clk <= '0';
+--      wait for clk_period / 2;
+--      fpga_clk <= '1';
+--      wait for clk_period / 2;
+--   end process;
 
 --
 ---- End of TestBenchFPGAClock.vhdl
 
+-- Initial reset
 
-   -- FPGA_CLK <= CLK;
+IBM1410_PowerOn_Reset_process: process (CLK, initSystem) 
+begin
+    if(initSystem = '1') then
+        if(rising_edge(CLK)) then
+            if(SWITCH_REL_PWR_ON_RST = '0') then
+                if(tmrCntr = TMR_CNTR_100) then
+                    SWITCH_REL_PWR_ON_RST <= '1';
+                end if;
+            else
+                if(tmrCntr = TMR_CNTR_200) then
+                    SWITCH_REL_PWR_ON_RST <= '0';
+                    initSystem <= '0';
+                end if;
+            end if; 
+            tmrCntr <= tmrCntr + 1;
+        end if;
+    end if;
+end process;
+
+   notInitSystem <= not initSystem;
+
+   FPGA_CLK <= CLK;
    
-   LED(9 downto 0) <= LAMPS_LOGIC_GATE_RING;
+   -- LED(9 downto 0) <= LAMPS_LOGIC_GATE_RING;
+   LED(4 downto 0) <= MY_MEM_AR_UP_BUS;
+   
+   LED(9) <= btnC;
+   LED(8) <= not btnCpuReset;
+   LED(7) <= initSystem;
+   LED(6) <= SWITCH_REL_PWR_ON_RST;
+   LED(5) <= '1';
    
    LED(15) <= LAMP_15A1K24; -- Stop
    
@@ -2653,7 +2708,7 @@ fpga_clk_process: process
    LED(11) <= LAMP_15A1W04; -- Instruction Check
    LED(10) <= LAMP_15A1B15; -- Address Check   
    
--- Signal "copies"
+   -- Signal "copies"
 
    PV_SENSE_CHAR_0_B2_BUS <= PV_SENSE_CHAR_0_B1_BUS;
    PV_SENSE_CHAR_0_D1_BUS <= PV_SENSE_CHAR_0_B1_BUS;
@@ -2670,24 +2725,25 @@ fpga_clk_process: process
 
    SWITCH_ROT_MODE_SW_DK1 <= SWITCH_ROT_MODE_SW_DK;
    
-   MV_CONS_PRINTER_C2_CAM_NO <= not MV_CONS_PRINTER_C2_CAM_NC;
-   MV_CONS_PRINTER_C1_CAM_NO <= not MV_CONS_PRINTER_C1_CAM_NC;
 
 ----   
 
 ---- Place your test bench code in the uut_process
 
-uut_process: process
+--uut_process: process
 
-   variable testName: string(1 to 18);
-   variable subtest: integer;
+--   variable testName: string(1 to 18);
+--   variable subtest: integer;
 
-   begin
+--   begin
    
    MV_CONS_PRINTER_C2_CAM_NC <= '1';
    MV_CONS_PRINTER_C1_CAM_NC <= '1';
-   SWITCH_MOM_STARTPRINT <= '1';  -- This switch is "backwards"
 
+   MV_CONS_PRINTER_C2_CAM_NO <= not MV_CONS_PRINTER_C2_CAM_NC;
+   MV_CONS_PRINTER_C1_CAM_NO <= not MV_CONS_PRINTER_C1_CAM_NC;
+
+   SWITCH_MOM_STARTPRINT <= '1';  -- This switch is "backwards"
       
    SWITCH_ROT_STOR_SCAN_DK1 <= "0000000001000";  -- Storage Scan Off
    
@@ -2699,32 +2755,61 @@ uut_process: process
    
    PV_SENSE_CHAR_0_B1_BUS <= "11111011";  -- CWBA8-21  (WM + period)
    
-   wait for 30 ns;  -- Otherwise the power on reset doesn't /IntegrationTest2_tb/MS_PROGRAM_RESET_6work right.
-   SWITCH_REL_PWR_ON_RST <= '1';
-   wait for 500 us;   
-   SWITCH_REL_PWR_ON_RST <= '0';
-   wait for 30 ms;
+--   MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO <= SW(15);
+--   PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= SW(14);
+--   MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO <= SW(15);
+--   MV_CONS_PRINTER_C2_CAM_NC <= SW(14);
+--   -- MV_CONS_PRINTER_C2_CAM_NO <= SW(15);
+--   MV_CONS_PRINTER_SPACE_NO <= SW(15);
+--   -- MV_CONS_PRINTER_C1_CAM_NO <= SW(15);
+--   MV_CONS_PRINTER_C1_CAM_NC <= SW(14);
+--   MV_CONS_PRINTER_C3_OR_C4_NO <= SW(15);
+--   MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC <= SW(14);
+--   MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO <= SW(15);
+--   MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= SW(15);
+--   MB_CONS_PRINTER_EVEN_BIT_CHECK <= SW(15);
+--   MV_CONS_PRINTER_ODD_BIT_CHECK <= SW(14);
+--   MV_CONS_PRINTER_LAST_COLUMN_SET <= SW(15);
+--   MV_KEYBOARD_LOCK_MODE_STAR_NO <= SW(15);
+--   MV_KEYBOARD_UNLOCK_MODE <= SW(15);
+   
+--   MV_CONS_PRTR_TO_CPU_BUS <= SW(15 downto 10);
+   
+   
+--   wait for 30 ns;  -- Otherwise the power on reset doesn't /IntegrationTest2_tb/MS_PROGRAM_RESET_6work right.
+--   SWITCH_REL_PWR_ON_RST <= '1';
+--   wait for 500 us;   
+--   SWITCH_REL_PWR_ON_RST <= '0';
+--   wait for 30 ms;
    
 --   SWITCH_MOM_CO_CPR_RST <= '1';
 --   wait for 500 us;
 --   SWITCH_MOM_CO_CPR_RST <= '0';           
 --   wait for 30 ms;   
       
-   SWITCH_MOM_CONS_START <= '1';
-   wait for 1 ms;
-   SWITCH_MOM_CONS_START <= '0';
-   wait for 50 us;
-   SWITCH_MOM_CONS_STOP_PL1 <= '1';
-   wait for 1 us;
-   -- Help out the stop if instruction readout isn't working
-   SWITCH_MOM_CONS_STOP_PL1 <= '0';
+--   SWITCH_MOM_CONS_START <= '1';
+--   wait for 1 ms;
+--   SWITCH_MOM_CONS_START <= '0';
+--   wait for 50 us;
+
+   -- SWITCH_MOM_CONS_START <= btnC;
+   
+   
+--   SWITCH_MOM_CONS_STOP_PL1 <= '1';
+--   wait for 1 us;
+--   -- Help out the stop if instruction readout isn't working
+--   SWITCH_MOM_CONS_STOP_PL1 <= '0';
+
+   SWITCH_MOM_CONS_STOP_PL1 <= btnD;
+   
+   SWITCH_MOM_CO_CPR_RST <= not btnCpuReset;   
    
    -- Your test bench code
 
-   assert false report "Simulation Ended NORMALLY" severity failure;
+--   assert false report "Simulation Ended NORMALLY" severity failure;
    
-   wait;
-   end process;
+--   wait;
+--   end process;
 
 ---- The following is needed for older VHDL simulations to
 ---- terminate the simulation process.  If your environment
