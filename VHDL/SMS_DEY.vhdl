@@ -58,39 +58,41 @@ begin
 
     SMS_DEY_PROCESS: process(FPGA_CLK, ACSET, ACRESET, DCRESET, DCRFORCE, DCSFORCE)
         begin
-        if(DCRESET = '0' OR DCRFORCE = '1') then
-            OUTOFF <= '1';
-            OUTON <= '0';
-            SSTAGE1 <= ACSET;
-            SSTAGE2 <= ACSET;
-            SSTAGE3 <= ACSET;
-            RSTAGE1 <= ACRESET;
-            RSTAGE2 <= ACRESET;
-            RSTAGE3 <= ACRESET;            
-        elsif(DCSFORCE = '1') then
-            OUTON <= '1';
-            OUTOFF <= '0';
-            SSTAGE1 <= ACSET;
-            SSTAGE2 <= ACSET;
-            SSTAGE3 <= ACSET;
-            RSTAGE1 <= ACRESET;
-            RSTAGE2 <= ACRESET;
-            RSTAGE3 <= ACRESET;            
-        elsif(rising_edge(FPGA_CLK)) then
-            SSTAGE1 <= ACSET;
-            SSTAGE2 <= SSTAGE1;
-            SSTAGE3 <= SSTAGE2;
-            RSTAGE1 <= ACRESET;
-            RSTAGE2 <= RSTAGE1;
-            RSTAGE3 <= RSTAGE2;
-            if(GATEON = '1' AND SSTAGE2 = '1' AND 
-               SSTAGE1 = '1' AND SSTAGE3 = '0') then
-                OUTON <= '1';
-                OUTOFF <= '0';
-            elsif(GATEOFF = '1' AND RSTAGE2 = '1' AND
-                RSTAGE1 = '1' AND RSTAGE3 = '0') then
-                OUTOFF <= '1';
-                OUTON <= '0';               
+        if(rising_edge(FPGA_CLK)) then
+           if(DCRESET = '0' OR DCRFORCE = '1') then
+               OUTOFF <= '1';
+               OUTON <= '0';
+               SSTAGE1 <= ACSET;
+               SSTAGE2 <= ACSET;
+               SSTAGE3 <= ACSET;
+               RSTAGE1 <= ACRESET;
+               RSTAGE2 <= ACRESET;
+               RSTAGE3 <= ACRESET;            
+           elsif(DCSFORCE = '1') then
+               OUTON <= '1';
+               OUTOFF <= '0';
+               SSTAGE1 <= ACSET;
+               SSTAGE2 <= ACSET;
+               SSTAGE3 <= ACSET;
+               RSTAGE1 <= ACRESET;
+               RSTAGE2 <= ACRESET;
+               RSTAGE3 <= ACRESET;            
+            else 
+               SSTAGE1 <= ACSET;
+               SSTAGE2 <= SSTAGE1;
+               SSTAGE3 <= SSTAGE2;
+               RSTAGE1 <= ACRESET;
+               RSTAGE2 <= RSTAGE1;
+               RSTAGE3 <= RSTAGE2;
+               if(GATEON = '1' AND SSTAGE2 = '1' AND 
+                  SSTAGE1 = '1' AND SSTAGE3 = '0') then
+                   OUTON <= '1';
+                   OUTOFF <= '0';
+               elsif(GATEOFF = '1' AND RSTAGE2 = '1' AND
+                   RSTAGE1 = '1' AND RSTAGE3 = '0') then
+                   OUTOFF <= '1';
+                   OUTON <= '0'; 
+               end if;              
             end if;
         end if;
         end process;
