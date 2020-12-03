@@ -232,7 +232,7 @@ uut_process: process
    -- Don't set it some other way.
    PS_1401_MODE <= '1';
    PS_LOGIC_GATE_A_1 <= '1';
-   PS_2ND_CLOCK_PULSE_2 <= '0';
+   PS_2ND_CLOCK_PULSE_2 <= '1'; -- AC Set on trigger is inverse of this
    wait for 30 ns;
 
    PS_ERROR_SAMPLE <= '1';
