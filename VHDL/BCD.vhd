@@ -19,7 +19,7 @@ package BCD is
       BCD_AT,            --     8 4
       BCD_COLON,         --     8 4   1
       BCD_GREATER_THAN,  --     8 4 2
-      BCD_CHECK,         --     8 4 2 1
+      BCD_TAPE_MARK,     --     8 4 2 1
       BCD_ALT_BLANK,     --   A
       BCD_SLASH,         --   A       1
       BCD_S,             --   A     2
@@ -78,6 +78,9 @@ package BCD is
       
    function bcd_to_slv8_odd_parity(bcd_char: in BCD)
          return std_logic_vector;
+         
+   function twoOfFive(digit: in integer)
+         return std_logic_vector;
      
         
 end package BCD;
@@ -108,5 +111,23 @@ package body BCD is
          temp(7) := temp_parity;
          return(temp);
       end;
-
+      
+   function twoOfFive(digit: in integer)
+      return std_logic_vector is
+      begin
+         case digit is
+            when 0 => return("10100");
+            when 1 => return("00011");
+            when 2 => return("00101");
+            when 3 => return("00110");
+            when 4 => return("01001");
+            when 5 => return("01010");
+            when 6 => return("01100");
+            when 7 => return("11000");
+            when 8 => return("10001");
+            when 9 => return("10010");
+            when others => return("00000");
+         end case;
+      end;
+        
 end package body;
