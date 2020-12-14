@@ -696,8 +696,10 @@ architecture behavioral of IntegrationTest2_tb is
 		MY_GATE_Y_LSMS_80_89XX_B: out STD_LOGIC;
 		MY_GATE_Y_LSMS_90_99XX_A: out STD_LOGIC;
 		MY_GATE_Y_LSMS_90_99XX_B: out STD_LOGIC;
+		MY_X_RD_1: out STD_LOGIC;
 		MY_B_DATA_REG_RESET: out STD_LOGIC;
 		PY_START_READ: out STD_LOGIC;
+		MY_X_WR_1: out STD_LOGIC;
 		PY_START_WRITE: out STD_LOGIC;
 		MY_LOAD_MEMORY_Z: out STD_LOGIC;
 		MY_REGEN_MEMORY_Z: out STD_LOGIC;
@@ -867,6 +869,30 @@ architecture behavioral of IntegrationTest2_tb is
 		LAMPS_ASSM_CH_NOT: out STD_LOGIC_VECTOR (7 downTo 0);
 		LAMPS_ASSM_CH: out STD_LOGIC_VECTOR (7 downTo 0));
 	end component;
+
+   component IBM1410Memory is
+   Port (
+      FPGA_CLK: in STD_LOGIC;
+      MY_X_RD_1: in STD_LOGIC;
+      MY_X_WR_1: in STD_LOGIC;
+      MY_MEM_AR_NOT_UP_BUS: in STD_LOGIC_VECTOR(4 downto 0);
+      MY_MEM_AR_NOT_TP_BUS: in STD_LOGIC_VECTOR(4 downto 0);
+      MY_MEM_AR_NOT_HP_BUS: in STD_LOGIC_VECTOR(4 downto 0);
+      MY_MEM_AR_NOT_THP_BUS: in STD_LOGIC_VECTOR(4 downto 0);
+      MY_MEM_AR_NOT_TTHP_BUS: in STD_LOGIC_VECTOR(4 downto 0);
+      MV_INH_CHAR_0_B1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_0_D1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_1_B1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_1_D1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_2_B1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_2_D1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_3_B1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_3_D1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      PV_SENSE_CHAR_0_BUS: out STD_LOGIC_VECTOR(7 downto 0);
+      PV_SENSE_CHAR_1_BUS: out STD_LOGIC_VECTOR(7 downto 0);
+      PV_SENSE_CHAR_2_BUS: out STD_LOGIC_VECTOR(7 downto 0);
+      PV_SENSE_CHAR_3_BUS: out STD_LOGIC_VECTOR(7 downto 0) );
+   end component;
 
 	-- Inputs
 
@@ -1542,8 +1568,10 @@ architecture behavioral of IntegrationTest2_tb is
 	signal MY_GATE_Y_LSMS_80_89XX_B: STD_LOGIC;
 	signal MY_GATE_Y_LSMS_90_99XX_A: STD_LOGIC;
 	signal MY_GATE_Y_LSMS_90_99XX_B: STD_LOGIC;
+	signal MY_X_RD_1: STD_LOGIC;
 	signal MY_B_DATA_REG_RESET: STD_LOGIC;
 	signal PY_START_READ: STD_LOGIC;
+	signal MY_X_WR_1: STD_LOGIC;
 	signal PY_START_WRITE: STD_LOGIC;
 	signal MY_LOAD_MEMORY_Z: STD_LOGIC;
 	signal MY_REGEN_MEMORY_Z: STD_LOGIC;
@@ -1733,6 +1761,9 @@ architecture behavioral of IntegrationTest2_tb is
 
    constant MX_X1A_POS: integer := 7;
    constant MX_X6A_POS: integer := 8;
+   
+   signal LOCAL_MY_MEM_AR_NOT_TTHP_BUS: STD_LOGIC_VECTOR(4 downto 0);
+
 
 --procedure check1(
 --    checked: in STD_LOGIC;
@@ -2425,8 +2456,10 @@ architecture behavioral of IntegrationTest2_tb is
 		MY_GATE_Y_LSMS_80_89XX_B => MY_GATE_Y_LSMS_80_89XX_B,
 		MY_GATE_Y_LSMS_90_99XX_A => MY_GATE_Y_LSMS_90_99XX_A,
 		MY_GATE_Y_LSMS_90_99XX_B => MY_GATE_Y_LSMS_90_99XX_B,
+		MY_X_RD_1 => MY_X_RD_1,
 		MY_B_DATA_REG_RESET => MY_B_DATA_REG_RESET,
 		PY_START_READ => PY_START_READ,
+		MY_X_WR_1 => MY_X_WR_1,
 		PY_START_WRITE => PY_START_WRITE,
 		MY_LOAD_MEMORY_Z => MY_LOAD_MEMORY_Z,
 		MY_REGEN_MEMORY_Z => MY_REGEN_MEMORY_Z,
@@ -2605,6 +2638,31 @@ architecture behavioral of IntegrationTest2_tb is
 -- This text is preserved when the IBM1410SMS applciation
 -- regenerates a test bench
 
+memory: IBM1410Memory 
+   Port map(
+      FPGA_CLK => FPGA_CLK,
+      MY_X_RD_1 => MY_X_RD_1,
+      -- MY_X_WR_1 => MY_X_WR_1, -- disable writes for now
+      MY_X_WR_1 => '1',
+      MY_MEM_AR_NOT_UP_BUS => MY_MEM_AR_NOT_UP_BUS,
+      MY_MEM_AR_NOT_TP_BUS => MY_MEM_AR_NOT_TP_BUS,
+      MY_MEM_AR_NOT_HP_BUS => MY_MEM_AR_NOT_HP_BUS,
+      MY_MEM_AR_NOT_THP_BUS => MY_MEM_AR_NOT_THP_BUS,
+      MY_MEM_AR_NOT_TTHP_BUS => LOCAL_MY_MEM_AR_NOT_TTHP_BUS,
+      MV_INH_CHAR_0_B1_BUS => MV_INH_CHAR_0_B1_BUS,
+      MV_INH_CHAR_0_D1_BUS => MV_INH_CHAR_0_D1_BUS,
+      MV_INH_CHAR_1_B1_BUS => MV_INH_CHAR_1_B1_BUS,
+      MV_INH_CHAR_1_D1_BUS => MV_INH_CHAR_1_D1_BUS,
+      MV_INH_CHAR_2_B1_BUS => MV_INH_CHAR_2_B1_BUS,
+      MV_INH_CHAR_2_D1_BUS => MV_INH_CHAR_2_D1_BUS,
+      MV_INH_CHAR_3_B1_BUS => MV_INH_CHAR_3_B1_BUS,
+      MV_INH_CHAR_3_D1_BUS => MV_INH_CHAR_3_D1_BUS,
+      PV_SENSE_CHAR_0_BUS => PV_SENSE_CHAR_0_B1_BUS,
+      PV_SENSE_CHAR_1_BUS => PV_SENSE_CHAR_1_B1_BUS,
+      PV_SENSE_CHAR_2_BUS => PV_SENSE_CHAR_2_B1_BUS,
+      PV_SENSE_CHAR_3_BUS => PV_SENSE_CHAR_3_B1_BUS );
+
+
 -- 
 -- TestBenchFPGAClock.vhdl
 --
@@ -2625,6 +2683,9 @@ fpga_clk_process: process
 --
 ---- End of TestBenchFPGAClock.vhdl
 
+   -- Ten Thousands Position of Memory address
+   
+   LOCAL_MY_MEM_AR_NOT_TTHP_BUS <= not MY_MEM_AR_TTHP_BUS;
 
    -- FPGA_CLK <= CLK;
    
@@ -2654,6 +2715,18 @@ fpga_clk_process: process
    PV_SENSE_CHAR_0_B2_BUS <= PV_SENSE_CHAR_0_B1_BUS;
    PV_SENSE_CHAR_0_D1_BUS <= PV_SENSE_CHAR_0_B1_BUS;
    PV_SENSE_CHAR_0_D2_BUS <= PV_SENSE_CHAR_0_B1_BUS;
+
+   PV_SENSE_CHAR_1_B2_BUS <= PV_SENSE_CHAR_1_B1_BUS;
+   PV_SENSE_CHAR_1_D1_BUS <= PV_SENSE_CHAR_1_B1_BUS;
+   PV_SENSE_CHAR_1_D2_BUS <= PV_SENSE_CHAR_1_B1_BUS;
+
+   PV_SENSE_CHAR_2_B2_BUS <= PV_SENSE_CHAR_2_B1_BUS;
+   PV_SENSE_CHAR_2_D1_BUS <= PV_SENSE_CHAR_2_B1_BUS;
+   PV_SENSE_CHAR_2_D2_BUS <= PV_SENSE_CHAR_2_B1_BUS;
+
+   PV_SENSE_CHAR_3_B2_BUS <= PV_SENSE_CHAR_3_B1_BUS;
+   PV_SENSE_CHAR_3_D1_BUS <= PV_SENSE_CHAR_3_B1_BUS;
+   PV_SENSE_CHAR_3_D2_BUS <= PV_SENSE_CHAR_3_B1_BUS;
    
    SWITCH_ROT_STOR_SCAN_DK3 <= SWITCH_ROT_STOR_SCAN_DK1;
    SWITCH_ROT_STOR_SCAN_DK4 <= SWITCH_ROT_STOR_SCAN_DK1;
@@ -2693,7 +2766,9 @@ uut_process: process
    
    SWITCH_ROT_MODE_SW_DK <= "0000010000000"; -- Run Mode
    
-   PV_SENSE_CHAR_0_B1_BUS <= "11111011";  -- CWBA8-21  (WM + period)
+   -- PV_SENSE_CHAR_0_B1_BUS <= "11111011";  -- CWBA8-21  (WM + period)
+   
+   -- Initialize RAM
    
    wait for 30 ns;  -- Otherwise the power on reset doesn't work right.
    SWITCH_REL_PWR_ON_RST <= '0';
