@@ -1,5 +1,4 @@
-Generating HDL for page 39.10.02.1 MEMORY CLK WRITE CYCLE FEAT-ACC at 10/21/2020 4:09:38 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_39_10_02_1_MEMORY_CLK_WRITE_CYCLE_FEAT_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 39.10.02.1 MEMORY CLK WRITE CYCLE FEAT-ACC at 12/8/2020 4:26:41 PM
 NOTE: Special signal LOGIC ONE removed from sheet inputs list.
 WARNING: Diagram block at coordinate 5D has 2 different output pins: A,Q
 WARNING: Diagram block at coordinate 5I has 2 different output pins: A,Q
@@ -7,7 +6,7 @@ Note: DOT Function at 4E has input level(s) of Y, and output level(s) of Y, Logi
 Note: DOT Function at 4G has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
 Removed 1 outputs from Gate at 3B to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 3C to ignored block(s) or identical signal names
-Removed 1 outputs from Gate at 1G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 1G to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 1H to ignored block(s) or identical signal names
 Generating Statement for block at 5A with output pin(s) of OUT_5A_A
 	and inputs of OUT_1E_P,OUT_4C_P,MS_COMPUTER_RESET_2,'1','1'

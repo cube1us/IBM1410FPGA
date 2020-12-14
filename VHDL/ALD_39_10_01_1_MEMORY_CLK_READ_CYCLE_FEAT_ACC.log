@@ -1,4 +1,4 @@
-Generating HDL for page 39.10.01.1 MEMORY CLK READ CYCLE FEAT-ACC at 10/21/2020 12:05:27 PM
+Generating HDL for page 39.10.01.1 MEMORY CLK READ CYCLE FEAT-ACC at 12/8/2020 4:26:35 PM
 NOTE: Special signal LOGIC ONE removed from sheet inputs list.
 WARNING: Diagram block at coordinate 3B has 2 different output pins: A,Q
 WARNING: Diagram block at coordinate 5F has 2 different output pins: A,Q
@@ -10,7 +10,7 @@ DOT Function at 5F has one output from a Trigger, one output from Non-Trigger
 Removed 1 outputs from Gate at 1A to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 3D to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 3E to ignored block(s) or identical signal names
-Removed 1 outputs from Gate at 3G to ignored block(s) or identical signal names
+Removed 2 outputs from Gate at 3G to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 3H to ignored block(s) or identical signal names
 Generating Statement for block at 2A with output pin(s) of OUT_2A_A
 	and inputs of OUT_3B_A
