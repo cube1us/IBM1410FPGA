@@ -1,14 +1,14 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Company: The Computer Collection
+-- Engineer: Jay R. Jaeger
 -- 
 -- Create Date: 01/09/2021 12:26:05 PM
--- Design Name: 
+-- Design Name: IBM1410
 -- Module Name: IBM1410ConsoleTypewriter - Behavioral
--- Project Name: 
+-- Project Name: IBM1410
 -- Target Devices: 
 -- Tool Versions: 
--- Description: 
+-- Description: Simulates the IBM 1410 I/O Selectric Console
 -- 
 -- Dependencies: 
 -- 
@@ -18,6 +18,12 @@
 -- 
 ----------------------------------------------------------------------------------
 
+
+-- TODO: Input parity check
+-- TODO: Space
+-- TODO: Backspace
+-- TODO: Carriage Return
+-- TODO: Wordmark
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -35,10 +41,10 @@ use WORK.ALL;
 -- Multipler is 1000 for ms, 10 for testing.
 
 entity IBM1410ConsoleTypewriter is
+   GENERIC(MULTIPLIER: integer := 1000);
    PORT (
       FPGA_CLK: in STD_LOGIC;
       PS_CONS_CLOCK_1_POS: in STD_LOGIC;
-      MULTIPLIER: in integer; -- 1000 for ms times
 
        PW_CONS_PRINTER_R1_SOLENOID: in STD_LOGIC; --      
        PW_CONS_PRINTER_R2_SOLENOID: in STD_LOGIC; --
@@ -54,7 +60,7 @@ entity IBM1410ConsoleTypewriter is
        PW_CARRIAGE_RETURN_SOLENOID: in STD_LOGIC;      
 
        MW_KEYBOARD_LOCK_SOLENOID: in STD_LOGIC;
-       PW_CONS_PRINTER_CHK_SOLENOID: in STD_LOGIC;
+       PW_CONS_PRINTER_CHK_SOLENOID: in STD_LOGIC; --
       
        MV_CONS_PRINTER_C1_CAM_NO: out STD_LOGIC; --
        MV_CONS_PRINTER_C1_CAM_NC: out STD_LOGIC; --
@@ -81,7 +87,7 @@ entity IBM1410ConsoleTypewriter is
        MV_CONSOLE_C_INPUT_STAR_CHK_OP: out STD_LOGIC
       
    );
---  Port ( );
+
 end IBM1410ConsoleTypewriter;
 
 architecture Behavioral of IBM1410ConsoleTypewriter is
@@ -96,7 +102,8 @@ architecture Behavioral of IBM1410ConsoleTypewriter is
 --   );
 --end component;
 
-type outputState_type is (oidle, os0, os1, os2, os3, os4, os5, os6); 
+type outputState_type is (oidle, os0, os0a, os1, os1a, os2, os2a,
+   os3, os3a, os4, os4a, os5, os5a, os6, os6a); 
 
 signal ssin0, ssin1, ssin2, ssin3, ssin4, ssin5, ssin6: std_logic := '1';
 signal ssout0, ssout1, ssout2, ssout3, ssout4, ssout5, ssout6: std_logic;
@@ -213,8 +220,10 @@ states: process(FPGA_CLK)
    end process;
    
 
-output_process: process(outputState, rotateIndex, tiltIndex)
+output_process: process(outputState, rotateIndex, tiltIndex,
+   ssout0, ssout1, ssout2, ssout3, ssout4, ssout5, ssout6)
    begin
+   
       case outputState is
       when oidle =>
          
@@ -223,29 +232,57 @@ output_process: process(outputState, rotateIndex, tiltIndex)
             PW_CONS_PRINTER_R2A_SOLENOID = '1' or
             PW_CONS_PRINTER_R5_SOLENOID = '1' or
             PW_CONS_PRINTER_T1_SOLENOID = '1' or
-            PW_CONS_PRINTER_T2_SOLENOID = '1' then            
-            nextOutputState <= os0;
+            PW_CONS_PRINTER_T2_SOLENOID = '1' or
+            PW_CONS_PRINTER_CHK_SOLENOID = '1' then            
+            nextOutputState <= os0a;
             ssin0 <= '0';
+            report "Entering State os0a";
          else
-            nextOutputState <= oidle; 
+            nextOutputState <= oidle;             
          end if;
 
+      when os0a =>
+         -- wait for single shot to trigger
+         if(ssout0 = '0') then
+            nextOutputState <= os0;
+         else
+            nextOutputState <= os0a;
+         end if;
+      
       when os0 =>
          ssin0 <= '1';
          if ssout0 = '1' then
-            nextOutputState <= os1;
+            report "Entering State os1";         
+            nextOutputState <= os1a;
             ssin1 <= '0';
          else
             nextOutputState <= os0;
          end if;
 
+      when os1a =>
+         -- wait for single shot to trigger
+         if(ssout1 = '0') then
+            nextOutputState <= os1;
+         else
+            nextOutputState <= os1a;
+         end if;
+
       when os1 =>
          ssin1 <= '1';
          if ssout1 = '1' then
-            nextOutputState <= os2;
+            report "Entering State os2";         
+            nextOutputState <= os2a;
             ssin2 <= '0';
          else
             nextOutputState <= os1;
+         end if;
+
+      when os2a =>
+         -- wait for single shot to trigger
+         if(ssout2 = '0') then
+            nextOutputState <= os2;
+         else
+            nextOutputState <= os2a;
          end if;
 
       when os2 =>
@@ -253,7 +290,8 @@ output_process: process(outputState, rotateIndex, tiltIndex)
          latchedTiltIndex <= tiltIndex;
          ssin2 <= '1';
          if ssout2 = '1' then
-            nextOutputState <= os3;
+            report "Entering State os3";         
+            nextOutputState <= os3a;
             ssin3 <= '0';
             
             -- Time to print the character
@@ -272,46 +310,95 @@ output_process: process(outputState, rotateIndex, tiltIndex)
                   when 2 => printChar <= Golfball_UC_Tilt2(rotateIndex);
                   when 3 => printChar <= Golfball_UC_Tilt3(rotateIndex);
                end case;
-            
-            report "Print char: /" & printChar & "/";
-            
             end if;
+            
+            report "Print char: /" & character'image(printChar) & "/";
+            -- print indices here.
             
          else
             nextOutputState <= os2;
          end if;
 
+      when os3a =>
+         -- wait for single shot to trigger
+         if(ssout3 = '0') then
+            nextOutputState <= os3;
+         else
+            nextOutputState <= os3a;
+         end if;
+
       when os3 =>
          ssin3 <= '1';
          if ssout3 = '1' then
-            nextOutputState <= os4;
+            report "Entering State os4";         
+            nextOutputState <= os4a;
             ssin4 <= '0';
          else
             nextOutputState <= os3;
          end if;
 
+      when os4a =>
+         -- wait for single shot to trigger
+         if(ssout4 = '0') then
+            nextOutputState <= os4;
+         else
+            nextOutputState <= os4a;
+         end if;
+
       when os4 =>
          ssin4 <= '1';
          if ssout4 = '1' then
-            nextOutputState <= os5;
+            report "Entering State os5";         
+            nextOutputState <= os5a;
             ssin5 <= '0';
          else
             nextOutputState <= os4;
          end if;
 
+      when os5a =>
+         -- wait for single shot to trigger
+         if(ssout5 = '0') then
+            nextOutputState <= os5;
+         else
+            nextOutputState <= os5a;
+         end if;
+
       when os5 =>
          ssin5 <= '1';
          if ssout5 = '1' then
-            nextOutputState <= os6;
+            report "Entering State os6";         
+            nextOutputState <= os6a;
             ssin6 <= '0';
          else
             nextOutputState <= os5;
          end if;
 
+      when os6a =>
+         -- wait for single shot to trigger
+         if(ssout6 = '0') then
+            nextOutputState <= os6;
+         else
+            nextOutputState <= os6a;
+         end if;
+
+
       when os6 =>
          ssin6 <= '1';
-         if ssout6 = '1' then
-            nextOutputState <= oidle;
+         if ssout6 = '1' then -- If more input, go right into state 1.
+            if PW_CONS_PRINTER_R1_SOLENOID = '1' or
+               PW_CONS_PRINTER_R2_SOLENOID = '1' or
+               PW_CONS_PRINTER_R2A_SOLENOID = '1' or
+               PW_CONS_PRINTER_R5_SOLENOID = '1' or
+               PW_CONS_PRINTER_T1_SOLENOID = '1' or
+               PW_CONS_PRINTER_T2_SOLENOID = '1' or
+               PW_CONS_PRINTER_CHK_SOLENOID = '1' then   
+               report "Returning to State os0(a)";     
+               ssin1 <= '0';                             
+               nextOutputState <= os1a;            
+            else
+               report "Returning to state State oidle";            
+               nextOutputState <= oidle;
+            end if;
          else
             nextOutputState <= os6;
          end if;
@@ -323,9 +410,9 @@ output_process: process(outputState, rotateIndex, tiltIndex)
 C1_process: process(FPGA_CLK, outputState)
    begin
    if FPGA_CLK'event and FPGA_CLK = '1' then
-      if outputState = os2 or
-         outputState = os3 or
-         outputState = os4 then
+      if outputState = os3 or
+         outputState = os4 or
+         outputState = os5 then
          CAM1 <= '1';
       else
          CAM1 <= '0';
@@ -439,37 +526,43 @@ end process;
 
 with PW_CONS_PRINTER_R1_SOLENOID select R1Motion <=
    0 when '1',
-   1 when '0';
+   1 when '0',
+   0 when others;
 
 with PW_CONS_PRINTER_R2_SOLENOID select R2Motion <=
    0 when '1',
-   2 when '0';
+   2 when '0',
+   0 when others;
 
 with PW_CONS_PRINTER_R2A_SOLENOID select R2AMotion <=
    0 when '1',
-   2 when '0';
+   2 when '0',
+   0 when others;
    
-with PW_CONS_PRINTER_R5_SOLENOID select R1Motion <=
+with PW_CONS_PRINTER_R5_SOLENOID select R5Motion <=
    5 when '1',
-   0 when '0';
+   0 when '0',
+   0 when others;
    
 with PW_CONS_PRINTER_T1_SOLENOID select T1Motion <=
    0 when '1',
-   1 when '0';
+   1 when '0',
+   0 when others;
 
 with PW_CONS_PRINTER_T2_SOLENOID select T2Motion <=
    0 when '1',
-   2 when '0';
+   2 when '0',
+   0 when others;
    
 rotateIndex <= R1Motion + R2Motion + R2AMotion;
 tiltIndex <= T1Motion + T2Motion;
 inUpperCase <= not inLowerCase;
 
-MV_CONS_PRINTER_C1_CAM_NC <= CAM1;
-MV_CONS_PRINTER_C1_CAM_NO <= not CAM1;
+MV_CONS_PRINTER_C1_CAM_NC <= not CAM1;
+MV_CONS_PRINTER_C1_CAM_NO <= CAM1;
 
-MV_CONS_PRINTER_C2_CAM_NC <= CAM2;
-MV_CONS_PRINTER_C2_CAM_NO <= not CAM2;
+MV_CONS_PRINTER_C2_CAM_NC <= not CAM2;
+MV_CONS_PRINTER_C2_CAM_NO <= CAM2;
 
 
 end Behavioral;

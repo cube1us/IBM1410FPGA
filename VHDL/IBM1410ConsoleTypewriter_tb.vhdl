@@ -135,12 +135,14 @@ end component;
 
    signal MV_CONS_PRTR_TO_CPU_BUS: STD_LOGIC_VECTOR(5 downto 0);
    signal MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO: STD_LOGIC;
-   signal MV_CONSOLE_C_INPUT_STAR_CHK_OP: STD_LOGIC;
+   signal MV_CONSOLE_C_INPUT_STAR_CHK_OP: STD_LOGIC;   
+
+   signal t: time;
 
 begin
 
    UUT: IBM1410ConsoleTypewriter
-   generic map(MULTIPLIER => 10)
+   generic map(MULTIPLIER => 10) -- 100x speed, so 10us == 1ms
    port map(
       FPGA_CLK => FPGA_CLK,
       PS_CONS_CLOCK_1_POS => PS_CONS_CLOCK_1_POS,
@@ -195,6 +197,60 @@ fpga_clk_process: process
       fpga_clk <= '1';
       wait for clk_period / 2;
    end process;
+   
 
+uut_process: process
+   begin
+   
+      
+   wait for 1us;   
+   t <= now;
 
+   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T0A C1 NC not 1 at start" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T0B C1 N0 not 0 at start" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T0C C2 NC not 1 at start" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NO = '0' report "T0D C2 N0 not 0 at start" severity error;
+
+   
+   PW_CONS_PRINTER_R1_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2A_SOLENOID <= '1';
+   PW_CONS_PRINTER_R5_SOLENOID <= '1';
+   PW_CONS_PRINTER_T1_SOLENOID <= '0';
+   PW_CONS_PRINTER_T2_SOLENOID <= '0';
+   PW_CONS_PRINTER_T2_SOLENOID <= '1';
+   
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
+   report "C2 closed at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T1A C2 NO and NC both 1" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T1B C1 NC open at wrong time" severity error;
+
+   -- At CAM 2 time, we release solenoid drivers.
+
+   PW_CONS_PRINTER_R1_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2A_SOLENOID <= '0';
+   PW_CONS_PRINTER_R5_SOLENOID <= '0';
+   PW_CONS_PRINTER_T1_SOLENOID <= '0';
+   PW_CONS_PRINTER_T2_SOLENOID <= '0';
+   PW_CONS_PRINTER_T2_SOLENOID <= '0';
+   
+   wait until MV_CONS_PRINTER_C1_CAM_NO = '1';
+   report "C1 closed at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T1C C1 NO and NC both 1" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T1D C2 NC open at wrong time" severity error;
+
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';
+   report "C2 opened at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T1E C2 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '1' report "T1F C1 NO open at wrong time" severity error;
+
+   wait until MV_CONS_PRINTER_C1_CAM_NO = '0';
+   report "C1 opened at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T1G C1 NO and NC both 0" severity error;
+      
+   assert false report "NORMAL end of simulation" severity failure;
+   
+
+end process;
 end Behavioral;
