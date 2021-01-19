@@ -45,7 +45,7 @@ end IBM1410ConsoleTypewriter_tb;
 architecture Behavioral of IBM1410ConsoleTypewriter_tb is
 
 component IBM1410ConsoleTypewriter is
-   GENERIC(MULTIPLIER: integer := 1000);
+   GENERIC(MULTIPLIER: integer := 10000);
    PORT (
       FPGA_CLK: in STD_LOGIC;
       PS_CONS_CLOCK_1_POS: in STD_LOGIC;
@@ -142,7 +142,7 @@ end component;
 begin
 
    UUT: IBM1410ConsoleTypewriter
-   generic map(MULTIPLIER => 10) -- 100x speed, so 10us == 1ms
+   generic map(MULTIPLIER => 100) -- 100x speed, so 10us == 1ms
    port map(
       FPGA_CLK => FPGA_CLK,
       PS_CONS_CLOCK_1_POS => PS_CONS_CLOCK_1_POS,
@@ -249,6 +249,52 @@ uut_process: process
    report "C1 opened at " &time'image(now - t);
    assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T1G C1 NO and NC both 0" severity error;
    
+   -- wait for 10ms;  -- Wait, but not so long as to make clutch disengage    
+   wait for 100us; -- Wait, but not so long as to make clutch disengage
+   t <= now;       -- Reset base time
+
+   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T2A C1 NC not 1 at 2nd char" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T2B C1 N0 not 0 at 2nd char" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T2C C2 NC not 1 at 2nd char" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NO = '0' report "T2D C2 N0 not 0 at 2nd char" severity error;
+
+   PW_CONS_PRINTER_R1_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2A_SOLENOID <= '1';
+   PW_CONS_PRINTER_R5_SOLENOID <= '0';
+   PW_CONS_PRINTER_T1_SOLENOID <= '0';
+   PW_CONS_PRINTER_T2_SOLENOID <= '0';
+   PW_CONS_PRINTER_CHK_SOLENOID <= '0';
+   
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
+   report "C2 closed at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T2E C2 NO and NC both 1" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T2F C1 NC open at wrong time" severity error;
+
+   -- At CAM 2 time, we release solenoid drivers.
+
+   PW_CONS_PRINTER_R1_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2A_SOLENOID <= '0';
+   PW_CONS_PRINTER_R5_SOLENOID <= '0';
+   PW_CONS_PRINTER_T1_SOLENOID <= '0';
+   PW_CONS_PRINTER_T2_SOLENOID <= '0';
+   PW_CONS_PRINTER_CHK_SOLENOID <= '0';
+   
+   wait until MV_CONS_PRINTER_C1_CAM_NO = '1';
+   report "C1 closed at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T2G C1 NO and NC both 1" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T2H C2 NC open at wrong time" severity error;
+
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';
+   report "C2 opened at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T2I C2 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '1' report "T2J C1 NO open at wrong time" severity error;
+
+   wait until MV_CONS_PRINTER_C1_CAM_NO = '0';
+   report "C1 opened at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T2K C1 NO and NC both 0" severity error;
+      
    wait for 17ms;  
       
    assert false report "NORMAL end of simulation" severity failure;

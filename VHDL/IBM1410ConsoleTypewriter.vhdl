@@ -38,10 +38,10 @@ use WORK.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
--- Multipler is 1000 for ms, 10 for testing.
+-- Multipler is 10000 for ms, 100 for testing.
 
 entity IBM1410ConsoleTypewriter is
-   GENERIC(MULTIPLIER: integer := 1000);
+   GENERIC(MULTIPLIER: integer := 10000);
    PORT (
       FPGA_CLK: in STD_LOGIC;
       PS_CONS_CLOCK_1_POS: in STD_LOGIC;
@@ -398,8 +398,8 @@ output_process: process(outputState, rotateIndex, tiltIndex,
                PW_CONS_PRINTER_T1_SOLENOID = '1' or
                PW_CONS_PRINTER_T2_SOLENOID = '1' or
                PW_CONS_PRINTER_CHK_SOLENOID = '1' then   
-               report "Returning to State os0(a)";     
-               ssin1 <= '0';                             
+               report "Returning to State os1(a)";     
+               ssin1 <= '0';           
                nextOutputState <= os1a;            
             else
                report "Returning to state State oidle";            
@@ -569,7 +569,7 @@ with PW_CONS_PRINTER_T2_SOLENOID select T2Motion <=
    2 when '0',
    0 when others;
    
-rotateIndex <= R1Motion + R2Motion + R2AMotion;
+rotateIndex <= R1Motion + R2Motion + R2AMotion + R5Motion;
 tiltIndex <= T1Motion + T2Motion;
 inUpperCase <= not inLowerCase;
 
