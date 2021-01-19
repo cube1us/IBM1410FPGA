@@ -272,6 +272,9 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          if ssout1 = '1' then
             report "Entering State os2";         
             nextOutputState <= os2a;
+            -- Time to latch data before solenoids release
+            latchedRotateIndex <= rotateIndex;
+            latchedTiltIndex <= tiltIndex;
             ssin2 <= '0';
          else
             nextOutputState <= os1;
@@ -286,34 +289,30 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          end if;
 
       when os2 =>
-         latchedRotateIndex <= rotateIndex;
-         latchedTiltIndex <= tiltIndex;
          ssin2 <= '1';
          if ssout2 = '1' then
             report "Entering State os3";         
             nextOutputState <= os3a;
             ssin3 <= '0';
             
-            -- Time to print the character
+            -- Time to determine the character to print
             
             if inLowerCase = '1' then
-               case tiltIndex is
-                  when 0 => printChar <= Golfball_LC_Tilt0(rotateIndex);
-                  when 1 => printChar <= Golfball_LC_Tilt1(rotateIndex);
-                  when 2 => printChar <= Golfball_LC_Tilt2(rotateIndex);
-                  when 3 => printChar <= Golfball_LC_Tilt3(rotateIndex);
+               case latchedTiltIndex is
+                  when 0 => printChar <= Golfball_LC_Tilt0(latchedRotateIndex);
+                  when 1 => printChar <= Golfball_LC_Tilt1(latchedRotateIndex);
+                  when 2 => printChar <= Golfball_LC_Tilt2(latchedRotateIndex);
+                  when 3 => printChar <= Golfball_LC_Tilt3(latchedRotateIndex);
                end case;
             else
-               case tiltIndex is
-                  when 0 => printChar <= Golfball_UC_Tilt0(rotateIndex);
-                  when 1 => printChar <= Golfball_UC_Tilt1(rotateIndex);
-                  when 2 => printChar <= Golfball_UC_Tilt2(rotateIndex);
-                  when 3 => printChar <= Golfball_UC_Tilt3(rotateIndex);
+               case latchedTiltIndex is
+                  when 0 => printChar <= Golfball_UC_Tilt0(latchedRotateIndex);
+                  when 1 => printChar <= Golfball_UC_Tilt1(latchedRotateIndex);
+                  when 2 => printChar <= Golfball_UC_Tilt2(latchedRotateIndex);
+                  when 3 => printChar <= Golfball_UC_Tilt3(latchedRotateIndex);
                end case;
             end if;
             
-            report "Print char: /" & character'image(printChar) & "/";
-            -- print indices here.
             
          else
             nextOutputState <= os2;
@@ -330,6 +329,13 @@ output_process: process(outputState, rotateIndex, tiltIndex,
       when os3 =>
          ssin3 <= '1';
          if ssout3 = '1' then
+         
+            -- Time to print the character
+            
+            report "Print char: /" & character'image(printChar) & "/";
+            report "Rotate Index: " & integer'image(latchedRotateIndex) & 
+               ", Tilt Index: " & integer'image(latchedTiltIndex);
+                     
             report "Entering State os4";         
             nextOutputState <= os4a;
             ssin4 <= '0';
@@ -410,8 +416,11 @@ output_process: process(outputState, rotateIndex, tiltIndex,
 C1_process: process(FPGA_CLK, outputState)
    begin
    if FPGA_CLK'event and FPGA_CLK = '1' then
-      if outputState = os3 or
+      if outputState = os3a or
+         outputState = os3 or
+         outputState = os4a or
          outputState = os4 or
+         outputState = os5a or
          outputState = os5 then
          CAM1 <= '1';
       else
@@ -423,8 +432,11 @@ end process;
 C2_process: process(FPGA_CLK, outputState)
    begin
    if FPGA_CLK'event and FPGA_CLK = '1' then
-      if outputState = os2 or
+      if outputState = os2a or
+         outputState = os2 or 
+         outputState = os3a or
          outputState = os3 or
+         outputState = os4a or
          outputState = os4 then
          CAM2 <= '1';
       else
@@ -524,6 +536,9 @@ end process;
 --   end if;
 --end process;
 
+-- For the numbers below, they represent CCW rotation
+-- With a bias of -5 (full CW) == 0 below.
+
 with PW_CONS_PRINTER_R1_SOLENOID select R1Motion <=
    0 when '1',
    1 when '0',
@@ -540,8 +555,8 @@ with PW_CONS_PRINTER_R2A_SOLENOID select R2AMotion <=
    0 when others;
    
 with PW_CONS_PRINTER_R5_SOLENOID select R5Motion <=
-   5 when '1',
-   0 when '0',
+   0 when '1',
+   5 when '0',
    0 when others;
    
 with PW_CONS_PRINTER_T1_SOLENOID select T1Motion <=

@@ -218,12 +218,12 @@ uut_process: process
    PW_CONS_PRINTER_R5_SOLENOID <= '1';
    PW_CONS_PRINTER_T1_SOLENOID <= '0';
    PW_CONS_PRINTER_T2_SOLENOID <= '0';
-   PW_CONS_PRINTER_T2_SOLENOID <= '1';
+   PW_CONS_PRINTER_CHK_SOLENOID <= '1';
    
    wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
    report "C2 closed at " &time'image(now - t);
    assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T1A C2 NO and NC both 1" severity error;
-   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T1B C1 NC open at wrong time" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T1B C1 NC open at wrong time" severity error;
 
    -- At CAM 2 time, we release solenoid drivers.
 
@@ -233,7 +233,7 @@ uut_process: process
    PW_CONS_PRINTER_R5_SOLENOID <= '0';
    PW_CONS_PRINTER_T1_SOLENOID <= '0';
    PW_CONS_PRINTER_T2_SOLENOID <= '0';
-   PW_CONS_PRINTER_T2_SOLENOID <= '0';
+   PW_CONS_PRINTER_CHK_SOLENOID <= '0';
    
    wait until MV_CONS_PRINTER_C1_CAM_NO = '1';
    report "C1 closed at " &time'image(now - t);
@@ -247,7 +247,9 @@ uut_process: process
 
    wait until MV_CONS_PRINTER_C1_CAM_NO = '0';
    report "C1 opened at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T1G C1 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T1G C1 NO and NC both 0" severity error;
+   
+   wait for 17ms;  
       
    assert false report "NORMAL end of simulation" severity failure;
    
