@@ -230,6 +230,16 @@ output_process: process(outputState, rotateIndex, tiltIndex,
    output_ssout5, output_ssout6)
    begin
    
+      -- "default" values for single shot inputs.  This apparently avoids latches
+
+      output_ssin0 <= '1';
+      output_ssin1 <= '1';
+      output_ssin2 <= '1';
+      output_ssin3 <= '1';
+      output_ssin4 <= '1';
+      output_ssin5 <= '1';
+      output_ssin6 <= '1';
+      
       case outputState is
       when output_idle =>
          
@@ -241,14 +251,14 @@ output_process: process(outputState, rotateIndex, tiltIndex,
             PW_CONS_PRINTER_T2_SOLENOID = '1' or
             PW_CONS_PRINTER_CHK_SOLENOID = '1' then            
             nextOutputState <= output_s0a;
-            output_ssin0 <= '0';
-            report "Entering State output_s0a";
+            -- report "Entering State output_s0a";
          else
             nextOutputState <= output_idle;             
          end if;
 
       when output_s0a =>
          -- wait for single shot to trigger
+         output_ssin0 <= '0';
          if(output_ssout0 = '0') then
             nextOutputState <= output_s0;
          else
@@ -256,17 +266,17 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          end if;
       
       when output_s0 =>
-         output_ssin0 <= '1';
+         -- output_ssin0 <= '1';
          if output_ssout0 = '1' then
-            report "Entering State output_s1";         
+            -- report "Entering State output_s1";         
             nextOutputState <= output_s1a;
-            output_ssin1 <= '0';
          else
             nextOutputState <= output_s0;
          end if;
 
       when output_s1a =>
          -- wait for single shot to trigger
+         output_ssin1 <= '0';
          if(output_ssout1 = '0') then
             nextOutputState <= output_s1;
          else
@@ -274,20 +284,20 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          end if;
 
       when output_s1 =>
-         output_ssin1 <= '1';
+         -- output_ssin1 <= '1';
          if output_ssout1 = '1' then
-            report "Entering State output_s2";         
+            -- report "Entering State output_s2";         
             nextOutputState <= output_s2a;
             -- Time to latch data before solenoids release
             latchedRotateIndex <= rotateIndex;
             latchedTiltIndex <= tiltIndex;
-            output_ssin2 <= '0';
          else
             nextOutputState <= output_s1;
          end if;
 
       when output_s2a =>
          -- wait for single shot to trigger
+         output_ssin2 <= '0';
          if(output_ssout2 = '0') then
             nextOutputState <= output_s2;
          else
@@ -295,11 +305,10 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          end if;
 
       when output_s2 =>
-         output_ssin2 <= '1';
+         -- output_ssin2 <= '1';
          if output_ssout2 = '1' then
-            report "Entering State output_s3";         
+            -- report "Entering State output_s3";         
             nextOutputState <= output_s3a;
-            output_ssin3 <= '0';
             
             -- Time to determine the character to print
             
@@ -318,14 +327,14 @@ output_process: process(outputState, rotateIndex, tiltIndex,
                   when 3 => printChar <= Golfball_UC_Tilt3(latchedRotateIndex);
                end case;
             end if;
-            
-            
+                        
          else
             nextOutputState <= output_s2;
          end if;
 
       when output_s3a =>
          -- wait for single shot to trigger
+         output_ssin3 <= '0';
          if(output_ssout3 = '0') then
             nextOutputState <= output_s3;
          else
@@ -333,7 +342,7 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          end if;
 
       when output_s3 =>
-         output_ssin3 <= '1';
+         -- output_ssin3 <= '1';
          if output_ssout3 = '1' then
          
             -- Time to print the character
@@ -342,15 +351,15 @@ output_process: process(outputState, rotateIndex, tiltIndex,
             report "Rotate Index: " & integer'image(latchedRotateIndex) & 
                ", Tilt Index: " & integer'image(latchedTiltIndex);
                      
-            report "Entering State output_s4";         
+            -- report "Entering State output_s4";         
             nextOutputState <= output_s4a;
-            output_ssin4 <= '0';
          else
             nextOutputState <= output_s3;
          end if;
 
       when output_s4a =>
          -- wait for single shot to trigger
+         output_ssin4 <= '0';
          if(output_ssout4 = '0') then
             nextOutputState <= output_s4;
          else
@@ -358,17 +367,17 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          end if;
 
       when output_s4 =>
-         output_ssin4 <= '1';
+         -- output_ssin4 <= '1';
          if output_ssout4 = '1' then
-            report "Entering State output_s5";         
+            -- report "Entering State output_s5";         
             nextOutputState <= output_s5a;
-            output_ssin5 <= '0';
          else
             nextOutputState <= output_s4;
          end if;
 
       when output_s5a =>
          -- wait for single shot to trigger
+         output_ssin5 <= '0';
          if(output_ssout5 = '0') then
             nextOutputState <= output_s5;
          else
@@ -376,17 +385,17 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          end if;
 
       when output_s5 =>
-         output_ssin5 <= '1';
+         -- output_ssin5 <= '1';
          if output_ssout5 = '1' then
-            report "Entering State output_s6";         
+            -- report "Entering State output_s6";         
             nextOutputState <= output_s6a;
-            output_ssin6 <= '0';
          else
             nextOutputState <= output_s5;
          end if;
 
       when output_s6a =>
          -- wait for single shot to trigger
+         output_ssin6 <= '0';
          if(output_ssout6 = '0') then
             nextOutputState <= output_s6;
          else
@@ -395,7 +404,7 @@ output_process: process(outputState, rotateIndex, tiltIndex,
 
 
       when output_s6 =>
-         output_ssin6 <= '1';
+         -- output_ssin6 <= '1';
          if output_ssout6 = '1' then -- If more input, go right into state 1.
             if PW_CONS_PRINTER_R1_SOLENOID = '1' or
                PW_CONS_PRINTER_R2_SOLENOID = '1' or
@@ -405,7 +414,7 @@ output_process: process(outputState, rotateIndex, tiltIndex,
                PW_CONS_PRINTER_T2_SOLENOID = '1' or
                PW_CONS_PRINTER_CHK_SOLENOID = '1' then   
                report "Returning to State output_s1(a)";     
-               output_ssin1 <= '0';           
+               -- output_ssin1 <= '0';           
                nextOutputState <= output_s1a;            
             else
                report "Returning to state State output_idle";            
@@ -451,127 +460,33 @@ C2_process: process(FPGA_CLK, outputState)
    end if;
 end process;
 
---Rotate_process: process(PW_CONS_PRINTER_R1_SOLENOID,      
---       PW_CONS_PRINTER_R2_SOLENOID,
---       PW_CONS_PRINTER_R2A_SOLENOID,
---       PW_CONS_PRINTER_R5_SOLENOID)
---   begin
-   
---   -- Note: all the final numbers below are biased by +5 to make range 0..10
---   -- 0 is fully CW, 10 is fully CCW
---   -- R5 energized is 0, not energized is +5 
-   
---   if PW_CONS_PRINTER_R5_SOLENOID = '1' then -- R5 constributes 0
---      if PW_CONS_PRINTER_R1_SOLENOID = '0' then -- R1 constributes +1
---         if PW_CONS_PRINTER_R2_SOLENOID = '0' then -- R2 contributes +2
---            if PW_CONS_PRINTER_R2A_SOLENOID = '0' then -- R2A contributes +2
---               rotateIndex <= 5;
---            else -- R2A contributes 0
---               rotateIndex <= 3;
---            end if;
---         else -- R2 contributes 0
---            if PW_CONS_PRINTER_R2A_SOLENOID = '0' then -- R2A contributes +2
---               rotateIndex <= 3;
---            else -- R2A contributes 0
---               rotateIndex <= 1;
---            end if;            
---         end if;
---      else -- R1 contributes 0
---         if PW_CONS_PRINTER_R2_SOLENOID = '0' then -- R2 contributes +2
---            if PW_CONS_PRINTER_R2A_SOLENOID = '0' then -- R2A contributes +2
---               rotateIndex <= 4;
---            else -- R2A contributes 0
---               rotateIndex <= 2;
---            end if;
---         else -- R2 contributes 0
---            if PW_CONS_PRINTER_R2A_SOLENOID = '0' then -- R2A contributes +2
---               rotateIndex <= 2;
---            else -- R2A contributes 0
---               rotateIndex <= 0;
---            end if;            
---         end if;
---      end if;
---   else -- R5 contributes +5
---      if PW_CONS_PRINTER_R1_SOLENOID = '0' then -- R1 constributes +1
---         if PW_CONS_PRINTER_R2_SOLENOID = '0' then -- R2 contributes +2
---            if PW_CONS_PRINTER_R2A_SOLENOID = '0' then -- R2A contributes +2
---               rotateIndex <= 10;
---            else -- R2A contributes 0
---               rotateIndex <= 8;
---            end if;
---         else -- R2 contributes 0
---            if PW_CONS_PRINTER_R2A_SOLENOID = '0' then -- R2A contributes +2
---               rotateIndex <= 8;
---            else -- R2A contributes 0
---               rotateIndex <= 6;
---            end if;            
---         end if;
---      else -- R1 contributes 0
---         if PW_CONS_PRINTER_R2_SOLENOID = '0' then -- R2 contributes +2
---            if PW_CONS_PRINTER_R2A_SOLENOID = '0' then -- R2A contributes +2
---               rotateIndex <= 9;
---            else -- R2A contributes 0
---               rotateIndex <= 7;
---            end if;
---         else -- R2 contributes 0
---            if PW_CONS_PRINTER_R2A_SOLENOID = '0' then -- R2A contributes +2
---               rotateIndex <= 7;
---            else -- R2A contributes 0
---               rotateIndex <= 5;
---            end if;            
---         end if;
---      end if;
---   end if;
---end process;
-
---Tilt_process: process(PW_CONS_PRINTER_T1_SOLENOID,
---       PW_CONS_PRINTER_T2_SOLENOID)
---   begin
---   if PW_CONS_PRINTER_T1_SOLENOID = '0' then -- T1 contributes +1
---      if PW_CONS_PRINTER_T2_SOLENOID = '0' then -- T2 contributes +2
---         tiltIndex <= 3;
---      else  -- T2 contributes 0
---         tiltIndex <= 1;
---      end if;
---   else -- T1 contributes 0      
---      if PW_CONS_PRINTER_T2_SOLENOID = '0' then -- T2 contributes +2
---         tiltIndex <= 2;
---      else  -- T2 contributes 0
---         tiltIndex <= 0;
---      end if;
---   end if;
---end process;
-
--- For the numbers below, they represent CCW rotation
--- With a bias of -5 (full CW) == 0 below.
-
 with PW_CONS_PRINTER_R1_SOLENOID select R1Motion <=
-   0 when '1',
+   -- 0 when '1',
    1 when '0',
    0 when others;
 
 with PW_CONS_PRINTER_R2_SOLENOID select R2Motion <=
-   0 when '1',
+   -- 0 when '1',
    2 when '0',
    0 when others;
 
 with PW_CONS_PRINTER_R2A_SOLENOID select R2AMotion <=
-   0 when '1',
+   -- 0 when '1',
    2 when '0',
    0 when others;
    
 with PW_CONS_PRINTER_R5_SOLENOID select R5Motion <=
-   0 when '1',
+   -- 0 when '1',
    5 when '0',
    0 when others;
    
 with PW_CONS_PRINTER_T1_SOLENOID select T1Motion <=
-   0 when '1',
+   -- 0 when '1',
    1 when '0',
    0 when others;
 
 with PW_CONS_PRINTER_T2_SOLENOID select T2Motion <=
-   0 when '1',
+   -- 0 when '1',
    2 when '0',
    0 when others;
    
@@ -584,6 +499,5 @@ MV_CONS_PRINTER_C1_CAM_NO <= CAM1;
 
 MV_CONS_PRINTER_C2_CAM_NC <= not CAM2;
 MV_CONS_PRINTER_C2_CAM_NO <= CAM2;
-
 
 end Behavioral;
