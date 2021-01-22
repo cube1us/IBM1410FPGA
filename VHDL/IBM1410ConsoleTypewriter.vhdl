@@ -105,18 +105,39 @@ architecture Behavioral of IBM1410ConsoleTypewriter is
 type outputState_type is (output_idle, output_s0, output_s0a, output_s1, 
    output_s1a, output_s2, output_s2a, output_s3, output_s3a, output_s4, 
    output_s4a, output_s5, output_s5a, output_s6, output_s6a); 
+   
+type spaceState_type is (space_idle, space_s0, space_s0a, space_s1,
+   space_s1a, space_s2, space_s2a, space_s3, space_s3a, space_s4,
+   space_s4a);
+   
+type shiftState_type is (shift_idle, shift_s0, shift_s0a, shift_s1,
+   shift_s1a, shift_s2, shift_s2a, shift_s3, shift_s3a);
 
 signal output_ssin0, output_ssin1, output_ssin2, output_ssin3, output_ssin4, 
    output_ssin5, output_ssin6: std_logic := '1';
 signal output_ssout0, output_ssout1, output_ssout2, output_ssout3, 
    output_ssout4, output_ssout5, output_ssout6: std_logic;
 
+signal space_ssin0, space_ssin1, space_ssin2, space_ssin3, space_ssin4:
+   std_logic := '1';
+signal space_ssout0, space_ssout1, space_ssout2, space_ssout3, 
+   space_ssout4: std_logic;
+   
+signal shift_ssin0, shift_ssin1, shift_ssin2, shift_ssin3: std_logic := '1';
+signal shift_ssout0, shift_ssout1, shift_ssout2, shift_ssout3: std_logic;   
+
 signal outputState, nextOutputState: outputState_type := output_idle;
+signal spaceState, nextSpaceState: spaceState_type := space_idle;
+signal shiftState, nextShiftState: shiftState_type := shift_idle;
 
  -- For rotateIndex, 0 is 5 units CW (-5), 10 is 5 units CCW (+5)
 signal rotateIndex, latchedRotateIndex: integer range 0 to 10 := 5;
-
 signal tiltIndex, latchedTiltIndex:  integer range 0 to 3;
+
+signal latchedSpace: std_logic := '0';
+signal latchedBackspace: std_logic := '0';
+signal latchedCarriageReturn: std_logic := '0';
+signal inUpperCase: std_logic := '0';  -- Default is upper case.
 
 signal R1Motion: integer range 0 to 1;
 signal R2Motion: integer range 0 to 2;
@@ -125,9 +146,6 @@ signal R5Motion: integer range 0 to 5;
 signal T1Motion: integer range 0 to 1;
 signal T2Motion: integer range 0 to 2;
 signal printChar: character;
-
-signal inLowerCase: std_logic := '1';
-signal inUpperCase: std_logic;
 
 
 type GolfballTilt is array (0 to 10) of character;
@@ -157,7 +175,7 @@ constant Golfball_LC_Tilt3: GolfballTilt :=
  ('A', 'C', 'E', 'G', 'H', '?', 'B', 'D', 'F', 'I', '.');
 
 
-signal CAM1, CAM2: std_logic := '0';
+signal CAM1, CAM2, CAM3_OR_4, CAM5: std_logic := '0';
 
 begin
 
@@ -216,6 +234,79 @@ OUTSS6: entity SingleShot
    IN1 => output_ssin6,
    OUT1 => output_ssout6
 );
+
+SPACESS0: entity SingleShot 
+   generic map(PULSETIME => 700 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => space_ssin0,
+   OUT1 => space_ssout0
+);
+ 
+SPACESS1: entity SingleShot 
+   generic map(PULSETIME => 1790 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => space_ssin1,
+   OUT1 => space_ssout1
+);
+
+SPACESS2: entity SingleShot 
+   generic map(PULSETIME => 180 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => space_ssin2,
+   OUT1 => space_ssout2
+);
+
+SPACESS3: entity SingleShot 
+   generic map(PULSETIME => 2690 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => space_ssin3,
+   OUT1 => space_ssout3
+);
+
+SPACESS4: entity SingleShot 
+   generic map(PULSETIME => 1790 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => space_ssin4,
+   OUT1 => space_ssout4
+);
+
+SHIFTSS0: entity SingleShot 
+   generic map(PULSETIME => 700 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => shift_ssin0,
+   OUT1 => shift_ssout0
+);
+ 
+SHIFTSS1: entity SingleShot 
+   generic map(PULSETIME => 1790 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => shift_ssin1,
+   OUT1 => shift_ssout1
+);
+
+SHIFTSS2: entity SingleShot 
+   generic map(PULSETIME => 180 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => shift_ssin2,
+   OUT1 => shift_ssout2
+);
+
+SHIFTSS3: entity SingleShot 
+   generic map(PULSETIME => 2690 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => shift_ssin3,
+   OUT1 => shift_ssout3
+);
+
 
 output_states: process(FPGA_CLK)
    begin
@@ -312,7 +403,7 @@ output_process: process(outputState, rotateIndex, tiltIndex,
             
             -- Time to determine the character to print
             
-            if inLowerCase = '1' then
+            if not inUpperCase = '1' then
                case latchedTiltIndex is
                   when 0 => printChar <= Golfball_LC_Tilt0(latchedRotateIndex);
                   when 1 => printChar <= Golfball_LC_Tilt1(latchedRotateIndex);
@@ -369,7 +460,7 @@ output_process: process(outputState, rotateIndex, tiltIndex,
       when output_s4 =>
          -- output_ssin4 <= '1';
          if output_ssout4 = '1' then
-            -- report "Entering State output_s5";         
+            report "Entering State output_s5";         
             nextOutputState <= output_s5a;
          else
             nextOutputState <= output_s4;
@@ -387,7 +478,7 @@ output_process: process(outputState, rotateIndex, tiltIndex,
       when output_s5 =>
          -- output_ssin5 <= '1';
          if output_ssout5 = '1' then
-            -- report "Entering State output_s6";         
+            report "Entering State output_s6a";         
             nextOutputState <= output_s6a;
          else
             nextOutputState <= output_s5;
@@ -397,6 +488,7 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          -- wait for single shot to trigger
          output_ssin6 <= '0';
          if(output_ssout6 = '0') then
+            report "Entering State output_s6";
             nextOutputState <= output_s6;
          else
             nextOutputState <= output_s6a;
@@ -428,8 +520,267 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          
    end process;
    
-C1_process: process(FPGA_CLK, outputState)
+space_states: process(FPGA_CLK)
    begin
+      if FPGA_CLK'event and FPGA_CLK = '1' then
+         spaceState <= nextSpaceState;
+      end if;      
+   end process;
+   
+
+space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
+   space_ssout3, space_ssout4, PW_SPACE_SOLENOID, PW_BACKSPACE_SOLENOID)
+   begin
+   
+      -- "default" values for single shot inputs.  This apparently avoids latches
+
+      space_ssin0 <= '1';
+      space_ssin1 <= '1';
+      space_ssin2 <= '1';
+      space_ssin3 <= '1';
+      space_ssin4 <= '1';
+      
+      case spaceState is
+      when space_idle =>
+         
+         if PW_SPACE_SOLENOID = '1' or
+            PW_BACKSPACE_SOLENOID = '1' then            
+            nextSpaceState <= space_s0a;
+            report "Entering State space_s0a";
+         else
+            nextSpaceState <= space_idle;             
+         end if;
+
+      when space_s0a =>
+         -- wait for single shot to trigger
+         space_ssin0 <= '0';
+         if(space_ssout0 = '0') then
+            report "Entering State space_s0";
+            nextSpaceState <= space_s0;
+         else
+            nextSpaceState <= space_s0a;
+         end if;
+      
+      when space_s0 =>
+         -- space_ssin0 <= '1';
+         if space_ssout0 = '1' then
+            report "Entering State space_s1";         
+            nextSpaceState <= space_s1a;
+         else
+            nextSpaceState <= space_s0;
+         end if;
+
+      when space_s1a =>
+         -- wait for single shot to trigger
+         space_ssin1 <= '0';
+         if(space_ssout1 = '0') then
+            nextSpaceState <= space_s1;
+         else
+            nextSpaceState <= space_s1a;
+         end if;
+
+      when space_s1 =>
+         -- space_ssin1 <= '1';
+         if space_ssout1 = '1' then
+            report "Entering State space_s2";         
+            nextSpaceState <= space_s2a;
+            -- Time to latch data before solenoids release
+            latchedSpace <= PW_SPACE_SOLENOID;
+            latchedBackspace <= PW_BACKSPACE_SOLENOID;
+         else
+            nextSpaceState <= space_s1;
+         end if;
+
+      when space_s2a =>
+         -- wait for single shot to trigger
+         space_ssin2 <= '0';
+         if(space_ssout2 = '0') then
+            nextSpaceState <= space_s2;
+         else
+            nextSpaceState <= space_s2a;
+         end if;
+
+      when space_s2 =>
+         -- space_ssin2 <= '1';
+         if space_ssout2 = '1' then
+            report "Entering State space_s3";         
+            nextSpaceState <= space_s3a;            
+         else
+            nextSpaceState <= space_s2;
+         end if;
+
+      when space_s3a =>
+         -- wait for single shot to trigger
+         space_ssin3 <= '0';
+         if(space_ssout3 = '0') then
+            nextSpaceState <= space_s3;
+         else
+            nextSpaceState <= space_s3a;
+         end if;
+
+      when space_s3 =>
+         -- space_ssin3 <= '1';
+         if space_ssout3 = '1' then
+         
+            -- Time to space or backspace or shift
+            
+            if latchedSpace = '1' then
+               report "<space>";
+            elsif latchedBackspace = '1' then
+               report "<backspace>";
+            end if;
+                     
+            report "Entering State space_s4";         
+            nextSpaceState <= space_s4a;
+         else
+            nextSpaceState <= space_s3;
+         end if;
+
+      when space_s4a =>
+         -- wait for single shot to trigger
+         space_ssin4 <= '0';
+         if(space_ssout4 = '0') then
+            nextSpaceState <= space_s4;
+         else
+            nextSpaceState <= space_s4a;
+         end if;
+
+      when space_s4 =>
+         -- space_ssin4 <= '1';
+         if space_ssout4 = '1' then
+            report "Entering State space_idle";         
+            nextSpaceState <= space_idle;
+         else
+            nextSpaceState <= space_s4;
+         end if;
+
+      end case;
+         
+   end process;
+
+
+shift_states: process(FPGA_CLK)
+   begin
+      if FPGA_CLK'event and FPGA_CLK = '1' then
+         shiftState <= nextShiftState;
+      end if;      
+   end process;
+   
+
+shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
+   shift_ssout3, PW_UPPER_CASE_SHIFT_SOLENOID, PW_LOWER_CASE_SHIFT_SOLENOID )
+   begin
+   
+      -- "default" values for single shot inputs.  This apparently avoids latches
+
+      shift_ssin0 <= '1';
+      shift_ssin1 <= '1';
+      shift_ssin2 <= '1';
+      shift_ssin3 <= '1';
+      
+      case shiftState is
+      when shift_idle =>
+         
+         if PW_UPPER_CASE_SHIFT_SOLENOID = '1' or
+            PW_LOWER_CASE_SHIFT_SOLENOID = '1' then            
+            nextShiftState <= shift_s0a;
+            report "Entering State shift_s0a";
+         else
+            nextShiftState <= shift_idle;             
+         end if;
+
+      when shift_s0a =>
+         -- wait for single shot to trigger
+         shift_ssin0 <= '0';
+         if(shift_ssout0 = '0') then
+            report "Entering State shift_s0";
+            nextShiftState <= shift_s0;
+         else
+            nextShiftState <= shift_s0a;
+         end if;
+      
+      when shift_s0 =>
+         -- shift_ssin0 <= '1';
+         if shift_ssout0 = '1' then
+            report "Entering State shift_s1";         
+            nextShiftState <= shift_s1a;
+         else
+            nextShiftState <= shift_s0;
+         end if;
+
+      when shift_s1a =>
+         -- wait for single shot to trigger
+         shift_ssin1 <= '0';
+         if(shift_ssout1 = '0') then
+            nextShiftState <= shift_s1;
+         else
+            nextShiftState <= shift_s1a;
+         end if;
+
+      when shift_s1 =>
+         -- shift_ssin1 <= '1';
+         if shift_ssout1 = '1' then
+            report "Entering State shift_s2";         
+            nextShiftState <= shift_s2a;
+            -- Time to latch data before solenoids release
+            inUpperCase <= PW_UPPER_CASE_SHIFT_SOLENOID;
+         else
+            nextShiftState <= shift_s1;
+         end if;
+
+      when shift_s2a =>
+         -- wait for single shot to trigger
+         shift_ssin2 <= '0';
+         if(shift_ssout2 = '0') then
+            nextShiftState <= shift_s2;
+         else
+            nextShiftState <= shift_s2a;
+         end if;
+
+      when shift_s2 =>
+         -- shift_ssin2 <= '1';
+         if shift_ssout2 = '1' then
+            report "Entering State shift_s3";         
+            nextShiftState <= shift_s3a;            
+         else
+            nextShiftState <= shift_s2;
+         end if;
+
+      when shift_s3a =>
+         -- wait for single shot to trigger
+         shift_ssin3 <= '0';
+         if(shift_ssout3 = '0') then
+            nextShiftState <= shift_s3;
+         else
+            nextShiftState <= shift_s3a;
+         end if;
+
+      when shift_s3 =>
+         -- shift_ssin3 <= '1';
+         if shift_ssout3 = '1' then
+         
+            -- Time to space or backspace or shift
+            
+            if latchedSpace = '1' then
+               report "<space>";
+            elsif latchedBackspace = '1' then
+               report "<backspace>";
+            end if;
+                     
+            report "Entering State shift_idle";         
+            nextShiftState <= shift_idle;
+         else
+            nextShiftState <= shift_s3;
+         end if;
+
+      end case;
+         
+   end process;
+
+   
+Output_CAM_process: process(FPGA_CLK, outputState)
+   begin
+   
    if FPGA_CLK'event and FPGA_CLK = '1' then
       if outputState = output_s3a or
          outputState = output_s3 or
@@ -440,13 +791,8 @@ C1_process: process(FPGA_CLK, outputState)
          CAM1 <= '1';
       else
          CAM1 <= '0';
-      end if;    
-   end if;
-end process;
-
-C2_process: process(FPGA_CLK, outputState)
-   begin
-   if FPGA_CLK'event and FPGA_CLK = '1' then
+      end if;
+          
       if outputState = output_s2a or
          outputState = output_s2 or 
          outputState = output_s3a or
@@ -457,7 +803,23 @@ C2_process: process(FPGA_CLK, outputState)
       else
          CAM2 <= '0';
       end if;    
+      
+      if spaceState = space_s3a or
+         spaceState = space_s3 then
+         CAM5 <= '1';
+      else
+         CAM5 <= '0';
+      end if;
+      
+      if shiftState = shift_s2a or
+         shiftState = shift_s2 then
+         CAM3_OR_4 <= '1';
+      else
+         CAM3_OR_4 <= '0';
+      end if;
+      
    end if;
+
 end process;
 
 with PW_CONS_PRINTER_R1_SOLENOID select R1Motion <=
@@ -492,12 +854,13 @@ with PW_CONS_PRINTER_T2_SOLENOID select T2Motion <=
    
 rotateIndex <= R1Motion + R2Motion + R2AMotion + R5Motion;
 tiltIndex <= T1Motion + T2Motion;
-inUpperCase <= not inLowerCase;
 
 MV_CONS_PRINTER_C1_CAM_NC <= not CAM1;
 MV_CONS_PRINTER_C1_CAM_NO <= CAM1;
 
-MV_CONS_PRINTER_C2_CAM_NC <= not CAM2;
-MV_CONS_PRINTER_C2_CAM_NO <= CAM2;
+MV_CONS_PRINTER_C2_CAM_NC <= not CAM2 and not CAM5;
+MV_CONS_PRINTER_C2_CAM_NO <= CAM2 or CAM5;
+
+MV_CONS_PRINTER_C3_OR_C4_NO <= CAM3_OR_4;
 
 end Behavioral;
