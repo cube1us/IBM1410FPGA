@@ -207,10 +207,10 @@ uut_process: process
    wait for 1us;   
    t := now;
 
-   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T0A C1 NC not 1 at start" severity error;
-   assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T0B C1 N0 not 0 at start" severity error;
-   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T0C C2 NC not 1 at start" severity error;
-   assert MV_CONS_PRINTER_C2_CAM_NO = '0' report "T0D C2 N0 not 0 at start" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T0A C1 NC not 0 at start" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '1' report "T0B C1 N0 not 1 at start" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T0C C2 NC not 0 at start" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NO = '1' report "T0D C2 N0 not 1 at start" severity error;
 
    
    PW_CONS_PRINTER_R1_SOLENOID <= '0';
@@ -221,10 +221,10 @@ uut_process: process
    PW_CONS_PRINTER_T2_SOLENOID <= '0';
    PW_CONS_PRINTER_CHK_SOLENOID <= '1';
    
-   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';
    -- report "C2 closed at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T1A C2 NO and NC both 1" severity error;
-   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T1B C1 NC open at wrong time" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T1A C2 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T1B C1 NC open at wrong time" severity error;
 
    -- At CAM 2 time, we release solenoid drivers.
 
@@ -236,28 +236,28 @@ uut_process: process
    PW_CONS_PRINTER_T2_SOLENOID <= '0';
    PW_CONS_PRINTER_CHK_SOLENOID <= '0';
    
-   wait until MV_CONS_PRINTER_C1_CAM_NO = '1';
-   -- report "C1 closed at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T1C C1 NO and NC both 1" severity error;
-   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T1D C2 NC open at wrong time" severity error;
-
-   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';
-   -- report "C2 opened at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T1E C2 NO and NC both 0" severity error;
-   assert MV_CONS_PRINTER_C1_CAM_NO = '1' report "T1F C1 NO open at wrong time" severity error;
-
    wait until MV_CONS_PRINTER_C1_CAM_NO = '0';
+   -- report "C1 closed at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T1C C1 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T1D C2 NC closed at wrong time" severity error;
+
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
+   -- report "C2 opened at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T1E C2 NO and NC both 1" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T1F C1 NO open at wrong time" severity error;
+
+   wait until MV_CONS_PRINTER_C1_CAM_NO = '1';
    -- report "C1 opened at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T1G C1 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T1G C1 NO and NC both 1" severity error;
    
    -- wait for 10ms;  -- Wait, but not so long as to make clutch disengage    
    wait for 100us; -- Wait, but not so long as to make clutch disengage
    t := now;       -- Reset base time
 
-   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T2A C1 NC not 1 at 2nd char" severity error;
-   assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T2B C1 N0 not 0 at 2nd char" severity error;
-   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T2C C2 NC not 1 at 2nd char" severity error;
-   assert MV_CONS_PRINTER_C2_CAM_NO = '0' report "T2D C2 N0 not 0 at 2nd char" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T2A C1 NC not 0 at 2nd char" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '1' report "T2B C1 N0 not 1 at 2nd char" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T2C C2 NC not 0 at 2nd char" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NO = '1' report "T2D C2 N0 not 1 at 2nd char" severity error;
 
    PW_CONS_PRINTER_R1_SOLENOID <= '0';
    PW_CONS_PRINTER_R2_SOLENOID <= '0';
@@ -267,10 +267,10 @@ uut_process: process
    PW_CONS_PRINTER_T2_SOLENOID <= '0';
    PW_CONS_PRINTER_CHK_SOLENOID <= '0';
    
-   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';
    -- report "C2 closed at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T2E C2 NO and NC both 1" severity error;
-   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T2F C1 NC open at wrong time" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T2E C2 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T2F C1 NC open at wrong time" severity error;
 
    -- At CAM 2 time, we release solenoid drivers.
 
@@ -282,63 +282,154 @@ uut_process: process
    PW_CONS_PRINTER_T2_SOLENOID <= '0';
    PW_CONS_PRINTER_CHK_SOLENOID <= '0';
    
-   wait until MV_CONS_PRINTER_C1_CAM_NO = '1';
-   -- report "C1 closed at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T2G C1 NO and NC both 1" severity error;
-   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T2H C2 NC open at wrong time" severity error;
-
-   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';
-   -- report "C2 opened at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T2I C2 NO and NC both 0" severity error;
-   assert MV_CONS_PRINTER_C1_CAM_NO = '1' report "T2J C1 NO open at wrong time" severity error;
-
    wait until MV_CONS_PRINTER_C1_CAM_NO = '0';
+   -- report "C1 closed at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T2G C1 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T2H C2 NC open at wrong time" severity error;
+
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
+   -- report "C2 opened at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T2I C2 NO and NC both 1" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T2J C1 NO open at wrong time" severity error;
+
+   wait until MV_CONS_PRINTER_C1_CAM_NO = '1';
    -- report "C1 opened at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T2K C1 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T2K C1 NO and NC both 1" severity error;
       
    wait for 100us; -- Wait, but not so long as to make clutch disengage
    t := now;       -- Reset base time
 
-   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T3A C1 NC not 1 at space" severity error;
-   assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T3B C1 N0 not 0 at space" severity error;
-   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T3C C2 NC not 1 at space" severity error;
-   assert MV_CONS_PRINTER_C2_CAM_NO = '0' report "T3D C2 N0 not 0 at space" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T3A C1 NC not 0 at space" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '1' report "T3B C1 N0 not 1 at space" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T3C C2 NC not 0 at space" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NO = '1' report "T3D C2 N0 not 1 at space" severity error;
 
    PW_SPACE_SOLENOID <= '1';
    
-   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';  -- which includes C5 - C1/C2 shaft does not move?
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';  -- which includes C5 - C1/C2 shaft does not move?
    report "C2 (C5) closed at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T3E C2 (C5) NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T3E C2 (C5) NO and NC both 0" severity error;
    
    PW_SPACE_SOLENOID <= '0';
    
-   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';  -- which includes C5 - C1/C2 shaft does not move?
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';  -- which includes C5 - C1/C2 shaft does not move?
    report "C2 (C5) opened at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T3F C2 (C5) NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T3F C2 (C5) NO and NC both 1" severity error;
    
    wait for 1ms;
 
    t := now;       -- Reset base time
 
-   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T3A C1 NC not 1 at space" severity error;
-   assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T3B C1 N0 not 0 at space" severity error;
-   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T3C C2 NC not 1 at space" severity error;
-   assert MV_CONS_PRINTER_C2_CAM_NO = '0' report "T3D C2 N0 not 0 at space" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T4A C1 NC not 0 at bspace" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '1' report "T4B C1 N0 not 1 at bspace" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T4C C2 NC not 0 at bspace" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NO = '1' report "T4D C2 N0 not 1 at bspace" severity error;
 
    PW_BACKSPACE_SOLENOID <= '1';
    
-   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';  -- which includes C5 - C1/C2 shaft does not move?
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';  -- which includes C5 - C1/C2 shaft does not move?
    report "C2 (C5) closed at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T3E C2 (C5) NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T4E C2 (C5) NO and NC both 1" severity error;
    
    PW_BACKSPACE_SOLENOID <= '0';
    
-   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';  -- which includes C5 - C1/C2 shaft does not move?
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';  -- which includes C5 - C1/C2 shaft does not move?
    report "C2 (C5) opened at " &time'image(now - t);
-   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T3F C2 (C5) NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T4F C2 (C5) NO and NC both 1" severity error;
    
-   -- Shift into upper case
+   -- Shift from lower case to upper case
    
+   t := now;       -- Reset base time
+   
+   assert MV_CONS_PRINTER_C3_OR_C4_NO = '1' report "T5A C3/C4 not 0 at shift start";
+   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '0' report "Upper Case S1 NC not 0 at shift start";
+   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '1' report "Lower Case S1 NO not 1 at shift start";
+     
+   PW_UPPER_CASE_SHIFT_SOLENOID <= '1';
+
+   -- Wait for C3 to close   
+   wait until MV_CONS_PRINTER_C3_OR_C4_NO = '0';
+   report "C3 closed at " &time'image(now - t);
+   
+   PW_UPPER_CASE_SHIFT_SOLENOID <= '0';
+
+   -- Wait for C3 to open   
+   wait until MV_CONS_PRINTER_C3_OR_C4_NO = '1';
+   report "C3 opened at " &time'image(now - t);
+
+   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '1' report "Upper Case S1 NC not 1 on UC";
+   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '0' report "Lower Case S1 NO not 0 on UC";
+   
+   -- now print an upper case F (group mark)
+   
+   t := now;
+   
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T6A C1 NC not 0 at GM" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '1' report "T6B C1 N0 not 1 at GM" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T6C C2 NC not 0 at GM" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NO = '1' report "T6D C2 N0 not 1 at BM" severity error;
+
+   PW_CONS_PRINTER_R1_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2A_SOLENOID <= '1';
+   PW_CONS_PRINTER_R5_SOLENOID <= '0';
+   PW_CONS_PRINTER_T1_SOLENOID <= '0';
+   PW_CONS_PRINTER_T2_SOLENOID <= '0';
+   PW_CONS_PRINTER_CHK_SOLENOID <= '0';
+   
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '0';
+   -- report "C2 closed at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T6E C2 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T6F C1 NC open at wrong time" severity error;
+
+   -- At CAM 2 time, we release solenoid drivers.
+
+   PW_CONS_PRINTER_R1_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2_SOLENOID <= '0';
+   PW_CONS_PRINTER_R2A_SOLENOID <= '0';
+   PW_CONS_PRINTER_R5_SOLENOID <= '0';
+   PW_CONS_PRINTER_T1_SOLENOID <= '0';
+   PW_CONS_PRINTER_T2_SOLENOID <= '0';
+   PW_CONS_PRINTER_CHK_SOLENOID <= '0';
+   
+   wait until MV_CONS_PRINTER_C1_CAM_NO = '0';
+   -- report "C1 closed at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T6G C1 NO and NC both 0" severity error;
+   assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T6H C2 NC open at wrong time" severity error;
+
+   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
+   -- report "C2 opened at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T6I C2 NO and NC both 1" severity error;
+   assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T6J C1 NO open at wrong time" severity error;
+
+   wait until MV_CONS_PRINTER_C1_CAM_NO = '1';
+   -- report "C1 opened at " &time'image(now - t);
+   assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T6K C1 NO and NC both 1" severity error;
+   
+   wait for 100 us;
+   
+   -- Shift back to lower case
+   
+   t := now;       -- Reset base time
+   
+   assert MV_CONS_PRINTER_C3_OR_C4_NO = '1' report "T7A C3/C4 not 0 at shift start";
+   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '1' report "T7B Upper Case S1 NC not 0 at shift start";
+   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '0' report "T7C Lower Case S1 NO not 1 at shift start";
+     
+   PW_LOWER_CASE_SHIFT_SOLENOID <= '1';
+
+   -- Wait for C3 to close   
+   wait until MV_CONS_PRINTER_C3_OR_C4_NO = '0';
+   report "C3 closed at " &time'image(now - t);
+   
+   PW_LOWER_CASE_SHIFT_SOLENOID <= '0';
+
+   -- Wait for C3 to open   
+   wait until MV_CONS_PRINTER_C3_OR_C4_NO = '1';
+   report "C3 opened at " &time'image(now - t);
+
+   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '0' report "T7D Upper Case S1 NC not 1 on UC";
+   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '1' report "T7E Lower Case S1 NO not 0 on UC";
    
    
    wait for 19ms;  

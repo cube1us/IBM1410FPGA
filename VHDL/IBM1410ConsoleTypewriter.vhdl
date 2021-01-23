@@ -284,7 +284,7 @@ SHIFTSS0: entity SingleShot
 );
  
 SHIFTSS1: entity SingleShot 
-   generic map(PULSETIME => 1790 * MULTIPLIER, CLOCKPERIOD => 10)
+   generic map(PULSETIME => 1250 * MULTIPLIER, CLOCKPERIOD => 10)
    port map(   
    FPGA_CLK => FPGA_CLK,
    IN1 => shift_ssin1,
@@ -292,7 +292,7 @@ SHIFTSS1: entity SingleShot
 );
 
 SHIFTSS2: entity SingleShot 
-   generic map(PULSETIME => 180 * MULTIPLIER, CLOCKPERIOD => 10)
+   generic map(PULSETIME => 3950 * MULTIPLIER, CLOCKPERIOD => 10)
    port map(   
    FPGA_CLK => FPGA_CLK,
    IN1 => shift_ssin2,
@@ -300,7 +300,7 @@ SHIFTSS2: entity SingleShot
 );
 
 SHIFTSS3: entity SingleShot 
-   generic map(PULSETIME => 2690 * MULTIPLIER, CLOCKPERIOD => 10)
+   generic map(PULSETIME => 1250 * MULTIPLIER, CLOCKPERIOD => 10)
    port map(   
    FPGA_CLK => FPGA_CLK,
    IN1 => shift_ssin3,
@@ -760,13 +760,12 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
          if shift_ssout3 = '1' then
          
             -- Time to space or backspace or shift
+            if inUpperCase = '1' then
+               report "Shifted to Upper Case";
+            else
+               report "Shifted to Lower Case";
+            end if; 
             
-            if latchedSpace = '1' then
-               report "<space>";
-            elsif latchedBackspace = '1' then
-               report "<backspace>";
-            end if;
-                     
             report "Entering State shift_idle";         
             nextShiftState <= shift_idle;
          else
@@ -855,12 +854,25 @@ with PW_CONS_PRINTER_T2_SOLENOID select T2Motion <=
 rotateIndex <= R1Motion + R2Motion + R2AMotion + R5Motion;
 tiltIndex <= T1Motion + T2Motion;
 
-MV_CONS_PRINTER_C1_CAM_NC <= not CAM1;
-MV_CONS_PRINTER_C1_CAM_NO <= CAM1;
+-- On the following signals, NC / NO refer to the state when the
+-- console selectric is IDLE.  Also, note that these are MV (-V)
+-- signals, so a NC will be a logic 0 (-V) when IDLE, and NO
+-- will be logic 1 (+V) when IDLE.  The CAM signals are active
+-- HIGH when a CAM is activated (typically while the console is
+-- BUSY.
 
-MV_CONS_PRINTER_C2_CAM_NC <= not CAM2 and not CAM5;
-MV_CONS_PRINTER_C2_CAM_NO <= CAM2 or CAM5;
+-- So, for example, CAM1 is '0' when idle, and '1' when mid cycle
+-- And the the MV C1_CAM NC is '0' (-V) when idle and '1' (open) when
+-- the CAM is active.
 
-MV_CONS_PRINTER_C3_OR_C4_NO <= CAM3_OR_4;
+MV_CONS_PRINTER_C1_CAM_NC <= CAM1;
+MV_CONS_PRINTER_C1_CAM_NO <= not CAM1;
+
+MV_CONS_PRINTER_C2_CAM_NC <= CAM2 or CAM5;
+MV_CONS_PRINTER_C2_CAM_NO <= not CAM2 and not CAM5;
+
+MV_CONS_PRINTER_C3_OR_C4_NO <= not CAM3_OR_4;
+MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC <= inUpperCase; -- lower case is "normal"
+MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO <= not inUpperCase;
 
 end Behavioral;
