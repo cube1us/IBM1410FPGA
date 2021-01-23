@@ -18,13 +18,6 @@
 -- 
 ----------------------------------------------------------------------------------
 
-
--- TODO: Input parity check
--- TODO: Space
--- TODO: Backspace
--- TODO: Carriage Return
--- TODO: Wordmark
-
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use WORK.ALL;
@@ -53,11 +46,11 @@ entity IBM1410ConsoleTypewriter is
        PW_CONS_PRINTER_T1_SOLENOID: in STD_LOGIC; --
        PW_CONS_PRINTER_T2_SOLENOID: in STD_LOGIC; --
 
-       PW_UPPER_CASE_SHIFT_SOLENOID: in STD_LOGIC;
-       PW_LOWER_CASE_SHIFT_SOLENOID: in STD_LOGIC;
-       PW_BACKSPACE_SOLENOID: in STD_LOGIC;
-       PW_SPACE_SOLENOID: in STD_LOGIC;
-       PW_CARRIAGE_RETURN_SOLENOID: in STD_LOGIC;      
+       PW_UPPER_CASE_SHIFT_SOLENOID: in STD_LOGIC; --
+       PW_LOWER_CASE_SHIFT_SOLENOID: in STD_LOGIC; --
+       PW_BACKSPACE_SOLENOID: in STD_LOGIC; --
+       PW_SPACE_SOLENOID: in STD_LOGIC; --
+       PW_CARRIAGE_RETURN_SOLENOID: in STD_LOGIC; --      
 
        MW_KEYBOARD_LOCK_SOLENOID: in STD_LOGIC;
        PW_CONS_PRINTER_CHK_SOLENOID: in STD_LOGIC; --
@@ -66,14 +59,14 @@ entity IBM1410ConsoleTypewriter is
        MV_CONS_PRINTER_C1_CAM_NC: out STD_LOGIC; --
        MV_CONS_PRINTER_C2_CAM_NC: out STD_LOGIC; --
        MV_CONS_PRINTER_C2_CAM_NO: out STD_LOGIC; --
-       MV_CONS_PRINTER_C3_OR_C4_NO: out STD_LOGIC;
+       MV_CONS_PRINTER_C3_OR_C4_NO: out STD_LOGIC; --
 
        MV_CONS_PRINTER_SPACE_NO: out STD_LOGIC;
       
-       MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC: out STD_LOGIC;
-       MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO: out STD_LOGIC;
-       MB_CONS_PRINTER_EVEN_BIT_CHECK: out STD_LOGIC;
-       MV_CONS_PRINTER_ODD_BIT_CHECK: out STD_LOGIC; 
+       MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC: out STD_LOGIC; --
+       MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO: out STD_LOGIC; --
+       MB_CONS_PRINTER_EVEN_BIT_CHECK: out STD_LOGIC; --
+       MV_CONS_PRINTER_ODD_BIT_CHECK: out STD_LOGIC; --
        MV_KEYBOARD_LOCK_MODE_STAR_NO: out STD_LOGIC;
        MV_KEYBOARD_UNLOCK_MODE: out STD_LOGIC;
       
@@ -112,6 +105,9 @@ type spaceState_type is (space_idle, space_s0, space_s0a, space_s1,
    
 type shiftState_type is (shift_idle, shift_s0, shift_s0a, shift_s1,
    shift_s1a, shift_s2, shift_s2a, shift_s3, shift_s3a);
+   
+type crState_type is (cr_idle, cr_s0, cr_s0a, cr_s1, cr_s1a,
+   cr_s2, cr_s2a);
 
 signal output_ssin0, output_ssin1, output_ssin2, output_ssin3, output_ssin4, 
    output_ssin5, output_ssin6: std_logic := '1';
@@ -126,9 +122,13 @@ signal space_ssout0, space_ssout1, space_ssout2, space_ssout3,
 signal shift_ssin0, shift_ssin1, shift_ssin2, shift_ssin3: std_logic := '1';
 signal shift_ssout0, shift_ssout1, shift_ssout2, shift_ssout3: std_logic;   
 
+signal cr_ssin0, cr_ssin1, cr_ssin2: std_logic := '1';
+signal cr_ssout0, cr_ssout1, cr_ssout2: std_logic;
+
 signal outputState, nextOutputState: outputState_type := output_idle;
 signal spaceState, nextSpaceState: spaceState_type := space_idle;
 signal shiftState, nextShiftState: shiftState_type := shift_idle;
+signal crState, nextCrState: crState_type := cr_idle;
 
  -- For rotateIndex, 0 is 5 units CW (-5), 10 is 5 units CCW (+5)
 signal rotateIndex, latchedRotateIndex: integer range 0 to 10 := 5;
@@ -147,6 +147,7 @@ signal T1Motion: integer range 0 to 1;
 signal T2Motion: integer range 0 to 2;
 signal printChar: character;
 
+signal output_parity: std_logic;
 
 type GolfballTilt is array (0 to 10) of character;
 
@@ -175,7 +176,7 @@ constant Golfball_LC_Tilt3: GolfballTilt :=
  ('A', 'C', 'E', 'G', 'H', '?', 'B', 'D', 'F', 'I', '.');
 
 
-signal CAM1, CAM2, CAM3_OR_4, CAM5: std_logic := '0';
+signal CAM1, CAM2, CAM3_OR_4, CAM5, CR_INTERLOCK: std_logic := '0';
 
 begin
 
@@ -307,6 +308,30 @@ SHIFTSS3: entity SingleShot
    OUT1 => shift_ssout3
 );
 
+CRSS0: entity SingleShot 
+   -- 7ms initial + 51.9ms
+   generic map(PULSETIME => 5890 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => cr_ssin0,
+   OUT1 => cr_ssout0
+);
+ 
+CRSS1: entity SingleShot 
+   generic map(PULSETIME => 10000 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => cr_ssin1,
+   OUT1 => cr_ssout1
+);
+
+CRSS2: entity SingleShot 
+   generic map(PULSETIME => 3950 * MULTIPLIER, CLOCKPERIOD => 10)
+   port map(   
+   FPGA_CLK => FPGA_CLK,
+   IN1 => cr_ssin2,
+   OUT1 => cr_ssout2
+);
 
 output_states: process(FPGA_CLK)
    begin
@@ -316,9 +341,12 @@ output_states: process(FPGA_CLK)
    end process;
    
 
-output_process: process(outputState, rotateIndex, tiltIndex,
+output_process: process(outputState, -- rotateIndex, tiltIndex,
    output_ssout0, output_ssout1, output_ssout2, output_ssout3, output_ssout4, 
-   output_ssout5, output_ssout6)
+   output_ssout5, output_ssout6, PW_CONS_PRINTER_R1_SOLENOID, 
+   PW_CONS_PRINTER_R2_SOLENOID, PW_CONS_PRINTER_R2A_SOLENOID, 
+   PW_CONS_PRINTER_R5_SOLENOID, PW_CONS_PRINTER_T1_SOLENOID,
+   PW_CONS_PRINTER_T2_SOLENOID, PW_CONS_PRINTER_CHK_SOLENOID)
    begin
    
       -- "default" values for single shot inputs.  This apparently avoids latches
@@ -439,8 +467,8 @@ output_process: process(outputState, rotateIndex, tiltIndex,
             -- Time to print the character
             
             report "Print char: /" & character'image(printChar) & "/";
-            report "Rotate Index: " & integer'image(latchedRotateIndex) & 
-               ", Tilt Index: " & integer'image(latchedTiltIndex);
+            -- report "Rotate Index: " & integer'image(latchedRotateIndex) & 
+               -- ", Tilt Index: " & integer'image(latchedTiltIndex);
                      
             -- report "Entering State output_s4";         
             nextOutputState <= output_s4a;
@@ -460,7 +488,7 @@ output_process: process(outputState, rotateIndex, tiltIndex,
       when output_s4 =>
          -- output_ssin4 <= '1';
          if output_ssout4 = '1' then
-            report "Entering State output_s5";         
+            -- report "Entering State output_s5";         
             nextOutputState <= output_s5a;
          else
             nextOutputState <= output_s4;
@@ -478,7 +506,7 @@ output_process: process(outputState, rotateIndex, tiltIndex,
       when output_s5 =>
          -- output_ssin5 <= '1';
          if output_ssout5 = '1' then
-            report "Entering State output_s6a";         
+            -- report "Entering State output_s6a";         
             nextOutputState <= output_s6a;
          else
             nextOutputState <= output_s5;
@@ -488,7 +516,7 @@ output_process: process(outputState, rotateIndex, tiltIndex,
          -- wait for single shot to trigger
          output_ssin6 <= '0';
          if(output_ssout6 = '0') then
-            report "Entering State output_s6";
+            -- report "Entering State output_s6";
             nextOutputState <= output_s6;
          else
             nextOutputState <= output_s6a;
@@ -546,7 +574,7 @@ space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
          if PW_SPACE_SOLENOID = '1' or
             PW_BACKSPACE_SOLENOID = '1' then            
             nextSpaceState <= space_s0a;
-            report "Entering State space_s0a";
+            -- report "Entering State space_s0a";
          else
             nextSpaceState <= space_idle;             
          end if;
@@ -555,7 +583,7 @@ space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
          -- wait for single shot to trigger
          space_ssin0 <= '0';
          if(space_ssout0 = '0') then
-            report "Entering State space_s0";
+            -- report "Entering State space_s0";
             nextSpaceState <= space_s0;
          else
             nextSpaceState <= space_s0a;
@@ -564,7 +592,7 @@ space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
       when space_s0 =>
          -- space_ssin0 <= '1';
          if space_ssout0 = '1' then
-            report "Entering State space_s1";         
+            -- report "Entering State space_s1";         
             nextSpaceState <= space_s1a;
          else
             nextSpaceState <= space_s0;
@@ -582,7 +610,7 @@ space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
       when space_s1 =>
          -- space_ssin1 <= '1';
          if space_ssout1 = '1' then
-            report "Entering State space_s2";         
+            -- report "Entering State space_s2";         
             nextSpaceState <= space_s2a;
             -- Time to latch data before solenoids release
             latchedSpace <= PW_SPACE_SOLENOID;
@@ -603,7 +631,7 @@ space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
       when space_s2 =>
          -- space_ssin2 <= '1';
          if space_ssout2 = '1' then
-            report "Entering State space_s3";         
+            -- report "Entering State space_s3";         
             nextSpaceState <= space_s3a;            
          else
             nextSpaceState <= space_s2;
@@ -630,7 +658,7 @@ space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
                report "<backspace>";
             end if;
                      
-            report "Entering State space_s4";         
+            -- report "Entering State space_s4";         
             nextSpaceState <= space_s4a;
          else
             nextSpaceState <= space_s3;
@@ -684,7 +712,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
          if PW_UPPER_CASE_SHIFT_SOLENOID = '1' or
             PW_LOWER_CASE_SHIFT_SOLENOID = '1' then            
             nextShiftState <= shift_s0a;
-            report "Entering State shift_s0a";
+            -- report "Entering State shift_s0a";
          else
             nextShiftState <= shift_idle;             
          end if;
@@ -693,7 +721,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
          -- wait for single shot to trigger
          shift_ssin0 <= '0';
          if(shift_ssout0 = '0') then
-            report "Entering State shift_s0";
+            -- report "Entering State shift_s0";
             nextShiftState <= shift_s0;
          else
             nextShiftState <= shift_s0a;
@@ -702,7 +730,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
       when shift_s0 =>
          -- shift_ssin0 <= '1';
          if shift_ssout0 = '1' then
-            report "Entering State shift_s1";         
+            -- report "Entering State shift_s1";         
             nextShiftState <= shift_s1a;
          else
             nextShiftState <= shift_s0;
@@ -720,7 +748,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
       when shift_s1 =>
          -- shift_ssin1 <= '1';
          if shift_ssout1 = '1' then
-            report "Entering State shift_s2";         
+            -- report "Entering State shift_s2";         
             nextShiftState <= shift_s2a;
             -- Time to latch data before solenoids release
             inUpperCase <= PW_UPPER_CASE_SHIFT_SOLENOID;
@@ -740,7 +768,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
       when shift_s2 =>
          -- shift_ssin2 <= '1';
          if shift_ssout2 = '1' then
-            report "Entering State shift_s3";         
+            -- report "Entering State shift_s3";         
             nextShiftState <= shift_s3a;            
          else
             nextShiftState <= shift_s2;
@@ -770,6 +798,95 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
             nextShiftState <= shift_idle;
          else
             nextShiftState <= shift_s3;
+         end if;
+
+      end case;
+         
+   end process;
+
+cr_states: process(FPGA_CLK)
+   begin
+      if FPGA_CLK'event and FPGA_CLK = '1' then
+         crState <= nextCrState;
+      end if;      
+   end process;
+   
+
+cr_process: process(crState, cr_ssout0, cr_ssout1, cr_ssout2,
+   PW_CARRIAGE_RETURN_SOLENOID)
+   begin
+   
+      -- "default" values for single shot inputs.  This apparently avoids latches
+
+      cr_ssin0 <= '1';
+      cr_ssin1 <= '1';
+      cr_ssin2 <= '1';
+      
+      case crState is
+      when cr_idle =>
+         
+         if PW_CARRIAGE_RETURN_SOLENOID = '1' then            
+            nextCrState <= cr_s0a;
+            -- report "Entering State cr_s0a";
+         else
+            nextCrState <= cr_idle;             
+         end if;
+
+      when cr_s0a =>
+         -- wait for single shot to trigger
+         cr_ssin0 <= '0';
+         if(cr_ssout0 = '0') then
+            -- report "Entering State cr_s0";
+            nextCrState <= cr_s0;
+         else
+            nextCrState <= cr_s0a;
+         end if;
+      
+      when cr_s0 =>
+         -- cr_ssin0 <= '1';
+         if cr_ssout0 = '1' then
+            -- report "Entering State cr_s1";         
+            nextCrState <= cr_s1a;
+            report "<Carriage Return>";                        
+         else
+            nextCrState <= cr_s0;
+         end if;
+
+      when cr_s1a =>
+         -- wait for single shot to trigger
+         cr_ssin1 <= '0';
+         if(cr_ssout1 = '0') then
+            nextCrState <= cr_s1;
+         else
+            nextCrState <= cr_s1a;
+         end if;
+
+      when cr_s1 =>
+         -- cr_ssin1 <= '1';
+         if cr_ssout1 = '1' then
+            -- report "Entering State cr_s2";         
+            nextCrState <= cr_s2a;
+         else
+            nextCrState <= cr_s1;
+         end if;
+
+      when cr_s2a =>
+         -- wait for single shot to trigger
+         cr_ssin2 <= '0';
+         if(cr_ssout2 = '0') then
+            nextCrState <= cr_s2;
+         else
+            nextCrState <= cr_s2a;
+         end if;
+
+      when cr_s2 =>
+         -- cr_ssin3 <= '1';
+         if cr_ssout2 = '1' then
+         
+            report "Entering State cr_idle";         
+            nextCrState <= cr_idle;
+         else
+            nextCrState <= cr_s2;
          end if;
 
       end case;
@@ -815,6 +932,15 @@ Output_CAM_process: process(FPGA_CLK, outputState)
          CAM3_OR_4 <= '1';
       else
          CAM3_OR_4 <= '0';
+      end if;
+      
+      if crState = cr_s1a or
+         crState = cr_s1 or
+         crState = cr_s2a or
+         crState = cr_s2 then
+         CR_INTERLOCK <= '1';
+      else
+         CR_INTERLOCK <= '0';
       end if;
       
    end if;
@@ -868,11 +994,25 @@ tiltIndex <= T1Motion + T2Motion;
 MV_CONS_PRINTER_C1_CAM_NC <= CAM1;
 MV_CONS_PRINTER_C1_CAM_NO <= not CAM1;
 
-MV_CONS_PRINTER_C2_CAM_NC <= CAM2 or CAM5;
-MV_CONS_PRINTER_C2_CAM_NO <= not CAM2 and not CAM5;
+MV_CONS_PRINTER_C2_CAM_NC <= CAM2 or CAM5 or CR_INTERLOCK;
+MV_CONS_PRINTER_C2_CAM_NO <= not CAM2 and not CAM5 and not CR_INTERLOCK;
 
 MV_CONS_PRINTER_C3_OR_C4_NO <= not CAM3_OR_4;
 MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC <= inUpperCase; -- lower case is "normal"
 MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO <= not inUpperCase;
 
+-- ODD parity - but MB/MV signals are active LOW
+
+output_parity <=
+   PW_CONS_PRINTER_R1_SOLENOID xor      
+   PW_CONS_PRINTER_R2_SOLENOID xor     
+   PW_CONS_PRINTER_R2A_SOLENOID xor
+   PW_CONS_PRINTER_R5_SOLENOID xor
+   PW_CONS_PRINTER_T1_SOLENOID xor
+   PW_CONS_PRINTER_T2_SOLENOID xor
+   PW_CONS_PRINTER_CHK_SOLENOID;
+
+MV_CONS_PRINTER_ODD_BIT_CHECK <= not output_parity;
+MB_CONS_PRINTER_EVEN_BIT_CHECK <= output_parity;
+   
 end Behavioral;
