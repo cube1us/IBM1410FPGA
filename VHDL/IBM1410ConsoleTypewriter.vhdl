@@ -152,22 +152,22 @@ signal output_parity: std_logic;
 type GolfballTilt is array (0 to 10) of character;
 
 constant Golfball_UC_Tilt0: GolfballTilt :=
- ('s', 's', '@', '>', 's', 'b', 's', ':', 'q', 's', '_');
+ ('?', '?', '@', '>', '?', 'c', '?', ':', '?', '?', '_'); -- b blank, radical
  
 constant Golfball_UC_Tilt1: GolfballTilt :=
- ('s', 's', '%', '\', 's', 'a', 's', '~', 'h', 's', 's');
+ ('?', '?', '%', '\', '?', 'b', '?', '~', '?', '?', '?'); -- Segment mk
 
 constant Golfball_UC_Tilt2: GolfballTilt :=
- ('s', 's', '*', ';', 's', '-', 's', ']', '^', 's', 's');
+ ('?', '?', '*', ';', '?', '-', '?', ']', 'd', '?', '?'); -- delta (0177 in 1410 font)
 
 constant Golfball_UC_Tilt3: GolfballTilt :=
- ('s', 's', 'l', '<', 's', '&', 's', '[', 'g', 's', 'w');
+ ('?', '?', 'l', '<', '?', '&', '?', '[', '?', '?', 'v'); -- group mark, word mark
  
 constant Golfball_LC_Tilt0: GolfballTilt :=
  ('1', '3', '5', '7', '8', '0', '2', '4', '6', '9', '#');
  
 constant Golfball_LC_Tilt1: GolfballTilt :=
- ('/', 'T', 'V', 'X', 'Y', 'r', 'S', 'U', 'W', 'Z', ',');
+ ('/', 'T', 'V', 'X', 'Y', '|', 'S', 'U', 'W', 'Z', ','); -- record mark
 
 constant Golfball_LC_Tilt2: GolfballTilt :=
  ('J', 'L', 'N', 'P', 'Q', '!', 'K', 'M', 'O', 'R', '$');
