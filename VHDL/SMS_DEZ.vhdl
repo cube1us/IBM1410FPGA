@@ -57,24 +57,32 @@ begin
 
     SMS_DEZ_PROCESS: process(FPGA_CLK, ACSET, DCSET, DCRESET, DCRFORCE, DCSFORCE)
         begin
-        if(DCRESET = '0' OR DCRFORCE = '1') then
-            OUTOFF <= '1';
-            OUTON <= '0';
-        elsif(DCSET = '0' OR DCSFORCE = '1') then
-            OUTON <= '1';
-            OUTOFF <= '0';
-        elsif(rising_edge(FPGA_CLK)) then
-            SSTAGE1 <= ACSET;
-            SSTAGE2 <= SSTAGE1;
-            SSTAGE3 <= SSTAGE2;
-            if(GATEON = '1' AND SSTAGE2 = '1' AND 
-               SSTAGE1 = '1' AND SSTAGE3 = '0') then
-                OUTON <= '1';
-                OUTOFF <= '0';
-            elsif(GATEOFF = '1' AND SSTAGE2 = '1' AND
+        if(rising_edge(FPGA_CLK)) then
+           if(DCRESET = '0' OR DCRFORCE = '1') then
+              OUTOFF <= '1';
+              OUTON <= '0';
+              SSTAGE1 <= ACSET;
+              SSTAGE2 <= ACSET;
+              SSTAGE3 <= ACSET;
+           elsif(DCSET = '0' OR DCSFORCE = '1') then
+              OUTON <= '1';
+              OUTOFF <= '0';
+              SSTAGE1 <= ACSET;
+              SSTAGE2 <= ACSET;
+              SSTAGE3 <= ACSET;
+           else
+              SSTAGE1 <= ACSET;
+              SSTAGE2 <= SSTAGE1;
+              SSTAGE3 <= SSTAGE2;
+              if(GATEON = '1' AND SSTAGE2 = '1' AND 
                 SSTAGE1 = '1' AND SSTAGE3 = '0') then
-                OUTOFF <= '1';
-                OUTON <= '0';               
+                  OUTON <= '1';
+                  OUTOFF <= '0';
+                elsif(GATEOFF = '1' AND SSTAGE2 = '1' AND
+                  SSTAGE1 = '1' AND SSTAGE3 = '0') then
+                   OUTOFF <= '1';
+                   OUTON <= '0';               
+               end if;
             end if;
         end if;
         end process;
