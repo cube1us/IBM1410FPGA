@@ -18,6 +18,25 @@
 -- 
 ----------------------------------------------------------------------------------
 
+-- TODOs
+-- Input character strobe (from uart) / character available (internal)
+-- Input character (from uart)
+
+-- Output max column signal (last column set)
+-- Output character strobe (for uart)
+-- Output character (for uart)
+
+-- Output inquiry request key (based on character input)
+-- Output Inquiry release key ( " )
+-- Output Inquiry cancel key ( " )
+-- Output Wordmark (tab) key ( " )
+-- Output Space bar key ( " )
+-- Output bits to CPU: BA8421
+-- Output Keyboard lock mode
+
+-- What is -V CONS INPUT*CHK OP
+
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use WORK.ALL;
@@ -52,7 +71,7 @@ entity IBM1410ConsoleTypewriter is
        PW_SPACE_SOLENOID: in STD_LOGIC; --
        PW_CARRIAGE_RETURN_SOLENOID: in STD_LOGIC; --      
 
-       MW_KEYBOARD_LOCK_SOLENOID: in STD_LOGIC;
+       MW_KEYBOARD_LOCK_SOLENOID: in STD_LOGIC; --
        PW_CONS_PRINTER_CHK_SOLENOID: in STD_LOGIC; --
       
        MV_CONS_PRINTER_C1_CAM_NO: out STD_LOGIC; --
@@ -67,8 +86,8 @@ entity IBM1410ConsoleTypewriter is
        MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO: out STD_LOGIC; --
        MB_CONS_PRINTER_EVEN_BIT_CHECK: out STD_LOGIC; --
        MV_CONS_PRINTER_ODD_BIT_CHECK: out STD_LOGIC; --
-       MV_KEYBOARD_LOCK_MODE_STAR_NO: out STD_LOGIC;
-       MV_KEYBOARD_UNLOCK_MODE: out STD_LOGIC;
+       MV_KEYBOARD_LOCK_MODE_STAR_NO: out STD_LOGIC; --
+       MV_KEYBOARD_UNLOCK_MODE: out STD_LOGIC; --
       
        MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO: out STD_LOGIC;
        MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO: out STD_LOGIC;
@@ -94,6 +113,8 @@ architecture Behavioral of IBM1410ConsoleTypewriter is
 --      OUT1: out STD_LOGIC
 --   );
 --end component;
+
+constant MAX_COLUMN: integer := 80;
 
 type outputState_type is (output_idle, output_s0, output_s0a, output_s1, 
    output_s1a, output_s2, output_s2a, output_s3, output_s3a, output_s4, 
@@ -138,6 +159,7 @@ signal latchedSpace: std_logic := '0';
 signal latchedBackspace: std_logic := '0';
 signal latchedCarriageReturn: std_logic := '0';
 signal inUpperCase: std_logic := '0';  -- Default is upper case.
+signal currentColumn: integer range 1 to 81 := 1;
 
 signal R1Motion: integer range 0 to 1;
 signal R2Motion: integer range 0 to 2;
@@ -469,6 +491,10 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
             report "Print char: /" & character'image(printChar) & "/";
             -- report "Rotate Index: " & integer'image(latchedRotateIndex) & 
                -- ", Tilt Index: " & integer'image(latchedTiltIndex);
+               
+            if(currentColumn < 80) then
+               currentColumn <= currentColumn + 1;
+            end if;
                      
             -- report "Entering State output_s4";         
             nextOutputState <= output_s4a;
@@ -654,8 +680,14 @@ space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
             
             if latchedSpace = '1' then
                report "<space>";
-            elsif latchedBackspace = '1' then
+               if(currentColumn < 80) then
+                  currentColumn <= currentColumn + 1;
+               end if;
+            elsif latchedBackspace = '1' then               
                report "<backspace>";
+               if(currentColumn > 1) then
+                  currentColumn <= currentColumn -1;
+               end if;
             end if;
                      
             -- report "Entering State space_s4";         
@@ -847,7 +879,8 @@ cr_process: process(crState, cr_ssout0, cr_ssout1, cr_ssout2,
          if cr_ssout0 = '1' then
             -- report "Entering State cr_s1";         
             nextCrState <= cr_s1a;
-            report "<Carriage Return>";                        
+            report "<Carriage Return>";
+            currentColumn <= 0;                        
          else
             nextCrState <= cr_s0;
          end if;
@@ -943,6 +976,12 @@ Output_CAM_process: process(FPGA_CLK, outputState)
          CR_INTERLOCK <= '0';
       end if;
       
+      if(currentColumn = 80) then
+         MV_CONS_PRINTER_LAST_COLUMN_SET <= '0';
+      else
+         MV_CONS_PRINTER_LAST_COLUMN_SET <= '1';
+      end if;         
+      
    end if;
 
 end process;
@@ -998,8 +1037,13 @@ MV_CONS_PRINTER_C2_CAM_NC <= CAM2 or CAM5 or CR_INTERLOCK;
 MV_CONS_PRINTER_C2_CAM_NO <= not CAM2 and not CAM5 and not CR_INTERLOCK;
 
 MV_CONS_PRINTER_C3_OR_C4_NO <= not CAM3_OR_4;
-MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC <= inUpperCase; -- lower case is "normal"
-MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO <= not inUpperCase;
+
+-- In the names below, the NC/NO are misleading. 
+-- MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC is 0 when in upper case, and
+-- MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO is 0 when in lower case.
+
+MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC <= not inUpperCase;
+MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO <= inUpperCase;
 
 -- ODD parity - but MB/MV signals are active LOW
 
@@ -1014,5 +1058,30 @@ output_parity <=
 
 MV_CONS_PRINTER_ODD_BIT_CHECK <= not output_parity;
 MB_CONS_PRINTER_EVEN_BIT_CHECK <= output_parity;
+
+-- Page 45.50.07.1 shows the signal -W KEYBOARD_LOCK_SOLENOID
+-- shows this as -W, but the console sheet 40.30.01.1 shows this as
+-- +W   The console sheet and signal names for the locks show the
+-- -V lock mode signal as Normally Open
+
+-- The I/O Printers Fundamentals manual indicates that the lock
+-- solenoid is energized to UNLOCK the keyboard. (this is correct)
+
+-- Looking at the schematic, it is clear that a positive voltage will
+-- activate the lock solenoid.  Also looking at the schematic the NC
+-- "unlock" contact is the lower (energized) contact.
+
+-- Looking at a waveform during simulation, when +S Keyboard Unlock is
+-- normally 0 (not active) -W Keyboard Lock Solenoid is 0 (active).
+-- BUT, if we suppose this means that +W on this line UNLOCKS the 
+-- keyboard, that makes sense.
+
+-- In the end, when looking at the 1410 CPU side, it turns out that
+-- MV_KEYBOARD_UNLOCK_MODE is 0 when the keyboard is unlocked and
+-- MV_KEYBOARD_LOCK_MODE_STAR_NO is 0 when the keyboard is locked
+-- (Which makes the "NO" part of that name somewhat misleading)
+
+MV_KEYBOARD_LOCK_MODE_STAR_NO <= MW_KEYBOARD_LOCK_SOLENOID;
+MV_KEYBOARD_UNLOCK_MODE <= not MW_KEYBOARD_LOCK_SOLENOID;
    
 end Behavioral;

@@ -342,8 +342,8 @@ uut_process: process
    t := now;       -- Reset base time
    
    assert MV_CONS_PRINTER_C3_OR_C4_NO = '1' report "T5A C3/C4 not 0 at shift start";
-   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '0' report "Upper Case S1 NC not 0 at shift start";
-   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '1' report "Lower Case S1 NO not 1 at shift start";
+   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '1' report "Upper Case S1 NC not 1 at shift start";
+   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '0' report "Lower Case S1 NO not 0 at shift start";
      
    PW_UPPER_CASE_SHIFT_SOLENOID <= '1';
 
@@ -357,8 +357,8 @@ uut_process: process
    wait until MV_CONS_PRINTER_C3_OR_C4_NO = '1';
    -- report "C3 opened at " &time'image(now - t);
 
-   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '1' report "Upper Case S1 NC not 1 on UC";
-   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '0' report "Lower Case S1 NO not 0 on UC";
+   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '0' report "Upper Case S1 NC not 0 on UC";
+   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '1' report "Lower Case S1 NO not 1 on UC";
    
    -- now print an upper case F (group mark)
    
@@ -462,8 +462,8 @@ uut_process: process
    t := now;       -- Reset base time
    
    assert MV_CONS_PRINTER_C3_OR_C4_NO = '1' report "T8A C3/C4 not 0 at shift start";
-   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '1' report "T8B Upper Case S1 NC not 0 at shift start";
-   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '0' report "T8C Lower Case S1 NO not 1 at shift start";
+   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '0' report "T8B Upper Case S1 NC not 0 at shift start";
+   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '1' report "T8C Lower Case S1 NO not 1 at shift start";
      
    PW_LOWER_CASE_SHIFT_SOLENOID <= '1';
 
@@ -477,8 +477,8 @@ uut_process: process
    wait until MV_CONS_PRINTER_C3_OR_C4_NO = '1';
    -- report "C3 opened at " &time'image(now - t);
 
-   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '0' report "T8D Upper Case S1 NC not 1 on UC";
-   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '1' report "T8E Lower Case S1 NO not 0 on UC";
+   assert MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC = '1' report "T8D Upper Case S1 NC not 1 on LC";
+   assert MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO = '0' report "T8E Lower Case S1 NO not 0 on LC";
    
    wait for 100 us;
    
