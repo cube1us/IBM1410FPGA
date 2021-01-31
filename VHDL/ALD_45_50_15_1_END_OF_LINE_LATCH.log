@@ -1,5 +1,4 @@
-Generating HDL for page 45.50.15.1 END OF LINE LATCH at 11/18/2020 4:48:44 PM
-Old test bench file ALD_45_50_15_1_END_OF_LINE_LATCH_tb.vhdl 150 lines preserved and 35 declaration lines preserved
+Generating HDL for page 45.50.15.1 END OF LINE LATCH at 1/27/2021 2:27:38 PM
 NOTE: Special signal GROUND removed from sheet inputs list.
 Found combinatorial loop (need D FF) at output of gate at 5A
 Found combinatorial loop (need D FF) at output of gate at 4A
@@ -14,11 +13,12 @@ Ignoring Logic Block 4F with symbol CAP
 Removed 4 outputs from Gate at 2A to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 1A to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 5E to ignored block(s) or identical signal names
+WARNING: Block at 4A connection to input pin G -- pin is not defined for this gate.
 Generating Statement for block at 5A with *latched* output pin(s) of OUT_5A_C_Latch
 	and inputs of PS_CONS_CYCLE_LATCH_SET,OUT_2C_D
 	and logic function of NAND
 Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_NoPin_Latch, OUT_4A_NoPin_Latch
-	and inputs of OUT_5A_C,OUT_3A_F
+	and inputs of OUT_5A_C,OUT_3A_F,MS_PROGRAM_RESET_4
 	and logic function of NAND
 Generating Statement for block at 3A with *latched* output pin(s) of OUT_3A_F_Latch, OUT_3A_F_Latch
 	and inputs of OUT_4A_NoPin,OUT_4B_C,OUT_4D_E
