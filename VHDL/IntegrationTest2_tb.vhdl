@@ -1167,7 +1167,7 @@ architecture behavioral of IntegrationTest2_tb is
 	signal SWITCH_MOM_CE_STOP_SW_PL1: STD_LOGIC := '0';
 	signal SWITCH_TOG_I_O_CHK_ST_PL1: STD_LOGIC := '0';
 	signal SWITCH_TOG_ADDR_STOP_PL1: STD_LOGIC := '0';
-	signal SWITCH_REL_PWR_ON_RST: STD_LOGIC := '0';
+	signal SWITCH_REL_PWR_ON_RST: STD_LOGIC := '1';
 	signal SWITCH_MOM_CO_CPR_RST: STD_LOGIC := '0';
 	signal SWITCH_MOM_CE_CPR_RST: STD_LOGIC := '0';
 	signal SWITCH_MOM_PROG_RESET: STD_LOGIC := '0';
@@ -1777,8 +1777,10 @@ architecture behavioral of IntegrationTest2_tb is
 
 
 --   -- Your test bench declarations go here
+
    signal MS_COMPUTER_RESET: std_logic := '1';
    signal MS_PROGRAM_RESET: std_logic := '1';
+   signal unlatchedConsoleParity: std_logic := '0';
 
 ---- END USER TEST BENCH DECLARATIONS
 
@@ -2642,8 +2644,8 @@ memory: IBM1410Memory
    Port map(
       FPGA_CLK => FPGA_CLK,
       MY_X_RD_1 => MY_X_RD_1,
-      -- MY_X_WR_1 => MY_X_WR_1, -- disable writes for now
-      MY_X_WR_1 => '1',
+      MY_X_WR_1 => MY_X_WR_1, 
+      -- MY_X_WR_1 => '1',  -- disable writes for now
       MY_MEM_AR_NOT_UP_BUS => MY_MEM_AR_NOT_UP_BUS,
       MY_MEM_AR_NOT_TP_BUS => MY_MEM_AR_NOT_TP_BUS,
       MY_MEM_AR_NOT_HP_BUS => MY_MEM_AR_NOT_HP_BUS,
@@ -2739,9 +2741,22 @@ fpga_clk_process: process
 
    SWITCH_ROT_MODE_SW_DK1 <= SWITCH_ROT_MODE_SW_DK;
    
-   MV_CONS_PRINTER_C2_CAM_NO <= not MV_CONS_PRINTER_C2_CAM_NC;
-   MV_CONS_PRINTER_C1_CAM_NO <= not MV_CONS_PRINTER_C1_CAM_NC;
-
+   -- MV_CONS_PRINTER_C2_CAM_NO <= not MV_CONS_PRINTER_C2_CAM_NC;
+   -- MV_CONS_PRINTER_C1_CAM_NO <= not MV_CONS_PRINTER_C1_CAM_NC;
+   
+   -- Parity should be odd.  These signals are active LOW
+   -- Valid any time solenoids are active (or not).
+   
+   unlatchedConsoleParity <=
+      PW_CONS_PRINTER_R1_SOLENOID xor
+      PW_CONS_PRINTER_R2_SOLENOID xor
+      PW_CONS_PRINTER_R2A_SOLENOID xor
+      PW_CONS_PRINTER_R5_SOLENOID xor
+      PW_CONS_PRINTER_T1_SOLENOID xor
+      PW_CONS_PRINTER_T2_SOLENOID xor
+      PW_CONS_PRINTER_CHK_SOLENOID;
+   
+         
 ----   
 
 ---- Place your test bench code in the uut_process
@@ -2753,10 +2768,38 @@ uut_process: process
 
    begin
    
-   MV_CONS_PRINTER_C2_CAM_NC <= '1';
-   MV_CONS_PRINTER_C1_CAM_NC <= '1';
-   SWITCH_MOM_STARTPRINT <= '1';  -- This switch is "backwards"
+   -- This signal is also connected to the relay drivers, so must be '1'
+   -- ("OR" is really a "+" as in "12V")
+   
+   PP_SPECIAL_OR_12V_POWER_FOR_OSC <= '1';
+   
+   -- Make sure the console shows as idle
+   
+   MV_CONS_PRINTER_C2_CAM_NC <= '0';
+   MV_CONS_PRINTER_C2_CAM_NO <= '1';
+   MV_CONS_PRINTER_C1_CAM_NC <= '0';
+   MV_CONS_PRINTER_C1_CAM_NO <= '1';
+   
+   -- Make sure console shows as being in lower case
+   -- As with lock/unlock below, the NC/NO part seems to be misleading...   
+   
+   MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC <= '1';
+   MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO <= '0';
+   
+   -- These signals are most easily understood by ignoring the
+   -- NO notation, and just looking at the names.  Thus 
+   -- MV_KEYBOARD_UNLOCK_MODE is 0 when the keyboard is unlocked and
+   -- MV_KEYBOARD_LOCK_MODE_STAR_NO is 1 when the keyboard is locked
+   
+   MV_KEYBOARD_UNLOCK_MODE <= '1';  -- Normally closed (locked)
+   MV_KEYBOARD_LOCK_MODE_STAR_NO <= '0';  -- Normally open (locked)
+   
+   -- Console check output reflects inputs
+      
+   -- Test BenchVHDL for IBM SMS ALD group IntegrationTest2
 
+   
+   SWITCH_MOM_STARTPRINT <= '1';  -- This switch is "backwards"
       
    SWITCH_ROT_STOR_SCAN_DK1 <= "0000000001000";  -- Storage Scan Off
    
@@ -2770,13 +2813,13 @@ uut_process: process
    
    -- Initialize RAM
    
-   wait for 30 ns;  -- Otherwise the power on reset doesn't work right.
-   SWITCH_REL_PWR_ON_RST <= '0';
-   wait for 1 ms;
-   SWITCH_REL_PWR_ON_RST <= '1';
+   -- wait for 30 ns;  -- Otherwise the power on reset doesn't work right.
+   -- SWITCH_REL_PWR_ON_RST <= '0';
+   -- wait for 1 ms;
+   -- SWITCH_REL_PWR_ON_RST <= '1';
    wait for 500 us;   
    SWITCH_REL_PWR_ON_RST <= '0';
-   wait for 30 ms;
+   wait for 21 ms;
    
 --   SWITCH_MOM_CO_CPR_RST <= '1';
 --   wait for 500 us;
@@ -2784,11 +2827,103 @@ uut_process: process
 --   wait for 30 ms;   
       
    SWITCH_MOM_CONS_START <= '1';
-   wait for 1 ms;
+   report "Pressed Start";
+   wait for 5 us;  -- Normally we'd wait longer
    SWITCH_MOM_CONS_START <= '0';
-   wait for 50 us;
+   wait for 5 us; -- Normally this would take longer
+   report "Start released";
+   
+   -- Stop printout - starts with CR
+   
+   wait until PW_CARRIAGE_RETURN_SOLENOID = '1';
+   report "Starting Carriage Return";
+   wait for 520 us;  -- This would normally be 52 ms
+   MV_CONS_PRINTER_C2_CAM_NC <= '1';
+   MV_CONS_PRINTER_C2_CAM_NO <= '0';
+   
+   wait until PW_CARRIAGE_RETURN_SOLENOID = '0';
+   wait for 520 us;  -- This would normally be 52 ms
+   MV_CONS_PRINTER_C2_CAM_NC <= '0';
+   MV_CONS_PRINTER_C2_CAM_NO <= '1';  
+   report "Stop PO Carriage Return Complete";
+   
+   -- wait for 520 us;  (Wait for T2 solenoid instead)
+      
+   -- Then we get an "S"
+   
+   wait until PW_CONS_PRINTER_T2_SOLENOID = '1';
+   wait for 1 us; -- This would normally be 1 ms;
+   assert PW_CONS_PRINTER_R1_SOLENOID = '0' and
+      PW_CONS_PRINTER_R2_SOLENOID = '1' and
+      PW_CONS_PRINTER_R2A_SOLENOID = '1' and
+      PW_CONS_PRINTER_R5_SOLENOID = '0' and
+      PW_CONS_PRINTER_T1_SOLENOID = '0' report
+      "Console output character is not an 'S'" severity failure;
+   
+   wait for 270 us;  -- This would normally be 27 ms.
+   
+   MV_CONS_PRINTER_C2_CAM_NC <= '1';
+   MV_CONS_PRINTER_C2_CAM_NO <= '0';
+   
+   --  During C2, the bits are transferred to mechancial latches 
+   --  Note that these signals are ctive LOW
+   
+   MV_CONS_PRINTER_ODD_BIT_CHECK <= not unlatchedConsoleParity; 
+   MB_CONS_PRINTER_EVEN_BIT_CHECK <= unlatchedConsoleParity;
+
+   wait for 197 us; -- This would normally be 19.7 ms
+   
+   MV_CONS_PRINTER_C1_CAM_NC <= '1';
+   MV_CONS_PRINTER_C1_CAM_NO <= '0';
+
+   wait for 126 us; -- this would normally be 12.6 ms
+
+   MV_CONS_PRINTER_C2_CAM_NC <= '0';
+   MV_CONS_PRINTER_C2_CAM_NO <= '1';
+   
+   wait for 36 us; -- this would normally be 3.6 ms
+
+   MV_CONS_PRINTER_C1_CAM_NC <= '0';
+   MV_CONS_PRINTER_C1_CAM_NO <= '1';
+   
+   -- After C1, the console bit check latches are released
+   
+   MV_CONS_PRINTER_ODD_BIT_CHECK <= '1'; 
+   MB_CONS_PRINTER_EVEN_BIT_CHECK <= '0';
+      
+   report "'S' output complete";
+   
+   -- Next we expect a space operation
+   
+   if PW_SPACE_SOLENOID = '0' then
+      wait until PW_SPACE_SOLENOID = '1';
+   end if;
+   
+   wait for 267 us;  -- would normally be 7 + 17.9 + 1.8 ms
+   
+   MV_CONS_PRINTER_C2_CAM_NC <= '1';
+   MV_CONS_PRINTER_C2_CAM_NO <= '0';
+
+   wait for 269 us;  -- would normally be 26.9 ms   
+   
+   MV_CONS_PRINTER_C2_CAM_NC <= '0';
+   MV_CONS_PRINTER_C2_CAM_NO <= '1';
+            
+   -- IAR readout comes next            
+            
+   wait for 520 us;
+   
+
+   -- SWITCH_MOM_STARTPRINT <= '0';  -- This switch is "backwards"
+   -- wait for 200 us;
+   
+   -- SWITCH_TOG_INHIBIT_PO_PL1 <= '1';
+   -- SWITCH_TOG_INHIBIT_PO_PL2 <= '1';
+   -- wait for 1 us;
+   
    SWITCH_MOM_CONS_STOP_PL1 <= '1';
    wait for 1 us;
+   
    -- Help out the stop if instruction readout isn't working
    SWITCH_MOM_CONS_STOP_PL1 <= '0';
    
