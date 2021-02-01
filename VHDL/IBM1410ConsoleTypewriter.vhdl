@@ -159,6 +159,11 @@ signal latchedSpace: std_logic := '0';
 signal latchedBackspace: std_logic := '0';
 signal latchedCarriageReturn: std_logic := '0';
 signal inUpperCase: std_logic := '0';  -- Default is upper case.
+
+signal currentColumnUp: std_logic := '0';
+signal currentColumnDown: std_logic := '0';
+signal currentColumnReset: std_logic := '0';
+signal currentColumnInProcess: std_logic := '0';
 signal currentColumn: integer range 1 to 81 := 1;
 
 signal R1Motion: integer range 0 to 1;
@@ -169,7 +174,7 @@ signal T1Motion: integer range 0 to 1;
 signal T2Motion: integer range 0 to 2;
 signal printChar: character;
 
-signal output_parity: std_logic;
+signal output_parity: std_logic := '0';
 
 type GolfballTilt is array (0 to 10) of character;
 
@@ -429,9 +434,18 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
          if output_ssout1 = '1' then
             -- report "Entering State output_s2";         
             nextOutputState <= output_s2a;
-            -- Time to latch data before solenoids release
+            -- Time to latch data before solenoids release, including parity
+            -- This is equivalent to the Selectric mechanical latches
             latchedRotateIndex <= rotateIndex;
-            latchedTiltIndex <= tiltIndex;
+            latchedTiltIndex <= tiltIndex;            
+            output_parity <=
+               PW_CONS_PRINTER_R1_SOLENOID xor      
+               PW_CONS_PRINTER_R2_SOLENOID xor     
+               PW_CONS_PRINTER_R2A_SOLENOID xor
+               PW_CONS_PRINTER_R5_SOLENOID xor
+               PW_CONS_PRINTER_T1_SOLENOID xor
+               PW_CONS_PRINTER_T2_SOLENOID xor
+               PW_CONS_PRINTER_CHK_SOLENOID;
          else
             nextOutputState <= output_s1;
          end if;
@@ -492,9 +506,7 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
             -- report "Rotate Index: " & integer'image(latchedRotateIndex) & 
                -- ", Tilt Index: " & integer'image(latchedTiltIndex);
                
-            if(currentColumn < 80) then
-               currentColumn <= currentColumn + 1;
-            end if;
+            -- currentColumnUp <= '1';
                      
             -- report "Entering State output_s4";         
             nextOutputState <= output_s4a;
@@ -507,6 +519,7 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
          output_ssin4 <= '0';
          if(output_ssout4 = '0') then
             nextOutputState <= output_s4;
+            -- currentColumnUp <= '0';
          else
             nextOutputState <= output_s4a;
          end if;
@@ -534,6 +547,7 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
          if output_ssout5 = '1' then
             -- report "Entering State output_s6a";         
             nextOutputState <= output_s6a;
+            output_parity <= '0';
          else
             nextOutputState <= output_s5;
          end if;
@@ -680,14 +694,10 @@ space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
             
             if latchedSpace = '1' then
                report "<space>";
-               if(currentColumn < 80) then
-                  currentColumn <= currentColumn + 1;
-               end if;
+               -- currentColumnUp <= '1';
             elsif latchedBackspace = '1' then               
                report "<backspace>";
-               if(currentColumn > 1) then
-                  currentColumn <= currentColumn -1;
-               end if;
+               -- currentColumnDown <= '1';
             end if;
                      
             -- report "Entering State space_s4";         
@@ -701,6 +711,8 @@ space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
          space_ssin4 <= '0';
          if(space_ssout4 = '0') then
             nextSpaceState <= space_s4;
+            -- currentColumnUp <= '0';
+            -- currentColumnDown <= '0';
          else
             nextSpaceState <= space_s4a;
          end if;
@@ -880,7 +892,7 @@ cr_process: process(crState, cr_ssout0, cr_ssout1, cr_ssout2,
             -- report "Entering State cr_s1";         
             nextCrState <= cr_s1a;
             report "<Carriage Return>";
-            currentColumn <= 0;                        
+            -- currentColumnReset <= '1';                        
          else
             nextCrState <= cr_s0;
          end if;
@@ -890,6 +902,7 @@ cr_process: process(crState, cr_ssout0, cr_ssout1, cr_ssout2,
          cr_ssin1 <= '0';
          if(cr_ssout1 = '0') then
             nextCrState <= cr_s1;
+            -- currentColumnReset <= '0';
          else
             nextCrState <= cr_s1a;
          end if;
@@ -976,15 +989,67 @@ Output_CAM_process: process(FPGA_CLK, outputState)
          CR_INTERLOCK <= '0';
       end if;
       
-      if(currentColumn = 80) then
+      if(currentColumn = MAX_COLUMN) then
          MV_CONS_PRINTER_LAST_COLUMN_SET <= '0';
       else
          MV_CONS_PRINTER_LAST_COLUMN_SET <= '1';
-      end if;         
+      end if;
+      
+      if outputState = output_s3 or
+         (spaceState = space_s3 and latchedSpace = '1') then
+         currentColumnUp <= '1';
+      else
+         currentColumnUp <= '0';
+      end if;
+      
+      if spaceState = space_s3 and latchedBackspace = '1' then
+         currentColumnDown <= '1';
+      else
+         currentColumnDown <= '0';
+      end if;
+      
+      if crState = cr_s0 then
+         currentColumnReset <= '1';
+      else
+         currentColumnReset <= '0';
+      end if;        
       
    end if;
 
 end process;
+
+column_process: process(FPGA_CLK,currentColumnUp,currentColumnDown,currentColumnReset)
+   begin
+   if FPGA_CLK'event and FPGA_CLK = '1' then
+      if currentColumnInProcess = '0' then
+         if currentColumnUp = '1' then
+            if currentColumn = MAX_COLUMN then
+               -- Leave at 80
+            else
+               currentColumn <= currentColumn + 1;
+            end if;
+         end if;
+         if currentColumnDown = '1' then
+            if currentColumn = 1 then
+               -- Leave at 1
+            else
+               currentColumn <= currentColumn - 1;
+            end if;
+         end if;
+         if currentColumnReset = '1' then
+            currentColumn <= 1;
+         end if;
+         currentColumnInProcess <=
+            currentColumnUp or currentColumnDown or
+            currentColumnReset;    
+      elsif currentColumnInProcess = '1' and
+         currentColumnUp = '0' and
+         currentColumnDown = '0' and
+         currentColumnReset = '0' then
+         currentColumnInProcess <= '0';
+      end if;
+   end if;
+   end process;
 
 with PW_CONS_PRINTER_R1_SOLENOID select R1Motion <=
    -- 0 when '1',
@@ -1046,15 +1111,6 @@ MV_CONS_PRINTER_UPPER_CASE_STAR_S1NC <= not inUpperCase;
 MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO <= inUpperCase;
 
 -- ODD parity - but MB/MV signals are active LOW
-
-output_parity <=
-   PW_CONS_PRINTER_R1_SOLENOID xor      
-   PW_CONS_PRINTER_R2_SOLENOID xor     
-   PW_CONS_PRINTER_R2A_SOLENOID xor
-   PW_CONS_PRINTER_R5_SOLENOID xor
-   PW_CONS_PRINTER_T1_SOLENOID xor
-   PW_CONS_PRINTER_T2_SOLENOID xor
-   PW_CONS_PRINTER_CHK_SOLENOID;
 
 MV_CONS_PRINTER_ODD_BIT_CHECK <= not output_parity;
 MB_CONS_PRINTER_EVEN_BIT_CHECK <= output_parity;
