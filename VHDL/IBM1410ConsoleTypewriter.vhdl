@@ -940,81 +940,81 @@ cr_process: process(crState, cr_ssout0, cr_ssout1, cr_ssout2,
    end process;
 
    
-Output_CAM_process: process(FPGA_CLK, outputState)
+Output_CAM_process: process(FPGA_CLK, outputState,spaceState,crState)
    begin
    
-   if FPGA_CLK'event and FPGA_CLK = '1' then
-      if outputState = output_s3a or
-         outputState = output_s3 or
-         outputState = output_s4a or
-         outputState = output_s4 or
-         outputState = output_s5a or
-         outputState = output_s5 then
-         CAM1 <= '1';
-      else
-         CAM1 <= '0';
-      end if;
+   -- if FPGA_CLK'event and FPGA_CLK = '1' then
+--      if outputState = output_s3a or
+--         outputState = output_s3 or
+--         outputState = output_s4a or
+--         outputState = output_s4 or
+--         outputState = output_s5a or
+--         outputState = output_s5 then
+--         CAM1 <= '1';
+--      else
+--         CAM1 <= '0';
+--      end if;
           
-      if outputState = output_s2a or
-         outputState = output_s2 or 
-         outputState = output_s3a or
-         outputState = output_s3 or
-         outputState = output_s4a or
-         outputState = output_s4 then
-         CAM2 <= '1';
-      else
-         CAM2 <= '0';
-      end if;    
+--      if outputState = output_s2a or
+--         outputState = output_s2 or 
+--         outputState = output_s3a or
+--         outputState = output_s3 or
+--         outputState = output_s4a or
+--         outputState = output_s4 then
+--         CAM2 <= '1';
+--      else
+--         CAM2 <= '0';
+--      end if;    
       
-      if spaceState = space_s3a or
-         spaceState = space_s3 then
-         CAM5 <= '1';
-      else
-         CAM5 <= '0';
-      end if;
+--      if spaceState = space_s3a or
+--         spaceState = space_s3 then
+--         CAM5 <= '1';
+--      else
+--         CAM5 <= '0';
+--      end if;
       
-      if shiftState = shift_s2a or
-         shiftState = shift_s2 then
-         CAM3_OR_4 <= '1';
-      else
-         CAM3_OR_4 <= '0';
-      end if;
+--      if shiftState = shift_s2a or
+--         shiftState = shift_s2 then
+--         CAM3_OR_4 <= '1';
+--      else
+--         CAM3_OR_4 <= '0';
+--      end if;
       
-      if crState = cr_s1a or
-         crState = cr_s1 or
-         crState = cr_s2a or
-         crState = cr_s2 then
-         CR_INTERLOCK <= '1';
-      else
-         CR_INTERLOCK <= '0';
-      end if;
+--      if crState = cr_s1a or
+--         crState = cr_s1 or
+--         crState = cr_s2a or
+--         crState = cr_s2 then
+--         CR_INTERLOCK <= '1';
+--      else
+--         CR_INTERLOCK <= '0';
+--      end if;
       
-      if(currentColumn = MAX_COLUMN) then
-         MV_CONS_PRINTER_LAST_COLUMN_SET <= '0';
-      else
-         MV_CONS_PRINTER_LAST_COLUMN_SET <= '1';
-      end if;
+--      if(currentColumn = MAX_COLUMN) then
+--         MV_CONS_PRINTER_LAST_COLUMN_SET <= '0';
+--      else
+--         MV_CONS_PRINTER_LAST_COLUMN_SET <= '1';
+--      end if;
       
-      if outputState = output_s3 or
-         (spaceState = space_s3 and latchedSpace = '1') then
-         currentColumnUp <= '1';
-      else
-         currentColumnUp <= '0';
-      end if;
+--      if outputState = output_s3 or
+--         (spaceState = space_s3 and latchedSpace = '1') then
+--         currentColumnUp <= '1';
+--      else
+--         currentColumnUp <= '0';
+--      end if;
       
-      if spaceState = space_s3 and latchedBackspace = '1' then
-         currentColumnDown <= '1';
-      else
-         currentColumnDown <= '0';
-      end if;
+--      if spaceState = space_s3 and latchedBackspace = '1' then
+--         currentColumnDown <= '1';
+--      else
+--         currentColumnDown <= '0';
+--      end if;
       
-      if crState = cr_s0 then
-         currentColumnReset <= '1';
-      else
-         currentColumnReset <= '0';
-      end if;        
+--      if crState = cr_s0 then
+--         currentColumnReset <= '1';
+--      else
+--         currentColumnReset <= '0';
+--      end if;        
       
-   end if;
+   -- end if;
 
 end process;
 
@@ -1050,36 +1050,98 @@ column_process: process(FPGA_CLK,currentColumnUp,currentColumnDown,currentColumn
       end if;
    end if;
    end process;
-
-with PW_CONS_PRINTER_R1_SOLENOID select R1Motion <=
-   -- 0 when '1',
-   1 when '0',
-   0 when others;
-
-with PW_CONS_PRINTER_R2_SOLENOID select R2Motion <=
-   -- 0 when '1',
-   2 when '0',
-   0 when others;
-
-with PW_CONS_PRINTER_R2A_SOLENOID select R2AMotion <=
-   -- 0 when '1',
-   2 when '0',
-   0 when others;
    
-with PW_CONS_PRINTER_R5_SOLENOID select R5Motion <=
-   -- 0 when '1',
-   5 when '0',
-   0 when others;
-   
-with PW_CONS_PRINTER_T1_SOLENOID select T1Motion <=
-   -- 0 when '1',
-   1 when '0',
-   0 when others;
+-- A lot of state machine examples uses "if" statements to generate
+-- combinatorial values, but I don't think that is the best way, so
 
-with PW_CONS_PRINTER_T2_SOLENOID select T2Motion <=
-   -- 0 when '1',
-   2 when '0',
-   0 when others;
+   CAM1 <= '1' when outputState = output_s3a or
+      outputState = output_s3 or
+      outputState = output_s4a or
+      outputState = output_s4 or
+      outputState = output_s5a or
+      outputState = output_s5
+      else '0';
+
+   CAM2 <= '1' when outputState = output_s2a or
+      outputState = output_s2 or 
+      outputState = output_s3a or
+      outputState = output_s3 or
+      outputState = output_s4a or
+      outputState = output_s4
+      else '0';
+
+   CAM5 <= '1' when spaceState = space_s3a or
+      spaceState = space_s3
+      else '0';
+
+   CAM3_OR_4 <= '1' when shiftState = shift_s2a or
+      shiftState = shift_s2
+      else '0';
+
+   CR_INTERLOCK <= '1' when crState = cr_s1a or
+      crState = cr_s1 or
+      crState = cr_s2a or
+      crState = cr_s2
+      else '0';
+      
+   MV_CONS_PRINTER_LAST_COLUMN_SET <= '0' when currentColumn = MAX_COLUMN
+      else '1';      
+
+   currentColumnUp <= '1' when outputState = output_s3 or
+         (spaceState = space_s3 and latchedSpace = '1')
+      else '0'; 
+
+   currentColumnDown <= '1' when spaceState = space_s3 and 
+      latchedBackspace = '1'
+      else '0';
+
+   currentColumnReset <= '1' when crState = cr_s0
+      else '0';
+      
+
+--   with PW_CONS_PRINTER_R1_SOLENOID select R1Motion <=
+--   -- 0 when '1',
+--   1 when '0',
+--   0 when others;
+   
+   R1Motion <= 1 when PW_CONS_PRINTER_R1_SOLENOID = '0' else 0;
+
+--with PW_CONS_PRINTER_R2_SOLENOID select R2Motion <=
+--   -- 0 when '1',
+--   2 when '0',
+--   0 when others;
+
+   R2Motion <= 2 when PW_CONS_PRINTER_R2_SOLENOID = '0' else 0;
+
+--with PW_CONS_PRINTER_R2A_SOLENOID select R2AMotion <=
+--   -- 0 when '1',
+--   2 when '0',
+--   0 when others;
+   
+   R2AMotion <= 2 when PW_CONS_PRINTER_R2A_SOLENOID = '0' else 0;
+   
+--with PW_CONS_PRINTER_R5_SOLENOID select R5Motion <=
+--   -- 0 when '1',
+--   5 when '0',
+--   0 when others;
+
+   -- Note that R5Motion is "biased" by +5
+
+   R5Motion <= 5 when PW_CONS_PRINTER_R5_SOLENOID = '0' else 0;
+   
+--with PW_CONS_PRINTER_T1_SOLENOID select T1Motion <=
+--   -- 0 when '1',
+--   1 when '0',
+--   0 when others;
+
+   T1Motion <= 1 when PW_CONS_PRINTER_T1_SOLENOID = '0' else 0;
+
+--with PW_CONS_PRINTER_T2_SOLENOID select T2Motion <=
+--   -- 0 when '1',
+--   2 when '0',
+--   0 when others;
+
+   T2Motion <= 2 when PW_CONS_PRINTER_T2_SOLENOID = '0' else 0;
    
 rotateIndex <= R1Motion + R2Motion + R2AMotion + R5Motion;
 tiltIndex <= T1Motion + T2Motion;
@@ -1139,5 +1201,6 @@ MB_CONS_PRINTER_EVEN_BIT_CHECK <= output_parity;
 
 MV_KEYBOARD_LOCK_MODE_STAR_NO <= MW_KEYBOARD_LOCK_SOLENOID;
 MV_KEYBOARD_UNLOCK_MODE <= not MW_KEYBOARD_LOCK_SOLENOID;
+
    
 end Behavioral;
