@@ -56,7 +56,8 @@ entity IBM1410ConsoleTypewriter is
    GENERIC(MULTIPLIER: integer := 10000);
    PORT (
       FPGA_CLK: in STD_LOGIC;
-      PS_CONS_CLOCK_1_POS: in STD_LOGIC;
+        
+       -- Console Output Signals 
 
        PW_CONS_PRINTER_R1_SOLENOID: in STD_LOGIC; --      
        PW_CONS_PRINTER_R2_SOLENOID: in STD_LOGIC; --
@@ -89,6 +90,8 @@ entity IBM1410ConsoleTypewriter is
        MV_KEYBOARD_LOCK_MODE_STAR_NO: out STD_LOGIC; --
        MV_KEYBOARD_UNLOCK_MODE: out STD_LOGIC; --
       
+       -- Console Input Signals
+      
        MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO: out STD_LOGIC;
        MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO: out STD_LOGIC;
        PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC: out STD_LOGIC;
@@ -96,8 +99,12 @@ entity IBM1410ConsoleTypewriter is
       
        MV_CONS_PRTR_TO_CPU_BUS: out STD_LOGIC_VECTOR(5 downto 0);
        MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO: out STD_LOGIC;
-       MV_CONSOLE_C_INPUT_STAR_CHK_OP: out STD_LOGIC
+       MV_CONSOLE_C_INPUT_STAR_CHK_OP: out STD_LOGIC;
       
+       -- Console Output UART
+       
+       IBM1410_CONSOLE_XMT_CHAR: out character;
+       IBM1410_CONSOLE_XMT_STROBE: out STD_LOGIC
    );
 
 end IBM1410ConsoleTypewriter;
@@ -1088,5 +1095,21 @@ MB_CONS_PRINTER_EVEN_BIT_CHECK <= output_parity;
 
 MV_KEYBOARD_LOCK_MODE_STAR_NO <= MW_KEYBOARD_LOCK_SOLENOID;
 MV_KEYBOARD_UNLOCK_MODE <= not MW_KEYBOARD_LOCK_SOLENOID;
+
+-- Console Output UART Support
+
+IBM1410_CONSOLE_XMT_CHAR <= printChar;
+IBM1410_CONSOLE_XMT_STROBE <= '1' when outputState = output_s4a else '0';
+
+-- Placeholders to avoid undefined signals
+
+MV_CONS_PRINTER_SPACE_NO <= '1';
+MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO <= '1';
+MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO <= '1';
+PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= '0';
+MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= '1';
+MV_CONSOLE_C_INPUT_STAR_CHK_OP <= '1';
+MV_CONS_PRTR_TO_CPU_BUS <= "111111";
+
    
 end Behavioral;
