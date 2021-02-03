@@ -700,8 +700,10 @@ architecture behavioral of IntegrationTest2_fpga is
 		MY_GATE_Y_LSMS_80_89XX_B: out STD_LOGIC;
 		MY_GATE_Y_LSMS_90_99XX_A: out STD_LOGIC;
 		MY_GATE_Y_LSMS_90_99XX_B: out STD_LOGIC;
+		MY_X_RD_1: out STD_LOGIC;
 		MY_B_DATA_REG_RESET: out STD_LOGIC;
 		PY_START_READ: out STD_LOGIC;
+		MY_X_WR_1: out STD_LOGIC;
 		PY_START_WRITE: out STD_LOGIC;
 		MY_LOAD_MEMORY_Z: out STD_LOGIC;
 		MY_REGEN_MEMORY_Z: out STD_LOGIC;
@@ -882,6 +884,30 @@ architecture behavioral of IntegrationTest2_fpga is
          button  : IN  STD_LOGIC;  --input signal to be debounced
          result  : OUT STD_LOGIC); --debounced signal
    END component;
+
+   component IBM1410Memory is
+   Port (
+      FPGA_CLK: in STD_LOGIC;
+      MY_X_RD_1: in STD_LOGIC;
+      MY_X_WR_1: in STD_LOGIC;
+      MY_MEM_AR_NOT_UP_BUS: in STD_LOGIC_VECTOR(4 downto 0);
+      MY_MEM_AR_NOT_TP_BUS: in STD_LOGIC_VECTOR(4 downto 0);
+      MY_MEM_AR_NOT_HP_BUS: in STD_LOGIC_VECTOR(4 downto 0);
+      MY_MEM_AR_NOT_THP_BUS: in STD_LOGIC_VECTOR(4 downto 0);
+      MY_MEM_AR_NOT_TTHP_BUS: in STD_LOGIC_VECTOR(4 downto 0);
+      MV_INH_CHAR_0_B1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_0_D1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_1_B1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_1_D1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_2_B1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_2_D1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_3_B1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      MV_INH_CHAR_3_D1_BUS: in STD_LOGIC_VECTOR(7 downto 0);
+      PV_SENSE_CHAR_0_BUS: out STD_LOGIC_VECTOR(7 downto 0);
+      PV_SENSE_CHAR_1_BUS: out STD_LOGIC_VECTOR(7 downto 0);
+      PV_SENSE_CHAR_2_BUS: out STD_LOGIC_VECTOR(7 downto 0);
+      PV_SENSE_CHAR_3_BUS: out STD_LOGIC_VECTOR(7 downto 0) );
+   end component;
 
 	-- Inputs
 
@@ -1157,7 +1183,7 @@ architecture behavioral of IntegrationTest2_fpga is
 	signal SWITCH_MOM_CE_STOP_SW_PL1: STD_LOGIC := '0';
 	signal SWITCH_TOG_I_O_CHK_ST_PL1: STD_LOGIC := '0';
 	signal SWITCH_TOG_ADDR_STOP_PL1: STD_LOGIC := '0';
-	signal SWITCH_REL_PWR_ON_RST: STD_LOGIC := '0';
+	signal SWITCH_REL_PWR_ON_RST: STD_LOGIC := '1'; -- Initial power on reset
 	signal SWITCH_MOM_CO_CPR_RST: STD_LOGIC := '0';
 	signal SWITCH_MOM_CE_CPR_RST: STD_LOGIC := '0';
 	signal SWITCH_MOM_PROG_RESET: STD_LOGIC := '0';
@@ -1558,8 +1584,10 @@ architecture behavioral of IntegrationTest2_fpga is
 	signal MY_GATE_Y_LSMS_80_89XX_B: STD_LOGIC;
 	signal MY_GATE_Y_LSMS_90_99XX_A: STD_LOGIC;
 	signal MY_GATE_Y_LSMS_90_99XX_B: STD_LOGIC;
+	signal MY_X_RD_1: STD_LOGIC;
 	signal MY_B_DATA_REG_RESET: STD_LOGIC;
 	signal PY_START_READ: STD_LOGIC;
+	signal MY_X_WR_1: STD_LOGIC;
 	signal PY_START_WRITE: STD_LOGIC;
 	signal MY_LOAD_MEMORY_Z: STD_LOGIC;
 	signal MY_REGEN_MEMORY_Z: STD_LOGIC;
@@ -1770,6 +1798,7 @@ architecture behavioral of IntegrationTest2_fpga is
    constant TMR_CNTR_200 : std_logic_vector(26 downto 0) := "000000000100100100111110000"; -- 1.5ms reset end time (0.5ms reset)
    signal tmrCntr : std_logic_vector(26 downto 0) := (others => '0');
 
+   signal LOCAL_MY_MEM_AR_NOT_TTHP_BUS: STD_LOGIC_VECTOR(4 downto 0);
 
 ---- END USER TEST BENCH DECLARATIONS
    
@@ -2449,8 +2478,10 @@ architecture behavioral of IntegrationTest2_fpga is
 		MY_GATE_Y_LSMS_80_89XX_B => MY_GATE_Y_LSMS_80_89XX_B,
 		MY_GATE_Y_LSMS_90_99XX_A => MY_GATE_Y_LSMS_90_99XX_A,
 		MY_GATE_Y_LSMS_90_99XX_B => MY_GATE_Y_LSMS_90_99XX_B,
+		MY_X_RD_1 => MY_X_RD_1,
 		MY_B_DATA_REG_RESET => MY_B_DATA_REG_RESET,
 		PY_START_READ => PY_START_READ,
+		MY_X_WR_1 => MY_X_WR_1,
 		PY_START_WRITE => PY_START_WRITE,
 		MY_LOAD_MEMORY_Z => MY_LOAD_MEMORY_Z,
 		MY_REGEN_MEMORY_Z => MY_REGEN_MEMORY_Z,
@@ -2618,13 +2649,38 @@ architecture behavioral of IntegrationTest2_fpga is
 		LAMPS_B_CH => LAMPS_B_CH,
 		LAMPS_A_CH => LAMPS_A_CH,
 		LAMPS_ASSM_CH_NOT => LAMPS_ASSM_CH_NOT,
-		LAMPS_ASSM_CH => LAMPS_ASSM_CH);
+		LAMPS_ASSM_CH => LAMPS_ASSM_CH);		
 				
 startButton: debounce port map(
             clk => FPGA_CLK,
             reset_n => notInitSystem,
             button => btnC,
             result => SWITCH_MOM_CONS_START);
+
+memory: IBM1410Memory 
+   Port map(
+      FPGA_CLK => FPGA_CLK,
+      MY_X_RD_1 => MY_X_RD_1,
+      MY_X_WR_1 => MY_X_WR_1, 
+      -- MY_X_WR_1 => '1',  -- disable writes for now
+      MY_MEM_AR_NOT_UP_BUS => MY_MEM_AR_NOT_UP_BUS,
+      MY_MEM_AR_NOT_TP_BUS => MY_MEM_AR_NOT_TP_BUS,
+      MY_MEM_AR_NOT_HP_BUS => MY_MEM_AR_NOT_HP_BUS,
+      MY_MEM_AR_NOT_THP_BUS => MY_MEM_AR_NOT_THP_BUS,
+      MY_MEM_AR_NOT_TTHP_BUS => LOCAL_MY_MEM_AR_NOT_TTHP_BUS,
+      MV_INH_CHAR_0_B1_BUS => MV_INH_CHAR_0_B1_BUS,
+      MV_INH_CHAR_0_D1_BUS => MV_INH_CHAR_0_D1_BUS,
+      MV_INH_CHAR_1_B1_BUS => MV_INH_CHAR_1_B1_BUS,
+      MV_INH_CHAR_1_D1_BUS => MV_INH_CHAR_1_D1_BUS,
+      MV_INH_CHAR_2_B1_BUS => MV_INH_CHAR_2_B1_BUS,
+      MV_INH_CHAR_2_D1_BUS => MV_INH_CHAR_2_D1_BUS,
+      MV_INH_CHAR_3_B1_BUS => MV_INH_CHAR_3_B1_BUS,
+      MV_INH_CHAR_3_D1_BUS => MV_INH_CHAR_3_D1_BUS,
+      PV_SENSE_CHAR_0_BUS => PV_SENSE_CHAR_0_B1_BUS,
+      PV_SENSE_CHAR_1_BUS => PV_SENSE_CHAR_1_B1_BUS,
+      PV_SENSE_CHAR_2_BUS => PV_SENSE_CHAR_2_B1_BUS,
+      PV_SENSE_CHAR_3_BUS => PV_SENSE_CHAR_3_B1_BUS );
+
 
 -- START USER TEST BENCH PROCESS
 
@@ -2657,27 +2713,41 @@ startButton: debounce port map(
 
 -- Initial reset
 
+--
+-- It turns out, at least for now, that initSystem and the power on reset
+-- relay are doing essentially the same sort of thing: holding the system
+-- reset while things are set up (on the real hardware, while the supply
+-- voltages stabilize and logic resets).
+
 IBM1410_PowerOn_Reset_process: process (CLK, initSystem) 
 begin
     if(initSystem = '1') then
         if(rising_edge(CLK)) then
-            if(SWITCH_REL_PWR_ON_RST = '0') then
-                if(tmrCntr = TMR_CNTR_100) then
-                    SWITCH_REL_PWR_ON_RST <= '1';
-                end if;
-            else
-                if(tmrCntr = TMR_CNTR_200) then
-                    SWITCH_REL_PWR_ON_RST <= '0';
-                    initSystem <= '0';
-                end if;
-            end if; 
-            tmrCntr <= tmrCntr + 1;
+--            if(SWITCH_REL_PWR_ON_RST = '0') then
+--                if(tmrCntr = TMR_CNTR_100) then
+--                    SWITCH_REL_PWR_ON_RST <= '1';
+--                end if;
+--            else
+--                if(tmrCntr = TMR_CNTR_200) then
+--                    SWITCH_REL_PWR_ON_RST <= '0';
+--                    initSystem <= '0';
+--                end if;
+--            end if;
+            if(SWITCH_REL_PWR_ON_RST = '1') then
+               if(tmrCntr = TMR_CNTR_200) then
+                  SWITCH_REL_PWR_ON_RST <= '0';
+                  initSystem <= '0';
+               end if;
+            end if;
+            tmrCntr <= tmrCntr + 1;            
         end if;
     end if;
 end process;
 
    notInitSystem <= not initSystem;
 
+   LOCAL_MY_MEM_AR_NOT_TTHP_BUS <= not MY_MEM_AR_TTHP_BUS;
+   
    FPGA_CLK <= CLK;
    
    -- LED(9 downto 0) <= LAMPS_LOGIC_GATE_RING;
@@ -2713,7 +2783,19 @@ end process;
    PV_SENSE_CHAR_0_B2_BUS <= PV_SENSE_CHAR_0_B1_BUS;
    PV_SENSE_CHAR_0_D1_BUS <= PV_SENSE_CHAR_0_B1_BUS;
    PV_SENSE_CHAR_0_D2_BUS <= PV_SENSE_CHAR_0_B1_BUS;
-   
+
+   PV_SENSE_CHAR_1_B2_BUS <= PV_SENSE_CHAR_1_B1_BUS;
+   PV_SENSE_CHAR_1_D1_BUS <= PV_SENSE_CHAR_1_B1_BUS;
+   PV_SENSE_CHAR_1_D2_BUS <= PV_SENSE_CHAR_1_B1_BUS;
+
+   PV_SENSE_CHAR_2_B2_BUS <= PV_SENSE_CHAR_2_B1_BUS;
+   PV_SENSE_CHAR_2_D1_BUS <= PV_SENSE_CHAR_2_B1_BUS;
+   PV_SENSE_CHAR_2_D2_BUS <= PV_SENSE_CHAR_2_B1_BUS;
+
+   PV_SENSE_CHAR_3_B2_BUS <= PV_SENSE_CHAR_3_B1_BUS;
+   PV_SENSE_CHAR_3_D1_BUS <= PV_SENSE_CHAR_3_B1_BUS;
+   PV_SENSE_CHAR_3_D2_BUS <= PV_SENSE_CHAR_3_B1_BUS;
+      
    SWITCH_ROT_STOR_SCAN_DK3 <= SWITCH_ROT_STOR_SCAN_DK1;
    SWITCH_ROT_STOR_SCAN_DK4 <= SWITCH_ROT_STOR_SCAN_DK1;
    SWITCH_ROT_STOR_SCAN_DK5 <= SWITCH_ROT_STOR_SCAN_DK1;
@@ -2753,7 +2835,7 @@ end process;
    
    SWITCH_ROT_MODE_SW_DK <= "0000010000000"; -- Run Mode
    
-   PV_SENSE_CHAR_0_B1_BUS <= "11111011";  -- CWBA8-21  (WM + period)
+   -- PV_SENSE_CHAR_0_B1_BUS <= "11111011";  -- CWBA8-21  (WM + period)
    
 --   MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO <= SW(15);
 --   PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= SW(14);
