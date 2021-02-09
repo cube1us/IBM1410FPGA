@@ -1,4 +1,3 @@
-----------------------------------------------------------------------------------
 -- Company: The Computer Collection
 -- Engineer: Jay R. Jaeger
 -- 
@@ -166,6 +165,7 @@ signal latchedSpace: std_logic := '0';
 signal latchedBackspace: std_logic := '0';
 signal latchedCarriageReturn: std_logic := '0';
 signal inUpperCase: std_logic := '0';  -- Default is upper case.
+signal latchedCaseChange: std_logic := '0';
 
 signal currentColumnUp: std_logic := '0';
 signal currentColumnDown: std_logic := '0';
@@ -474,7 +474,7 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
             
             -- Time to determine the character to print
             
-            if not inUpperCase = '1' then
+            if inUpperCase = '0' then
                case latchedTiltIndex is
                   when 0 => printChar <= Golfball_LC_Tilt0(latchedRotateIndex);
                   when 1 => printChar <= Golfball_LC_Tilt1(latchedRotateIndex);
@@ -746,8 +746,9 @@ shift_states: process(FPGA_CLK)
    end process;
    
 
-shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
-   shift_ssout3, PW_UPPER_CASE_SHIFT_SOLENOID, PW_LOWER_CASE_SHIFT_SOLENOID )
+shift_process: process(FPGA_CLK, shiftState, shift_ssout0, shift_ssout1, 
+   shift_ssout2,shift_ssout3, PW_UPPER_CASE_SHIFT_SOLENOID, 
+   PW_LOWER_CASE_SHIFT_SOLENOID)
    begin
    
       -- "default" values for single shot inputs.  This apparently avoids latches
@@ -755,7 +756,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
       shift_ssin0 <= '1';
       shift_ssin1 <= '1';
       shift_ssin2 <= '1';
-      shift_ssin3 <= '1';
+      shift_ssin3 <= '1';      
       
       case shiftState is
       when shift_idle =>
@@ -763,7 +764,12 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
          if PW_UPPER_CASE_SHIFT_SOLENOID = '1' or
             PW_LOWER_CASE_SHIFT_SOLENOID = '1' then            
             nextShiftState <= shift_s0a;
-            -- report "Entering State shift_s0a";
+            report "Entering State shift_s0a";
+            -- Remember the case to change to now, because if
+            -- we try to do it in state S1, the CPU drops the
+            -- shift solenoid at the same time, and that causes
+            -- us to lose the case change.
+            latchedCaseChange <= PW_UPPER_CASE_SHIFT_SOLENOID;
          else
             nextShiftState <= shift_idle;             
          end if;
@@ -772,7 +778,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
          -- wait for single shot to trigger
          shift_ssin0 <= '0';
          if(shift_ssout0 = '0') then
-            -- report "Entering State shift_s0";
+            report "Entering State shift_s0";
             nextShiftState <= shift_s0;
          else
             nextShiftState <= shift_s0a;
@@ -781,7 +787,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
       when shift_s0 =>
          -- shift_ssin0 <= '1';
          if shift_ssout0 = '1' then
-            -- report "Entering State shift_s1";         
+            report "Entering State shift_s1a";         
             nextShiftState <= shift_s1a;
          else
             nextShiftState <= shift_s0;
@@ -791,6 +797,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
          -- wait for single shot to trigger
          shift_ssin1 <= '0';
          if(shift_ssout1 = '0') then
+            report "Entering State shift_s1";
             nextShiftState <= shift_s1;
          else
             nextShiftState <= shift_s1a;
@@ -799,10 +806,10 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
       when shift_s1 =>
          -- shift_ssin1 <= '1';
          if shift_ssout1 = '1' then
-            -- report "Entering State shift_s2";         
-            nextShiftState <= shift_s2a;
+            report "Entering State shift_s2a";         
             -- Time to latch data before solenoids release
-            inUpperCase <= PW_UPPER_CASE_SHIFT_SOLENOID;
+            inUpperCase <= latchedCaseChange;
+            nextShiftState <= shift_s2a;
          else
             nextShiftState <= shift_s1;
          end if;
@@ -811,6 +818,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
          -- wait for single shot to trigger
          shift_ssin2 <= '0';
          if(shift_ssout2 = '0') then
+            report "Entering State shift_s2";
             nextShiftState <= shift_s2;
          else
             nextShiftState <= shift_s2a;
@@ -819,7 +827,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
       when shift_s2 =>
          -- shift_ssin2 <= '1';
          if shift_ssout2 = '1' then
-            -- report "Entering State shift_s3";         
+            report "Entering State shift_s3";         
             nextShiftState <= shift_s3a;            
          else
             nextShiftState <= shift_s2;
@@ -852,7 +860,7 @@ shift_process: process(shiftState, shift_ssout0, shift_ssout1, shift_ssout2,
          end if;
 
       end case;
-         
+      
    end process;
 
 cr_states: process(FPGA_CLK)
@@ -1098,8 +1106,21 @@ MV_KEYBOARD_UNLOCK_MODE <= not MW_KEYBOARD_LOCK_SOLENOID;
 
 -- Console Output UART Support
 
-IBM1410_CONSOLE_XMT_CHAR <= printChar;
-IBM1410_CONSOLE_XMT_STROBE <= '1' when outputState = output_s4a else '0';
+IBM1410_CONSOLE_XMT_CHAR <= 
+   printChar when outputState = output_s3 or 
+      outputState = output_s4a or
+      outputState = output_s4 else
+   ' ' when (spaceState = space_s1 or spaceState = space_s2a) and latchedSpace = '1' else
+   BS when (spaceState = space_s1 or spaceState = space_s2a) and latchedBackSpace = '1' else
+   CR when crState = cr_s1 or crState = cr_s2a else
+   NUL;
+
+
+IBM1410_CONSOLE_XMT_STROBE <= '1' when 
+   outputState = output_s4a or
+   spaceState = space_s2a or
+   crState = cr_s2a 
+   else '0';
 
 -- Placeholders to avoid undefined signals
 
