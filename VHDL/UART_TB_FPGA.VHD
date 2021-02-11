@@ -5,10 +5,18 @@ library ieee;
 use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;
  
-entity uart_tb is
-end uart_tb;
+entity uart_tb_fpga is
+   PORT(
+      CLK: in STD_LOGIC;
+      SW:  in STD_LOGIC_VECTOR(15 downto 0);
+      LED: out STD_LOGIC_VECTOR(15 downto 0);
+      btnC, btnL, btnR, btnU, btnD, btnCpuReset: in STD_LOGIC;
+      RsRx: out STD_LOGIC;  -- From FPGA to USB/Serial
+      RsTx: in STD_LOGIC    -- To FPGA from USB/Serial
+);      
+end uart_tb_fpga;
  
-architecture behave of uart_tb is
+architecture behave of uart_tb_fpga is
  
   component uart_tx is
     generic (
@@ -43,9 +51,11 @@ architecture behave of uart_tb is
   
   -- This version uses a 50 Mhz clock - 434 clocks / bit
   
-  constant c_CLKS_PER_BIT : integer := 50000000 / 115200;
+  constant c_CLKS_PER_BIT : integer := 50000000 / 9600;
  
-  constant c_BIT_PERIOD : time := 8680 ns;
+  -- constant c_BIT_PERIOD : time := 8680 ns;
+  
+  type state_type is (idle, start, waiting);
   
    
   signal r_CLOCK     : std_logic                    := '0';
@@ -56,32 +66,18 @@ architecture behave of uart_tb is
   signal w_RX_DV     : std_logic;
   signal w_RX_BYTE   : std_logic_vector(7 downto 0);
   signal r_RX_SERIAL : std_logic := '1';
- 
-   
-  -- Low-level byte-write (to test receiver)
+  signal w_TX_Active:  std_logic := '0';
   
-  procedure UART_WRITE_BYTE (
-    i_data_in       : in  std_logic_vector(7 downto 0);
-    signal o_serial : out std_logic) is
+  signal sendCount: integer := 10;
+  signal sendCounter: integer := 0;
+  
+  signal outputState: state_type := idle;
+  signal nextOutputState: state_type := idle;
+  
+  signal receivedFull: std_logic := '0';
+  signal receivedData: std_logic_vector(7 downto 0);
+  
   begin
- 
-    -- Send Start Bit
-    o_serial <= '0';
-    wait for c_BIT_PERIOD;
- 
-    -- Send Data Byte
-    for ii in 0 to 7 loop
-      o_serial <= i_data_in(ii);
-      wait for c_BIT_PERIOD;
-    end loop;  -- ii
- 
-    -- Send Stop Bit
-    o_serial <= '1';
-    wait for c_BIT_PERIOD;
-  end UART_WRITE_BYTE;
- 
-   
-begin
  
   -- Instantiate UART transmitter
   UART_TX_INST : uart_tx
@@ -92,7 +88,7 @@ begin
       i_clk       => r_CLOCK,
       i_tx_dv     => r_TX_DV,
       i_tx_byte   => r_TX_BYTE,
-      o_tx_active => open,
+      o_tx_active => w_TX_Active,
       o_tx_serial => w_TX_SERIAL,
       o_tx_done   => w_TX_DONE
       );
@@ -109,37 +105,106 @@ begin
       o_rx_byte   => w_RX_BYTE
       );
  
-  -- r_CLOCK <= not r_CLOCK after 50 ns;
-   
-   r_CLOCK <= not r_CLOCK after 10 ns;
-   
-  process is
-  begin
- 
-    -- Tell the UART to send a command.
-    wait until rising_edge(r_CLOCK);
-    wait until rising_edge(r_CLOCK);
-    r_TX_DV   <= '1';
-    r_TX_BYTE <= X"AB";
-    wait until rising_edge(r_CLOCK);
-    r_TX_DV   <= '0';
-    wait until w_TX_DONE = '1';
- 
+  r_CLOCK <= CLK;
+       
+  RsRx <= w_TX_SERIAL;
+  r_RX_SERIAL <= RsTx;
+  
+  LED(0) <= receivedFull;
+  LED(1) <= w_TX_SERIAL;
+  LED(2) <= r_RX_SERIAL;
+  LED(3) <= r_TX_DV;
+  LED(4) <= w_RX_DV;
+  LED(5) <= w_TX_ACTIVE;
+  
+  LED(8) <= '1' when outputState = idle else '0';
+  LED(9) <= '1' when outputState = start else '0';
+  LED(10) <= '1' when outputState = waiting else '0';
+  LED(11) <= '1' when sendCounter = sendCount else '0';
+  
+--  CLOCK_PROCESS: process is
+--     begin
+--     wait for 10 ns;
+--     r_CLOCK <= not r_CLOCK;
+--  end process;
+
+  output_states: process(r_CLOCK)
+     begin
+        if r_CLOCK'event and r_CLOCK = '1' then
+           if btnC = '1' then
+              outputState <= idle;
+           else
+              outputState <= nextOutputState;
+           end if;
+        end if;
+     end process;
+           
+  
+  UART_Receive_process: process(r_CLOCK, w_RX_DV) is
+     begin  
      
-    -- Send a command to the UART
-    wait until rising_edge(r_CLOCK);
-    UART_WRITE_BYTE(X"3F", r_RX_SERIAL);
-    wait until rising_edge(r_CLOCK);
- 
-    -- Check that the correct command was received
-    if w_RX_BYTE = X"3F" then
-      report "Test Passed - Correct Byte Received" severity note;
-    else
-      report "Test Failed - Incorrect Byte Received" severity note;
-    end if;
- 
-    assert false report "Tests Complete" severity failure;
-     
-  end process;
-   
+        if r_CLOCK'event and r_CLOCK = '1' then
+           if btnC = '1' then
+              receivedFull <= '0';  
+              sendCounter <= 0;   
+           elsif w_RX_DV = '1' then
+              receivedFull <= '1';
+              receivedData  <= w_RX_Byte;
+           end if;
+        end if;
+     end process;
+  
+   UART_State_process: process(r_CLOCK, outputState) is
+      begin
+      
+      if r_CLOCK'event and r_CLOCK = '1' then
+         case outputState is
+         
+            when idle =>
+               if receivedFull = '1' or sendCounter /= sendCount then
+                  nextOutputState <= start;
+               else
+                  nextOutputState <= idle;
+               end if;
+               
+            when start =>
+               if w_TX_Active = '0' then
+                  nextOutputState <= start;
+                  sendCounter <= sendCounter + 1;
+               else
+                  nextOutputState <= waiting;
+               end if;
+               
+            when waiting =>
+               if w_TX_Active = '0' then
+                  nextOutputState <= idle;
+               else
+                  nextOutputState <= waiting;
+               end if;
+         end case;
+      end if;
+   end process;   
+  
+        
+   UART_Combinatorial_process: process(r_CLOCK, outputState) is
+      begin
+
+      case outputState is
+      
+      when idle => -- do nothing
+
+      when start =>
+         if receivedFull = '1' then
+            r_TX_BYTE <= receivedData;
+         else
+            r_TX_BYTE <= X"32";
+         end if;
+         r_TX_DV <= '1';
+         
+      when waiting =>
+         r_TX_DV <= '0';
+      
+      end case;
+   end process;
+      
 end behave;
