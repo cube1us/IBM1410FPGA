@@ -941,7 +941,7 @@ component IBM1410ConsoleTypewriter is
       
       -- Console Output UART support
       
-      IBM1410_CONSOLE_XMT_CHAR: out character;
+      IBM1410_CONSOLE_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
       IBM1410_CONSOLE_XMT_STROBE: out STD_LOGIC );
 end component;
 
@@ -1794,8 +1794,10 @@ end component;
 
 -- Console Typewriter signals
 
-    signal IBM1410_CONSOLE_XMT_CHAR: character;
+    signal IBM1410_CONSOLE_XMT_CHAR: STD_LOGIC_VECTOR(7 downto 0);
     signal IBM1410_CONSOLE_XMT_STROBE: STD_LOGIC;
+    
+    signal IBM1410_CONSOLE_XMT_ASCII: character;  -- test bench only
     
 -- START USER TEST BENCH DECLARATIONS
 
@@ -2860,7 +2862,10 @@ fpga_clk_process: process
       PW_CONS_PRINTER_T1_SOLENOID xor
       PW_CONS_PRINTER_T2_SOLENOID xor
       PW_CONS_PRINTER_CHK_SOLENOID;
+      
+   -- The following is to make test bench console output more apparent.   
    
+   IBM1410_CONSOLE_XMT_ASCII <= character'VAL(to_integer(unsigned(IBM1410_CONSOLE_XMT_CHAR)));   
          
 ----   
 
