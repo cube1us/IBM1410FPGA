@@ -91,7 +91,7 @@ component IBM1410ConsoleTypewriter is
       
       -- Console Output UART support
       
-      IBM1410_CONSOLE_XMT_CHAR: out character;
+      IBM1410_CONSOLE_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
       IBM1410_CONSOLE_XMT_STROBE: out STD_LOGIC );
 end component;
 
@@ -141,7 +141,7 @@ end component;
    signal MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO: STD_LOGIC;
    signal MV_CONSOLE_C_INPUT_STAR_CHK_OP: STD_LOGIC;  
    
-   signal IBM1410_CONSOLE_XMT_CHAR: character;
+   signal IBM1410_CONSOLE_XMT_CHAR: STD_LOGIC_VECTOR(7 downto 0);
    signal IBM1410_CONSOLE_XMT_STROBE: STD_LOGIC; 
 
 begin

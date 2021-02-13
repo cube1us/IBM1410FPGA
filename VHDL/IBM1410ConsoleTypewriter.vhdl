@@ -18,8 +18,6 @@
 ----------------------------------------------------------------------------------
 
 -- TODOs
--- Input character strobe (from uart) / character available (internal)
--- Input character (from uart)
 
 -- Output max column signal (last column set)
 -- Output character strobe (for uart)
@@ -102,7 +100,7 @@ entity IBM1410ConsoleTypewriter is
       
        -- Console Output UART
        
-       IBM1410_CONSOLE_XMT_CHAR: out character;
+       IBM1410_CONSOLE_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
        IBM1410_CONSOLE_XMT_STROBE: out STD_LOGIC
    );
 
@@ -179,35 +177,43 @@ signal R2AMotion: integer range 0 to 2;
 signal R5Motion: integer range 0 to 5;
 signal T1Motion: integer range 0 to 1;
 signal T2Motion: integer range 0 to 2;
-signal printChar: character;
+signal printChar: STD_LOGIC_VECTOR(7 downto 0);
 
 signal output_parity: std_logic := '0';
 
-type GolfballTilt is array (0 to 10) of character;
+type GolfballTilt is array (0 to 10) of STD_LOGIC_VECTOR(7 downto 0);
 
+ -- x, x, @, >, x, b, x, :, (Radical), x, _
 constant Golfball_UC_Tilt0: GolfballTilt :=
- ('?', '?', '@', '>', '?', 'c', '?', ':', '?', '?', '_'); -- b blank, radical
- 
+ (X"FE", X"FE", X"40", X"3E", X"FE", X"63", X"FE", X"3A", X"FB", X"FE", X"5F");
+
+-- x, x, %, \, x, (alt blk), x, (word separator), (segment Mark), x, x
 constant Golfball_UC_Tilt1: GolfballTilt :=
- ('?', '?', '%', '\', '?', 'b', '?', '~', '?', '?', '?'); -- Segment mk
+ (X"FE", X"FE", X"25", X"5C", X"FE", X"62", X"FE", X"5E", X"D7", X"FE", X"FE"); -- 'b' is console alt. blk, word sep, Segment mk
 
+-- x, x, *, ;, x, -, x, ], (delta), x, x
 constant Golfball_UC_Tilt2: GolfballTilt :=
- ('?', '?', '*', ';', '?', '-', '?', ']', 'd', '?', '?'); -- delta (0177 in 1410 font)
+ (X"FE", X"FE", X"2A", X"3B", X"FE", X"2D", X"FE", X"5D", X"7F", X"FE", X"FE"); -- delta
 
+-- x, x, (lozenge), <, x, ampersand, x, [, (group mark), x, (word mark - for printing)
 constant Golfball_UC_Tilt3: GolfballTilt :=
- ('?', '?', 'l', '<', '?', '&', '?', '[', '?', '?', 'v'); -- group mark, word mark
+ (X"FE", X"FE", X"29", X"3C", X"FE", X"26", X"FE", X"5B", X"CE", X"FE", X"76"); -- lozenge, group mark, word mark
  
+-- 1, 3, 5, 7, 8, 0, 2, 4, 6, 9, #
 constant Golfball_LC_Tilt0: GolfballTilt :=
- ('1', '3', '5', '7', '8', '0', '2', '4', '6', '9', '#');
+ (X"31", X"33", X"35", X"37", X"38", X"30", X"32", X"34", X"36", X"39", X"23");
  
+-- /, T, V, X, Y, (record mark), S, U, W, Z, ,
 constant Golfball_LC_Tilt1: GolfballTilt :=
- ('/', 'T', 'V', 'X', 'Y', '|', 'S', 'U', 'W', 'Z', ','); -- record mark
+ (X"2F", X"54", X"56", X"58", X"59", X"D8", X"53", X"55", X"57", X"5A", X"2C"); -- record mark
 
+-- J, L, N, P, Q, !, K, M, O, R, $
 constant Golfball_LC_Tilt2: GolfballTilt :=
- ('J', 'L', 'N', 'P', 'Q', '!', 'K', 'M', 'O', 'R', '$');
+ (X"4A", X"4C", X"4E", X"50", X"51", X"21", X"4B", X"4D", X"4F", X"52", X"24");
  
+-- A, C, E, G, H, ?, B, D, F, I, .
 constant Golfball_LC_Tilt3: GolfballTilt :=
- ('A', 'C', 'E', 'G', 'H', '?', 'B', 'D', 'F', 'I', '.');
+ (X"41", X"43", X"45", X"47", X"48", X"3F", X"42", X"44", X"46", X"49", X"2E");
 
 
 signal CAM1, CAM2, CAM3_OR_4, CAM5, CR_INTERLOCK: std_logic := '0';
@@ -380,7 +386,9 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
    output_ssout5, output_ssout6, PW_CONS_PRINTER_R1_SOLENOID, 
    PW_CONS_PRINTER_R2_SOLENOID, PW_CONS_PRINTER_R2A_SOLENOID, 
    PW_CONS_PRINTER_R5_SOLENOID, PW_CONS_PRINTER_T1_SOLENOID,
-   PW_CONS_PRINTER_T2_SOLENOID, PW_CONS_PRINTER_CHK_SOLENOID)
+   PW_CONS_PRINTER_T2_SOLENOID, PW_CONS_PRINTER_CHK_SOLENOID,
+   rotateIndex,tiltIndex,inUpperCase,latchedTiltIndex,latchedRotateIndex
+   )
    begin
    
       -- "default" values for single shot inputs.  This apparently avoids latches
@@ -509,7 +517,7 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
          
             -- Time to print the character
             
-            report "Print char: /" & character'image(printChar) & "/";
+            -- report "Print char: /" & character'image(printChar) & "/";
             -- report "Rotate Index: " & integer'image(latchedRotateIndex) & 
                -- ", Tilt Index: " & integer'image(latchedTiltIndex);
                
@@ -604,7 +612,8 @@ space_states: process(FPGA_CLK)
    
 
 space_process: process(spaceState, space_ssout0, space_ssout1, space_ssout2,
-   space_ssout3, space_ssout4, PW_SPACE_SOLENOID, PW_BACKSPACE_SOLENOID)
+   space_ssout3, space_ssout4, PW_SPACE_SOLENOID, PW_BACKSPACE_SOLENOID,
+   latchedSpace,latchedBackspace)
    begin
    
       -- "default" values for single shot inputs.  This apparently avoids latches
@@ -748,7 +757,7 @@ shift_states: process(FPGA_CLK)
 
 shift_process: process(FPGA_CLK, shiftState, shift_ssout0, shift_ssout1, 
    shift_ssout2,shift_ssout3, PW_UPPER_CASE_SHIFT_SOLENOID, 
-   PW_LOWER_CASE_SHIFT_SOLENOID)
+   PW_LOWER_CASE_SHIFT_SOLENOID, latchedCaseChange, inUpperCase)
    begin
    
       -- "default" values for single shot inputs.  This apparently avoids latches
@@ -1110,10 +1119,10 @@ IBM1410_CONSOLE_XMT_CHAR <=
    printChar when outputState = output_s3 or 
       outputState = output_s4a or
       outputState = output_s4 else
-   ' ' when (spaceState = space_s1 or spaceState = space_s2a) and latchedSpace = '1' else
-   BS when (spaceState = space_s1 or spaceState = space_s2a) and latchedBackSpace = '1' else
-   CR when crState = cr_s1 or crState = cr_s2a else
-   NUL;
+   X"20" when (spaceState = space_s1 or spaceState = space_s2a) and latchedSpace = '1' else
+   X"08" when (spaceState = space_s1 or spaceState = space_s2a) and latchedBackSpace = '1' else
+   X"0D" when crState = cr_s1 or crState = cr_s2a else
+   X"00";
 
 
 IBM1410_CONSOLE_XMT_STROBE <= '1' when 
