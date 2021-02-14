@@ -991,7 +991,7 @@ end component;
 	-- Inputs
 
 	signal FPGA_CLK: STD_LOGIC; --  := '0';
-	signal PP_SPECIAL_OR_12V_POWER_FOR_OSC: STD_LOGIC := '0';
+	signal PP_SPECIAL_OR_12V_POWER_FOR_OSC: STD_LOGIC := '1';
 	signal MV_36_VOLTS: STD_LOGIC := '1';
 	-- signal GROUND: STD_LOGIC := '0';
 	signal PS_INSTRUCTION_CHECK_GATE_STAR_1311: STD_LOGIC := '0';
@@ -1844,7 +1844,7 @@ end component;
    signal w_TX_Active: STD_LOGIC;
    signal w_TX_DONE: STD_LOGIC;
    signal r_TX_BYTE: STD_LOGIC_VECTOR (7 downto 0); 
-   signal i_TX_DV: STD_LOGIC;
+   -- signal i_TX_DV: STD_LOGIC;
 
 -- START USER TEST BENCH DECLARATIONS
 
@@ -2973,7 +2973,7 @@ end process;
    -- UART output
    
    r_TX_BYTE <= IBM1410_CONSOLE_XMT_CHAR;
-   i_TX_DV <= IBM1410_CONSOLE_XMT_STROBE;
+   -- i_TX_DV <= IBM1410_CONSOLE_XMT_STROBE;
    
 ----   
 
