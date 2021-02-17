@@ -77,7 +77,8 @@ begin
 	OUT_2D_D <= NOT(OUT_3B_C AND OUT_1F_C );
 
 	SingleShot_1D: entity SingleShot
-	    generic map(PULSETIME => 20000000, CLOCKPERIOD => 10)
+	    -- generic map(PULSETIME => 20000000, CLOCKPERIOD => 10)
+	    generic map(PULSETIME => 200000, CLOCKPERIOD => 10) -- for testing only?
 	    port map (
 		FPGA_CLK => FPGA_CLK,
 		IN2 => OUT_2B_D,	-- Pin K
