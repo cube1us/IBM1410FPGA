@@ -228,8 +228,10 @@ uut_process: process
    PW_CONS_PRINTER_T2_SOLENOID <= '0';
    PW_CONS_PRINTER_CHK_SOLENOID <= '1';
    
+   report "Waiting for C2 to close at " &time'image(now - t);
+  
    wait until MV_CONS_PRINTER_C2_CAM_NO = '0';
-   -- report "C2 closed at " &time'image(now - t);
+   report "C2 closed at " &time'image(now - t);
    assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T1A C2 NO and NC both 0" severity error;
    assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T1B C1 NC open at wrong time" severity error;
 
@@ -244,17 +246,17 @@ uut_process: process
    PW_CONS_PRINTER_CHK_SOLENOID <= '0';
    
    wait until MV_CONS_PRINTER_C1_CAM_NO = '0';
-   -- report "C1 closed at " &time'image(now - t);
+   report "C1 closed at " &time'image(now - t);
    assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T1C C1 NO and NC both 0" severity error;
    assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T1D C2 NC closed at wrong time" severity error;
 
    wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
-   -- report "C2 opened at " &time'image(now - t);
+   report "C2 opened at " &time'image(now - t);
    assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T1E C2 NO and NC both 1" severity error;
    assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T1F C1 NO open at wrong time" severity error;
 
    wait until MV_CONS_PRINTER_C1_CAM_NO = '1';
-   -- report "C1 opened at " &time'image(now - t);
+   report "C1 opened at " &time'image(now - t);
    assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T1G C1 NO and NC both 1" severity error;
    
    -- wait for 10ms;  -- Wait, but not so long as to make clutch disengage    
@@ -275,7 +277,7 @@ uut_process: process
    PW_CONS_PRINTER_CHK_SOLENOID <= '0';
    
    wait until MV_CONS_PRINTER_C2_CAM_NO = '0';
-   -- report "C2 closed at " &time'image(now - t);
+   report "C2 closed at " &time'image(now - t);
    assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T2E C2 NO and NC both 0" severity error;
    assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T2F C1 NC open at wrong time" severity error;
 
@@ -290,17 +292,17 @@ uut_process: process
    PW_CONS_PRINTER_CHK_SOLENOID <= '0';
    
    wait until MV_CONS_PRINTER_C1_CAM_NO = '0';
-   -- report "C1 closed at " &time'image(now - t);
+   report "C1 closed at " &time'image(now - t);
    assert MV_CONS_PRINTER_C1_CAM_NC = '1' report "T2G C1 NO and NC both 0" severity error;
    assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T2H C2 NC open at wrong time" severity error;
 
    wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
-   -- report "C2 opened at " &time'image(now - t);
+   report "C2 opened at " &time'image(now - t);
    assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T2I C2 NO and NC both 1" severity error;
    assert MV_CONS_PRINTER_C1_CAM_NO = '0' report "T2J C1 NO open at wrong time" severity error;
 
    wait until MV_CONS_PRINTER_C1_CAM_NO = '1';
-   -- report "C1 opened at " &time'image(now - t);
+   report "C1 opened at " &time'image(now - t);
    assert MV_CONS_PRINTER_C1_CAM_NC = '0' report "T2K C1 NO and NC both 1" severity error;
       
    wait for 100us; -- Wait, but not so long as to make clutch disengage
@@ -314,14 +316,16 @@ uut_process: process
    PW_SPACE_SOLENOID <= '1';
    
    wait until MV_CONS_PRINTER_C2_CAM_NO = '0';  -- which includes C5 - C1/C2 shaft does not move?
-   -- report "C2 (C5) closed at " &time'image(now - t);
+   report "C2 (C5) closed at " &time'image(now - t);
    assert MV_CONS_PRINTER_C2_CAM_NC = '1' report "T3E C2 (C5) NO and NC both 0" severity error;
    
    PW_SPACE_SOLENOID <= '0';
    
    wait until MV_CONS_PRINTER_C2_CAM_NO = '1';  -- which includes C5 - C1/C2 shaft does not move?
-   -- report "C2 (C5) opened at " &time'image(now - t);
+   report "C2 (C5) opened at " &time'image(now - t);
    assert MV_CONS_PRINTER_C2_CAM_NC = '0' report "T3F C2 (C5) NO and NC both 1" severity error;
+   
+   -- assert false report "Stop test early for current testing" severity failure;
    
    wait for 1ms;
 

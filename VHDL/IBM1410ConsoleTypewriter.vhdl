@@ -15,6 +15,8 @@
 -- Revision 0.01 - File Created
 -- Revision 0.02 - Debugging occured but not tracked by versin
 -- Revision 0.03 - Changed output chars to all be < X"80", leaving high bit off
+-- Revision 0.04 - Changing to a more canonical state machine, ditching single shots
+
 -- Additional Comments:
 -- 
 ----------------------------------------------------------------------------------
@@ -49,6 +51,7 @@ use WORK.ALL;
 
 entity IBM1410ConsoleTypewriter is
    GENERIC(MULTIPLIER: integer := 10000);
+  
    PORT (
       FPGA_CLK: in STD_LOGIC;
         
@@ -118,9 +121,25 @@ architecture Behavioral of IBM1410ConsoleTypewriter is
 
 constant MAX_COLUMN: integer := 80;
 
-type outputState_type is (output_idle, output_s0, output_s0a, output_s1, 
-   output_s1a, output_s2, output_s2a, output_s3, output_s3a, output_s4, 
-   output_s4a, output_s5, output_s5a, output_s6, output_s6a); 
+constant CLOCKPERIOD: integer := 10;   -- 100 Mhz, 10 ns
+
+constant OUT_S0_TIME: integer := (1500 * MULTIPLIER) / CLOCKPERIOD;
+constant OUT_S1_TIME: integer := (1250 * MULTIPLIER) / CLOCKPERIOD;
+constant OUT_S2_TIME: integer := (1970 * MULTIPLIER) / CLOCKPERIOD;
+constant OUT_S3_TIME: integer := (360 * MULTIPLIER) / CLOCKPERIOD;
+constant OUT_S4_TIME: integer := (900 * MULTIPLIER) / CLOCKPERIOD;
+constant OUT_S5_TIME: integer := (360 * MULTIPLIER) / CLOCKPERIOD;
+constant OUT_S6_TIME: integer := (1610 * MULTIPLIER) / CLOCKPERIOD;
+constant OUT_STROBE_TIME: integer := 10;   -- 100 ns uart strobe time
+
+type outputState_type is (output_idle, output_s0, -- output_s0a, 
+   output_s1, -- output_s1a, 
+   output_s2, -- output_s2a, 
+   output_s3, -- output_s3a, 
+   output_strobe,
+   output_s4, -- output_s4a, 
+   output_s5, -- output_s5a, 
+   output_s6); -- output_s6a); 
    
 type spaceState_type is (space_idle, space_s0, space_s0a, space_s1,
    space_s1a, space_s2, space_s2a, space_s3, space_s3a, space_s4,
@@ -132,10 +151,12 @@ type shiftState_type is (shift_idle, shift_s0, shift_s0a, shift_s1,
 type crState_type is (cr_idle, cr_s0, cr_s0a, cr_s1, cr_s1a,
    cr_s2, cr_s2a);
 
-signal output_ssin0, output_ssin1, output_ssin2, output_ssin3, output_ssin4, 
-   output_ssin5, output_ssin6: std_logic := '1';
-signal output_ssout0, output_ssout1, output_ssout2, output_ssout3, 
-   output_ssout4, output_ssout5, output_ssout6: std_logic;
+-- signal output_ssin0, output_ssin1, output_ssin2, output_ssin3, output_ssin4, 
+--   output_ssin5, output_ssin6: std_logic := '1';
+-- signal output_ssout0, output_ssout1, output_ssout2, output_ssout3, 
+--   output_ssout4, output_ssout5, output_ssout6: std_logic;
+
+signal outputCounter: INTEGER RANGE 0 to (10000 * MULTIPLIER) / CLOCKPERIOD;   -- Max delay for any state
 
 signal space_ssin0, space_ssin1, space_ssin2, space_ssin3, space_ssin4:
    std_logic := '1';
@@ -148,7 +169,7 @@ signal shift_ssout0, shift_ssout1, shift_ssout2, shift_ssout3: std_logic;
 signal cr_ssin0, cr_ssin1, cr_ssin2: std_logic := '1';
 signal cr_ssout0, cr_ssout1, cr_ssout2: std_logic;
 
-signal outputState, nextOutputState: outputState_type := output_idle;
+signal outputState: outputState_type := output_idle;  -- , nextOutputState
 signal spaceState, nextSpaceState: spaceState_type := space_idle;
 signal shiftState, nextShiftState: shiftState_type := shift_idle;
 signal crState, nextCrState: crState_type := cr_idle;
@@ -218,61 +239,61 @@ signal CAM1, CAM2, CAM3_OR_4, CAM5, CR_INTERLOCK: std_logic := '0';
 
 begin
 
-OUTSS0: entity SingleShot 
-   generic map(PULSETIME => 1500 * MULTIPLIER, CLOCKPERIOD => 10)
-   port map(   
-   FPGA_CLK => FPGA_CLK,
-   IN1 => output_ssin0,
-   OUT1 => output_ssout0
-);
+--OUTSS0: entity SingleShot 
+--   generic map(PULSETIME => 1500 * MULTIPLIER, CLOCKPERIOD => 10)
+--   port map(   
+--   FPGA_CLK => FPGA_CLK,
+--   IN1 => output_ssin0,
+--   OUT1 => output_ssout0
+--);
 
-OUTSS1: entity SingleShot 
-   generic map(PULSETIME => 1250 * MULTIPLIER, CLOCKPERIOD => 10)
-   port map(   
-   FPGA_CLK => FPGA_CLK,
-   IN1 => output_ssin1,
-   OUT1 => output_ssout1
-);
+--OUTSS1: entity SingleShot 
+--   generic map(PULSETIME => 1250 * MULTIPLIER, CLOCKPERIOD => 10)
+--   port map(   
+--   FPGA_CLK => FPGA_CLK,
+--   IN1 => output_ssin1,
+--   OUT1 => output_ssout1
+--);
 
-OUTSS2: entity SingleShot 
-   generic map(PULSETIME => 1970 * MULTIPLIER, CLOCKPERIOD => 10)
-   port map(   
-   FPGA_CLK => FPGA_CLK,
-   IN1 => output_ssin2,
-   OUT1 => output_ssout2
-);
+--OUTSS2: entity SingleShot 
+--   generic map(PULSETIME => 1970 * MULTIPLIER, CLOCKPERIOD => 10)
+--   port map(   
+--   FPGA_CLK => FPGA_CLK,
+--   IN1 => output_ssin2,
+--   OUT1 => output_ssout2
+--);
 
-OUTSS3: entity SingleShot 
-   generic map(PULSETIME => 360 * MULTIPLIER, CLOCKPERIOD => 10)
-   port map(   
-   FPGA_CLK => FPGA_CLK,
-   IN1 => output_ssin3,
-   OUT1 => output_ssout3
-);
+--OUTSS3: entity SingleShot 
+--   generic map(PULSETIME => 360 * MULTIPLIER, CLOCKPERIOD => 10)
+--   port map(   
+--   FPGA_CLK => FPGA_CLK,
+--   IN1 => output_ssin3,
+--   OUT1 => output_ssout3
+--);
 
-OUTSS4: entity SingleShot 
-   generic map(PULSETIME => 900 * MULTIPLIER, CLOCKPERIOD => 10)
-   port map(   
-   FPGA_CLK => FPGA_CLK,
-   IN1 => output_ssin4,
-   OUT1 => output_ssout4
-);
+--OUTSS4: entity SingleShot 
+--   generic map(PULSETIME => 900 * MULTIPLIER, CLOCKPERIOD => 10)
+--   port map(   
+--   FPGA_CLK => FPGA_CLK,
+--   IN1 => output_ssin4,
+--   OUT1 => output_ssout4
+--);
 
-OUTSS5: entity SingleShot 
-   generic map(PULSETIME => 360 * MULTIPLIER, CLOCKPERIOD => 10)
-   port map(   
-   FPGA_CLK => FPGA_CLK,
-   IN1 => output_ssin5,
-   OUT1 => output_ssout5
-);
+--OUTSS5: entity SingleShot 
+--   generic map(PULSETIME => 360 * MULTIPLIER, CLOCKPERIOD => 10)
+--   port map(   
+--   FPGA_CLK => FPGA_CLK,
+--   IN1 => output_ssin5,
+--   OUT1 => output_ssout5
+--);
 
-OUTSS6: entity SingleShot 
-   generic map(PULSETIME => 1610 * MULTIPLIER, CLOCKPERIOD => 10)
-   port map(   
-   FPGA_CLK => FPGA_CLK,
-   IN1 => output_ssin6,
-   OUT1 => output_ssout6
-);
+--OUTSS6: entity SingleShot 
+--   generic map(PULSETIME => 1610 * MULTIPLIER, CLOCKPERIOD => 10)
+--   port map(   
+--   FPGA_CLK => FPGA_CLK,
+--   IN1 => output_ssin6,
+--   OUT1 => output_ssout6
+--);
 
 SPACESS0: entity SingleShot 
    generic map(PULSETIME => 700 * MULTIPLIER, CLOCKPERIOD => 10)
@@ -371,17 +392,18 @@ CRSS2: entity SingleShot
    OUT1 => cr_ssout2
 );
 
-output_states: process(FPGA_CLK)
-   begin
-      if FPGA_CLK'event and FPGA_CLK = '1' then
-         outputState <= nextOutputState;
-      end if;      
-   end process;
+--output_states: process(FPGA_CLK)
+--   begin
+--      if FPGA_CLK'event and FPGA_CLK = '1' then
+--         outputState <= nextOutputState;
+--      end if;      
+--   end process;
    
 
-output_process: process(outputState, -- rotateIndex, tiltIndex,
-   output_ssout0, output_ssout1, output_ssout2, output_ssout3, output_ssout4, 
-   output_ssout5, output_ssout6, PW_CONS_PRINTER_R1_SOLENOID, 
+output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
+   -- output_ssout0, output_ssout1, output_ssout2, output_ssout3, output_ssout4, 
+   -- output_ssout5, output_ssout6, 
+   PW_CONS_PRINTER_R1_SOLENOID, 
    PW_CONS_PRINTER_R2_SOLENOID, PW_CONS_PRINTER_R2A_SOLENOID, 
    PW_CONS_PRINTER_R5_SOLENOID, PW_CONS_PRINTER_T1_SOLENOID,
    PW_CONS_PRINTER_T2_SOLENOID, PW_CONS_PRINTER_CHK_SOLENOID,
@@ -391,13 +413,15 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
    
       -- "default" values for single shot inputs.  This apparently avoids latches
 
-      output_ssin0 <= '1';
-      output_ssin1 <= '1';
-      output_ssin2 <= '1';
-      output_ssin3 <= '1';
-      output_ssin4 <= '1';
-      output_ssin5 <= '1';
-      output_ssin6 <= '1';
+--      output_ssin0 <= '1';
+--      output_ssin1 <= '1';
+--      output_ssin2 <= '1';
+--      output_ssin3 <= '1';
+--      output_ssin4 <= '1';
+--      output_ssin5 <= '1';
+--      output_ssin6 <= '1';
+
+   if FPGA_CLK'event and FPGA_CLK = '1' then 
       
       case outputState is
       when output_idle =>
@@ -409,44 +433,53 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
             PW_CONS_PRINTER_T1_SOLENOID = '1' or
             PW_CONS_PRINTER_T2_SOLENOID = '1' or
             PW_CONS_PRINTER_CHK_SOLENOID = '1' then            
-            nextOutputState <= output_s0a;
+            -- nextOutputState <= output_s0a;
+            outputCounter <= OUT_S0_TIME;
+            outputState <= output_s0;
             -- report "Entering State output_s0a";
          else
-            nextOutputState <= output_idle;             
+            outputState <= output_idle;             
          end if;
 
-      when output_s0a =>
-         -- wait for single shot to trigger
-         output_ssin0 <= '0';
-         if(output_ssout0 = '0') then
-            nextOutputState <= output_s0;
-         else
-            nextOutputState <= output_s0a;
-         end if;
+--      when output_s0a =>
+--         -- wait for single shot to trigger
+--         output_ssin0 <= '0';
+--         if(output_ssout0 = '0') then
+--            nextOutputState <= output_s0;
+--         else
+--            nextOutputState <= output_s0a;
+--         end if;
       
       when output_s0 =>
          -- output_ssin0 <= '1';
-         if output_ssout0 = '1' then
+         -- if output_ssout0 = '1' then
+         if outputCounter = 0 then
             -- report "Entering State output_s1";         
-            nextOutputState <= output_s1a;
+            -- nextOutputState <= output_s1a;
+            outputState <= output_s1;
+            outputCounter <= OUT_S1_TIME;
          else
-            nextOutputState <= output_s0;
+            outputCounter <= outputCounter - 1;
+            outputState <= output_s0;
          end if;
 
-      when output_s1a =>
-         -- wait for single shot to trigger
-         output_ssin1 <= '0';
-         if(output_ssout1 = '0') then
-            nextOutputState <= output_s1;
-         else
-            nextOutputState <= output_s1a;
-         end if;
+--      when output_s1a =>
+--         -- wait for single shot to trigger
+--         output_ssin1 <= '0';
+--         if(output_ssout1 = '0') then
+--            nextOutputState <= output_s1;
+--         else
+--            nextOutputState <= output_s1a;
+--         end if;
 
       when output_s1 =>
          -- output_ssin1 <= '1';
-         if output_ssout1 = '1' then
+         -- if output_ssout1 = '1' then
+         if outputCounter = 0 then
             -- report "Entering State output_s2";         
-            nextOutputState <= output_s2a;
+            -- nextOutputState <= output_s2a;
+            outputState <= output_s2;
+            outputCounter <= OUT_S2_TIME;
             -- Time to latch data before solenoids release, including parity
             -- This is equivalent to the Selectric mechanical latches
             latchedRotateIndex <= rotateIndex;
@@ -460,23 +493,27 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
                PW_CONS_PRINTER_T2_SOLENOID xor
                PW_CONS_PRINTER_CHK_SOLENOID;
          else
-            nextOutputState <= output_s1;
+            outputCounter <= outputCounter - 1;
+            outputState <= output_s1;
          end if;
 
-      when output_s2a =>
-         -- wait for single shot to trigger
-         output_ssin2 <= '0';
-         if(output_ssout2 = '0') then
-            nextOutputState <= output_s2;
-         else
-            nextOutputState <= output_s2a;
-         end if;
+--      when output_s2a =>
+--         -- wait for single shot to trigger
+--         output_ssin2 <= '0';
+--         if(output_ssout2 = '0') then
+--            nextOutputState <= output_s2;
+--         else
+--            nextOutputState <= output_s2a;
+--         end if;
 
       when output_s2 =>
          -- output_ssin2 <= '1';
-         if output_ssout2 = '1' then
+         -- if output_ssout2 = '1' then
+         if outputCounter = 0 then
             -- report "Entering State output_s3";         
-            nextOutputState <= output_s3a;
+            -- nextOutputState <= output_s3a;
+            outputState <= output_s3;
+            outputCounter <= OUT_S3_TIME;
             
             -- Time to determine the character to print
             
@@ -497,21 +534,23 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
             end if;
                         
          else
-            nextOutputState <= output_s2;
+            outputCounter <= outputCounter - 1;
+            outputState <= output_s2;
          end if;
 
-      when output_s3a =>
-         -- wait for single shot to trigger
-         output_ssin3 <= '0';
-         if(output_ssout3 = '0') then
-            nextOutputState <= output_s3;
-         else
-            nextOutputState <= output_s3a;
-         end if;
+--      when output_s3a =>
+--         -- wait for single shot to trigger
+--         output_ssin3 <= '0';
+--         if(output_ssout3 = '0') then
+--            nextOutputState <= output_s3;
+--         else
+--            nextOutputState <= output_s3a;
+--         end if;
 
       when output_s3 =>
          -- output_ssin3 <= '1';
-         if output_ssout3 = '1' then
+         -- if output_ssout3 = '1' then
+         if outputCounter = 0 then
          
             -- Time to print the character
             
@@ -522,63 +561,84 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
             -- currentColumnUp <= '1';
                      
             -- report "Entering State output_s4";         
-            nextOutputState <= output_s4a;
+            -- nextOutputState <= output_s4a;
+            outputState <= output_strobe;
+            outputCounter <= OUT_STROBE_TIME;
          else
-            nextOutputState <= output_s3;
+            outputCounter <= outputCounter - 1;
+            outputState <= output_s3;
          end if;
-
-      when output_s4a =>
-         -- wait for single shot to trigger
-         output_ssin4 <= '0';
-         if(output_ssout4 = '0') then
-            nextOutputState <= output_s4;
-            -- currentColumnUp <= '0';
+           
+      when output_strobe =>
+         if outputCounter = 0 then
+            outputState <= output_s4;
+            outputCounter <= OUT_S4_TIME;
          else
-            nextOutputState <= output_s4a;
+            outputCounter <= outputCounter - 1;
+            outputState <= output_strobe;
          end if;
+                 
+--      when output_s4a =>
+--         -- wait for single shot to trigger
+--         output_ssin4 <= '0';
+--         if(output_ssout4 = '0') then
+--            nextOutputState <= output_s4;
+--            -- currentColumnUp <= '0';
+--         else
+--            nextOutputState <= output_s4a;
+--         end if;
 
       when output_s4 =>
          -- output_ssin4 <= '1';
-         if output_ssout4 = '1' then
+         -- if output_ssout4 = '1' then
+         if outputCounter = 0 then
             -- report "Entering State output_s5";         
-            nextOutputState <= output_s5a;
+            -- nextOutputState <= output_s5a;
+            outputState <= output_s5;
+            outputCounter <= OUT_S5_TIME;
          else
-            nextOutputState <= output_s4;
+            outputCounter <= outputCounter - 1;
+            outputState <= output_s4;
          end if;
 
-      when output_s5a =>
-         -- wait for single shot to trigger
-         output_ssin5 <= '0';
-         if(output_ssout5 = '0') then
-            nextOutputState <= output_s5;
-         else
-            nextOutputState <= output_s5a;
-         end if;
+--      when output_s5a =>
+--         -- wait for single shot to trigger
+--         output_ssin5 <= '0';
+--         if(output_ssout5 = '0') then
+--            nextOutputState <= output_s5;
+--         else
+--            nextOutputState <= output_s5a;
+--         end if;
 
       when output_s5 =>
          -- output_ssin5 <= '1';
-         if output_ssout5 = '1' then
+         -- if output_ssout5 = '1' then
+         if outputCounter = 0 then
             -- report "Entering State output_s6a";         
-            nextOutputState <= output_s6a;
+            -- nextOutputState <= output_s6a;
+            outputState <= output_s6;
+            outputCounter <= OUT_S6_TIME;
             output_parity <= '0';
          else
-            nextOutputState <= output_s5;
+            outputCounter <= outputCounter - 1;
+            outputState <= output_s5;
          end if;
 
-      when output_s6a =>
-         -- wait for single shot to trigger
-         output_ssin6 <= '0';
-         if(output_ssout6 = '0') then
-            -- report "Entering State output_s6";
-            nextOutputState <= output_s6;
-         else
-            nextOutputState <= output_s6a;
-         end if;
+--      when output_s6a =>
+--         -- wait for single shot to trigger
+--         output_ssin6 <= '0';
+--         if(output_ssout6 = '0') then
+--            -- report "Entering State output_s6";
+--            nextOutputState <= output_s6;
+--         else
+--            nextOutputState <= output_s6a;
+--         end if;
 
 
       when output_s6 =>
          -- output_ssin6 <= '1';
-         if output_ssout6 = '1' then -- If more input, go right into state 1.
+         -- if output_ssout6 = '1' then -- If more input, go right into state 1.
+         if outputCounter = 0 then
             if PW_CONS_PRINTER_R1_SOLENOID = '1' or
                PW_CONS_PRINTER_R2_SOLENOID = '1' or
                PW_CONS_PRINTER_R2A_SOLENOID = '1' or
@@ -588,16 +648,21 @@ output_process: process(outputState, -- rotateIndex, tiltIndex,
                PW_CONS_PRINTER_CHK_SOLENOID = '1' then   
                report "Returning to State output_s1(a)";     
                -- output_ssin1 <= '0';           
-               nextOutputState <= output_s1a;            
+               -- nextOutputState <= output_s1a;
+               outputState <= output_s1;
+               outputCounter <= OUT_S1_TIME;            
             else
                report "Returning to state State output_idle";            
-               nextOutputState <= output_idle;
+               outputState <= output_idle;
             end if;
          else
-            nextOutputState <= output_s6;
+            outputCounter <= outputCounter - 1;
+            outputState <= output_s6;
          end if;
 
       end case;
+      
+      end if;
          
    end process;
    
@@ -1000,19 +1065,21 @@ column_process: process(FPGA_CLK,currentColumnUp,currentColumnDown,currentColumn
 -- A lot of state machine examples uses "if" statements to generate
 -- combinatorial values, but I don't think that is the best way, so
 
-CAM1 <= '1' when outputState = output_s3a or
+CAM1 <= '1' when -- outputState = output_s3a or
    outputState = output_s3 or
-   outputState = output_s4a or
+   outputState = output_strobe or
+   -- outputState = output_s4a or
    outputState = output_s4 or
-   outputState = output_s5a or
+   -- outputState = output_s5a or
    outputState = output_s5
    else '0';
 
-CAM2 <= '1' when outputState = output_s2a or
+CAM2 <= '1' when -- outputState = output_s2a or
    outputState = output_s2 or 
-   outputState = output_s3a or
+   -- outputState = output_s3a or
    outputState = output_s3 or
-   outputState = output_s4a or
+   outputState = output_strobe or 
+   -- outputState = output_s4a or
    outputState = output_s4
    else '0';
 
@@ -1114,8 +1181,9 @@ MV_KEYBOARD_UNLOCK_MODE <= not MW_KEYBOARD_LOCK_SOLENOID;
 -- Console Output UART Support
 
 IBM1410_CONSOLE_XMT_CHAR <= 
-   printChar when outputState = output_s3 or 
-      outputState = output_s4a or
+   printChar when outputState = output_s3 or
+      outputState = output_strobe or  
+      -- outputState = output_s4a or
       outputState = output_s4 else
    X"20" when (spaceState = space_s1 or spaceState = space_s2a) and latchedSpace = '1' else
    X"08" when (spaceState = space_s1 or spaceState = space_s2a) and latchedBackSpace = '1' else
@@ -1124,7 +1192,8 @@ IBM1410_CONSOLE_XMT_CHAR <=
 
 
 IBM1410_CONSOLE_XMT_STROBE <= '1' when 
-   outputState = output_s4a or
+   -- outputState = output_s4a or  THIS ONE MAY NEED ANOTHER STATE?
+   outputState = output_strobe or
    spaceState = space_s2a or
    crState = cr_s2a 
    else '0';
