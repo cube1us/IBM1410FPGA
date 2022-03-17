@@ -232,19 +232,19 @@ type GolfballTilt is array (0 to 10) of STD_LOGIC_VECTOR(7 downto 0);
 
  -- x, x, @, >, x, b, x, :, (Radical), x, _
 constant Golfball_UC_Tilt0: GolfballTilt :=
- (X"60", X"60", X"40", X"3E", X"60", X"63", X"60", X"3A", X"7D", X"60", X"5F");
+ (X"60", X"60", X"40", X"3E", X"60", X"62", X"60", X"3A", X"7D", X"60", X"5F");
 
 -- x, x, %, \, x, (alt blk), x, (word separator), (segment Mark), x, x
 constant Golfball_UC_Tilt1: GolfballTilt :=
- (X"60", X"60", X"25", X"5C", X"60", X"62", X"60", X"5E", X"7E", X"60", X"60"); -- 'b' is console alt. blk, word sep, Segment mk
+ (X"60", X"60", X"25", X"5C", X"60", X"63", X"60", X"5E", X"7E", X"60", X"60"); -- 'b' is console alt. blk, word sep, Segment mk
 
 -- x, x, *, ;, x, -, x, ], (delta), x, x
 constant Golfball_UC_Tilt2: GolfballTilt :=
- (X"60", X"60", X"2A", X"3B", X"60", X"2D", X"60", X"5D", X"7F", X"60", X"60"); -- delta
+ (X"60", X"60", X"2A", X"3B", X"60", X"2D", X"60", X"5D", X"64", X"60", X"60"); -- delta
 
 -- x, x, (lozenge), <, x, ampersand, x, [, (group mark), x, (word mark - for printing)
 constant Golfball_UC_Tilt3: GolfballTilt :=
- (X"60", X"60", X"29", X"3C", X"60", X"26", X"60", X"5B", X"7B", X"60", X"76"); -- lozenge, group mark, word mark
+ (X"60", X"60", X"65", X"3C", X"60", X"26", X"60", X"5B", X"7B", X"60", X"76"); -- lozenge, group mark, word mark
  
 -- 1, 3, 5, 7, 8, 0, 2, 4, 6, 9, #
 constant Golfball_LC_Tilt0: GolfballTilt :=
