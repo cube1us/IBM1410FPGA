@@ -16,6 +16,7 @@
 -- Revision 0.02 - Debugging occured but not tracked by versin
 -- Revision 0.03 - Changed output chars to all be < X"80", leaving high bit off
 -- Revision 0.04 - Changing to a more canonical state machine, ditching single shots
+-- Revision 0.05 - Fixed up a couple of characters, got rid of commented code from 0.04
 
 -- Additional Comments:
 -- 
@@ -30,6 +31,8 @@
 -- Output Space bar key ( " )
 -- Output bits to CPU: BA8421
 -- Output Keyboard lock mode
+-- There are still some latches in the various state machines - see if they can become
+--   combinatorial signals instead.
 
 -- What is -V CONS INPUT*CHK OP
 
@@ -109,16 +112,6 @@ end IBM1410ConsoleTypewriter;
 
 architecture Behavioral of IBM1410ConsoleTypewriter is
 
---component SingleShot is
---   PORT(
---      FPGA_CLK: in STD_LOGIC;
---      IN1: in STD_LOGIC;
---      IN2: in STD_LOGIC := '1';
---      IN3: in STD_LOGIC := '1';
---      OUT1: out STD_LOGIC
---   );
---end component;
-
 constant MAX_COLUMN: integer := 80;
 
 constant CLOCKPERIOD: integer := 10;   -- 100 Mhz, 10 ns
@@ -147,55 +140,40 @@ constant CR_S2_TIME: integer := (3950 * MULTIPLIER) / CLOCKPERIOD;
 constant OUT_STROBE_TIME: integer := 10;   -- 100 ns uart strobe time
 
 
-type outputState_type is (output_idle, output_s0, -- output_s0a, 
-   output_s1, -- output_s1a, 
-   output_s2, -- output_s2a, 
-   output_s3, -- output_s3a, 
+type outputState_type is (output_idle,
+   output_s0, 
+   output_s1, 
+   output_s2, 
+   output_s3, 
    output_strobe,
-   output_s4, -- output_s4a, 
-   output_s5, -- output_s5a, 
-   output_s6); -- output_s6a); 
+   output_s4, 
+   output_s5, 
+   output_s6); 
    
-type spaceState_type is (space_idle, space_s0, -- space_s0a, 
-   space_s1, -- space_s1a,
+type spaceState_type is (space_idle,
+   space_s0, 
+   space_s1,
    space_strobe,    
-   space_s2, -- space_s2a, 
-   space_s3, -- space_s3a, 
-   space_s4 -- space_s4a
-   );
+   space_s2, 
+   space_s3, 
+   space_s4);
    
-type shiftState_type is (shift_idle, shift_s0, -- shift_s0a, 
-   shift_s1, -- shift_s1a, 
-   shift_s2, -- shift_s2a, 
-   shift_s3 -- ,shift_s3a
-   );
+type shiftState_type is (shift_idle,
+   shift_s0, 
+   shift_s1, 
+   shift_s2, 
+   shift_s3);
    
-type crState_type is (cr_idle, cr_s0, -- cr_s0a, 
-   cr_s1, -- cr_s1a,
+type crState_type is (cr_idle,
+   cr_s0, 
+   cr_s1,
    cr_strobe,
-   cr_s2 -- ,cr_s2a
-   );
-
--- signal output_ssin0, output_ssin1, output_ssin2, output_ssin3, output_ssin4, 
---   output_ssin5, output_ssin6: std_logic := '1';
--- signal output_ssout0, output_ssout1, output_ssout2, output_ssout3, 
---   output_ssout4, output_ssout5, output_ssout6: std_logic;
+   cr_s2);
 
 signal outputCounter: INTEGER RANGE 0 to (2000 * MULTIPLIER) / CLOCKPERIOD;   -- Max delay for any state
 signal spaceCounter:  INTEGER RANGE 0 to (3000 * MULTIPLIER) / CLOCKPERIOD;
 signal shiftCounter:  INTEGER RANGE 0 to (4000 * MULTIPLIER) / CLOCKPERIOD;
 signal crCounter:     INTEGER RANGE 0 to (10000 * MULTIPLIER) / CLOCKPERIOD;
-
---signal space_ssin0, space_ssin1, space_ssin2, space_ssin3, space_ssin4:
---   std_logic := '1';
---signal space_ssout0, space_ssout1, space_ssout2, space_ssout3, 
---   space_ssout4: std_logic;
-   
---signal shift_ssin0, shift_ssin1, shift_ssin2, shift_ssin3: std_logic := '1';
---signal shift_ssout0, shift_ssout1, shift_ssout2, shift_ssout3: std_logic;   
-
---signal cr_ssin0, cr_ssin1, cr_ssin2: std_logic := '1';
---signal cr_ssout0, cr_ssout1, cr_ssout2: std_logic;
 
 signal outputState: outputState_type := output_idle;  -- , nextOutputState
 signal spaceState: spaceState_type := space_idle; -- , nextSpaceState
@@ -267,170 +245,8 @@ signal CAM1, CAM2, CAM3_OR_4, CAM5, CR_INTERLOCK: std_logic := '0';
 
 begin
 
---OUTSS0: entity SingleShot 
---   generic map(PULSETIME => 1500 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => output_ssin0,
---   OUT1 => output_ssout0
---);
-
---OUTSS1: entity SingleShot 
---   generic map(PULSETIME => 1250 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => output_ssin1,
---   OUT1 => output_ssout1
---);
-
---OUTSS2: entity SingleShot 
---   generic map(PULSETIME => 1970 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => output_ssin2,
---   OUT1 => output_ssout2
---);
-
---OUTSS3: entity SingleShot 
---   generic map(PULSETIME => 360 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => output_ssin3,
---   OUT1 => output_ssout3
---);
-
---OUTSS4: entity SingleShot 
---   generic map(PULSETIME => 900 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => output_ssin4,
---   OUT1 => output_ssout4
---);
-
---OUTSS5: entity SingleShot 
---   generic map(PULSETIME => 360 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => output_ssin5,
---   OUT1 => output_ssout5
---);
-
---OUTSS6: entity SingleShot 
---   generic map(PULSETIME => 1610 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => output_ssin6,
---   OUT1 => output_ssout6
---);
-
---SPACESS0: entity SingleShot 
---   generic map(PULSETIME => 700 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => space_ssin0,
---   OUT1 => space_ssout0
---);
- 
---SPACESS1: entity SingleShot 
---   generic map(PULSETIME => 1790 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => space_ssin1,
---   OUT1 => space_ssout1
---);
-
---SPACESS2: entity SingleShot 
---   generic map(PULSETIME => 180 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => space_ssin2,
---   OUT1 => space_ssout2
---);
-
---SPACESS3: entity SingleShot 
---   generic map(PULSETIME => 2690 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => space_ssin3,
---   OUT1 => space_ssout3
---);
-
---SPACESS4: entity SingleShot 
---   generic map(PULSETIME => 1790 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => space_ssin4,
---   OUT1 => space_ssout4
---);
-
---SHIFTSS0: entity SingleShot 
---   generic map(PULSETIME => 700 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => shift_ssin0,
---   OUT1 => shift_ssout0
---);
- 
---SHIFTSS1: entity SingleShot 
---   generic map(PULSETIME => 1250 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => shift_ssin1,
---   OUT1 => shift_ssout1
---);
-
---SHIFTSS2: entity SingleShot 
---   generic map(PULSETIME => 3950 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => shift_ssin2,
---   OUT1 => shift_ssout2
---);
-
---SHIFTSS3: entity SingleShot 
---   generic map(PULSETIME => 1250 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => shift_ssin3,
---   OUT1 => shift_ssout3
---);
-
---CRSS0: entity SingleShot 
---   -- 7ms initial + 51.9ms
---   generic map(PULSETIME => 5890 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => cr_ssin0,
---   OUT1 => cr_ssout0
---);
- 
---CRSS1: entity SingleShot 
---   generic map(PULSETIME => 10000 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => cr_ssin1,
---   OUT1 => cr_ssout1
---);
-
---CRSS2: entity SingleShot 
---   generic map(PULSETIME => 3950 * MULTIPLIER, CLOCKPERIOD => 10)
---   port map(   
---   FPGA_CLK => FPGA_CLK,
---   IN1 => cr_ssin2,
---   OUT1 => cr_ssout2
---);
-
---output_states: process(FPGA_CLK)
---   begin
---      if FPGA_CLK'event and FPGA_CLK = '1' then
---         outputState <= nextOutputState;
---      end if;      
---   end process;
-   
-
-output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
-   -- output_ssout0, output_ssout1, output_ssout2, output_ssout3, output_ssout4, 
-   -- output_ssout5, output_ssout6,
+output_process: process(FPGA_CLK, 
+   outputState,
    outputCounter, 
    PW_CONS_PRINTER_R1_SOLENOID, 
    PW_CONS_PRINTER_R2_SOLENOID, PW_CONS_PRINTER_R2A_SOLENOID, 
@@ -440,16 +256,6 @@ output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
    )
    begin
    
-      -- "default" values for single shot inputs.  This apparently avoids latches
-
---      output_ssin0 <= '1';
---      output_ssin1 <= '1';
---      output_ssin2 <= '1';
---      output_ssin3 <= '1';
---      output_ssin4 <= '1';
---      output_ssin5 <= '1';
---      output_ssin6 <= '1';
-
    if FPGA_CLK'event and FPGA_CLK = '1' then 
       
       case outputState is
@@ -462,29 +268,14 @@ output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
             PW_CONS_PRINTER_T1_SOLENOID = '1' or
             PW_CONS_PRINTER_T2_SOLENOID = '1' or
             PW_CONS_PRINTER_CHK_SOLENOID = '1' then            
-            -- nextOutputState <= output_s0a;
             outputCounter <= OUT_S0_TIME;
             outputState <= output_s0;
-            -- report "Entering State output_s0a";
          else
             outputState <= output_idle;             
          end if;
 
---      when output_s0a =>
---         -- wait for single shot to trigger
---         output_ssin0 <= '0';
---         if(output_ssout0 = '0') then
---            nextOutputState <= output_s0;
---         else
---            nextOutputState <= output_s0a;
---         end if;
-      
       when output_s0 =>
-         -- output_ssin0 <= '1';
-         -- if output_ssout0 = '1' then
          if outputCounter = 0 then
-            -- report "Entering State output_s1";         
-            -- nextOutputState <= output_s1a;
             outputState <= output_s1;
             outputCounter <= OUT_S1_TIME;
          else
@@ -492,21 +283,8 @@ output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
             outputState <= output_s0;
          end if;
 
---      when output_s1a =>
---         -- wait for single shot to trigger
---         output_ssin1 <= '0';
---         if(output_ssout1 = '0') then
---            nextOutputState <= output_s1;
---         else
---            nextOutputState <= output_s1a;
---         end if;
-
       when output_s1 =>
-         -- output_ssin1 <= '1';
-         -- if output_ssout1 = '1' then
          if outputCounter = 0 then
-            -- report "Entering State output_s2";         
-            -- nextOutputState <= output_s2a;
             outputState <= output_s2;
             outputCounter <= OUT_S2_TIME;
             -- Time to latch data before solenoids release, including parity
@@ -526,21 +304,8 @@ output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
             outputState <= output_s1;
          end if;
 
---      when output_s2a =>
---         -- wait for single shot to trigger
---         output_ssin2 <= '0';
---         if(output_ssout2 = '0') then
---            nextOutputState <= output_s2;
---         else
---            nextOutputState <= output_s2a;
---         end if;
-
       when output_s2 =>
-         -- output_ssin2 <= '1';
-         -- if output_ssout2 = '1' then
          if outputCounter = 0 then
-            -- report "Entering State output_s3";         
-            -- nextOutputState <= output_s3a;
             outputState <= output_s3;
             outputCounter <= OUT_S3_TIME;
             
@@ -567,30 +332,10 @@ output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
             outputState <= output_s2;
          end if;
 
---      when output_s3a =>
---         -- wait for single shot to trigger
---         output_ssin3 <= '0';
---         if(output_ssout3 = '0') then
---            nextOutputState <= output_s3;
---         else
---            nextOutputState <= output_s3a;
---         end if;
-
       when output_s3 =>
-         -- output_ssin3 <= '1';
-         -- if output_ssout3 = '1' then
          if outputCounter = 0 then
          
             -- Time to print the character
-            
-            -- report "Print char: /" & character'image(printChar) & "/";
-            -- report "Rotate Index: " & integer'image(latchedRotateIndex) & 
-               -- ", Tilt Index: " & integer'image(latchedTiltIndex);
-               
-            -- currentColumnUp <= '1';
-                     
-            -- report "Entering State output_s4";         
-            -- nextOutputState <= output_s4a;
             outputState <= output_strobe;
             outputCounter <= OUT_STROBE_TIME;
          else
@@ -607,22 +352,8 @@ output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
             outputState <= output_strobe;
          end if;
                  
---      when output_s4a =>
---         -- wait for single shot to trigger
---         output_ssin4 <= '0';
---         if(output_ssout4 = '0') then
---            nextOutputState <= output_s4;
---            -- currentColumnUp <= '0';
---         else
---            nextOutputState <= output_s4a;
---         end if;
-
       when output_s4 =>
-         -- output_ssin4 <= '1';
-         -- if output_ssout4 = '1' then
          if outputCounter = 0 then
-            -- report "Entering State output_s5";         
-            -- nextOutputState <= output_s5a;
             outputState <= output_s5;
             outputCounter <= OUT_S5_TIME;
          else
@@ -630,21 +361,8 @@ output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
             outputState <= output_s4;
          end if;
 
---      when output_s5a =>
---         -- wait for single shot to trigger
---         output_ssin5 <= '0';
---         if(output_ssout5 = '0') then
---            nextOutputState <= output_s5;
---         else
---            nextOutputState <= output_s5a;
---         end if;
-
       when output_s5 =>
-         -- output_ssin5 <= '1';
-         -- if output_ssout5 = '1' then
          if outputCounter = 0 then
-            -- report "Entering State output_s6a";         
-            -- nextOutputState <= output_s6a;
             outputState <= output_s6;
             outputCounter <= OUT_S6_TIME;
             output_parity <= '0';
@@ -653,20 +371,7 @@ output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
             outputState <= output_s5;
          end if;
 
---      when output_s6a =>
---         -- wait for single shot to trigger
---         output_ssin6 <= '0';
---         if(output_ssout6 = '0') then
---            -- report "Entering State output_s6";
---            nextOutputState <= output_s6;
---         else
---            nextOutputState <= output_s6a;
---         end if;
-
-
       when output_s6 =>
-         -- output_ssin6 <= '1';
-         -- if output_ssout6 = '1' then -- If more input, go right into state 1.
          if outputCounter = 0 then
             if PW_CONS_PRINTER_R1_SOLENOID = '1' or
                PW_CONS_PRINTER_R2_SOLENOID = '1' or
@@ -675,13 +380,9 @@ output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
                PW_CONS_PRINTER_T1_SOLENOID = '1' or
                PW_CONS_PRINTER_T2_SOLENOID = '1' or
                PW_CONS_PRINTER_CHK_SOLENOID = '1' then   
-               -- report "Returning to State output_s1(a)";     
-               -- output_ssin1 <= '0';           
-               -- nextOutputState <= output_s1a;
                outputState <= output_s1;
                outputCounter <= OUT_S1_TIME;            
             else
-               -- report "Returning to state State output_idle";            
                outputState <= output_idle;
             end if;
          else
@@ -695,28 +396,15 @@ output_process: process(FPGA_CLK, outputState, -- rotateIndex, tiltIndex,
          
    end process;
    
---space_states: process(FPGA_CLK)
---   begin
---      if FPGA_CLK'event and FPGA_CLK = '1' then
---         spaceState <= nextSpaceState;
---      end if;      
---   end process;
-   
-
-space_process: process(FPGA_CLK, spaceState, -- space_ssout0, space_ssout1, space_ssout2,
-   -- space_ssout3, space_ssout4, 
-   spaceCounter, PW_SPACE_SOLENOID, PW_BACKSPACE_SOLENOID,
-   latchedSpace,latchedBackspace)
+space_process: process(FPGA_CLK, 
+   spaceState,
+   spaceCounter, 
+   PW_SPACE_SOLENOID, 
+   PW_BACKSPACE_SOLENOID,
+   latchedSpace,
+   latchedBackspace)
    begin
    
-      -- "default" values for single shot inputs.  This apparently avoids latches
-
---      space_ssin0 <= '1';
---      space_ssin1 <= '1';
---      space_ssin2 <= '1';
---      space_ssin3 <= '1';
---      space_ssin4 <= '1';
-      
       if FPGA_CLK'event and FPGA_CLK = '1' then
       
          case spaceState is
@@ -724,98 +412,41 @@ space_process: process(FPGA_CLK, spaceState, -- space_ssout0, space_ssout1, spac
          
             if PW_SPACE_SOLENOID = '1' or
                PW_BACKSPACE_SOLENOID = '1' then            
-               -- nextSpaceState <= space_s0a;
-               -- report "Entering State space_s0a";
                spaceState <= space_s0;
                spaceCounter <= SPACE_S0_TIME;
             else
-               -- nextSpaceState <= space_idle;
                spaceState <= space_idle;             
             end if;
-
---      when space_s0a =>
---         -- wait for single shot to trigger
---         space_ssin0 <= '0';
---         if(space_ssout0 = '0') then
---            -- report "Entering State space_s0";
---            nextSpaceState <= space_s0;
---         else
---            nextSpaceState <= space_s0a;
---         end if;
-      
+     
          when space_s0 =>
-            -- space_ssin0 <= '1';
-            -- if space_ssout0 = '1' then
             if spaceCounter = 0 then
-               -- report "Entering State space_s1";         
-               -- nextSpaceState <= space_s1a;
                spaceState <= space_s1;
                spaceCounter <= SPACE_S1_TIME;
             else
-               -- nextSpaceState <= space_s0;
                spaceState <= space_s0;
                spaceCounter <= spaceCounter - 1;
             end if;
 
---      when space_s1a =>
---         -- wait for single shot to trigger
---         space_ssin1 <= '0';
---         if(space_ssout1 = '0') then
---            nextSpaceState <= space_s1;
---         else
---            nextSpaceState <= space_s1a;
---         end if;
-
          when space_s1 =>
-            -- space_ssin1 <= '1';
-            -- if space_ssout1 = '1' then
             if spaceCounter = 0 then
-               -- report "Entering State space_s2";         
-               -- nextSpaceState <= space_s2a;
-               -- Time to latch data before solenoids release
                spaceState <= space_s2;
                spaceCounter <= SPACE_S2_TIME;
                latchedSpace <= PW_SPACE_SOLENOID;
                latchedBackspace <= PW_BACKSPACE_SOLENOID;
             else
-               -- nextSpaceState <= space_s1;
                spaceState <= space_s1;
                spaceCounter <= spaceCounter - 1;
             end if;
 
---      when space_s2a =>
---         -- wait for single shot to trigger
---         space_ssin2 <= '0';
---         if(space_ssout2 = '0') then
---            nextSpaceState <= space_s2;
---         else
---            nextSpaceState <= space_s2a;
---         end if;
-
-         
          when space_s2 =>
-            -- space_ssin2 <= '1';
-            -- if space_ssout2 = '1' then
             if spaceCounter = 0 then
-               -- report "Entering State space_s3";         
-               -- nextSpaceState <= space_s3a;
                spaceState <= space_strobe;
                spaceCounter <= OUT_STROBE_TIME;            
             else
-               -- nextSpaceState <= space_s2;
                spaceState <= space_s2;
                spaceCounter <= spaceCounter - 1;
             end if;
                  
---      when space_s3a =>
---         -- wait for single shot to trigger
---         space_ssin3 <= '0';
---         if(space_ssout3 = '0') then
---            nextSpaceState <= space_s3;
---         else
---            nextSpaceState <= space_s3a;
---         end if;
-
          when space_strobe =>
             if spaceCounter = 0 then
                spaceState <= space_s3;
@@ -826,48 +457,25 @@ space_process: process(FPGA_CLK, spaceState, -- space_ssout0, space_ssout1, spac
             end if;
 
          when space_s3 =>
-            -- space_ssin3 <= '1';
-            -- if space_ssout3 = '1' then
             if spaceCounter = 0 then         
             -- Time to space or backspace or shift        
-                if latchedSpace = '1' then
+               if latchedSpace = '1' then
                   -- report "<space>";
-                  -- currentColumnUp <= '1';
                elsif latchedBackspace = '1' then               
                   -- report "<backspace>";
-                  -- currentColumnDown <= '1';
                end if;
                      
-               -- report "Entering State space_s4";         
-               -- nextSpaceState <= space_s4a;
                spaceState <= space_s4;
                spaceCounter <= SPACE_S4_TIME;
             else
-               -- nextSpaceState <= space_s3;
                spaceState <= space_s3;
                spaceCounter <= spaceCounter - 1;
             end if;
 
---      when space_s4a =>
---         -- wait for single shot to trigger
---         space_ssin4 <= '0';
---         if(space_ssout4 = '0') then
---            nextSpaceState <= space_s4;
---            -- currentColumnUp <= '0';
---            -- currentColumnDown <= '0';
---         else
---            nextSpaceState <= space_s4a;
---         end if;
-
          when space_s4 =>
-            -- space_ssin4 <= '1';
-            -- if space_ssout4 = '1' then
             if spaceCounter = 0 then
-               -- report "Entering State space_idle";         
-               -- nextSpaceState <= space_idle;
                spaceState <= space_idle;
             else
-               -- nextSpaceState <= space_s4;
                spaceState <= space_s4;
                spaceCounter <= spaceCounter - 1;
             end if;
@@ -877,135 +485,62 @@ space_process: process(FPGA_CLK, spaceState, -- space_ssout0, space_ssout1, spac
          
    end process;
 
-
---shift_states: process(FPGA_CLK)
---   begin
---      if FPGA_CLK'event and FPGA_CLK = '1' then
---         shiftState <= nextShiftState;
---      end if;      
---   end process;
-   
-
-shift_process: process(FPGA_CLK, shiftState, -- shift_ssout0, shift_ssout1, 
-   -- shift_ssout2,shift_ssout3, 
+shift_process: process(FPGA_CLK,
+   shiftState, 
    PW_UPPER_CASE_SHIFT_SOLENOID, 
-   PW_LOWER_CASE_SHIFT_SOLENOID, latchedCaseChange, inUpperCase)
+   PW_LOWER_CASE_SHIFT_SOLENOID,
+   latchedCaseChange,
+   inUpperCase)
    begin
    
    if FPGA_CLK'event and FPGA_CLK = '1' then
    
-      -- "default" values for single shot inputs.  This apparently avoids latches
-
---      shift_ssin0 <= '1';
---      shift_ssin1 <= '1';
---      shift_ssin2 <= '1';
---      shift_ssin3 <= '1';      
-      
       case shiftState is
       when shift_idle =>
          
          if PW_UPPER_CASE_SHIFT_SOLENOID = '1' or
             PW_LOWER_CASE_SHIFT_SOLENOID = '1' then            
-            -- nextShiftState <= shift_s0a;
             shiftState <= shift_s0;
             shiftCounter <= SHIFT_S0_TIME;
-            -- report "Entering State shift_s0a";
             -- Remember the case to change to now, because if
             -- we try to do it in state S1, the CPU drops the
             -- shift solenoid at the same time, and that causes
             -- us to lose the case change.
             latchedCaseChange <= PW_UPPER_CASE_SHIFT_SOLENOID;
          else
-            -- nextShiftState <= shift_idle;
             shiftState <= shift_idle;             
          end if;
 
---      when shift_s0a =>
---         -- wait for single shot to trigger
---         shift_ssin0 <= '0';
---         if(shift_ssout0 = '0') then
---            -- report "Entering State shift_s0";
---            nextShiftState <= shift_s0;
---         else
---            nextShiftState <= shift_s0a;
---         end if;
-      
       when shift_s0 =>
-         -- shift_ssin0 <= '1';
-         -- if shift_ssout0 = '1' then
          if shiftCounter = 0 then
-            -- report "Entering State shift_s1a";         
-            -- nextShiftState <= shift_s1a;
             shiftState <= shift_s1;
             shiftCounter <= SHIFT_S1_TIME;
          else
-            -- nextShiftState <= shift_s0;
             shiftState <= shift_s0;
             shiftCounter <= shiftCounter - 1;
          end if;
 
---      when shift_s1a =>
---         -- wait for single shot to trigger
---         shift_ssin1 <= '0';
---         if(shift_ssout1 = '0') then
---            -- report "Entering State shift_s1";
---            nextShiftState <= shift_s1;
---         else
---            nextShiftState <= shift_s1a;
---         end if;
-
       when shift_s1 =>
-         -- shift_ssin1 <= '1';
-         -- if shift_ssout1 = '1' then
          if shiftCounter = 0 then
-            -- report "Entering State shift_s2a";         
             -- Time to latch data before solenoids release
             inUpperCase <= latchedCaseChange;
-            -- nextShiftState <= shift_s2a;
             shiftState <= shift_s2;
             shiftCounter <= SHIFT_S2_TIME;
          else
-            -- nextShiftState <= shift_s1;
             shiftState <= shift_s1;
             shiftCounter <= shiftCounter - 1;
          end if;
 
---      when shift_s2a =>
---         -- wait for single shot to trigger
---         shift_ssin2 <= '0';
---         if(shift_ssout2 = '0') then
---            -- report "Entering State shift_s2";
---            nextShiftState <= shift_s2;
---         else
---            nextShiftState <= shift_s2a;
---         end if;
-
       when shift_s2 =>
-         -- shift_ssin2 <= '1';
-         -- if shift_ssout2 = '1' then
          if shiftCounter = 0 then
-            -- report "Entering State shift_s3";         
-            -- nextShiftState <= shift_s3a;
             shiftState <= shift_s3;
             shiftCounter <= SHIFT_S3_TIME;            
          else
-            -- nextShiftState <= shift_s2;
             shiftState <= shift_s2;
             shiftCounter <= shiftCounter - 1;
          end if;
 
---      when shift_s3a =>
---         -- wait for single shot to trigger
---         shift_ssin3 <= '0';
---         if(shift_ssout3 = '0') then
---            nextShiftState <= shift_s3;
---         else
---            nextShiftState <= shift_s3a;
---         end if;
-
       when shift_s3 =>
-         -- shift_ssin3 <= '1';
-         -- if shift_ssout3 = '1' then
          if shiftCounter = 0 then
             -- Time to space or backspace or shift
             if inUpperCase = '1' then
@@ -1014,11 +549,8 @@ shift_process: process(FPGA_CLK, shiftState, -- shift_ssout0, shift_ssout1,
                -- report "Shifted to Lower Case";
             end if; 
             
-            -- report "Entering State shift_idle";         
-            -- nextShiftState <= shift_idle;
             shiftState <= shift_idle;
          else
-            -- nextShiftState <= shift_s3;
             shiftState <= shift_s3;
             shiftCounter <= shiftCounter - 1;
          end if;
@@ -1030,97 +562,40 @@ shift_process: process(FPGA_CLK, shiftState, -- shift_ssout0, shift_ssout1,
       
    end process;
 
---cr_states: process(FPGA_CLK)
---   begin
---      if FPGA_CLK'event and FPGA_CLK = '1' then
---         crState <= nextCrState;
---      end if;      
---   end process;
-   
-
-cr_process: process(FPGA_CLK, crState, -- cr_ssout0, cr_ssout1, cr_ssout2,
+cr_process: process(FPGA_CLK, 
+   crState,
    PW_CARRIAGE_RETURN_SOLENOID)
    begin
    
-      -- "default" values for single shot inputs.  This apparently avoids latches
-
---      cr_ssin0 <= '1';
---      cr_ssin1 <= '1';
---      cr_ssin2 <= '1';
-      
    if FPGA_CLK'event and FPGA_CLK = '1' then
       
       case crState is
       when cr_idle =>
          
          if PW_CARRIAGE_RETURN_SOLENOID = '1' then            
-            -- nextCrState <= cr_s0a;
-            -- report "Entering State cr_s0a";
             crState <= cr_s0;
             crCounter <= CR_S0_TIME;
          else
-            -- nextCrState <= cr_idle;
             crState <= cr_idle;             
          end if;
 
---      when cr_s0a =>
---         -- wait for single shot to trigger
---         cr_ssin0 <= '0';
---         if(cr_ssout0 = '0') then
---            -- report "Entering State cr_s0";
---            nextCrState <= cr_s0;
---         else
---            nextCrState <= cr_s0a;
---         end if;
-      
       when cr_s0 =>
-         -- cr_ssin0 <= '1';
-         -- if cr_ssout0 = '1' then
          if crCounter = 0 then
-            -- report "Entering State cr_s1";         
-            -- nextCrState <= cr_s1a;
-            -- report "<Carriage Return>";
-            -- currentColumnReset <= '1';
             crState <= cr_s1;
             crCounter <= CR_S1_TIME;                        
          else
-            -- nextCrState <= cr_s0;
             crState <= cr_s0;
             crCounter <= crCounter - 1;
          end if;
 
---      when cr_s1a =>
---         -- wait for single shot to trigger
---         cr_ssin1 <= '0';
---         if(cr_ssout1 = '0') then
---            nextCrState <= cr_s1;
---            -- currentColumnReset <= '0';
---         else
---            nextCrState <= cr_s1a;
---         end if;
-
       when cr_s1 =>
-         -- cr_ssin1 <= '1';
-         -- if cr_ssout1 = '1' then
          if crCounter = 0 then
-            -- report "Entering State cr_s2";         
-            -- nextCrState <= cr_s2a;
             crState <= cr_strobe;
             crCounter <= OUT_STROBE_TIME;
          else
-            -- nextCrState <= cr_s1;
             crState <= cr_s1;
             crCounter <= crCounter - 1;
          end if;
-
---      when cr_s2a =>
---         -- wait for single shot to trigger
---         cr_ssin2 <= '0';
---         if(cr_ssout2 = '0') then
---            nextCrState <= cr_s2;
---         else
---            nextCrState <= cr_s2a;
---         end if;
 
       when cr_strobe =>
          if crCounter = 0 then
@@ -1132,14 +607,9 @@ cr_process: process(FPGA_CLK, crState, -- cr_ssout0, cr_ssout1, cr_ssout2,
          end if;
 
       when cr_s2 =>
-         -- cr_ssin3 <= '1';
-         -- if cr_ssout2 = '1' then
          if crCounter = 0 then
-            -- report "Entering State cr_idle";         
-            -- nextCrState <= cr_idle;
             crState <= cr_idle;
          else
-            -- nextCrState <= cr_s2;
             crState <= cr_s2;
             crCounter <= crCounter - 1;
          end if;
@@ -1189,35 +659,30 @@ column_process: process(FPGA_CLK,currentColumnUp,currentColumnDown,currentColumn
 -- A lot of state machine examples uses "if" statements to generate
 -- combinatorial values, but I don't think that is the best way, so
 
-CAM1 <= '1' when -- outputState = output_s3a or
+CAM1 <= '1' when
    outputState = output_s3 or
    outputState = output_strobe or
-   -- outputState = output_s4a or
    outputState = output_s4 or
-   -- outputState = output_s5a or
    outputState = output_s5
    else '0';
 
-CAM2 <= '1' when -- outputState = output_s2a or
+CAM2 <= '1' when
    outputState = output_s2 or 
-   -- outputState = output_s3a or
    outputState = output_s3 or
    outputState = output_strobe or 
-   -- outputState = output_s4a or
    outputState = output_s4
    else '0';
 
-CAM5 <= '1' when -- spaceState = space_s3a or
+CAM5 <= '1' when
    spaceState = space_s3
    else '0';
 
-CAM3_OR_4 <= '1' when -- shiftState = shift_s2a or
+CAM3_OR_4 <= '1' when
    shiftState = shift_s2
    else '0';
 
-CR_INTERLOCK <= '1' when -- crState = cr_s1a or
+CR_INTERLOCK <= '1' when
    crState = cr_s1 or
-   -- crState = cr_s2a or
    crState = cr_strobe or
    crState = cr_s2
    else '0';
@@ -1308,22 +773,15 @@ MV_KEYBOARD_UNLOCK_MODE <= not MW_KEYBOARD_LOCK_SOLENOID;
 IBM1410_CONSOLE_XMT_CHAR <= 
    printChar when outputState = output_s3 or
       outputState = output_strobe or  
-      -- outputState = output_s4a or
       outputState = output_s4 else
-   -- X"20" when (spaceState = space_s1 or spaceState = space_s2a) and latchedSpace = '1' else
    X"20" when (spaceState = space_s1 or spaceState = space_strobe or spaceState = space_s2) and latchedSpace = '1' else
-   -- X"08" when (spaceState = space_s1 or spaceState = space_s2a) and latchedBackSpace = '1' else
    X"08" when (spaceState = space_s1 or spaceState = space_strobe or spaceState = space_s2) and latchedBackSpace = '1' else
-   X"0D" when crState = cr_s1 or crState = cr_strobe or crState = cr_s2 else -- crState = cr_s2a else
+   X"0D" when crState = cr_s1 or crState = cr_strobe or crState = cr_s2 else
    X"00";
 
-
 IBM1410_CONSOLE_XMT_STROBE <= '1' when 
-   -- outputState = output_s4a or  THIS ONE MAY NEED ANOTHER STATE?
    outputState = output_strobe or
-   -- spaceState = space_s2a or
    spaceState = space_strobe or
-   -- crState = cr_s2a
    crState = cr_strobe 
    else '0';
 
@@ -1336,6 +794,5 @@ PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= '0';
 MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= '1';
 MV_CONSOLE_C_INPUT_STAR_CHK_OP <= '1';
 MV_CONS_PRTR_TO_CPU_BUS <= "111111";
-
-   
+  
 end Behavioral;
