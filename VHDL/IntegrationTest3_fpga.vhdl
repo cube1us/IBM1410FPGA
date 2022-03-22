@@ -911,7 +911,7 @@ architecture behavioral of IntegrationTest3_fpga is
       PV_SENSE_CHAR_3_BUS: out STD_LOGIC_VECTOR(7 downto 0) );
    end component;
 
-component IBM1410ConsoleTypewriter is
+   component IBM1410ConsoleTypewriter is
    GENERIC(MULTIPLIER: integer := 10000);
    PORT (
       FPGA_CLK: in STD_LOGIC;
@@ -960,21 +960,40 @@ component IBM1410ConsoleTypewriter is
       
       IBM1410_CONSOLE_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
       IBM1410_CONSOLE_XMT_STROBE: out STD_LOGIC );
+   end component;
+
+   component IBM1410_UART_OUTPUT_SUBSYSTEM is
+   Generic (
+       UART_OUTPUT_CLKS_PER_BIT: integer := 100000000 / 115200
+    );
+    Port ( FPGA_CLK : in STD_LOGIC;
+           UART_RESET: in STD_LOGIC;
+           UART_OUTPUT_REQUESTER_STROBES : in STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_REQUEST_DATA_0 : in STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_REQUEST_DATA_1 : in STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_REQUEST_DATA_2 : in STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_REQUEST_DATA_3 : in STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_REQUEST_DATA_4 : in STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_REQUEST_DATA_5 : in STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_REQUEST_DATA_6 : in STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_REQUEST_DATA_7 : in STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_ARBITER_REQUESTS : out STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_TX_DATA : out STD_LOGIC);
 end component;
 
-  component uart_tx is
-    generic (
-      g_CLKS_PER_BIT : integer := 115   -- Needs to be set correctly
-      );
-    port (
-      i_clk       : in  std_logic;
-      i_tx_dv     : in  std_logic;
-      i_tx_byte   : in  std_logic_vector(7 downto 0);
-      o_tx_active : out std_logic;
-      o_tx_serial : out std_logic;
-      o_tx_done   : out std_logic
-      );
-  end component uart_tx;
+--  component uart_tx is
+--    generic (
+--      g_CLKS_PER_BIT : integer := 115   -- Needs to be set correctly
+--      );
+--    port (
+--      i_clk       : in  std_logic;
+--      i_tx_dv     : in  std_logic;
+--      i_tx_byte   : in  std_logic_vector(7 downto 0);
+--      o_tx_active : out std_logic;
+--      o_tx_serial : out std_logic;
+--      o_tx_done   : out std_logic
+--      );
+--  end component uart_tx;
  
 --  component uart_rx is
 --    generic (
@@ -1836,6 +1855,21 @@ end component;
 	signal LAMPS_ASSM_CH_NOT: STD_LOGIC_VECTOR (7 downTo 0);
 	signal LAMPS_ASSM_CH: STD_LOGIC_VECTOR (7 downTo 0);
 
+   -- UART Subsystem Interface Signals
+   
+   signal UART_RESET: STD_LOGIC;
+   signal UART_OUTPUT_REQUESTER_STROBES: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_OUTPUT_REQUEST_DATA_0: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_OUTPUT_REQUEST_DATA_1: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_OUTPUT_REQUEST_DATA_2: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_OUTPUT_REQUEST_DATA_3: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_OUTPUT_REQUEST_DATA_4: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_OUTPUT_REQUEST_DATA_5: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_OUTPUT_REQUEST_DATA_6: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_OUTPUT_REQUEST_DATA_7: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_OUTPUT_ARBITER_REQUESTS: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_OUTPUT_TX_DATA: STD_LOGIC;
+   
    -- UART Interface Signals
 
    signal IBM1410_CONSOLE_XMT_CHAR: STD_LOGIC_VECTOR(7 downto 0);
@@ -2825,23 +2859,42 @@ memory: IBM1410Memory
       IBM1410_CONSOLE_XMT_CHAR => IBM1410_CONSOLE_XMT_CHAR,
       IBM1410_CONSOLE_XMT_STROBE => IBM1410_CONSOLE_XMT_STROBE);
 
--- Instantiate the UART for console output
+   -- Instantiate the UART Output Subsystem
+
+   UART_OUTPUT_SUBSYSTEM: IBM1410_UART_OUTPUT_SUBSYSTEM
+    Generic map (UART_OUTPUT_CLKS_PER_BIT => 100000000 / 115200)
+    Port map( 
+       FPGA_CLK => FPGA_CLK,
+       UART_RESET => UART_RESET,
+       UART_OUTPUT_REQUESTER_STROBES => UART_OUTPUT_REQUESTER_STROBES,
+       UART_OUTPUT_REQUEST_DATA_0 => UART_OUTPUT_REQUEST_DATA_0,
+       UART_OUTPUT_REQUEST_DATA_1 => UART_OUTPUT_REQUEST_DATA_1,
+       UART_OUTPUT_REQUEST_DATA_2 => UART_OUTPUT_REQUEST_DATA_2,
+       UART_OUTPUT_REQUEST_DATA_3 => UART_OUTPUT_REQUEST_DATA_3,
+       UART_OUTPUT_REQUEST_DATA_4 => UART_OUTPUT_REQUEST_DATA_4,
+       UART_OUTPUT_REQUEST_DATA_5 => UART_OUTPUT_REQUEST_DATA_5,
+       UART_OUTPUT_REQUEST_DATA_6 => UART_OUTPUT_REQUEST_DATA_6,
+       UART_OUTPUT_REQUEST_DATA_7 => UART_OUTPUT_REQUEST_DATA_7,
+       UART_OUTPUT_ARBITER_REQUESTS => UART_OUTPUT_ARBITER_REQUESTS,
+       UART_OUTPUT_TX_DATA => UART_OUTPUT_TX_DATA);
+
+   
+   -- Instantiate the UART for console output
 
   -- Instantiate UART transmitter
-  UART_TX_INST : uart_tx
-    generic map (
-      g_CLKS_PER_BIT => c_CLKS_PER_BIT
-      )
-    port map (
-      i_clk       => FPGA_CLK,
-      i_tx_dv     => IBM1410_CONSOLE_XMT_STROBE,
-      i_tx_byte   => r_TX_BYTE,
-      o_tx_active => w_TX_Active,
-      o_tx_serial => w_TX_SERIAL,
-      o_tx_done   => w_TX_DONE
-      );
-
-
+--  UART_TX_INST : uart_tx
+--    generic map (
+--      g_CLKS_PER_BIT => c_CLKS_PER_BIT
+--      )
+--    port map (
+--      i_clk       => FPGA_CLK,
+--      i_tx_dv     => IBM1410_CONSOLE_XMT_STROBE,
+--      i_tx_byte   => r_TX_BYTE,
+--      o_tx_active => w_TX_Active,
+--      o_tx_serial => w_TX_SERIAL,
+--      o_tx_done   => w_TX_DONE
+--      );
+           
 -- START USER TEST BENCH PROCESS
 
 -- The user test bench code MUST be placed between the
@@ -2908,7 +2961,7 @@ end process;
 
    LOCAL_MY_MEM_AR_NOT_TTHP_BUS <= not MY_MEM_AR_TTHP_BUS;
    
-   RsTx <= w_TX_SERIAL;
+   -- RsTx <= w_TX_SERIAL;
    
    
    FPGA_CLK <= CLK;
@@ -2970,13 +3023,24 @@ end process;
 
    SWITCH_ROT_MODE_SW_DK1 <= SWITCH_ROT_MODE_SW_DK;
    
-   -- UART output
+   -- UART output subsystem
    
-   r_TX_BYTE <= IBM1410_CONSOLE_XMT_CHAR;
+   UART_RESET <= SWITCH_REL_PWR_ON_RST or SWITCH_MOM_CO_CPR_RST or SWITCH_MOM_CE_CPR_RST;
+   UART_OUTPUT_REQUESTER_STROBES(7) <= IBM1410_CONSOLE_XMT_STROBE;
+   UART_OUTPUT_REQUESTER_STROBES(6 downto 0) <= "0000000";  -- TBD
+   UART_OUTPUT_REQUEST_DATA_7 <= IBM1410_CONSOLE_XMT_CHAR;
+   UART_OUTPUT_REQUEST_DATA_6 <= "00000000";
+   UART_OUTPUT_REQUEST_DATA_5 <= "00000000";
+   UART_OUTPUT_REQUEST_DATA_4 <= "00000000";
+   UART_OUTPUT_REQUEST_DATA_3 <= "00000000";
+   UART_OUTPUT_REQUEST_DATA_2 <= "00000000";
+   UART_OUTPUT_REQUEST_DATA_1 <= "00000000";
+   UART_OUTPUT_REQUEST_DATA_0 <= "00000000";
+   
+   -- r_TX_BYTE <= UART_OUTPUT_TX_DATA;
    -- i_TX_DV <= IBM1410_CONSOLE_XMT_STROBE;
+   RsTx <= UART_OUTPUT_TX_DATA;
    
-----   
-
 ---- Place your test bench code in the uut_process
 
 --uut_process: process
