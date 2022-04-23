@@ -48,6 +48,7 @@ entity IBM1410_UART_OUTPUT_SUBSYSTEM is
            UART_OUTPUT_REQUEST_DATA_6 : in STD_LOGIC_VECTOR (7 downto 0);
            UART_OUTPUT_REQUEST_DATA_7 : in STD_LOGIC_VECTOR (7 downto 0);
            UART_OUTPUT_ARBITER_REQUESTS : out STD_LOGIC_VECTOR (7 downto 0);
+           UART_OUTPUT_ARBITER_GRANTS: out STD_LOGIC_VECTOR (7 downto 0);
            UART_OUTPUT_TX_DATA : out STD_LOGIC);
 end IBM1410_UART_OUTPUT_SUBSYSTEM;
 
@@ -362,5 +363,6 @@ architecture Behavioral of IBM1410_UART_OUTPUT_SUBSYSTEM is
 -- Output signal "copies"
 
 UART_OUTPUT_ARBITER_REQUESTS <= uartOutputArbiterRequests;
+UART_OUTPUT_ARBITER_GRANTS <= uartOutputArbiterGrants;
 
 end Behavioral;

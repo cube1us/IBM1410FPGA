@@ -142,7 +142,7 @@ lamp_process: process(FPGA_CLK, RESET, LAMP_VECTOR, UART_OUTPUT_GRANT, LAMP_VECT
    
    end process;
    
-UART_OUTPUT_REQUEST <= '1' when lampState = lamp_send or lampState = lamp_grant_wait else '0';
+UART_OUTPUT_REQUEST <= '1' when lampState = lamp_send else '0';
 UART_OUTPUT_REQUEST_DATA <= "0" &  LAMPS(6 downto 0);   
    
 end Behavioral;
