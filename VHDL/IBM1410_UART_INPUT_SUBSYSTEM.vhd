@@ -45,8 +45,7 @@ entity IBM1410_UART_INPUT_SUBSYSTEM is
     Port ( 
        FPGA_CLK: in STD_LOGIC;
        RESET: in STD_LOGIC;
-       UART_RCV_DATA_VALID : in STD_LOGIC;
-       UART_RCV_DATA : in STD_LOGIC_VECTOR (7 downto 0);
+       UART_RX_DATA: in STD_LOGIC;
        UART_INPUT_FIFO_WRITE_ENABLE : out STD_LOGIC_VECTOR (UART_INPUT_FIFO_COUNT-1 downto 0);
        UART_INPUT_FIFO_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0) 
        );
@@ -85,11 +84,40 @@ architecture Behavioral of IBM1410_UART_INPUT_SUBSYSTEM is
 
    signal inputState: inputState_Type := input_Reset;
    
+   component uart_rx is
+      generic (
+         g_CLKS_PER_BIT : integer := 115   -- Needs to be set correctly
+      );
+      port (
+         i_clk       : in  std_logic;
+         i_rx_serial : in  std_logic;
+         o_rx_dv     : out std_logic;
+         o_rx_byte   : out std_logic_vector(7 downto 0)
+      );
+   end component uart_rx;
+   
+   
    signal INPUT_FIFO_ENABLES: STD_LOGIC_VECTOR(UART_INPUT_FIFO_COUNT-1 downto 0) := (others => '0');
    signal INPUT_FIFO_DATA: STD_LOGIC_VECTOR(7 downto 0);
    signal INPUT_CURRENT_STREAM: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_RCV_DATA_VALID: STD_LOGIC;
+   signal UART_RCV_DATA: STD_LOGIC_VECTOR (7 downto 0);
+
 
 begin
+
+   -- Instantiate UART Receiver
+   UART_RX_INST : uart_rx
+      generic map (
+         g_CLKS_PER_BIT => CLOCKS_PER_BIT
+      )
+    port map (
+      i_clk       => FPGA_CLK,
+      i_rx_serial => UART_RX_DATA,
+      o_rx_dv     => UART_RCV_DATA_VALID,
+      o_rx_byte   => UART_RCV_DATA
+      );
+
 
 input_process: process(FPGA_CLK, RESET, inputState, UART_RCV_DATA_VALID, UART_RCV_DATA)
 
