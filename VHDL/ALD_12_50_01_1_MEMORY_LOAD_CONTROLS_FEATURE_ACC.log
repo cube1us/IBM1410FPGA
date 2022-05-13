@@ -1,5 +1,10 @@
-Generating HDL for page 12.50.01.1 MEMORY LOAD CONTROLS FEATURE-ACC at 7/9/2020 3:52:15 PM
+Generating HDL for page 12.50.01.1 MEMORY LOAD CONTROLS FEATURE-ACC at 5/13/2022 1:15:59 PM
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2D has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5E has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 1C with symbol R
+Notes indicated to force a  D FF at output of gate at 2D
+Notes indicated to force a  D FF at output of gate at 2E
 Removed 1 outputs from Gate at 4E to ignored block(s) or identical signal names
 Removed 3 outputs from Dot Function at 2D to ignored block(s) or identical signal names
 Generating Statement for block at 4A with output pin(s) of OUT_4A_D
@@ -17,7 +22,7 @@ Generating Statement for block at 5D with output pin(s) of OUT_5D_B
 Generating Statement for block at 3D with output pin(s) of OUT_3D_E
 	and inputs of OUT_5C_C,MS_STORAGE_SCAN_LOAD
 	and logic function of NAND
-Generating Statement for block at 2D with output pin(s) of OUT_2D_R
+Generating Statement for block at 2D with *latched* output pin(s) of OUT_2D_R_Latch
 	and inputs of OUT_DOT_3D
 	and logic function of NOT
 Generating Statement for block at 5E with output pin(s) of OUT_5E_K
@@ -26,7 +31,7 @@ Generating Statement for block at 5E with output pin(s) of OUT_5E_K
 Generating Statement for block at 4E with output pin(s) of OUT_4E_G
 	and inputs of OUT_DOT_5E,OUT_5F_C
 	and logic function of NAND
-Generating Statement for block at 2E with output pin(s) of OUT_2E_F
+Generating Statement for block at 2E with *latched* output pin(s) of OUT_2E_F_Latch
 	and inputs of MS_ANY_CHECK_TEST
 	and logic function of NOT
 Generating Statement for block at 5F with output pin(s) of OUT_5F_C, OUT_5F_C
@@ -62,3 +67,5 @@ Generating output sheet edge signal assignment to
 Generating output sheet edge signal assignment to 
 	signal MY_LOAD_MEMORY
 	from gate output OUT_DOT_2D
+Generating D Flip Flop for block at 2D
+Generating D Flip Flop for block at 2E

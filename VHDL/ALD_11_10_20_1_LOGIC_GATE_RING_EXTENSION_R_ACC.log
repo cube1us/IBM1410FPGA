@@ -1,8 +1,13 @@
-Generating HDL for page 11.10.20.1 LOGIC GATE RING EXTENSION R-ACC at 6/26/2020 12:35:02 PM
-Old test bench file ALD_11_10_20_1_LOGIC_GATE_RING_EXTENSION_R_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
+Generating HDL for page 11.10.20.1 LOGIC GATE RING EXTENSION R-ACC at 5/13/2022 1:37:11 PM
+Note: DOT Function at 4E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3C has input level(s) of S, and output level(s) of S, Logic Function set to OR
 DOT Function at 3C has one output from a Trigger, one output from Non-Trigger
    Trigger block pin B located at 3C, Non-trigger is located at 3E Output is to 2C
    Using Trigger faux pin T as input side of pin B
+Notes indicated to force a  D FF at output of gate at 2G
+Notes indicated to force a  D FF at output of gate at 2H
 Processing extension from block at 3B (Database ID=189136) to 3C (Database ID=189138)
 Copied connection to extension input pin E to master block at 3B
 Copied connection to extension input pin A to master block at 3B
@@ -40,13 +45,13 @@ Generating Statement for block at 4F with output pin(s) of OUT_4F_F
 Generating Statement for block at 4G with output pin(s) of OUT_4G_R
 	and inputs of OUT_DOT_5H
 	and logic function of NOT
-Generating Statement for block at 2G with output pin(s) of OUT_2G_C
+Generating Statement for block at 2G with *latched* output pin(s) of OUT_2G_C_Latch
 	and inputs of OUT_DOT_4E
 	and logic function of NOT
 Generating Statement for block at 5H with output pin(s) of OUT_5H_D
 	and inputs of PS_F_CYCLE_REQUIRED
 	and logic function of NOT
-Generating Statement for block at 2H with output pin(s) of OUT_2H_F
+Generating Statement for block at 2H with *latched* output pin(s) of OUT_2H_F_Latch
 	and inputs of PS_LOGIC_GATE_A_CONTROL
 	and logic function of NOT
 Generating Statement for block at 5I with output pin(s) of OUT_5I_B
@@ -70,3 +75,5 @@ Generating output sheet edge signal assignment to
 Generating output sheet edge signal assignment to 
 	signal MS_LOGIC_GATE_A_DOT_R_CHECK
 	from gate output OUT_DOT_1G
+Generating D Flip Flop for block at 2G
+Generating D Flip Flop for block at 2H

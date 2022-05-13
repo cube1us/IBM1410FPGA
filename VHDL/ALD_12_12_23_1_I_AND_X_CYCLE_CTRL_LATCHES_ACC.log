@@ -1,7 +1,8 @@
-Generating HDL for page 12.12.23.1 I AND X CYCLE CTRL LATCHES-ACC at 6/26/2020 1:31:59 PM
-Old test bench file ALD_12_12_23_1_I_AND_X_CYCLE_CTRL_LATCHES_ACC_tb.vhdl 51 lines preserved and 12 declaration lines preserved
+Generating HDL for page 12.12.23.1 I AND X CYCLE CTRL LATCHES-ACC at 5/13/2022 1:46:30 PM
+Note: DOT Function at 3B has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 4B
 Found combinatorial loop (need D FF) at output of gate at 3B
+Notes indicated to force a  D FF at output of gate at 2C
 Found combinatorial loop (need D FF) at output of gate at 4G
 Found combinatorial loop (need D FF) at output of gate at 3G
 Removed 1 outputs from Gate at 4A to ignored block(s) or identical signal names
@@ -31,7 +32,7 @@ Generating Statement for block at 3B with *latched* output pin(s) of OUT_3B_P_La
 Generating Statement for block at 4C with output pin(s) of OUT_4C_C
 	and inputs of PS_SET_I_CYCLE_CTRL,PS_NEXT_TO_LAST_LOGIC_GATE,PS_NOT_INTR_START
 	and logic function of NAND
-Generating Statement for block at 2C with output pin(s) of OUT_2C_C
+Generating Statement for block at 2C with *latched* output pin(s) of OUT_2C_C_Latch
 	and inputs of OUT_DOT_3B
 	and logic function of NOT
 Generating Statement for block at 5D with output pin(s) of OUT_5D_C
@@ -81,5 +82,6 @@ Generating output sheet edge signal assignment to
 	from gate output OUT_2H_E
 Generating D Flip Flop for block at 4B
 Generating D Flip Flop for block at 3B
+Generating D Flip Flop for block at 2C
 Generating D Flip Flop for block at 4G
 Generating D Flip Flop for block at 3G

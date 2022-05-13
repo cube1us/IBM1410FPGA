@@ -1,4 +1,6 @@
-Generating HDL for page 15.38.02.1 A CHANNEL DATA CONTROL-ACC at 9/9/2020 9:42:18 AM
+Generating HDL for page 15.38.02.1 A CHANNEL DATA CONTROL-ACC at 5/13/2022 2:25:02 PM
+Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Notes indicated to force a  D FF at output of gate at 1A
 Removed 8 outputs from Gate at 1A to ignored block(s) or identical signal names
 Removed 7 outputs from Gate at 1F to ignored block(s) or identical signal names
 Added LAMP signal LAMP_11C8C14
@@ -6,7 +8,7 @@ Added LAMP signal LAMP_11C8D14
 Generating Statement for block at 4A with output pin(s) of OUT_4A_G
 	and inputs of MS_I_CYCLE_DOT_NOT_CR_DISABLE,MS_C_CYCLE_DOT_NOT_CR_DISABLE,MS_D_CYCLE_DOT_NOT_CR_DISABLE
 	and logic function of NAND
-Generating Statement for block at 1A with output pin(s) of OUT_1A_B
+Generating Statement for block at 1A with *latched* output pin(s) of OUT_1A_B_Latch
 	and inputs of OUT_DOT_4A
 	and logic function of EQUAL
 Generating Statement for block at 4B with output pin(s) of OUT_4B_G
@@ -63,3 +65,4 @@ Generating output sheet edge signal assignment to
 Generating output sheet edge signal assignment to 
 	signal PS_GATE_OP_MOD_REG_TO_A_CH
 	from gate output OUT_1F_A
+Generating D Flip Flop for block at 1A
