@@ -1,4 +1,5 @@
-Generating HDL for page 11.10.02.1 1*LOGIC GATE RING CLK PULSES-ACC at 11/13/2020 1:44:18 PM
+Generating HDL for page 11.10.02.1 1*LOGIC GATE RING CLK PULSES-ACC at 5/12/2022 1:56:49 PM
+Old test bench file ALD_11_10_02_1_1_LOGIC_GATE_RING_CLK_PULSES_ACC_tb.vhdl 96 lines preserved and 35 declaration lines preserved
 NOTE: Special signal LOGIC ONE removed from sheet inputs list.
 Note: DOT Function at 3B has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
@@ -6,6 +7,7 @@ Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logi
 DOT Function at 3B has one output from a Trigger, one output from Non-Trigger
    Trigger block pin B located at 3B, Non-trigger is located at 3D Output is to 2B
    Using Trigger faux pin T as input side of pin B
+Notes indicated to force a  D FF at output of gate at 3H
 Processing extension from block at 3A (Database ID=187430) to 3B (Database ID=187431)
 Copied connection to extension input pin E to master block at 3A
 Copied connection to extension input pin A to master block at 3A
@@ -70,7 +72,7 @@ Generating Statement for block at 3E with output pin(s) of OUT_3E_G
 Generating Statement for block at 4H with output pin(s) of OUT_4H_G
 	and inputs of OUT_DOT_4D,MS_MASTER_ERROR
 	and logic function of NAND
-Generating Statement for block at 3H with output pin(s) of OUT_3H_F, OUT_3H_F, OUT_3H_F
+Generating Statement for block at 3H with *latched* output pin(s) of OUT_3H_F_Latch, OUT_3H_F_Latch, OUT_3H_F_Latch
 	and inputs of OUT_4H_G
 	and logic function of NOT
 Generating Statement for block at 2H with output pin(s) of OUT_2H_R, OUT_2H_R
@@ -112,3 +114,4 @@ Generating output sheet edge signal assignment to
 Generating output sheet edge signal assignment to 
 	signal PS_CLOCK_STOPPED_STAR_AUTS_STAR
 	from gate output OUT_2H_R
+Generating D Flip Flop for block at 3H
