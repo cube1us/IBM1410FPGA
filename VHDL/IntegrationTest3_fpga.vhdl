@@ -995,31 +995,31 @@ architecture behavioral of IntegrationTest3_fpga is
            UART_OUTPUT_TX_DATA : out STD_LOGIC);
 end component;
 
---  component uart_tx is
---    generic (
---      g_CLKS_PER_BIT : integer := 115   -- Needs to be set correctly
---      );
---    port (
---      i_clk       : in  std_logic;
---      i_tx_dv     : in  std_logic;
---      i_tx_byte   : in  std_logic_vector(7 downto 0);
---      o_tx_active : out std_logic;
---      o_tx_serial : out std_logic;
---      o_tx_done   : out std_logic
---      );
---  end component uart_tx;
- 
---  component uart_rx is
---    generic (
---      g_CLKS_PER_BIT : integer := 115   -- Needs to be set correctly
---      );
---    port (
---      i_clk       : in  std_logic;
---      i_rx_serial : in  std_logic;
---      o_rx_dv     : out std_logic;
---      o_rx_byte   : out std_logic_vector(7 downto 0)
---      );
---  end component uart_rx;
+component IBM1410_UART_INPUT_SUBSYSTEM is
+    GENERIC (
+       CLOCKS_PER_BIT: Integer := 200;
+       UART_INPUT_FIFO_COUNT: Integer := 8
+       );
+    Port ( 
+       FPGA_CLK: in STD_LOGIC;
+       RESET: in STD_LOGIC;
+       UART_RX_DATA: in STD_LOGIC;
+       UART_INPUT_FIFO_WRITE_ENABLE : out STD_LOGIC_VECTOR (UART_INPUT_FIFO_COUNT-1 downto 0);
+       UART_INPUT_FIFO_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0) 
+       );
+end component;
+
+component IBM1410_CONSOLE_SWITCHES_RECEIVER is
+    GENERIC(
+       SWITCH_VECTOR_BITS: INTEGER := 200
+       );
+    Port ( FPGA_CLK : in STD_LOGIC;
+           RESET : in STD_LOGIC;
+           SWITCH_FIFO_WRITE_ENABLE : in STD_LOGIC;
+           SWITCH_FIFO_WRITE_DATA : in STD_LOGIC_VECTOR (7 downto 0);
+           SWITCH_VECTOR : out STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downto 0));
+end component;
+
 
 	-- Inputs
 
@@ -1876,11 +1876,19 @@ end component;
 	signal LAMP_TRANSMITTER_UART_OUTPUT_REQUEST: STD_LOGIC;
 	signal LAMP_TRANSMITTER_UART_OUTPUT_DATA: STD_LOGIC_VECTOR (7 downto 0);	
 	
-	signal SWITCH_VECTOR: STD_LOGIC_VECTOR (275 downTo 0);	
+	constant SWITCH_VECTOR_BITS: integer := 280;
+	
+	signal SWITCH_VECTOR: STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downTo 0) := (others => '0');	
+
+   -- Debounced hardware START switch
+   
+   signal BUTTON_START_CENTER_DEBOUNCED: STD_LOGIC;
 
    -- UART Subsystem Interface Signals
    
    signal UART_RESET: STD_LOGIC;
+   signal UART_SWITCH_RESET: STD_LOGIC;
+   
    signal UART_OUTPUT_REQUESTER_STROBES: STD_LOGIC_VECTOR(7 downto 0);
    signal UART_OUTPUT_REQUEST_DATA_0: STD_LOGIC_VECTOR(7 downto 0);
    signal UART_OUTPUT_REQUEST_DATA_1: STD_LOGIC_VECTOR(7 downto 0);
@@ -1893,6 +1901,16 @@ end component;
    signal UART_OUTPUT_ARBITER_REQUESTS: STD_LOGIC_VECTOR(7 downto 0);
    signal UART_OUTPUT_ARBITER_GRANTS: STD_LOGIC_VECTOR(7 downto 0);
    signal UART_OUTPUT_TX_DATA: STD_LOGIC;
+   
+      -- Number of UART input FIFOs
+   
+   constant UART_INPUT_FIFO_COUNT: integer := 8;
+    
+   signal UART_RCV_DATA_VALID: STD_LOGIC := '0';
+   signal UART_RCV_DATA: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
+   signal UART_INPUT_FIFO_WRITE_ENABLES: STD_LOGIC_VECTOR (UART_INPUT_FIFO_COUNT-1 downto 0) := (others => '0');
+   signal UART_INPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0);
+   
    
    -- UART Interface Signals
 
@@ -2811,7 +2829,7 @@ startButton: debounce port map(
             clk => FPGA_CLK,
             reset_n => notInitSystem,
             button => btnC,
-            result => SWITCH_MOM_CONS_START);
+            result => BUTTON_START_CENTER_DEBOUNCED);
 
 -- Instantiate Memory
 
@@ -2925,23 +2943,33 @@ memory: IBM1410Memory
        UART_OUTPUT_ARBITER_GRANTS => UART_OUTPUT_ARBITER_GRANTS,
        UART_OUTPUT_TX_DATA => UART_OUTPUT_TX_DATA);
 
+   -- Instantiate the UART Input subsystem
    
-   -- Instantiate the UART for console output
-
-  -- Instantiate UART transmitter
---  UART_TX_INST : uart_tx
---    generic map (
---      g_CLKS_PER_BIT => c_CLKS_PER_BIT
---      )
---    port map (
---      i_clk       => FPGA_CLK,
---      i_tx_dv     => IBM1410_CONSOLE_XMT_STROBE,
---      i_tx_byte   => r_TX_BYTE,
---      o_tx_active => w_TX_Active,
---      o_tx_serial => w_TX_SERIAL,
---      o_tx_done   => w_TX_DONE
---      );
-           
+   UART_INPUT_SUBSYSTEM: IBM1410_UART_INPUT_SUBSYSTEM
+    GENERIC MAP (
+       CLOCKS_PER_BIT => C_CLKS_PER_BIT,
+       UART_INPUT_FIFO_COUNT => UART_INPUT_FIFO_COUNT
+       )
+    Port Map ( 
+       FPGA_CLK => FPGA_CLK,
+       RESET => UART_SWITCH_RESET,
+       UART_RX_DATA => RsRx,
+       UART_INPUT_FIFO_WRITE_ENABLE => UART_INPUT_FIFO_WRITE_ENABLES,
+       UART_INPUT_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA 
+       );
+   
+   CONSOLE_SWITCHES_RECEIVER: IBM1410_CONSOLE_SWITCHES_RECEIVER 
+    GENERIC MAP(
+       SWITCH_VECTOR_BITS => SWITCH_VECTOR_BITS
+       )
+    Port Map ( FPGA_CLK => FPGA_CLK,
+           RESET => UART_SWITCH_RESET,
+           SWITCH_FIFO_WRITE_ENABLE => UART_INPUT_FIFO_WRITE_ENABLES(0),
+           SWITCH_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA,
+           SWITCH_VECTOR => SWITCH_VECTOR
+    );
+   
+   
 -- START USER TEST BENCH PROCESS
 
 -- The user test bench code MUST be placed between the
@@ -3105,13 +3133,6 @@ end process;
 	LAMP_VECTOR(8 downto 1) <= LAMPS_B_CH;  -- LAMPS_B_CH 
 	LAMP_VECTOR(0) <= '0';
 
-   SWITCH_VECTOR(275 downto 250) <= "00000000000000000000000000";
-   SWITCH_VECTOR(249 downto 200) <= "00000000000000000000000000000000000000000000000000";
-   SWITCH_VECTOR(199 downto 150) <= "00000000000000000000000000000000000000000000000000";
-   SWITCH_VECTOR(149 downto 100) <= "00000000000000000000000000000000000000000000000000";
-   SWITCH_VECTOR(99 downto 50)   <= "00000000000000000000000000000000000000000000000000";
-   SWITCH_VECTOR(49 downto 0)    <= "00000000000000000000000000000000000000000000000000";
-
 	SWITCH_ALT_PRIORITY_PL1 <= SWITCH_VECTOR(275); -- 19.10.01.1
 	SWITCH_ALT_PRIORITY_PL2 <= SWITCH_VECTOR(274); -- 19.10.01.1
 	SWITCH_MOM_1ST_TST_SW_PL1 <= SWITCH_VECTOR(273); -- 18.14.10.1
@@ -3121,8 +3142,8 @@ end process;
 	SWITCH_MOM_CE_CPR_RST <= SWITCH_VECTOR(269); -- 12.65.01.1
 	SWITCH_MOM_CE_START <= SWITCH_VECTOR(268); -- 12.15.02.1
 	SWITCH_MOM_CE_STOP_SW_PL1 <= SWITCH_VECTOR(267); -- 12.15.03.1
-	-- SWITCH_MOM_CO_CPR_RST <= SWITCH_VECTOR(266); -- 12.65.01.1
-	-- SWITCH_MOM_CONS_START <= SWITCH_VECTOR(265); -- 12.15.02.1
+	-- -- SWITCH_MOM_CO_CPR_RST <= SWITCH_VECTOR(266); -- 12.65.01.1
+	-- -- SWITCH_MOM_CONS_START <= SWITCH_VECTOR(265); -- 12.15.02.1
 	-- SWITCH_MOM_CONS_STOP_PL1 <= SWITCH_VECTOR(264); -- 12.15.03.1
 	SWITCH_MOM_IO_CHK_RST_PL1 <= SWITCH_VECTOR(263); -- 13.65.01.1
 	SWITCH_MOM_PROG_RESET <= SWITCH_VECTOR(262); -- 12.65.01.1
@@ -3133,22 +3154,22 @@ end process;
 	SWITCH_ROT_ADDR_SEL_DK1 <= SWITCH_VECTOR(245 downto 233); -- 14.71.30.1
 	-- SWITCH_ROT_CHECK_CTRL_DK1 <= SWITCH_VECTOR(232 downto 220); -- 40.10.03.1
 	-- SWITCH_ROT_CYCLE_CTRL_DK1 <= SWITCH_VECTOR(219 downto 207); -- 40.10.03.1
-	SWITCH_ROT_HRTC_012_CC <= SWITCH_VECTOR(206 downto 194); -- 14.15.20.1
-	SWITCH_ROT_HRTC_01234_CC <= SWITCH_VECTOR(193 downto 181); -- 14.15.20.1
-	SWITCH_ROT_HRTC_56789_CC <= SWITCH_VECTOR(180 downto 168); -- 14.15.20.1
+	-- SWITCH_ROT_HRTC_012_CC <= SWITCH_VECTOR(206 downto 194); -- 14.15.20.1
+	-- SWITCH_ROT_HRTC_01234_CC <= SWITCH_VECTOR(193 downto 181); -- 14.15.20.1
+	-- SWITCH_ROT_HRTC_56789_CC <= SWITCH_VECTOR(180 downto 168); -- 14.15.20.1
 	SWITCH_ROT_HUNDS_SYNC_DK1 <= SWITCH_VECTOR(167 downto 155); -- 14.17.19.1
 	SWITCH_ROT_I_O_UNIT_DK1 <= SWITCH_VECTOR(154 downto 149); -- 19.10.01.1
-	SWITCH_ROT_M_RTC_023_CC <= SWITCH_VECTOR(148 downto 136); -- 14.15.20.1
-	SWITCH_ROT_M_RTC_578_CC <= SWITCH_VECTOR(135 downto 123); -- 14.15.20.1
+	-- SWITCH_ROT_M_RTC_023_CC <= SWITCH_VECTOR(148 downto 136); -- 14.15.20.1
+	-- SWITCH_ROT_M_RTC_578_CC <= SWITCH_VECTOR(135 downto 123); -- 14.15.20.1
 	-- SWITCH_ROT_MODE_SW_DK <= SWITCH_VECTOR(122 downto 110); -- 40.10.01.1
-	SWITCH_ROT_MRTC_01234_CC <= SWITCH_VECTOR(109 downto 97); -- 14.15.20.1
-	SWITCH_ROT_MRTC_56789_CC <= SWITCH_VECTOR(96 downto 84); -- 14.15.20.1
+	-- SWITCH_ROT_MRTC_01234_CC <= SWITCH_VECTOR(109 downto 97); -- 14.15.20.1
+	-- SWITCH_ROT_MRTC_56789_CC <= SWITCH_VECTOR(96 downto 84); -- 14.15.20.1
 	SWITCH_ROT_SCAN_GATE_DK1 <= SWITCH_VECTOR(83 downto 71); -- 14.17.18.1
 	-- SWITCH_ROT_STOR_SCAN_DK1 <= SWITCH_VECTOR(70 downto 58); -- 40.10.03.1
 	SWITCH_ROT_TENS_SYNC_DK1 <= SWITCH_VECTOR(57 downto 45); -- 14.17.17.1
 	SWITCH_ROT_THOUS_SYNC_DK1 <= SWITCH_VECTOR(44 downto 32); -- 14.17.19.1
 	SWITCH_ROT_UNITS_SYNC_DK1 <= SWITCH_VECTOR(31 downto 19); -- 14.17.17.1
-	SWITCH_TOG_1401_MODE_PL1 <= SWITCH_VECTOR(18); -- 12.65.10.1
+	-- SWITCH_TOG_1401_MODE_PL1 <= SWITCH_VECTOR(18); -- 12.65.10.1
 	SWITCH_TOG_ADDR_STOP_PL1 <= SWITCH_VECTOR(17); -- 12.15.04.1
 	-- SWITCH_TOG_ASTERISK_PL1 <= SWITCH_VECTOR(16); -- 40.10.03.1
 	-- SWITCH_TOG_ASTERISK_PL2 <= SWITCH_VECTOR(15); -- 15.49.06.1
@@ -3180,7 +3201,8 @@ end process;
    -- LED(9 downto 0) <= LAMPS_LOGIC_GATE_RING;
    LED(4 downto 0) <= MY_MEM_AR_UP_BUS;
    
-   LED(9) <= btnC;
+   -- LED(9) <= btnC;
+   LED(9) <= SWITCH_VECTOR(274);
    LED(8) <= not btnCpuReset;
    LED(7) <= initSystem;
    LED(6) <= SWITCH_REL_PWR_ON_RST;
@@ -3246,6 +3268,8 @@ end process;
    -- UART output subsystem
    
    UART_RESET <= SWITCH_REL_PWR_ON_RST or SWITCH_MOM_CO_CPR_RST or SWITCH_MOM_CE_CPR_RST;
+   UART_SWITCH_RESET <= SWITCH_REL_PWR_ON_RST or not btnCPUReset;
+   
    UART_OUTPUT_REQUESTER_STROBES(7) <= IBM1410_CONSOLE_XMT_STROBE;
    UART_OUTPUT_REQUESTER_STROBES(6 downto 1) <= "000000";  -- TBD
    UART_OUTPUT_REQUESTER_STROBES(0) <= LAMP_TRANSMITTER_UART_OUTPUT_REQUEST;
@@ -3295,12 +3319,14 @@ end process;
 
    SWITCH_MOM_CONS_STOP_PL1 <= btnD;
    
-   SWITCH_MOM_CO_CPR_RST <= not btnCpuReset;   
+   SWITCH_MOM_CO_CPR_RST <= (not btnCpuReset) or SWITCH_VECTOR(266);   -- Need to include the indexes now...
+   
+   SWITCH_MOM_CONS_START <= BUTTON_START_CENTER_DEBOUNCED or SWITCH_VECTOR(265);
    
    SWITCH_TOG_ASTERISK_PL2 <= '1';
    SWITCH_TOG_ASTERISK_PL1 <= NOT SWITCH_TOG_ASTERISK_PL2;  -- PL1 is conneted to OFF NORMAL
    
-   -- I did not implemnt automatic restart (11.40.02.1)
+   -- I did not implement automatic restart (11.40.02.1)
    
    SWITCH_TOG_AUTO_START_PL1 <= '1';  -- This switch is directly connected to OFF NORMAL
    
