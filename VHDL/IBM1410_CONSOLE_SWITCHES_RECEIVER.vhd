@@ -39,6 +39,7 @@ entity IBM1410_CONSOLE_SWITCHES_RECEIVER is
        );
     Port ( FPGA_CLK : in STD_LOGIC;
            RESET : in STD_LOGIC;
+           SWITCH_VECTOR_INIT: in STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downto 0); 
            SWITCH_FIFO_WRITE_ENABLE : in STD_LOGIC;
            SWITCH_FIFO_WRITE_DATA : in STD_LOGIC_VECTOR (7 downto 0);
            SWITCH_VECTOR : out STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downto 0));
@@ -105,6 +106,7 @@ switch_process: process(FPGA_CLK, RESET, switchState, SWITCH_FIFO_WRITE_ENABLE, 
 
    if RESET = '1' then
       switchState <= switch_RESET;
+      SWITCH_RECEIVE_VECTOR <= SWITCH_VECTOR_INIT;
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
       case switchState is
       

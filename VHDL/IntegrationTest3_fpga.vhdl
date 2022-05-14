@@ -1015,6 +1015,7 @@ architecture behavioral of IntegrationTest3_fpga is
        );
     Port ( FPGA_CLK : in STD_LOGIC;
            RESET : in STD_LOGIC;
+           SWITCH_VECTOR_INIT: in STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downto 0);
            SWITCH_FIFO_WRITE_ENABLE : in STD_LOGIC;
            SWITCH_FIFO_WRITE_DATA : in STD_LOGIC_VECTOR (7 downto 0);
            SWITCH_VECTOR : out STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downto 0));
@@ -1962,8 +1963,14 @@ architecture behavioral of IntegrationTest3_fpga is
 	
 	-- Initial switch vector (TODO: may need a copy of this to reset switches when we first power up)
 	
-	signal SWITCH_VECTOR: STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downTo 0) := ((SWITCH_ROT_MODE_SW_DK_INDEX+7) => '1', others => '0');	
-
+	signal SWITCH_VECTOR: STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downTo 0) := (others => '0');	
+   signal SWITCH_VECTOR_INIT: STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downTo 0) := (
+      SWITCH_ROT_MODE_SW_DK_INDEX+7 => '1', SWITCH_ROT_ADDR_ENTRY_DK1_INDEX+5 => '1', 
+      SWITCH_ROT_CHECK_CTRL_DK1_INDEX+2 => '1', SWITCH_ROT_CYCLE_CTRL_DK1_INDEX+2 => '1',
+      SWITCH_ROT_STOR_SCAN_DK1_INDEX+3 => '1', SWITCH_MOM_STARTPRINT_INDEX => '1',
+      SWITCH_TOG_ASTERISK_PL2_INDEX => '1',
+      others => '0');
+   
    -- Debounced hardware START switch
    
    signal BUTTON_START_CENTER_DEBOUNCED: STD_LOGIC;
@@ -3049,6 +3056,7 @@ memory: IBM1410Memory
        )
     Port Map ( FPGA_CLK => FPGA_CLK,
            RESET => UART_SWITCH_RESET,
+           SWITCH_VECTOR_INIT => SWITCH_VECTOR_INIT,
            SWITCH_FIFO_WRITE_ENABLE => UART_INPUT_FIFO_WRITE_ENABLES(0),
            SWITCH_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA,
            SWITCH_VECTOR => SWITCH_VECTOR
