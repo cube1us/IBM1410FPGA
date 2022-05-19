@@ -17,6 +17,7 @@
 -- Revision 0.03 - Changed output chars to all be < X"80", leaving high bit off
 -- Revision 0.04 - Changing to a more canonical state machine, ditching single shots
 -- Revision 0.05 - Fixed up a couple of characters, got rid of commented code from 0.04
+-- Revision 0.06 - Added console keyboard lock support
 
 -- Additional Comments:
 -- 
@@ -30,7 +31,6 @@
 -- Output Wordmark (tab) key ( " )
 -- Output Space bar key ( " )
 -- Output bits to CPU: BA8421
--- Output Keyboard lock mode
 -- There are still some latches in the various state machines - see if they can become
 --   combinatorial signals instead.
 
@@ -105,7 +105,10 @@ entity IBM1410ConsoleTypewriter is
        -- Console Output UART
        
        IBM1410_CONSOLE_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
-       IBM1410_CONSOLE_XMT_STROBE: out STD_LOGIC
+       IBM1410_CONSOLE_XMT_STROBE: out STD_LOGIC;
+       
+       IBM1410_CONSOLE_LOCK_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
+       IBM1410_CONSOLE_LOCK_XMT_STROBE: out STD_LOGIC
    );
 
 end IBM1410ConsoleTypewriter;
@@ -169,6 +172,8 @@ type crState_type is (cr_idle,
    cr_s1,
    cr_strobe,
    cr_s2);
+   
+type consoleLockState_type is(consoleLock_idle, consoleLock_update);
 
 signal outputCounter: INTEGER RANGE 0 to (2000 * MULTIPLIER) / CLOCKPERIOD;   -- Max delay for any state
 signal spaceCounter:  INTEGER RANGE 0 to (3000 * MULTIPLIER) / CLOCKPERIOD;
@@ -179,6 +184,7 @@ signal outputState: outputState_type := output_idle;  -- , nextOutputState
 signal spaceState: spaceState_type := space_idle; -- , nextSpaceState
 signal shiftState: shiftState_type := shift_idle; -- , nextShiftState
 signal crState: crState_type := cr_idle;  -- , nextCrState
+signal consoleLockState: consoleLockState_type := consoleLock_idle;
 
  -- For rotateIndex, 0 is 5 units CW (-5), 10 is 5 units CCW (+5)
 signal rotateIndex, latchedRotateIndex: integer range 0 to 10 := 5;
@@ -205,6 +211,8 @@ signal T2Motion: integer range 0 to 2;
 signal printChar: STD_LOGIC_VECTOR(7 downto 0);
 
 signal output_parity: std_logic := '0';
+
+signal consoleLockStatus: std_logic := '0'; -- locked
 
 type GolfballTilt is array (0 to 10) of STD_LOGIC_VECTOR(7 downto 0);
 
@@ -652,6 +660,31 @@ column_process: process(FPGA_CLK,currentColumnUp,currentColumnDown,currentColumn
       end if;
    end if;
    end process;
+
+-- Process to let the host support program know when the keyboard lock changes
+   
+consoleLock_process: process(FPGA_CLK,MW_KEYBOARD_LOCK_SOLENOID)
+   begin
+   
+   if FPGA_CLK'event and FPGA_CLK = '1' then
+   
+      case consoleLockState is    
+        
+      when consoleLock_idle =>
+         if consoleLockStatus = MW_KEYBOARD_LOCK_SOLENOID then
+            consoleLockState <= consoleLock_idle;
+         else
+            consoleLockState <= consoleLock_update;
+            consoleLockStatus <= MW_KEYBOARD_LOCK_SOLENOID;
+         end if;
+         
+      when consoleLock_update =>
+         consoleLockState <= consoleLock_idle;
+         
+      end case;
+   
+   end if;
+   end process;
    
    
 -- Combinatorial code
@@ -785,6 +818,9 @@ IBM1410_CONSOLE_XMT_STROBE <= '1' when
    crState = cr_strobe 
    else '0';
 
+IBM1410_CONSOLE_LOCK_XMT_CHAR <= "0000000" &  consoleLockStatus;
+IBM1410_CONSOLE_LOCK_XMT_STROBE <= '1' when consoleLockState = consoleLock_update else '0';
+
 -- Placeholders to avoid undefined signals
 
 MV_CONS_PRINTER_SPACE_NO <= '1';
@@ -794,5 +830,6 @@ PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= '0';
 MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= '1';
 MV_CONSOLE_C_INPUT_STAR_CHK_OP <= '1';
 MV_CONS_PRTR_TO_CPU_BUS <= "111111";
+
   
 end Behavioral;
