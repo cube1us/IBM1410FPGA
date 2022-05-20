@@ -139,8 +139,9 @@ constant CR_S0_TIME: integer := (5890 * MULTIPLIER) / CLOCKPERIOD;
 constant CR_S1_TIME: integer := (10000 * MULTIPLIER) / CLOCKPERIOD;
 constant CR_S2_TIME: integer := (3950 * MULTIPLIER) / CLOCKPERIOD;
 
-
 constant OUT_STROBE_TIME: integer := 10;   -- 100 ns uart strobe time
+
+constant CONSOLE_LOCK_UNLOCK_WAIT_TIME: integer := 5; -- wait to send updates because we may be in reset.
 
 
 type outputState_type is (output_idle,
@@ -173,12 +174,13 @@ type crState_type is (cr_idle,
    cr_strobe,
    cr_s2);
    
-type consoleLockState_type is(consoleLock_idle, consoleLock_update);
+type consoleLockState_type is(consoleLock_idle, consoleLock_wait, consoleLock_update);
 
 signal outputCounter: INTEGER RANGE 0 to (2000 * MULTIPLIER) / CLOCKPERIOD;   -- Max delay for any state
 signal spaceCounter:  INTEGER RANGE 0 to (3000 * MULTIPLIER) / CLOCKPERIOD;
 signal shiftCounter:  INTEGER RANGE 0 to (4000 * MULTIPLIER) / CLOCKPERIOD;
 signal crCounter:     INTEGER RANGE 0 to (10000 * MULTIPLIER) / CLOCKPERIOD;
+signal consoleLockCounter: INTEGER RANGE 0 to CONSOLE_LOCK_UNLOCK_WAIT_TIME := 0;
 
 signal outputState: outputState_type := output_idle;  -- , nextOutputState
 signal spaceState: spaceState_type := space_idle; -- , nextSpaceState
@@ -674,8 +676,17 @@ consoleLock_process: process(FPGA_CLK,MW_KEYBOARD_LOCK_SOLENOID)
          if consoleLockStatus = MW_KEYBOARD_LOCK_SOLENOID then
             consoleLockState <= consoleLock_idle;
          else
-            consoleLockState <= consoleLock_update;
+            consoleLockState <= consoleLock_wait;
             consoleLockStatus <= MW_KEYBOARD_LOCK_SOLENOID;
+            consoleLockCounter <= 5;
+         end if;
+         
+      when consoleLock_wait =>
+         if consoleLockCounter = 0 then
+            consoleLockState <= consoleLock_update;
+         else
+            consoleLockCounter <= consoleLockCounter - 1;
+            consoleLockState <= consoleLock_wait;
          end if;
          
       when consoleLock_update =>
