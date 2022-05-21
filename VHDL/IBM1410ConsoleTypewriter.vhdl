@@ -56,7 +56,8 @@ entity IBM1410ConsoleTypewriter is
    GENERIC(MULTIPLIER: integer := 10000);
   
    PORT (
-      FPGA_CLK: in STD_LOGIC;
+       FPGA_CLK: in STD_LOGIC;
+       UART_RESET: in STD_LOGIC;
         
        -- Console Output Signals 
 
@@ -673,7 +674,7 @@ consoleLock_process: process(FPGA_CLK,MW_KEYBOARD_LOCK_SOLENOID)
       case consoleLockState is    
         
       when consoleLock_idle =>
-         if consoleLockStatus = MW_KEYBOARD_LOCK_SOLENOID then
+         if UART_RESET = '1' or (consoleLockStatus = MW_KEYBOARD_LOCK_SOLENOID) then
             consoleLockState <= consoleLock_idle;
          else
             consoleLockState <= consoleLock_wait;

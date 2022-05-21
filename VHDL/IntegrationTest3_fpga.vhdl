@@ -915,6 +915,7 @@ architecture behavioral of IntegrationTest3_fpga is
    GENERIC(MULTIPLIER: integer := 10000);
    PORT (
       FPGA_CLK: in STD_LOGIC;
+      UART_RESET: in STD_LOGIC;
 
       PW_CONS_PRINTER_R1_SOLENOID: in STD_LOGIC;      
       PW_CONS_PRINTER_R2_SOLENOID: in STD_LOGIC;
@@ -2963,6 +2964,7 @@ memory: IBM1410Memory
    generic map(MULTIPLIER => 100) -- 100x speed, so 10us == 1ms
    port map(
       FPGA_CLK => FPGA_CLK,
+      UART_RESET => UART_RESET,
       PW_CONS_PRINTER_R1_SOLENOID => PW_CONS_PRINTER_R1_SOLENOID,      
       PW_CONS_PRINTER_R2_SOLENOID => PW_CONS_PRINTER_R2_SOLENOID,
       PW_CONS_PRINTER_R2A_SOLENOID => PW_CONS_PRINTER_R2A_SOLENOID,
