@@ -1,5 +1,7 @@
-Generating HDL for page 14.71.33.1 D AR READOUT at 9/6/2020 8:11:26 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_71_33_1_D_AR_READOUT_tb.vhdl, generating default test bench code.
+Generating HDL for page 14.71.33.1 D AR READOUT at 5/23/2022 5:04:51 PM
+Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Notes indicated to force a  D FF at output of gate at 1F
 Removed 4 outputs from Gate at 1F to ignored block(s) or identical signal names
 Generating Statement for block at 4C with output pin(s) of OUT_4C_C
 	and inputs of PS_INDEX_REQUIRED,PS_I_RING_10_TIME
@@ -13,7 +15,7 @@ Generating Statement for block at 4F with output pin(s) of OUT_4F_E
 Generating Statement for block at 2F with output pin(s) of OUT_2F_C
 	and inputs of OUT_4F_E,OUT_DOT_4D,MV_CE_RO_D_AR
 	and logic function of NAND
-Generating Statement for block at 1F with output pin(s) of OUT_1F_G
+Generating Statement for block at 1F with *latched* output pin(s) of OUT_1F_G_Latch
 	and inputs of OUT_DOT_2F
 	and logic function of EQUAL
 Generating Statement for block at 4G with output pin(s) of OUT_4G_D
@@ -37,3 +39,4 @@ Generating Statement for block at 2F with output pin(s) of OUT_DOT_2F
 Generating output sheet edge signal assignment to 
 	signal PS_RO_D_AR
 	from gate output OUT_1F_G
+Generating D Flip Flop for block at 1F

@@ -1,9 +1,10 @@
-Generating HDL for page 12.12.21.1 B AND D CYCLE CTRL LATCHES at 5/13/2022 10:36:03 AM
+Generating HDL for page 12.12.21.1 B AND D CYCLE CTRL LATCHES at 5/23/2022 2:53:10 PM
 Found combinatorial loop (need D FF) at output of gate at 4B
 Found combinatorial loop (need D FF) at output of gate at 3B
 Found combinatorial loop (need D FF) at output of gate at 4F
 Found combinatorial loop (need D FF) at output of gate at 3F
 Notes indicated to force a  D FF at output of gate at 5H
+Notes indicated to force a  D FF at output of gate at 3I
 Removed 3 outputs from Gate at 2A to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 1B to ignored block(s) or identical signal names
 Removed 5 outputs from Gate at 2E to ignored block(s) or identical signal names
@@ -48,7 +49,7 @@ Generating Statement for block at 5H with *latched* output pin(s) of OUT_5H_P_La
 Generating Statement for block at 2H with output pin(s) of OUT_2H_G
 	and inputs of OUT_5H_P
 	and logic function of NAND
-Generating Statement for block at 3I with output pin(s) of OUT_3I_D, OUT_3I_D
+Generating Statement for block at 3I with *latched* output pin(s) of OUT_3I_D_Latch, OUT_3I_D_Latch
 	and inputs of OUT_5H_P,PS_LOGIC_GATE_A_1,PS_CONSOLE_STROBE
 	and logic function of NAND
 Generating output sheet edge signal assignment to 
@@ -77,3 +78,4 @@ Generating D Flip Flop for block at 3B
 Generating D Flip Flop for block at 4F
 Generating D Flip Flop for block at 3F
 Generating D Flip Flop for block at 5H
+Generating D Flip Flop for block at 3I

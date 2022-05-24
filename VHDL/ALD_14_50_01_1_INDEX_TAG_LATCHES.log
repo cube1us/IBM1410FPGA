@@ -1,8 +1,10 @@
-Generating HDL for page 14.50.01.1 INDEX TAG LATCHES at 8/31/2020 4:08:00 PM
+Generating HDL for page 14.50.01.1 INDEX TAG LATCHES at 5/24/2022 1:55:41 PM
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 4A
 Found combinatorial loop (need D FF) at output of gate at 3A
 Found combinatorial loop (need D FF) at output of gate at 4D
 Found combinatorial loop (need D FF) at output of gate at 3D
+Notes indicated to force a  D FF at output of gate at 2D
 Found combinatorial loop (need D FF) at output of gate at 4G
 Found combinatorial loop (need D FF) at output of gate at 3G
 Removed 1 outputs from Gate at 1A to ignored block(s) or identical signal names
@@ -39,7 +41,7 @@ Generating Statement for block at 4D with *latched* output pin(s) of OUT_4D_NoPi
 Generating Statement for block at 3D with *latched* output pin(s) of OUT_3D_F_Latch
 	and inputs of OUT_4D_NoPin,MS_SET_H_POS_INDEX_LAT_B
 	and logic function of NAND
-Generating Statement for block at 2D with output pin(s) of OUT_2D_D, OUT_2D_D
+Generating Statement for block at 2D with *latched* output pin(s) of OUT_2D_D_Latch, OUT_2D_D_Latch
 	and inputs of OUT_DOT_3D
 	and logic function of NOT
 Generating Statement for block at 5E with output pin(s) of OUT_5E_A
@@ -97,5 +99,6 @@ Generating D Flip Flop for block at 4A
 Generating D Flip Flop for block at 3A
 Generating D Flip Flop for block at 4D
 Generating D Flip Flop for block at 3D
+Generating D Flip Flop for block at 2D
 Generating D Flip Flop for block at 4G
 Generating D Flip Flop for block at 3G

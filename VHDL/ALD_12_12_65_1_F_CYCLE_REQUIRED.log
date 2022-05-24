@@ -1,4 +1,13 @@
-Generating HDL for page 12.12.65.1 F CYCLE REQUIRED at 6/29/2020 2:09:26 PM
+Generating HDL for page 12.12.65.1 F CYCLE REQUIRED at 5/23/2022 4:09:08 PM
+Note: DOT Function at 5D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Notes indicated to force a  D FF at output of gate at 3E
+Notes indicated to force a  D FF at output of gate at 3F
+Notes indicated to force a  D FF at output of gate at 3G
+Notes indicated to force a  D FF at output of gate at 3H
+Notes indicated to force a  D FF at output of gate at 3I
 Removed 2 outputs from Gate at 1G to ignored block(s) or identical signal names
 Removed 2 outputs from Dot Function at 3E to ignored block(s) or identical signal names
 Generating Statement for block at 3A with output pin(s) of OUT_3A_C
@@ -22,16 +31,16 @@ Generating Statement for block at 5D with output pin(s) of OUT_5D_B
 Generating Statement for block at 3D with output pin(s) of OUT_3D_B
 	and inputs of MS_F1_REG_FULL
 	and logic function of NOT
-Generating Statement for block at 3E with output pin(s) of OUT_3E_R
+Generating Statement for block at 3E with *latched* output pin(s) of OUT_3E_R_Latch
 	and inputs of OUT_DOT_3D
 	and logic function of NOT
 Generating Statement for block at 5F with output pin(s) of OUT_5F_F
 	and inputs of MS_F_CYCLE_DOT_ANY_LAST_GATE
 	and logic function of NOT
-Generating Statement for block at 3F with output pin(s) of OUT_3F_F
+Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_F_Latch
 	and inputs of OUT_DOT_5D
 	and logic function of NOT
-Generating Statement for block at 3G with output pin(s) of OUT_3G_R
+Generating Statement for block at 3G with *latched* output pin(s) of OUT_3G_R_Latch
 	and inputs of OUT_DOT_5G
 	and logic function of NOT
 Generating Statement for block at 1G with output pin(s) of OUT_1G_C
@@ -40,13 +49,13 @@ Generating Statement for block at 1G with output pin(s) of OUT_1G_C
 Generating Statement for block at 5H with output pin(s) of OUT_5H_D
 	and inputs of MS_F_CH_INT_END_OF_TRANSFER,PS_F_CH_IN_PROCESS,PS_F_CH_INPUT_MODE
 	and logic function of NAND
-Generating Statement for block at 3H with output pin(s) of OUT_3H_B
+Generating Statement for block at 3H with *latched* output pin(s) of OUT_3H_B_Latch
 	and inputs of MS_F_CH_OUTPUT_DOT_NOT_F2_REG_FULL
 	and logic function of NOT
 Generating Statement for block at 5I with output pin(s) of OUT_5I_B
 	and inputs of PS_F2_REG_FULL
 	and logic function of NOT
-Generating Statement for block at 3I with output pin(s) of OUT_3I_C
+Generating Statement for block at 3I with *latched* output pin(s) of OUT_3I_C_Latch
 	and inputs of MS_F_CH_INPUT_DOT_F2_REG_FULL
 	and logic function of NOT
 Generating Statement for block at 5D with output pin(s) of OUT_DOT_5D
@@ -67,3 +76,8 @@ Generating output sheet edge signal assignment to
 Generating output sheet edge signal assignment to 
 	signal PS_F_CYCLE_REQUIRED
 	from gate output OUT_DOT_3E
+Generating D Flip Flop for block at 3E
+Generating D Flip Flop for block at 3F
+Generating D Flip Flop for block at 3G
+Generating D Flip Flop for block at 3H
+Generating D Flip Flop for block at 3I
