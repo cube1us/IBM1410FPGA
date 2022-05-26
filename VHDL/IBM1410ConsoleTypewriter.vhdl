@@ -101,7 +101,7 @@ entity IBM1410ConsoleTypewriter is
       
        MV_CONS_PRTR_TO_CPU_BUS: out STD_LOGIC_VECTOR(5 downto 0);
        MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO: out STD_LOGIC;
-       MV_CONSOLE_C_INPUT_STAR_CHK_OP: out STD_LOGIC;
+       MV_CONSOLE_C_INPUT_STAR_CHK_OP: out STD_LOGIC;              
       
        -- Console Output UART
        
@@ -109,16 +109,58 @@ entity IBM1410ConsoleTypewriter is
        IBM1410_CONSOLE_XMT_STROBE: out STD_LOGIC;
        
        IBM1410_CONSOLE_LOCK_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
-       IBM1410_CONSOLE_LOCK_XMT_STROBE: out STD_LOGIC
+       IBM1410_CONSOLE_LOCK_XMT_STROBE: out STD_LOGIC;
+       
+       -- Console Input UART
+       
+       IBM1410_CONSOLE_INPUT_FIFO_WRITE_ENABLE: in STD_LOGIC;
+       IBM1410_CONSOLE_INPUT_FIFO_WRITE_DATA: in STD_LOGIC_VECTOR(7 downto 0)
    );
 
 end IBM1410ConsoleTypewriter;
 
 architecture Behavioral of IBM1410ConsoleTypewriter is
 
+   component ring_buffer is
+      generic (
+         RAM_WIDTH : natural;
+         RAM_DEPTH : natural
+      );
+      port (
+         clk : in std_logic;
+         rst : in std_logic;
+
+         -- Write port
+         wr_en : in std_logic;
+         wr_data : in std_logic_vector(RAM_WIDTH - 1 downto 0);
+
+         -- Read port
+         rd_en : in std_logic;
+         rd_valid : out std_logic;
+         rd_data : out std_logic_vector(RAM_WIDTH - 1 downto 0);
+
+         -- Flags
+         empty : out std_logic;
+         empty_next : out std_logic;
+         full : out std_logic;
+         full_next : out std_logic;
+
+         -- The number of elements in the FIFO
+         fill_count : out integer range RAM_DEPTH - 1 downto 0
+      );
+   end component;
+
+
 constant MAX_COLUMN: integer := 80;
 
 constant CLOCKPERIOD: integer := 10;   -- 100 Mhz, 10 ns
+
+constant BCD_1_BIT: integer := 0;
+constant BCD_2_BIT: integer := 1;
+constant BCD_4_BIT: integer := 2;
+constant BCD_8_BIT: integer := 3;
+constant BCD_A_BIT: integer := 4;
+constant BCD_B_BIT: integer := 5;
 
 constant OUT_S0_TIME: integer := (1500 * MULTIPLIER) / CLOCKPERIOD;
 constant OUT_S1_TIME: integer := (1250 * MULTIPLIER) / CLOCKPERIOD;
@@ -144,6 +186,16 @@ constant OUT_STROBE_TIME: integer := 10;   -- 100 ns uart strobe time
 
 constant CONSOLE_LOCK_UNLOCK_WAIT_TIME: integer := 5; -- wait to send updates because we may be in reset.
 
+constant CONSOLE_INPUT_FIFO_SIZE: integer := 10;
+constant CONSOLE_INPUT_FIFO_WIDTH: INTEGER := 8;
+
+-- NOTE:  If all the bits below are set, it means last column
+constant CONSOLE_INPUT_CONTROL_UPPER_CASE: integer := 0;
+constant CONSOLE_INPUT_CONTROL_INQUIRY_REQUEST: integer := 1;
+constant CONSOLE_INPUT_CONTROL_INQUIRY_RELEASE: integer := 2;
+constant CONSOLE_INPUT_CONTROL_INQUIRY_CANCEL: integer := 3;
+constant CONSOLE_INPUT_CONTROL_SPACE: integer := 4;
+constant CONSOLE_INPUT_CONTROL_WM: integer := 5;
 
 type outputState_type is (output_idle,
    output_s0, 
@@ -175,6 +227,11 @@ type crState_type is (cr_idle,
    cr_strobe,
    cr_s2);
    
+type consoleReceiverState_type is (
+   consoleReceiver_reset, consoleReceiver_waitForChar, consoleReceiver_waitForPrinter,
+   consoleReceiver_getChar, consoleReceiver_sendChar, consoleReceiver_waitDone,
+   consoleReceiver_waitOutput);   
+   
 type consoleLockState_type is(consoleLock_idle, consoleLock_wait, consoleLock_update);
 
 signal outputCounter: INTEGER RANGE 0 to (2000 * MULTIPLIER) / CLOCKPERIOD;   -- Max delay for any state
@@ -188,6 +245,7 @@ signal spaceState: spaceState_type := space_idle; -- , nextSpaceState
 signal shiftState: shiftState_type := shift_idle; -- , nextShiftState
 signal crState: crState_type := cr_idle;  -- , nextCrState
 signal consoleLockState: consoleLockState_type := consoleLock_idle;
+signal consoleReceiverState: consoleReceiverState_type := consoleReceiver_reset;
 
  -- For rotateIndex, 0 is 5 units CW (-5), 10 is 5 units CCW (+5)
 signal rotateIndex, latchedRotateIndex: integer range 0 to 10 := 5;
@@ -216,6 +274,42 @@ signal printChar: STD_LOGIC_VECTOR(7 downto 0);
 signal output_parity: std_logic := '0';
 
 signal consoleLockStatus: std_logic := '0'; -- locked
+
+signal FIFO_READ_ENABLE: STD_LOGIC := '0';
+signal FIFO_READ_DATA_VALID: STD_LOGIC;
+signal FIFO_READ_DATA: STD_LOGIC_VECTOR(7 downto 0);
+signal FIFO_EMPTY: STD_LOGIC;
+signal FIFO_EMPTY_NEXT: STD_LOGIC;
+signal FIFO_FULL: STD_LOGIC;        -- Not used - assumption for now is that 1410 will keep up.
+signal FIFO_FULL_NEXT: STD_LOGIC;   -- Not used - assumption for now is that 1410 will keep up.
+
+signal CONSOLE_PRINTER_CONTACT_R1: STD_LOGIC := '0';
+signal CONSOLE_PRINTER_CONTACT_R2: STD_LOGIC := '0';
+signal CONSOLE_PRINTER_CONTACT_R2A: STD_LOGIC := '0';
+signal CONSOLE_PRINTER_CONTACT_R5: STD_LOGIC := '0';
+signal CONSOLE_PRINTER_CONTACT_T1: STD_LOGIC := '0';
+signal CONSOLE_PRINTER_CONTACT_T2: STD_LOGIC := '0';
+signal CONSOLE_PRINTER_CONTACT_CHK: STD_LOGIC := '0';
+signal CONSOLE_PRINTER_CONTACT_UPPER_CASE_SHIFT: STD_LOGIC := '0';
+signal CONSOLE_PRINTER_CONTACT_LOWER_CASE_SHIFT: STD_LOGIC := '0';
+
+signal CONSOLE_INPUT_BAIL_CONTACT_R1: STD_LOGIC := '0';
+signal CONSOLE_INPUT_BAIL_CONTACT_R2: STD_LOGIC := '0';
+signal CONSOLE_INPUT_BAIL_CONTACT_R2A: STD_LOGIC := '0';
+signal CONSOLE_INPUT_BAIL_CONTACT_R5: STD_LOGIC := '0';
+signal CONSOLE_INPUT_BAIL_CONTACT_T1: STD_LOGIC := '0';
+signal CONSOLE_INPUT_BAIL_CONTACT_T2: STD_LOGIC := '0';
+signal CONSOLE_INPUT_BAIL_CONTACT_CHK: STD_LOGIC := '0';
+signal CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT: STD_LOGIC := '0';
+signal CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT: STD_LOGIC := '0';
+signal CONSOLE_INPUT_LAST_COLUMN_SET: STD_LOGIC := '0';
+
+signal CONSOLE_INPUT_ACTIVE: STD_LOGIC := '0';
+signal CONSOLE_INPUT_BUFFER: STD_LOGIC_VECTOR(5 downto 0) := "000000";
+signal CONSOLE_INPUT_PARITY: STD_LOGIC := '0';
+signal CONSOLE_INPUT_CONTROL_KEY_BUFFER: STD_LOGIC_VECTOR(5 downto 0) := "000000";
+signal CONSOLE_INPUT_SPECIAL_KEYS: STD_LOGIC_VECTOR(5 downto 0) := "000000";
+signal CONSOLE_INPUT_PRINTER_BUSY: STD_LOGIC := '0';
 
 type GolfballTilt is array (0 to 10) of STD_LOGIC_VECTOR(7 downto 0);
 
@@ -259,10 +353,10 @@ begin
 output_process: process(FPGA_CLK, 
    outputState,
    outputCounter, 
-   PW_CONS_PRINTER_R1_SOLENOID, 
-   PW_CONS_PRINTER_R2_SOLENOID, PW_CONS_PRINTER_R2A_SOLENOID, 
-   PW_CONS_PRINTER_R5_SOLENOID, PW_CONS_PRINTER_T1_SOLENOID,
-   PW_CONS_PRINTER_T2_SOLENOID, PW_CONS_PRINTER_CHK_SOLENOID,
+   CONSOLE_PRINTER_CONTACT_R1, 
+   CONSOLE_PRINTER_CONTACT_R2, CONSOLE_PRINTER_CONTACT_R2A, 
+   CONSOLE_PRINTER_CONTACT_R5, CONSOLE_PRINTER_CONTACT_T1,
+   CONSOLE_PRINTER_CONTACT_T2, CONSOLE_PRINTER_CONTACT_CHK,
    rotateIndex,tiltIndex,inUpperCase,latchedTiltIndex,latchedRotateIndex
    )
    begin
@@ -272,13 +366,13 @@ output_process: process(FPGA_CLK,
       case outputState is
       when output_idle =>
          
-         if PW_CONS_PRINTER_R1_SOLENOID = '1' or
-            PW_CONS_PRINTER_R2_SOLENOID = '1' or
-            PW_CONS_PRINTER_R2A_SOLENOID = '1' or
-            PW_CONS_PRINTER_R5_SOLENOID = '1' or
-            PW_CONS_PRINTER_T1_SOLENOID = '1' or
-            PW_CONS_PRINTER_T2_SOLENOID = '1' or
-            PW_CONS_PRINTER_CHK_SOLENOID = '1' then            
+         if CONSOLE_PRINTER_CONTACT_R1 = '1' or
+            CONSOLE_PRINTER_CONTACT_R2 = '1' or
+            CONSOLE_PRINTER_CONTACT_R2A = '1' or
+            CONSOLE_PRINTER_CONTACT_R5 = '1' or
+            CONSOLE_PRINTER_CONTACT_T1 = '1' or
+            CONSOLE_PRINTER_CONTACT_T2 = '1' or
+            CONSOLE_PRINTER_CONTACT_CHK = '1' then            
             outputCounter <= OUT_S0_TIME;
             outputState <= output_s0;
          else
@@ -303,13 +397,13 @@ output_process: process(FPGA_CLK,
             latchedRotateIndex <= rotateIndex;
             latchedTiltIndex <= tiltIndex;            
             output_parity <=
-               PW_CONS_PRINTER_R1_SOLENOID xor      
-               PW_CONS_PRINTER_R2_SOLENOID xor     
-               PW_CONS_PRINTER_R2A_SOLENOID xor
-               PW_CONS_PRINTER_R5_SOLENOID xor
-               PW_CONS_PRINTER_T1_SOLENOID xor
-               PW_CONS_PRINTER_T2_SOLENOID xor
-               PW_CONS_PRINTER_CHK_SOLENOID;
+               CONSOLE_PRINTER_CONTACT_R1 xor      
+               CONSOLE_PRINTER_CONTACT_R2 xor     
+               CONSOLE_PRINTER_CONTACT_R2A xor
+               CONSOLE_PRINTER_CONTACT_R5 xor
+               CONSOLE_PRINTER_CONTACT_T1 xor
+               CONSOLE_PRINTER_CONTACT_T2 xor
+               CONSOLE_PRINTER_CONTACT_CHK;
          else
             outputCounter <= outputCounter - 1;
             outputState <= output_s1;
@@ -384,13 +478,13 @@ output_process: process(FPGA_CLK,
 
       when output_s6 =>
          if outputCounter = 0 then
-            if PW_CONS_PRINTER_R1_SOLENOID = '1' or
-               PW_CONS_PRINTER_R2_SOLENOID = '1' or
-               PW_CONS_PRINTER_R2A_SOLENOID = '1' or
-               PW_CONS_PRINTER_R5_SOLENOID = '1' or
-               PW_CONS_PRINTER_T1_SOLENOID = '1' or
-               PW_CONS_PRINTER_T2_SOLENOID = '1' or
-               PW_CONS_PRINTER_CHK_SOLENOID = '1' then   
+            if CONSOLE_PRINTER_CONTACT_R1 = '1' or
+               CONSOLE_PRINTER_CONTACT_R2 = '1' or
+               CONSOLE_PRINTER_CONTACT_R2A = '1' or
+               CONSOLE_PRINTER_CONTACT_R5 = '1' or
+               CONSOLE_PRINTER_CONTACT_T1 = '1' or
+               CONSOLE_PRINTER_CONTACT_T2 = '1' or
+               CONSOLE_PRINTER_CONTACT_CHK = '1' then   
                outputState <= output_s1;
                outputCounter <= OUT_S1_TIME;            
             else
@@ -699,8 +793,147 @@ consoleLock_process: process(FPGA_CLK,MW_KEYBOARD_LOCK_SOLENOID)
    end process;
    
    
--- Combinatorial code
+console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
+   outputState, IBM1410_CONSOLE_INPUT_FIFO_WRITE_ENABLE, IBM1410_CONSOLE_INPUT_FIFO_WRITE_DATA,
+   FIFO_READ_DATA_VALID, FIFO_EMPTY, FIFO_EMPTY_NEXT, consoleREceiverState)
    
+   begin
+   
+   if UART_RESET = '1' then
+      consoleReceiverState <= consoleReceiver_reset;
+      CONSOLE_INPUT_ACTIVE <= '0';
+      
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+   case consoleReceiverState is
+   
+      when consoleReceiver_reset =>
+         CONSOLE_INPUT_ACTIVE <= '0';
+         consoleReceiverState <= consoleReceiver_waitForChar;
+         
+      when consoleReceiver_waitForChar =>
+         if FIFO_EMPTY = '0' then
+            FIFO_READ_ENABLE <= '1';
+            consoleReceiverState <= consoleReceiver_waitForPrinter;
+         else
+            consoleReceiverState <= consoleReceiver_waitForChar;
+         end if;
+         
+      when consoleReceiver_getChar =>
+         if FIFO_READ_DATA_VALID = '1' then
+            -- High bit from support HOST means not a BCD character, but instead special control keys
+            if FIFO_READ_DATA(6) = '1' then
+               -- All 1 bits means the index (force last column) has been pushed.  It isn't really a key.
+               if FIFO_READ_DATA = "1111111" then
+                  CONSOLE_INPUT_LAST_COLUMN_SET <= '1';
+               else
+                  CONSOLE_INPUT_LAST_COLUMN_SET <= '0';
+                  CONSOLE_INPUT_CONTROL_KEY_BUFFER <= FIFO_READ_DATA(5 downto 0);
+               end if;
+               consoleReceiverState <= consoleReceiver_waitDone;
+               CONSOLE_INPUT_CONTROL_KEY_BUFFER <= FIFO_READ_DATA(5 downto 0);
+            else
+               consoleReceiverState <= consoleReceiver_waitForPrinter;
+               CONSOLE_INPUT_BUFFER <= FIFO_READ_DATA(5 downto 0);
+               CONSOLE_INPUT_PARITY <= FIFO_READ_DATA(0) xor FIFO_READ_DATA(1) xor
+                  FIFO_READ_DATA(2) xor FIFO_READ_DATA(3) xor FIFO_READ_DATA(4) xor
+                  FIFO_READ_DATA(5);                  
+            end if;
+         else
+            consoleReceiverState <= consoleReceiver_getChar;  -- Should never actually get here
+         end if;
+         
+      when consoleReceiver_waitForPrinter =>
+         if CONSOLE_INPUT_PRINTER_BUSY = '0' then
+            consoleReceiverState <= consoleReceiver_sendChar;
+         else
+            consoleReceiverState <= consoleReceiver_waitForPrinter;
+         end if;
+         
+         
+      when consoleReceiver_sendChar =>
+         CONSOLE_INPUT_BAIL_CONTACT_R1 <= not CONSOLE_INPUT_BUFFER(BCD_2_BIT);
+         CONSOLE_INPUT_BAIL_CONTACT_R2 <= 
+            not CONSOLE_INPUT_BUFFER(BCD_8_BIT) and not CONSOLE_INPUT_BUFFER(BCD_4_BIT);
+         CONSOLE_INPUT_BAIL_CONTACT_R2A <=
+            not CONSOLE_INPUT_BUFFER(BCD_8_BIT) and CONSOLE_INPUT_BUFFER(BCD_4_BIT);
+         CONSOLE_INPUT_BAIL_CONTACT_R5 <=
+            (CONSOLE_INPUT_BUFFER(BCD_8_BIT) and not CONSOLE_INPUT_BUFFER(BCD_1_BIT)) or
+            (not CONSOLE_INPUT_BUFFER(BCD_8_BIT) and CONSOLE_INPUT_BUFFER(BCD_1_BIT));
+         CONSOLE_INPUT_BAIL_CONTACT_T1 <= not CONSOLE_INPUT_BUFFER(BCD_A_BIT);
+         CONSOLE_INPUT_BAIL_CONTACT_T2 <= not CONSOLE_INPUT_BUFFER(BCD_B_BIT);
+         CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT <= 
+            CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_UPPER_CASE);
+         CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT <= 
+            not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_UPPER_CASE);
+         CONSOLE_INPUT_BAIL_CONTACT_CHK <= CONSOLE_INPUT_PARITY;
+         consoleReceiverState <= consoleReceiver_waitDone;
+         
+      -- Release the bails so we don't end up with endless pring cycles...
+         
+      when consoleReceiver_waitOutput =>
+         if outputState = output_s4 then
+            CONSOLE_INPUT_BAIL_CONTACT_R1 <= '0';
+            CONSOLE_INPUT_BAIL_CONTACT_R2 <= '0';
+            CONSOLE_INPUT_BAIL_CONTACT_R2A <= '0';
+            CONSOLE_INPUT_BAIL_CONTACT_R5 <= '0';
+            CONSOLE_INPUT_BAIL_CONTACT_T1 <= '0';
+            CONSOLE_INPUT_BAIL_CONTACT_T2 <= '0';
+            CONSOLE_INPUT_BAIL_CONTACT_CHK <= '0';
+            consoleReceiverState <= consoleReceiver_waitDone;
+         else
+            consoleReceiverState <= consoleReceiver_waitOutput;
+         end if;
+         
+      when consoleReceiver_waitDone =>
+         if CONSOLE_INPUT_PRINTER_BUSY = '1' then
+            consoleReceiverState <= consoleReceiver_waitForChar;
+         else
+            consoleReceiverState <= consoleReceiver_waitDone;
+         end if;
+                     
+      end case;
+         
+   end if;
+   
+   end process;
+   
+      -- Instantiate the FIFO ring buffer
+   
+   FIFO : ring_buffer
+      generic map (
+         RAM_WIDTH => CONSOLE_INPUT_FIFO_WIDTH,
+         RAM_DEPTH => CONSOLE_INPUT_FIFO_SIZE
+      )
+      port map (
+         clk => FPGA_CLK,
+         rst => UART_RESET,
+         wr_en => IBM1410_CONSOLE_INPUT_FIFO_WRITE_ENABLE,
+         wr_data => IBM1410_CONSOLE_INPUT_FIFO_WRITE_DATA,
+         rd_en => FIFO_READ_ENABLE,
+         rd_valid => FIFO_READ_DATA_VALID,
+         rd_data => FIFO_READ_DATA,
+         empty => FIFO_EMPTY,
+         empty_next => FIFO_EMPTY_NEXT,
+         full => FIFO_FULL,
+         full_next => FIFO_FULL_NEXT,
+         fill_count => OPEN
+    );
+
+   
+   
+-- Combinatorial code
+
+CONSOLE_PRINTER_CONTACT_R1 <= PW_CONS_PRINTER_R1_SOLENOID or CONSOLE_INPUT_BAIL_CONTACT_R1;
+CONSOLE_PRINTER_CONTACT_R2 <= PW_CONS_PRINTER_R2_SOLENOID or CONSOLE_INPUT_BAIL_CONTACT_R2;
+CONSOLE_PRINTER_CONTACT_R2A <= PW_CONS_PRINTER_R2A_SOLENOID or CONSOLE_INPUT_BAIL_CONTACT_R2A;
+CONSOLE_PRINTER_CONTACT_R5 <= PW_CONS_PRINTER_R5_SOLENOID or CONSOLE_INPUT_BAIL_CONTACT_R5;
+CONSOLE_PRINTER_CONTACT_T1 <= PW_CONS_PRINTER_T1_SOLENOID or CONSOLE_INPUT_BAIL_CONTACT_T1;
+CONSOLE_PRINTER_CONTACT_T2 <= PW_CONS_PRINTER_T2_SOLENOID or CONSOLE_INPUT_BAIL_CONTACT_T2;
+CONSOLE_PRINTER_CONTACT_CHK <= PW_CONS_PRINTER_CHK_SOLENOID or CONSOLE_INPUT_BAIL_CONTACT_CHK;
+
+CONSOLE_PRINTER_CONTACT_UPPER_CASE_SHIFT <= PW_UPPER_CASE_SHIFT_SOLENOID or CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT;
+CONSOLE_PRINTER_CONTACT_LOWER_CASE_SHIFT <= PW_LOWER_CASE_SHIFT_SOLENOID or CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT;
+
 -- A lot of state machine examples uses "if" statements to generate
 -- combinatorial values, but I don't think that is the best way, so
 
@@ -746,13 +979,17 @@ currentColumnDown <= '1' when spaceState = space_s3 and
 currentColumnReset <= '1' when crState = cr_s0
    else '0';
       
-R1Motion <= 1 when PW_CONS_PRINTER_R1_SOLENOID = '0' else 0;
-R2Motion <= 2 when PW_CONS_PRINTER_R2_SOLENOID = '0' else 0; 
-R2AMotion <= 2 when PW_CONS_PRINTER_R2A_SOLENOID = '0' else 0;
+R1Motion <= 1 when CONSOLE_PRINTER_CONTACT_R1 = '0' else 0;
+R2Motion <= 2 when CONSOLE_PRINTER_CONTACT_R2 = '0' else 0; 
+R2AMotion <= 2 when CONSOLE_PRINTER_CONTACT_R2A = '0' else 0;
 -- Note that R5Motion is "biased" by +5
-R5Motion <= 5 when PW_CONS_PRINTER_R5_SOLENOID = '0' else 0;
-T1Motion <= 1 when PW_CONS_PRINTER_T1_SOLENOID = '0' else 0;
-T2Motion <= 2 when PW_CONS_PRINTER_T2_SOLENOID = '0' else 0;
+R5Motion <= 5 when CONSOLE_PRINTER_CONTACT_R5 = '0' else 0;
+T1Motion <= 1 when CONSOLE_PRINTER_CONTACT_T1 = '0' else 0;
+T2Motion <= 2 when CONSOLE_PRINTER_CONTACT_T2 = '0' else 0;
+
+CONSOLE_INPUT_PRINTER_BUSY <= CAM1 or CAM2  or
+   CAM5 or CAM3_OR_4 or CR_INTERLOCK or
+   not consoleLockStatus;
    
 rotateIndex <= R1Motion + R2Motion + R2AMotion + R5Motion;
 tiltIndex <= T1Motion + T2Motion;
@@ -833,15 +1070,14 @@ IBM1410_CONSOLE_XMT_STROBE <= '1' when
 IBM1410_CONSOLE_LOCK_XMT_CHAR <= "0000000" &  consoleLockStatus;
 IBM1410_CONSOLE_LOCK_XMT_STROBE <= '1' when consoleLockState = consoleLock_update else '0';
 
--- Placeholders to avoid undefined signals
+-- Console Input Seignals
 
-MV_CONS_PRINTER_SPACE_NO <= '1';
-MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO <= '1';
-MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO <= '1';
-PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= '0';
-MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= '1';
-MV_CONSOLE_C_INPUT_STAR_CHK_OP <= '1';
-MV_CONS_PRTR_TO_CPU_BUS <= "111111";
-
+MV_CONS_PRINTER_SPACE_NO <= not CONSOLE_INPUT_SPECIAL_KEYS(CONSOLE_INPUT_CONTROL_SPACE);
+MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO <= not CONSOLE_INPUT_SPECIAL_KEYS(CONSOLE_INPUT_CONTROL_INQUIRY_REQUEST);
+MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO <= not CONSOLE_INPUT_SPECIAL_KEYS(CONSOLE_INPUT_CONTROL_INQUIRY_RELEASE);
+PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= CONSOLE_INPUT_SPECIAL_KEYS(CONSOLE_INPUT_CONTROL_INQUIRY_CANCEL);
+MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= not CONSOLE_INPUT_SPECIAL_KEYS(CONSOLE_INPUT_CONTROL_WM);
+MV_CONSOLE_C_INPUT_STAR_CHK_OP <= not CONSOLE_INPUT_PARITY;
+MV_CONS_PRTR_TO_CPU_BUS <= CONSOLE_INPUT_BUFFER;
   
 end Behavioral;
