@@ -981,6 +981,7 @@ architecture behavioral of IntegrationTest3_fpga is
               CLOCKPERIOD: INTEGER);
       Port ( FPGA_CLK: in STD_LOGIC;
              RESET : in STD_LOGIC;
+             LAMP_SUPPRESSION: in STD_LOGIC;
              LAMP_VECTOR : in STD_LOGIC_VECTOR (LAMP_VECTOR_BITS-1 downto 0);
              UART_OUTPUT_GRANT: in STD_LOGIC;           
              UART_OUTPUT_REQUEST : out STD_LOGIC;
@@ -1894,6 +1895,7 @@ architecture behavioral of IntegrationTest3_fpga is
 	signal LAMP_TRANSMITTER_UART_OUTPUT_GRANT: STD_LOGIC;
 	signal LAMP_TRANSMITTER_UART_OUTPUT_REQUEST: STD_LOGIC;
 	signal LAMP_TRANSMITTER_UART_OUTPUT_DATA: STD_LOGIC_VECTOR (7 downto 0);	
+	signal LAMP_SUPPRESSION: STD_LOGIC := '0';
 	
 	constant SWITCH_VECTOR_BITS: integer := 280;
 	
@@ -3030,6 +3032,7 @@ memory: IBM1410Memory
    port map(
       FPGA_CLK => FPGA_CLK,
       RESET => UART_RESET,
+      LAMP_SUPPRESSION => LAMP_SUPPRESSION,
       LAMP_VECTOR => LAMP_VECTOR,
       UART_OUTPUT_GRANT => LAMP_TRANSMITTER_UART_OUTPUT_GRANT,
       UART_OUTPUT_REQUEST => LAMP_TRANSMITTER_UART_OUTPUT_REQUEST,
@@ -3441,7 +3444,10 @@ end process;
    
    -- SWITCH_ROT_CHECK_CTRL_DK1 <= "0000000000100"; -- Check Control Stop Normal
    
-   -- SWITCH_ROT_MODE_SW_DK <= "0000010000000"; -- Run Mode   
+   -- Temporary, for testing
+   
+   -- SWITCH_ROT_MODE_SW_DK <= "0001000000000"; --Display Mode -- Temporary for testing   
+   -- LAMP_SUPPRESSION <= '1';  -- TEMPORARY for testing
    
    -- SWITCH_ROT_ADDR_ENTRY_DK1 <= "0000000100000";  -- Address Entry Normal
    
