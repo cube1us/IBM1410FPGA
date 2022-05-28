@@ -38,6 +38,7 @@ entity IBM1410_CONSOLE_LAMPS_TRANSMITTER is
             CLOCKPERIOD: INTEGER);
     Port ( FPGA_CLK: in STD_LOGIC;
            RESET : in STD_LOGIC;
+           LAMP_SUPPRESSION: in STD_LOGIC;
            LAMP_VECTOR : in STD_LOGIC_VECTOR (LAMP_VECTOR_BITS-1 downto 0);
            UART_OUTPUT_GRANT: in STD_LOGIC;           
            UART_OUTPUT_REQUEST : out STD_LOGIC;
@@ -78,7 +79,11 @@ lamp_process: process(FPGA_CLK, RESET, LAMP_VECTOR, UART_OUTPUT_GRANT, LAMP_VECT
       
          when lamp_reset =>
             COUNT <= COUNTER_MAX;
-            lampState <= lamp_counting;
+            if LAMP_SUPPRESSION = '1' then
+               lampState <= lamp_reset;
+            else
+               lampState <= lamp_counting;
+            end if;
             
          -- Delay between sends of lamp data to support hose
             
