@@ -6,6 +6,7 @@
 library ieee;
 use ieee.std_logic_1164.ALL;
 use ieee.numeric_std.all;
+use std.textio.all;
  
 entity IntegrationTest3_fpga_tb is
 end IntegrationTest3_fpga_tb;
@@ -23,6 +24,34 @@ component IntegrationTest3_fpga is
 );
 end component;
 
+   component uart_tx is
+      generic (
+         g_CLKS_PER_BIT : integer := 115   -- Needs to be set correctly
+      );
+      port (
+         i_clk       : in  std_logic;
+         i_tx_dv     : in  std_logic;
+         i_tx_byte   : in  std_logic_vector(7 downto 0);
+         o_tx_active : out std_logic;
+         o_tx_serial : out std_logic;
+         o_tx_done   : out std_logic
+      );
+   end component uart_tx;
+
+   component uart_rx is
+      generic (
+         g_CLKS_PER_BIT : integer := 115   -- Needs to be set correctly
+      );
+      port (
+         i_clk       : in  std_logic;
+         i_rx_serial : in  std_logic;
+         o_rx_dv     : out std_logic;
+         o_rx_byte   : out std_logic_vector(7 downto 0)
+      );
+   end component uart_rx;
+   
+constant c_CLKS_PER_BIT : integer := 100000000 / 115200; 
+
 signal FPGA_CLK: STD_LOGIC := '0';
 signal SW: STD_LOGIC_VECTOR(15 downto 0) := "0000000000000000";
 signal btnC, btnL, btnR, btnU, btnD: STD_LOGIC := '0';
@@ -31,6 +60,27 @@ signal RsRx: STD_LOGIC := '1';
 
 signal LED: STD_LOGIC_VECTOR(15 downto 0);
 signal RsTx: STD_LOGIC;
+
+-- UART output signals (from test bench to FPGA)
+
+signal UART_RCV_DATA_VALID: STD_LOGIC := '0';
+signal UART_RCV_DATA: STD_LOGIC_VECTOR(7 downto 0);
+signal UART_XMT_DATA_VALID: STD_LOGIC := '0';
+signal UART_XMT_DATA: STD_LOGIC_VECTOR(7 downto 0);
+signal UART_XMT_ACTIVE: STD_LOGIC := '0';
+signal UART_XMT_DONE: STD_LOGIC := '0';
+
+     
+function to_string ( a: std_logic_vector) return string is
+variable b : string (1 to a'length) := (others => NUL);
+variable stri : integer := 1; 
+begin
+    for i in a'range loop
+        b(stri) := std_logic'image(a((i)))(2);
+    stri := stri+1;
+    end loop;
+return b;
+end function;
      
 begin
  
@@ -47,11 +97,44 @@ begin
       RsTx => RsTx,
       RsRx => RsRx );
 
+   -- Instantiate the UART comopnents 
+
+   UART_TX_INST : uart_tx
+      generic map (
+         g_CLKS_PER_BIT => c_CLKS_PER_BIT
+      )
+      port map (
+         i_clk       => FPGA_CLK,
+         i_tx_dv     => UART_XMT_DATA_VALID,
+         i_tx_byte   => UART_XMT_DATA,
+         o_tx_active => UART_XMT_ACTIVE,
+         o_tx_serial => RsRx, -- To FPGA serial input
+         o_tx_done   => UART_XMT_DONE
+      );
+
+   UART_RX_INST : uart_rx
+      generic map (
+         g_CLKS_PER_BIT => C_CLKS_PER_BIT
+      )
+    port map (
+      i_clk       => FPGA_CLK,
+      i_rx_serial => RsTx, -- From FPGA serial output
+      o_rx_dv     => UART_RCV_DATA_VALID,
+      o_rx_byte   => UART_RCV_DATA
+      );
+
+
    
   FPGA_CLK <= not FPGA_CLK after 5 ns;
    
   uut_process: process is
+  
+  variable UART_RECEIVED_BYTE: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+  variable UART_RECEIVED_UNLOCK: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+  
   begin
+  
+  
  
   wait for 25 ms;
   
@@ -60,10 +143,50 @@ begin
   wait for 11 ms;
   btnC <= '0';
     
-  wait for 39 ms;
+   -- Now, wait for the keyboard to unlock
   
+  while UART_RECEIVED_UNLOCK /= "00000001" loop
+     while UART_RECEIVED_BYTE /= "10000010" loop
+        wait until UART_RCV_DATA_VALID = '1';  -- Wait for the lock code control byte
+        UART_RECEIVED_BYTE := UART_RCV_DATA;
+        report "Received UART byte of " & to_string(UART_RCV_DATA);
+        wait until UART_RCV_DATA_VALID = '0';        
+     end loop;
+     wait until UART_RCV_DATA_VALID = '1'; -- We have a lock/unlock contro byte
+     report "Received UART Lock/Unlock byte of " & to_string(UART_RCV_DATA);
+     UART_RECEIVED_UNLOCK := UART_RCV_DATA;
+     wait until UART_RCV_DATA_VALID = '0';     
+  end loop;
   
+  -- Keyboard should now be unlocked... 
   
+  -- Send the "I have data from the keyboard" flag byte.
+  
+  report "Sending Keyboard data flag byte";
+  
+  UART_XMT_DATA <= "10000001";
+  UART_XMT_DATA_VALID <= '1';
+  wait for 100 ns; 
+  UART_XMT_DATA_VALID <= '0';
+  wait until UART_XMT_ACTIVE = '0';
+
+  -- Followed by BCD 00000 ...
+    
+  for n in 1 to 5 loop
+     report "Sending BCD 0";
+     UART_XMT_DATA <= "00001010"; 
+     UART_XMT_DATA_VALID <= '1';  
+     wait for 100 ns;  
+     UART_XMT_DATA_VALID <= '0';
+     wait until UART_XMT_ACTIVE = '0';
+     wait until UART_RCV_DATA_VALID = '1';  -- Wait for each 0 to be echoed. (could check value?)
+     wait until UART_RCV_DATA_VALID = '0';
+     wait for 1 ms;
+  end loop;
+  
+  wait for 10 ms;
+  
+ 
   assert false report "Normal End of Test" severity failure;
      
   end process;
