@@ -231,8 +231,8 @@ type crState_type is (cr_idle,
    
 type consoleReceiverState_type is (
    consoleReceiver_reset, consoleReceiver_waitForChar, consoleReceiver_waitForPrinter,
-   consoleReceiver_getChar, consoleReceiver_sendChar, consoleReceiver_waitDone,
-   consoleReceiver_waitOutput);   
+   consoleReceiver_getChar, consoleReceiver_sendChar, consoleReceiver_waitShift, 
+   consoleReceiver_waitOutput, consoleReceiver_waitDone);   
    
 type consoleLockState_type is(consoleLock_idle, consoleLock_wait, consoleLock_update);
 
@@ -310,7 +310,6 @@ signal CONSOLE_INPUT_ACTIVE: STD_LOGIC := '0';
 signal CONSOLE_INPUT_BUFFER: STD_LOGIC_VECTOR(5 downto 0) := "000000";
 signal CONSOLE_INPUT_PARITY: STD_LOGIC := '0';
 signal CONSOLE_INPUT_CONTROL_KEY_BUFFER: STD_LOGIC_VECTOR(5 downto 0) := "000000";
-signal CONSOLE_INPUT_SPECIAL_KEYS: STD_LOGIC_VECTOR(5 downto 0) := "000000";
 signal CONSOLE_INPUT_PRINTER_BUSY: STD_LOGIC := '0';
 
 type GolfballTilt is array (0 to 10) of STD_LOGIC_VECTOR(7 downto 0);
@@ -505,7 +504,8 @@ output_process: process(FPGA_CLK,
    
 space_process: process(FPGA_CLK, 
    spaceState,
-   spaceCounter, 
+   spaceCounter,
+   outputState, 
    PW_SPACE_SOLENOID, 
    PW_BACKSPACE_SOLENOID,
    latchedSpace,
@@ -594,6 +594,7 @@ space_process: process(FPGA_CLK,
 
 shift_process: process(FPGA_CLK,
    shiftState, 
+   outputState,
    CONSOLE_PRINTER_CONTACT_UPPER_CASE_SHIFT, 
    CONSOLE_PRINTER_CONTACT_LOWER_CASE_SHIFT,
    latchedCaseChange,
@@ -604,9 +605,18 @@ shift_process: process(FPGA_CLK,
    
       case shiftState is
       when shift_idle =>
-         
-         if CONSOLE_PRINTER_CONTACT_UPPER_CASE_SHIFT = '1' or
-            CONSOLE_PRINTER_CONTACT_LOWER_CASE_SHIFT = '1' then            
+                  
+         -- I had an issue with the shift solenoid activating very briefly
+         -- during print cycle, so I added a check to make sure that no
+         -- print cycle was active - the CE instructional manual says that
+         -- isn't supposed to happen.  I'm not sure if this is prevented in
+         -- the real hardware by the solenoid not activating on short pulses, or
+         -- because an RC network on a card prevents this (in the generated VHDL,
+         -- most RC networks became just resistors, or if the logic has an issue.
+                 
+         if outputState = output_idle and 
+            (CONSOLE_PRINTER_CONTACT_UPPER_CASE_SHIFT = '1' or
+            CONSOLE_PRINTER_CONTACT_LOWER_CASE_SHIFT = '1') then            
             shiftState <= shift_s0;
             shiftCounter <= SHIFT_S0_TIME;
             -- Remember the case to change to now, because if
@@ -825,20 +835,27 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
             -- High bit from support HOST means not a BCD character, but instead special control keys
             if FIFO_READ_DATA(6) = '1' then
                -- All 1 bits means the index (force last column) has been pushed.  It isn't really a key.
-               if FIFO_READ_DATA = "11111111" then
+               if FIFO_READ_DATA = "01111111" then
                   CONSOLE_INPUT_LAST_COLUMN_SET <= '1';
                else
                   CONSOLE_INPUT_LAST_COLUMN_SET <= '0';
                   CONSOLE_INPUT_CONTROL_KEY_BUFFER <= FIFO_READ_DATA(5 downto 0);
+                  -- Start shift process (do this on any control, even if shift isn't changing)
+                  -- (Otherwise, I'd have to match it up with current shift contacts.)
+                  -- This also gives 1410 time to latch the various inquiry keys if pressed.
+                  CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT <= 
+                     CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_UPPER_CASE);
+                  CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT <= 
+                     not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_UPPER_CASE);
+                  consoleReceiverState <= consoleReceiver_waitShift;                  
                end if;
                consoleReceiverState <= consoleReceiver_waitDone;
-               CONSOLE_INPUT_CONTROL_KEY_BUFFER <= FIFO_READ_DATA(5 downto 0);
             else
-               consoleReceiverState <= consoleReceiver_waitForPrinter;
                CONSOLE_INPUT_BUFFER <= FIFO_READ_DATA(5 downto 0);
                CONSOLE_INPUT_PARITY <= FIFO_READ_DATA(0) xor FIFO_READ_DATA(1) xor
                   FIFO_READ_DATA(2) xor FIFO_READ_DATA(3) xor FIFO_READ_DATA(4) xor
                   FIFO_READ_DATA(5);                  
+               consoleReceiverState <= consoleReceiver_waitForPrinter;
             end if;
          else
             consoleReceiverState <= consoleReceiver_getChar;  -- Should never actually get here
@@ -863,10 +880,6 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
             (not CONSOLE_INPUT_BUFFER(BCD_8_BIT) and CONSOLE_INPUT_BUFFER(BCD_1_BIT));
          CONSOLE_INPUT_BAIL_CONTACT_T1 <= not CONSOLE_INPUT_BUFFER(BCD_A_BIT);
          CONSOLE_INPUT_BAIL_CONTACT_T2 <= not CONSOLE_INPUT_BUFFER(BCD_B_BIT);
-         CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT <= 
-            CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_UPPER_CASE);
-         CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT <= 
-            not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_UPPER_CASE);
          CONSOLE_INPUT_BAIL_CONTACT_CHK <= CONSOLE_INPUT_PARITY;
          consoleReceiverState <= consoleReceiver_waitOutput;
          
@@ -881,18 +894,29 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
             CONSOLE_INPUT_BAIL_CONTACT_T1 <= '0';
             CONSOLE_INPUT_BAIL_CONTACT_T2 <= '0';
             CONSOLE_INPUT_BAIL_CONTACT_CHK <= '0';
-            CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT <= '0';
-            CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT <= '0';
             consoleReceiverState <= consoleReceiver_waitDone;
          else
             consoleReceiverState <= consoleReceiver_waitOutput;
          end if;
          
-      when consoleReceiver_waitDone =>
-         if CONSOLE_INPUT_PRINTER_BUSY = '1' then
-            consoleReceiverState <= consoleReceiver_waitForChar;
-         else
+      --  Release bails once shift cycle starts.  That shift cycle also gives
+      --  1410 time to latch the various special control keys.
+         
+      when consoleReceiver_waitShift =>
+         if shiftState = shift_s0 then
             consoleReceiverState <= consoleReceiver_waitDone;
+            CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT <= '0';
+            CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT <= '0';                     
+         else
+            consoleReceiverState <= consoleReceiver_waitShift;
+         end if;
+            
+         
+      when consoleReceiver_waitDone =>
+         if CONSOLE_INPUT_PRINTER_BUSY = '1' or shiftState /= shift_idle then
+            consoleReceiverState <= consoleReceiver_waitDone;
+         else
+            consoleReceiverState <= consoleReceiver_waitForChar;
          end if;
                      
       end case;
@@ -1076,11 +1100,11 @@ IBM1410_CONSOLE_LOCK_XMT_STROBE <= '1' when consoleLockState = consoleLock_updat
 
 -- Console Input Signals
 
-MV_CONS_PRINTER_SPACE_NO <= not CONSOLE_INPUT_SPECIAL_KEYS(CONSOLE_INPUT_CONTROL_SPACE);
-MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO <= not CONSOLE_INPUT_SPECIAL_KEYS(CONSOLE_INPUT_CONTROL_INQUIRY_REQUEST);
-MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO <= not CONSOLE_INPUT_SPECIAL_KEYS(CONSOLE_INPUT_CONTROL_INQUIRY_RELEASE);
-PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= CONSOLE_INPUT_SPECIAL_KEYS(CONSOLE_INPUT_CONTROL_INQUIRY_CANCEL);
-MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= not CONSOLE_INPUT_SPECIAL_KEYS(CONSOLE_INPUT_CONTROL_WM);
+MV_CONS_PRINTER_SPACE_NO <= not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_SPACE);
+MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO <= not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_INQUIRY_REQUEST);
+MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO <= not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_INQUIRY_RELEASE);
+PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_INQUIRY_CANCEL);
+MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_WM);
 -- NOTE: CONSOLE_INPUT_PARITY is calculated as *even* parity, then not-ed for odd, not-ed again for MV
 MV_CONSOLE_C_INPUT_STAR_CHK_OP <= CONSOLE_INPUT_PARITY;
 MV_CONS_PRTR_TO_CPU_BUS <= not CONSOLE_INPUT_BUFFER;
