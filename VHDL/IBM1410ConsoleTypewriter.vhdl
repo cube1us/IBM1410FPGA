@@ -837,6 +837,7 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
                -- All 1 bits means the index (force last column) has been pushed.  It isn't really a key.
                if FIFO_READ_DATA = "01111111" then
                   CONSOLE_INPUT_LAST_COLUMN_SET <= '1';
+                  consoleReceiverState <= consoleReceiver_waitDone;
                else
                   CONSOLE_INPUT_LAST_COLUMN_SET <= '0';
                   CONSOLE_INPUT_CONTROL_KEY_BUFFER <= FIFO_READ_DATA(5 downto 0);
@@ -844,12 +845,11 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
                   -- (Otherwise, I'd have to match it up with current shift contacts.)
                   -- This also gives 1410 time to latch the various inquiry keys if pressed.
                   CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT <= 
-                     CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_UPPER_CASE);
+                     FIFO_READ_DATA(CONSOLE_INPUT_CONTROL_UPPER_CASE);
                   CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT <= 
-                     not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_UPPER_CASE);
+                     not FIFO_READ_DATA(CONSOLE_INPUT_CONTROL_UPPER_CASE);
                   consoleReceiverState <= consoleReceiver_waitShift;                  
                end if;
-               consoleReceiverState <= consoleReceiver_waitDone;
             else
                CONSOLE_INPUT_BUFFER <= FIFO_READ_DATA(5 downto 0);
                CONSOLE_INPUT_PARITY <= FIFO_READ_DATA(0) xor FIFO_READ_DATA(1) xor
@@ -1016,8 +1016,7 @@ T1Motion <= 1 when CONSOLE_PRINTER_CONTACT_T1 = '0' else 0;
 T2Motion <= 2 when CONSOLE_PRINTER_CONTACT_T2 = '0' else 0;
 
 CONSOLE_INPUT_PRINTER_BUSY <= CAM1 or CAM2  or
-   CAM5 or CAM3_OR_4 or CR_INTERLOCK or
-   not consoleLockStatus;
+   CAM5 or CAM3_OR_4 or CR_INTERLOCK; -- or not consoleLockStatus;
    
 rotateIndex <= R1Motion + R2Motion + R2AMotion + R5Motion;
 tiltIndex <= T1Motion + T2Motion;
