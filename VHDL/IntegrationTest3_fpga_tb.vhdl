@@ -131,19 +131,22 @@ begin
   
   variable UART_RECEIVED_BYTE: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
   variable UART_RECEIVED_UNLOCK: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+  variable UART_RECEIVED_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
   
   begin
+
+  SW(15) <= '1'; -- Mode DISPLAY
+  SW(14) <= '0'; -- Mode DISPLAY
   
-  
- 
   wait for 25 ms;
+  
   
   btnC <= '1';
   report "Pressed Start";
   wait for 11 ms;
   btnC <= '0';
     
-   -- Now, wait for the keyboard to unlock
+  -- Now, wait for the keyboard to unlock
   
   while UART_RECEIVED_UNLOCK /= "00000001" loop
      while UART_RECEIVED_BYTE /= "10000010" loop
@@ -169,6 +172,17 @@ begin
   wait for 100 ns; 
   UART_XMT_DATA_VALID <= '0';
   wait until UART_XMT_ACTIVE = '0';
+  
+  -- At this point the print mechanism might be in upper case...
+  
+  report "Sending Lower Case Shift Code";
+
+  UART_XMT_DATA <= "01000000";
+  UART_XMT_DATA_VALID <= '1';
+  wait for 100 ns; 
+  UART_XMT_DATA_VALID <= '0';
+  wait until UART_XMT_ACTIVE = '0';  
+  wait for 2 ms;
 
   -- Followed by BCD 00000 ...
     
@@ -183,9 +197,86 @@ begin
      wait until UART_RCV_DATA_VALID = '0';
      wait for 1 ms;
   end loop;
+    
+  -- Now, wait for the CR after entering the address (or could wait for kbd lock, too)
   
-  wait for 10 ms;
+  while UART_RECEIVED_CHAR /= "00001101" loop
+     -- while UART_RECEIVED_BYTE /= "10001000" loop
+     --   wait until UART_RCV_DATA_VALID = '1';  -- Wait for the console data byte
+     --   UART_RECEIVED_BYTE := UART_RCV_DATA;
+     --   report "Received UART byte of " & to_string(UART_RCV_DATA);
+     --   wait until UART_RCV_DATA_VALID = '0';        
+     -- end loop;
+     wait until UART_RCV_DATA_VALID = '1'; -- We have a lock/unlock contro byte
+     report "Received UART console output byte of " & to_string(UART_RCV_DATA);
+     UART_RECEIVED_CHAR := UART_RCV_DATA;
+     wait until UART_RCV_DATA_VALID = '0';     
+  end loop;
+
+  -- Now wait for several character:  D<sp>b<wm><bsp>,
   
+  for n in 1 to 6 loop
+     wait until UART_RCV_DATA_VALID = '1';
+     report "Received UART console output byte[2] of " & to_string(UART_RCV_DATA);
+     wait until UART_RCV_DATA_VALID = '0';
+  end loop;
+  
+  -- Now, change to ALTER mode
+  
+  SW(15) <= '0';
+  report "Moving from DISPLAY TO STOP";
+  wait for 5 ms;
+  SW(14) <= '1';
+  report "MOVING FROM STOP TO ALTER";
+  -- Prep for checking unlock status later
+  UART_RECEIVED_UNLOCK := "00000000";
+  UART_RECEIVED_BYTE := "00000000";
+  wait for 5 ms;
+  
+  -- Then press START
+  btnC <= '1';  
+  report "Pressed Start in ALTER mode";
+  wait for 11 ms;
+  btnC <= '0';
+  
+  -- Wait for the keyboard to unlock again
+  
+  while UART_RECEIVED_UNLOCK /= "00000001" loop
+     while UART_RECEIVED_BYTE /= "10000010" loop
+        wait until UART_RCV_DATA_VALID = '1';  -- Wait for the lock code control byte
+        UART_RECEIVED_BYTE := UART_RCV_DATA;
+        report "Received UART byte of " & to_string(UART_RCV_DATA);
+        wait until UART_RCV_DATA_VALID = '0';        
+     end loop;
+     wait until UART_RCV_DATA_VALID = '1'; -- We have a lock/unlock contro byte
+     report "Received UART Lock/Unlock byte of " & to_string(UART_RCV_DATA);
+     UART_RECEIVED_UNLOCK := UART_RCV_DATA;
+     wait until UART_RCV_DATA_VALID = '0';     
+  end loop;
+  
+  -- Annnnnd send a percent character... (in BCD -- -A84--
+  
+  report "Sending UPPER Case Shift Code";
+
+  UART_XMT_DATA <= "01000001";
+  UART_XMT_DATA_VALID <= '1';
+  wait for 100 ns; 
+  UART_XMT_DATA_VALID <= '0';
+  wait until UART_XMT_ACTIVE = '0';
+  wait for 2 ms;
+
+  -- Followed by the percent sign
+    
+  report "Sending BCD %";
+  UART_XMT_DATA <= "00011100"; 
+  UART_XMT_DATA_VALID <= '1';  
+  wait for 100 ns;  
+  UART_XMT_DATA_VALID <= '0';
+  wait until UART_XMT_ACTIVE = '0';
+  wait until UART_RCV_DATA_VALID = '1';  -- Wait for each 0 to be echoed. (could check value?)
+  wait until UART_RCV_DATA_VALID = '0';
+  
+  wait for 10 ms;  
  
   assert false report "Normal End of Test" severity failure;
      
