@@ -3446,7 +3446,13 @@ end process;
    
    -- Temporary, for testing
    
-   -- SWITCH_ROT_MODE_SW_DK <= "0001000000000"; --Display Mode -- Temporary for testing   
+   -- SWITCH_ROT_MODE_SW_DK <= "0001000000000"; --Display Mode -- Temporary for testing
+   
+   -- SWITCH_ROT_MODE_SW_DK <= 
+   --    "0001000000000" when SW(15) = '1' else
+   --    "0100000000000" when SW(14) = '1' else
+   --    "0010000000000"; -- Stop position
+      
    -- LAMP_SUPPRESSION <= '1';  -- TEMPORARY for testing
    
    -- SWITCH_ROT_ADDR_ENTRY_DK1 <= "0000000100000";  -- Address Entry Normal
