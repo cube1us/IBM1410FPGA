@@ -55,11 +55,13 @@ use WORK.ALL;
 -- Multipler is 10000 for ms, 100 for testing.
 
 entity IBM1410ConsoleTypewriter is
-   GENERIC(MULTIPLIER: integer := 10000);
+   GENERIC(FAST_MULTIPLIER: integer := 100;
+           SLOW_MULTIPLIER: integer := 10000);
   
    PORT (
        FPGA_CLK: in STD_LOGIC;
        UART_RESET: in STD_LOGIC;
+       SLOW_TYPING: in STD_LOGIC;
         
        -- Console Output Signals 
 
@@ -164,25 +166,46 @@ constant BCD_8_BIT: integer := 3;
 constant BCD_A_BIT: integer := 4;
 constant BCD_B_BIT: integer := 5;
 
-constant OUT_S0_TIME: integer := (1500 * MULTIPLIER) / CLOCKPERIOD;
-constant OUT_S1_TIME: integer := (1250 * MULTIPLIER) / CLOCKPERIOD;
-constant OUT_S2_TIME: integer := (1970 * MULTIPLIER) / CLOCKPERIOD;
-constant OUT_S3_TIME: integer := (360 * MULTIPLIER) / CLOCKPERIOD;
-constant OUT_S4_TIME: integer := (900 * MULTIPLIER) / CLOCKPERIOD;
-constant OUT_S5_TIME: integer := (360 * MULTIPLIER) / CLOCKPERIOD;
-constant OUT_S6_TIME: integer := (1610 * MULTIPLIER) / CLOCKPERIOD;
-constant SPACE_S0_TIME: integer := (700 * MULTIPLIER) / CLOCKPERIOD;
-constant SPACE_S1_TIME: integer := (1790 * MULTIPLIER) / CLOCKPERIOD;
-constant SPACE_S2_TIME: integer := (180 * MULTIPLIER) / CLOCKPERIOD;
-constant SPACE_S3_TIME: integer := (2690 * MULTIPLIER) / CLOCKPERIOD;
-constant SPACE_S4_TIME: integer := (1790 * MULTIPLIER) / CLOCKPERIOD;
-constant SHIFT_S0_TIME: integer := (700 * MULTIPLIER) / CLOCKPERIOD;
-constant SHIFT_S1_TIME: integer := (1250 * MULTIPLIER) / CLOCKPERIOD;
-constant SHIFT_S2_TIME: integer := (3950 * MULTIPLIER) / CLOCKPERIOD;
-constant SHIFT_S3_TIME: integer := (1250 * MULTIPLIER) / CLOCKPERIOD;
-constant CR_S0_TIME: integer := (5890 * MULTIPLIER) / CLOCKPERIOD;
-constant CR_S1_TIME: integer := (10000 * MULTIPLIER) / CLOCKPERIOD;
-constant CR_S2_TIME: integer := (3950 * MULTIPLIER) / CLOCKPERIOD;
+constant FAST_OUT_S0_TIME: integer := (1500 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_OUT_S1_TIME: integer := (1250 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_OUT_S2_TIME: integer := (1970 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_OUT_S3_TIME: integer := (360 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_OUT_S4_TIME: integer := (900 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_OUT_S5_TIME: integer := (360 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_OUT_S6_TIME: integer := (1610 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_SPACE_S0_TIME: integer := (700 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_SPACE_S1_TIME: integer := (1790 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_SPACE_S2_TIME: integer := (180 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_SPACE_S3_TIME: integer := (2690 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_SPACE_S4_TIME: integer := (1790 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_SHIFT_S0_TIME: integer := (700 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_SHIFT_S1_TIME: integer := (1250 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_SHIFT_S2_TIME: integer := (3950 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_SHIFT_S3_TIME: integer := (1250 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_CR_S0_TIME: integer := (5890 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_CR_S1_TIME: integer := (10000 * FAST_MULTIPLIER) / CLOCKPERIOD;
+constant FAST_CR_S2_TIME: integer := (3950 * FAST_MULTIPLIER) / CLOCKPERIOD;
+
+constant SLOW_OUT_S0_TIME: integer := (1500 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_OUT_S1_TIME: integer := (1250 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_OUT_S2_TIME: integer := (1970 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_OUT_S3_TIME: integer := (360 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_OUT_S4_TIME: integer := (900 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_OUT_S5_TIME: integer := (360 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_OUT_S6_TIME: integer := (1610 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_SPACE_S0_TIME: integer := (700 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_SPACE_S1_TIME: integer := (1790 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_SPACE_S2_TIME: integer := (180 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_SPACE_S3_TIME: integer := (2690 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_SPACE_S4_TIME: integer := (1790 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_SHIFT_S0_TIME: integer := (700 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_SHIFT_S1_TIME: integer := (1250 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_SHIFT_S2_TIME: integer := (3950 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_SHIFT_S3_TIME: integer := (1250 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_CR_S0_TIME: integer := (5890 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_CR_S1_TIME: integer := (10000 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+constant SLOW_CR_S2_TIME: integer := (3950 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+
 
 constant OUT_STROBE_TIME: integer := 10;   -- 100 ns uart strobe time
 
@@ -217,6 +240,14 @@ type spaceState_type is (space_idle,
    space_s3, 
    space_s4);
    
+type wmState_type is (wm_idle,
+   wm_s0, 
+   wm_s1,
+   wm_strobe,    
+   wm_s2, 
+   wm_s3, 
+   wm_s4);
+      
 type shiftState_type is (shift_idle,
    shift_s0, 
    shift_s1, 
@@ -236,14 +267,16 @@ type consoleReceiverState_type is (
    
 type consoleLockState_type is(consoleLock_idle, consoleLock_wait, consoleLock_update);
 
-signal outputCounter: INTEGER RANGE 0 to (2000 * MULTIPLIER) / CLOCKPERIOD;   -- Max delay for any state
-signal spaceCounter:  INTEGER RANGE 0 to (3000 * MULTIPLIER) / CLOCKPERIOD;
-signal shiftCounter:  INTEGER RANGE 0 to (4000 * MULTIPLIER) / CLOCKPERIOD;
-signal crCounter:     INTEGER RANGE 0 to (10000 * MULTIPLIER) / CLOCKPERIOD;
+signal outputCounter: INTEGER RANGE 0 to (2000 * SLOW_MULTIPLIER) / CLOCKPERIOD;   -- Max delay for any state
+signal spaceCounter:  INTEGER RANGE 0 to (3000 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+signal wmCounter:  INTEGER RANGE 0 to (3000 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+signal shiftCounter:  INTEGER RANGE 0 to (4000 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+signal crCounter:     INTEGER RANGE 0 to (10000 * SLOW_MULTIPLIER) / CLOCKPERIOD;
 signal consoleLockCounter: INTEGER RANGE 0 to CONSOLE_LOCK_UNLOCK_WAIT_TIME := 0;
 
 signal outputState: outputState_type := output_idle;  -- , nextOutputState
 signal spaceState: spaceState_type := space_idle; -- , nextSpaceState
+signal wmState: wmState_type := wm_idle;
 signal shiftState: shiftState_type := shift_idle; -- , nextShiftState
 signal crState: crState_type := cr_idle;  -- , nextCrState
 signal consoleLockState: consoleLockState_type := consoleLock_idle;
@@ -358,7 +391,7 @@ output_process: process(FPGA_CLK,
    CONSOLE_PRINTER_CONTACT_R2, CONSOLE_PRINTER_CONTACT_R2A, 
    CONSOLE_PRINTER_CONTACT_R5, CONSOLE_PRINTER_CONTACT_T1,
    CONSOLE_PRINTER_CONTACT_T2, CONSOLE_PRINTER_CONTACT_CHK,
-   rotateIndex,tiltIndex,inUpperCase,latchedTiltIndex,latchedRotateIndex
+   rotateIndex,tiltIndex,inUpperCase,latchedTiltIndex,latchedRotateIndex,SLOW_TYPING
    )
    begin
    
@@ -373,8 +406,12 @@ output_process: process(FPGA_CLK,
             CONSOLE_PRINTER_CONTACT_R5 = '1' or
             CONSOLE_PRINTER_CONTACT_T1 = '1' or
             CONSOLE_PRINTER_CONTACT_T2 = '1' or
-            CONSOLE_PRINTER_CONTACT_CHK = '1' then            
-            outputCounter <= OUT_S0_TIME;
+            CONSOLE_PRINTER_CONTACT_CHK = '1' then
+            if SLOW_TYPING = '1' then            
+               outputCounter <= SLOW_OUT_S0_TIME;
+            else
+               outputCounter <= FAST_OUT_S0_TIME;
+            end if;
             outputState <= output_s0;
          else
             outputState <= output_idle;             
@@ -383,7 +420,11 @@ output_process: process(FPGA_CLK,
       when output_s0 =>
          if outputCounter = 0 then
             outputState <= output_s1;
-            outputCounter <= OUT_S1_TIME;
+            if SLOW_TYPING = '1' then            
+               outputCounter <= SLOW_OUT_S1_TIME;
+            else
+               outputCounter <= FAST_OUT_S1_TIME;
+            end if;
          else
             outputCounter <= outputCounter - 1;
             outputState <= output_s0;
@@ -392,7 +433,11 @@ output_process: process(FPGA_CLK,
       when output_s1 =>
          if outputCounter = 0 then
             outputState <= output_s2;
-            outputCounter <= OUT_S2_TIME;
+            if SLOW_TYPING = '1' then            
+               outputCounter <= SLOW_OUT_S2_TIME;
+            else
+               outputCounter <= FAST_OUT_S2_TIME;
+            end if;
             -- Time to latch data before solenoids release, including parity
             -- This is equivalent to the Selectric mechanical latches
             latchedRotateIndex <= rotateIndex;
@@ -413,7 +458,11 @@ output_process: process(FPGA_CLK,
       when output_s2 =>
          if outputCounter = 0 then
             outputState <= output_s3;
-            outputCounter <= OUT_S3_TIME;
+            if SLOW_TYPING = '1' then            
+               outputCounter <= SLOW_OUT_S3_TIME;
+            else
+               outputCounter <= FAST_OUT_S3_TIME;
+            end if;
             
             -- Time to determine the character to print
             
@@ -452,7 +501,11 @@ output_process: process(FPGA_CLK,
       when output_strobe =>
          if outputCounter = 0 then
             outputState <= output_s4;
-            outputCounter <= OUT_S4_TIME;
+            if SLOW_TYPING = '1' then            
+               outputCounter <= SLOW_OUT_S4_TIME;
+            else
+               outputCounter <= FAST_OUT_S4_TIME;
+            end if;
          else
             outputCounter <= outputCounter - 1;
             outputState <= output_strobe;
@@ -461,7 +514,11 @@ output_process: process(FPGA_CLK,
       when output_s4 =>
          if outputCounter = 0 then
             outputState <= output_s5;
-            outputCounter <= OUT_S5_TIME;
+            if SLOW_TYPING = '1' then            
+               outputCounter <= SLOW_OUT_S5_TIME;
+            else
+               outputCounter <= FAST_OUT_S5_TIME;
+            end if;
          else
             outputCounter <= outputCounter - 1;
             outputState <= output_s4;
@@ -470,7 +527,11 @@ output_process: process(FPGA_CLK,
       when output_s5 =>
          if outputCounter = 0 then
             outputState <= output_s6;
-            outputCounter <= OUT_S6_TIME;
+            if SLOW_TYPING = '1' then            
+               outputCounter <= SLOW_OUT_S6_TIME;
+            else
+               outputCounter <= FAST_OUT_S6_TIME;
+            end if;
             output_parity <= '0';
          else
             outputCounter <= outputCounter - 1;
@@ -487,7 +548,11 @@ output_process: process(FPGA_CLK,
                CONSOLE_PRINTER_CONTACT_T2 = '1' or
                CONSOLE_PRINTER_CONTACT_CHK = '1' then   
                outputState <= output_s1;
-               outputCounter <= OUT_S1_TIME;            
+               if SLOW_TYPING = '1' then            
+                  outputCounter <= SLOW_OUT_S1_TIME;
+               else
+                  outputCounter <= FAST_OUT_S1_TIME;
+               end if;
             else
                outputState <= output_idle;
             end if;
@@ -509,7 +574,8 @@ space_process: process(FPGA_CLK,
    PW_SPACE_SOLENOID, 
    PW_BACKSPACE_SOLENOID,
    latchedSpace,
-   latchedBackspace)
+   latchedBackspace,
+   SLOW_TYPING)
    begin
    
       if FPGA_CLK'event and FPGA_CLK = '1' then
@@ -520,7 +586,11 @@ space_process: process(FPGA_CLK,
             if PW_SPACE_SOLENOID = '1' or
                PW_BACKSPACE_SOLENOID = '1' then            
                spaceState <= space_s0;
-               spaceCounter <= SPACE_S0_TIME;
+               if SLOW_TYPING = '1' then            
+                  spaceCounter <= SLOW_SPACE_S0_TIME;
+               else
+                  spaceCounter <= FAST_SPACE_S0_TIME;
+               end if;
             else
                spaceState <= space_idle;             
             end if;
@@ -528,7 +598,11 @@ space_process: process(FPGA_CLK,
          when space_s0 =>
             if spaceCounter = 0 then
                spaceState <= space_s1;
-               spaceCounter <= SPACE_S1_TIME;
+               if SLOW_TYPING = '1' then            
+                  spaceCounter <= SLOW_SPACE_S1_TIME;
+               else
+                  spaceCounter <= FAST_SPACE_S1_TIME;
+               end if;
             else
                spaceState <= space_s0;
                spaceCounter <= spaceCounter - 1;
@@ -537,7 +611,11 @@ space_process: process(FPGA_CLK,
          when space_s1 =>
             if spaceCounter = 0 then
                spaceState <= space_s2;
-               spaceCounter <= SPACE_S2_TIME;
+               if SLOW_TYPING = '1' then            
+                  spaceCounter <= SLOW_SPACE_S2_TIME;
+               else
+                  spaceCounter <= FAST_SPACE_S2_TIME;
+               end if;
                latchedSpace <= PW_SPACE_SOLENOID;
                latchedBackspace <= PW_BACKSPACE_SOLENOID;
             else
@@ -557,7 +635,11 @@ space_process: process(FPGA_CLK,
          when space_strobe =>
             if spaceCounter = 0 then
                spaceState <= space_s3;
-               spaceCounter <= SPACE_S3_TIME;
+               if SLOW_TYPING = '1' then            
+                  spaceCounter <= SLOW_SPACE_S3_TIME;
+               else
+                  spaceCounter <= FAST_SPACE_S3_TIME;
+               end if;
             else
                spaceCounter <= spaceCounter - 1;
                spaceState <= space_strobe;
@@ -573,7 +655,11 @@ space_process: process(FPGA_CLK,
                end if;
                      
                spaceState <= space_s4;
-               spaceCounter <= SPACE_S4_TIME;
+               if SLOW_TYPING = '1' then            
+                  spaceCounter <= SLOW_SPACE_S4_TIME;
+               else
+                  spaceCounter <= FAST_SPACE_S4_TIME;
+               end if;
             else
                spaceState <= space_s3;
                spaceCounter <= spaceCounter - 1;
@@ -592,13 +678,120 @@ space_process: process(FPGA_CLK,
          
    end process;
 
+-- WM uses the same cam (C5) as a space, so the timing is the same...
+-- This wm_process is an experiment, to see if it will trigger WM output somehow.
+
+wm_process: process(FPGA_CLK, 
+   wmState,
+   wmCounter,
+   outputState,
+   CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_WM),
+   SLOW_TYPING)
+
+   begin
+   
+      if FPGA_CLK'event and FPGA_CLK = '1' then
+      
+         case wmState is
+         when wm_idle =>
+         
+            if CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_WM) = '1' then            
+               wmState <= wm_s0;
+               if SLOW_TYPING = '1' then            
+                  wmCounter <= SLOW_SPACE_S0_TIME;
+               else
+                  wmCounter <= FAST_SPACE_S0_TIME;
+               end if;
+            else
+               wmState <= wm_idle;             
+            end if;
+     
+         when wm_s0 =>
+            if wmCounter = 0 then
+               wmState <= wm_s1;
+               if SLOW_TYPING = '1' then            
+                  wmCounter <= SLOW_SPACE_S1_TIME;
+               else
+                  wmCounter <= FAST_SPACE_S1_TIME;
+               end if;
+            else
+               wmState <= wm_s0;
+               wmCounter <= wmCounter - 1;
+            end if;
+
+         when wm_s1 =>
+            if wmCounter = 0 then
+               wmState <= wm_s2;
+               if SLOW_TYPING = '1' then            
+                  wmCounter <= SLOW_SPACE_S2_TIME;
+               else
+                  wmCounter <= FAST_SPACE_S2_TIME;
+               end if;
+            else
+               wmState <= wm_s1;
+               wmCounter <= wmCounter - 1;
+            end if;
+
+         when wm_s2 =>
+            if wmCounter = 0 then
+               wmState <= wm_strobe;
+               wmCounter <= OUT_STROBE_TIME;   -- Use this for timing only - no actual strobe         
+            else
+               wmState <= wm_s2;
+               wmCounter <= wmCounter - 1;
+            end if;
+                 
+         when wm_strobe =>
+            if wmCounter = 0 then
+               wmState <= wm_s3;
+               if SLOW_TYPING = '1' then            
+                  wmCounter <= SLOW_SPACE_S3_TIME;
+               else
+                  wmCounter <= FAST_SPACE_S3_TIME;
+               end if;
+            else
+               wmCounter <= wmCounter - 1;
+               wmState <= wm_strobe;
+            end if;
+
+         when wm_s3 =>
+            if wmCounter = 0 then         
+               wmState <= wm_s4;
+               if SLOW_TYPING = '1' then            
+                  wmCounter <= SLOW_SPACE_S4_TIME;
+               else
+                  wmCounter <= FAST_SPACE_S4_TIME;
+               end if;
+            else
+               wmState <= wm_s3;
+               wmCounter <= wmCounter - 1;
+            end if;
+
+         when wm_s4 =>
+            if wmCounter = 0 and CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_WM) = '0' then
+               wmState <= wm_idle;
+            else
+               wmState <= wm_s4;
+               if wmCounter /= 0 then
+                  wmCounter <= wmCounter - 1;
+               end if;
+            end if;
+
+         end case;
+      end if;
+
+         
+   end process;
+
+
 shift_process: process(FPGA_CLK,
    shiftState, 
    outputState,
    CONSOLE_PRINTER_CONTACT_UPPER_CASE_SHIFT, 
    CONSOLE_PRINTER_CONTACT_LOWER_CASE_SHIFT,
    latchedCaseChange,
-   inUpperCase)
+   inUpperCase,
+   SLOW_TYPING)
    begin
    
    if FPGA_CLK'event and FPGA_CLK = '1' then
@@ -618,7 +811,11 @@ shift_process: process(FPGA_CLK,
             (CONSOLE_PRINTER_CONTACT_UPPER_CASE_SHIFT = '1' or
             CONSOLE_PRINTER_CONTACT_LOWER_CASE_SHIFT = '1') then            
             shiftState <= shift_s0;
-            shiftCounter <= SHIFT_S0_TIME;
+            if SLOW_TYPING = '1' then            
+               shiftCounter <= SLOW_SHIFT_S0_TIME;
+            else
+               shiftCounter <= FAST_SHIFT_S0_TIME;
+            end if;
             -- Remember the case to change to now, because if
             -- we try to do it in state S1, the CPU drops the
             -- shift solenoid at the same time, and that causes
@@ -631,7 +828,11 @@ shift_process: process(FPGA_CLK,
       when shift_s0 =>
          if shiftCounter = 0 then
             shiftState <= shift_s1;
-            shiftCounter <= SHIFT_S1_TIME;
+            if SLOW_TYPING = '1' then            
+               shiftCounter <= SLOW_SHIFT_S1_TIME;
+            else
+               shiftCounter <= FAST_SHIFT_S1_TIME;
+            end if;
          else
             shiftState <= shift_s0;
             shiftCounter <= shiftCounter - 1;
@@ -642,7 +843,11 @@ shift_process: process(FPGA_CLK,
             -- Time to latch data before solenoids release
             inUpperCase <= latchedCaseChange;
             shiftState <= shift_s2;
-            shiftCounter <= SHIFT_S2_TIME;
+            if SLOW_TYPING = '1' then            
+               shiftCounter <= SLOW_SHIFT_S2_TIME;
+            else
+               shiftCounter <= FAST_SHIFT_S2_TIME;
+            end if;
          else
             shiftState <= shift_s1;
             shiftCounter <= shiftCounter - 1;
@@ -651,7 +856,11 @@ shift_process: process(FPGA_CLK,
       when shift_s2 =>
          if shiftCounter = 0 then
             shiftState <= shift_s3;
-            shiftCounter <= SHIFT_S3_TIME;            
+            if SLOW_TYPING = '1' then            
+               shiftCounter <= SLOW_SHIFT_S3_TIME;
+            else
+               shiftCounter <= FAST_SHIFT_S3_TIME;
+            end if;
          else
             shiftState <= shift_s2;
             shiftCounter <= shiftCounter - 1;
@@ -681,7 +890,8 @@ shift_process: process(FPGA_CLK,
 
 cr_process: process(FPGA_CLK, 
    crState,
-   PW_CARRIAGE_RETURN_SOLENOID)
+   PW_CARRIAGE_RETURN_SOLENOID,
+   SLOW_TYPING)
    begin
    
    if FPGA_CLK'event and FPGA_CLK = '1' then
@@ -691,7 +901,11 @@ cr_process: process(FPGA_CLK,
          
          if PW_CARRIAGE_RETURN_SOLENOID = '1' then            
             crState <= cr_s0;
-            crCounter <= CR_S0_TIME;
+            if SLOW_TYPING = '1' then            
+               crCounter <= SLOW_CR_S0_TIME;
+            else
+               crCounter <= FAST_CR_S0_TIME;
+            end if;
          else
             crState <= cr_idle;             
          end if;
@@ -699,7 +913,11 @@ cr_process: process(FPGA_CLK,
       when cr_s0 =>
          if crCounter = 0 then
             crState <= cr_s1;
-            crCounter <= CR_S1_TIME;                        
+            if SLOW_TYPING = '1' then            
+               crCounter <= SLOW_CR_S1_TIME;
+            else
+               crCounter <= FAST_CR_S1_TIME;
+            end if;
          else
             crState <= cr_s0;
             crCounter <= crCounter - 1;
@@ -717,7 +935,11 @@ cr_process: process(FPGA_CLK,
       when cr_strobe =>
          if crCounter = 0 then
             crState <= cr_s2;
-            crCounter <= CR_S2_TIME;
+            if SLOW_TYPING = '1' then            
+               crCounter <= SLOW_CR_S2_TIME;
+            else
+               crCounter <= FAST_CR_S2_TIME;
+            end if;
          else
             crState <= cr_strobe;
             crCounter <= crCounter - 1;
@@ -834,21 +1056,32 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
          if FIFO_READ_DATA_VALID = '1' then
             -- High bit from support HOST means not a BCD character, but instead special control keys
             if FIFO_READ_DATA(6) = '1' then
-               -- All 1 bits means the index (force last column) has been pushed.  It isn't really a key.
                if FIFO_READ_DATA = "01111111" then
+                  -- All 1 bits means the index (force last column) has been pushed.  It isn't really a key.
                   CONSOLE_INPUT_LAST_COLUMN_SET <= '1';
+                  CONSOLE_INPUT_CONTROL_KEY_BUFFER <= "000000";
                   consoleReceiverState <= consoleReceiver_waitDone;
-               else
-                  CONSOLE_INPUT_LAST_COLUMN_SET <= '0';
+               elsif (FIFO_READ_DATA and "01111110") /= "01000000" then
+                  -- Above tests masks out shift change, looking for any other
+                  -- control bits (WM, inquiry keys)
                   CONSOLE_INPUT_CONTROL_KEY_BUFFER <= FIFO_READ_DATA(5 downto 0);
-                  -- Start shift process (do this on any control, even if shift isn't changing)
-                  -- (Otherwise, I'd have to match it up with current shift contacts.)
-                  -- This also gives 1410 time to latch the various inquiry keys if pressed.
-                  CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT <= 
-                     FIFO_READ_DATA(CONSOLE_INPUT_CONTROL_UPPER_CASE);
-                  CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT <= 
-                     not FIFO_READ_DATA(CONSOLE_INPUT_CONTROL_UPPER_CASE);
-                  consoleReceiverState <= consoleReceiver_waitShift;                  
+                  CONSOLE_INPUT_LAST_COLUMN_SET <= '0';
+                  consoleReceiverState <= consoleReceiver_waitDone;
+               else  -- Shift control
+                  CONSOLE_INPUT_LAST_COLUMN_SET <= '0';
+                  CONSOLE_INPUT_CONTROL_KEY_BUFFER <= "000000";
+                  -- Start the shift process only if the shift is actually changing.
+                  if FIFO_READ_DATA(CONSOLE_INPUT_CONTROL_UPPER_CASE) /= inUpperCase then
+                     CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT <= 
+                        FIFO_READ_DATA(CONSOLE_INPUT_CONTROL_UPPER_CASE);
+                     CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT <= 
+                        not FIFO_READ_DATA(CONSOLE_INPUT_CONTROL_UPPER_CASE);
+                     consoleReceiverState <= consoleReceiver_waitShift;
+                  else
+                     -- Request is for shift to shift mode we are already in.
+                     consoleReceiverState <= consoleReceiver_waitDone;                  
+                  end if;
+                     
                end if;
             else
                CONSOLE_INPUT_BUFFER <= FIFO_READ_DATA(5 downto 0);
@@ -910,8 +1143,7 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
          else
             consoleReceiverState <= consoleReceiver_waitShift;
          end if;
-            
-         
+                     
       when consoleReceiver_waitDone =>
          if CONSOLE_INPUT_PRINTER_BUSY = '1' or shiftState /= shift_idle then
             consoleReceiverState <= consoleReceiver_waitDone;
@@ -980,7 +1212,8 @@ CAM2 <= '1' when
    else '0';
 
 CAM5 <= '1' when
-   spaceState = space_s3
+   spaceState = space_s3 or
+   wmState = wm_s3
    else '0';
 
 CAM3_OR_4 <= '1' when

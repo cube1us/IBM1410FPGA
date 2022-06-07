@@ -912,10 +912,12 @@ architecture behavioral of IntegrationTest3_fpga is
    end component;
 
    component IBM1410ConsoleTypewriter is
-   GENERIC(MULTIPLIER: integer := 10000);
+   GENERIC(FAST_MULTIPLIER: integer := 100;
+           SLOW_MULTIPLIER: integer := 100);
    PORT (
       FPGA_CLK: in STD_LOGIC;
       UART_RESET: in STD_LOGIC;
+      SLOW_TYPING: in STD_LOGIC;
 
       PW_CONS_PRINTER_R1_SOLENOID: in STD_LOGIC;      
       PW_CONS_PRINTER_R2_SOLENOID: in STD_LOGIC;
@@ -2008,9 +2010,11 @@ architecture behavioral of IntegrationTest3_fpga is
    signal UART_OUTPUT_ARBITER_GRANTS: STD_LOGIC_VECTOR(7 downto 0);
    signal UART_OUTPUT_TX_DATA: STD_LOGIC;
    
-      -- Number of UART input FIFOs
+   -- Number of UART input FIFOs
    
    constant UART_INPUT_FIFO_COUNT: integer := 8;
+
+   -- UART input FIFO interface signals   
     
    signal UART_RCV_DATA_VALID: STD_LOGIC := '0';
    signal UART_RCV_DATA: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
@@ -2028,7 +2032,10 @@ architecture behavioral of IntegrationTest3_fpga is
    signal w_TX_Active: STD_LOGIC;
    signal w_TX_DONE: STD_LOGIC;
    signal r_TX_BYTE: STD_LOGIC_VECTOR (7 downto 0); 
+   
    -- signal i_TX_DV: STD_LOGIC;
+   
+   signal SLOW_TYPING: STD_LOGIC := '0';  -- 1 for normal selectric speeds
    
 -- START USER TEST BENCH DECLARATIONS
 
@@ -2969,10 +2976,13 @@ memory: IBM1410Memory
 -- Instantiate the console typewriter
 
    ConsoleTypewriter: IBM1410ConsoleTypewriter
-   generic map(MULTIPLIER => 100) -- 100x speed, so 10us == 1ms
+   generic map(FAST_MULTIPLIER => 100,    -- 100x speed, so 10us == 1ms
+               SLOW_MULTIPLIER => 10000)  -- normal speed 
    port map(
       FPGA_CLK => FPGA_CLK,
       UART_RESET => UART_RESET,
+      SLOW_TYPING => SLOW_TYPING,
+      
       PW_CONS_PRINTER_R1_SOLENOID => PW_CONS_PRINTER_R1_SOLENOID,      
       PW_CONS_PRINTER_R2_SOLENOID => PW_CONS_PRINTER_R2_SOLENOID,
       PW_CONS_PRINTER_R2A_SOLENOID => PW_CONS_PRINTER_R2A_SOLENOID,
@@ -3285,7 +3295,7 @@ end process;
 	SWITCH_ROT_I_O_UNIT_DK1 <= SWITCH_VECTOR(SWITCH_ROT_I_O_UNIT_DK1_INDEX + SWITCH_ROT_I_O_UNIT_DK1_LEN - 1 downto SWITCH_ROT_I_O_UNIT_DK1_INDEX); -- 19.10.01.1
 	-- SWITCH_ROT_M_RTC_023_CC <= SWITCH_VECTOR(SWITCH_ROT_M_RTC_023_CC_INDEX + SWITCH_ROT_M_RTC_023_CC_LEN - 1 downto SWITCH_ROT_M_RTC_023_CC_INDEX); -- 14.15.20.1
 	-- SWITCH_ROT_M_RTC_578_CC <= SWITCH_VECTOR(SWITCH_ROT_M_RTC_578_CC_INDEX + SWITCH_ROT_M_RTC_578_CC_LEN - 1 downto SWITCH_ROT_M_RTC_578_CC_INDEX); -- 14.15.20.1
-	SWITCH_ROT_MODE_SW_DK <= SWITCH_VECTOR(SWITCH_ROT_MODE_SW_DK_INDEX + SWITCH_ROT_MODE_SW_DK_LEN - 1 downto SWITCH_ROT_MODE_SW_DK_INDEX); -- 40.10.01.1
+	-- MOVED LOWER SWITCH_ROT_MODE_SW_DK <= SWITCH_VECTOR(SWITCH_ROT_MODE_SW_DK_INDEX + SWITCH_ROT_MODE_SW_DK_LEN - 1 downto SWITCH_ROT_MODE_SW_DK_INDEX); -- 40.10.01.1
 	-- SWITCH_ROT_MRTC_01234_CC <= SWITCH_VECTOR(SWITCH_ROT_MRTC_01234_CC_INDEX + SWITCH_ROT_MRTC_01234_CC_LEN - 1 downto SWITCH_ROT_MRTC_01234_CC_INDEX); -- 14.15.20.1
 	-- SWITCH_ROT_MRTC_56789_CC <= SWITCH_VECTOR(SWITCH_ROT_MRTC_56789_CC_INDEX + SWITCH_ROT_MRTC_56789_CC_INDEX - 1 downto SWITCH_ROT_MRTC_56789_CC_INDEX); -- 14.15.20.01
 	-- The following switch is inverted.  On page 14.17.18.1 it says "NOTE: SCAN GATE SWITCH IS A CIRCUIT OPENING SWITCH"
@@ -3444,14 +3454,16 @@ end process;
    
    -- SWITCH_ROT_CHECK_CTRL_DK1 <= "0000000000100"; -- Check Control Stop Normal
    
+   SWITCH_ROT_MODE_SW_DK <= SWITCH_VECTOR(SWITCH_ROT_MODE_SW_DK_INDEX + SWITCH_ROT_MODE_SW_DK_LEN - 1 downto SWITCH_ROT_MODE_SW_DK_INDEX); -- 40.10.01.1
+   
    -- Temporary, for testing
    
    -- SWITCH_ROT_MODE_SW_DK <= "0001000000000"; --Display Mode -- Temporary for testing
    
-   -- SWITCH_ROT_MODE_SW_DK <= 
-   --    "0001000000000" when SW(15) = '1' else
-   --    "0100000000000" when SW(14) = '1' else
-   --    "0010000000000"; -- Stop position
+--   SWITCH_ROT_MODE_SW_DK <= 
+--      "0001000000000" when SW(15) = '1' else  -- Display
+--      "0100000000000" when SW(14) = '1' else  -- Alter
+--      "0010000000000"; -- Stop position
       
    -- LAMP_SUPPRESSION <= '1';  -- TEMPORARY for testing
    
@@ -3459,7 +3471,7 @@ end process;
    
    -- SWITCH_MOM_3RD_TST_SW_PL1 <= '1';  -- Temporary for testing
 
-   SWITCH_MOM_CONS_STOP_PL1 <= btnD or SWITCH_VECTOR(SWITCH_MOM_PROG_RESET_INDEX);
+   SWITCH_MOM_CONS_STOP_PL1 <= btnD or SWITCH_VECTOR(SWITCH_MOM_CONS_STOP_PL1_INDEX);
    
    SWITCH_MOM_CO_CPR_RST <= (not btnCpuReset) or SWITCH_VECTOR(SWITCH_MOM_CO_CPR_RST_INDEX);   -- Need to include the indexes now...
    
@@ -3487,6 +3499,8 @@ end process;
    -- SWITCH_ROT_HUNDS_SYNC_DK1 <= "0010000000000";
    -- SWITCH_ROT_TENS_SYNC_DK1 <= "0010000000000";
    -- SWITCH_ROT_UNITS_SYNC_DK1 <= "0000000010000";   
+   
+   SLOW_TYPING <= SW(0);   -- Turn SW0 ON to SLOW the console output to normal selectric speeds.
    
 -- Your test bench code
 

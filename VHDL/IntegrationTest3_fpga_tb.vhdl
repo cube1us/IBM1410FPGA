@@ -254,27 +254,37 @@ begin
      wait until UART_RCV_DATA_VALID = '0';     
   end loop;
   
-  -- Annnnnd send a percent character... (in BCD -- -A84--
+  -- Send a word mark
   
-  report "Sending UPPER Case Shift Code";
-
-  UART_XMT_DATA <= "01000001";
+  UART_XMT_DATA <= "01100000";
   UART_XMT_DATA_VALID <= '1';
   wait for 100 ns; 
   UART_XMT_DATA_VALID <= '0';
   wait until UART_XMT_ACTIVE = '0';
   wait for 2 ms;
+  
+  
+  -- Annnnnd send a percent character... (in BCD -- -A84--
+  
+--  report "Sending UPPER Case Shift Code";
 
-  -- Followed by the percent sign
+--  UART_XMT_DATA <= "01000001";
+--  UART_XMT_DATA_VALID <= '1';
+--  wait for 100 ns; 
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';
+--  wait for 2 ms;
+
+--  -- Followed by the percent sign
     
-  report "Sending BCD %";
-  UART_XMT_DATA <= "00011100"; 
-  UART_XMT_DATA_VALID <= '1';  
-  wait for 100 ns;  
-  UART_XMT_DATA_VALID <= '0';
-  wait until UART_XMT_ACTIVE = '0';
-  wait until UART_RCV_DATA_VALID = '1';  -- Wait for each 0 to be echoed. (could check value?)
-  wait until UART_RCV_DATA_VALID = '0';
+--  report "Sending BCD %";
+--  UART_XMT_DATA <= "00011100"; 
+--  UART_XMT_DATA_VALID <= '1';  
+--  wait for 100 ns;  
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';
+--  wait until UART_RCV_DATA_VALID = '1';  -- Wait for each 0 to be echoed. (could check value?)
+--  wait until UART_RCV_DATA_VALID = '0';
   
   wait for 10 ms;  
  
