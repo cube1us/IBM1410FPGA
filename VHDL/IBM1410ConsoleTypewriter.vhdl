@@ -247,7 +247,7 @@ type wmState_type is (wm_idle,
    wm_s2, 
    wm_s3, 
    wm_s4);
-      
+     
 type shiftState_type is (shift_idle,
    shift_s0, 
    shift_s1, 
@@ -337,6 +337,7 @@ signal CONSOLE_INPUT_BAIL_CONTACT_T2: STD_LOGIC := '0';
 signal CONSOLE_INPUT_BAIL_CONTACT_CHK: STD_LOGIC := '0';
 signal CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT: STD_LOGIC := '0';
 signal CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT: STD_LOGIC := '0';
+signal CONSOLE_INPUT_BAIL_SPACE_BAR: STD_LOGIC := '0';
 signal CONSOLE_INPUT_LAST_COLUMN_SET: STD_LOGIC := '0';
 
 signal CONSOLE_INPUT_ACTIVE: STD_LOGIC := '0';
@@ -584,7 +585,7 @@ space_process: process(FPGA_CLK,
          when space_idle =>
          
             if PW_SPACE_SOLENOID = '1' or
-               PW_BACKSPACE_SOLENOID = '1' then            
+               PW_BACKSPACE_SOLENOID = '1' then
                spaceState <= space_s0;
                if SLOW_TYPING = '1' then            
                   spaceCounter <= SLOW_SPACE_S0_TIME;
@@ -670,7 +671,9 @@ space_process: process(FPGA_CLK,
                spaceState <= space_idle;
             else
                spaceState <= space_s4;
-               spaceCounter <= spaceCounter - 1;
+               if spaceCounter /= 0 then
+                  spaceCounter <= spaceCounter - 1;
+               end if;
             end if;
 
          end case;
@@ -679,7 +682,6 @@ space_process: process(FPGA_CLK,
    end process;
 
 -- WM uses the same cam (C5) as a space, so the timing is the same...
--- This wm_process is an experiment, to see if it will trigger WM output somehow.
 
 wm_process: process(FPGA_CLK, 
    wmState,
@@ -1145,7 +1147,8 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
          end if;
                      
       when consoleReceiver_waitDone =>
-         if CONSOLE_INPUT_PRINTER_BUSY = '1' or shiftState /= shift_idle then
+         if CONSOLE_INPUT_PRINTER_BUSY = '1' or shiftState /= shift_idle or 
+            spaceState /= space_idle or crState /= cr_idle then
             consoleReceiverState <= consoleReceiver_waitDone;
          else
             consoleReceiverState <= consoleReceiver_waitForChar;
@@ -1226,7 +1229,7 @@ CR_INTERLOCK <= '1' when
    crState = cr_s2
    else '0';
       
-MV_CONS_PRINTER_LAST_COLUMN_SET <= '0' when currentColumn = MAX_COLUMN
+MV_CONS_PRINTER_LAST_COLUMN_SET <= '0' when currentColumn = MAX_COLUMN or CONSOLE_INPUT_LAST_COLUMN_SET = '1'
    else '1';      
 
 currentColumnUp <= '1' when outputState = output_s3 or
