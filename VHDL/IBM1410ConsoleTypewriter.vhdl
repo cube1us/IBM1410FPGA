@@ -16,8 +16,10 @@
 -- Revision 0.02 - Debugging occured but not tracked by versin
 -- Revision 0.03 - Changed output chars to all be < X"80", leaving high bit off
 -- Revision 0.04 - Changing to a more canonical state machine, ditching single shots
--- Revision 0.05 - Fixed up a couple of characters, got rid of commented code from 0.04
+-- Revision 0.05 - Fixed up a couple of characters, got rid of dead code from 0.04
 -- Revision 0.06 - Added console keyboard lock support
+-- Revision 0.07 - Input character, WM and Space Bar and Index 
+--                 (force last column) now working
 
 -- Additional Comments:
 -- 
@@ -30,14 +32,11 @@
 -- Output inquiry request key (based on character input)
 -- Output Inquiry release key ( " )
 -- Output Inquiry cancel key ( " )
--- Output Wordmark (tab) key ( " )
--- Output Space bar key ( " )
--- Output bits to CPU: BA8421
+
 -- There are still some latches in the various state machines - see if they can become
 --   combinatorial signals instead.
 
--- What is -V CONS INPUT*CHK OP
-
+-- Perhaps the space, WM and space bar state machines could be combined.
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -248,6 +247,14 @@ type wmState_type is (wm_idle,
    wm_s3, 
    wm_s4);
      
+type sbState_type is (sb_idle,
+   sb_s0, 
+   sb_s1,
+   sb_strobe,    
+   sb_s2, 
+   sb_s3, 
+   sb_s4);
+          
 type shiftState_type is (shift_idle,
    shift_s0, 
    shift_s1, 
@@ -270,6 +277,7 @@ type consoleLockState_type is(consoleLock_idle, consoleLock_wait, consoleLock_up
 signal outputCounter: INTEGER RANGE 0 to (2000 * SLOW_MULTIPLIER) / CLOCKPERIOD;   -- Max delay for any state
 signal spaceCounter:  INTEGER RANGE 0 to (3000 * SLOW_MULTIPLIER) / CLOCKPERIOD;
 signal wmCounter:  INTEGER RANGE 0 to (3000 * SLOW_MULTIPLIER) / CLOCKPERIOD;
+signal sbCounter:  INTEGER RANGE 0 to (3000 * SLOW_MULTIPLIER) / CLOCKPERIOD;
 signal shiftCounter:  INTEGER RANGE 0 to (4000 * SLOW_MULTIPLIER) / CLOCKPERIOD;
 signal crCounter:     INTEGER RANGE 0 to (10000 * SLOW_MULTIPLIER) / CLOCKPERIOD;
 signal consoleLockCounter: INTEGER RANGE 0 to CONSOLE_LOCK_UNLOCK_WAIT_TIME := 0;
@@ -277,6 +285,7 @@ signal consoleLockCounter: INTEGER RANGE 0 to CONSOLE_LOCK_UNLOCK_WAIT_TIME := 0
 signal outputState: outputState_type := output_idle;  -- , nextOutputState
 signal spaceState: spaceState_type := space_idle; -- , nextSpaceState
 signal wmState: wmState_type := wm_idle;
+signal sbState: sbState_type := sb_idle;
 signal shiftState: shiftState_type := shift_idle; -- , nextShiftState
 signal crState: crState_type := cr_idle;  -- , nextCrState
 signal consoleLockState: consoleLockState_type := consoleLock_idle;
@@ -337,7 +346,6 @@ signal CONSOLE_INPUT_BAIL_CONTACT_T2: STD_LOGIC := '0';
 signal CONSOLE_INPUT_BAIL_CONTACT_CHK: STD_LOGIC := '0';
 signal CONSOLE_INPUT_BAIL_CONTACT_UPPER_CASE_SHIFT: STD_LOGIC := '0';
 signal CONSOLE_INPUT_BAIL_CONTACT_LOWER_CASE_SHIFT: STD_LOGIC := '0';
-signal CONSOLE_INPUT_BAIL_SPACE_BAR: STD_LOGIC := '0';
 signal CONSOLE_INPUT_LAST_COLUMN_SET: STD_LOGIC := '0';
 
 signal CONSOLE_INPUT_ACTIVE: STD_LOGIC := '0';
@@ -785,6 +793,110 @@ wm_process: process(FPGA_CLK,
          
    end process;
 
+-- The Space Bar also uses that same timing
+
+sb_process: process(FPGA_CLK, 
+   sbState,
+   sbCounter,
+   outputState,
+   CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_SPACE),
+   SLOW_TYPING)
+
+   begin
+   
+      if FPGA_CLK'event and FPGA_CLK = '1' then
+      
+         case sbState is
+         when sb_idle =>
+         
+            if CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_SPACE) = '1' then            
+               sbState <= sb_s0;
+               if SLOW_TYPING = '1' then            
+                  sbCounter <= SLOW_SPACE_S0_TIME;
+               else
+                  sbCounter <= FAST_SPACE_S0_TIME;
+               end if;
+            else
+               sbState <= sb_idle;             
+            end if;
+     
+         when sb_s0 =>
+            if sbCounter = 0 then
+               sbState <= sb_s1;
+               if SLOW_TYPING = '1' then            
+                  sbCounter <= SLOW_SPACE_S1_TIME;
+               else
+                  sbCounter <= FAST_SPACE_S1_TIME;
+               end if;
+            else
+               sbState <= sb_s0;
+               sbCounter <= sbCounter - 1;
+            end if;
+
+         when sb_s1 =>
+            if sbCounter = 0 then
+               sbState <= sb_s2;
+               if SLOW_TYPING = '1' then            
+                  sbCounter <= SLOW_SPACE_S2_TIME;
+               else
+                  sbCounter <= FAST_SPACE_S2_TIME;
+               end if;
+            else
+               sbState <= sb_s1;
+               sbCounter <= sbCounter - 1;
+            end if;
+
+         when sb_s2 =>
+            if sbCounter = 0 then
+               sbState <= sb_strobe;
+               -- Space bar DOES generate output character to the host
+               sbCounter <= OUT_STROBE_TIME;            
+            else
+               sbState <= sb_s2;
+               sbCounter <= sbCounter - 1;
+            end if;
+                 
+         when sb_strobe =>
+            if sbCounter = 0 then
+               sbState <= sb_s3;
+               if SLOW_TYPING = '1' then            
+                  sbCounter <= SLOW_SPACE_S3_TIME;
+               else
+                  sbCounter <= FAST_SPACE_S3_TIME;
+               end if;
+            else
+               sbCounter <= sbCounter - 1;
+               sbState <= sb_strobe;
+            end if;
+
+         when sb_s3 =>
+            if sbCounter = 0 then         
+               sbState <= sb_s4;
+               if SLOW_TYPING = '1' then            
+                  sbCounter <= SLOW_SPACE_S4_TIME;
+               else
+                  sbCounter <= FAST_SPACE_S4_TIME;
+               end if;
+            else
+               sbState <= sb_s3;
+               sbCounter <= sbCounter - 1;
+            end if;
+
+         when sb_s4 =>
+            if sbCounter = 0 and CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_SPACE) = '0' then
+               sbState <= sb_idle;
+            else
+               sbState <= sb_s4;
+               if sbCounter /= 0 then
+                  sbCounter <= sbCounter - 1;
+               end if;
+            end if;
+
+         end case;
+      end if;
+         
+   end process;
+
 
 shift_process: process(FPGA_CLK,
    shiftState, 
@@ -1089,7 +1201,8 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
                CONSOLE_INPUT_BUFFER <= FIFO_READ_DATA(5 downto 0);
                CONSOLE_INPUT_PARITY <= FIFO_READ_DATA(0) xor FIFO_READ_DATA(1) xor
                   FIFO_READ_DATA(2) xor FIFO_READ_DATA(3) xor FIFO_READ_DATA(4) xor
-                  FIFO_READ_DATA(5);                  
+                  FIFO_READ_DATA(5);   
+               CONSOLE_INPUT_LAST_COLUMN_SET <= '0';                  
                consoleReceiverState <= consoleReceiver_waitForPrinter;
             end if;
          else
@@ -1148,10 +1261,11 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
                      
       when consoleReceiver_waitDone =>
          if CONSOLE_INPUT_PRINTER_BUSY = '1' or shiftState /= shift_idle or 
-            spaceState /= space_idle or crState /= cr_idle then
+            spaceState /= space_idle or crState /= cr_idle or sbState /= sb_idle then
             consoleReceiverState <= consoleReceiver_waitDone;
          else
             consoleReceiverState <= consoleReceiver_waitForChar;
+            CONSOLE_INPUT_BUFFER <= "000000"; 
          end if;
                      
       end case;
@@ -1216,7 +1330,8 @@ CAM2 <= '1' when
 
 CAM5 <= '1' when
    spaceState = space_s3 or
-   wmState = wm_s3
+   wmState = wm_s3 or
+   sbState = sb_s3
    else '0';
 
 CAM3_OR_4 <= '1' when
@@ -1319,7 +1434,8 @@ IBM1410_CONSOLE_XMT_CHAR <=
    printChar when outputState = output_s3 or
       outputState = output_strobe or  
       outputState = output_s4 else
-   X"20" when (spaceState = space_s1 or spaceState = space_strobe or spaceState = space_s2) and latchedSpace = '1' else
+   X"20" when ((spaceState = space_s1 or spaceState = space_strobe or spaceState = space_s2) and latchedSpace = '1') or
+              (sbState = sb_s1 or sbState = sb_strobe or sbState = sb_s2) else
    X"08" when (spaceState = space_s1 or spaceState = space_strobe or spaceState = space_s2) and latchedBackSpace = '1' else
    X"0D" when crState = cr_s1 or crState = cr_strobe or crState = cr_s2 else
    X"00";
@@ -1327,6 +1443,7 @@ IBM1410_CONSOLE_XMT_CHAR <=
 IBM1410_CONSOLE_XMT_STROBE <= '1' when 
    outputState = output_strobe or
    spaceState = space_strobe or
+   sbState = sb_strobe or
    crState = cr_strobe 
    else '0';
 
@@ -1341,7 +1458,10 @@ MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO <= not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONS
 PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_INQUIRY_CANCEL);
 MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO <= not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_WM);
 -- NOTE: CONSOLE_INPUT_PARITY is calculated as *even* parity, then not-ed for odd, not-ed again for MV
-MV_CONSOLE_C_INPUT_STAR_CHK_OP <= CONSOLE_INPUT_PARITY;
+MV_CONSOLE_C_INPUT_STAR_CHK_OP <= '0' when
+   CONSOLE_INPUT_PARITY = '0' or
+   sbState /= sb_idle
+   else '1';
 MV_CONS_PRTR_TO_CPU_BUS <= not CONSOLE_INPUT_BUFFER;
   
 end Behavioral;
