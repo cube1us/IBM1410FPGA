@@ -1,9 +1,10 @@
-Generating HDL for page 15.41.10.1 E CH FULL CONTROL-ACC at 8/2/2020 4:43:36 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_41_10_1_E_CH_FULL_CONTROL_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 15.41.10.1 E CH FULL CONTROL-ACC at 6/13/2022 1:01:06 PM
+Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3E has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 4A
 Found combinatorial loop (need D FF) at output of gate at 3A
 Found combinatorial loop (need D FF) at output of gate at 4F
-Found combinatorial loop (need D FF) at output of gate at 3F
+Found combinatorial loop at output of gate at 3F but suppressed by NOFLIPFLOP comment.
 Removed 3 outputs from Gate at 2A to ignored block(s) or identical signal names
 Removed 6 outputs from Gate at 2B to ignored block(s) or identical signal names
 Removed 4 outputs from Gate at 1E to ignored block(s) or identical signal names
@@ -44,7 +45,7 @@ Generating Statement for block at 1E with output pin(s) of OUT_1E_Q
 Generating Statement for block at 4F with *latched* output pin(s) of OUT_4F_D_Latch, OUT_4F_D_Latch
 	and inputs of MS_RESET_E2_FULL_LATCH,MS_E_CH_RESET,OUT_DOT_3E
 	and logic function of NAND
-Generating Statement for block at 3F with *latched* output pin(s) of OUT_3F_P_Latch
+Generating Statement for block at 3F with output pin(s) of OUT_3F_P
 	and inputs of OUT_5B_C,OUT_4F_D
 	and logic function of NAND
 Generating Statement for block at 2G with output pin(s) of OUT_2G_C
@@ -54,7 +55,7 @@ Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A, OUT_DOT_4
 	and inputs of OUT_4A_D,OUT_4B_P
 	and logic function of OR
 Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E, OUT_DOT_3E
-	and inputs of OUT_3E_E,PS_E2_FULL_LATCH_STAR_SIF,OUT_3F_P
+	and inputs of OUT_3E_E,OUT_3F_P,PS_E2_FULL_LATCH_STAR_SIF
 	and logic function of OR
 Generating output sheet edge signal assignment to 
 	signal PS_E1_REG_FULL
@@ -71,4 +72,3 @@ Generating output sheet edge signal assignment to
 Generating D Flip Flop for block at 4A
 Generating D Flip Flop for block at 3A
 Generating D Flip Flop for block at 4F
-Generating D Flip Flop for block at 3F
