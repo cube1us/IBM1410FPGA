@@ -20,8 +20,13 @@ end IBM1410_10K_RAM_INIT;
 architecture behavioral of IBM1410_10K_RAM_INIT is
   type RAM_INIT_type is array (9999 downto 0) of std_logic_vector(7 downto 0);
   signal RAM_INIT : RAM_INIT_type := (
-     1 => X"5B", 2 => X"8A", 3 => X"8A", 4 => X"8A", 5 => X"8A",
-     6 => X"08", 7 => X"E5", 8 => X"3B", 9 => X"FB",
+     -- 1 => X"5B", 2 => X"8A", 3 => X"8A", 4 => X"8A", 5 => X"8A",
+     -- 6 => X"08", 7 => X"E5", 8 => X"3B", 9 => X"FB",
+     1 => X"64", 2 => X"1C", 3 => X"13", 4 => X"8A", 
+     5 => X"8A", 6 => X"8A", 7 => X"8A", 8 => X"02",
+     9 => X"8A", 10 => X"16", 11 => X"FB", 12 => X"FB",
+     20 => X"38", 21 => X"B5", 22 => X"23", 23 => X"23",
+     24 => X"26", 25 => X"7F", 
      others => X"80");
  
 attribute RAM_INIT_style: string;
