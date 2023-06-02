@@ -1,16 +1,13 @@
-Generating HDL for page 14.15.22.1 ADDRESS EXIT CONTROLS at 8/20/2020 4:28:38 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_15_22_1_ADDRESS_EXIT_CONTROLS_tb.vhdl, generating default test bench code.
+Generating HDL for page 14.15.22.1 ADDRESS EXIT CONTROLS at 6/16/2022 11:52:13 AM
+Block at coordinate 3A is marked for No HDL Generation -- skipped.
+Block at coordinate 3B is marked for No HDL Generation -- skipped.
+Block at coordinate 1B is marked for No HDL Generation -- skipped.
+Block at coordinate 1E is marked for No HDL Generation -- skipped.
+Note: DOT Function at 3C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3E has input level(s) of MIXED, and output level(s) of S, Logic Function set to OR
 Removed 1 outputs from Gate at 1D to ignored block(s) or identical signal names
 Removed 1 outputs from Gate at 3I to ignored block(s) or identical signal names
-Generating Statement for block at 3A with output pin(s) of OUT_3A_E
-	and inputs of PS_A_RING_6_TIME,MS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,MS_CONS_ADDR_REG_EXIT_GATE
-	and logic function of NAND
-Generating Statement for block at 3B with output pin(s) of OUT_3B_C
-	and inputs of PS_CONS_ADDR_REG_EXIT_GATE,PS_CONS_MX_Y1_POS
-	and logic function of NAND
-Generating Statement for block at 1B with output pin(s) of OUT_1B_P
-	and inputs of OUT_3A_E,OUT_3B_C
-	and logic function of NAND
 Generating Statement for block at 3C with output pin(s) of OUT_3C_E
 	and inputs of MS_CONS_ADDR_REG_EXIT_GATE,PS_A_RING_OFF_TIME
 	and logic function of NAND
@@ -29,17 +26,16 @@ Generating Statement for block at 5E with output pin(s) of OUT_5E_G
 Generating Statement for block at 3E with output pin(s) of OUT_3E_P
 	and inputs of MS_RTC_BUSY,MS_CONS_ADDR_REG_EXIT_GATE
 	and logic function of NAND
-Generating Statement for block at 1E with output pin(s) of OUT_1E_B
-	and inputs of MS_STORE_AR_SET_C_CYCLE_CTRL_B
-	and logic function of NOT
 Generating Statement for block at 3I with output pin(s) of OUT_3I_D
 	and inputs of PS_STORE_ADDR_REGS_OP_DOT_T_DOT_C_CY,PS_RTC_BUSY,MS_CONS_ADDR_REG_EXIT_GATE
 	and logic function of NAND
 Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C
 	and inputs of OUT_3C_E,OUT_3D_P
 	and logic function of OR
+Note: During generation an input to the block at 1D, connection database ID 236646 was found to come from a block marked for no HDL generation
+Note: During generation an input to the block at 1D, connection database ID 236675 was found to come from a block marked for no HDL generation
 Generating Statement for block at 1D with output pin(s) of OUT_DOT_1D
-	and inputs of OUT_1B_P,OUT_1C_C,OUT_1E_B
+	and inputs of OUT_1C_C
 	and logic function of OR
 Generating Statement for block at 3E with output pin(s) of OUT_DOT_3E
 	and inputs of OUT_5E_G,OUT_3E_P

@@ -3454,13 +3454,11 @@ end process;
    
    -- SWITCH_ROT_CHECK_CTRL_DK1 <= "0000000000100"; -- Check Control Stop Normal
    
-   SWITCH_ROT_MODE_SW_DK <= SWITCH_VECTOR(SWITCH_ROT_MODE_SW_DK_INDEX + SWITCH_ROT_MODE_SW_DK_LEN - 1 downto SWITCH_ROT_MODE_SW_DK_INDEX); -- 40.10.01.1
+   -- Comment out For testing -- to leave switch in designated mode
    
-   -- Temporary, for testing
-   
-   -- SWITCH_ROT_MODE_SW_DK <= "0001000000000"; --Display Mode -- Temporary for testing
-   
---   SWITCH_ROT_MODE_SW_DK <= 
+   SWITCH_ROT_MODE_SW_DK <= SWITCH_VECTOR(SWITCH_ROT_MODE_SW_DK_INDEX + SWITCH_ROT_MODE_SW_DK_LEN - 1 downto SWITCH_ROT_MODE_SW_DK_INDEX); -- 40.10.01.1      
+  
+--   SWITCH_ROT_MODE_SW_DK <= "0000010000000";  -- Run 
 --      "0001000000000" when SW(15) = '1' else  -- Display
 --      "0100000000000" when SW(14) = '1' else  -- Alter
 --      "0010000000000"; -- Stop position
@@ -3469,7 +3467,7 @@ end process;
    
    -- SWITCH_ROT_ADDR_ENTRY_DK1 <= "0000000100000";  -- Address Entry Normal
    
-   -- SWITCH_MOM_3RD_TST_SW_PL1 <= '1';  -- Temporary for testing
+   -- SWITCH_MOM_3RD_TST_S_PL1 <= '1';  -- Temporary for testing
 
    SWITCH_MOM_CONS_STOP_PL1 <= btnD or SWITCH_VECTOR(SWITCH_MOM_CONS_STOP_PL1_INDEX);
    
