@@ -1,5 +1,10 @@
-Generating HDL for page 14.30.04.1 ADDRESS 1 AND 2 MOD FEATURE-ACC at 8/28/2020 12:26:02 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_30_04_1_ADDRESS_1_AND_2_MOD_FEATURE_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 14.30.04.1 ADDRESS 1 AND 2 MOD FEATURE-ACC at 6/11/2023 4:32:01 PM
+Block at coordinate 2C is marked for No HDL Generation -- skipped.
+Block at coordinate 4F is marked for No HDL Generation -- skipped.
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4H has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4B has input level(s) of , and output level(s) of Y, Logic Function set to OR
 Ignoring Logic Block 1A with symbol R
 Ignoring Logic Block 1C with symbol R
 Ignoring Logic Block 2E with symbol R
@@ -23,14 +28,12 @@ Generating Statement for block at 2A with output pin(s) of OUT_2A_P, OUT_2A_P
 Generating Statement for block at 4B with output pin(s) of OUT_4B_G
 	and inputs of MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_1_BIT,MY_MEM_AR_TO_ADDR_MOD_4_BIT,MY_LOGIC_GATE_F_1,MY_WRAP_AROUND_MODE
 	and logic function of NOR
+Note: During generation an input to the block at 1B, connection database ID 241343 was found to come from a block marked for no HDL generation
 Generating Statement for block at 1B with output pin(s) of OUT_1B_G
-	and inputs of OUT_2A_P,OUT_4C_G,OUT_2C_G,OUT_4D_C,OUT_DOT_4B
+	and inputs of OUT_2A_P,OUT_4C_G,OUT_4D_C,OUT_DOT_4B
 	and logic function of NOR
 Generating Statement for block at 4C with output pin(s) of OUT_4C_G
 	and inputs of MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_4_BIT,MY_MEM_AR_TO_ADDR_MOD_8_BIT,MY_LOGIC_GATE_F_1,MY_WRAP_AROUND_MODE
-	and logic function of NOR
-Generating Statement for block at 2C with output pin(s) of OUT_2C_G
-	and inputs of MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_1_BIT,MY_MEM_AR_TO_ADDR_MOD_0_BIT,MY_LOGIC_GATE_F_1,MY_WRAP_AROUND_MODE
 	and logic function of NOR
 Generating Statement for block at 4D with output pin(s) of OUT_4D_C
 	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_0_BIT,MY_MEM_AR_TO_ADDR_MOD_1_BIT
@@ -47,11 +50,9 @@ Generating Statement for block at 4E with output pin(s) of OUT_4E_P
 Generating Statement for block at 3E with output pin(s) of OUT_3E_G, OUT_3E_G
 	and inputs of MY_MEM_AR_TO_ADDR_MOD_8_BIT,MY_LOGIC_GATE_F_1,MY_MEM_AR_TO_ADDR_MOD_2_BIT,MY_MODIFY_BY_MINUS_ONE,MY_1401_MODE_1
 	and logic function of NOR
-Generating Statement for block at 4F with output pin(s) of OUT_4F_P
-	and inputs of MY_LOGIC_GATE_F_1,MY_WRAP_AROUND_MODE
-	and logic function of NOR
+Note: During generation an input to the block at 3F, connection database ID 241392 was found to come from a block marked for no HDL generation
 Generating Statement for block at 3F with output pin(s) of OUT_3F_P
-	and inputs of OUT_4F_P,MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_0_BIT,MY_MEM_AR_TO_ADDR_MOD_1_BIT
+	and inputs of MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_0_BIT,MY_MEM_AR_TO_ADDR_MOD_1_BIT
 	and logic function of NOR
 Generating Statement for block at 2F with output pin(s) of OUT_2F_D
 	and inputs of OUT_DOT_3F

@@ -1,6 +1,7 @@
-Generating HDL for page 14.47.01.1 ADDR CH VAL CK FEATURE at 6/17/2022 2:53:52 PM
+Generating HDL for page 14.47.01.1 ADDR CH VAL CK FEATURE at 6/11/2023 4:34:13 PM
 Block at coordinate 1B is marked for No HDL Generation -- skipped.
 Block at coordinate 1C is marked for No HDL Generation -- skipped.
+Block at coordinate 1D is marked for No HDL Generation -- skipped.
 Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 1B has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
@@ -40,9 +41,6 @@ Generating Statement for block at 4D with output pin(s) of OUT_4D_F
 Generating Statement for block at 2D with output pin(s) of OUT_2D_C
 	and inputs of OUT_5B_F,OUT_5E_B
 	and logic function of NOR
-Generating Statement for block at 1D with output pin(s) of OUT_1D_F
-	and inputs of MS_ADDR_MOD_02_BIT
-	and logic function of NOT
 Generating Statement for block at 5E with output pin(s) of OUT_5E_B, OUT_5E_B, OUT_5E_B, OUT_5E_B
 	and inputs of PS_ADDR_CH_2_B_1
 	and logic function of NOT
@@ -90,8 +88,9 @@ Generating Statement for block at 4A with output pin(s) of OUT_DOT_4A
 	and logic function of OR
 Note: During generation an input to the block at 1B, connection database ID 242711 was found to come from a block marked for no HDL generation
 Note: During generation an input to the block at 1B, connection database ID 242719 was found to come from a block marked for no HDL generation
+Note: During generation an input to the block at 1B, connection database ID 242728 was found to come from a block marked for no HDL generation
 Generating Statement for block at 1B with output pin(s) of OUT_DOT_1B
-	and inputs of OUT_1E_F,OUT_1D_F,OUT_1F_F,OUT_1G_F,OUT_1H_B
+	and inputs of OUT_1E_F,OUT_1F_F,OUT_1G_F,OUT_1H_B
 	and logic function of OR
 Generating Statement for block at 2D with output pin(s) of OUT_DOT_2D
 	and inputs of OUT_2D_C,OUT_2E_F,OUT_2F_R,OUT_2G_G,OUT_2H_C,OUT_2I_R
