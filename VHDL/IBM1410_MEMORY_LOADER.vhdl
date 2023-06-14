@@ -198,23 +198,6 @@ loader_process: process(FPGA_CLK, RESET, loaderState, loaderAction,
             end if;
            
          when loader_Write =>
-            -- This can probably be combinatorial with "when" lists...
-            loaderAction <= loader_Data;
-            IBM1410_DIRECT_MEMORY_ADDRESS <= ADDR;
-            IBM1410_DIRECT_MEMORY_WRITE_DATA <= LOAD_DATA;
-            if(ADDR > '0111010100101111') then    -- 30000 and up
-               IBM1410_DIRECT_MEMORY_ENABLE = "1000";
-               IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "1000";
-            elsif(ADDR > '0100111000011111') then -- 20000 to 29999
-                IBM1410_DIRECT_MEMORY_ENABLE = "0100";
-                IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "0100";
-            elsif(ADDR > '0010011100001111') then -- 10000 to 19999
-               IBM1410_DIRECT_MEMORY_ENABLE = "0010";
-               IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "0010";
-            else                                  -- 00000 to 09999
-               IBM1410_DIRECT_MEMORY_ENABLE = "0001";
-               IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "0001";
-            endif;
             IN_DATA <= '0';
             loaderState <= loader_WrDone;
                     
@@ -252,6 +235,23 @@ loader_process: process(FPGA_CLK, RESET, loaderState, loaderAction,
          fill_count => OPEN
     );
 
+   -- Combinatorial Assignments
+
+   IBM1410_DIRECT_MEMORY_ADDRESS <= ADDR;
+   IBM1410_DIRECT_MEMORY_WRITE_DATA <= LOAD_DATA;
+   IBM_DIRECT_MEMORY_ENABLE <= IBM_DIRECT_MEMORY_WRITE_ENABLE;
+
+   -- Assign proper memory enable bit based on address (in DECIMAL)
+   -- Note that enable and write enable are the same, as we are just
+   -- writing.  Outside of this module, it would be possible to
+   -- multiplex the enable bit (as opposed to the write enable bit)
+
+   IBM_DIRECT_MEMORY_WRITE_ENABLE <= 
+      "1000" when loaderState = loaderWrite AND ADDR > '0111010100101111' else    -- 30000 and up
+      "0100" when loaderState = loaderWrite AND ADDR > '0100111000011111' else    -- 20000 to 29999
+      "0010" when loaderState = loaderWrite AND ADDR > '0010011100001111' else    -- 10000 to 19999
+      "0001" when loaderState = loaderWrite else                                  -- 00000 to 09999
+      "0000";                                                                     -- NOT writing
 
 
 end Behavioral;
