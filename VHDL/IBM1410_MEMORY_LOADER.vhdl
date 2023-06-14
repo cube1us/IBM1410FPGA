@@ -85,14 +85,11 @@ constant MEMORY_LOADER_DATA_1_MARK: STD_LOGIC_VECTOR(6 downto 0) := "0010000";
 
 
 type loaderState_type is (
-   loader_Reset, loader_WaitForChar, loader_Getchar, loader_Action,
+   loader_Reset, loader_WaitForChar, loader_Getchar, loader_Addr, loader_data,
 	loader_Write, loader_WrDone);
 
-type loaderAction_type is (loader_None, loader_Addr, loader_Data_0, loader_Data_1);
-   
-
 signal loaderState: loaderState_type := loader_Reset;
-signal loaderAction: loaderAction_type := loader_None;
+
 
 signal FIFO_READ_ENABLE:     STD_LOGIC := '0';
 signal FIFO_READ_DATA_VALID: STD_LOGIC;
@@ -105,6 +102,7 @@ signal FIFO_FULL_NEXT: STD_LOGIC;   -- Not used - assumption for now is that 141
 signal ADDR:      STD_LOGIC_VECTOR(13 downto 0);
 signal LOAD_DATA: STD_LOGIC_VECTOR(7 downto 0);
 signal DATA_LAST: STD_LOGIC := '0';
+signal IN_DATA:   STD_LOGIC := '0';
 
 signal ADDR_COUNTER: INTEGER RANGE 0 to 3;
 
@@ -117,7 +115,7 @@ loader_process: process(FPGA_CLK, RESET, loaderState, loaderAction,
 
    if RESET = '1' then
       loaderState <= loader_RESET;
-      loaderAction <= loader_Addr;
+      IN_DATA = '0';
 
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
 
@@ -126,103 +124,105 @@ loader_process: process(FPGA_CLK, RESET, loaderState, loaderAction,
          when loader_Reset => 
            DATA_LAST <= '0';
            ADDR_COUNTER <= 0;
+           IN_DATA = '0';
            loaderState <= loader_WaitForChar;
-           loaderAction <= loader_Addr;
             
          when loader_WaitForChar =>
             if(FIFO_EMPTY = '0') then
                FIFO_READ_ENABLE <= '1';
+               IN_DATA <= IN_DATA;
                loaderState <= loader_GetChar;
-               loaderAction <= loaderAction;
             else
+               IN_DATA <= IN_DATA;
                loaderState <= loader_WaitForChar;
-               loaderAction <= loaderAction;
             end if;
          
          when loader_GetChar =>
             if(FIFO_READ_DATA_VALID = '1') then
-
-               case loaderAction is
-
-                  when loader_Addr =>
-                     if(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_ADDRESS_MARK) then
-                        -- Receiving address and see an address mark - OK
-                        ADDR <= ADDR(8 downto 0) & FIFO_READ_DATA(3 downto 0);
-                        if(ADDR_COUNTER = 3) then
-                           loaderAction <= loader_Data;
-                           DATA_LAST <= '0';
-                           ADDR_COUNTER <= 0;
-                        else
-                           ADDR_COUNTER <= ADDR_COUNTER + 1;   
-                           loaderAction <= loader_Addr;                     
-                        end if;
-                        loaderState <= loader_WaitForChar;
-                     else 
-                        -- Were not expecting an address mark...
-                        loaderState <= loader_Reset;
-                        loaderAction <= loader_Addr;
-                     end if;
-
-                  when loader_Data =>
-                     if(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_END_MARK) then
-                        -- All Done
-                        loaderState <= loader_Reset;
-                        loaderAction <= loader_Addr; 
-                     elsif((FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_DATA_0_MARK) AND 
-                        (DATA_LAST = '0')) then
-                        -- Received top bits of data...
-                        LOAD_DATA(7 downto 4) <= FIFO_READ_DATA(3 downto 0);
-                        DATA_LAST = '1';
-                        loaderState <= loader_WaitForChar;
-                        loaderAction <= loader_Data;
-                     elsif((FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_DATA_1_MARK) AND
-                        (DATA_LAST = '1')) then
-                        -- Received bottom bits of data...
-                        LOAD_DATA(3 downto 0) <= FIFO_READ_DATA(3 downto 0);
-                        DATA_LAST = '0';
-                        loaderState <= loader_Write;
-                        loaderAction <= loader_Data;
-                     else
-                        --- ERROR
-                        loaderState <= loader_Reset;
-                        loaderAction <= loader_Addr;                        
-                     end if;
-
-                  end case;
-                
+               if(NOT IN_DATA) then
+                  IN_DATA <= '0';
+                  loaderState <= loader_Addr;
                else
-                  -- Should never actually get here...
-                  loaderState <= loader_Reset;
-                  loaderAction <= loader_addr;
-               end if;  
-             
-            when loader_Write =>
-               -- This can probably be combinatorial with "when" lists...
-               loaderState <= loader_WrDone;
-               loaderAction <= loader_Data;
-               IBM1410_DIRECT_MEMORY_ADDRESS <= ADDR;
-               IBM1410_DIRECT_MEMORY_WRITE_DATA <= LOAD_DATA;
-               if(ADDR > '0111010100101111') then    -- 30000 and up
-                  IBM1410_DIRECT_MEMORY_ENABLE = "1000";
-                  IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "1000";
-               elsif(ADDR > '0100111000011111') then -- 20000 to 29999
-                   IBM1410_DIRECT_MEMORY_ENABLE = "0100";
-                   IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "0100";
-               elsif(ADDR > '0010011100001111') then -- 10000 to 19999
-                   IBM1410_DIRECT_MEMORY_ENABLE = "0010";
-                   IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "0010";
-               else                                  -- 00000 to 09999
-                   IBM1410_DIRECT_MEMORY_ENABLE = "0001";
-                   IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "0001";
+                  IN_DATA <= '1';
+                  loaderState <= loader_Data;
                endif;
-               loaderState <= loader_WrDone;
-               loaderAction <= loader_Addr;
-                     
-            when loader_WrDone =>
-               IBM_DIRECT_MEMORY_ENABLE <= "0000";               
-               IBM_DIRECT_MEMORY_WRITE_ENABLE <= "0000";
-               loaderState <= loader_Getchar;
-               loaderAction <= loader_Data;
+            else
+               -- Should never actually get here...
+               IN_DATA <= '0';
+               loaderState <= loader_Reset;
+            end if;  
+
+
+         when loader_Addr =>
+            if(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_ADDRESS_MARK) then
+               -- Receiving address and see an address mark - OK
+               ADDR <= ADDR(8 downto 0) & FIFO_READ_DATA(3 downto 0);
+               if(ADDR_COUNTER = 3) then
+                  IN_DATA <= '1';
+                  DATA_LAST <= '0';
+                  ADDR_COUNTER <= 0;
+               else
+                  ADDR_COUNTER <= ADDR_COUNTER + 1;   
+                  IN_DATA <= '0';
+               end if;
+               loaderState <= loader_WaitForChar;
+            else 
+               -- Were not expecting an address mark...
+               IN_DATA <= '0';
+               loaderState <= loader_Reset;
+            end if;
+
+         when loader_Data =>
+            if(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_END_MARK) then
+               -- All Done
+               IN_DATA <= '0';
+               loaderState <= loader_Reset;
+            elsif((FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_DATA_0_MARK) AND 
+               (DATA_LAST = '0')) then
+               -- Received top bits of data...
+               LOAD_DATA(7 downto 4) <= FIFO_READ_DATA(3 downto 0);
+               DATA_LAST = '1';
+               IN_DATA <= '1';
+               loaderState <= loader_WaitForChar;
+            elsif((FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_DATA_1_MARK) AND
+               (DATA_LAST = '1')) then
+               -- Received bottom bits of data...
+               LOAD_DATA(3 downto 0) <= FIFO_READ_DATA(3 downto 0);
+               DATA_LAST = '0';
+               IN_DATA <= '0';
+               loaderState <= loader_Write;
+            else
+               --- ERROR
+               IN_DATA <= '0';
+               loaderState <= loader_Reset;
+            end if;
+           
+         when loader_Write =>
+            -- This can probably be combinatorial with "when" lists...
+            loaderAction <= loader_Data;
+            IBM1410_DIRECT_MEMORY_ADDRESS <= ADDR;
+            IBM1410_DIRECT_MEMORY_WRITE_DATA <= LOAD_DATA;
+            if(ADDR > '0111010100101111') then    -- 30000 and up
+               IBM1410_DIRECT_MEMORY_ENABLE = "1000";
+               IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "1000";
+            elsif(ADDR > '0100111000011111') then -- 20000 to 29999
+                IBM1410_DIRECT_MEMORY_ENABLE = "0100";
+                IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "0100";
+            elsif(ADDR > '0010011100001111') then -- 10000 to 19999
+               IBM1410_DIRECT_MEMORY_ENABLE = "0010";
+               IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "0010";
+            else                                  -- 00000 to 09999
+               IBM1410_DIRECT_MEMORY_ENABLE = "0001";
+               IBM1410_DIRECT_MEMORY_WRITE_ENABLE = "0001";
+            endif;
+            IN_DATA <= '0';
+            loaderState <= loader_WrDone;
+                    
+         when loader_WrDone =>
+            IBM_DIRECT_MEMORY_ENABLE <= "0000";               
+            IBM_DIRECT_MEMORY_WRITE_ENABLE <= "0000";
+            IN_DATA <= '0';
+            loaderState <= loader_Getchar;
             
       end case;
    
