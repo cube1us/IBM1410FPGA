@@ -908,7 +908,17 @@ architecture behavioral of IntegrationTest3_fpga is
       PV_SENSE_CHAR_0_BUS: out STD_LOGIC_VECTOR(7 downto 0);
       PV_SENSE_CHAR_1_BUS: out STD_LOGIC_VECTOR(7 downto 0);
       PV_SENSE_CHAR_2_BUS: out STD_LOGIC_VECTOR(7 downto 0);
-      PV_SENSE_CHAR_3_BUS: out STD_LOGIC_VECTOR(7 downto 0) );
+      PV_SENSE_CHAR_3_BUS: out STD_LOGIC_VECTOR(7 downto 0);
+      
+      IBM1410_DIRECT_MEMORY_ADDRESS:      in STD_LOGIC_VECTOR(13 downto 0);
+      IBM1410_DIRECT_MEMORY_ENABLE:       in STD_LOGIC_VECTOR(3 downto 0);
+      IBM1410_DIRECT_MEMORY_WRITE_ENABLE: in STD_LOGIC_VECTOR(3 downto 0);
+      IBM1410_DIRECT_MEMORY_WRITE_DATA:   in STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_0:    out STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_1:    out STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_2:    out STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_3:    out STD_LOGIC_VECTOR(7 downto 0) );
+      
    end component;
 
    component IBM1410ConsoleTypewriter is
@@ -976,6 +986,21 @@ architecture behavioral of IntegrationTest3_fpga is
        );
       
    end component;
+   
+   -- Component to allow directly writing into 1410 memory from console app.
+   
+   component IBM1410_MEMORY_LOADER_RECEIVER
+      Port ( FPGA_CLK : in STD_LOGIC;
+             RESET : in STD_LOGIC;
+             LOADER_FIFO_WRITE_ENABLE : in STD_LOGIC;
+             LOADER_FIFO_WRITE_DATA : in STD_LOGIC_VECTOR (7 downto 0);
+             IBM1410_DIRECT_MEMORY_ADDRESS: out STD_LOGIC_VECTOR(13 downto 0);
+             IBM1410_LOADER_DIRECT_MEMORY_ENABLE:  out STD_LOGIC_VECTOR(3 downto 0);
+             IBM1410_LOADER_DIRECT_MEMORY_WRITE_ENABLE:  out STD_LOGIC_VECTOR(3 downto 0);
+             IBM1410_DIRECT_MEMORY_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0)
+       );
+    end component;
+
 
    component IBM1410_CONSOLE_LAMPS_TRANSMITTER 
       Generic(LAMP_VECTOR_BITS: INTEGER; 
@@ -2036,6 +2061,18 @@ architecture behavioral of IntegrationTest3_fpga is
    -- signal i_TX_DV: STD_LOGIC;
    
    signal SLOW_TYPING: STD_LOGIC := '0';  -- 1 for normal selectric speeds
+
+   -- signals for direct memory access from PC console support program
+   
+    signal IBM1410_DIRECT_MEMORY_ADDRESS:      STD_LOGIC_VECTOR(13 downto 0);
+    signal IBM1410_DIRECT_MEMORY_ENABLE:       STD_LOGIC_VECTOR(3 downto 0);
+    signal IBM1410_DIRECT_MEMORY_WRITE_ENABLE: STD_LOGIC_VECTOR(3 downto 0);
+    signal IBM1410_DIRECT_MEMORY_WRITE_DATA:   STD_LOGIC_VECTOR(7 downto 0);
+    signal IBM1410_DIRECT_MEMORY_READ_DATA_0:  STD_LOGIC_VECTOR(7 downto 0);
+    signal IBM1410_DIRECT_MEMORY_READ_DATA_1:  STD_LOGIC_VECTOR(7 downto 0);
+    signal IBM1410_DIRECT_MEMORY_READ_DATA_2:  STD_LOGIC_VECTOR(7 downto 0);
+    signal IBM1410_DIRECT_MEMORY_READ_DATA_3:  STD_LOGIC_VECTOR(7 downto 0);
+  
    
 -- START USER TEST BENCH DECLARATIONS
 
@@ -2971,7 +3008,18 @@ memory: IBM1410Memory
       PV_SENSE_CHAR_0_BUS => PV_SENSE_CHAR_0_B1_BUS,
       PV_SENSE_CHAR_1_BUS => PV_SENSE_CHAR_1_B1_BUS,
       PV_SENSE_CHAR_2_BUS => PV_SENSE_CHAR_2_B1_BUS,
-      PV_SENSE_CHAR_3_BUS => PV_SENSE_CHAR_3_B1_BUS );
+      PV_SENSE_CHAR_3_BUS => PV_SENSE_CHAR_3_B1_BUS,
+
+      IBM1410_DIRECT_MEMORY_ADDRESS      => IBM1410_DIRECT_MEMORY_ADDRESS,
+      IBM1410_DIRECT_MEMORY_ENABLE       => IBM1410_DIRECT_MEMORY_ENABLE,  
+      IBM1410_DIRECT_MEMORY_WRITE_ENABLE => IBM1410_DIRECT_MEMORY_WRITE_ENABLE,
+      IBM1410_DIRECT_MEMORY_WRITE_DATA   => IBM1410_DIRECT_MEMORY_WRITE_DATA,
+      IBM1410_DIRECT_MEMORY_READ_DATA_0  => IBM1410_DIRECT_MEMORY_READ_DATA_0,
+      IBM1410_DIRECT_MEMORY_READ_DATA_1  => IBM1410_DIRECT_MEMORY_READ_DATA_1,
+      IBM1410_DIRECT_MEMORY_READ_DATA_2  => IBM1410_DIRECT_MEMORY_READ_DATA_2,
+      IBM1410_DIRECT_MEMORY_READ_DATA_3  => IBM1410_DIRECT_MEMORY_READ_DATA_3 );
+
+
 
 -- Instantiate the console typewriter
 
@@ -3085,6 +3133,8 @@ memory: IBM1410Memory
        UART_INPUT_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA 
        );
    
+   -- Instantiate the Console Switches
+   
    CONSOLE_SWITCHES_RECEIVER: IBM1410_CONSOLE_SWITCHES_RECEIVER 
     GENERIC MAP(
        SWITCH_VECTOR_BITS => SWITCH_VECTOR_BITS
@@ -3096,6 +3146,20 @@ memory: IBM1410Memory
            SWITCH_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA,
            SWITCH_VECTOR => SWITCH_VECTOR
     );
+    
+    -- Instantiate the direct memory load module
+    
+    MEMORY_LOADER_RECEIVER: IBM1410_MEMORY_LOADER_RECEIVER
+       Port MAP ( 
+          FPGA_CLK => FPGA_CLK,
+          RESET => UART_SWITCH_RESET,
+          LOADER_FIFO_WRITE_ENABLE => UART_INPUT_FIFO_WRITE_ENABLES(2),
+          LOADER_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA,
+          IBM1410_DIRECT_MEMORY_ADDRESS => IBM1410_DIRECT_MEMORY_ADDRESS,
+          IBM1410_LOADER_DIRECT_MEMORY_ENABLE => IBM1410_DIRECT_MEMORY_ENABLE,
+          IBM1410_LOADER_DIRECT_MEMORY_WRITE_ENABLE => IBM1410_DIRECT_MEMORY_WRITE_ENABLE,
+          IBM1410_DIRECT_MEMORY_WRITE_DATA => IBM1410_DIRECT_MEMORY_WRITE_DATA
+       );
     
     -- Instantiate the rotary switch decoders
     
@@ -3430,6 +3494,8 @@ end process;
    -- r_TX_BYTE <= UART_OUTPUT_TX_DATA;
    -- i_TX_DV <= IBM1410_CONSOLE_XMT_STROBE;
    RsTx <= UART_OUTPUT_TX_DATA;
+   
+  
    
 ---- Place your test bench code in the uut_process
 
