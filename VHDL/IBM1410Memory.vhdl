@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- Revision 6/12/2023 - Changed for True dual port RAM
 ----------------------------------------------------------------------------------
 
 
@@ -28,13 +28,13 @@ use IEEE.NUMERIC_STD.ALL;  -- For use in test benches only
 -- use IEEE.NUMERIC_STD.ALL;
 -- use IEEE.STD_LOGIC_SIGNED.ALL;
 
-
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
 entity IBM1410Memory is
+
    Port (
       FPGA_CLK: in STD_LOGIC;
       MY_X_RD_1: in STD_LOGIC;
@@ -55,7 +55,16 @@ entity IBM1410Memory is
       PV_SENSE_CHAR_0_BUS: out STD_LOGIC_VECTOR(7 downto 0);
       PV_SENSE_CHAR_1_BUS: out STD_LOGIC_VECTOR(7 downto 0);
       PV_SENSE_CHAR_2_BUS: out STD_LOGIC_VECTOR(7 downto 0);
-      PV_SENSE_CHAR_3_BUS: out STD_LOGIC_VECTOR(7 downto 0) );
+      PV_SENSE_CHAR_3_BUS: out STD_LOGIC_VECTOR(7 downto 0);
+      
+      IBM1410_DIRECT_MEMORY_ADDRESS:      in STD_LOGIC_VECTOR(13 downto 0);
+      IBM1410_DIRECT_MEMORY_ENABLE:       in STD_LOGIC_VECTOR(3 downto 0);
+      IBM1410_DIRECT_MEMORY_WRITE_ENABLE: in STD_LOGIC_VECTOR(3 downto 0);
+      IBM1410_DIRECT_MEMORY_WRITE_DATA:   in STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_0:    out STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_1:    out STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_2:    out STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_3:    out STD_LOGIC_VECTOR(7 downto 0) );
 
 
 end IBM1410Memory;
@@ -73,22 +82,35 @@ end component;
 
 component IBM1410_10K_RAM_INIT is
    port(
-   clk : in std_logic;
-   we : in std_logic;
-   en : in std_logic;
-   addr : in std_logic_vector(13 downto 0);
-   di : in std_logic_vector(7 downto 0);
-   do : out std_logic_vector(7 downto 0) );
+   clka : in std_logic;
+   wea : in std_logic;
+   ena : in std_logic;
+   addra : in std_logic_vector(13 downto 0);
+   dia : in std_logic_vector(7 downto 0);
+   doa : out std_logic_vector(7 downto 0);
+   clkb : in std_logic;
+   web : in std_logic;
+   enb : in std_logic;
+   addrb : in std_logic_vector(13 downto 0);
+   dib : in std_logic_vector(7 downto 0);
+   dob : out std_logic_vector(7 downto 0) );
 end component;
 
 component IBM1410_10K_RAM is
    port(
-   clk : in std_logic;
-   we : in std_logic;
-   en : in std_logic;
-   addr : in std_logic_vector(13 downto 0);
-   di : in std_logic_vector(7 downto 0);
-   do : out std_logic_vector(7 downto 0) );
+   clka : in std_logic;
+   wea : in std_logic;
+   ena : in std_logic;
+   addra : in std_logic_vector(13 downto 0);
+   dia : in std_logic_vector(7 downto 0);
+   doa : out std_logic_vector(7 downto 0);
+   clkb : in std_logic;
+   web : in std_logic;
+   enb : in std_logic;
+   addrb : in std_logic_vector(13 downto 0);
+   dib : in std_logic_vector(7 downto 0);
+   dob : out std_logic_vector(7 downto 0) );
+   
 end component;     
 
 constant TwoOfFive0: STD_LOGIC_VECTOR(4 downto 0) := "10100"; 
@@ -136,20 +158,33 @@ begin
       ADDR => ADDR);
       
    MemoryBank0: IBM1410_10K_RAM_INIT port map (
-      clk => FPGA_CLK, we => writeEnable, en => enable, addr => ADDR,
-      di => writeData0, do => PV_SENSE_CHAR_0_BUS); 
+      clka => FPGA_CLK, wea => writeEnable, ena => enable, addra => ADDR,
+      dia => writeData0, doa => PV_SENSE_CHAR_0_BUS,
+      clkb => FPGA_CLK, web => IBM1410_DIRECT_MEMORY_WRITE_ENABLE(0),
+      enb => IBM1410_DIRECT_MEMORY_ENABLE(0),addrb => IBM1410_DIRECT_MEMORY_ADDRESS,
+      dib => IBM1410_DIRECT_MEMORY_WRITE_DATA, dob => IBM1410_DIRECT_MEMORY_READ_DATA_0); 
       
    MemoryBank1: IBM1410_10K_RAM port map (
-      clk => FPGA_CLK, we => writeEnable, en => enable, addr => ADDR,
-      di => writeData1, do => PV_SENSE_CHAR_1_BUS);
+      clka => FPGA_CLK, wea => writeEnable, ena => enable, addra => ADDR,
+      dia => writeData1, doa => PV_SENSE_CHAR_1_BUS,
+      clkb => FPGA_CLK, web => IBM1410_DIRECT_MEMORY_WRITE_ENABLE(1),
+      enb => IBM1410_DIRECT_MEMORY_ENABLE(1),addrb => IBM1410_DIRECT_MEMORY_ADDRESS,
+      dib => IBM1410_DIRECT_MEMORY_WRITE_DATA, dob => IBM1410_DIRECT_MEMORY_READ_DATA_1); 
       
    MemoryBank2: IBM1410_10K_RAM port map (
-      clk => FPGA_CLK, we => writeEnable, en => enable, addr => ADDR,
-      di => writeData2, do => PV_SENSE_CHAR_2_BUS);
+      clka => FPGA_CLK, wea => writeEnable, ena => enable, addra => ADDR,
+      dia => writeData2, doa => PV_SENSE_CHAR_2_BUS,
+      clkb => FPGA_CLK, web => IBM1410_DIRECT_MEMORY_WRITE_ENABLE(2),
+      enb => IBM1410_DIRECT_MEMORY_ENABLE(2),addrb => IBM1410_DIRECT_MEMORY_ADDRESS,
+      dib => IBM1410_DIRECT_MEMORY_WRITE_DATA, dob => IBM1410_DIRECT_MEMORY_READ_DATA_2);       
 
    MemoryBank3: IBM1410_10K_RAM port map (
-      clk => FPGA_CLK, we => writeEnable, en => enable, addr => ADDR,
-      di => writeData3, do => PV_SENSE_CHAR_3_BUS);
+      clka => FPGA_CLK, wea => writeEnable, ena => enable, addra => ADDR,
+      dia => writeData3, doa => PV_SENSE_CHAR_3_BUS,
+      clkb => FPGA_CLK, web => IBM1410_DIRECT_MEMORY_WRITE_ENABLE(3),
+      enb => IBM1410_DIRECT_MEMORY_ENABLE(3),addrb => IBM1410_DIRECT_MEMORY_ADDRESS,
+      dib => IBM1410_DIRECT_MEMORY_WRITE_DATA, dob => IBM1410_DIRECT_MEMORY_READ_DATA_3); 
+      
 
    process(FPGA_CLK)
       begin

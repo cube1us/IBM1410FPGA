@@ -2,6 +2,8 @@
 --
 -- File: IBM1410_10K_RAM_INIT.vhdl
 --
+-- Revised 6/12/2023 to True dual port (two write processes) RAM
+--
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -9,12 +11,18 @@ use ieee.numeric_std.all;
 
 entity IBM1410_10K_RAM_INIT is
    port(
-   clk : in std_logic;
-   we : in std_logic;
-   en : in std_logic;
-   addr : in std_logic_vector(13 downto 0);
-   di : in std_logic_vector(7 downto 0);
-   do : out std_logic_vector(7 downto 0) );
+   clka : in std_logic;
+   wea : in std_logic;
+   ena : in std_logic;
+   addra : in std_logic_vector(13 downto 0);
+   dia : in std_logic_vector(7 downto 0);
+   doa : out std_logic_vector(7 downto 0);
+   clkb : in std_logic;
+   web : in std_logic;
+   enb : in std_logic;
+   addrb : in std_logic_vector(13 downto 0);
+   dib : in std_logic_vector(7 downto 0);
+   dob : out std_logic_vector(7 downto 0) );
 end IBM1410_10K_RAM_INIT;
 
 architecture behavioral of IBM1410_10K_RAM_INIT is
@@ -33,15 +41,29 @@ attribute RAM_INIT_style: string;
 attribute RAM_INIT_style of RAM_INIT : signal is "block";
 
 begin
-   process(clk)
+   process(clka)
    begin
-      if clk'event and clk = '1' then
-         if en = '1' then
-            if we = '1' then
-               RAM_INIT(to_integer(unsigned(addr))) <= di;
-               do <= di;
+      if clka'event and clka = '1' then
+         if ena = '1' then
+            if wea = '1' then
+               RAM_INIT(to_integer(unsigned(addra))) <= dia;
+               doa <= dia;
             else
-               do <= RAM_INIT(to_integer(unsigned(addr)));
+               doa <= RAM_INIT(to_integer(unsigned(addra)));
+            end if;
+         end if;
+      end if;
+   end process;
+
+   process(clkb)
+   begin
+      if clkb'event and clkb = '1' then
+         if enb = '1' then
+            if web = '1' then
+               RAM_INIT(to_integer(unsigned(addrb))) <= dib;
+               dob <= dib;
+            else
+               dob <= RAM_INIT(to_integer(unsigned(addrb)));
             end if;
          end if;
       end if;
