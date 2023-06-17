@@ -28,7 +28,10 @@ end IBM1410_10K_RAM;
 
 architecture behavioral of IBM1410_10K_RAM is
   type ram_type is array (9999 downto 0) of std_logic_vector(7 downto 0);
-  signal RAM : ram_type := (others => X"80");
+  shared variable RAM : ram_type := (others => X"80");
+
+attribute RAM_style: string;
+attribute RAM_style of RAM: variable is "block";
 
 begin
    
@@ -37,7 +40,7 @@ begin
       if clka'event and clka = '1' then
          if ena = '1' then
             if wea = '1' then
-               RAM(to_integer(unsigned(addra))) <= dia;
+               RAM(to_integer(unsigned(addra))) := dia;
                doa <= dia;
             else
                doa <= RAM(to_integer(unsigned(addra)));
@@ -51,7 +54,7 @@ begin
       if clkb'event and clkb = '1' then
          if enb = '1' then
             if web = '1' then
-               RAM(to_integer(unsigned(addrb))) <= dib;
+               RAM(to_integer(unsigned(addrb))) := dib;
                dob <= dib;
             else
                dob <= RAM(to_integer(unsigned(addrb)));

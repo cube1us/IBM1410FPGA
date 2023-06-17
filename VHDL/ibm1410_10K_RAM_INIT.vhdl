@@ -27,8 +27,8 @@ end IBM1410_10K_RAM_INIT;
 
 architecture behavioral of IBM1410_10K_RAM_INIT is
   type RAM_INIT_type is array (9999 downto 0) of std_logic_vector(7 downto 0);
-  signal RAM_INIT : RAM_INIT_type := (
-     -- 1 => X"5B", 2 => X"8A", 3 => X"8A", 4 => X"8A", 5 => X"8A",
+  shared variable RAM_INIT : RAM_INIT_type := (
+     -- => X"5B", 2 => X"8A", 3 => X"8A", 4 => X"8A", 5 => X"8A",
      -- 6 => X"08", 7 => X"E5", 8 => X"3B", 9 => X"FB",
      1 => X"64", 2 => X"1C", 3 => X"13", 4 => X"8A", 
      5 => X"8A", 6 => X"8A", 7 => X"8A", 8 => X"02",
@@ -38,7 +38,7 @@ architecture behavioral of IBM1410_10K_RAM_INIT is
      others => X"80");
  
 attribute RAM_INIT_style: string;
-attribute RAM_INIT_style of RAM_INIT : signal is "block";
+attribute RAM_INIT_style of RAM_INIT : variable is "block";
 
 begin
    process(clka)
@@ -46,7 +46,7 @@ begin
       if clka'event and clka = '1' then
          if ena = '1' then
             if wea = '1' then
-               RAM_INIT(to_integer(unsigned(addra))) <= dia;
+               RAM_INIT(to_integer(unsigned(addra))) := dia;
                doa <= dia;
             else
                doa <= RAM_INIT(to_integer(unsigned(addra)));
@@ -60,7 +60,7 @@ begin
       if clkb'event and clkb = '1' then
          if enb = '1' then
             if web = '1' then
-               RAM_INIT(to_integer(unsigned(addrb))) <= dib;
+               RAM_INIT(to_integer(unsigned(addrb))) := dib;
                dob <= dib;
             else
                dob <= RAM_INIT(to_integer(unsigned(addrb)));
