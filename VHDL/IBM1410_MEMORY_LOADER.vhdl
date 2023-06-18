@@ -26,7 +26,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -86,7 +86,7 @@ constant MEMORY_LOADER_DATA_1_MARK: STD_LOGIC_VECTOR(2 downto 0) := "001";
 
 type loaderState_type is (
    loader_Reset, loader_WaitForChar, loader_Getchar, loader_Addr, loader_data,
-	loader_Write, loader_WrDone);
+	loader_Write, loader_Enable, loader_Enable2, loader_WrDone, loader_BankCheck);
 
 signal loaderState: loaderState_type := loader_Reset;
 
@@ -103,7 +103,7 @@ signal ADDR:                 STD_LOGIC_VECTOR(13 downto 0);
 signal LOAD_DATA:            STD_LOGIC_VECTOR(7 downto 0);
 signal DATA_LAST:            STD_LOGIC := '0';
 signal IN_DATA       :       STD_LOGIC := '0';
-signal MEMORY_WRITE_ENABLE:  STD_LOGIC_VECTOR(3 downto 0);
+signal MEMORY_WRITE_BANK:  STD_LOGIC_VECTOR(3 downto 0);
 
 signal ADDR_COUNTER: INTEGER RANGE 0 to 3;
 
@@ -161,8 +161,13 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
          when loader_Addr =>
             if(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_ADDRESS_MARK) then
                -- Receiving address and see an address mark - OK
-               ADDR <= ADDR(9 downto 0) & FIFO_READ_DATA(3 downto 0);
-               if(ADDR_COUNTER = 3) then
+               -- The first byte of address is actually the bank select
+               if(ADDR_COUNTER = 0) then
+                  MEMORY_WRITE_BANK <= FIFO_READ_DATA(3 downto 0);
+               else
+                  ADDR <= ADDR(9 downto 0) & FIFO_READ_DATA(3 downto 0);
+               end if;
+               if(ADDR_COUNTER = 4) then
                   IN_DATA <= '1';
                   DATA_LAST <= '0';
                   ADDR_COUNTER <= 0;
@@ -202,13 +207,40 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
                loaderState <= loader_Reset;
             end if;
            
+         -- This state is just to let the address settle           
+           
          when loader_Write =>
-            IN_DATA <= '0';
+            IN_DATA <= '1';
+            loaderState <= loader_Enable;
+            
+         -- Write into Memory
+            
+         when loader_Enable =>
+            IN_DATA <= '1';
+            loaderState <= loader_Enable2;
+
+         when loader_Enable2 =>
+            IN_DATA <= '1';
             loaderState <= loader_WrDone;
-                    
+                     
+         -- Enable goes away before we change the address or data
+                             
          when loader_WrDone =>
-            IN_DATA <= '0';
-            loaderState <= loader_Getchar;
+            IN_DATA <= '1';
+            ADDR <= std_logic_vector(unsigned(ADDR) + 1);
+            loaderState <= loader_BankCheck;
+            
+         when loader_BankCheck =>
+            IN_DATA <= '1';
+            -- If the address tries to go to 10000, set to 0
+            -- and increment the bank.
+            if(ADDR > "10011100001111") then
+               ADDR <= "00000000000000";
+               -- Shift to the next bank - this may end up shifting the "1" off the end
+               -- That is a "safe" fail - no banks will be enabled...
+               MEMORY_WRITE_BANK <= MEMORY_WRITE_BANK(MEMORY_WRITE_BANK'length-2 downto 0) & "0";
+            end if;
+            loaderState <= loader_WaitForChar;
             
       end case;
    
@@ -242,24 +274,33 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
 
    IBM1410_DIRECT_MEMORY_ADDRESS <= ADDR;
    IBM1410_DIRECT_MEMORY_WRITE_DATA <= LOAD_DATA;
-   IBM1410_LOADER_DIRECT_MEMORY_ENABLE <= MEMORY_WRITE_ENABLE;
-   IBM1410_LOADER_DIRECT_MEMORY_WRITE_ENABLE <= MEMORY_WRITE_ENABLE;
+   
+   IBM1410_LOADER_DIRECT_MEMORY_ENABLE <= 
+      MEMORY_WRITE_BANK when loaderState = loader_Enable or
+         loaderState = loader_Enable2
+      else "0000";
+   IBM1410_LOADER_DIRECT_MEMORY_WRITE_ENABLE <= 
+      MEMORY_WRITE_BANK when loaderState = loader_Enable or
+         loaderState = loader_Enable2
+      else "0000";
+   
 
    -- Assign proper memory enable bit based on address (in DECIMAL)
    -- Note that enable and write enable are the same, as we are just
    -- writing.  Outside of this module, it would be possible to
    -- multiplex the enable bit (as opposed to the write enable bit)
 
-   MEMORY_WRITE_ENABLE <= 
-      "1000" when loaderState = loader_Write AND ADDR > "0111010100101111" else    -- 30000 and up
-      "0100" when loaderState = loader_Write AND ADDR > "0100111000011111" else    -- 20000 to 29999
-      "0010" when loaderState = loader_Write AND ADDR > "0010011100001111" else    -- 10000 to 19999
-      "0001" when loaderState = loader_Write else                                  -- 00000 to 09999
-      "0000";                                                                     -- NOT writing
+--   MEMORY_WRITE_ENABLE <= 
+--      "1000" when loaderState = loader_Write AND ADDR > "0111010100101111" else    -- 30000 and up
+--      "0100" when loaderState = loader_Write AND ADDR > "0100111000011111" else    -- 20000 to 29999
+--      "0010" when loaderState = loader_Write AND ADDR > "0010011100001111" else    -- 10000 to 19999
+--      "0001" when loaderState = loader_Write else                                  -- 00000 to 09999
+--      "0000";                                                                     -- NOT writing
       
    FIFO_READ_ENABLE <= '1' when (loaderState = loader_WaitForChar OR
       loaderState = loader_GetChar) AND FIFO_EMPTY = '0' else
       '0';
+      
 
 
 end Behavioral;
