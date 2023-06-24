@@ -139,7 +139,7 @@ signal   LOADER_DIRECT_MEMORY_ADDRESS: STD_LOGIC_VECTOR(13 downto 0);
 
 signal addr: integer range 0 to 10000;
 signal dat:  integer range 0 to 256;
-signal bk:   integer range 0 to 3;
+signal bk:   integer range 0 to 8;
 signal count: integer range 0 to 40000;
 signal dataRead: STD_LOGIC_VECTOR(7 downto 0);
 signal myreading: STD_LOGIC := '0';
@@ -428,6 +428,151 @@ uut_prociess: process
    
    wait for 1 ms;
    
+   -- Third test, write sequential numbers into
+   -- 20,000, 20,001, ...
+   
+   -- Send Address of 20000
+   
+   addr <= 0000;
+   bk <= 4;  -- 20000 to 29999 (For writing, this is the enable bit)
+   dat <= 0;
+   count <= 8;
+   myreading <= '0';
+      
+   wait for 20 ns;
+     
+   ADDRESS <= std_logic_vector(to_unsigned(addr,ADDRESS'length));
+   BANK <= std_logic_vector(to_unsigned(bk,BANK'length));
+   
+   wait for 20 ns;
+
+   -- Send address bank (which 10K bank)
+     
+   FIFO_WRITE_DATA <= "0" & ADDRESS_MARK & BANK;
+   FIFO_WRITE_ENABLE <= '1';
+   wait for 20 ns;
+   FIFO_WRITE_ENABLE <= '0';
+   wait for 20 ns;      
+     
+   -- Send address within the bank
+     
+   for a in 3 downto 0 loop
+      FIFO_WRITE_DATA <= "0" & ADDRESS_MARK & ADDRESS(a*4+3 downto a*4);
+      FIFO_WRITE_ENABLE <= '1';
+      wait for 20 ns;
+      FIFO_WRITE_ENABLE <= '0';
+      wait for 20 ns;      
+   end loop;
+   
+   wait for 10us;  -- A bit longer than it would actually take to send one byte @ 115,000 bps
+
+   
+   for n in 0 to count loop
+   
+      -- Send next data
+   
+      DATA <= std_logic_vector(to_unsigned(dat,DATA'length));
+      wait for 20 ns;
+      FIFO_WRITE_DATA <= "0" & DATA_0_MARK & DATA(7 downto 4);
+      FIFO_WRITE_ENABLE <= '1';
+      wait for 20ns;
+      FIFO_WRITE_ENABLE <= '0';
+      wait for 20ns; 
+      FIFO_WRITE_DATA <= "0" & DATA_1_MARK & DATA(3 downto 0);
+      FIFO_WRITE_ENABLE <= '1';
+      wait for 20ns;
+      FIFO_WRITE_ENABLE <= '0';
+      wait for 20ns; 
+      
+      wait for 10us;  -- 
+
+      dat <= dat + 1;           
+
+      wait for 10 us;
+
+   end loop;
+   
+   FIFO_WRITE_DATA <= "0" & END_MARK & "0000";   
+   FIFO_WRITE_ENABLE <= '1';
+   wait for 20ns;
+   FIFO_WRITE_ENABLE <= '0';
+   wait for 20ns; 
+   
+   
+   -- Fourth test, write 255 - sequential numbers into
+   -- 30,000, 30,001, ...
+   
+   -- Send Address of 20000
+   
+   addr <= 0000;
+   bk <= 8;  -- 30000 to 39999 (For writing, this is the enable bit)
+   dat <= 255;
+   count <= 8;
+   myreading <= '0';
+      
+   wait for 20 ns;
+     
+   ADDRESS <= std_logic_vector(to_unsigned(addr,ADDRESS'length));
+   BANK <= std_logic_vector(to_unsigned(bk,BANK'length));
+   
+   wait for 20 ns;
+
+   -- Send address bank (which 10K bank)
+     
+   FIFO_WRITE_DATA <= "0" & ADDRESS_MARK & BANK;
+   FIFO_WRITE_ENABLE <= '1';
+   wait for 20 ns;
+   FIFO_WRITE_ENABLE <= '0';
+   wait for 20 ns;      
+     
+   -- Send address within the bank
+     
+   for a in 3 downto 0 loop
+      FIFO_WRITE_DATA <= "0" & ADDRESS_MARK & ADDRESS(a*4+3 downto a*4);
+      FIFO_WRITE_ENABLE <= '1';
+      wait for 20 ns;
+      FIFO_WRITE_ENABLE <= '0';
+      wait for 20 ns;      
+   end loop;
+   
+   wait for 10us;  -- A bit longer than it would actually take to send one byte @ 115,000 bps
+
+   
+   for n in 0 to count loop
+   
+      -- Send next data
+   
+      DATA <= std_logic_vector(to_unsigned(dat,DATA'length));
+      wait for 20 ns;
+      FIFO_WRITE_DATA <= "0" & DATA_0_MARK & DATA(7 downto 4);
+      FIFO_WRITE_ENABLE <= '1';
+      wait for 20ns;
+      FIFO_WRITE_ENABLE <= '0';
+      wait for 20ns; 
+      FIFO_WRITE_DATA <= "0" & DATA_1_MARK & DATA(3 downto 0);
+      FIFO_WRITE_ENABLE <= '1';
+      wait for 20ns;
+      FIFO_WRITE_ENABLE <= '0';
+      wait for 20ns; 
+      
+      wait for 10us;  -- 
+
+      dat <= dat - 1;           
+
+      wait for 10 us;
+
+   end loop;
+   
+   FIFO_WRITE_DATA <= "0" & END_MARK & "0000";   
+   FIFO_WRITE_ENABLE <= '1';
+   wait for 20ns;
+   FIFO_WRITE_ENABLE <= '0';
+   wait for 20ns; 
+
+   
+   wait for 1 ms;
+   
+   
    -- Now, use the direct memory port to read it back (easier than the
    -- normal IBM 1410 port a...
    
@@ -452,7 +597,7 @@ uut_prociess: process
       wait for 20 ns;
       MY_DIRECT_MEMORY_ENABLE(bk-1) <= '0';
       assert dataRead = std_logic_vector(to_unsigned(dat,dataRead'length)) report
-         "Second test Bank 0 unequal Data compare" severity error;
+         "Second/third/fourth test Bank 0 unequal Data compare" severity error;
          
       if(dat = 0) then
          dat <= 1;
@@ -465,7 +610,7 @@ uut_prociess: process
 
    end loop;
    
-   -- Now compare the data in the second bank.
+   -- Now compare the data in the second bank to make sure it did NOT change
 
    addr <= 0;
    bk <= 2;  -- 10000 to 19999
@@ -486,7 +631,7 @@ uut_prociess: process
       wait for 20 ns;
       MY_DIRECT_MEMORY_ENABLE(bk-1) <= '0';
       assert dataRead = not std_logic_vector(to_unsigned(dat,dataRead'length)) report
-         "Second test second bank unequal Data compare" severity error;
+         "Second/third/fourth test second bank unequal Data compare" severity error;
          
       if(dat = 0) then
          dat <= 1;
@@ -498,7 +643,199 @@ uut_prociess: process
       wait for 20 ns;
 
    end loop;
+
+   -- Then check if the third bank is correct
       
+   addr <= 0;
+   bk <= 3;  -- 20000 to 29999  (For reading, this is just an integer.)
+   count <= 8;
+   dat <= 0;
+   myReading <= '1';
+   
+   wait for 20 ns;
+
+   for n in 0 to count loop
+      MY_DIRECT_MEMORY_ADDRESS <= 
+         std_logic_vector(to_unsigned(addr,MY_DIRECT_MEMORY_ADDRESS'length));
+      wait for 20 ns;
+      MY_DIRECT_MEMORY_ENABLE(bk-1) <= '1';
+      wait for 20 ns;
+      -- This data should come out from bank 2 and should match...
+      dataRead <= IBM1410_DIRECT_MEMORY_READ_DATA_2;
+      wait for 20 ns;
+      MY_DIRECT_MEMORY_ENABLE(bk-1) <= '0';
+      assert dataRead = std_logic_vector(to_unsigned(dat,dataRead'length)) report
+         "Third/Fourth test third bank unequal Data compare" severity error;
+         
+      dat <= dat + 1;      
+      addr <= addr + 1;
+      wait for 20 ns;
+
+   end loop;
+
+
+   -- Then check if the fourth bank is correct
+      
+   addr <= 0;
+   bk <= 4;  -- 30000 to 39999  (For reading, this is just an integer.)
+   count <= 8;
+   dat <= 255;
+   myReading <= '1';
+   
+   wait for 20 ns;
+
+   for n in 0 to count loop
+      MY_DIRECT_MEMORY_ADDRESS <= 
+         std_logic_vector(to_unsigned(addr,MY_DIRECT_MEMORY_ADDRESS'length));
+      wait for 20 ns;
+      MY_DIRECT_MEMORY_ENABLE(bk-1) <= '1';
+      wait for 20 ns;
+      -- This data should come out from bank 2 and should match...
+      dataRead <= IBM1410_DIRECT_MEMORY_READ_DATA_3;
+      wait for 20 ns;
+      MY_DIRECT_MEMORY_ENABLE(bk-1) <= '0';
+      assert dataRead = std_logic_vector(to_unsigned(dat,dataRead'length)) report
+         "Fourth test fourth bank unequal Data compare" severity error;
+         
+      dat <= dat - 1;      
+      addr <= addr + 1;
+      wait for 20 ns;
+
+   end loop;
+   
+   -- Bank advance (not wrap) test.  Starting at 29990 write 100, ... 119
+   -- (so 110 through 119 end up in 30000 thru 30009)
+     
+   -- Send Address of 29990
+   
+   addr <= 9990;
+   bk <= 4;  -- 20000 to 29999 (For writing, this is the enable bit)
+   -- Note that the bank vector will increment inside the loader...
+   dat <= 100;
+   count <= 20;
+   myreading <= '0';
+      
+   wait for 20 ns;
+     
+   ADDRESS <= std_logic_vector(to_unsigned(addr,ADDRESS'length));
+   BANK <= std_logic_vector(to_unsigned(bk,BANK'length));
+   
+   wait for 20 ns;
+
+   -- Send address bank (which 10K bank to START with)
+     
+   FIFO_WRITE_DATA <= "0" & ADDRESS_MARK & BANK;
+   FIFO_WRITE_ENABLE <= '1';
+   wait for 20 ns;
+   FIFO_WRITE_ENABLE <= '0';
+   wait for 20 ns;      
+     
+   -- Send address within the bank
+     
+   for a in 3 downto 0 loop
+      FIFO_WRITE_DATA <= "0" & ADDRESS_MARK & ADDRESS(a*4+3 downto a*4);
+      FIFO_WRITE_ENABLE <= '1';
+      wait for 20 ns;
+      FIFO_WRITE_ENABLE <= '0';
+      wait for 20 ns;      
+   end loop;
+   
+   wait for 10us;  -- A bit longer than it would actually take to send one byte @ 115,000 bps
+
+   
+   for n in 0 to count loop
+   
+      -- Send next data
+   
+      DATA <= std_logic_vector(to_unsigned(dat,DATA'length));
+      wait for 20 ns;
+      FIFO_WRITE_DATA <= "0" & DATA_0_MARK & DATA(7 downto 4);
+      FIFO_WRITE_ENABLE <= '1';
+      wait for 20ns;
+      FIFO_WRITE_ENABLE <= '0';
+      wait for 20ns; 
+      FIFO_WRITE_DATA <= "0" & DATA_1_MARK & DATA(3 downto 0);
+      FIFO_WRITE_ENABLE <= '1';
+      wait for 20ns;
+      FIFO_WRITE_ENABLE <= '0';
+      wait for 20ns; 
+      
+      wait for 10us;  -- 
+
+      dat <= dat + 1;           
+
+      wait for 10 us;
+
+   end loop;
+   
+   FIFO_WRITE_DATA <= "0" & END_MARK & "0000";   
+   FIFO_WRITE_ENABLE <= '1';
+   wait for 20ns;
+   FIFO_WRITE_ENABLE <= '0';
+   wait for 20ns; 
+   
+   wait for 1 ms;   
+
+   -- Then check if the results are as expected
+      
+   -- First, 29990 through 29999      
+            
+   addr <= 9990;
+   bk <= 3;  -- 20000 to 29999  (For reading, this is just an integer.)
+   count <= 10;
+   dat <= 100;
+   myReading <= '1';
+   
+   wait for 20 ns;
+
+   for n in 0 to count-1 loop
+      MY_DIRECT_MEMORY_ADDRESS <= 
+         std_logic_vector(to_unsigned(addr,MY_DIRECT_MEMORY_ADDRESS'length));
+      wait for 20 ns;
+      MY_DIRECT_MEMORY_ENABLE(bk-1) <= '1';
+      wait for 20 ns;
+      -- This data should come out from bank 2 and should match...
+      dataRead <= IBM1410_DIRECT_MEMORY_READ_DATA_2;
+      wait for 20 ns;
+      MY_DIRECT_MEMORY_ENABLE(bk-1) <= '0';
+      assert dataRead = std_logic_vector(to_unsigned(dat,dataRead'length)) report
+         "Bank advance test 29990 - 29999 Data compare" severity error;
+         
+      dat <= dat + 1;      
+      addr <= addr + 1;
+      wait for 20 ns;
+
+   end loop;
+
+   -- Then check 30000 thruogh 30009      
+            
+   addr <= 0000;
+   bk <= 4;  -- 20000 to 29999  (For reading, this is just an integer.)
+   count <= 10;
+   dat <= 110;
+   myReading <= '1';
+   
+   wait for 20 ns;
+
+   for n in 0 to count-1 loop
+      MY_DIRECT_MEMORY_ADDRESS <= 
+         std_logic_vector(to_unsigned(addr,MY_DIRECT_MEMORY_ADDRESS'length));
+      wait for 20 ns;
+      MY_DIRECT_MEMORY_ENABLE(bk-1) <= '1';
+      wait for 20 ns;
+      -- This data should come out from bank 2 and should match...
+      dataRead <= IBM1410_DIRECT_MEMORY_READ_DATA_3;
+      wait for 20 ns;
+      MY_DIRECT_MEMORY_ENABLE(bk-1) <= '0';
+      assert dataRead = std_logic_vector(to_unsigned(dat,dataRead'length)) report
+         "Bank advance test 30000 - 39999 Data compare" severity error;
+         
+      dat <= dat + 1;      
+      addr <= addr + 1;
+      wait for 20 ns;
+
+   end loop;
+
 
    assert false report "Simulation ended SUCCESSFULLY" severity failure;
    
