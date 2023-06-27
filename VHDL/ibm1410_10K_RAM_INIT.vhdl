@@ -28,13 +28,28 @@ end IBM1410_10K_RAM_INIT;
 architecture behavioral of IBM1410_10K_RAM_INIT is
   type RAM_INIT_type is array (9999 downto 0) of std_logic_vector(7 downto 0);
   shared variable RAM_INIT : RAM_INIT_type := (
-     -- => X"5B", 2 => X"8A", 3 => X"8A", 4 => X"8A", 5 => X"8A",
+  
+     -- 1 => X"5B", 2 => X"8A", 3 => X"8A", 4 => X"8A", 5 => X"8A",
      -- 6 => X"08", 7 => X"E5", 8 => X"3B", 9 => X"FB",
-     1 => X"64", 2 => X"1C", 3 => X"13", 4 => X"8A", 
-     5 => X"8A", 6 => X"8A", 7 => X"8A", 8 => X"02",
-     9 => X"8A", 10 => X"16", 11 => X"FB", 12 => X"FB",
-     20 => X"38", 21 => X"B5", 22 => X"23", 23 => X"23",
-     24 => X"26", 25 => X"7F", 
+     
+     -- HELLO TYPEOUT
+     -- 1 => X"64", 2 => X"1C", 3 => X"13", 4 => X"8A",  
+     -- 5 => X"8A", 6 => X"8A", 7 => X"8A", 8 => X"02",
+     -- 9 => X"8A", 10 => X"16", 11 => X"FB", 12 => X"FB",
+     -- 20 => X"38", 21 => X"B5", 22 => X"23", 23 => X"23",
+     -- 24 => X"26", 25 => X"7F",
+     
+     -- Simple subtract test
+     1 => X"52", 2 => X"8A", 3 => X"8A", 4 => X"8A", 5 => X"04",
+     6 => X"8A", 7 => X"8A", 8 => X"8A", 9=> X"8A", 10 => X"02",
+     11 => X"85", 12 => X"FB", 13 => X"FB",
+     15 => X"4A", 16 => X"8A", 17 => X"8A", 18 => X"8A", 19 => X"8A",
+     20 => X"8A", 21 => X"8A", 22 => X"8A", 23 => X"8A", 24 => X"8A",
+     25 => X"31", 26 => X"8A", 27 => X"8A", 28 => X"8A", 29 => X"8A",
+     30 => X"4A", 31 => X"8A", 32 => X"8A", 33 => X"8A", 34 => X"8A",
+     35 => X"8A", 36 => X"8A", 37 => X"8A", 38 => X"8A", 39 => X"8A",
+     40 => X"32",
+     
      others => X"80");
  
 attribute RAM_INIT_style: string;
