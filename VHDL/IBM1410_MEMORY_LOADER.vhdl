@@ -41,7 +41,8 @@ entity IBM1410_MEMORY_LOADER_RECEIVER is
            IBM1410_DIRECT_MEMORY_ADDRESS: out STD_LOGIC_VECTOR(13 downto 0);
            IBM1410_LOADER_DIRECT_MEMORY_ENABLE:  out STD_LOGIC_VECTOR(3 downto 0);
            IBM1410_LOADER_DIRECT_MEMORY_WRITE_ENABLE:  out STD_LOGIC_VECTOR(3 downto 0);
-           IBM1410_DIRECT_MEMORY_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0)
+           IBM1410_DIRECT_MEMORY_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0);
+           IBM1410_MEMORY_LOADER_DEBUG_VECTOR: out STD_LOGIC_VECTOR(4 downto 0)
     );
 end IBM1410_MEMORY_LOADER_RECEIVER;
 
@@ -86,7 +87,8 @@ constant MEMORY_LOADER_DATA_1_MARK: STD_LOGIC_VECTOR(2 downto 0) := "001";
 
 type loaderState_type is (
    loader_Reset, loader_WaitForChar, loader_Getchar, loader_Addr, loader_data,
-	loader_Write, loader_Enable, loader_Enable2, loader_WrDone, loader_BankCheck);
+	loader_Write, loader_Enable, loader_Enable2, loader_WrDone, loader_BankCheck, 
+	loader_Freeze);
 
 signal loaderState: loaderState_type := loader_Reset;
 
@@ -105,7 +107,7 @@ signal DATA_LAST:            STD_LOGIC := '0';
 signal IN_DATA       :       STD_LOGIC := '0';
 signal MEMORY_WRITE_BANK:  STD_LOGIC_VECTOR(3 downto 0);
 
-signal ADDR_COUNTER: INTEGER RANGE 0 to 3;
+signal ADDR_COUNTER: INTEGER RANGE 0 to 4;
 
 begin
 
@@ -153,13 +155,17 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
                end if;
             else
                -- Should never actually get here...
-               IN_DATA <= '0';
-               loaderState <= loader_Reset;
+               -- IN_DATA <= '0';
+               -- loaderState <= loader_Reset;
+               loaderState <= loader_getChar;
             end if;  
 
 
          when loader_Addr =>
-            if(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_ADDRESS_MARK) then
+            if(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_END_MARK) then
+               loaderState <= loader_Reset;
+               IN_DATA <= '0';
+            elsif(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_ADDRESS_MARK) then
                -- Receiving address and see an address mark - OK
                -- The first byte of address is actually the bank select
                if(ADDR_COUNTER = 0) then
@@ -242,6 +248,9 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
             end if;
             loaderState <= loader_WaitForChar;
             
+         when loader_Freeze =>
+            loaderState <= loader_Freeze;
+            
       end case;
    
    end if;
@@ -283,6 +292,18 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
       MEMORY_WRITE_BANK when loaderState = loader_Enable or
          loaderState = loader_Enable2
       else "0000";
+      
+   IBM1410_MEMORY_LOADER_DEBUG_VECTOR(0) <= '1' when
+    loaderState = loader_WaitForChar else '0';
+   IBM1410_MEMORY_LOADER_DEBUG_VECTOR(1) <= '1' when
+    loaderState = loader_Freeze else '0';
+   -- IBM1410_MEMORY_LOADER_DEBUG_VECTOR(2) <= '1' when
+   -- loaderState = loader_Addr else '0';
+   -- IBM1410_MEMORY_LOADER_DEBUG_VECTOR(3) <= '1' when
+   -- loaderState = loader_Data else '0';
+   IBM1410_MEMORY_LOADER_DEBUG_VECTOR(2) <= FIFO_FULL;
+   IBM1410_MEMORY_LOADER_DEBUG_VECTOR(3) <= FIFO_EMPTY;
+   IBM1410_MEMORY_LOADER_DEBUG_VECTOR(4) <= IN_DATA;
    
 
    -- Assign proper memory enable bit based on address (in DECIMAL)
