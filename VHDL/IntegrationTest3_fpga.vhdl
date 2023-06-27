@@ -997,7 +997,8 @@ architecture behavioral of IntegrationTest3_fpga is
              IBM1410_DIRECT_MEMORY_ADDRESS: out STD_LOGIC_VECTOR(13 downto 0);
              IBM1410_LOADER_DIRECT_MEMORY_ENABLE:  out STD_LOGIC_VECTOR(3 downto 0);
              IBM1410_LOADER_DIRECT_MEMORY_WRITE_ENABLE:  out STD_LOGIC_VECTOR(3 downto 0);
-             IBM1410_DIRECT_MEMORY_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0)
+             IBM1410_DIRECT_MEMORY_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0);
+             IBM1410_MEMORY_LOADER_DEBUG_VECTOR: out STD_LOGIC_VECTOR(4 downto 0)
        );
     end component;
 
@@ -1046,7 +1047,8 @@ architecture behavioral of IntegrationTest3_fpga is
        RESET: in STD_LOGIC;
        UART_RX_DATA: in STD_LOGIC;
        UART_INPUT_FIFO_WRITE_ENABLE : out STD_LOGIC_VECTOR (UART_INPUT_FIFO_COUNT-1 downto 0);
-       UART_INPUT_FIFO_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0) 
+       UART_INPUT_FIFO_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0);
+       UART_INPUT_CURRENT_STREAM: out STD_LOGIC_VECTOR(7 downto 0) 
        );
    end component;
 
@@ -2045,6 +2047,7 @@ architecture behavioral of IntegrationTest3_fpga is
    signal UART_RCV_DATA: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
    signal UART_INPUT_FIFO_WRITE_ENABLES: STD_LOGIC_VECTOR (UART_INPUT_FIFO_COUNT-1 downto 0) := (others => '0');
    signal UART_INPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0);
+   signal UART_INPUT_CURRENT_STREAM: STD_LOGIC_VECTOR(7 downto 0);
       
    -- UART Interface Signals
 
@@ -2072,6 +2075,7 @@ architecture behavioral of IntegrationTest3_fpga is
     signal IBM1410_DIRECT_MEMORY_READ_DATA_1:  STD_LOGIC_VECTOR(7 downto 0);
     signal IBM1410_DIRECT_MEMORY_READ_DATA_2:  STD_LOGIC_VECTOR(7 downto 0);
     signal IBM1410_DIRECT_MEMORY_READ_DATA_3:  STD_LOGIC_VECTOR(7 downto 0);
+    signal IBM1410_MEMORY_LOADER_DEBUG_VECTOR: STD_LOGIC_VECTOR(4 downto 0);
   
    
 -- START USER TEST BENCH DECLARATIONS
@@ -3130,7 +3134,8 @@ memory: IBM1410Memory
        RESET => UART_SWITCH_RESET,
        UART_RX_DATA => RsRx,
        UART_INPUT_FIFO_WRITE_ENABLE => UART_INPUT_FIFO_WRITE_ENABLES,
-       UART_INPUT_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA 
+       UART_INPUT_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA,
+       UART_INPUT_CURRENT_STREAM => UART_INPUT_CURRENT_STREAM 
        );
    
    -- Instantiate the Console Switches
@@ -3158,7 +3163,8 @@ memory: IBM1410Memory
           IBM1410_DIRECT_MEMORY_ADDRESS => IBM1410_DIRECT_MEMORY_ADDRESS,
           IBM1410_LOADER_DIRECT_MEMORY_ENABLE => IBM1410_DIRECT_MEMORY_ENABLE,
           IBM1410_LOADER_DIRECT_MEMORY_WRITE_ENABLE => IBM1410_DIRECT_MEMORY_WRITE_ENABLE,
-          IBM1410_DIRECT_MEMORY_WRITE_DATA => IBM1410_DIRECT_MEMORY_WRITE_DATA
+          IBM1410_DIRECT_MEMORY_WRITE_DATA => IBM1410_DIRECT_MEMORY_WRITE_DATA,
+          IBM1410_MEMORY_LOADER_DEBUG_VECTOR => IBM1410_MEMORY_LOADER_DEBUG_VECTOR
        );
     
     -- Instantiate the rotary switch decoders
@@ -3399,7 +3405,12 @@ end process;
    FPGA_CLK <= CLK;
    
    -- LED(9 downto 0) <= LAMPS_LOGIC_GATE_RING;
-   LED(4 downto 0) <= MY_MEM_AR_UP_BUS;
+   -- LED(4 downto 0) <= MY_MEM_AR_UP_BUS;
+   -- LED(4 downto 1) <= IBM1410_MEMORY_LOADER_DEBUG_VECTOR(4 downto 1);
+   -- LED(0) <= UART_INPUT_FIFO_WRITE_ENABLES(2);
+   -- LED(4 downto 0) <= UART_INPUT_CURRENT_STREAM(4 downto 0);
+   LED(3 downto 0) <= IBM1410_MEMORY_LOADER_DEBUG_VECTOR(4 downto 1);
+   LED(4) <= '1' when UART_INPUT_CURRENT_STREAM = "00000010" else '0';
    
    -- LED(9) <= btnC;
    -- LED(9) <= SWITCH_MOM_CO_CPR_RST;
