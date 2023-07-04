@@ -139,7 +139,8 @@ begin
   SW(14) <= '0'; -- Mode ALTER
   SW(0) <= '0';  -- FAST console
   
-  wait for 25 ms;
+  -- wait for 25 ms;
+  wait for 20 ms;
     
   btnC <= '1';
   report "Pressed Start";
@@ -290,7 +291,7 @@ begin
   
   -- End console CE Input Test
   
-  wait for 10 ms;  
+  -- wait for 10 ms;  
  
   assert false report "Normal End of Test" severity failure;
      
