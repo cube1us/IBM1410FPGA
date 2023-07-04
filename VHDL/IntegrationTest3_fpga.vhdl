@@ -2063,7 +2063,7 @@ architecture behavioral of IntegrationTest3_fpga is
    
    -- signal i_TX_DV: STD_LOGIC;
    
-   signal SLOW_TYPING: STD_LOGIC := '0';  -- 1 for normal selectric speeds
+   signal SLOW_TYPING: STD_LOGIC := '1';  -- 1 for normal selectric speeds
 
    -- signals for direct memory access from PC console support program
    
