@@ -1,6 +1,7 @@
-Generating HDL for page 15.50.06.1 ZONE ASSEM B.NOT B BITS FEATURE at 9/13/2020 5:13:07 PM
+Generating HDL for page 15.50.06.1 ZONE ASSEM B.NOT B BITS FEATURE at 6/29/2023 5:17:51 PM
 Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 4F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3C has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 1I with symbol R
 Removed 11 outputs from Gate at 3E to ignored block(s) or identical signal names
 Removed 7 outputs from Gate at 2G to ignored block(s) or identical signal names
@@ -16,11 +17,11 @@ Generating Statement for block at 5C with output pin(s) of OUT_5C_D
 Generating Statement for block at 4C with output pin(s) of OUT_4C_E
 	and inputs of OUT_5B_C,OUT_5C_D,MS_ZONE_ADDER_NOT_A_DOT_NOT_B_DOT_C_1
 	and logic function of NAND
-Generating Statement for block at 3C with output pin(s) of OUT_3C_C, OUT_3C_C
+Generating Statement for block at 3C with output pin(s) of OUT_3C_C
 	and inputs of OUT_DOT_4C
 	and logic function of NOT
 Generating Statement for block at 2C with output pin(s) of OUT_2C_C
-	and inputs of OUT_3C_C
+	and inputs of OUT_DOT_3C
 	and logic function of NOT
 Generating Statement for block at 1C with output pin(s) of 
 	and inputs of OUT_2C_C
@@ -28,6 +29,9 @@ Generating Statement for block at 1C with output pin(s) of
 Generating Statement for block at 4D with output pin(s) of OUT_4D_C
 	and inputs of MB_USE_NO_ZONES,MB_ASSEMBLY_CH_A_BIT_INSERT,MS_ZONE_ADDER_NOT_A_DOT_NOT_B_DOT_C_2
 	and logic function of NAND
+Generating Statement for block at 3D with output pin(s) of OUT_3D_F
+	and inputs of MB_B_MN_OR_IN_PL_OR_PL_OR_INV_MN_GATED
+	and logic function of NOT
 Generating Statement for block at 3E with output pin(s) of OUT_3E_E, OUT_3E_E, OUT_3E_E
 	and inputs of OUT_DOT_4F
 	and logic function of EQUAL
@@ -38,7 +42,7 @@ Generating Statement for block at 5G with output pin(s) of OUT_5G_C
 	and inputs of PS_B_CH_B_BIT,PB_USE_B_CH_ZONES
 	and logic function of NAND
 Generating Statement for block at 4G with output pin(s) of OUT_4G_E
-	and inputs of OUT_5G_C,OUT_5H_D
+	and inputs of OUT_5G_C,OUT_5H_D,MB_B_MN_OR_IN_PL_OR_PL_OR_INV_MN_GATED
 	and logic function of NAND
 Generating Statement for block at 2G with output pin(s) of OUT_2G_C, OUT_2G_C
 	and inputs of OUT_3E_E
@@ -61,9 +65,9 @@ Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
 Generating Statement for block at 4F with output pin(s) of OUT_DOT_4F
 	and inputs of OUT_4F_D,PS_ASM_CH_B_BIT_STAR_ADDER_ZONES,OUT_4G_E
 	and logic function of OR
-Generating output sheet edge signal assignment to 
-	signal MS_ASSEMBLY_CH_NOT_B_BIT
-	from gate output OUT_3C_C
+Generating Statement for block at 3C with output pin(s) of OUT_DOT_3C, OUT_DOT_3C
+	and inputs of OUT_3C_C,OUT_3D_F
+	and logic function of OR
 Generating output sheet edge signal assignment to 
 	signal PS_ASSEMBLY_CH_B_BIT
 	from gate output OUT_3E_E
@@ -73,3 +77,6 @@ Generating output sheet edge signal assignment to
 Generating output sheet edge signal assignment to 
 	signal MY_ASSEMBLY_CH_B_BIT
 	from gate output OUT_2I_B
+Generating output sheet edge signal assignment to 
+	signal MS_ASSEMBLY_CH_NOT_B_BIT
+	from gate output OUT_DOT_3C
