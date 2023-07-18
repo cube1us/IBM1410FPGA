@@ -137,6 +137,7 @@ begin
 
   SW(15) <= '0'; -- Mode DISPLAY
   SW(14) <= '0'; -- Mode ALTER
+  SW(1) <= '1';  -- 1401 Mode (for testing)
   SW(0) <= '0';  -- FAST console
   
   -- wait for 25 ms;
@@ -291,7 +292,9 @@ begin
   
   -- End console CE Input Test
   
-  -- wait for 10 ms;  
+  -- wait for 10 ms; 
+  
+  wait for 19 ms; 
  
   assert false report "Normal End of Test" severity failure;
      
