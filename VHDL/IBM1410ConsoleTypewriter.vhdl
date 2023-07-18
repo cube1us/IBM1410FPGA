@@ -601,7 +601,9 @@ space_process: process(FPGA_CLK,
                   spaceCounter <= FAST_SPACE_S0_TIME;
                end if;
             else
-               spaceState <= space_idle;             
+               spaceState <= space_idle; 
+               latchedSpace <= '0';
+               latchedBackspace <= '0';            
             end if;
      
          when space_s0 =>
@@ -1403,6 +1405,17 @@ MV_CONS_PRINTER_LOWER_CASE_STAR_S1NO <= inUpperCase;
 MV_CONS_PRINTER_ODD_BIT_CHECK <= not output_parity;
 MB_CONS_PRINTER_EVEN_BIT_CHECK <= output_parity;
 
+-- Console spacing confused me for  a while, thinking that the signal
+-- MV_CONS_PRINTER_SPACE_NO was only used when the space bar was 
+-- pressed.  It turns out it is a function cam driven output.  This
+-- was causing problems during ordinary output of a space.
+
+-- MV_CONS_PRINTER_SPACE_NO <= not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_SPACE);
+MV_CONS_PRINTER_SPACE_NO <= '0' when
+   (spaceState /= space_idle and PW_BACKSPACE_SOLENOID = '0' and latchedBackspace = '0') or 
+   sbState /= sb_idle
+   else '1';
+
 -- Page 45.50.07.1 shows the signal -W KEYBOARD_LOCK_SOLENOID
 -- shows this as -W, but the console sheet 40.30.01.1 shows this as
 -- +W   The console sheet and signal names for the locks show the
@@ -1452,7 +1465,6 @@ IBM1410_CONSOLE_LOCK_XMT_STROBE <= '1' when consoleLockState = consoleLock_updat
 
 -- Console Input Signals
 
-MV_CONS_PRINTER_SPACE_NO <= not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_SPACE);
 MV_CONS_INQUIRY_REQUEST_KEY_STAR_NO <= not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_INQUIRY_REQUEST);
 MV_CONS_INQUIRY_RELEASE_KEY_STAR_NO <= not CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_INQUIRY_RELEASE);
 PV_CONS_INQUIRY_CANCEL_KEY_STAR_NC <= CONSOLE_INPUT_CONTROL_KEY_BUFFER(CONSOLE_INPUT_CONTROL_INQUIRY_CANCEL);
