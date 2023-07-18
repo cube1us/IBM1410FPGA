@@ -1,5 +1,4 @@
-Generating HDL for page 14.18.04.1 ZONE ADDER 16K-ACC at 11/7/2020 8:56:00 AM
-Old test bench file ALD_14_18_04_1_ZONE_ADDER_16K_ACC_tb.vhdl 86 lines preserved and 32 declaration lines preserved
+Generating HDL for page 14.18.04.1 ZONE ADDER 16K-ACC at 7/17/2023 1:12:23 PM
 Generating Statement for block at 4C with output pin(s) of OUT_4C_E, OUT_4C_E
 	and inputs of OUT_5D_NoPin,OUT_4D_NoPin
 	and logic function of NAND
@@ -12,18 +11,12 @@ Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
 Generating Statement for block at 4D with output pin(s) of OUT_4D_NoPin
 	and inputs of OUT_5F_F,OUT_5G_D
 	and logic function of NAND
-Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
+Generating Statement for block at 5E with output pin(s) of OUT_5E_B
 	and inputs of OUT_5F_F,OUT_5G_D
 	and logic function of NAND
-Generating Statement for block at 3E with output pin(s) of OUT_3E_A
-	and inputs of OUT_5E_NoPin,OUT_4F_NoPin
-	and logic function of NAND
-Generating Statement for block at 5F with output pin(s) of OUT_5F_F, OUT_5F_F, OUT_5F_F
+Generating Statement for block at 5F with output pin(s) of OUT_5F_F, OUT_5F_F
 	and inputs of MS_ZONE_ADDER_A_A_DOT_B_A
 	and logic function of NOT
-Generating Statement for block at 4F with output pin(s) of OUT_4F_NoPin
-	and inputs of OUT_5F_F,MS_ZONE_ADDER_A_A_DOT_B_A
-	and logic function of NAND
 Generating Statement for block at 5G with output pin(s) of OUT_5G_D, OUT_5G_D
 	and inputs of PS_ZONE_ADDER_B_BITS_EVEN
 	and logic function of NOT
@@ -35,4 +28,4 @@ Generating output sheet edge signal assignment to
 	from gate output OUT_3C_C
 Generating output sheet edge signal assignment to 
 	signal PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN
-	from gate output OUT_3E_A
+	from gate output OUT_5E_B

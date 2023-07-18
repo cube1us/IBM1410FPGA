@@ -134,28 +134,28 @@ uut_process: process
    wait for 30 ns;
    check1(PS_ZONE_ADDER_TWO_BIT,'1',testName,"1A"); 
    check1(PS_ZONE_ADDER_NOT_TWO_BIT,'0',testName,"1B");
-   check1(PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN,'0',testName,"1C");
+   check1(PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN,'1',testName,"1C");
 
    MS_ZONE_ADDER_A_A_DOT_B_A <= '0';
    PS_ZONE_ADDER_B_BITS_EVEN <= '0';  
    wait for 30 ns;
    check1(PS_ZONE_ADDER_TWO_BIT,'0',testName,"2A"); 
    check1(PS_ZONE_ADDER_NOT_TWO_BIT,'1',testName,"2B");
-   check1(PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN,'1',testName,"2C");
+   check1(PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN,'0',testName,"2C");
 
    MS_ZONE_ADDER_A_A_DOT_B_A <= '1';
    PS_ZONE_ADDER_B_BITS_EVEN <= '1';  
    wait for 30 ns;
    check1(PS_ZONE_ADDER_TWO_BIT,'0',testName,"3A"); 
    check1(PS_ZONE_ADDER_NOT_TWO_BIT,'1',testName,"3B");
-   check1(PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN,'0',testName,"3C");
+   check1(PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN,'1',testName,"3C");
 
    MS_ZONE_ADDER_A_A_DOT_B_A <= '0';
    PS_ZONE_ADDER_B_BITS_EVEN <= '1';  
    wait for 30 ns;
    check1(PS_ZONE_ADDER_TWO_BIT,'1',testName,"4A"); 
    check1(PS_ZONE_ADDER_NOT_TWO_BIT,'0',testName,"4B");
-   check1(PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN,'0',testName,"4C");
+   check1(PS_A_NOT_A_DOT_B_A_DOT_B_BITS_EVEN,'1',testName,"4C");
 
 
    wait;
