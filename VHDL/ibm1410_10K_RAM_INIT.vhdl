@@ -61,10 +61,11 @@ architecture behavioral of IBM1410_10K_RAM_INIT is
      -- 35 => X"8A", 36 => X"8A", 37 => X"8A", 38 => X"8A", 39 => X"4A",  -- 39 was 8A
      -- 40 => X"32",
 
-     -- 1401 B 020 b Instruction
+     -- 1401 B 020 b Instruction, location 20 now has SAR to location 30 Q 032 or SBR H 032
      
      1 => X"F2", 2 => X"8A", 3 => X"02", 4 => X"8A", 5 => X"80", 6 => X"FB",
-     20 => X"FB", 21 => X"FB",
+     20 => X"68", 21 => X"8A", 22 => X"83", 23 => X"02", 24 => X"FB", 25 => X"FB",  -- F8 == H, 68 == Q
+     30 => X"40",
      
      others => X"80");
  
