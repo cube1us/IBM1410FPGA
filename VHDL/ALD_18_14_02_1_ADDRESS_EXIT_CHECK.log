@@ -1,4 +1,4 @@
-Generating HDL for page 18.14.02.1 ADDRESS EXIT CHECK at 10/12/2020 12:57:37 PM
+Generating HDL for page 18.14.02.1 ADDRESS EXIT CHECK at 7/23/2023 9:24:53 PM
 NOTE: Special signal LOGIC ZERO removed from sheet inputs list.
 Ignoring Logic Block 2G with symbol L
 Processing extension from block at 2C (Database ID=265932) to 2D (Database ID=265934)
@@ -20,7 +20,7 @@ Generating Statement for block at 2C with output pin(s) of OUT_2C_H
 	and inputs of OUT_3C_F,OUT_3F_C,MS_START_RESET,'0'
 	and logic function of Trigger
 Generating Statement for block at 1C with output pin(s) of OUT_1C_D, OUT_1C_D
-	and inputs of OUT_2C_H,PS_ERROR_SAMPLE
+	and inputs of PS_ERROR_SAMPLE,OUT_2C_H
 	and logic function of NAND
 Generating Statement for block at 5D with output pin(s) of OUT_5D_C
 	and inputs of PS_AR_CH_VC_GROUP_TWO
