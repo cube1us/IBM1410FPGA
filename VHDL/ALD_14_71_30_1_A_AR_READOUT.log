@@ -1,5 +1,4 @@
-Generating HDL for page 14.71.30.1 A AR READOUT at 11/18/2020 2:25:11 PM
-Old test bench file ALD_14_71_30_1_A_AR_READOUT_tb.vhdl 153 lines preserved and 32 declaration lines preserved
+Generating HDL for page 14.71.30.1 A AR READOUT at 7/25/2023 2:17:58 PM
 NOTE: Special signal GROUND removed from sheet inputs list.
 Block at coordinate 4H is marked for No HDL Generation -- skipped.
 WARNING: Diagram block at coordinate 2H has 4 different output pins: A,B,K,D
@@ -49,11 +48,17 @@ Generating Statement for block at 1C with output pin(s) of OUT_1C_G
 Generating Statement for block at 5D with output pin(s) of OUT_5D_NoPin
 	and inputs of PS_C_CYCLE_CTRL,PS_I_RING_1_OR_5_OR_6_OR_10_OR_1401_DOT_3_OR_8
 	and logic function of NAND
+Generating Statement for block at 4D with output pin(s) of OUT_4D_G
+	and inputs of OUT_4E_C
+	and logic function of NAND
 Generating Statement for block at 2D with output pin(s) of OUT_2D_G
 	and inputs of OUT_2H_A,MS_SCAN_RESTART_LATCH_STAR_1311
 	and logic function of NAND
 Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
 	and inputs of PS_A_CYCLE_CTRL,PS_READ_OUT_AAR_ON_A_CY_OPS
+	and logic function of NAND
+Generating Statement for block at 4E with output pin(s) of OUT_4E_C
+	and inputs of PS_1401_STORE_A_AR_OP_CODE,PS_B_CYCLE_CTRL,PS_1401_MODE_1
 	and logic function of NAND
 Generating Statement for block at 5F with output pin(s) of OUT_5F_E
 	and inputs of PS_TABLE_SEARCH_OP_CODE,PS_A_CYCLE_CTRL,PS_BODY_CTRL_LATCH
@@ -83,7 +88,7 @@ Generating Statement for block at 5A with output pin(s) of OUT_DOT_5A
 	and inputs of OUT_5A_K,OUT_5B_F,OUT_4B_R
 	and logic function of OR
 Generating Statement for block at 4C with output pin(s) of OUT_DOT_4C
-	and inputs of OUT_4C_F,OUT_4F_D,OUT_4G_P
+	and inputs of OUT_4C_F,OUT_4F_D,OUT_4G_P,OUT_4D_G
 	and logic function of OR
 Generating Statement for block at 2C with output pin(s) of OUT_DOT_2C
 	and inputs of OUT_2C_E,OUT_2D_G
