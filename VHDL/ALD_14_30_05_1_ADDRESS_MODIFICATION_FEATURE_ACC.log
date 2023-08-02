@@ -1,6 +1,10 @@
-Generating HDL for page 14.30.05.1 ADDRESS MODIFICATION FEATURE-ACC at 8/28/2020 2:41:53 PM
-Old test bench file ALD_14_30_05_1_ADDRESS_MODIFICATION_FEATURE_ACC_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+Generating HDL for page 14.30.05.1 ADDRESS MODIFICATION FEATURE-ACC at 7/27/2023 1:30:59 PM
+NOTE: Special signal LOGIC ONE removed from sheet inputs list.
 Block at coordinate 2B is marked for No HDL Generation -- skipped.
+Note: DOT Function at 3A has input level(s) of Y, and output level(s) of Y, Logic Function set to OR
+Note: DOT Function at 3D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3H has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 1B with symbol R
 Ignoring Logic Block 1C with symbol R
 Ignoring Logic Block 2E with symbol R
@@ -36,7 +40,7 @@ Generating Statement for block at 3C with output pin(s) of OUT_3C_C
 	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_1_BIT,MY_MEM_AR_TO_ADDR_MOD_4_BIT
 	and logic function of NOR
 Generating Statement for block at 2C with output pin(s) of OUT_2C_G, OUT_2C_G
-	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_2_BIT,MY_MEM_AR_TO_ADDR_MOD_8_BIT,MY_1401_MODE_1,MY_LOGIC_GATE_E
+	and inputs of MY_MODIFY_BY_MINUS_ONE,MY_MEM_AR_TO_ADDR_MOD_2_BIT,MY_MEM_AR_TO_ADDR_MOD_8_BIT,MY_1401_MODE_1,'1'
 	and logic function of NOR
 Generating Statement for block at 3D with output pin(s) of OUT_3D_L
 	and inputs of MY_MODIFY_BY_PLUS_ONE,MY_MEM_AR_TO_ADDR_MOD_0_BIT,MY_MEM_AR_TO_ADDR_MOD_4_BIT
