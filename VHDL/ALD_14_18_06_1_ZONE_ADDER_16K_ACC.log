@@ -1,5 +1,4 @@
-Generating HDL for page 14.18.06.1 ZONE ADDER 16K-ACC at 8/26/2020 4:26:40 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_18_06_1_ZONE_ADDER_16K_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 14.18.06.1 ZONE ADDER 16K-ACC at 7/31/2023 11:03:22 AM
 Removed 2 outputs from Gate at 3B to ignored block(s) or identical signal names
 Removed 2 outputs from Gate at 3C to ignored block(s) or identical signal names
 Removed 2 outputs from Gate at 3D to ignored block(s) or identical signal names
