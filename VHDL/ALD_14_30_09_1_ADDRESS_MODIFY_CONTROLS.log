@@ -1,5 +1,6 @@
-Generating HDL for page 14.30.09.1 ADDRESS MODIFY CONTROLS at 8/29/2020 1:50:53 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_14_30_09_1_ADDRESS_MODIFY_CONTROLS_tb.vhdl, generating default test bench code.
+Generating HDL for page 14.30.09.1 ADDRESS MODIFY CONTROLS at 8/2/2023 5:09:13 PM
+Note: DOT Function at 3B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4E has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 3A
 Found combinatorial loop (need D FF) at output of gate at 2A
 Ignoring Logic Block 1B with symbol R
@@ -76,7 +77,7 @@ Generating Statement for block at 3B with output pin(s) of OUT_DOT_3B
 	and inputs of OUT_4B_R,OUT_3B_C
 	and logic function of OR
 Generating Statement for block at 4E with output pin(s) of OUT_DOT_4E, OUT_DOT_4E, OUT_DOT_4E
-	and inputs of OUT_5E_F,OUT_5F_D
+	and inputs of OUT_5E_F,OUT_5F_D,PS_ADDR_MOD_SET_TO_ZERO
 	and logic function of OR
 Generating output sheet edge signal assignment to 
 	signal PY_RESET_ADDR_MOD_LATCHES
