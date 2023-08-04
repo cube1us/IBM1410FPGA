@@ -1,5 +1,10 @@
-Generating HDL for page 15.38.04.1 OP MOD CONTROLS-ACC at 9/9/2020 10:40:42 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_38_04_1_OP_MOD_CONTROLS_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 15.38.04.1 OP MOD CONTROLS-ACC at 8/4/2023 2:39:09 PM
+Note: DOT Function at 2B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1C has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3G has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Removed 3 outputs from Gate at 1B to ignored block(s) or identical signal names
 Removed 2 outputs from Gate at 2G to ignored block(s) or identical signal names
 Removed 2 outputs from Gate at 3I to ignored block(s) or identical signal names
@@ -38,7 +43,7 @@ Generating Statement for block at 1C with output pin(s) of OUT_1C_G
 	and inputs of OUT_DOT_2C,MS_1401_MODE
 	and logic function of NAND
 Generating Statement for block at 4D with output pin(s) of OUT_4D_D
-	and inputs of PS_CHAR_TEST_BRANCH_OP_CODE,PS_1401_MODE,PS_LOGIC_GATE_D_1
+	and inputs of PS_1401_COND_TEST_OP_CODE,PS_1401_MODE,PS_LOGIC_GATE_D_1
 	and logic function of NAND
 Generating Statement for block at 1D with output pin(s) of OUT_1D_K
 	and inputs of PS_I_CYCLE,PS_A_CH_NOT_WM_BIT
