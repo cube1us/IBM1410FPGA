@@ -1,4 +1,4 @@
-Generating HDL for page 15.41.10.1 E CH FULL CONTROL-ACC at 6/13/2022 1:01:06 PM
+Generating HDL for page 15.41.10.1 E CH FULL CONTROL-ACC at 8/11/2023 1:52:46 PM
 Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 3E has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 4A
@@ -10,7 +10,7 @@ Removed 6 outputs from Gate at 2B to ignored block(s) or identical signal names
 Removed 4 outputs from Gate at 1E to ignored block(s) or identical signal names
 Removed 6 outputs from Gate at 2G to ignored block(s) or identical signal names
 Generating Statement for block at 5A with output pin(s) of OUT_5A_G
-	and inputs of PS_E_CH_INPUT_MODE,PS_SET_E2_REG
+	and inputs of PS_E_CH_INPUT_MODE,PS_SET_E2_REG_DELAYED
 	and logic function of NAND
 Generating Statement for block at 4A with *latched* output pin(s) of OUT_4A_D_Latch
 	and inputs of OUT_5A_G,OUT_3A_C,MS_E_CH_RESET

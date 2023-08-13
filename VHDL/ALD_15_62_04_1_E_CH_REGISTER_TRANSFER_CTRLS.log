@@ -1,5 +1,4 @@
-Generating HDL for page 15.62.04.1 E CH REGISTER TRANSFER CTRLS at 9/20/2020 11:59:36 AM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_15_62_04_1_E_CH_REGISTER_TRANSFER_CTRLS_tb.vhdl, generating default test bench code.
+Generating HDL for page 15.62.04.1 E CH REGISTER TRANSFER CTRLS at 8/10/2023 11:25:27 AM
 NOTE: Special signal LOGIC ONE removed from sheet inputs list.
 Note: DOT Function at 5B has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Note: DOT Function at 4C has input level(s) of S, and output level(s) of S, Logic Function set to OR
@@ -18,15 +17,15 @@ DOT Function at 2C has one output from a Trigger, one output from Non-Trigger
    Trigger block pin P located at 2C, Non-trigger is located at 2B Output is to 1C
    Using Trigger faux pin 6 as input side of pin P
 Processing extension from block at 2C (Database ID=255221) to 2D (Database ID=255226)
-Copied connection to extension input pin L to master block at 2C
 Copied connection to extension input pin K to master block at 2C
+Copied connection to extension input pin L to master block at 2C
 Copied connection from extension output pin B to master block at 2C
-Copied mapped pin A from extension 2D to master block at 2C
-Copied mapped pin B from extension 2D to master block at 2C
-Copied mapped pin D from extension 2D to master block at 2C
-Copied mapped pin E from extension 2D to master block at 2C
-Copied mapped pin F from extension 2D to master block at 2C
-Copied mapped pin H from extension 2D to master block at 2C
+Copied mapped pin C from extension 2D to master block at 2C
+Copied mapped pin K from extension 2D to master block at 2C
+Copied mapped pin L from extension 2D to master block at 2C
+Copied mapped pin P from extension 2D to master block at 2C
+Copied mapped pin Q from extension 2D to master block at 2C
+Copied mapped pin R from extension 2D to master block at 2C
 Moved connection from extension 2D pin B to be from master at 2C
 Processing extension from block at 3G (Database ID=255240) to 3H (Database ID=255241)
 Copied connection to extension input pin L to master block at 3G
@@ -67,7 +66,7 @@ Generating Statement for block at 4C with output pin(s) of OUT_4C_C
 	and inputs of OUT_DOT_5B,MS_E_CH_CLOCKED_STROBE_INPUT,OUT_DOT_5D
 	and logic function of NAND
 Generating Statement for block at 2C with output pin(s) of OUT_2C_P, OUT_2C_B
-	and inputs of PS_2ND_CLOCK_PULSE_21,MS_E_CH_RESET_1,'1',OUT_2B_R,PS_1ST_CLOCK_PULSE_21,'1'
+	and inputs of '1',MS_E_CH_RESET_1,PS_2ND_CLOCK_PULSE_21,OUT_2B_R,'1',PS_1ST_CLOCK_PULSE_21
 	and logic function of Trigger
 Generating Statement for block at 1C with output pin(s) of OUT_1C_C
 	and inputs of OUT_2C_P,OUT_1E_B

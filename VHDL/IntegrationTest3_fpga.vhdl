@@ -3540,7 +3540,7 @@ end process;
 --      "0100000000000" when SW(14) = '1' else  -- Alter
 --      "0010000000000"; -- Stop position
       
-   -- LAMP_SUPPRESSION <= '1';  -- TEMPORARY for testing
+   LAMP_SUPPRESSION <= SW(2); 
    
    -- SWITCH_ROT_ADDR_ENTRY_DK1 <= "0000000100000";  -- Address Entry Normal
    
