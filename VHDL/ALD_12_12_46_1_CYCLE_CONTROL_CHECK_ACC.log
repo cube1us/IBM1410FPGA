@@ -1,5 +1,7 @@
-Generating HDL for page 12.12.46.1 CYCLE CONTROL CHECK ACC at 6/27/2020 4:17:47 PM
-No existing test bench file D:\Users\jay\Schematics\IBM1410\VHDL\ALD_12_12_46_1_CYCLE_CONTROL_CHECK_ACC_tb.vhdl, generating default test bench code.
+Generating HDL for page 12.12.46.1 CYCLE CONTROL CHECK ACC at 8/18/2023 11:41:05 AM
+Note: DOT Function at 4B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1G has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 1D with symbol R
 Ignoring Logic Block 3H with symbol R
 Removed 1 outputs from Gate at 1E to ignored block(s) or identical signal names
@@ -47,10 +49,10 @@ Generating Statement for block at 5E with output pin(s) of OUT_5E_NoPin
 	and inputs of MS_F_CH_UNOVLP_IN_PROCESS,MS_E_CH_UNOVLP_IN_PROCESS
 	and logic function of AND
 Generating Statement for block at 4E with output pin(s) of OUT_4E_H
-	and inputs of OUT_5E_NoPin,OUT_5F_NoPin
+	and inputs of OUT_5E_NoPin,OUT_5F_NoPin,PS_I_O_LAST_EX_CYCLE
 	and logic function of NOR
 Generating Statement for block at 1E with output pin(s) of OUT_1E_G
-	and inputs of OUT_4A_B,OUT_4D_C,OUT_4E_H,OUT_4H_G,OUT_DOT_2D
+	and inputs of OUT_4A_B,OUT_4D_C,OUT_DOT_2D,OUT_4H_G,OUT_4E_H
 	and logic function of NOR
 Generating Statement for block at 5F with output pin(s) of OUT_5F_NoPin
 	and inputs of MS_X_CYCLE_CTRL,MS_I_CYCLE_CTRL
@@ -77,7 +79,7 @@ Generating Statement for block at 5H with output pin(s) of OUT_5H_NoPin
 	and inputs of MS_E_CH_UNOVLP_IN_PROCESS,MS_X_CYCLE_CTRL
 	and logic function of AND
 Generating Statement for block at 4H with output pin(s) of OUT_4H_G
-	and inputs of OUT_5G_NoPin,OUT_5H_NoPin
+	and inputs of OUT_5G_NoPin,OUT_5H_NoPin,PS_I_O_LAST_EX_CYCLE
 	and logic function of NOR
 Generating Statement for block at 1H with output pin(s) of OUT_1H_C
 	and inputs of OUT_DOT_1G,PS_PROCESS_ROUTINE
