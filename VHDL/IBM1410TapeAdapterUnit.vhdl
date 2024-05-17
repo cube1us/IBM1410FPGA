@@ -178,8 +178,8 @@ signal TAU_SELECTED_TAPE_DRIVE: integer := 15;
 signal TAU_TAPE_UNIT_STATUSES: TAU_TAPE_UNIT_STATUS_TYPE :=
  ("00000000", "00000000", "00000000", "00000000", "00000000", 
   "00000000", "00000000", "00000000", "00000000", "00000000", 
-  "11111111", "11111111", "11111111", "11111111", "11111111",
-  "11111111");
+  "11111110", "11111110", "11111110", "11111110", "11111110",
+  "11111110");
  
 
 signal tauTriggerStatus: STD_LOGIC := '0';
@@ -207,6 +207,7 @@ tauTriggerProcess: process(
    FIFO_READ_DATA_VALID,
    FIFO_EMPTY,
    FIFO_EMPTY_NEXT,
+   FIFO_READ_DATA,
    tauTriggerRead,
    tauTriggerStatus,
    tauTriggerState)
@@ -234,6 +235,7 @@ tauTriggerProcess: process(
             tauTriggerState <= tau_trigger_wait;            
             -- Latch the unit number send from the support program.
             -- Received byte will set either tauTriggerRead or tauTriggerStatus.
+            tauSupportUnit <= to_integer(unsigned(FIFO_READ_DATA));
          else
             tauTriggerState <= tau_trigger;
          end if;
@@ -340,7 +342,7 @@ TAU_SELECTED_TAPE_DRIVE <=
    9 when MC_UNIT_NU_9_TO_TAU = '0' 
    else 10;  -- No tape drive selected
   
-MC_TAPE_BUSY <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_READY_BIT));  
+MC_TAPE_READY <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_READY_BIT));  
 MC_SELECT_AT_LOAD_POINT <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_LOAD_POINT_BIT));
 MC_SEL_OR_TAPE_IND_ON <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_IND_BIT));
 MC_SELECT_AND_REWIND <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_REWIND_BIT));
