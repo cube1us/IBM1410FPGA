@@ -141,6 +141,14 @@ constant TAPE_UNIT_LOAD_POINT_BIT:  integer := 2;
 constant TAPE_UNIT_TAPE_IND_BIT:    integer := 3;
 constant TAPE_UNIT_TAPE_REWIND_BIT: integer := 4;
 
+constant TAPE_UNIT_CTL_READ_REQUEST: integer := 0;
+constant TAPE_UNIT_CTL_WRITE_REQUEST: integer := 1;
+constant TAPE_UNIT_CTL_BACKSPACE_REQUEST: integer := 2;
+constant TAPE_UNIT_CTL_ERASE_REQUEST: integer := 3;
+constant TAPE_UNIT_CTL_MARK_REQUEST: integer := 4;
+constant TAPE_UNIT_CTL_UNLOAD_REQUEST: integer := 5;
+constant TAPE_UNIT_CTL_REWIND_REQUEST: integer := 6;
+
 constant OUT_STROBE_TIME: integer := 10;      -- 100ns UART strobe time
 constant TAU_INPUT_FIFO_SIZE: integer := 10;  -- 1410 will be faster than PC support for now
 constant TAU_INPUT_FIFO_WIDTH: integer := 8;  -- Bits per character 
@@ -155,16 +163,23 @@ signal FIFO_EMPTY_NEXT: STD_LOGIC;
 signal FIFO_FULL: STD_LOGIC;        -- Not used - assumption for now is that 1410 will keep up.
 signal FIFO_FULL_NEXT: STD_LOGIC;   -- Not used - assumption for now is that 1410 will keep up.
 
+-- States for Process to handle tape action initiated from PC
+
 type tauTriggerState_type is (
    tau_trigger_reset, 
    tau_trigger_idle,
    tau_trigger, 
    tau_trigger_wait);   
    
+-- States to handle drive status update from PC   
+   
 type tauUnitStatusState_type is (
    tau_unit_status_idle,
    tau_unit_status_waitForChar,
-   tau_unit_status_getChar);
+   tau_unit_status_getChar,
+   tau_unit_set_status);
+
+-- Status to handle tape read
    
 type tauReadState_type is (
    tau_read_idle,
@@ -172,7 +187,17 @@ type tauReadState_type is (
    tau_read_getChar,
    tau_read_done);
    
-    
+-- States for Backup, Rewind and Rewind/Unload state machine   
+   
+type tauBRUEState_type is (
+   tau_brue_idle,
+   tau_brue_called,            -- Call activated - prep unit number to send to PC
+   tau_brue_fifo_wait,         -- waiting for FIFO to send unit number
+   tau_brue_send_unit_to_PC,   -- At this point, send unit to PC for tape operation
+   tau_brue_prepare_action,    -- Space between write enables
+   tau_brue_send_action_to_PC, -- At this point, send operation to PC for tape operation
+   tau_brue_wait );            -- After this point TAU goes NOT busy.
+               
 type TAU_TAPE_UNIT_STATUS_TYPE is array(0 to 15) of STD_LOGIC_VECTOR(7 downto 0);
 signal TAU_SELECTED_TAPE_DRIVE: integer := 15;
 signal TAU_TAPE_UNIT_STATUSES: TAU_TAPE_UNIT_STATUS_TYPE :=
@@ -180,17 +205,44 @@ signal TAU_TAPE_UNIT_STATUSES: TAU_TAPE_UNIT_STATUS_TYPE :=
   "00000000", "00000000", "00000000", "00000000", "00000000", 
   "11111110", "11111110", "11111110", "11111110", "11111110",
   "11111110");
- 
 
 signal tauTriggerStatus: STD_LOGIC := '0';
 signal tauTriggerRead:   STD_LOGIC := '0';
 signal tauTriggerComplete: STD_LOGIC := '0';
-signal tauSupportUnit: integer := 15;
+
+signal tauBusy: STD_LOGIC := '0';
+signal tauBRUEBusy: STD_LOGIC := '0';
+signal tauReadBusy: STD_LOGIC := '0';
+signal tauWriteBusy: STD_LOGIC := '0';
+signal tauWTMBusy: STD_LOGIC := '0';
+
+signal tauUnitControlXMTChar: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+signal tauWriteXMTChar: STD_LOGIC_VECTOR(7 downto 0) := "00000000"; 
+
+signal tauBRUEStrobe: STD_LOGIC := '0';
+signal tauWTMStrobe: STD_LOGIC := '0';
+signal tauWriteStrobe: STD_LOGIC := '0';
+signal tauWriteDataStrobe: STD_LOGIC := '0';
 
 signal tauTriggerState: tauTriggerState_type := tau_trigger_reset; 
 signal tauUnitStatusState: tauUnitStatusState_type := tau_unit_status_idle;
 signal tauReadState: tauReadState_type := tau_read_idle;
-  
+signal tauBRUEState: tauBRUEState_type := tau_brue_idle;
+
+signal tauRewindLatch: STD_LOGIC := '0';
+signal tauUnloadLatch: STD_LOGIC := '0';
+signal tauBackspaceLatch: STD_LOGIC := '0';
+signal tauEraseLatch: STD_LOGIC := '0';
+
+-- Set unit status arbiter signals
+signal tauBRUEUnit: integer := 0;
+signal tauBRUEStatus: STD_LOGIC_VECTOR(7 downto 0);
+signal tauBRUESetStatus: STD_LOGIC := '0';
+signal tauSupportUnit: integer := 0;
+signal tauSupportStatus: STD_LOGIC_VECTOR(7 downto 0);
+signal tauSupportSetStatus: STD_LOGIC := '0';
+
+
 begin
 
 -- State machines / processes
@@ -290,19 +342,177 @@ tauStatusProcess: process(
             
       when tau_unit_status_getChar => 
          if FIFO_READ_DATA_VALID = '1' then
-            -- Remember the status for this unit.
-            TAU_TAPE_UNIT_STATUSES(tauSupportUnit) <= FIFO_READ_DATA;
-            tauUnitStatusState <= tau_unit_status_idle;
+            -- Remember the status for this unit.  Have to do this thru a separate process/arbiter
+            -- Because we may need to set an initial status in the FPGA, but it can also bet set
+            -- here via received data from the PC
+            -- TAU_TAPE_UNIT_STATUSES(tauSupportUnit) <= FIFO_READ_DATA;
+            tauSupportStatus <= FIFO_READ_DATA;
+            tauUnitStatusState <= tau_unit_set_status;
          else
             tauUnitStatusState <= tau_unit_status_getChar;
          end if; 
          
-      
+      when tau_unit_set_status =>
+         tauUnitStatusState <= tau_unit_status_idle;
+               
       end case;
       
    end if;
    
    end process;
+
+-- Process to handle tape unit control commands except for Write Tape Mark
+-- (So, Rewind, Unload, Erase and Backspace)
+   
+tauBRUEProcess: process(
+   FPGA_CLK,
+   UART_RESET,
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
+   TAU_SELECTED_TAPE_DRIVE,
+   MC_REWIND_UNLOAD,
+   MC_REWIND_CALL,
+   MC_BACKSPACE_CALL,
+   tauBusy,
+   tauBRUEState)
+   
+   begin
+   
+   if UART_RESET = '1' then
+      tauBRUEState <= tau_brue_idle;
+      
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+   
+      case tauBRUEState is
+      
+      when tau_brue_idle =>        
+
+         tauUnitControlXMTChar <= "00000000";
+         tauRewindLatch <= '0'; tauUnloadLatch <= '0'; tauBackspaceLatch <= '0'; tauEraseLatch <= '0';         
+         
+         if tauBusy = '0' and 
+            (MC_REWIND_UNLOAD = '0' or MC_REWIND_CALL = '0' or MC_BACKSPACE_CALL = '0' or
+               MC_ERASE_CALL = '0') then
+            tauBRUEState <= tau_brue_called;
+
+            -- We need to latch the call type, because the channel may drop the call before
+            -- we are done with it, especially if the FIFO to the PC happens to get full.
+         
+            if MC_REWIND_CALL = '0' then
+               tauRewindLatch <= '1';
+            elsif MC_REWIND_UNLOAD = '0' then
+               tauUnloadLatch <= '1';
+            elsif MC_BACKSPACE_CALL = '0' then
+               tauBackspaceLatch <= '1';
+            elsif MC_ERASE_CALL = '0' then
+               tauEraseLatch <= '1';
+            end if;
+            -- Initialize reported status using existing status
+            tauBRUEStatus <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE);
+         else
+            tauBRUEState <= tau_brue_idle;
+         end if;
+
+                  
+      when tau_brue_called =>
+
+         -- Mark drive as not ready unless this is an erase call
+         if(tauEraseLatch = '0') then
+            tauBRUEStatus(TAPE_UNIT_READY_BIT) <= '0';
+         end if;
+         
+         -- If a rewind or unload call, set the rewind bit as well.
+         if(tauRewindLatch = '1' or tauUnloadLatch = '1') then
+            tauBRUEStatus(TAPE_UNIT_TAPE_REWIND_BIT) <= '1';
+         end if;         
+         
+         -- Prepare unit number to send to PC
+         tauUnitControlXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
+            tauUnitControlXMTChar'length));
+
+         -- Possible issue:  we may need another state to hold "tape busy" long enough
+         -- for the channel to notice.  Not sure.
+               
+         -- We need a separate fifo wait state here, because the FIFO could be full, and we
+         -- need to release Tape Busy so the channel can continue one.
+                   
+         tauBRUEState <= tau_brue_fifo_wait;
+                  
+      when tau_brue_fifo_wait =>
+         if FIFO_FULL = '1' then
+            tauBRUEState <= tau_brue_fifo_wait;
+         else
+            tauBRUEState <= tau_brue_send_unit_to_PC;
+         end if;
+         
+      
+      when tau_brue_send_unit_to_PC =>
+         -- This state just triggers the XMT Strobe.
+         tauBRUEState <= tau_brue_prepare_action;
+      
+      when tau_brue_prepare_action =>
+         -- Prepare the byte specifying the action to take to send to the PC      
+         tauUnitControlXMTChar <= "00000000";
+         tauUnitControlXMTChar(TAPE_UNIT_CTL_REWIND_REQUEST) <= tauRewindLatch;
+         tauUnitControlXMTChar(TAPE_UNIT_CTL_UNLOAD_REQUEST) <= tauUnloadLatch;
+         tauUnitControlXMTChar(TAPE_UNIT_CTL_BACKSPACE_REQUEST) <= tauBackspaceLatch;
+         tauUnitControlXMTChar(TAPE_UNIT_CTL_ERASE_REQUEST) <= tauEraseLatch;
+
+         -- Here we don't need a special FIFO wait state.
+         if FIFO_FULL = '1' then
+            tauBRUEState <= tau_brue_prepare_action;
+         else
+            tauBRUEState <= tau_brue_send_action_to_PC;
+         end if;
+                     
+      when tau_brue_send_action_to_PC =>
+         -- Again, as before, this state just triggers the XMT Strobe.
+         tauBRUEState <= tau_brue_wait;
+      
+      when tau_brue_wait =>
+         tauUnitControlXMTChar <= "00000000";
+         -- Wait for call signal from channel to go away.  Here we use the actual call
+         -- signals, NOT our latched ones.
+         if not(MC_ERASE_CALL = '0' or MC_REWIND_UNLOAD = '0' or MC_REWIND_CALL = '0' or
+            MC_BACKSPACE_CALL = '0') then
+            tauBRUEState <= tau_brue_idle;
+         else
+            tauBRUEState <= tau_brue_wait;
+         end if;
+   
+      end case;
+   end if;
+   
+   end process;
+         
+-- Process to arbitrate / prioritize tape unit statuses.  Because the PC can take time to react, we sometimes
+-- have to set a unit status initially in the FPGA (e.g., for Unit Control instructions like Rewind)
+-- The PC can later overwrite that status.  FPGA gets precedence because it's setting signals are only
+-- one clock period long.
+
+tauSetStatusProcess: process(
+   FPGA_CLK,
+   UART_RESET,
+   TAU_TAPE_UNIT_STATUSES,
+   tauBRUEStatus,
+   tauBRUESetStatus,
+   TAU_SELECTED_TAPE_DRIVE,
+   tauSupportUnit,
+   tauSupportStatus,
+   tauSupportSetStatus)
+   
+   begin
+   
+   if FPGA_CLK'event and FPGA_CLK = '1' then
+      if tauBRUESetStatus = '1' then
+         TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE) <= tauBRUEStatus;
+      elsif tauSupportSetStatus = '1' then
+         TAU_TAPE_UNIT_STATUSES(tauSupportUnit) <= tauSupportStatus;
+      end if;
+   end if;
+         
+   end process;
+
 
 -- Instantiate components   
 
@@ -325,7 +535,6 @@ tauStatusProcess: process(
          full_next => FIFO_FULL_NEXT,
          fill_count => OPEN
     );
-
    
 -- Combinatorial code
 
@@ -347,6 +556,13 @@ MC_SELECT_AT_LOAD_POINT <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(T
 MC_SEL_OR_TAPE_IND_ON <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_IND_BIT));
 MC_SELECT_AND_REWIND <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_REWIND_BIT));
 
+tauBRUEBusy  <= '1' when 
+   (tauBRUEState = tau_brue_called and MC_ERASE_CALL = '1')
+   else '0';   
+  
+tauBusy <= tauBRUEBusy or tauReadBusy or tauWriteBusy or tauWTMBusy;
+MC_TAPE_BUSY <= not tauBusy;
+
 FIFO_READ_ENABLE <= '1' when
    tauTriggerState = tau_trigger OR tauUnitStatusState = tau_unit_status_getchar
    else '0';
@@ -362,6 +578,21 @@ tauTriggerRead <= '1' when
       FIFO_READ_DATA(TAU_SUPPORT_INPUT_DATA_FLAG) = '1') OR
       tauReadState /= tau_read_idle
    else '0';
+
+IBM1410_TAU_XMT_CHAR <= 
+   tauUnitControlXMTChar or tauWriteXMTChar; 
    
-  
+IBM1410_TAU_XMT_STROBE <= '1' when
+   tauBRUEState = tau_brue_send_unit_to_PC or
+   tauBRUEState = tau_brue_send_action_to_PC 
+   else '0';
+
+ tauSupportSetStatus <= '1'  when 
+    tauUnitStatusState = tau_unit_set_status
+    else '0';
+    
+ tauBRUESetStatus <= '1' when
+    tauBRUEState = tau_brue_fifo_wait
+    else '0';
+       
 end Behavioral;

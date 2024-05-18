@@ -309,10 +309,105 @@ uut_process: process
    assert MC_SEL_OR_TAPE_IND_ON = '1' report "Test 4, Tape IND asserted" severity failure;
    assert MC_SELECT_AND_REWIND = '1' report "Test 4, Rewind asserted" severity failure;
   
+   -- Now select unit 9 - unit should report NOT ready.
+   
+   MC_UNIT_NU_0_TO_TAU <= '1';
+   MC_UNIT_NU_9_TO_TAU <= '0';
    wait for 100 ns;
-       
+
+   assert MC_TAPE_READY = '1' report "Test 5, Ready asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT = '1' report "Test 5, Load Point asserted" severity failure;
+   assert MC_SEL_OR_TAPE_IND_ON = '1' report "Test 5, Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND = '1' report "Test 5, Rewind asserted" severity failure;
+   
+   wait for 100 ns;
+   
+   -- Make Unit 9 read for Unit Control Tests
+
+   MC_UNIT_NU_9_TO_TAU <= '0';
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00001001";  -- Indicate we will provide status for Unit 0
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
+   wait for 100 ns;
+   
+   assert MC_TAPE_READY = '1' report "UC Test 1, Ready asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT = '1' report "UC Test 1, Load Point asserted" severity failure;
+   assert MC_SEL_OR_TAPE_IND_ON = '1' report "UC Test 1, Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND = '1' report "UC Test 1, Rewind asserted" severity failure;
+   
+   -- Now, set the ready status bit.      
+
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY, NOT at load point
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
+   wait for 100 ns;
+
+   assert MC_TAPE_READY = '0' report "UC Test 2, Ready NOT asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT = '1' report "UC Test 2, Load Point asserted" severity failure;
+   assert MC_SEL_OR_TAPE_IND_ON = '1' report "UC Test 2, Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND = '1' report "UC Test 2, Rewind asserted" severity failure;
+
+   -- Now, tell the TAU we want to rewind.  Since the channel drops the CALL signal quickly,\
+   -- we do so in this test, as well.
+   
+   assert MC_TAPE_BUSY = '1' report "UC Test 3, TAU busy before starting" severity failure;
+   
+   MC_REWIND_CALL <= '0';
+   wait for 10 ns;
+
+   -- The TAU should go busy -- briefly
+   
+   assert MC_TAPE_BUSY = '0' report "UC Test 3, TAU did not go busy" severity failure;
+
+   MC_REWIND_CALL <= '1';
+      
+   -- Then the TAU should drop busy
+
+   wait for 20 ns;
+   assert MC_TAPE_BUSY = '1' report "UC Test 3, TAU stayed busy" severity failure;   
+      
+   -- Wait for the TAU to send something to the PC... the unit number
+   
+   wait until IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE = '1' for 25 us;
+   
+   -- It should be for unit 9
+   
+   assert IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE = '1' 
+      report "UC Test 3, No unit char transmitted" severity failure;
+   assert IBM1410_TAU_INPUT_FIFO_WRITE_DATA = "00001001" report "UC Test 3, Unit NOT 9" severity failure;
+   
+   -- Wait for the TAU to send something to the PC... a rewind request.
+   
+   wait until IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE = '1' for 25 us;
+   
+   assert IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE = '1' 
+      report "UC Test 3, No request char transmitted" severity failure;
+   assert IBM1410_TAU_INPUT_FIFO_WRITE_DATA = "01000000" report "UC Test 3, Request not Rewind" severity failure;
+
+   -- At this point, Unit 9 should be not ready, and rewinding because PC can't react as fast as a real drive.
+   
+   assert MC_SELECT_AND_REWIND = '0' report "UC Test 3, Drive Status not rewinding" severity failure;     
+   assert MC_TAPE_READY = '1' report "UC Test 3, Drive Status READY, should not be." severity failure;
+          
+   -- Go back and select Unit 0 - status should be as it was before for Unit 0.
+   
+   MC_UNIT_NU_9_TO_TAU <= '1';
+   MC_UNIT_NU_0_TO_TAU <= '0';
+   wait for 100 ns;
+   
+   assert MC_TAPE_READY = '0' report "UC Test 4, Unit 0 Ready NOT asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT = '1' report "UC Test 4, Unit 0 Load Point asserted" severity failure;
+   assert MC_SEL_OR_TAPE_IND_ON = '1' report "UC Test 4, Unit 0 Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND = '1' report "UC Test 4, Unit 0 Rewind asserted" severity failure;
+
    assert false report "NORMAL end of simulation" severity failure;
    
-
 end process;
 end Behavioral;
