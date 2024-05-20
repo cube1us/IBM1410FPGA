@@ -370,26 +370,26 @@ uut_process: process
       
    -- Then the TAU should drop busy
 
-   wait for 20 ns;
+   wait for 10 ns;
    assert MC_TAPE_BUSY = '1' report "UC Test 3, TAU stayed busy" severity failure;   
       
    -- Wait for the TAU to send something to the PC... the unit number
    
-   wait until IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE = '1' for 25 us;
+   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
    
    -- It should be for unit 9
    
-   assert IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE = '1' 
+   assert IBM1410_TAU_XMT_STROBE = '1' 
       report "UC Test 3, No unit char transmitted" severity failure;
-   assert IBM1410_TAU_INPUT_FIFO_WRITE_DATA = "00001001" report "UC Test 3, Unit NOT 9" severity failure;
+   assert IBM1410_TAU_XMT_CHAR = "00001001" report "UC Test 3, Unit NOT 9" severity failure;
    
-   -- Wait for the TAU to send something to the PC... a rewind request.
+   -- Wait again for the TAU to send something to the PC... a rewind request.
    
-   wait until IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE = '1' for 25 us;
+   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
    
-   assert IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE = '1' 
+   assert IBM1410_TAU_XMT_STROBE = '1' 
       report "UC Test 3, No request char transmitted" severity failure;
-   assert IBM1410_TAU_INPUT_FIFO_WRITE_DATA = "01000000" report "UC Test 3, Request not Rewind" severity failure;
+   assert IBM1410_TAU_XMT_CHAR = "01000000" report "UC Test 3, Request not Rewind" severity failure;
 
    -- At this point, Unit 9 should be not ready, and rewinding because PC can't react as fast as a real drive.
    
