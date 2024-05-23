@@ -202,6 +202,23 @@ type tauReadState_type is (
    tau_read_strobe_channel,
    tau_read_done);
    
+-- States to handle Write and Write Tape Mark
+
+type tauWriteState_type is (
+   tau_write_idle,
+   tau_write_fifo_wait_1,
+   tau_write_send_unit_to_PC,
+   tau_write_fifo_wait_2,
+   tau_write_send_action_to_PC,
+   tau_write_latch_char,
+   tau_write_fifo_wait_3,
+   tau_write_wait_channel,
+   tau_write_send_char_to_PC,
+   tau_write_strobe_channel,
+   tau_write_fifo_wait_4,
+   tau_write_send_eor_to_PC,
+   tau_write_done);
+   
 -- States for Backup, Rewind and Rewind/Unload state machine   
    
 type tauBRUEState_type is (
@@ -229,15 +246,12 @@ signal tauBusy: STD_LOGIC := '0';
 signal tauBRUEBusy: STD_LOGIC := '0';
 signal tauReadBusy: STD_LOGIC := '0';
 signal tauWriteBusy: STD_LOGIC := '0';
-signal tauWTMBusy: STD_LOGIC := '0';
 
 signal tauUnitControlXMTChar: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
 signal tauWriteXMTChar: STD_LOGIC_VECTOR(7 downto 0) := "00000000"; 
 signal tauReadXMTChar: STD_LOGIC_VECTOR(7 downto 0) := "00000000";  -- Used to send unit # and operationt to PC
 
 signal tauBRUEStrobe: STD_LOGIC := '0';
-signal tauWTMStrobe: STD_LOGIC := '0';
-signal tauWriteStrobe: STD_LOGIC := '0';
 signal tauWriteDataStrobe: STD_LOGIC := '0';
 signal tauReadDataStrobe: STD_LOGIC := '0';  -- Used to send unit # and operation to PC
 
@@ -245,11 +259,13 @@ signal tauTriggerState: tauTriggerState_type := tau_trigger_reset;
 signal tauUnitStatusState: tauUnitStatusState_type := tau_unit_status_idle;
 signal tauReadState: tauReadState_type := tau_read_idle;
 signal tauBRUEState: tauBRUEState_type := tau_brue_idle;
+signal tauWriteState: tauWriteState_type := tau_write_idle;
 
 signal tauRewindLatch: STD_LOGIC := '0';
 signal tauUnloadLatch: STD_LOGIC := '0';
 signal tauBackspaceLatch: STD_LOGIC := '0';
 signal tauEraseLatch: STD_LOGIC := '0';
+signal tauWTMLatch : STD_LOGIC := '0';
 
 -- Set unit status arbiter signals
 signal tauBRUEUnit: integer := 0;
@@ -264,6 +280,8 @@ signal tauReadTapeIndicateLatch:  STD_LOGIC := '0';
 
 signal tauReadStrobeCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 signal tauReadDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := CHANNEL_CYCLE_LENGTH;
+signal tauWriteStrobeCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
+signal tauWriteDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := CHANNEL_CYCLE_LENGTH;
 
 signal tauUnitReady: STD_LOGIC := '0';
 
@@ -546,7 +564,7 @@ taureadProcess: process(
       -- Wake up on a read call to a read tape drive
       
       when tau_read_idle =>
-         if MC_READ_TAPE_CALL = '0' and tauUnitReady = '1' then
+         if tauBusy = '0' and MC_READ_TAPE_CALL = '0' and tauUnitReady = '1' then
             tauReadState <= tau_read_fifo_wait_1;
             tauReadXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
                tauReadXMTChar'length));
@@ -653,6 +671,163 @@ taureadProcess: process(
    
    end process;
       
+
+-- Process to handle a tape write or tape write tape mark request
+
+tauWriteProcess: process(
+   FPGA_CLK,
+   MC_COMP_RESET_TO_TAPE,
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
+   FIFO_EMPTY,
+   FIFO_READ_DATA,
+   FIFO_READ_DATA_VALID,
+   TAU_SELECTED_TAPE_DRIVE,
+   MC_WRITE_TAPE_CALL,
+   MC_WRITE_TAPE_MK_CALL,
+   MC_DISCONNECT_CALL,
+   MC_CPU_TO_TAU_BUS,
+   tauWTMLatch,
+   tauBusy,
+   tauUnitReady,
+   tauWriteStrobeCounter,
+   tauWriteDelayCounter,
+   tauWriteState)
+   
+   begin
+   
+   if MC_COMP_RESET_TO_TAPE = '0' then
+      tauWriteState <= tau_write_idle;
+      tauWriteStrobeCounter <= 0;
+      tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH;
+      tauWriteXMTChar <= "00000000";
+      tauWTMLatch <= '0';
+      
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+      case tauWriteState is
+
+      -- Wake up on a write or write tape mark call from CPU
+      
+      when tau_Write_idle =>
+         if (MC_WRITE_TAPE_CALL = '0' or MC_WRITE_TAPE_MK_CALL = '0') and tauUnitReady = '1' and
+            tauBusy = '0' then
+            tauWriteState <= tau_write_fifo_wait_1;
+            tauWriteXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
+               tauWriteXMTChar'length));
+            tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH;
+            tauWTMLatch <= not MC_WRITE_TAPE_MK_CALL;
+         else
+            tauWriteState <= tau_write_idle;
+         end if;
+      
+      -- Wait until FIFO used to send data to PC has room
+      when tau_write_fifo_wait_1 =>
+         if FIFO_FULL = '1' then
+            tauWriteState <= tau_write_fifo_wait_1;
+         else
+            tauWriteState <= tau_write_send_unit_to_PC;
+         end if;
+      
+      -- Send unit number to PC - trigger's strobe
+      when tau_write_send_unit_to_PC =>
+         tauWriteState <= tau_write_fifo_wait_2;
+      
+      -- Prepare write or write tape mark request, and wait for FIFO if necesary.
+      when tau_write_fifo_wait_2 =>
+         tauWriteXMTChar <= "00000000";
+         if tauWTMlatch = '0' then
+            tauWriteXMTChar(TAPE_UNIT_CTL_WRITE_REQUEST) <= '1';
+         else
+            tauWriteXMTChar(TAPE_UNIT_CTL_MARK_REQUEST) <= '1';
+         end if;
+         if FIFO_FULL = '1' then
+            tauWriteState <= tau_write_fifo_wait_2;
+         else
+            tauWriteState <= tau_write_send_action_to_PC;
+         end if;
+      
+      -- Strobe action character into output FIFO
+      when tau_write_send_action_to_PC =>
+         tauWriteState <= tau_write_latch_char;
+         
+      -- Save the charcter coming from the channel.  No harm if it is WTM, either.
+      when tau_write_latch_char =>
+         tauWriteXMTChar <= not MC_CPU_TO_TAU_BUS;
+         tauWriteDelayCounter <= 0;
+         tauWriteState <= tau_write_fifo_wait_3;
+           
+      -- Wait for FIFO to not be full, and also overlap count up channel wait time
+      when tau_write_fifo_wait_3 =>
+         if MC_DISCONNECT_CALL = '0' then
+            -- DISCONNECT: No more chars - send EOR unless WMT         
+            tauWriteState <= tau_write_fifo_wait_4;           
+         elsif FIFO_FULL = '1' then
+            if tauWriteDelayCounter /= CHANNEL_CYCLE_LENGTH then
+               tauWriteDelayCounter <= tauWriteDelayCounter + 1;
+            end if;
+            tauWriteState <= tau_write_fifo_wait_3;
+         else
+            tauWriteState <= tau_write_wait_channel;
+         end if;
+            
+      -- Give the channel time to give us a character if we have not already done so.
+      -- At that point, if this is a WTM, we are all done. 
+      when tau_write_wait_channel =>
+         if tauWriteDelayCounter /= CHANNEL_CYCLE_LENGTH then
+            tauWriteDelayCounter <= tauWriteDelayCounter + 1;
+            tauWriteState <= tau_write_wait_channel;
+         else
+            if tauWTMLatch = '1' then
+               tauWriteState <= tau_write_done;
+            else
+               tauWriteState <= tau_write_send_char_to_PC; 
+            end if;                       
+         end if;
+
+      -- send the character to the PC (strobe)
+      when tau_write_send_char_to_PC =>
+         if MC_DISCONNECT_CALL = '0' then
+            tauWriteState <= tau_write_fifo_wait_4; -- End of record tell the PC
+         else          
+            tauWriteStrobeCounter <= 0;
+            tauWriteState <= tau_write_strobe_channel;
+         end if;         
+      
+      -- Having sent the char off to the PC, we can now tell the channel we are
+      -- ready for another character.  This is combinatorial logic.
+      when tau_write_strobe_channel =>
+         if MC_DISCONNECT_CALL = '0' then            
+            tauWriteState <= tau_write_fifo_wait_4; -- End of Record tell the PC          
+         elsif tauWriteStrobeCounter /= CHANNEL_STROBE_LENGTH then
+            tauWriteStrobeCounter <= tauWriteStrobeCounter + 1;
+            tauWriteState <= tau_write_strobe_channel;
+         else
+            tauWriteState <= tau_write_latch_char;
+         end if;
+
+      -- End of record for normal write - prep to send EOR flag to PC, wait for FIFO
+      when tau_write_fifo_wait_4 =>
+         tauWriteXMTChar <= "01000000";  -- End of record flag.
+         if FIFO_FULL = '1' then
+            tauWriteState <= tau_write_fifo_wait_4;
+         else
+            tauWriteState <= tau_write_send_eor_to_PC;
+         end if;                     
+      
+      -- Strobe to transmit the EOR charcter to the PC...  (strobe)
+      when tau_write_send_eor_to_PC =>
+         tauWriteState <= tau_write_done;
+               
+      when tau_write_done =>
+         tauWriteState <= tau_write_idle;
+         tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH; 
+         tauWTMLatch <= '0';        
+                     
+      end case;     
+   end if;
+   
+   end process;
+
          
 -- Process to arbitrate / prioritize tape unit statuses.  Because the PC can take time to react, we sometimes
 -- have to set a unit status initially in the FPGA (e.g., for Unit Control instructions like Rewind)
@@ -737,7 +912,11 @@ tauReadBusy <= '1' when
    tauReadState /= tau_read_idle
    else '0';
    
-tauBusy <= tauBRUEBusy or tauReadBusy or tauWriteBusy or tauWTMBusy;
+tauWriteBusy <= '1' when
+   tauWriteState /= tau_write_idle
+   else '0'; 
+       
+tauBusy <= tauBRUEBusy or tauReadBusy or tauWriteBusy;
 MC_TAPE_BUSY <= not tauBusy;
 
 
@@ -766,7 +945,11 @@ IBM1410_TAU_XMT_STROBE <= '1' when
    tauBRUEState = tau_brue_send_unit_to_PC or
    tauBRUEState = tau_brue_send_action_to_PC or
    tauReadState = tau_read_send_unit_to_PC or
-   tauReadState = tau_read_send_action_to_PC
+   tauReadState = tau_read_send_action_to_PC or
+   tauWriteState = tau_write_send_unit_to_PC or
+   tauWriteState = tau_write_send_action_to_PC or
+   tauWritestate = tau_write_send_char_to_PC or
+   tauWritestate = tau_write_send_eor_to_PC
    else '0';
 
 tauSupportSetStatus <= '1'  when 
@@ -785,6 +968,9 @@ MC_TAPE_IN_PROCESS <= '0' when -- More to come on write
     tauReadBusy = '1'
     else '1';
 
- MC_TAPE_ERROR <= '1';
+MC_TAPE_ERROR <= '1';
+ 
+MC_TAPE_WRITE_STROBE <= '0' when
+   tauWriteState = tau_write_strobe_channel; 
        
 end Behavioral;
