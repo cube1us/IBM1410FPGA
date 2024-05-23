@@ -747,8 +747,7 @@ tauWriteProcess: process(
             tauWriteState <= tau_write_send_action_to_PC;
          end if;
       
-      -- Strobe action character into output FIFO
-      when tau_write_send_action_to_PC =>
+      when tau_write_send_action_to_PC =>   -- Strobes action char to UART
          tauWriteState <= tau_write_latch_char;
          
       -- Save the charcter coming from the channel.  No harm if it is WTM, either.

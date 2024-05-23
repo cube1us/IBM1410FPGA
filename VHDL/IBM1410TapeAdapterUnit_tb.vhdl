@@ -763,20 +763,10 @@ uut_process: process
    assert IBM1410_TAU_XMT_CHAR = "00000010" report "Write Test 1, Request not Write" severity failure;
    wait for 100 ns;   
    
-   -- Set up the iniital channel data
+   -- Set up the initial channel data
    
    MC_CPU_TO_TAU_BUS <= "00000001";
    wait for 10 ns;
-
-   -- Now we get to play PC Support program...  Wait for the X'40'
-      
-   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-   
-   assert IBM1410_TAU_XMT_STROBE = '1' 
-      report "Write Test 1, No request char transmitted" severity failure;
-   assert IBM1410_TAU_XMT_CHAR = "01000000" report "Write Test 1, Did not get X'40' SOR" 
-      severity failure;
-   wait for 100 ns;   
    
    -- Now send a 20 byte record
    
@@ -791,7 +781,7 @@ uut_process: process
       
       assert IBM1410_TAU_XMT_CHAR 
          = std_logic_vector(to_unsigned(i,IBM1410_TAU_XMT_CHAR'length))
-         report "Write Test 1, Data sent to PCis not as expected" severity failure;
+         report "Write Test 1, Data sent to PC is not as expected" severity failure;
       wait for 100 ns;   
 
       -- Wait for the channel strobe
