@@ -34,15 +34,20 @@ use IEEE.NUMERIC_STD.ALL;
 -- Multipler is 10000 for ms, 100 for testing.
 
 entity IBM1410TapeAdapterUnit is
-  
+
+   GENERIC(
+      CHANNEL_STROBE_LENGTH: integer := 1000;  -- 1 us strobe
+      CHANNEL_CYCLE_LENGTH:  integer := 11200 -- 11.2us per 800 bpi char
+   );   
+     
    PORT (
        FPGA_CLK: in STD_LOGIC;
-       UART_RESET: in STD_LOGIC;
         
        -- TAU Input Signals From CPU
        
        MC_CPU_TO_TAU_BUS: in STD_LOGIC_VECTOR(7 downto 0);       
        
+       MC_COMP_RESET_TO_TAPE: in STD_LOGIC;
        MC_WRITE_TAPE_CALL: in STD_LOGIC;
        MC_WRITE_TAPE_MK_CALL: in STD_LOGIC;
        MC_ERASE_CALL: in STD_LOGIC;
@@ -164,6 +169,7 @@ signal FIFO_EMPTY: STD_LOGIC;
 signal FIFO_EMPTY_NEXT: STD_LOGIC;
 signal FIFO_FULL: STD_LOGIC;        -- Not used - assumption for now is that 1410 will keep up.
 signal FIFO_FULL_NEXT: STD_LOGIC;   -- Not used - assumption for now is that 1410 will keep up.
+signal UART_RESET: STD_LOGIC;
 
 -- States for Process to handle tape action initiated from PC
 
@@ -192,6 +198,7 @@ type tauReadState_type is (
    tau_read_trigger_wait,
    tau_read_waitForChar,
    tau_read_getChar,
+   tau_read_wait_channel,    -- To make sure we dont' strobe the channel too fast.
    tau_read_strobe_channel,
    tau_read_done);
    
@@ -255,11 +262,8 @@ signal tauSupportSetStatus: STD_LOGIC := '0';
 signal tauReadFirstCharLatch: STD_LOGIC := '0';  -- For tape mark detection
 signal tauReadTapeIndicateLatch:  STD_LOGIC := '0';
 
-
-constant TAU_CHANNEL_STROBE_TIME: integer := 100;  -- 1 us channel strobe
-type tauChannelStrobeCounter is range 0 to TAU_CHANNEL_STROBE_TIME;
-signal tauReadStrobeCounter: tauChannelStrobeCounter := 0;
-signal tauChannelStrobeTime: tauChannelStrobeCounter := 100;
+signal tauReadStrobeCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
+signal tauReadDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := CHANNEL_CYCLE_LENGTH;
 
 signal tauUnitReady: STD_LOGIC := '0';
 
@@ -273,7 +277,7 @@ begin
 
 tauTriggerProcess: process(
    FPGA_CLK,
-   UART_RESET,
+   MC_COMP_RESET_TO_TAPE,
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
    IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
    FIFO_READ_DATA_VALID,
@@ -286,7 +290,7 @@ tauTriggerProcess: process(
    
    begin
    
-   if UART_RESET = '1' then
+   if MC_COMP_RESET_TO_TAPE = '0' then
       tauTriggerState  <= tau_trigger_reset;
          
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
@@ -325,22 +329,22 @@ tauTriggerProcess: process(
    
    end process;   
 
--- The tauStatusProcess wakes up on tauTriggerRead, and accepts the next byte of input
+-- The tauStatusProcess wakes up on tauTriggerStatus, and accepts the next byte of input
 -- from the support PC as a unit status for the specified unit.
 
 tauStatusProcess: process(
    FPGA_CLK,
-   UART_RESET,
+   MC_COMP_RESET_TO_TAPE,
    FIFO_READ_DATA_VALID,
    FIFO_READ_DATA,
    FIFO_EMPTY,
-   tauTriggerRead,
+   tauTriggerStatus,
    tauSupportUnit,
    tauUnitStatusState)
    
    begin
    
-   if UART_RESET = '1' then
+   if MC_COMP_RESET_TO_TAPE = '0' then
       tauUnitStatusState <= tau_unit_status_idle;
     
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
@@ -386,7 +390,7 @@ tauStatusProcess: process(
    
 tauBRUEProcess: process(
    FPGA_CLK,
-   UART_RESET,
+   MC_COMP_RESET_TO_TAPE,
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
    IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
    TAU_SELECTED_TAPE_DRIVE,
@@ -398,7 +402,7 @@ tauBRUEProcess: process(
    
    begin
    
-   if UART_RESET = '1' then
+   if MC_COMP_RESET_TO_TAPE = '0' then
       tauBRUEState <= tau_brue_idle;
       
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
@@ -509,7 +513,7 @@ tauBRUEProcess: process(
 
 taureadProcess: process(
    FPGA_CLK,
-   UART_RESET,
+   MC_COMP_RESET_TO_TAPE,
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
    IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
    FIFO_EMPTY,
@@ -522,15 +526,17 @@ taureadProcess: process(
    tauUnitReady,
    tauReadFirstCharLatch,
    tauReadStrobeCounter,
+   tauReadDelayCounter,
    tauReadState)
    
    begin
    
-   if UART_RESET = '1' then
+   if MC_COMP_RESET_TO_TAPE = '0' then
       tauReadState <= tau_read_idle;
       tauReadFirstCharLatch <= '0';
       tauReadTapeIndicateLatch <= '0';
       tauReadStrobeCounter <= 0;
+      tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;
       tauReadXMTChar <= "00000000";
       MC_TAU_TO_CPU_BUS <= "00000000";
       
@@ -544,6 +550,7 @@ taureadProcess: process(
             tauReadState <= tau_read_fifo_wait_1;
             tauReadXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
                tauReadXMTChar'length));
+            tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;
          else
             tauReadState <= tau_read_idle;
          end if;
@@ -559,10 +566,12 @@ taureadProcess: process(
       -- Send unit number to PC - trigger's strobe
       when tau_read_send_unit_to_PC =>
          tauReadState <= tau_read_fifo_wait_2;
+         tauReadTapeIndicateLatch <= '0';
       
       -- Prepare read action to send to PC, and wait for FIFO if necessary
       when tau_read_fifo_wait_2 =>
          tauReadXMTChar <= "00000000";
+         tauReadFirstCharLatch <= '1';
          tauReadXMTChar(TAPE_UNIT_CTL_READ_REQUEST) <= '1';
          if FIFO_FULL = '1' then
             tauReadState <= tau_read_fifo_wait_2;
@@ -598,25 +607,44 @@ taureadProcess: process(
                tauReadState <= tau_read_done;           
             elsif tauReadFirstCharLatch = '1' and (FIFO_READ_DATA and "00111111") = TAPE_MARK_CHAR then
                tauReadTapeIndicateLatch <= '1';
-            end if;
-            MC_TAU_TO_CPU_BUS <= FIFO_READ_DATA;
-            tauReadStrobeCounter <= 0;            
+               tauReadState <= tau_read_wait_channel;          
+               MC_TAU_TO_CPU_BUS <= not FIFO_READ_DATA;
+            else
+               tauReadState <= tau_read_wait_channel;
+               MC_TAU_TO_CPU_BUS <= not FIFO_READ_DATA;
+            end if;          
          else
             tauReadState <= tau_read_getChar;  -- Really should never happen...
          end if;    
       
+      when tau_read_wait_channel =>
+         -- Make sure we don't strobe channel faster than 800 bpi * 112.5 ips 
+         if tauReadDelayCounter = CHANNEL_CYCLE_LENGTH then
+            tauReadStrobeCounter <= 0;  
+            tauReadDelayCounter <= 0;
+            tauReadState <= tau_read_strobe_channel;
+         else
+            tauReadDelayCounter <= tauReadDelayCounter + 1;
+            tauReadState <= tau_read_wait_channel;
+         end if;            
+      
       when tau_read_strobe_channel =>
+         -- Generate strobe.  Also, this counts as part of the channel cycle length.
          tauReadFirstCharLatch <= '0';
-         if tauReadStrobeCounter = tauChannelStrobeTime then
+         if tauReadStrobeCounter = CHANNEL_STROBE_LENGTH then
             tauReadState <= tau_read_getChar;
          else
+            tauReadStrobeCounter <= tauReadStrobeCounter + 1;
+            if tauReadDelayCounter /= CHANNEL_CYCLE_LENGTH then
+               tauReadDelayCounter <= tauReadDelayCounter + 1;
+            end if;
             tauReadState <= tau_read_strobe_Channel;
          end if;
       
       when tau_read_done =>
-         tauReadTapeIndicateLatch <= '0';
          MC_TAU_TO_CPU_BUS <= "11111111";
          tauReadState <= tau_read_idle;
+         tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;         
          
       
       
@@ -633,7 +661,7 @@ taureadProcess: process(
 
 tauSetStatusProcess: process(
    FPGA_CLK,
-   UART_RESET,
+   MC_COMP_RESET_TO_TAPE,
    TAU_TAPE_UNIT_STATUSES,
    tauBRUEStatus,
    tauBRUESetStatus,
@@ -679,6 +707,8 @@ tauSetStatusProcess: process(
    
 -- Combinatorial code
 
+UART_RESET <= not MC_COMP_RESET_TO_TAPE;
+
 TAU_SELECTED_TAPE_DRIVE <= 
    0 when MC_UNIT_NU_0_TO_TAU = '0' else
    1 when MC_UNIT_NU_1_TO_TAU = '0' else
@@ -695,7 +725,8 @@ TAU_SELECTED_TAPE_DRIVE <=
 tauUnitReady <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_READY_BIT);  
 MC_TAPE_READY <= not tauUnitReady;  
 MC_SELECT_AT_LOAD_POINT <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_LOAD_POINT_BIT));
-MC_SEL_OR_TAPE_IND_ON <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_IND_BIT));
+MC_SEL_OR_TAPE_IND_ON <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_IND_BIT) or
+   tauReadTapeIndicateLatch) ; -- More to come on write.
 MC_SELECT_AND_REWIND <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_REWIND_BIT));
 
 tauBRUEBusy  <= '1' when 
@@ -725,7 +756,7 @@ tauTriggerRead <= '1' when
    (tauTriggerState = tau_trigger and FIFO_READ_DATA_VALID = '1' and 
       FIFO_READ_DATA(TAU_SUPPORT_INPUT_DATA_FLAG) = '1') OR
       tauReadState = tau_read_waitForChar or tauReadState = tau_read_getChar or
-      tauReadState = tau_read_strobe_channel 
+      tauReadState = tau_read_wait_channel or tauReadState = tau_read_strobe_channel 
    else '0';
 
 IBM1410_TAU_XMT_CHAR <= 
@@ -738,22 +769,22 @@ IBM1410_TAU_XMT_STROBE <= '1' when
    tauReadState = tau_read_send_action_to_PC
    else '0';
 
- tauSupportSetStatus <= '1'  when 
+tauSupportSetStatus <= '1'  when 
     tauUnitStatusState = tau_unit_set_status
     else '0';
     
- tauBRUESetStatus <= '1' when
+tauBRUESetStatus <= '1' when
     tauBRUEState = tau_brue_fifo_wait
     else '0';
     
- MC_SEL_OR_TAPE_IND_ON <= tauReadTapeIndicateLatch;  -- More to come on write.
- 
- MC_TAPE_READ_STROBE <= '0' when
+MC_TAPE_READ_STROBE <= '0' when
     tauReadState = tau_read_strobe_channel
     else '1';
  
- MC_TAPE_IN_PROCESS <= '0' when -- More to come on write
+MC_TAPE_IN_PROCESS <= '0' when -- More to come on write
     tauReadBusy = '1'
     else '1';
+
+ MC_TAPE_ERROR <= '1';
        
 end Behavioral;
