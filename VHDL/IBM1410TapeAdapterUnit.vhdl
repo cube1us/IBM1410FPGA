@@ -662,7 +662,8 @@ taureadProcess: process(
       when tau_read_done =>
          MC_TAU_TO_CPU_BUS <= "11111111";
          tauReadState <= tau_read_idle;
-         tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;         
+         tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;
+         tauReadXMTChar <= "00000000";         
          
       
       
@@ -821,7 +822,8 @@ tauWriteProcess: process(
       when tau_write_done =>
          tauWriteState <= tau_write_idle;
          tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH; 
-         tauWTMLatch <= '0';        
+         tauWTMLatch <= '0';      
+         tauWriteXMTChar <= "00000000";  
                      
       end case;     
    end if;
@@ -964,8 +966,8 @@ MC_TAPE_READ_STROBE <= '0' when
     tauReadState = tau_read_strobe_channel
     else '1';
  
-MC_TAPE_IN_PROCESS <= '0' when -- More to come on write
-    tauReadBusy = '1'
+MC_TAPE_IN_PROCESS <= '0' when 
+    tauReadBusy = '1' or tauWriteBusy = '1'
     else '1';
 
 MC_TAPE_ERROR <= '1';
