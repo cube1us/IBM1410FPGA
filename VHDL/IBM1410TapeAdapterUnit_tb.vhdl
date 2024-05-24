@@ -765,15 +765,17 @@ uut_process: process
    
    -- Set up the initial channel data
    
-   MC_CPU_TO_TAU_BUS <= "00000001";
+   MC_CPU_TO_TAU_BUS <= not "00000001";
    wait for 10 ns;
    
    -- Now send a 20 byte record
    
    for i in 1 to 20 loop
    
-      -- Wait for TAU to send the next character...            
-      wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;   
+      -- Wait for TAU to send the next character...
+      if IBM1410_TAU_XMT_STROBE = '0' then            
+         wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+      end if;   
       assert IBM1410_TAU_XMT_STROBE = '1' 
          report "Write Test 1, No data char transmitted" severity failure;
          
@@ -797,7 +799,7 @@ uut_process: process
       -- the TAU with the next character.
       
       if i /= 20 then           
-         MC_CPU_TO_TAU_BUS <= std_logic_vector(to_unsigned(i+1,MC_CPU_TO_TAU_BUS'length));
+         MC_CPU_TO_TAU_BUS <= not std_logic_vector(to_unsigned(i+1,MC_CPU_TO_TAU_BUS'length));
 
          -- Need to wait - normally our serial port will be slower than the channel
          wait for 1 us;

@@ -167,8 +167,8 @@ signal FIFO_READ_DATA_VALID: STD_LOGIC;
 signal FIFO_READ_DATA: STD_LOGIC_VECTOR(7 downto 0);
 signal FIFO_EMPTY: STD_LOGIC;
 signal FIFO_EMPTY_NEXT: STD_LOGIC;
-signal FIFO_FULL: STD_LOGIC;        -- Not used - assumption for now is that 1410 will keep up.
-signal FIFO_FULL_NEXT: STD_LOGIC;   -- Not used - assumption for now is that 1410 will keep up.
+signal FIFO_FULL: STD_LOGIC;
+signal FIFO_FULL_NEXT: STD_LOGIC;
 signal UART_RESET: STD_LOGIC;
 
 -- States for Process to handle tape action initiated from PC
@@ -210,7 +210,6 @@ type tauWriteState_type is (
    tau_write_send_unit_to_PC,
    tau_write_fifo_wait_2,
    tau_write_send_action_to_PC,
-   tau_write_latch_char,
    tau_write_fifo_wait_3,
    tau_write_wait_channel,
    tau_write_send_char_to_PC,
@@ -748,14 +747,10 @@ tauWriteProcess: process(
          end if;
       
       when tau_write_send_action_to_PC =>   -- Strobes action char to UART
-         tauWriteState <= tau_write_latch_char;
-         
-      -- Save the charcter coming from the channel.  No harm if it is WTM, either.
-      when tau_write_latch_char =>
-         tauWriteXMTChar <= not MC_CPU_TO_TAU_BUS;
+         -- tauWriteState <= tau_write_latch_char;
          tauWriteDelayCounter <= 0;
-         tauWriteState <= tau_write_fifo_wait_3;
-           
+         tauWriteState <= tau_write_fifo_wait_3;         
+         
       -- Wait for FIFO to not be full, and also overlap count up channel wait time
       when tau_write_fifo_wait_3 =>
          if MC_DISCONNECT_CALL = '0' then
@@ -780,6 +775,7 @@ tauWriteProcess: process(
             if tauWTMLatch = '1' then
                tauWriteState <= tau_write_done;
             else
+               tauWriteXMTChar <= not MC_CPU_TO_TAU_BUS; -- Latch character from CPU now
                tauWriteState <= tau_write_send_char_to_PC; 
             end if;                       
          end if;
@@ -802,7 +798,8 @@ tauWriteProcess: process(
             tauWriteStrobeCounter <= tauWriteStrobeCounter + 1;
             tauWriteState <= tau_write_strobe_channel;
          else
-            tauWriteState <= tau_write_latch_char;
+            -- Done strobing channel - go back and wait for next char from PC
+            tauWriteState <= tau_write_fifo_wait_3;
          end if;
 
       -- End of record for normal write - prep to send EOR flag to PC, wait for FIFO
