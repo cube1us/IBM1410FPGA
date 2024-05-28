@@ -46,7 +46,8 @@ architecture Behavioral of IBM1410TapeAdapterUnit_tb is
 
 -- Must match IBM1410TapeAdapterUnit
 
-constant TAPE_UNIT_READY_BIT:       integer := 0;
+constant TAPE_UNIT_READ_READY_BIT:  integer := 0;
+constant TAPE_UNIT_WRITE_READY_BIT: integer := 1;
 constant TAPE_UNIT_LOAD_POINT_BIT:  integer := 2;
 constant TAPE_UNIT_TAPE_IND_BIT:    integer := 3;
 constant TAPE_UNIT_TAPE_REWIND_BIT: integer := 4;
@@ -172,8 +173,8 @@ end component;
               
        -- PC Support System to TAU 
        
-    signal IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE: STD_LOGIC  := '0';
-    signal IBM1410_TAU_INPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";       
+   signal IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE: STD_LOGIC  := '0';
+   signal IBM1410_TAU_INPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";       
 
 
 begin
@@ -266,19 +267,25 @@ uut_process: process
    UART_RESET <= '0';
    wait for 100 ns;
    t := now;
-   
-   
-
-   -- With no unit selected, status should be not ready, with the other bits asserted
+      
+   -- With no unit selected, status should be not ready, with the other bits NOT asserted
    
    assert MC_TAPE_READY = '1' report "Test 1, Ready asserted" severity failure;
-   assert MC_SELECT_AT_LOAD_POINT = '0' report "Test 1, Load Point NOT asserted" severity failure;
-   assert MC_SEL_OR_TAPE_IND_ON = '0' report "Test 1, Tape IND NOT asserted" severity failure;
-   assert MC_SELECT_AND_REWIND = '0' report "Test 1, Rewind NOT asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT = '1' report "Test 1, Load Point asserted" severity failure;
+   assert MC_SEL_OR_TAPE_IND_ON = '1' report "Test 1, Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND = '1' report "Test 1, Rewind asserted" severity failure;
    
    -- Set TAU select for unit 0.  Now the status should still be not ready, but the others NOT asserted.
    
+   MC_RESET_TAPE_SEL_REG <= '0';
+   wait for 20 ns;
+   MC_RESET_TAPE_SEL_REG <= '1';
+   wait for 20 ns;
    MC_UNIT_NU_0_TO_TAU <= '0';
+   MC_SET_TAPE_SEL_REG <= '0';
+   wait for 20 ns;
+   MC_SET_TAPE_SEL_REG <= '1';   
+        
    wait for 100 ns;
 
    assert MC_TAPE_READY = '1' report "Test 2, Ready asserted" severity failure;
@@ -304,7 +311,7 @@ uut_process: process
    
    -- Now, set the ready status bit.      
 
-   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
    wait for 100 ns;
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
    wait for 10 ns;
@@ -318,8 +325,15 @@ uut_process: process
   
    -- Now select unit 9 - unit should report NOT ready.
    
-   MC_UNIT_NU_0_TO_TAU <= '1';
+   MC_RESET_TAPE_SEL_REG <= '0';
+   wait for 20 ns;
+   MC_RESET_TAPE_SEL_REG <= '1';
+   wait for 20 ns;
    MC_UNIT_NU_9_TO_TAU <= '0';
+   MC_UNIT_NU_0_TO_TAU <= '1';
+   MC_SET_TAPE_SEL_REG <= '0';
+   wait for 20 ns;
+   MC_SET_TAPE_SEL_REG <= '1';
    wait for 100 ns;
 
    assert MC_TAPE_READY = '1' report "Test 5, Ready asserted" severity failure;
@@ -331,9 +345,9 @@ uut_process: process
    
    -- Make Unit 9 ready for Unit Control Tests
 
-   MC_UNIT_NU_9_TO_TAU <= '0';
+   -- MC_UNIT_NU_9_TO_TAU <= '0';
    wait for 100 ns;
-   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00001001";  -- Indicate we will provide status for Unit 0
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00001001";  -- Indicate we will provide status for Unit 9
    wait for 100 ns;
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
    wait for 10 ns;
@@ -349,7 +363,8 @@ uut_process: process
 
    IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";
    wait for 100 ns;
-   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY, NOT at load point
+   -- Set Status READY for READ, and NOT at load point.
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY, NOT at load point
    wait for 100 ns;
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
    wait for 10 ns;
@@ -405,9 +420,16 @@ uut_process: process
           
    -- Go back and select Unit 0 - status should be as it was before for Unit 0.
    
-   MC_UNIT_NU_9_TO_TAU <= '1';
+   MC_RESET_TAPE_SEL_REG <= '0';
+   wait for 20 ns;
+   MC_RESET_TAPE_SEL_REG <= '1';
+   wait for 20 ns;
    MC_UNIT_NU_0_TO_TAU <= '0';
-   wait for 100 ns;
+   MC_UNIT_NU_9_TO_TAU <= '1';
+   MC_SET_TAPE_SEL_REG <= '0';
+   wait for 20 ns;
+   MC_SET_TAPE_SEL_REG <= '1';
+   wait for 20 ns;
    
    assert MC_TAPE_READY = '0' report "UC Test 4, Unit 0 Ready NOT asserted" severity failure;
    assert MC_SELECT_AT_LOAD_POINT = '1' report "UC Test 4, Unit 0 Load Point asserted" severity failure;
@@ -423,11 +445,12 @@ uut_process: process
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
    wait for 100 ns;
 
-   -- Now, set the ready and load point status bits      
+   -- Now, set the ready (for read AND write) and load point status bits      
 
    IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";
    wait for 100 ns;
-   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '1';
    IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_LOAD_POINT_BIT) <= '1';
    wait for 100 ns;
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
@@ -437,8 +460,15 @@ uut_process: process
 
    -- Select Unit 9 again - it should be at load point.
 
-   MC_UNIT_NU_9_TO_TAU <= '0';
+   MC_RESET_TAPE_SEL_REG <= '0';
+   wait for 20 ns;
+   MC_RESET_TAPE_SEL_REG <= '1';
+   wait for 20 ns;
    MC_UNIT_NU_0_TO_TAU <= '1';
+   MC_UNIT_NU_9_TO_TAU <= '0';
+   MC_SET_TAPE_SEL_REG <= '0';
+   wait for 20 ns;
+   MC_SET_TAPE_SEL_REG <= '1';
    wait for 100 ns;
    
    assert MC_TAPE_READY = '0' report "UC Test 5, Unit 9 Ready NOT asserted" severity failure;

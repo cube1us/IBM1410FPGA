@@ -141,7 +141,8 @@ constant BCD_8_BIT: integer := 3;
 constant BCD_A_BIT: integer := 4;
 constant BCD_B_BIT: integer := 5;
 
-constant TAPE_UNIT_READY_BIT:       integer := 0;
+constant TAPE_UNIT_READ_READY_BIT: integer := 0;
+constant TAPE_UNIT_WRITE_READY_BIT: integer := 1;
 constant TAPE_UNIT_LOAD_POINT_BIT:  integer := 2;
 constant TAPE_UNIT_TAPE_IND_BIT:    integer := 3;
 constant TAPE_UNIT_TAPE_REWIND_BIT: integer := 4;
@@ -153,6 +154,7 @@ constant TAPE_UNIT_CTL_ERASE_REQUEST: integer := 3;
 constant TAPE_UNIT_CTL_MARK_REQUEST: integer := 4;
 constant TAPE_UNIT_CTL_UNLOAD_REQUEST: integer := 5;
 constant TAPE_UNIT_CTL_REWIND_REQUEST: integer := 6;
+constant TAPE_UNIT_CTL_RESET_INDICATE: integer := 7;
 
 constant OUT_STROBE_TIME: integer := 10;      -- 100ns UART strobe time
 constant TAU_INPUT_FIFO_SIZE: integer := 10;  -- 1410 will be faster than PC support for now
@@ -234,7 +236,7 @@ signal TAU_SELECTED_TAPE_DRIVE: integer := 15;
 signal TAU_TAPE_UNIT_STATUSES: TAU_TAPE_UNIT_STATUS_TYPE :=
  ("00000000", "00000000", "00000000", "00000000", "00000000", 
   "00000000", "00000000", "00000000", "00000000", "00000000", 
-  "11111110", "11111110", "11111110", "11111110", "11111110",
+  "00000000", "11111110", "11111110", "11111110", "11111110",
   "11111110");
 
 signal tauTriggerStatus: STD_LOGIC := '0';
@@ -265,6 +267,7 @@ signal tauUnloadLatch: STD_LOGIC := '0';
 signal tauBackspaceLatch: STD_LOGIC := '0';
 signal tauEraseLatch: STD_LOGIC := '0';
 signal tauWTMLatch : STD_LOGIC := '0';
+signal tauResetTILatch: STD_LOGIC := '0';
 
 -- Set unit status arbiter signals
 signal tauBRUEUnit: integer := 0;
@@ -282,11 +285,48 @@ signal tauReadDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := CHANNEL_
 signal tauWriteStrobeCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 signal tauWriteDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := CHANNEL_CYCLE_LENGTH;
 
-signal tauUnitReady: STD_LOGIC := '0';
+signal tauUnitReadReady: STD_LOGIC := '0';
+signal tauUnitWriteReady: STD_LOGIC := '0';
 
 begin
 
 -- State machines / processes
+
+-- The tauUnitProcess handles set and reset of the Unit Number latch
+-- Doesn't need states.
+
+tauUnitProcess: process(
+   FPGA_CLK,
+   MC_COMP_RESET_TO_TAPE,
+   MC_RESET_TAPE_SEL_REG,
+   MC_SET_TAPE_SEL_REG,
+   TAU_SELECTED_TAPE_DRIVE)
+
+   
+   begin
+   
+   if MC_COMP_RESET_TO_TAPE = '0' then
+      TAU_SELECTED_TAPE_DRIVE <= 10;
+      
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+      if MC_RESET_TAPE_SEL_REG = '0' then
+         TAU_SELECTED_TAPE_DRIVE <= 10;
+      elsif MC_SET_TAPE_SEL_REG = '0' then
+            if    MC_UNIT_NU_0_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 0;
+            elsif MC_UNIT_NU_1_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 1;
+            elsif MC_UNIT_NU_2_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 2;
+            elsif MC_UNIT_NU_3_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 3;
+            elsif MC_UNIT_NU_4_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 4;
+            elsif MC_UNIT_NU_5_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 5;
+            elsif MC_UNIT_NU_6_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 6;
+            elsif MC_UNIT_NU_7_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 7;
+            elsif MC_UNIT_NU_8_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 8;
+            elsif MC_UNIT_NU_9_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 9; 
+            else TAU_SELECTED_TAPE_DRIVE <= 10;  -- No tape drive selected 
+            end if;     
+      end if;
+   end if;
+   end process;
 
 -- The tauTriggerProcess wakes up when it gets input from the PC Console Support Program.
 -- It uses the first character to decide if it is a unit status update (first character has x'40') or
@@ -414,6 +454,7 @@ tauBRUEProcess: process(
    MC_REWIND_UNLOAD,
    MC_REWIND_CALL,
    MC_BACKSPACE_CALL,
+   MC_TURN_OFF_TAPE_IND,
    tauBusy,
    tauBRUEState)
    
@@ -433,7 +474,7 @@ tauBRUEProcess: process(
          
          if tauBusy = '0' and 
             (MC_REWIND_UNLOAD = '0' or MC_REWIND_CALL = '0' or MC_BACKSPACE_CALL = '0' or
-               MC_ERASE_CALL = '0') then
+               MC_ERASE_CALL = '0' or MC_TURN_OFF_TAPE_IND = '0') then
             tauBRUEState <= tau_brue_called;
 
             -- We need to latch the call type, because the channel may drop the call before
@@ -447,6 +488,8 @@ tauBRUEProcess: process(
                tauBackspaceLatch <= '1';
             elsif MC_ERASE_CALL = '0' then
                tauEraseLatch <= '1';
+            elsif MC_TURN_OFF_TAPE_IND = '0' then
+               tauResetTILatch <= '1';
             end if;
             -- Initialize reported status using existing status
             tauBRUEStatus <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE);
@@ -458,8 +501,10 @@ tauBRUEProcess: process(
       when tau_brue_called =>
 
          -- Mark drive as not ready unless this is an erase call
+         -- The drive should later also say not ready for a while from the Support Program.
          if(tauEraseLatch = '0') then
-            tauBRUEStatus(TAPE_UNIT_READY_BIT) <= '0';
+            tauBRUEStatus(TAPE_UNIT_READ_READY_BIT) <= '0';
+            tauBRUEStatus(TAPE_UNIT_WRITE_READY_BIT) <= '0';
          end if;
          
          -- If a rewind or unload call, set the rewind bit as well.
@@ -498,6 +543,7 @@ tauBRUEProcess: process(
          tauUnitControlXMTChar(TAPE_UNIT_CTL_UNLOAD_REQUEST) <= tauUnloadLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_BACKSPACE_REQUEST) <= tauBackspaceLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_ERASE_REQUEST) <= tauEraseLatch;
+         tauUnitControlXMTChar(TAPE_UNIT_CTL_RESET_INDICATE) <= tauResetTILatch;
 
          -- Here we don't need a special FIFO wait state.
          if FIFO_FULL = '1' then
@@ -540,7 +586,7 @@ taureadProcess: process(
    MC_READ_TAPE_CALL,
    tauBusy,
    tauTriggerRead,
-   tauUnitReady,
+   tauUnitReadReady,
    tauReadFirstCharLatch,
    tauReadStrobeCounter,
    tauReadDelayCounter,
@@ -563,11 +609,12 @@ taureadProcess: process(
       -- Wake up on a read call to a read tape drive
       
       when tau_read_idle =>
-         if tauBusy = '0' and MC_READ_TAPE_CALL = '0' and tauUnitReady = '1' then
+         if tauBusy = '0' and MC_READ_TAPE_CALL = '0' and tauUnitReadReady = '1' then
             tauReadState <= tau_read_fifo_wait_1;
             tauReadXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
                tauReadXMTChar'length));
             tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;
+            tauReadTapeIndicateLatch <= '0'; -- Reset TAU tape indicate latch before 1st char.
          else
             tauReadState <= tau_read_idle;
          end if;
@@ -619,6 +666,10 @@ taureadProcess: process(
       when tau_read_getChar =>
          -- Have a character.  If it is the FIRST character and is a tape mark, set
          -- tape indicate.  Regardless, set up the channel input data lines with the data.
+         
+         -- Note that on a REAL machine, the TAU would have to tell the tape drive it hit a
+         -- tape mark, but in OUR case, we can handle that in the PC Support program.
+         
          if FIFO_READ_DATA_VALID = '1' then
             if FIFO_READ_DATA = "01000000" then
                tauReadState <= tau_read_done;           
@@ -689,7 +740,7 @@ tauWriteProcess: process(
    MC_CPU_TO_TAU_BUS,
    tauWTMLatch,
    tauBusy,
-   tauUnitReady,
+   tauUnitWriteReady,
    tauWriteStrobeCounter,
    tauWriteDelayCounter,
    tauWriteState)
@@ -709,7 +760,7 @@ tauWriteProcess: process(
       -- Wake up on a write or write tape mark call from CPU
       
       when tau_Write_idle =>
-         if (MC_WRITE_TAPE_CALL = '0' or MC_WRITE_TAPE_MK_CALL = '0') and tauUnitReady = '1' and
+         if (MC_WRITE_TAPE_CALL = '0' or MC_WRITE_TAPE_MK_CALL = '0') and tauUnitWriteReady = '1' and
             tauBusy = '0' then
             tauWriteState <= tau_write_fifo_wait_1;
             tauWriteXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
@@ -882,21 +933,13 @@ tauSetStatusProcess: process(
 
 UART_RESET <= not MC_COMP_RESET_TO_TAPE;
 
-TAU_SELECTED_TAPE_DRIVE <= 
-   0 when MC_UNIT_NU_0_TO_TAU = '0' else
-   1 when MC_UNIT_NU_1_TO_TAU = '0' else
-   2 when MC_UNIT_NU_2_TO_TAU = '0' else
-   3 when MC_UNIT_NU_3_TO_TAU = '0' else
-   4 when MC_UNIT_NU_4_TO_TAU = '0' else
-   5 when MC_UNIT_NU_5_TO_TAU = '0' else
-   6 when MC_UNIT_NU_6_TO_TAU = '0' else
-   7 when MC_UNIT_NU_7_TO_TAU = '0' else
-   8 when MC_UNIT_NU_8_TO_TAU = '0' else
-   9 when MC_UNIT_NU_9_TO_TAU = '0' 
-   else 10;  -- No tape drive selected
-  
-tauUnitReady <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_READY_BIT);  
-MC_TAPE_READY <= not tauUnitReady;  
+tauUnitReadReady <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_READ_READY_BIT);
+tauUnitWriteReady <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_WRITE_READY_BIT);    
+MC_TAPE_READY <= '1' when
+   tauUnitReadReady = '0' or 
+   ((MC_WRITE_TAPE_CALL = '0' or MC_ERASE_CALL = '0' or MC_WRITE_TAPE_MK_CALL = '0') and tauUnitWriteReady = '0')
+   else '0';
+     
 MC_SELECT_AT_LOAD_POINT <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_LOAD_POINT_BIT));
 MC_SEL_OR_TAPE_IND_ON <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_IND_BIT) or
    tauReadTapeIndicateLatch) ; -- More to come on write.
