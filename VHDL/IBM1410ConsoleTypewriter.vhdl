@@ -20,6 +20,7 @@
 -- Revision 0.06 - Added console keyboard lock support
 -- Revision 0.07 - Input character, WM and Space Bar and Index 
 --                 (force last column) now working
+-- Revision 0.08 - Reset FIFO_READ_ENABLE fix
 
 -- Additional Comments:
 -- 
@@ -1170,6 +1171,7 @@ console_input_process: process(FPGA_CLK, UART_RESET, CONSOLE_INPUT_PRINTER_BUSY,
          
       when consoleReceiver_getChar =>
          if FIFO_READ_DATA_VALID = '1' then
+            FIFO_READ_ENABLE <= '0';  -- Reset read enable
             -- High bit from support HOST means not a BCD character, but instead special control keys
             if FIFO_READ_DATA(6) = '1' then
                if FIFO_READ_DATA = "01111111" then
