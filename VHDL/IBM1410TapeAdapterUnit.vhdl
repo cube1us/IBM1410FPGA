@@ -225,6 +225,7 @@ type tauWriteState_type is (
 type tauBRUEState_type is (
    tau_brue_idle,
    tau_brue_called,            -- Call activated - prep unit number to send to PC
+   tau_brue_twiddle,           -- Wait for 1us for benefit of CPU
    tau_brue_fifo_wait,         -- waiting for FIFO to send unit number
    tau_brue_send_unit_to_PC,   -- At this point, send unit to PC for tape operation
    tau_brue_prepare_action,    -- Space between write enables
@@ -284,6 +285,7 @@ signal tauReadStrobeCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 signal tauReadDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := CHANNEL_CYCLE_LENGTH;
 signal tauWriteStrobeCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 signal tauWriteDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := CHANNEL_CYCLE_LENGTH;
+signal tauBRUETwiddleCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 
 signal tauUnitReadReady: STD_LOGIC := '0';
 signal tauUnitWriteReady: STD_LOGIC := '0';
@@ -521,9 +523,20 @@ tauBRUEProcess: process(
                
          -- We need a separate fifo wait state here, because the FIFO could be full, and we
          -- need to release Tape Busy so the channel can continue one.
-                   
-         tauBRUEState <= tau_brue_fifo_wait;
+
+         -- Set up a delay counter to say TAU is busy for 1us
+         
+         tauBRUETwiddleCounter <= 0;                   
+         tauBRUEState <= tau_brue_twiddle;
                   
+      when tau_brue_twiddle =>
+         if tauBRUETwiddleCounter = CHANNEL_STROBE_LENGTH then
+            tauBRUEState <= tau_brue_fifo_wait;
+         else
+            tauBRUETwiddleCounter <= tauBRUETwiddleCounter + 1;
+            tauBRUEState <= tau_brue_twiddle;
+         end if;
+          
       when tau_brue_fifo_wait =>
          if FIFO_FULL = '1' then
             tauBRUEState <= tau_brue_fifo_wait;
@@ -946,7 +959,7 @@ MC_SEL_OR_TAPE_IND_ON <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAP
 MC_SELECT_AND_REWIND <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_REWIND_BIT));
 
 tauBRUEBusy  <= '1' when 
-   (tauBRUEState = tau_brue_called and MC_ERASE_CALL = '1')
+   ((tauBRUEState = tau_brue_called or tauBRUEState = tau_brue_twiddle) and MC_ERASE_CALL = '1')   
    else '0';   
   
 tauReadBusy <= '1' when
@@ -1012,6 +1025,7 @@ MC_TAPE_IN_PROCESS <= '0' when
 MC_TAPE_ERROR <= '1';
  
 MC_TAPE_WRITE_STROBE <= '0' when
-   tauWriteState = tau_write_strobe_channel; 
+   tauWriteState = tau_write_strobe_channel
+   else '1';
        
 end Behavioral;
