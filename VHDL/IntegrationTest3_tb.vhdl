@@ -891,13 +891,25 @@ architecture behavioral of IntegrationTest3_tb is
       PV_SENSE_CHAR_0_BUS: out STD_LOGIC_VECTOR(7 downto 0);
       PV_SENSE_CHAR_1_BUS: out STD_LOGIC_VECTOR(7 downto 0);
       PV_SENSE_CHAR_2_BUS: out STD_LOGIC_VECTOR(7 downto 0);
-      PV_SENSE_CHAR_3_BUS: out STD_LOGIC_VECTOR(7 downto 0) );
+      PV_SENSE_CHAR_3_BUS: out STD_LOGIC_VECTOR(7 downto 0);
+      
+      IBM1410_DIRECT_MEMORY_ADDRESS:      in STD_LOGIC_VECTOR(13 downto 0);
+      IBM1410_DIRECT_MEMORY_ENABLE:       in STD_LOGIC_VECTOR(3 downto 0);
+      IBM1410_DIRECT_MEMORY_WRITE_ENABLE: in STD_LOGIC_VECTOR(3 downto 0);
+      IBM1410_DIRECT_MEMORY_WRITE_DATA:   in STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_0:    out STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_1:    out STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_2:    out STD_LOGIC_VECTOR(7 downto 0);
+      IBM1410_DIRECT_MEMORY_READ_DATA_3:    out STD_LOGIC_VECTOR(7 downto 0)
+      );
    end component;
 
 component IBM1410ConsoleTypewriter is
-   GENERIC(MULTIPLIER: integer := 10000);
+   -- GENERIC(MULTIPLIER: integer := 10000);
    PORT (
       FPGA_CLK: in STD_LOGIC;
+      UART_RESET: in STD_LOGIC;
+      SLOW_TYPING: in STD_LOGIC;
 
       PW_CONS_PRINTER_R1_SOLENOID: in STD_LOGIC;      
       PW_CONS_PRINTER_R2_SOLENOID: in STD_LOGIC;
@@ -942,7 +954,80 @@ component IBM1410ConsoleTypewriter is
       -- Console Output UART support
       
       IBM1410_CONSOLE_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
-      IBM1410_CONSOLE_XMT_STROBE: out STD_LOGIC );
+      IBM1410_CONSOLE_XMT_STROBE: out STD_LOGIC;
+      
+       -- Console Input UART
+       
+      IBM1410_CONSOLE_INPUT_FIFO_WRITE_ENABLE: in STD_LOGIC;
+      IBM1410_CONSOLE_INPUT_FIFO_WRITE_DATA: in STD_LOGIC_VECTOR(7 downto 0)
+       );
+      
+end component;
+
+component IBM1410TapeAdapterUnit is
+  
+   GENERIC(
+       CHANNEL_STROBE_LENGTH: integer;
+       CHANNEL_CYCLE_LENGTH: integer );
+   PORT (
+       FPGA_CLK: in STD_LOGIC;
+        
+       -- TAU Input Signals From CPU
+       
+       MC_CPU_TO_TAU_BUS: in STD_LOGIC_VECTOR(7 downto 0);       
+       
+       MC_COMP_RESET_TO_TAPE: in STD_LOGIC;
+       MC_WRITE_TAPE_CALL: in STD_LOGIC;
+       MC_WRITE_TAPE_MK_CALL: in STD_LOGIC;
+       MC_ERASE_CALL: in STD_LOGIC;
+       MC_REWIND_UNLOAD: in STD_LOGIC;
+       MC_REWIND_CALL: in STD_LOGIC;
+       MC_BACKSPACE_CALL: in STD_LOGIC;
+       MC_TURN_OFF_TAPE_IND: in STD_LOGIC;
+       MC_RESET_TAPE_SEL_REG: in STD_LOGIC;
+       MC_SET_TAPE_SEL_REG: in STD_LOGIC;
+       MC_DISCONNECT_CALL: in STD_LOGIC;
+       MC_READ_TAPE_CALL: in STD_LOGIC;
+       MC_ODD_PARITY_TO_TAPE: in STD_LOGIC;
+       
+       MC_UNIT_NU_0_TO_TAU: in STD_LOGIC;
+       MC_UNIT_NU_1_TO_TAU: in STD_LOGIC;
+       MC_UNIT_NU_2_TO_TAU: in STD_LOGIC;
+       MC_UNIT_NU_3_TO_TAU: in STD_LOGIC;
+       MC_UNIT_NU_4_TO_TAU: in STD_LOGIC;
+       MC_UNIT_NU_5_TO_TAU: in STD_LOGIC;
+       MC_UNIT_NU_6_TO_TAU: in STD_LOGIC;
+       MC_UNIT_NU_7_TO_TAU: in STD_LOGIC;
+       MC_UNIT_NU_8_TO_TAU: in STD_LOGIC;
+       MC_UNIT_NU_9_TO_TAU: in STD_LOGIC;       
+            
+       -- TAU Output Signals to CPU
+       
+       MC_TAU_TO_CPU_BUS: out STD_LOGIC_VECTOR(7 downto 0);
+
+       MC_WRITE_CONDITION: out STD_LOGIC;
+       MC_SELECT_AND_REWIND: out STD_LOGIC;
+       MC_SELECT_AT_LOAD_POINT: out STD_LOGIC;
+       MC_SEL_OR_TAPE_IND_ON: out STD_LOGIC;
+       
+       MC_TAPE_READ_STROBE: out STD_LOGIC;
+       MC_TAPE_BUSY: out STD_LOGIC;
+       MC_TAPE_ERROR: out STD_LOGIC;
+       MC_TAPE_READY: out STD_LOGIC;
+       MC_TAPE_WRITE_STROBE: out STD_LOGIC;
+       MC_TAPE_IN_PROCESS: out STD_LOGIC;
+      
+       -- TAU to PC Support System
+       
+       IBM1410_TAU_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
+       IBM1410_TAU_XMT_STROBE: out STD_LOGIC;
+              
+       -- PC Support System to TAU 
+       
+       IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE: in STD_LOGIC;
+       IBM1410_TAU_INPUT_FIFO_WRITE_DATA: in STD_LOGIC_VECTOR(7 downto 0)       
+   );
+
 end component;
 
 	-- Inputs
@@ -1773,6 +1858,17 @@ end component;
 	signal MV_INH_CHAR_2_B1_BUS: STD_LOGIC_VECTOR (7 downTo 0);
 	signal MV_INH_CHAR_3_D1_BUS: STD_LOGIC_VECTOR (7 downTo 0);
 	signal MV_INH_CHAR_3_B1_BUS: STD_LOGIC_VECTOR (7 downTo 0);
+	
+	signal IBM1410_DIRECT_MEMORY_ADDRESS:      STD_LOGIC_VECTOR(13 downto 0);
+   signal IBM1410_DIRECT_MEMORY_ENABLE:       STD_LOGIC_VECTOR(3 downto 0);
+   signal IBM1410_DIRECT_MEMORY_WRITE_ENABLE: STD_LOGIC_VECTOR(3 downto 0);
+   signal IBM1410_DIRECT_MEMORY_WRITE_DATA:   STD_LOGIC_VECTOR(7 downto 0);
+   signal IBM1410_DIRECT_MEMORY_READ_DATA_0:  STD_LOGIC_VECTOR(7 downto 0);
+   signal IBM1410_DIRECT_MEMORY_READ_DATA_1:  STD_LOGIC_VECTOR(7 downto 0);
+   signal IBM1410_DIRECT_MEMORY_READ_DATA_2:  STD_LOGIC_VECTOR(7 downto 0);
+   signal IBM1410_DIRECT_MEMORY_READ_DATA_3:  STD_LOGIC_VECTOR(7 downto 0);
+
+	
 	signal MY_ASSEMBLY_CH_Z_BUS: STD_LOGIC_VECTOR (7 downTo 0);
 	signal LAMPS_LOGIC_GATE_RING: STD_LOGIC_VECTOR (10 downTo 1);
 	signal LAMPS_IRING: STD_LOGIC_VECTOR (12 downTo 0);
@@ -1798,6 +1894,25 @@ end component;
     signal IBM1410_CONSOLE_XMT_STROBE: STD_LOGIC;
     
     signal IBM1410_CONSOLE_XMT_ASCII: character;  -- test bench only
+    signal SLOW_TYPING: STD_LOGIC := '0';  -- Fast typing for etst bench.
+    signal UART_RESET: STD_LOGIC := '0';
+
+    signal IBM1410_CONSOLE_INPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+    signal IBM1410_CONSOLE_INPUT_FIFO_WRITE_ENABLE: STD_LOGIC := '0';
+
+-- Tape Adapter Unit Signals
+
+       -- TAU to PC Support System
+       
+   signal IBM1410_TAU_XMT_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+   signal IBM1410_TAU_XMT_STROBE: STD_LOGIC := '0';
+              
+       -- PC Support System to TAU 
+       
+   signal IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE: STD_LOGIC  := '0';
+   signal IBM1410_TAU_INPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";   
+   
+
     
 -- START USER TEST BENCH DECLARATIONS
 
@@ -1821,6 +1936,14 @@ end component;
    constant MX_X6A_POS: integer := 8;
    
    signal LOCAL_MY_MEM_AR_NOT_TTHP_BUS: STD_LOGIC_VECTOR(4 downto 0);
+
+   -- Must match IBM1410TapeAdapterUnit
+
+   constant TAPE_UNIT_READ_READY_BIT:  integer := 0;
+   constant TAPE_UNIT_WRITE_READY_BIT: integer := 1;
+   constant TAPE_UNIT_LOAD_POINT_BIT:  integer := 2;
+   constant TAPE_UNIT_TAPE_IND_BIT:    integer := 3;
+   constant TAPE_UNIT_TAPE_REWIND_BIT: integer := 4;
 
 
 --procedure check1(
@@ -2722,14 +2845,27 @@ memory: IBM1410Memory
       PV_SENSE_CHAR_0_BUS => PV_SENSE_CHAR_0_B1_BUS,
       PV_SENSE_CHAR_1_BUS => PV_SENSE_CHAR_1_B1_BUS,
       PV_SENSE_CHAR_2_BUS => PV_SENSE_CHAR_2_B1_BUS,
-      PV_SENSE_CHAR_3_BUS => PV_SENSE_CHAR_3_B1_BUS );
+      PV_SENSE_CHAR_3_BUS => PV_SENSE_CHAR_3_B1_BUS,
+
+      IBM1410_DIRECT_MEMORY_ADDRESS => IBM1410_DIRECT_MEMORY_ADDRESS,
+      IBM1410_DIRECT_MEMORY_ENABLE => IBM1410_DIRECT_MEMORY_ENABLE,
+      IBM1410_DIRECT_MEMORY_WRITE_ENABLE => IBM1410_DIRECT_MEMORY_WRITE_ENABLE,
+      IBM1410_DIRECT_MEMORY_WRITE_DATA => IBM1410_DIRECT_MEMORY_WRITE_DATA,
+      IBM1410_DIRECT_MEMORY_READ_DATA_0 => IBM1410_DIRECT_MEMORY_READ_DATA_0,
+      IBM1410_DIRECT_MEMORY_READ_DATA_1 => IBM1410_DIRECT_MEMORY_READ_DATA_1,
+      IBM1410_DIRECT_MEMORY_READ_DATA_2 => IBM1410_DIRECT_MEMORY_READ_DATA_2,
+      IBM1410_DIRECT_MEMORY_READ_DATA_3 => IBM1410_DIRECT_MEMORY_READ_DATA_3
+       );
 
 -- Instantiate the console typewriter
 
    ConsoleTypewriter: IBM1410ConsoleTypewriter
-   generic map(MULTIPLIER => 100) -- 100x speed, so 10us == 1ms
+   -- generic map(MULTIPLIER => 100) -- 100x speed, so 10us == 1ms
    port map(
       FPGA_CLK => FPGA_CLK,
+      UART_RESET => UART_RESET,
+      SLOW_TYPING => SLOW_TYPING,
+      
       PW_CONS_PRINTER_R1_SOLENOID => PW_CONS_PRINTER_R1_SOLENOID,      
       PW_CONS_PRINTER_R2_SOLENOID => PW_CONS_PRINTER_R2_SOLENOID,
       PW_CONS_PRINTER_R2A_SOLENOID => PW_CONS_PRINTER_R2A_SOLENOID,
@@ -2770,7 +2906,75 @@ memory: IBM1410Memory
       MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO => MB_CONS_PRTR_WM_INPUT_STAR_WM_T_NO,
       MV_CONSOLE_C_INPUT_STAR_CHK_OP => MV_CONSOLE_C_INPUT_STAR_CHK_OP,
       IBM1410_CONSOLE_XMT_CHAR => IBM1410_CONSOLE_XMT_CHAR,
-      IBM1410_CONSOLE_XMT_STROBE => IBM1410_CONSOLE_XMT_STROBE);
+      IBM1410_CONSOLE_XMT_STROBE => IBM1410_CONSOLE_XMT_STROBE,
+      IBM1410_CONSOLE_INPUT_FIFO_WRITE_ENABLE => IBM1410_CONSOLE_INPUT_FIFO_WRITE_ENABLE,
+      IBM1410_CONSOLE_INPUT_FIFO_WRITE_DATA => IBM1410_CONSOLE_INPUT_FIFO_WRITE_DATA
+);
+
+-- Instantiate the Channel 1 TAU Adapter
+
+   TAU_CHANNEL_1: IBM1410TapeAdapterUnit
+   generic map (
+       CHANNEL_STROBE_LENGTH => 1000,  
+       CHANNEL_CYCLE_LENGTH => 5000 )
+   port map (
+       FPGA_CLK => FPGA_CLK,
+       MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_E_CH,
+        
+       -- TAU Input Signals From CPU
+       
+       MC_CPU_TO_TAU_BUS => MC_CPU_TO_E_CH_TAU_BUS,       
+       
+       MC_WRITE_TAPE_CALL => MC_WRITE_TAPE_CALL_STAR_E_CH,
+       MC_WRITE_TAPE_MK_CALL => MC_WRITE_TAPE_MK_CALL_STAR_E_CH,
+       MC_ERASE_CALL => MC_ERASE_CALL_STAR_E_CH,
+       MC_REWIND_UNLOAD => MC_REWIND_UNLOAD_STAR_E_CH,
+       MC_REWIND_CALL => MC_REWIND_CALL_STAR_E_CH,
+       MC_BACKSPACE_CALL => MC_BACKSPACE_CALL_STAR_E_CH,
+       MC_TURN_OFF_TAPE_IND => MC_TURN_OFF_TAPE_IND_STAR_E_CH,
+       MC_RESET_TAPE_SEL_REG => MC_RESET_TAPE_SEL_REG_STAR_E_CH,
+       MC_SET_TAPE_SEL_REG => MC_SET_TAPE_SEL_REG_STAR_E_CH,
+       MC_DISCONNECT_CALL => MC_DISCONNECT_CALL_STAR_E_CH,
+       MC_READ_TAPE_CALL => MC_READ_TAPE_CALL_STAR_E_CH,
+       MC_ODD_PARITY_TO_TAPE => MC_ODD_PARITY_TO_TAPE_STAR_E_CH,
+       
+       MC_UNIT_NU_0_TO_TAU => MC_UNIT_NU_0_TO_TAU_STAR_E_CH, 
+       MC_UNIT_NU_1_TO_TAU => MC_UNIT_NU_1_TO_TAU_STAR_E_CH, 
+       MC_UNIT_NU_2_TO_TAU => MC_UNIT_NU_2_TO_TAU_STAR_E_CH, 
+       MC_UNIT_NU_3_TO_TAU => MC_UNIT_NU_3_TO_TAU_STAR_E_CH, 
+       MC_UNIT_NU_4_TO_TAU => MC_UNIT_NU_4_TO_TAU_STAR_E_CH, 
+       MC_UNIT_NU_5_TO_TAU => MC_UNIT_NU_5_TO_TAU_STAR_E_CH, 
+       MC_UNIT_NU_6_TO_TAU => MC_UNIT_NU_6_TO_TAU_STAR_E_CH, 
+       MC_UNIT_NU_7_TO_TAU => MC_UNIT_NU_7_TO_TAU_STAR_E_CH, 
+       MC_UNIT_NU_8_TO_TAU => MC_UNIT_NU_8_TO_TAU_STAR_E_CH, 
+       MC_UNIT_NU_9_TO_TAU => MC_UNIT_NU_9_TO_TAU_STAR_E_CH, 
+            
+       -- TAU Output Signals to CPU
+       
+       MC_TAU_TO_CPU_BUS => MC_E_CH_TAU_TO_CPU_BUS,
+
+       MC_WRITE_CONDITION => MC_WRITE_CONDITION_STAR_E_CH,
+       MC_SELECT_AND_REWIND => MC_SELECT_AND_REWIND_STAR_E_CH,
+       MC_SELECT_AT_LOAD_POINT => MC_SELECT_AT_LOAD_POINT_STAR_E_CH,
+       MC_SEL_OR_TAPE_IND_ON => MC_SEL_OR_TAPE_IND_ON_CH_1,
+       
+       MC_TAPE_READ_STROBE => MC_TAPE_READ_STROBE,
+       MC_TAPE_BUSY => MC_TAPE_BUSY,
+       MC_TAPE_ERROR => MC_TAPE_ERROR, 
+       MC_TAPE_READY => MC_TAPE_READY,
+       MC_TAPE_WRITE_STROBE => MC_TAPE_WRITE_STROBE,
+       MC_TAPE_IN_PROCESS => MC_TAPE_IN_PROCESS,
+      
+       -- TAU to PC Support System
+       
+       IBM1410_TAU_XMT_CHAR => IBM1410_TAU_XMT_CHAR,
+       IBM1410_TAU_XMT_STROBE => IBM1410_TAU_XMT_STROBE,
+              
+       -- PC Support System to TAU 
+       
+       IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
+       IBM1410_TAU_INPUT_FIFO_WRITE_DATA => IBM1410_TAU_INPUT_FIFO_WRITE_DATA
+   );
 
 -- 
 -- TestBenchFPGAClock.vhdl
@@ -2866,7 +3070,12 @@ fpga_clk_process: process
    -- The following is to make test bench console output more apparent.   
    
    IBM1410_CONSOLE_XMT_ASCII <= character'VAL(to_integer(unsigned(IBM1410_CONSOLE_XMT_CHAR)));   
-         
+
+
+--  UART Resets
+
+   UART_RESET <= SWITCH_REL_PWR_ON_RST or SWITCH_MOM_CO_CPR_RST or SWITCH_MOM_CE_CPR_RST;
+            
 ----   
 
 ---- Place your test bench code in the uut_process
@@ -2922,7 +3131,7 @@ uut_process: process
    -- PV_SENSE_CHAR_0_B1_BUS <= "11111011";  -- CWBA8-21  (WM + period)
    
    -- Initialize RAM
-   
+        
    -- wait for 30 ns;  -- Otherwise the power on reset doesn't work right.
    -- SWITCH_REL_PWR_ON_RST <= '0';
    -- wait for 1 ms;
@@ -2936,41 +3145,106 @@ uut_process: process
 --   SWITCH_MOM_CO_CPR_RST <= '0';           
 --   wait for 30 ms;   
       
+   -- Set Tape unit 0 not at load point, and ready   
+   
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  -- Indicate we will provide status for Unit 0
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
+   wait for 100 ns;
+
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";     
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY   
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
+   wait for 100 ns;
+
+   -- At this point, the CPU has not selected a tape drive.
+
+   assert MC_TAPE_READY = '1' report "Test 1, Ready w/no unit asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT_STAR_E_CH = '1' report "Test 1, Load Point asserted" severity failure;
+   assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Test 1, Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND_STAR_E_CH = '1' report "Test 1, Rewind asserted" severity failure;  
+      
    SWITCH_MOM_CONS_START <= '1';
    report "Pressed Start";
    wait for 5 us;  -- Normally we'd wait longer
    SWITCH_MOM_CONS_START <= '0';
    wait for 5 us; -- Normally this would take longer
-   report "Start released";
+   report "Start released";      
+   
+   -- Wait for the rewind request
+   
+   wait until MC_REWIND_CALL_STAR_E_CH = '0';
+   wait for 20 ns;
+   
+   assert MC_TAPE_READY = '0' report "Test 2, Ready Unit 0 NOT asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT_STAR_E_CH = '1' report "Test 2, Load Point asserted" severity failure;
+   assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Test 2, Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND_STAR_E_CH = '1' report "Test 0, Rewind NOT asserted" severity failure;  
+            
+   -- A short pretend rewind period.
+   
+   wait for 5 ms;
+   
+   -- Tell the CPU that the rewind has completed.
+   
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  -- Indicate we will provide status for Unit 0
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
+   wait for 100 ns;
+
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";     
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_LOAD_POINT_BIT) <= '1';  -- Set Status to load pt.   
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
+   wait for 100 ns;
+
+   assert MC_TAPE_READY = '0' report "Test 3, Ready Unit 0 NOT asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT_STAR_E_CH = '0' report "Test 3 Load Point NOT asserted" severity failure;
+   assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Test 3, Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND_STAR_E_CH = '1' report "Test 3, Rewind STILL asserted" severity failure;  
+   
+   wait for 30 ms;
    
    -- Stop printout - starts with CR
    
-   wait until PW_CARRIAGE_RETURN_SOLENOID = '1';
-   report "Starting Carriage Return";
-   wait for 520 us;  -- This would normally be 52 ms
+   -- wait until PW_CARRIAGE_RETURN_SOLENOID = '1';
+   -- report "Starting Carriage Return";
+   -- wait for 520 us;  -- This would normally be 52 ms
    -- MV_CONS_PRINTER_C2_CAM_NC <= '1';
    -- MV_CONS_PRINTER_C2_CAM_NO <= '0';
    
-   wait until PW_CARRIAGE_RETURN_SOLENOID = '0';
-   wait for 520 us;  -- This would normally be 52 ms
+   -- wait until PW_CARRIAGE_RETURN_SOLENOID = '0';
+   -- wait for 520 us;  -- This would normally be 52 ms
    -- MV_CONS_PRINTER_C2_CAM_NC <= '0';
    -- MV_CONS_PRINTER_C2_CAM_NO <= '1';  
-   report "Stop PO Carriage Return Complete";
+   -- report "Stop PO Carriage Return Complete";
    
    -- wait for 520 us;  (Wait for T2 solenoid instead)
       
    -- Then we get an "S"
    
-   wait until PW_CONS_PRINTER_T2_SOLENOID = '1';
-   wait for 1 us; -- This would normally be 1 ms;
-   assert PW_CONS_PRINTER_R1_SOLENOID = '0' and
-      PW_CONS_PRINTER_R2_SOLENOID = '1' and
-      PW_CONS_PRINTER_R2A_SOLENOID = '1' and
-      PW_CONS_PRINTER_R5_SOLENOID = '0' and
-      PW_CONS_PRINTER_T1_SOLENOID = '0' report
-      "Console output character is not an 'S'" severity failure;
+--   wait until PW_CONS_PRINTER_T2_SOLENOID = '1';
+--   wait for 1 us; -- This would normally be 1 ms;
+--   assert PW_CONS_PRINTER_R1_SOLENOID = '0' and
+--      PW_CONS_PRINTER_R2_SOLENOID = '1' and
+--      PW_CONS_PRINTER_R2A_SOLENOID = '1' and
+--      PW_CONS_PRINTER_R5_SOLENOID = '0' and
+--      PW_CONS_PRINTER_T1_SOLENOID = '0' report
+--      "Console output character is not an 'S'" severity failure;
    
-   wait for 270 us;  -- This would normally be 27 ms.
+   -- wait for 270 us;  -- This would normally be 27 ms.
    
    -- MV_CONS_PRINTER_C2_CAM_NC <= '1';
    -- MV_CONS_PRINTER_C2_CAM_NO <= '0';
@@ -2981,17 +3255,17 @@ uut_process: process
    -- MV_CONS_PRINTER_ODD_BIT_CHECK <= not unlatchedConsoleParity; 
    -- MB_CONS_PRINTER_EVEN_BIT_CHECK <= unlatchedConsoleParity;
 
-   wait for 197 us; -- This would normally be 19.7 ms
+   -- wait for 197 us; -- This would normally be 19.7 ms
    
    -- MV_CONS_PRINTER_C1_CAM_NC <= '1';
    -- MV_CONS_PRINTER_C1_CAM_NO <= '0';
 
-   wait for 126 us; -- this would normally be 12.6 ms
+   -- wait for 126 us; -- this would normally be 12.6 ms
 
    -- MV_CONS_PRINTER_C2_CAM_NC <= '0';
    -- MV_CONS_PRINTER_C2_CAM_NO <= '1';
    
-   wait for 36 us; -- this would normally be 3.6 ms
+   -- wait for 36 us; -- this would normally be 3.6 ms
 
    -- MV_CONS_PRINTER_C1_CAM_NC <= '0';
    -- MV_CONS_PRINTER_C1_CAM_NO <= '1';
@@ -3001,30 +3275,30 @@ uut_process: process
    -- MV_CONS_PRINTER_ODD_BIT_CHECK <= '1'; 
    -- MB_CONS_PRINTER_EVEN_BIT_CHECK <= '0';
       
-   wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
-   report "'S' output complete";
+   -- wait until MV_CONS_PRINTER_C2_CAM_NO = '1';
+   -- report "'S' output complete";
    
    -- Next we expect a space operation
    
-   if PW_SPACE_SOLENOID = '0' then
-      wait until PW_SPACE_SOLENOID = '1';
-   end if;
+   -- if PW_SPACE_SOLENOID = '0' then
+      -- wait until PW_SPACE_SOLENOID = '1';
+   -- end if;
    
-   wait for 267 us;  -- would normally be 7 + 17.9 + 1.8 ms
+   -- wait for 267 us;  -- would normally be 7 + 17.9 + 1.8 ms
    
    -- MV_CONS_PRINTER_C2_CAM_NC <= '1';
    -- MV_CONS_PRINTER_C2_CAM_NO <= '0';
 
-   wait for 269 us;  -- would normally be 26.9 ms   
+   -- wait for 269 us;  -- would normally be 26.9 ms   
    
    -- MV_CONS_PRINTER_C2_CAM_NC <= '0';
    -- MV_CONS_PRINTER_C2_CAM_NO <= '1';
             
    -- IAR readout comes next            
             
-   wait for 520 us;
+   -- wait for 520 us;
    
-   wait for 25 ms; 
+   -- wait for 25 ms; 
   
 
    -- SWITCH_MOM_STARTPRINT <= '0';  -- This switch is "backwards"
