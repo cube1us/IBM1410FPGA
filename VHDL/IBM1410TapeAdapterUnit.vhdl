@@ -36,8 +36,8 @@ use IEEE.NUMERIC_STD.ALL;
 entity IBM1410TapeAdapterUnit is
 
    GENERIC(
-      CHANNEL_STROBE_LENGTH: integer := 1000;  -- 1 us strobe
-      CHANNEL_CYCLE_LENGTH:  integer := 11200 -- 11.2us per 800 bpi char
+      CHANNEL_STROBE_LENGTH: integer := 100;  -- 1 us strobe
+      CHANNEL_CYCLE_LENGTH:  integer := 1120  -- 11.2us per 800 bpi char
    );   
      
    PORT (
@@ -290,6 +290,9 @@ signal tauBRUETwiddleCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 signal tauUnitReadReady: STD_LOGIC := '0';
 signal tauUnitWriteReady: STD_LOGIC := '0';
 
+signal tauBRUEAction: STD_LOGIC := '0';  -- Indicates rewind, unload, erase or backspace
+signal tauBRUEResetTI: STD_LOGIC := '0'; -- Indicates request to reset TI and tauResetLatch not set
+
 begin
 
 -- State machines / processes
@@ -464,6 +467,7 @@ tauBRUEProcess: process(
    
    if MC_COMP_RESET_TO_TAPE = '0' then
       tauBRUEState <= tau_brue_idle;
+      tauResetTILatch <= '0';
       
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
    
@@ -472,12 +476,15 @@ tauBRUEProcess: process(
       when tau_brue_idle =>        
 
          tauUnitControlXMTChar <= "00000000";
-         tauRewindLatch <= '0'; tauUnloadLatch <= '0'; tauBackspaceLatch <= '0'; tauEraseLatch <= '0';         
+         tauRewindLatch <= '0'; tauUnloadLatch <= '0'; tauBackspaceLatch <= '0'; 
+         tauEraseLatch <= '0';
          
-         if tauBusy = '0' and 
-            (MC_REWIND_UNLOAD = '0' or MC_REWIND_CALL = '0' or MC_BACKSPACE_CALL = '0' or
-               MC_ERASE_CALL = '0' or MC_TURN_OFF_TAPE_IND = '0') then
-            tauBRUEState <= tau_brue_called;
+         -- Once turn off tape indicator goes away, reset our TI latch.
+         if MC_TURN_OFF_TAPE_IND = '1' then
+            tauResetTILatch <= '0';
+         end if;          
+         
+         if tauBusy = '0' and tauBRUEAction = '1' then
 
             -- We need to latch the call type, because the channel may drop the call before
             -- we are done with it, especially if the FIFO to the PC happens to get full.
@@ -490,11 +497,15 @@ tauBRUEProcess: process(
                tauBackspaceLatch <= '1';
             elsif MC_ERASE_CALL = '0' then
                tauEraseLatch <= '1';
-            elsif MC_TURN_OFF_TAPE_IND = '0' then
-               tauResetTILatch <= '1';
             end if;
-            -- Initialize reported status using existing status
+            
+         end if;
+            
+         -- If we are about to take a drive action or reset its TI, 
+         -- initialize status to existing status
+         if (tauBusy = '0' and tauBRUEAction = '1') or tauBRUEResetTI = '1' then
             tauBRUEStatus <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE);
+            tauBRUEState <= tau_brue_called;            
          else
             tauBRUEState <= tau_brue_idle;
          end if;
@@ -502,18 +513,26 @@ tauBRUEProcess: process(
                   
       when tau_brue_called =>
 
-         -- Mark drive as not ready unless this is an erase call
+         -- Mark drive as not ready unless this is an erase call or a TI reset.
          -- The drive should later also say not ready for a while from the Support Program.
-         if(tauEraseLatch = '0') then
+         if MC_ERASE_CALL = '1' and tauBRUEAction = '1' then
             tauBRUEStatus(TAPE_UNIT_READ_READY_BIT) <= '0';
             tauBRUEStatus(TAPE_UNIT_WRITE_READY_BIT) <= '0';
          end if;
          
          -- If a rewind or unload call, set the rewind bit as well.
-         if(tauRewindLatch = '1' or tauUnloadLatch = '1') then
+         if tauRewindLatch = '1' or tauUnloadLatch = '1' then
             tauBRUEStatus(TAPE_UNIT_TAPE_REWIND_BIT) <= '1';
-         end if;         
+         end if;  
          
+         -- If this is a TI reset action, then turn off the local copy for this drive
+         if tauBRUEResetTI = '1' then
+            -- Turn off local copy of the tape indicate for this drive ASAP
+            tauBRUEStatus(TAPE_UNIT_TAPE_IND_BIT) <= '0';
+            -- And set the reset TI latch so we don't keep updating the status on the PC
+            tauResetTILatch <= '1';
+         end if;
+                
          -- Prepare unit number to send to PC
          tauUnitControlXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
             tauUnitControlXMTChar'length));
@@ -524,10 +543,15 @@ tauBRUEProcess: process(
          -- We need a separate fifo wait state here, because the FIFO could be full, and we
          -- need to release Tape Busy so the channel can continue one.
 
-         -- Set up a delay counter to say TAU is busy for 1us
+         -- Set up a delay counter to say TAU is busy for at least 1us unless this is a request
+         -- to reset the tape indicate on the selected drive or an erase call
          
-         tauBRUETwiddleCounter <= 0;                   
-         tauBRUEState <= tau_brue_twiddle;
+         if tauBRUEAction = '1' and MC_ERASE_CALL = '1' then
+            tauBRUETwiddleCounter <= 0;                   
+            tauBRUEState <= tau_brue_twiddle;
+         else
+            tauBRUEState <= tau_brue_fifo_wait;
+         end if;
                   
       when tau_brue_twiddle =>
          if tauBRUETwiddleCounter = CHANNEL_STROBE_LENGTH then
@@ -543,8 +567,7 @@ tauBRUEProcess: process(
          else
             tauBRUEState <= tau_brue_send_unit_to_PC;
          end if;
-         
-      
+               
       when tau_brue_send_unit_to_PC =>
          -- This state just triggers the XMT Strobe.
          tauBRUEState <= tau_brue_prepare_action;
@@ -556,7 +579,9 @@ tauBRUEProcess: process(
          tauUnitControlXMTChar(TAPE_UNIT_CTL_UNLOAD_REQUEST) <= tauUnloadLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_BACKSPACE_REQUEST) <= tauBackspaceLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_ERASE_REQUEST) <= tauEraseLatch;
-         tauUnitControlXMTChar(TAPE_UNIT_CTL_RESET_INDICATE) <= tauResetTILatch;
+         if tauResetTILatch = '1' and MC_TURN_OFF_TAPE_IND = '0' then
+            tauUnitControlXMTChar(TAPE_UNIT_CTL_RESET_INDICATE) <= '1';
+         end if;
 
          -- Here we don't need a special FIFO wait state.
          if FIFO_FULL = '1' then
@@ -573,8 +598,8 @@ tauBRUEProcess: process(
          tauUnitControlXMTChar <= "00000000";
          -- Wait for call signal from channel to go away.  Here we use the actual call
          -- signals, NOT our latched ones.
-         if not(MC_ERASE_CALL = '0' or MC_REWIND_UNLOAD = '0' or MC_REWIND_CALL = '0' or
-            MC_BACKSPACE_CALL = '0') then
+         -- We don't wait for the reset TI signal to go away.
+         if tauBRUEAction = '0' then
             tauBRUEState <= tau_brue_idle;
          else
             tauBRUEState <= tau_brue_wait;
@@ -960,7 +985,18 @@ MC_SELECT_AND_REWIND <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE
 
 tauBRUEBusy  <= '1' when 
    ((tauBRUEState = tau_brue_called or tauBRUEState = tau_brue_twiddle) and MC_ERASE_CALL = '1')   
-   else '0';   
+   else '0';
+   
+tauBRUEAction <= '1' when
+   MC_REWIND_UNLOAD = '0' or MC_REWIND_CALL = '0' or MC_BACKSPACE_CALL = '0' or
+               MC_ERASE_CALL = '0'
+   else '0';
+
+-- True if we have a request to turn of TI and that has not already occured - so
+-- we only send the status update to the PC one time.   
+tauBRUEResetTI <= '1' when
+   MC_TURN_OFF_TAPE_IND = '0' and tauResetTILatch = '0'
+   else '0';
   
 tauReadBusy <= '1' when
    tauReadState /= tau_read_idle

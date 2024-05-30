@@ -1962,6 +1962,18 @@ end component;
    signal MS_COMPUTER_RESET: std_logic := '1';
    signal MS_PROGRAM_RESET: std_logic := '1';
    signal unlatchedConsoleParity: std_logic := '0';
+   
+   type testDataType is array(0 to 100) of STD_LOGIC_VECTOR(7 downto 0);
+   signal tapeTestDataEven: testDataType := (
+     -- 0 => X"00", 
+     0 => X"0F", 1 => X"81", 2 => X"82", 3=> X"03",  
+     4 => X"84", 5 => X"05", 6 => X"06", 7 => X"87", 
+     8 => X"88", 9 => X"09", 10 => X"0a", 11 =>  X"8b", 
+     12 => X"0c", 13 =>  X"8d", 14 => X"8e", 15 => X"0f", 
+     16 => X"90", 17 => X"11", 18 => X"12", 19 => X"93",
+     20 => X"22",
+     others => X"80");
+   
 
 ---- END USER TEST BENCH DECLARATIONS
 
@@ -2911,12 +2923,12 @@ memory: IBM1410Memory
       IBM1410_CONSOLE_INPUT_FIFO_WRITE_DATA => IBM1410_CONSOLE_INPUT_FIFO_WRITE_DATA
 );
 
--- Instantiate the Channel 1 TAU Adapter
+-- Instantiate the Channel 1 TAU Adapter - try shorter time for cycle length....
 
    TAU_CHANNEL_1: IBM1410TapeAdapterUnit
    generic map (
-       CHANNEL_STROBE_LENGTH => 1000,  
-       CHANNEL_CYCLE_LENGTH => 5000 )
+       CHANNEL_STROBE_LENGTH => 100,  
+       CHANNEL_CYCLE_LENGTH => 500 )
    port map (
        FPGA_CLK => FPGA_CLK,
        MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_E_CH,
@@ -3128,6 +3140,8 @@ uut_process: process
    
    SWITCH_ROT_MODE_SW_DK <= "0000010000000"; -- Run Mode
    
+   SWITCH_TOG_ASTERISK_PL2 <= '1';  -- Asterisk Insert ON
+   
    -- PV_SENSE_CHAR_0_B1_BUS <= "11111011";  -- CWBA8-21  (WM + period)
    
    -- Initialize RAM
@@ -3189,7 +3203,7 @@ uut_process: process
             
    -- A short pretend rewind period.
    
-   wait for 5 ms;
+   wait for 1 ms;
    
    -- Tell the CPU that the rewind has completed.
    
@@ -3215,7 +3229,100 @@ uut_process: process
    assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Test 3, Tape IND asserted" severity failure;
    assert MC_SELECT_AND_REWIND_STAR_E_CH = '1' report "Test 3, Rewind STILL asserted" severity failure;  
    
-   wait for 30 ms;
+   -- Wait for a read request
+   
+   if MC_READ_TAPE_CALL_STAR_E_CH = '1' then
+      wait until MC_READ_TAPE_CALL_STAR_E_CH = '0' for 25 ms;
+   end if;
+   
+   assert MC_READ_TAPE_CALL_STAR_E_CH = '0' 
+     report "Read Test 1, No Read Call" severity failure;
+   
+   -- next, the TAU should issue a UART strobe to send the unit number
+   
+   if IBM1410_TAU_XMT_STROBE /= '1' then
+      wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+   end if;
+   
+   -- It should be for unit 0
+   
+   assert IBM1410_TAU_XMT_STROBE = '1' 
+      report "Read Test 1, No unit char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR = "00000000" report "Read Test 1, Unit NOT 0" severity failure;
+   
+   -- Wait again for the TAU to send something to the PC... a Read request.
+   
+   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+   
+   assert IBM1410_TAU_XMT_STROBE = '1' 
+      report "Read Test 1, No request char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR = "00000001" report "Read Test 1, Request not Read" severity failure;   
+   
+   -- Now we get to play PC Support program...  Send Unit 9 with the X'40' bit set...
+   
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "01000000";  -- Read data for Unit 0
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
+   wait for 100 ns;
+   
+   -- Now send a 20 byte record  [TEMP: 21 bytes, to test LONG WLR]
+   
+   for i in 0 to 20 loop      
+      IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= tapeTestDataEven(i);
+      wait for 10 ns;
+      IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
+      wait for 10 ns;
+      IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
+      -- Wait for the channel strobe...
+      if MC_TAPE_READ_STROBE /= '0' then
+         wait until MC_TAPE_READ_STROBE = '0' for 25 us;
+      end if;
+      assert MC_TAPE_READ_STROBE = '0' report "Read Test 1, no Read Strobe" severity failure;
+      wait for 10 ns;
+      -- Check the data
+      assert MC_E_CH_TAU_TO_CPU_BUS = not IBM1410_TAU_INPUT_FIFO_WRITE_DATA report
+         "Read Test 1 Data to Channel mismatch" severity failure;
+      -- wait for strobe to go away
+      if MC_TAPE_READ_STROBE /= '1' then
+         wait until MC_TAPE_READ_STROBE = '1' for 25 us;
+      end if;
+      assert MC_TAPE_READ_STROBE = '1' report "Read Test 1, Read Strobe Stayed active"
+         severity failure;
+
+      -- Need to wait - normally our serial port will be slower than the channel
+      wait for 1 us;
+                     
+      assert MC_TAPE_BUSY = '0' report "Read Test 1, TAU did not stay busy" severity failure;  
+      assert MC_TAPE_IN_PROCESS = '0' report "Read Test 1, TAU did not stay In Process" 
+        severity failure;  
+              
+   end loop;
+
+   -- We are no longer at load point...  (TODO)
+                         
+   -- Indicate the read is complete
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "01000000";  -- End of record flag
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
+   
+   -- Now, wait for TAU to go un-busy
+   
+   if MC_TAPE_BUSY /= '1' then
+      wait until MC_TAPE_BUSY = '1' for 25 us;
+   end if;
+   assert MC_TAPE_BUSY = '1' report "Read Test 1, TAU Stayed busy after EOR" severity failure;     
+   
+   if MC_TAPE_IN_PROCESS /= '1' then
+      wait until MC_TAPE_IN_PROCESS = '1' for 25 us;
+   end if;
+   assert MC_TAPE_IN_PROCESS = '1' report "Read Test 1, TAU Stayed in process after EOR" 
+      severity failure; 
+   
+   wait for 25 ms;  -- Give it a chance to halt somewhere.
    
    -- Stop printout - starts with CR
    
