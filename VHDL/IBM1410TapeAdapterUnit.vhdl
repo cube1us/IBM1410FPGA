@@ -639,7 +639,7 @@ taureadProcess: process(
       tauReadStrobeCounter <= 0;
       tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;
       tauReadXMTChar <= "00000000";
-      MC_TAU_TO_CPU_BUS <= "00000000";
+      MC_TAU_TO_CPU_BUS <= "11111111";
       
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
       case tauReadState is
@@ -709,15 +709,21 @@ taureadProcess: process(
          -- tape mark, but in OUR case, we can handle that in the PC Support program.
          
          if FIFO_READ_DATA_VALID = '1' then
-            if FIFO_READ_DATA = "01000000" then
+            -- All zeroes is End of Record.  (Blanks show up as C + A bits.
+            if FIFO_READ_DATA = "00000000" then  
                tauReadState <= tau_read_done;           
-            elsif tauReadFirstCharLatch = '1' and (FIFO_READ_DATA and "00111111") = TAPE_MARK_CHAR then
+            elsif tauReadFirstCharLatch = '1' and 
+                  (FIFO_READ_DATA and "00111111") = TAPE_MARK_CHAR then
                tauReadTapeIndicateLatch <= '1';
-               tauReadState <= tau_read_wait_channel;          
-               MC_TAU_TO_CPU_BUS <= not FIFO_READ_DATA;
+               tauReadState <= tau_read_wait_channel; 
+               -- Move the check bit into position, and send data to CPU         
+               MC_TAU_TO_CPU_BUS <= not (FIFO_READ_DATA(6) & '0' &
+                  FIFO_READ_DATA(5 downto 0));
             else
                tauReadState <= tau_read_wait_channel;
-               MC_TAU_TO_CPU_BUS <= not FIFO_READ_DATA;
+               -- Move the check bit into position, and send data to CPU         
+               MC_TAU_TO_CPU_BUS <= not (FIFO_READ_DATA(6) & '0' &
+                  FIFO_READ_DATA(5 downto 0));
             end if;          
          else
             tauReadState <= tau_read_getChar;  -- Really should never happen...
@@ -857,14 +863,20 @@ tauWriteProcess: process(
       -- Give the channel time to give us a character if we have not already done so.
       -- At that point, if this is a WTM, we are all done. 
       when tau_write_wait_channel =>
-         if tauWriteDelayCounter /= CHANNEL_CYCLE_LENGTH then
+         if MC_DISCONNECT_CALL = '0' then
+            tauWriteState <= tau_write_fifo_wait_4;  -- No more characters!            
+         elsif tauWriteDelayCounter /= CHANNEL_CYCLE_LENGTH then
             tauWriteDelayCounter <= tauWriteDelayCounter + 1;
             tauWriteState <= tau_write_wait_channel;
          else
             if tauWTMLatch = '1' then
                tauWriteState <= tau_write_done;
             else
-               tauWriteXMTChar <= not MC_CPU_TO_TAU_BUS; -- Latch character from CPU now
+               -- Latch character from CPU now, throwing away WM bit
+               -- and repositioning check bit where WM bit is normally
+               -- tauWriteXMTChar <= (not MC_CPU_TO_TAU_BUS) and "10111111";
+               tauWriteXMTChar <= not("1" & MC_CPU_TO_TAU_BUS(7) &
+                  MC_CPU_TO_TAU_BUS(5 downto 0)); 
                tauWriteState <= tau_write_send_char_to_PC; 
             end if;                       
          end if;
@@ -876,6 +888,7 @@ tauWriteProcess: process(
          else          
             tauWriteStrobeCounter <= 0;
             tauWriteState <= tau_write_strobe_channel;
+            tauWriteDelayCounter <= 0;  -- Also Reset delay counter for next memory cycle in channel
          end if;         
       
       -- Having sent the char off to the PC, we can now tell the channel we are
@@ -893,7 +906,7 @@ tauWriteProcess: process(
 
       -- End of record for normal write - prep to send EOR flag to PC, wait for FIFO
       when tau_write_fifo_wait_4 =>
-         tauWriteXMTChar <= "01000000";  -- End of record flag.
+         tauWriteXMTChar <= "00000000";  -- End of record flag.
          if FIFO_FULL = '1' then
             tauWriteState <= tau_write_fifo_wait_4;
          else
@@ -1063,5 +1076,7 @@ MC_TAPE_ERROR <= '1';
 MC_TAPE_WRITE_STROBE <= '0' when
    tauWriteState = tau_write_strobe_channel
    else '1';
+   
+MC_WRITE_CONDITION <= not tauWriteBusy;
        
 end Behavioral;

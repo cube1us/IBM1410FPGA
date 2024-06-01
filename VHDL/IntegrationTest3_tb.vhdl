@@ -1945,6 +1945,13 @@ end component;
    constant TAPE_UNIT_TAPE_IND_BIT:    integer := 3;
    constant TAPE_UNIT_TAPE_REWIND_BIT: integer := 4;
 
+   -- Test bench local data
+
+   signal LOCAL_ODD_PARITY_MASK: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+   signal LOCAL_WS_FLAG: STD_LOGIC := '0';
+   signal LOCAL_WS_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+   constant WORD_SEPARATOR_CHAR: STD_LOGIC_VECTOR(7 downto 0) := X"1D"; 
+   signal LOCAL_WS_TEST: STD_LOGIC := '0';  -- '1' if we are testing load mode
 
 --procedure check1(
 --    checked: in STD_LOGIC;
@@ -1963,16 +1970,26 @@ end component;
    signal MS_PROGRAM_RESET: std_logic := '1';
    signal unlatchedConsoleParity: std_logic := '0';
    
+   -- Tape test data - as it is sent/received from PC Support program,
+   -- So check bit is bit 7, not bit 7.
+   
    type testDataType is array(0 to 100) of STD_LOGIC_VECTOR(7 downto 0);
+   type testWMType is array(0 to 100) of STD_LOGIC;
+   
    signal tapeTestDataEven: testDataType := (
-     -- 0 => X"00", 
-     0 => X"0F", 1 => X"81", 2 => X"82", 3=> X"03",  
-     4 => X"84", 5 => X"05", 6 => X"06", 7 => X"87", 
-     8 => X"88", 9 => X"09", 10 => X"0a", 11 =>  X"8b", 
-     12 => X"0c", 13 =>  X"8d", 14 => X"8e", 15 => X"0f", 
-     16 => X"90", 17 => X"11", 18 => X"12", 19 => X"93",
+     -- 0 => X"0F",  (TM) 
+     0 => X"50", 1 => X"41", 2 => X"42", 3=> X"03",  -- 50 is C+A === BLANK  
+     4 => X"44", 5 => X"05", 6 => X"06", 7 => X"47", 
+     8 => X"48", 9 => X"09", 10 => X"0a", 11 =>  X"4b", 
+     12 => X"0c", 13 =>  X"4d", 14 => X"4e", 15 => X"0f", 
+     16 => X"50", 17 => X"11", 18 => X"12", 19 => X"53",
      20 => X"22",
-     others => X"80");
+     others => X"50");
+     
+   -- Word Marks to use during load mode testing.     
+     
+   signal tapeTestDataWM: testWMType := (
+     8 => '1', others => '0');
    
 
 ---- END USER TEST BENCH DECLARATIONS
@@ -3229,7 +3246,12 @@ uut_process: process
    assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Test 3, Tape IND asserted" severity failure;
    assert MC_SELECT_AND_REWIND_STAR_E_CH = '1' report "Test 3, Rewind STILL asserted" severity failure;  
    
+   ----------------------------------------------------------------------------------------------
    -- Wait for a read request
+   
+   -- Set whether or not we are testing load mode
+   
+   LOCAL_WS_TEST <= '0';
    
    if MC_READ_TAPE_CALL_STAR_E_CH = '1' then
       wait until MC_READ_TAPE_CALL_STAR_E_CH = '0' for 25 ms;
@@ -3237,6 +3259,14 @@ uut_process: process
    
    assert MC_READ_TAPE_CALL_STAR_E_CH = '0' 
      report "Read Test 1, No Read Call" severity failure;
+     
+   -- Set our odd parity mask to flip the TEST DATA parity bit.
+   
+  if MC_ODD_PARITY_TO_TAPE_STAR_E_CH = '0' then
+     LOCAL_ODD_PARITY_MASK <= "01000000";
+  else
+     LOCAL_ODD_PARITY_MASK <= "00000000";
+  end if;
    
    -- next, the TAU should issue a UART strobe to send the unit number
    
@@ -3267,43 +3297,81 @@ uut_process: process
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
    wait for 100 ns;
    
-   -- Now send a 20 byte record  [TEMP: 21 bytes, to test LONG WLR]
+   -- Now send a 20 byte record 
    
-   for i in 0 to 20 loop      
-      IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= tapeTestDataEven(i);
-      wait for 10 ns;
-      IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
-      wait for 10 ns;
-      IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
-      -- Wait for the channel strobe...
-      if MC_TAPE_READ_STROBE /= '0' then
-         wait until MC_TAPE_READ_STROBE = '0' for 25 us;
+   for i in 0 to 19 loop
+   
+      -- See if this char has a word separator
+      
+      LOCAL_WS_FLAG <= '1';  -- Have to go thru loop at least once.
+      if TapeTestDataWM(i) = '1' and LOCAL_WS_TEST = '1' then
+         LOCAL_WS_CHAR <= WORD_SEPARATOR_CHAR;
+      else
+         LOCAL_WS_CHAR <= "00000000";
       end if;
-      assert MC_TAPE_READ_STROBE = '0' report "Read Test 1, no Read Strobe" severity failure;
-      wait for 10 ns;
-      -- Check the data
-      assert MC_E_CH_TAU_TO_CPU_BUS = not IBM1410_TAU_INPUT_FIFO_WRITE_DATA report
-         "Read Test 1 Data to Channel mismatch" severity failure;
-      -- wait for strobe to go away
-      if MC_TAPE_READ_STROBE /= '1' then
-         wait until MC_TAPE_READ_STROBE = '1' for 25 us;
-      end if;
-      assert MC_TAPE_READ_STROBE = '1' report "Read Test 1, Read Strobe Stayed active"
-         severity failure;
+      wait for 10 ns;  -- Make the above take effect.
 
-      -- Need to wait - normally our serial port will be slower than the channel
-      wait for 1 us;
+      -- If WM in test data, send WS first
+                  
+      while LOCAL_WS_FLAG = '1' loop
+         if LOCAL_WS_CHAR /= "00000000" then
+            IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= WORD_SEPARATOR_CHAR xor LOCAL_ODD_PARITY_MASK;
+         else
+            IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= tapeTestDataEven(i) xor LOCAL_ODD_PARITY_MASK;
+         end if;
+      
+         wait for 10 ns;
+         IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
+         wait for 10 ns;
+         IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
+         -- Wait for the channel strobe...
+         if MC_TAPE_READ_STROBE /= '0' then
+            wait until MC_TAPE_READ_STROBE = '0' for 25 us;
+         end if;
+         assert MC_TAPE_READ_STROBE = '0' report "Read Test 1, no Read Strobe" severity failure;
+         wait for 10 ns;
+      
+         -- Check the data.   It should match what we told the TAU about.
+         -- (Word separators are handled in the CPU, not the TAU)
+         -- Have to swap location of check bit....
+         assert MC_E_CH_TAU_TO_CPU_BUS = not (
+            IBM1410_TAU_INPUT_FIFO_WRITE_DATA(6) & '0' &
+            IBM1410_TAU_INPUT_FIFO_WRITE_DATA(5 downto 0))
+            report "Read Test 1 Data to Channel mismatch" severity failure;
+         -- wait for strobe to go away
+         if MC_TAPE_READ_STROBE /= '1' then
+            wait until MC_TAPE_READ_STROBE = '1' for 25 us;
+         end if;
+         assert MC_TAPE_READ_STROBE = '1' report "Read Test 1, Read Strobe Stayed active"
+            severity failure;
+ 
+         -- Need to wait - normally our serial port will be slower than the channel
+         wait for 1 us;
                      
-      assert MC_TAPE_BUSY = '0' report "Read Test 1, TAU did not stay busy" severity failure;  
-      assert MC_TAPE_IN_PROCESS = '0' report "Read Test 1, TAU did not stay In Process" 
-        severity failure;  
+         assert MC_TAPE_BUSY = '0' report "Read Test 1, TAU did not stay busy" severity failure;  
+         assert MC_TAPE_IN_PROCESS = '0' report "Read Test 1, TAU did not stay In Process" 
+           severity failure;  
+        
+         -- IF we just wrote a word separator while testing word marks, then 
+         -- leave the LOCAL_WS_FLAG set, otherwise clear it.
+         -- Clear the remembered WS Character regardless.
+        
+         if LOCAL_WS_CHAR /= "00000000" then
+            LOCAL_WS_FLAG <= '1';
+         else
+            LOCAL_WS_FLAG <= '0';         
+         end if;
+         wait for 10 ns;
+         LOCAL_WS_CHAR <= "00000000";
+        
+      end loop; -- Word separater loop
               
-   end loop;
+   end loop;  -- test data loop
 
    -- We are no longer at load point...  (TODO)
                          
    -- Indicate the read is complete
-   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "01000000";  -- End of record flag
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  -- End of record flag
    wait for 10 ns;
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
    wait for 10 ns;
@@ -3322,6 +3390,189 @@ uut_process: process
    assert MC_TAPE_IN_PROCESS = '1' report "Read Test 1, TAU Stayed in process after EOR" 
       severity failure; 
    
+---------------------------------------------------------------------------------------------
+
+-- Now, lets WRITE a faux record from unit 0
+   
+   wait until MC_WRITE_TAPE_CALL_STAR_E_CH = '0' for 10 ms;
+   wait for 20 ns;
+   
+   assert MC_WRITE_TAPE_CALL_STAR_E_CH = '0' report
+      "Write Test 1, Didn't wait long enough for Write Call" severity failure;
+
+   if MC_ODD_PARITY_TO_TAPE_STAR_E_CH = '0' then
+      LOCAL_ODD_PARITY_MASK <= "01000000";
+   else
+     LOCAL_ODD_PARITY_MASK <= "00000000";
+   end if;
+   
+   
+   assert MC_TAPE_BUSY = '0' report "Write Test 1, TAU did not go busy" severity failure;
+
+   -- For a write, the TAU should STAY busy
+
+   wait for 10 ns;
+   assert MC_TAPE_BUSY = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
+   assert MC_TAPE_IN_PROCESS = '0' report "Write Test 1, TAU not In Process" severity failure; 
+      
+   -- Wait for the TAU to send something to the PC... the unit number
+   -- This thing reacts quickly - strobe might already be set!
+   
+   if IBM1410_TAU_XMT_STROBE /= '1' then
+      wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+   end if;
+   
+   -- It should be for unit 0
+   
+   assert IBM1410_TAU_XMT_STROBE = '1' 
+      report "Write Test 1, No unit char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR = "00000000" report "Write Test 1, Unit NOT 0" severity failure;
+   wait for 10 ns;
+   
+   -- Wait again for the TAU to send something to the PC... a WRITE request.
+   
+   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+   
+   assert IBM1410_TAU_XMT_STROBE = '1' 
+      report "Write Test 1, No request char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR = "00000010" report "Write Test 1, Request not Write" severity failure;
+   wait for 20 ns;  -- Wait for XMT strobe to go away 
+     
+   -- Now expect a 20 byte record
+   
+   for i in 0 to 19 loop
+   
+      report "Waiting for UART Strobe";
+      
+      -- Wait for TAU to send the next character...
+      if IBM1410_TAU_XMT_STROBE = '0' then            
+         wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+      end if;   
+      assert IBM1410_TAU_XMT_STROBE = '1' 
+         report "Write Test 1, No data char transmitted" severity failure;
+         
+      -- Check that the data matches what was sent to 1410 during read test
+      
+      assert IBM1410_TAU_XMT_CHAR = (tapeTestDataEven(i) xor LOCAL_ODD_PARITY_MASK) 
+         report "Write Test 1, Data sent to PC is not as expected" severity failure;
+      wait for 100 ns;   
+
+      -- Wait for the channel strobe from the TAU for the next character
+      
+      report "Waiting for strobe to channel";
+
+      if MC_TAPE_WRITE_STROBE /= '0' then
+         wait until MC_TAPE_WRITE_STROBE = '0' for 25 us;
+      end if;
+         
+      assert MC_TAPE_WRITE_STROBE = '0' report "Write Test 1, No Write Strobe from TAU"
+         severity failure;
+         
+      -- Until the last character, TAU should stay busy...
+      
+      if i /= 19 then           
+
+         -- Need to wait - normally our serial port will be slower than the channel
+         wait for 1 us;
+                     
+         assert MC_TAPE_BUSY = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
+         assert MC_TAPE_IN_PROCESS = '0' report "Write Test 1, TAU did not stay In Process" 
+           severity failure;
+      end if;
+              
+   end loop;
+   
+   -- At this point, we are expecting a disconnect from the Channel -- handled in TAU
+
+   -- After the disconnect, we should see the EOR get transmitted
+
+   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+   
+   assert IBM1410_TAU_XMT_STROBE = '1' 
+      report "Write Test 1, No EOR char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR = "00000000" report "Write Test 1, Did not get X'40' EOR" 
+      severity failure;
+   wait for 100 ns;   
+   
+   -- Now, wait for TAU to go un-busy
+   
+   if MC_TAPE_BUSY /= '1' then
+      wait until MC_TAPE_BUSY = '1' for 25 us;
+   end if;
+   assert MC_TAPE_BUSY = '1' report "Write Test 1, TAU Stayed busy after EOR" severity failure;     
+   
+   if MC_TAPE_IN_PROCESS /= '1' then
+      wait until MC_TAPE_IN_PROCESS = '1' for 25 us;
+   end if;
+   assert MC_TAPE_IN_PROCESS = '1' report "Write Test 1, TAU Stayed in process after EOR" 
+      severity failure; 
+   
+   wait for 100 ns;
+
+
+---------------------------------------------------------------------------------------------
+
+   -- Write Tape Mark Test
+
+   -- Wait for the request
+   
+   wait until MC_WRITE_TAPE_MK_CALL_STAR_E_CH = '0' for 25 ms;
+   
+   assert MC_WRITE_TAPE_MK_CALL_STAR_E_CH = '0' report "WTM Test, No Tape Mark Call" severity failure;
+      
+   -- For a WTM, the TAU should STAY busy for a little while.
+
+   wait for 20 ns;
+   assert MC_TAPE_BUSY = '0' report "WTM Test, TAU did not go busy" severity failure;  
+   assert MC_TAPE_IN_PROCESS = '0' report "WTM, TAU not In Process" severity failure; 
+      
+   -- Wait for the TAU to send something to the PC... the unit number
+   -- This thing reacts quickly - strobe might already be set!
+   
+   if IBM1410_TAU_XMT_STROBE /= '1' then
+      wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+   end if;
+   
+   -- It should be for unit 0
+   
+   assert IBM1410_TAU_XMT_STROBE = '1' 
+      report "WTM Test, No unit char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR = "00000000" report "WTM Test, Unit NOT 0" severity failure;
+   wait for 20 ns;
+   
+   -- Wait again for the TAU to send something to the PC... WTM.
+   
+   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+   
+   assert IBM1410_TAU_XMT_STROBE = '1' 
+      report "WTM Test, No request char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR = "00010000" report "WTM Test, Request not WTM" severity failure;   
+   
+   -- Make sure it doesn't strobe the channel
+   
+   wait until MC_TAPE_WRITE_STROBE = '0' for 10 us;
+   
+   assert MC_TAPE_WRITE_STROBE = '1' report "WTM Test, Strobed Channel but should not.";
+   
+   -- Wait for the 1410 to issue a disconnect (it might not?)
+   
+   if MC_DISCONNECT_CALL_STAR_E_CH = '1' then
+      wait until MC_DISCONNECT_CALL_STAR_E_CH = '0' for 25 us;
+   end if;
+   
+   -- Apparently, there is no disconnect call from a WTM (makes sense, I guess)
+   -- assert MC_DISCONNECT_CALL_STAR_E_CH = '0' report "WTM Test, No Disconnect Call" severity failure;
+   
+   -- Everything should be done, now.
+   
+   assert MC_TAPE_BUSY = '1' report "WTM Test, TAU still busy" severity failure;  
+   assert MC_TAPE_IN_PROCESS = '1' report "WTM Test 1, TAU did still In Process" 
+      severity failure;  
+
+   -- We are no longer at load point...  (TODO)
+                           
+   wait for 100 ns;
+      
    wait for 25 ms;  -- Give it a chance to halt somewhere.
    
    -- Stop printout - starts with CR
