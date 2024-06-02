@@ -2944,8 +2944,8 @@ memory: IBM1410Memory
 
    TAU_CHANNEL_1: IBM1410TapeAdapterUnit
    generic map (
-       CHANNEL_STROBE_LENGTH => 100,  
-       CHANNEL_CYCLE_LENGTH => 500 )
+       CHANNEL_STROBE_LENGTH => 25,  -- Reduced from default of 100 (1us => 250ns)  
+       CHANNEL_CYCLE_LENGTH => 1150 ) -- Reduced from default of 11.5 us
    port map (
        FPGA_CLK => FPGA_CLK,
        MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_E_CH,
@@ -3251,7 +3251,7 @@ uut_process: process
    
    -- Set whether or not we are testing load mode
    
-   LOCAL_WS_TEST <= '0';
+   LOCAL_WS_TEST <= '1';
    
    if MC_READ_TAPE_CALL_STAR_E_CH = '1' then
       wait until MC_READ_TAPE_CALL_STAR_E_CH = '0' for 25 ms;
@@ -3324,7 +3324,8 @@ uut_process: process
          IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
          wait for 10 ns;
          IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
-         -- Wait for the channel strobe...
+         
+         -- Wait for the channel strobe...         
          if MC_TAPE_READ_STROBE /= '0' then
             wait until MC_TAPE_READ_STROBE = '0' for 25 us;
          end if;
@@ -3345,7 +3346,7 @@ uut_process: process
          assert MC_TAPE_READ_STROBE = '1' report "Read Test 1, Read Strobe Stayed active"
             severity failure;
  
-         -- Need to wait - normally our serial port will be slower than the channel
+         -- Need to wait as a test - normally our serial port will be slower than the channel
          wait for 1 us;
                      
          assert MC_TAPE_BUSY = '0' report "Read Test 1, TAU did not stay busy" severity failure;  
@@ -3363,6 +3364,7 @@ uut_process: process
          end if;
          wait for 10 ns;
          LOCAL_WS_CHAR <= "00000000";
+         wait for 10 ns;
         
       end loop; -- Word separater loop
               
@@ -3427,10 +3429,10 @@ uut_process: process
    assert IBM1410_TAU_XMT_STROBE = '1' 
       report "Write Test 1, No unit char transmitted" severity failure;
    assert IBM1410_TAU_XMT_CHAR = "00000000" report "Write Test 1, Unit NOT 0" severity failure;
-   wait for 10 ns;
+   wait for 20 ns;
    
    -- Wait again for the TAU to send something to the PC... a WRITE request.
-   
+
    wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
    
    assert IBM1410_TAU_XMT_STROBE = '1' 
@@ -3444,43 +3446,77 @@ uut_process: process
    
       report "Waiting for UART Strobe";
       
-      -- Wait for TAU to send the next character...
-      if IBM1410_TAU_XMT_STROBE = '0' then            
-         wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-      end if;   
-      assert IBM1410_TAU_XMT_STROBE = '1' 
-         report "Write Test 1, No data char transmitted" severity failure;
-         
-      -- Check that the data matches what was sent to 1410 during read test
+      -- If the test data has a word mark, and we are testing load mode, then we need to do both
+      -- the word separator check and the character check in this "i" loop
       
-      assert IBM1410_TAU_XMT_CHAR = (tapeTestDataEven(i) xor LOCAL_ODD_PARITY_MASK) 
-         report "Write Test 1, Data sent to PC is not as expected" severity failure;
-      wait for 100 ns;   
-
-      -- Wait for the channel strobe from the TAU for the next character
-      
-      report "Waiting for strobe to channel";
-
-      if MC_TAPE_WRITE_STROBE /= '0' then
-         wait until MC_TAPE_WRITE_STROBE = '0' for 25 us;
+      LOCAL_WS_FLAG <= '1';  -- Have to go thru the loop at least once
+      if TapeTestDataWM(i) = '1' and LOCAL_WS_TEST = '1' then
+         LOCAL_WS_CHAR <= WORD_SEPARATOR_CHAR;
+      else
+         LOCAL_WS_CHAR <= "00000000";
       end if;
-         
-      assert MC_TAPE_WRITE_STROBE = '0' report "Write Test 1, No Write Strobe from TAU"
-         severity failure;
-         
-      -- Until the last character, TAU should stay busy...
+      wait for 10 ns;  -- Make the above take effect
       
-      if i /= 19 then           
+      while LOCAL_WS_FLAG = '1' loop
+      
+         -- Wait for TAU to send the next character...
+         if IBM1410_TAU_XMT_STROBE = '0' then            
+            wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+         end if;   
+         assert IBM1410_TAU_XMT_STROBE = '1' 
+            report "Write Test 1, No data char transmitted" severity failure;
+         
+         -- Check that the data matches what was sent to 1410 during read test
+         -- (If this is supposed to be a word separator, check that the first time thru)
+      
+         if LOCAL_WS_CHAR /= "00000000" then
+            assert IBM1410_TAU_XMT_CHAR = (LOCAL_WS_CHAR xor LOCAL_ODD_PARITY_MASK)
+               report "Write Test 1, Data send to PC not expected Word Separator" severity failure;
+         else
+            assert IBM1410_TAU_XMT_CHAR = (tapeTestDataEven(i) xor LOCAL_ODD_PARITY_MASK) 
+               report "Write Test 1, Data sent to PC is not as expected" severity failure;
+         end if;
+         wait for 100 ns;   
 
-         -- Need to wait - normally our serial port will be slower than the channel
-         wait for 1 us;
+         -- Wait for the channel strobe from the TAU for the next character
+      
+         report "Waiting for strobe to channel";
+
+         if MC_TAPE_WRITE_STROBE /= '0' then
+            wait until MC_TAPE_WRITE_STROBE = '0' for 25 us;
+         end if;
+         
+         assert MC_TAPE_WRITE_STROBE = '0' report "Write Test 1, No Write Strobe from TAU"
+            severity failure;
+         
+         -- Until the last character, TAU should stay busy...
+      
+         if i /= 19 or LOCAL_WS_CHAR /= "00000000" then           
+
+            -- Need to wait - normally our serial port will be slower than the channel
+            wait for 1 us;
                      
-         assert MC_TAPE_BUSY = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
-         assert MC_TAPE_IN_PROCESS = '0' report "Write Test 1, TAU did not stay In Process" 
-           severity failure;
-      end if;
+            assert MC_TAPE_BUSY = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
+            assert MC_TAPE_IN_PROCESS = '0' report "Write Test 1, TAU did not stay In Process" 
+              severity failure;
+         end if;
+         
+         -- IF we just got a WS character while testign with word parms, then
+         -- leave LOCAL_WS_FLAG set, otherwise, clar it.
+         -- Clear the remembered WS Character regardless.
+         
+         if LOCAL_WS_CHAR /= "00000000" then
+            LOCAL_WS_FLAG <= '1';
+         else
+            LOCAL_WS_FLAG <= '0';         
+         end if;
+         wait for 10 ns;
+         LOCAL_WS_CHAR <= "00000000";
+         wait for 10 ns;
+         
+      end loop;  -- Word Separator handling loop
               
-   end loop;
+   end loop;  -- "i" count loop
    
    -- At this point, we are expecting a disconnect from the Channel -- handled in TAU
 

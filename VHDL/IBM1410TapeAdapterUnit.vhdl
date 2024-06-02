@@ -195,6 +195,7 @@ type tauReadState_type is (
    tau_read_idle,
    tau_read_fifo_wait_1,
    tau_read_send_unit_to_PC,
+   tau_read_prepare_action,
    tau_read_fifo_wait_2,
    tau_read_send_action_to_PC,
    tau_read_trigger_wait,
@@ -211,9 +212,11 @@ type tauWriteState_type is (
    tau_write_fifo_wait_1,
    tau_write_send_unit_to_PC,
    tau_write_fifo_wait_2,
+   tau_write_prepare_action,
    tau_write_send_action_to_PC,
    tau_write_fifo_wait_3,
    tau_write_wait_channel,
+   tau_write_char_fifo_wait,
    tau_write_send_char_to_PC,
    tau_write_strobe_channel,
    tau_write_fifo_wait_4,
@@ -228,6 +231,7 @@ type tauBRUEState_type is (
    tau_brue_twiddle,           -- Wait for 1us for benefit of CPU
    tau_brue_fifo_wait,         -- waiting for FIFO to send unit number
    tau_brue_send_unit_to_PC,   -- At this point, send unit to PC for tape operation
+   tau_brue_action_fifo_wait,  -- Wait at least 1 tick for data to settle before strobe
    tau_brue_prepare_action,    -- Space between write enables
    tau_brue_send_action_to_PC, -- At this point, send operation to PC for tape operation
    tau_brue_wait );            -- After this point TAU goes NOT busy.
@@ -582,13 +586,17 @@ tauBRUEProcess: process(
          if tauResetTILatch = '1' and MC_TURN_OFF_TAPE_IND = '0' then
             tauUnitControlXMTChar(TAPE_UNIT_CTL_RESET_INDICATE) <= '1';
          end if;
+         tauBrueState <= tau_brue_action_fifo_wait;
 
          -- Here we don't need a special FIFO wait state.
+         
+      when tau_brue_action_fifo_wait =>
          if FIFO_FULL = '1' then
             tauBRUEState <= tau_brue_prepare_action;
          else
             tauBRUEState <= tau_brue_send_action_to_PC;
          end if;
+      
                      
       when tau_brue_send_action_to_PC =>
          -- Again, as before, this state just triggers the XMT Strobe.
@@ -667,14 +675,18 @@ taureadProcess: process(
       
       -- Send unit number to PC - trigger's strobe
       when tau_read_send_unit_to_PC =>
-         tauReadState <= tau_read_fifo_wait_2;
+         tauReadState <= tau_read_prepare_action;
          tauReadTapeIndicateLatch <= '0';
       
       -- Prepare read action to send to PC, and wait for FIFO if necessary
-      when tau_read_fifo_wait_2 =>
+      when tau_read_prepare_action =>
          tauReadXMTChar <= "00000000";
          tauReadFirstCharLatch <= '1';
          tauReadXMTChar(TAPE_UNIT_CTL_READ_REQUEST) <= '1';
+         tauReadState <= tau_read_fifo_wait_2;
+
+      -- Wait at least one tick for data to settle before strobing UART         
+      when tau_read_fifo_wait_2 =>
          if FIFO_FULL = '1' then
             tauReadState <= tau_read_fifo_wait_2;
          else
@@ -825,16 +837,20 @@ tauWriteProcess: process(
       
       -- Send unit number to PC - trigger's strobe
       when tau_write_send_unit_to_PC =>
-         tauWriteState <= tau_write_fifo_wait_2;
+         tauWriteState <= tau_write_prepare_action;
       
-      -- Prepare write or write tape mark request, and wait for FIFO if necesary.
-      when tau_write_fifo_wait_2 =>
+      -- Prepare write or write tape mark request
+      when tau_write_prepare_action =>
          tauWriteXMTChar <= "00000000";
          if tauWTMlatch = '0' then
             tauWriteXMTChar(TAPE_UNIT_CTL_WRITE_REQUEST) <= '1';
          else
             tauWriteXMTChar(TAPE_UNIT_CTL_MARK_REQUEST) <= '1';
          end if;
+         tauWriteState <= tau_write_fifo_wait_2;
+         
+      -- Wait for FIFO, and for at least one tick for data to settle before strobing UART
+      when tau_write_fifo_wait_2 =>
          if FIFO_FULL = '1' then
             tauWriteState <= tau_write_fifo_wait_2;
          else
@@ -877,8 +893,16 @@ tauWriteProcess: process(
                -- tauWriteXMTChar <= (not MC_CPU_TO_TAU_BUS) and "10111111";
                tauWriteXMTChar <= not("1" & MC_CPU_TO_TAU_BUS(7) &
                   MC_CPU_TO_TAU_BUS(5 downto 0)); 
-               tauWriteState <= tau_write_send_char_to_PC; 
+               tauWriteState <= tau_write_char_fifo_wait; 
             end if;                       
+         end if;
+         
+      -- Wait at least 1 tick for data to settle before strobing UART
+      when tau_write_char_fifo_wait =>
+         if FIFO_FULL = '1' then
+            tauWriteState <= tau_write_char_fifo_wait;
+         else
+            tauWriteState <= tau_write_send_char_to_PC;
          end if;
 
       -- send the character to the PC (strobe)
