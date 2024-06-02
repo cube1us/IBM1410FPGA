@@ -560,7 +560,7 @@ uut_process: process
    -- We are no longer at load point...  (TODO)
                          
    -- Indicate the read is complete
-   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "01000000";  -- End of record flag
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  -- End of record flag
    wait for 10 ns;
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
    wait for 10 ns;
@@ -669,7 +669,7 @@ uut_process: process
                          
    -- Indicate the read is complete
    
-   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "01000000";  -- End of record flag
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  -- End of record flag
    wait for 10 ns;
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
    wait for 10 ns;
@@ -849,7 +849,7 @@ uut_process: process
    
    assert IBM1410_TAU_XMT_STROBE = '1' 
       report "Write Test 1, No EOR char transmitted" severity failure;
-   assert IBM1410_TAU_XMT_CHAR = "01000000" report "Write Test 1, Did not get X'40' EOR" 
+   assert IBM1410_TAU_XMT_CHAR = "00000000" report "Write Test 1, Did not get X'00' EOR" 
       severity failure;
    wait for 100 ns;   
    

@@ -242,7 +242,7 @@ signal TAU_TAPE_UNIT_STATUSES: TAU_TAPE_UNIT_STATUS_TYPE :=
  ("00000000", "00000000", "00000000", "00000000", "00000000", 
   "00000000", "00000000", "00000000", "00000000", "00000000", 
   "00000000", "11111110", "11111110", "11111110", "11111110",
-  "11111110");
+  "00000000");
 
 signal tauTriggerStatus: STD_LOGIC := '0';
 signal tauTriggerRead:   STD_LOGIC := '0';
@@ -293,6 +293,7 @@ signal tauBRUETwiddleCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 
 signal tauUnitReadReady: STD_LOGIC := '0';
 signal tauUnitWriteReady: STD_LOGIC := '0';
+signal tauUnitRewinding: STD_LOGIC := '0';
 
 signal tauBRUEAction: STD_LOGIC := '0';  -- Indicates rewind, unload, erase or backspace
 signal tauBRUEResetTI: STD_LOGIC := '0'; -- Indicates request to reset TI and tauResetLatch not set
@@ -319,7 +320,7 @@ tauUnitProcess: process(
       
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
       if MC_RESET_TAPE_SEL_REG = '0' then
-         TAU_SELECTED_TAPE_DRIVE <= 10;
+         TAU_SELECTED_TAPE_DRIVE <= 15;
       elsif MC_SET_TAPE_SEL_REG = '0' then
             if    MC_UNIT_NU_0_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 0;
             elsif MC_UNIT_NU_1_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 1;
@@ -331,7 +332,7 @@ tauUnitProcess: process(
             elsif MC_UNIT_NU_7_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 7;
             elsif MC_UNIT_NU_8_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 8;
             elsif MC_UNIT_NU_9_TO_TAU = '0' then TAU_SELECTED_TAPE_DRIVE <= 9; 
-            else TAU_SELECTED_TAPE_DRIVE <= 10;  -- No tape drive selected 
+            else TAU_SELECTED_TAPE_DRIVE <= 15;  -- No tape drive selected 
             end if;     
       end if;
    end if;
@@ -1009,11 +1010,15 @@ tauSetStatusProcess: process(
 UART_RESET <= not MC_COMP_RESET_TO_TAPE;
 
 tauUnitReadReady <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_READ_READY_BIT);
-tauUnitWriteReady <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_WRITE_READY_BIT);    
-MC_TAPE_READY <= '1' when
-   tauUnitReadReady = '0' or 
-   ((MC_WRITE_TAPE_CALL = '0' or MC_ERASE_CALL = '0' or MC_WRITE_TAPE_MK_CALL = '0') and tauUnitWriteReady = '0')
-   else '0';
+tauUnitWriteReady <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_WRITE_READY_BIT);
+tauUnitRewinding <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_REWIND_BIT);
+    
+MC_TAPE_READY <= '0' when
+   tauUnitRewinding = '0' and
+   (tauUnitReadReady = '1' or 
+   ((MC_WRITE_TAPE_CALL = '0' or MC_ERASE_CALL = '0' or MC_WRITE_TAPE_MK_CALL = '0') and 
+      tauUnitWriteReady = '1'))
+   else '1';
      
 MC_SELECT_AT_LOAD_POINT <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_LOAD_POINT_BIT));
 MC_SEL_OR_TAPE_IND_ON <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_IND_BIT) or
