@@ -54,6 +54,7 @@ architecture behavioral of IntegrationTest3_tb is
 		PS_E_CH_READY_BUS_STAR_SIF: in STD_LOGIC;
 		PS_E_CH_READY_BUS_STAR_1412_19: in STD_LOGIC;
 		MC_TAPE_READY: in STD_LOGIC;
+		MC_TAPE_READY_F_CH_JRJ: in STD_LOGIC;
 		MC_BUFFER_READY_JRJ: in STD_LOGIC;
 		MC_SELECT_AND_REWIND_STAR_E_CH: in STD_LOGIC;
 		MC_1301_BUSY_E_CH: in STD_LOGIC;
@@ -62,6 +63,7 @@ architecture behavioral of IntegrationTest3_tb is
 		MC_BUFFER_BUSY: in STD_LOGIC;
 		MC_BUFFER_BUSY_JRJ: in STD_LOGIC;
 		MC_TAPE_BUSY: in STD_LOGIC;
+		MC_TAPE_BUSY_F_CH_JRJ: in STD_LOGIC;
 		MC_1301_ERROR_E_CH: in STD_LOGIC;
 		MC_1405_ERROR_E_CH: in STD_LOGIC;
 		MC_BUFFER_ERROR: in STD_LOGIC;
@@ -69,6 +71,7 @@ architecture behavioral of IntegrationTest3_tb is
 		PS_E_CH_CHECK_BUS_STAR_SIF: in STD_LOGIC;
 		PS_E_CH_CHECK_BUS_STAR_1412_19: in STD_LOGIC;
 		MC_TAPE_ERROR: in STD_LOGIC;
+		MC_TAPE_ERROR_F_CH_JRJ: in STD_LOGIC;
 		MC_1301_E_CH_CONDITION: in STD_LOGIC;
 		MC_1405_CONDITION_E_CH: in STD_LOGIC;
 		MC_BUFFER_CONDITION: in STD_LOGIC;
@@ -93,6 +96,7 @@ architecture behavioral of IntegrationTest3_tb is
 		MC_1405_END_OF_OP_STAR_E_CH: in STD_LOGIC;
 		UNNAMED_26_DOT_00_DOT_01_DOT_0: in STD_LOGIC;
 		MC_TAPE_IN_PROCESS: in STD_LOGIC;
+		MC_TAPE_IN_PROCESS_F_CH_JRJ: in STD_LOGIC;
 		MC_1301_END_OF_OP_STAR_E_CH: in STD_LOGIC;
 		PS_GATE_OFF_E_CH_EXT_END_OF_TRF: in STD_LOGIC;
 		MS_E_CH_SEL_ODD_PARITY_STAR_1412_19: in STD_LOGIC;
@@ -194,9 +198,11 @@ architecture behavioral of IntegrationTest3_tb is
 		TW_SET_ECH_STROB_TR_E_FR_FEATS: in STD_LOGIC;
 		MC_BUFFER_STROBE_JRJ: in STD_LOGIC;
 		MC_TAPE_WRITE_STROBE: in STD_LOGIC;
+		MC_TAPE_WRITE_STROBE_F_CH_JRJ: in STD_LOGIC;
 		MC_1301_STROBE_E_CH: in STD_LOGIC;
 		MC_1405_STROBE_E_CH: in STD_LOGIC;
 		MC_TAPE_READ_STROBE: in STD_LOGIC;
+		MC_TAPE_READ_STROBE_F_CH_JRJ: in STD_LOGIC;
 		MS_F_CH_STK_SEL_OP_CODE_STAR_1414_STAR: in STD_LOGIC;
 		PS_F_CH_WRITE_LATCH_STAR_1414_STAR: in STD_LOGIC;
 		MS_F_SET_MOVE_MODE_LATCH_STAR_1414_STAR: in STD_LOGIC;
@@ -1059,6 +1065,7 @@ end component;
 	signal PS_E_CH_READY_BUS_STAR_SIF: STD_LOGIC := '0';
 	signal PS_E_CH_READY_BUS_STAR_1412_19: STD_LOGIC := '0';
 	signal MC_TAPE_READY: STD_LOGIC := '1';
+	signal MC_TAPE_READY_F_CH_JRJ: STD_LOGIC := '1';
 	signal MC_BUFFER_READY_JRJ: STD_LOGIC := '1';
 	signal MC_SELECT_AND_REWIND_STAR_E_CH: STD_LOGIC := '1';
 	signal MC_1301_BUSY_E_CH: STD_LOGIC := '1';
@@ -1067,6 +1074,7 @@ end component;
 	signal MC_BUFFER_BUSY: STD_LOGIC := '1';
 	signal MC_BUFFER_BUSY_JRJ: STD_LOGIC := '1';
 	signal MC_TAPE_BUSY: STD_LOGIC := '1';
+	signal MC_TAPE_BUSY_F_CH_JRJ: STD_LOGIC := '1';
 	signal MC_1301_ERROR_E_CH: STD_LOGIC := '1';
 	signal MC_1405_ERROR_E_CH: STD_LOGIC := '1';
 	signal MC_BUFFER_ERROR: STD_LOGIC := '1';
@@ -1074,6 +1082,7 @@ end component;
 	signal PS_E_CH_CHECK_BUS_STAR_SIF: STD_LOGIC := '0';
 	signal PS_E_CH_CHECK_BUS_STAR_1412_19: STD_LOGIC := '0';
 	signal MC_TAPE_ERROR: STD_LOGIC := '1';
+	signal MC_TAPE_ERROR_F_CH_JRJ: STD_LOGIC := '1';
 	signal MC_1301_E_CH_CONDITION: STD_LOGIC := '1';
 	signal MC_1405_CONDITION_E_CH: STD_LOGIC := '1';
 	signal MC_BUFFER_CONDITION: STD_LOGIC := '1';
@@ -1098,6 +1107,7 @@ end component;
 	signal MC_1405_END_OF_OP_STAR_E_CH: STD_LOGIC := '1';
 	signal UNNAMED_26_DOT_00_DOT_01_DOT_0: STD_LOGIC := '0';
 	signal MC_TAPE_IN_PROCESS: STD_LOGIC := '1';
+	signal MC_TAPE_IN_PROCESS_F_CH_JRJ: STD_LOGIC := '1';
 	signal MC_1301_END_OF_OP_STAR_E_CH: STD_LOGIC := '1';
 	signal PS_GATE_OFF_E_CH_EXT_END_OF_TRF: STD_LOGIC := '0';
 	signal MS_E_CH_SEL_ODD_PARITY_STAR_1412_19: STD_LOGIC := '1';
@@ -1199,9 +1209,11 @@ end component;
 	signal TW_SET_ECH_STROB_TR_E_FR_FEATS: STD_LOGIC := '0';
 	signal MC_BUFFER_STROBE_JRJ: STD_LOGIC := '1';
 	signal MC_TAPE_WRITE_STROBE: STD_LOGIC := '1';
+	signal MC_TAPE_WRITE_STROBE_F_CH_JRJ: STD_LOGIC := '1';
 	signal MC_1301_STROBE_E_CH: STD_LOGIC := '1';
 	signal MC_1405_STROBE_E_CH: STD_LOGIC := '1';
 	signal MC_TAPE_READ_STROBE: STD_LOGIC := '1';
+	signal MC_TAPE_READ_STROBE_F_CH_JRJ: STD_LOGIC := '1';
 	signal MS_F_CH_STK_SEL_OP_CODE_STAR_1414_STAR: STD_LOGIC := '1';
 	signal PS_F_CH_WRITE_LATCH_STAR_1414_STAR: STD_LOGIC := '0';
 	signal MS_F_SET_MOVE_MODE_LATCH_STAR_1414_STAR: STD_LOGIC := '1';
@@ -1905,12 +1917,16 @@ end component;
        -- TAU to PC Support System
        
    signal IBM1410_TAU_XMT_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+   signal IBM1410_TAU_XMT_CHAR_F_CH: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
    signal IBM1410_TAU_XMT_STROBE: STD_LOGIC := '0';
+   signal IBM1410_TAU_XMT_STROBE_F_CH: STD_LOGIC := '0';
               
        -- PC Support System to TAU 
        
    signal IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE: STD_LOGIC  := '0';
+   signal IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH: STD_LOGIC  := '0';
    signal IBM1410_TAU_INPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";   
+   signal IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
    
 
     
@@ -1952,6 +1968,7 @@ end component;
    signal LOCAL_WS_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
    constant WORD_SEPARATOR_CHAR: STD_LOGIC_VECTOR(7 downto 0) := X"1D"; 
    signal LOCAL_WS_TEST: STD_LOGIC := '0';  -- '1' if we are testing load mode
+   signal LOCAL_F_CH_TEST: STD_LOGIC := '0'; -- '1' if we are testing 2nd channel
 
 --procedure check1(
 --    checked: in STD_LOGIC;
@@ -2026,6 +2043,7 @@ end component;
 		PS_E_CH_READY_BUS_STAR_SIF => PS_E_CH_READY_BUS_STAR_SIF,
 		PS_E_CH_READY_BUS_STAR_1412_19 => PS_E_CH_READY_BUS_STAR_1412_19,
 		MC_TAPE_READY => MC_TAPE_READY,
+		MC_TAPE_READY_F_CH_JRJ => MC_TAPE_READY_F_CH_JRJ,
 		MC_BUFFER_READY_JRJ => MC_BUFFER_READY_JRJ,
 		MC_SELECT_AND_REWIND_STAR_E_CH => MC_SELECT_AND_REWIND_STAR_E_CH,
 		MC_1301_BUSY_E_CH => MC_1301_BUSY_E_CH,
@@ -2034,6 +2052,7 @@ end component;
 		MC_BUFFER_BUSY => MC_BUFFER_BUSY,
 		MC_BUFFER_BUSY_JRJ => MC_BUFFER_BUSY_JRJ,
 		MC_TAPE_BUSY => MC_TAPE_BUSY,
+		MC_TAPE_BUSY_F_CH_JRJ => MC_TAPE_BUSY_F_CH_JRJ,
 		MC_1301_ERROR_E_CH => MC_1301_ERROR_E_CH,
 		MC_1405_ERROR_E_CH => MC_1405_ERROR_E_CH,
 		MC_BUFFER_ERROR => MC_BUFFER_ERROR,
@@ -2041,6 +2060,7 @@ end component;
 		PS_E_CH_CHECK_BUS_STAR_SIF => PS_E_CH_CHECK_BUS_STAR_SIF,
 		PS_E_CH_CHECK_BUS_STAR_1412_19 => PS_E_CH_CHECK_BUS_STAR_1412_19,
 		MC_TAPE_ERROR => MC_TAPE_ERROR,
+		MC_TAPE_ERROR_F_CH_JRJ => MC_TAPE_ERROR_F_CH_JRJ,
 		MC_1301_E_CH_CONDITION => MC_1301_E_CH_CONDITION,
 		MC_1405_CONDITION_E_CH => MC_1405_CONDITION_E_CH,
 		MC_BUFFER_CONDITION => MC_BUFFER_CONDITION,
@@ -2065,6 +2085,7 @@ end component;
 		MC_1405_END_OF_OP_STAR_E_CH => MC_1405_END_OF_OP_STAR_E_CH,
 		UNNAMED_26_DOT_00_DOT_01_DOT_0 => UNNAMED_26_DOT_00_DOT_01_DOT_0,
 		MC_TAPE_IN_PROCESS => MC_TAPE_IN_PROCESS,
+		MC_TAPE_IN_PROCESS_F_CH_JRJ => MC_TAPE_IN_PROCESS_F_CH_JRJ,
 		MC_1301_END_OF_OP_STAR_E_CH => MC_1301_END_OF_OP_STAR_E_CH,
 		PS_GATE_OFF_E_CH_EXT_END_OF_TRF => PS_GATE_OFF_E_CH_EXT_END_OF_TRF,
 		MS_E_CH_SEL_ODD_PARITY_STAR_1412_19 => MS_E_CH_SEL_ODD_PARITY_STAR_1412_19,
@@ -2166,9 +2187,11 @@ end component;
 		TW_SET_ECH_STROB_TR_E_FR_FEATS => TW_SET_ECH_STROB_TR_E_FR_FEATS,
 		MC_BUFFER_STROBE_JRJ => MC_BUFFER_STROBE_JRJ,
 		MC_TAPE_WRITE_STROBE => MC_TAPE_WRITE_STROBE,
+		MC_TAPE_WRITE_STROBE_F_CH_JRJ => MC_TAPE_WRITE_STROBE_F_CH_JRJ,
 		MC_1301_STROBE_E_CH => MC_1301_STROBE_E_CH,
 		MC_1405_STROBE_E_CH => MC_1405_STROBE_E_CH,
 		MC_TAPE_READ_STROBE => MC_TAPE_READ_STROBE,
+		MC_TAPE_READ_STROBE_F_CH_JRJ => MC_TAPE_READ_STROBE_F_CH_JRJ,
 		MS_F_CH_STK_SEL_OP_CODE_STAR_1414_STAR => MS_F_CH_STK_SEL_OP_CODE_STAR_1414_STAR,
 		PS_F_CH_WRITE_LATCH_STAR_1414_STAR => PS_F_CH_WRITE_LATCH_STAR_1414_STAR,
 		MS_F_SET_MOVE_MODE_LATCH_STAR_1414_STAR => MS_F_SET_MOVE_MODE_LATCH_STAR_1414_STAR,
@@ -3005,6 +3028,72 @@ memory: IBM1410Memory
        IBM1410_TAU_INPUT_FIFO_WRITE_DATA => IBM1410_TAU_INPUT_FIFO_WRITE_DATA
    );
 
+-- Instantiate the Channel 2 TAU Adapter - try shorter time for cycle length....
+
+   TAU_CHANNEL_2: IBM1410TapeAdapterUnit
+   generic map (
+       CHANNEL_STROBE_LENGTH => 25,  -- Reduced from default of 100 (1us => 250ns)  
+       CHANNEL_CYCLE_LENGTH => 1150 ) -- Reduced from default of 11.5 us
+   port map (
+       FPGA_CLK => FPGA_CLK,
+       MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_F_CH,
+        
+       -- TAU Input Signals From CPU
+       
+       MC_CPU_TO_TAU_BUS => MC_CPU_TO_F_CH_TAU_BUS,       
+       
+       MC_WRITE_TAPE_CALL => MC_WRITE_TAPE_CALL_STAR_F_CH,
+       MC_WRITE_TAPE_MK_CALL => MC_WRITE_TAPE_MK_CALL_STAR_F_CH,
+       MC_ERASE_CALL => MC_ERASE_CALL_STAR_F_CH,
+       MC_REWIND_UNLOAD => MC_REWIND_UNLOAD_STAR_F_CH,
+       MC_REWIND_CALL => MC_REWIND_CALL_STAR_F_CH,
+       MC_BACKSPACE_CALL => MC_BACKSPACE_CALL_STAR_F_CH,
+       MC_TURN_OFF_TAPE_IND => MC_TURN_OFF_TI_STAR_F_CH,
+       MC_RESET_TAPE_SEL_REG => MC_RESET_TAPE_SEL_REG_STAR_CH_F,
+       MC_SET_TAPE_SEL_REG => MC_SET_TAPE_SEL_REG_STAR_CH_F,
+       MC_DISCONNECT_CALL => MC_DISCONNECT_CALL_STAR_F_CH,
+       MC_READ_TAPE_CALL => MC_READ_TAPE_CALL_STAR_F_CH,
+       MC_ODD_PARITY_TO_TAPE => MC_ODD_PARITY_TO_TAPE_STAR_F_CH,
+       
+       MC_UNIT_NU_0_TO_TAU => MC_UNIT_NU_0_TO_TAU_STAR_F_CH, 
+       MC_UNIT_NU_1_TO_TAU => MC_UNIT_NU_1_TO_TAU_STAR_F_CH, 
+       MC_UNIT_NU_2_TO_TAU => MC_UNIT_NU_2_TO_TAU_STAR_F_CH, 
+       MC_UNIT_NU_3_TO_TAU => MC_UNIT_NU_3_TO_TAU_STAR_F_CH, 
+       MC_UNIT_NU_4_TO_TAU => MC_UNIT_NU_4_TO_TAU_STAR_F_CH, 
+       MC_UNIT_NU_5_TO_TAU => MC_UNIT_NU_5_TO_TAU_STAR_F_CH, 
+       MC_UNIT_NU_6_TO_TAU => MC_UNIT_NU_6_TO_TAU_STAR_F_CH, 
+       MC_UNIT_NU_7_TO_TAU => MC_UNIT_NU_7_TO_TAU_STAR_F_CH, 
+       MC_UNIT_NU_8_TO_TAU => MC_UNIT_NU_8_TO_TAU_STAR_F_CH, 
+       MC_UNIT_NU_9_TO_TAU => MC_UNIT_NU_9_TO_TAU_STAR_F_CH, 
+            
+       -- TAU Output Signals to CPU
+       
+       MC_TAU_TO_CPU_BUS => MC_F_CH_TAU_TO_CPU_BUS,
+
+       MC_WRITE_CONDITION => MC_WRITE_CONDITION_STAR_F_CH,
+       MC_SELECT_AND_REWIND => MC_SELECT_AND_REWIND_STAR_F_CH,
+       MC_SELECT_AT_LOAD_POINT => MC_SELECT_AT_LOAD_POINT_STAR_F_CH,
+       MC_SEL_OR_TAPE_IND_ON => MC_SEL_OR_TI_ON_CH_2,
+       
+       MC_TAPE_READ_STROBE => MC_TAPE_READ_STROBE_F_CH_JRJ,
+       MC_TAPE_BUSY => MC_TAPE_BUSY_F_CH_JRJ,
+       MC_TAPE_ERROR => MC_TAPE_ERROR_F_CH_JRJ, 
+       MC_TAPE_READY => MC_TAPE_READY_F_CH_JRJ,
+       MC_TAPE_WRITE_STROBE => MC_TAPE_WRITE_STROBE_F_CH_JRJ,
+       MC_TAPE_IN_PROCESS => MC_TAPE_IN_PROCESS_F_CH_JRJ,
+      
+       -- TAU to PC Support System
+       
+       IBM1410_TAU_XMT_CHAR => IBM1410_TAU_XMT_CHAR_F_CH,
+       IBM1410_TAU_XMT_STROBE => IBM1410_TAU_XMT_STROBE_F_CH,
+              
+       -- PC Support System to TAU 
+       
+       IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH,
+       IBM1410_TAU_INPUT_FIFO_WRITE_DATA => IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH
+   );
+
+
 -- 
 -- TestBenchFPGAClock.vhdl
 --
@@ -3175,6 +3264,10 @@ uut_process: process
 --   wait for 500 us;
 --   SWITCH_MOM_CO_CPR_RST <= '0';           
 --   wait for 30 ms;   
+      
+-- ===============================================================================================
+
+if LOCAL_F_CH_TEST = '0' then     
       
    -- Set Tape unit 0 not at load point, and ready   
    
@@ -3608,6 +3701,449 @@ uut_process: process
    -- We are no longer at load point...  (TODO)
                            
    wait for 100 ns;
+   
+end if;  -- If testing E Channel
+
+
+-- ===============================================================================================
+
+if LOCAL_F_CH_TEST = '1' then     
+      
+   -- Set Tape unit 0 not at load point, and ready   
+   
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "00000000";  -- Indicate we will provide status for Unit 0
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
+   wait for 100 ns;
+
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "00000000";     
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY   
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
+   wait for 100 ns;
+
+   -- At this point, the CPU has not selected a tape drive.
+
+   assert MC_TAPE_READY_F_CH_JRJ = '1' report "Test 1, Ready w/no unit asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT_STAR_F_CH = '1' report "Test 1, Load Point asserted" severity failure;
+   assert MC_SEL_OR_TI_ON_CH_2 = '1' report "Test 1, Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND_STAR_F_CH = '1' report "Test 1, Rewind asserted" severity failure;  
+      
+   SWITCH_MOM_CONS_START <= '1';
+   report "Pressed Start";
+   wait for 5 us;  -- Normally we'd wait longer
+   SWITCH_MOM_CONS_START <= '0';
+   wait for 5 us; -- Normally this would take longer
+   report "Start released";      
+   
+   -- Wait for the rewind request
+   
+   wait until MC_REWIND_CALL_STAR_F_CH = '0';
+   wait for 20 ns;
+   
+   assert MC_TAPE_READY_F_CH_JRJ = '0' report "Test 2, Ready Unit 0 NOT asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT_STAR_F_CH = '1' report "Test 2, Load Point asserted" severity failure;
+   assert MC_SEL_OR_TI_ON_CH_2 = '1' report "Test 2, Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND_STAR_F_CH = '1' report "Test 0, Rewind NOT asserted" severity failure;  
+            
+   -- A short pretend rewind period.
+   
+   wait for 1 ms;
+   
+   -- Tell the CPU that the rewind has completed.
+   
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "00000000";  -- Indicate we will provide status for Unit 0
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
+   wait for 100 ns;
+
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "00000000";     
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(TAPE_UNIT_LOAD_POINT_BIT) <= '1';  -- Set Status to load pt.   
+   wait for 100 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
+   wait for 100 ns;
+
+   assert MC_TAPE_READY_F_CH_JRJ = '0' report "Test 3, Ready Unit 0 NOT asserted" severity failure;
+   assert MC_SELECT_AT_LOAD_POINT_STAR_F_CH = '0' report "Test 3 Load Point NOT asserted" severity failure;
+   assert MC_SEL_OR_TI_ON_CH_2 = '1' report "Test 3, Tape IND asserted" severity failure;
+   assert MC_SELECT_AND_REWIND_STAR_F_CH = '1' report "Test 3, Rewind STILL asserted" severity failure;  
+   
+   ----------------------------------------------------------------------------------------------
+   -- Wait for a read request
+   
+   -- Set whether or not we are testing load mode
+   
+   LOCAL_WS_TEST <= '1';
+   
+   if MC_READ_TAPE_CALL_STAR_F_CH = '1' then
+      wait until MC_READ_TAPE_CALL_STAR_F_CH = '0' for 25 ms;
+   end if;
+   
+   assert MC_READ_TAPE_CALL_STAR_F_CH = '0' 
+     report "Read Test 1, No Read Call" severity failure;
+     
+   -- Set our odd parity mask to flip the TEST DATA parity bit.
+   
+  if MC_ODD_PARITY_TO_TAPE_STAR_F_CH = '0' then
+     LOCAL_ODD_PARITY_MASK <= "01000000";
+  else
+     LOCAL_ODD_PARITY_MASK <= "00000000";
+  end if;
+   
+   -- next, the TAU should issue a UART strobe to send the unit number
+   
+   if IBM1410_TAU_XMT_STROBE_F_CH /= '1' then
+      wait until IBM1410_TAU_XMT_STROBE_F_CH = '1' for 25 us;
+   end if;
+   
+   -- It should be for unit 0
+   
+   assert IBM1410_TAU_XMT_STROBE_F_CH = '1' 
+      report "Read Test 1, No unit char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR_F_CH = "00000000" report "Read Test 1, Unit NOT 0" severity failure;
+   
+   -- Wait again for the TAU to send something to the PC... a Read request.
+   
+   wait until IBM1410_TAU_XMT_STROBE_F_CH = '1' for 25 us;
+   
+   assert IBM1410_TAU_XMT_STROBE_F_CH = '1' 
+      report "Read Test 1, No request char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR_F_CH = "00000001" report "Read Test 1, Request not Read" severity failure;   
+   
+   -- Now we get to play PC Support program...  Send Unit 9 with the X'40' bit set...
+   
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "01000000";  -- Read data for Unit 0
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
+   wait for 100 ns;
+   
+   -- Now send a 20 byte record 
+   
+   for i in 0 to 19 loop
+   
+      -- See if this char has a word separator
+      
+      LOCAL_WS_FLAG <= '1';  -- Have to go thru loop at least once.
+      if TapeTestDataWM(i) = '1' and LOCAL_WS_TEST = '1' then
+         LOCAL_WS_CHAR <= WORD_SEPARATOR_CHAR;
+      else
+         LOCAL_WS_CHAR <= "00000000";
+      end if;
+      wait for 10 ns;  -- Make the above take effect.
+
+      -- If WM in test data, send WS first
+                  
+      while LOCAL_WS_FLAG = '1' loop
+         if LOCAL_WS_CHAR /= "00000000" then
+            IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= WORD_SEPARATOR_CHAR xor LOCAL_ODD_PARITY_MASK;
+         else
+            IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= tapeTestDataEven(i) xor LOCAL_ODD_PARITY_MASK;
+         end if;
+      
+         wait for 10 ns;
+         IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
+         wait for 10 ns;
+         IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
+         
+         -- Wait for the channel strobe...         
+         if MC_TAPE_READ_STROBE /= '0' then
+            wait until MC_TAPE_READ_STROBE_F_CH_JRJ = '0' for 25 us;
+         end if;
+         assert MC_TAPE_READ_STROBE_F_CH_JRJ = '0' report "Read Test 1, no Read Strobe" severity failure;
+         wait for 10 ns;
+      
+         -- Check the data.   It should match what we told the TAU about.
+         -- (Word separators are handled in the CPU, not the TAU)
+         -- Have to swap location of check bit....
+         assert MC_F_CH_TAU_TO_CPU_BUS = not (
+            IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(6) & '0' &
+            IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(5 downto 0))
+            report "Read Test 1 Data to Channel mismatch" severity failure;
+         -- wait for strobe to go away
+         if MC_TAPE_READ_STROBE_F_CH_JRJ /= '1' then
+            wait until MC_TAPE_READ_STROBE_F_CH_JRJ = '1' for 25 us;
+         end if;
+         assert MC_TAPE_READ_STROBE_F_CH_JRJ = '1' report "Read Test 1, Read Strobe Stayed active"
+            severity failure;
+ 
+         -- Need to wait as a test - normally our serial port will be slower than the channel
+         wait for 1 us;
+                     
+         assert MC_TAPE_BUSY_F_CH_JRJ = '0' report "Read Test 1, TAU did not stay busy" severity failure;  
+         assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '0' report "Read Test 1, TAU did not stay In Process" 
+           severity failure;  
+        
+         -- IF we just wrote a word separator while testing word marks, then 
+         -- leave the LOCAL_WS_FLAG set, otherwise clear it.
+         -- Clear the remembered WS Character regardless.
+        
+         if LOCAL_WS_CHAR /= "00000000" then
+            LOCAL_WS_FLAG <= '1';
+         else
+            LOCAL_WS_FLAG <= '0';         
+         end if;
+         wait for 10 ns;
+         LOCAL_WS_CHAR <= "00000000";
+         wait for 10 ns;
+        
+      end loop; -- Word separater loop
+              
+   end loop;  -- test data loop
+
+   -- We are no longer at load point...  (TODO)
+                         
+   -- Indicate the read is complete
+   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "00000000";  -- End of record flag
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
+   wait for 10 ns;
+   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
+   
+   -- Now, wait for TAU to go un-busy
+   
+   if MC_TAPE_BUSY_F_CH_JRJ /= '1' then
+      wait until MC_TAPE_BUSY_F_CH_JRJ = '1' for 25 us;
+   end if;
+   assert MC_TAPE_BUSY_F_CH_JRJ = '1' report "Read Test 1, TAU Stayed busy after EOR" severity failure;     
+   
+   if MC_TAPE_IN_PROCESS_F_CH_JRJ /= '1' then
+      wait until MC_TAPE_IN_PROCESS_F_CH_JRJ = '1' for 25 us;
+   end if;
+   assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '1' report "Read Test 1, TAU Stayed in process after EOR" 
+      severity failure; 
+   
+---------------------------------------------------------------------------------------------
+
+-- Now, lets WRITE a faux record from unit 0
+   
+   wait until MC_WRITE_TAPE_CALL_STAR_F_CH = '0' for 10 ms;
+   wait for 20 ns;
+   
+   assert MC_WRITE_TAPE_CALL_STAR_F_CH = '0' report
+      "Write Test 1, Didn't wait long enough for Write Call" severity failure;
+
+   if MC_ODD_PARITY_TO_TAPE_STAR_F_CH = '0' then
+      LOCAL_ODD_PARITY_MASK <= "01000000";
+   else
+     LOCAL_ODD_PARITY_MASK <= "00000000";
+   end if;
+   
+   
+   assert MC_TAPE_BUSY_F_CH_JRJ = '0' report "Write Test 1, TAU did not go busy" severity failure;
+
+   -- For a write, the TAU should STAY busy
+
+   wait for 10 ns;
+   assert MC_TAPE_BUSY_F_CH_JRJ = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
+   assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '0' report "Write Test 1, TAU not In Process" severity failure; 
+      
+   -- Wait for the TAU to send something to the PC... the unit number
+   -- This thing reacts quickly - strobe might already be set!
+   
+   if IBM1410_TAU_XMT_STROBE_F_CH /= '1' then
+      wait until IBM1410_TAU_XMT_STROBE_F_CH = '1' for 25 us;
+   end if;
+   
+   -- It should be for unit 0
+   
+   assert IBM1410_TAU_XMT_STROBE_F_CH = '1' 
+      report "Write Test 1, No unit char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR_F_CH = "00000000" report "Write Test 1, Unit NOT 0" severity failure;
+   wait for 20 ns;
+   
+   -- Wait again for the TAU to send something to the PC... a WRITE request.
+
+   wait until IBM1410_TAU_XMT_STROBE_F_CH = '1' for 25 us;
+   
+   assert IBM1410_TAU_XMT_STROBE_F_CH = '1' 
+      report "Write Test 1, No request char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR_F_CH = "00000010" report "Write Test 1, Request not Write" severity failure;
+   wait for 20 ns;  -- Wait for XMT strobe to go away 
+     
+   -- Now expect a 20 byte record
+   
+   for i in 0 to 19 loop
+   
+      report "Waiting for UART Strobe";
+      
+      -- If the test data has a word mark, and we are testing load mode, then we need to do both
+      -- the word separator check and the character check in this "i" loop
+      
+      LOCAL_WS_FLAG <= '1';  -- Have to go thru the loop at least once
+      if TapeTestDataWM(i) = '1' and LOCAL_WS_TEST = '1' then
+         LOCAL_WS_CHAR <= WORD_SEPARATOR_CHAR;
+      else
+         LOCAL_WS_CHAR <= "00000000";
+      end if;
+      wait for 10 ns;  -- Make the above take effect
+      
+      while LOCAL_WS_FLAG = '1' loop
+      
+         -- Wait for TAU to send the next character...
+         if IBM1410_TAU_XMT_STROBE_F_CH = '0' then            
+            wait until IBM1410_TAU_XMT_STROBE_F_CH = '1' for 25 us;
+         end if;   
+         assert IBM1410_TAU_XMT_STROBE_F_CH = '1' 
+            report "Write Test 1, No data char transmitted" severity failure;
+         
+         -- Check that the data matches what was sent to 1410 during read test
+         -- (If this is supposed to be a word separator, check that the first time thru)
+      
+         if LOCAL_WS_CHAR /= "00000000" then
+            assert IBM1410_TAU_XMT_CHAR_F_CH = (LOCAL_WS_CHAR xor LOCAL_ODD_PARITY_MASK)
+               report "Write Test 1, Data send to PC not expected Word Separator" severity failure;
+         else
+            assert IBM1410_TAU_XMT_CHAR_F_CH = (tapeTestDataEven(i) xor LOCAL_ODD_PARITY_MASK) 
+               report "Write Test 1, Data sent to PC is not as expected" severity failure;
+         end if;
+         wait for 100 ns;   
+
+         -- Wait for the channel strobe from the TAU for the next character
+      
+         report "Waiting for strobe to channel";
+
+         if MC_TAPE_WRITE_STROBE_F_CH_JRJ /= '0' then
+            wait until MC_TAPE_WRITE_STROBE_F_CH_JRJ = '0' for 25 us;
+         end if;
+         
+         assert MC_TAPE_WRITE_STROBE_F_CH_JRJ = '0' report "Write Test 1, No Write Strobe from TAU"
+            severity failure;
+         
+         -- Until the last character, TAU should stay busy...
+      
+         if i /= 19 or LOCAL_WS_CHAR /= "00000000" then           
+
+            -- Need to wait - normally our serial port will be slower than the channel
+            wait for 1 us;
+                     
+            assert MC_TAPE_BUSY_F_CH_JRJ = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
+            assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '0' report "Write Test 1, TAU did not stay In Process" 
+              severity failure;
+         end if;
+         
+         -- IF we just got a WS character while testign with word parms, then
+         -- leave LOCAL_WS_FLAG set, otherwise, clar it.
+         -- Clear the remembered WS Character regardless.
+         
+         if LOCAL_WS_CHAR /= "00000000" then
+            LOCAL_WS_FLAG <= '1';
+         else
+            LOCAL_WS_FLAG <= '0';         
+         end if;
+         wait for 10 ns;
+         LOCAL_WS_CHAR <= "00000000";
+         wait for 10 ns;
+         
+      end loop;  -- Word Separator handling loop
+              
+   end loop;  -- "i" count loop
+   
+   -- At this point, we are expecting a disconnect from the Channel -- handled in TAU
+
+   -- After the disconnect, we should see the EOR get transmitted
+
+   wait until IBM1410_TAU_XMT_STROBE_F_CH = '1' for 25 us;
+   
+   assert IBM1410_TAU_XMT_STROBE_F_CH = '1' 
+      report "Write Test 1, No EOR char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR_F_CH = "00000000" report "Write Test 1, Did not get X'40' EOR" 
+      severity failure;
+   wait for 100 ns;   
+   
+   -- Now, wait for TAU to go un-busy
+   
+   if MC_TAPE_BUSY_F_CH_JRJ /= '1' then
+      wait until MC_TAPE_BUSY_F_CH_JRJ = '1' for 25 us;
+   end if;
+   assert MC_TAPE_BUSY_F_CH_JRJ = '1' report "Write Test 1, TAU Stayed busy after EOR" severity failure;     
+   
+   if MC_TAPE_IN_PROCESS_F_CH_JRJ /= '1' then
+      wait until MC_TAPE_IN_PROCESS_F_CH_JRJ = '1' for 25 us;
+   end if;
+   assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '1' report "Write Test 1, TAU Stayed in process after EOR" 
+      severity failure; 
+   
+   wait for 100 ns;
+
+
+---------------------------------------------------------------------------------------------
+
+   -- Write Tape Mark Test
+
+   -- Wait for the request
+   
+   wait until MC_WRITE_TAPE_MK_CALL_STAR_F_CH = '0' for 25 ms;
+   
+   assert MC_WRITE_TAPE_MK_CALL_STAR_F_CH = '0' report "WTM Test, No Tape Mark Call" severity failure;
+      
+   -- For a WTM, the TAU should STAY busy for a little while.
+
+   wait for 20 ns;
+   assert MC_TAPE_BUSY_F_CH_JRJ = '0' report "WTM Test, TAU did not go busy" severity failure;  
+   assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '0' report "WTM, TAU not In Process" severity failure; 
+      
+   -- Wait for the TAU to send something to the PC... the unit number
+   -- This thing reacts quickly - strobe might already be set!
+   
+   if IBM1410_TAU_XMT_STROBE_F_CH /= '1' then
+      wait until IBM1410_TAU_XMT_STROBE_F_CH = '1' for 25 us;
+   end if;
+   
+   -- It should be for unit 0
+   
+   assert IBM1410_TAU_XMT_STROBE_F_CH = '1' 
+      report "WTM Test, No unit char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR_F_CH = "00000000" report "WTM Test, Unit NOT 0" severity failure;
+   wait for 20 ns;
+   
+   -- Wait again for the TAU to send something to the PC... WTM.
+   
+   wait until IBM1410_TAU_XMT_STROBE_F_CH = '1' for 25 us;
+   
+   assert IBM1410_TAU_XMT_STROBE_F_CH = '1' 
+      report "WTM Test, No request char transmitted" severity failure;
+   assert IBM1410_TAU_XMT_CHAR_F_CH = "00010000" report "WTM Test, Request not WTM" severity failure;   
+   
+   -- Make sure it doesn't strobe the channel
+   
+   wait until MC_TAPE_WRITE_STROBE_F_CH_JRJ = '0' for 10 us;
+   
+   assert MC_TAPE_WRITE_STROBE_F_CH_JRJ = '1' report "WTM Test, Strobed Channel but should not.";
+   
+   -- Wait for the 1410 to issue a disconnect (it might not?)
+   
+   if MC_DISCONNECT_CALL_STAR_F_CH = '1' then
+      wait until MC_DISCONNECT_CALL_STAR_F_CH = '0' for 25 us;
+   end if;
+   
+   -- Apparently, there is no disconnect call from a WTM (makes sense, I guess)
+   -- assert MC_DISCONNECT_CALL_STAR_E_CH = '0' report "WTM Test, No Disconnect Call" severity failure;
+   
+   -- Everything should be done, now.
+   
+   assert MC_TAPE_BUSY_F_CH_JRJ = '1' report "WTM Test, TAU still busy" severity failure;  
+   assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '1' report "WTM Test 1, TAU did still In Process" 
+      severity failure;  
+
+   -- We are no longer at load point...  (TODO)
+                           
+   wait for 100 ns;
+   
+end if;  -- If testing F Channel
+
       
    wait for 25 ms;  -- Give it a chance to halt somewhere.
    
