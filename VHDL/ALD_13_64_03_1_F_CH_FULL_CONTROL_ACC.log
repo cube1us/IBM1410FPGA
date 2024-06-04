@@ -1,5 +1,12 @@
-Generating HDL for page 13.64.03.1 F CH FULL CONTROL-ACC at 8/4/2020 10:35:03 AM
-Old test bench file ALD_13_64_03_1_F_CH_FULL_CONTROL_ACC_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+Generating HDL for page 13.64.03.1 F CH FULL CONTROL-ACC at 8/24/2023 4:34:30 PM
+Note: DOT Function at 5A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 3E has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4F has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4H has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Ignoring Logic Block 4A with symbol L
 Found combinatorial loop (need D FF) at output of gate at 4B
 Found combinatorial loop (need D FF) at output of gate at 3B
@@ -32,7 +39,7 @@ Generating Statement for block at 5D with output pin(s) of OUT_5D_D
 	and inputs of PS_F_CH_INPUT_MODE
 	and logic function of NOT
 Generating Statement for block at 4D with output pin(s) of OUT_4D_F
-	and inputs of PS_SET_F2_REG
+	and inputs of PS_SET_F2_REG_DELAYED
 	and logic function of NOT
 Generating Statement for block at 3D with output pin(s) of OUT_3D_R
 	and inputs of OUT_DOT_4D
