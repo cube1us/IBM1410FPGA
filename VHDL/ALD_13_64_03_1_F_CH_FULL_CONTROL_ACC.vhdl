@@ -95,7 +95,8 @@ begin
 		IN2 => OPEN );
 
 	OUT_5H_C <= NOT PS_F_CH_OUTPUT_MODE;
-	OUT_4H_B <= NOT PS_SET_F2_REG;
+	-- OUT_4H_B <= NOT PS_SET_F2_REG;
+   OUT_4H_B <= NOT PS_SET_F2_REG_DELAYED;	
 	OUT_3H_B <= NOT OUT_DOT_4H;
 	OUT_DOT_5A <= OUT_5A_D OR OUT_3B_R OR OUT_3D_R OR OUT_2E_F;
 	OUT_DOT_4B <= OUT_4B_F OR OUT_5C_B;
@@ -117,11 +118,13 @@ begin
 		Q => OUT_4B_F,
 		QBar => OPEN );
 
-	Latch_3B: entity DFlipFlop port map (
-		C => FPGA_CLK,
-		D => OUT_3B_R_Latch,
-		Q => OUT_3B_R,
-		QBar => OPEN );
+--	Latch_3B: entity DFlipFlop port map (
+--		C => FPGA_CLK,
+--		D => OUT_3B_R_Latch,
+--		Q => OUT_3B_R,
+--		QBar => OPEN );
+
+   OUT_3B_R <= OUT_3B_R_LATCH;
 
 	Latch_4F: entity DFlipFlop port map (
 		C => FPGA_CLK,
@@ -129,11 +132,11 @@ begin
 		Q => OUT_4F_D,
 		QBar => OPEN );
 
-	Latch_3F: entity DFlipFlop port map (
-		C => FPGA_CLK,
-		D => OUT_3F_R_Latch,
-		Q => OUT_3F_R,
-		QBar => OPEN );
+--	Latch_3F: entity DFlipFlop port map (
+--		C => FPGA_CLK,
+--		D => OUT_3F_R_Latch,
+--		Q => OUT_3F_R,
+--		QBar => OPEN );
 
-
+   OUT_3F_R <= OUT_3F_R_Latch;
 end;
