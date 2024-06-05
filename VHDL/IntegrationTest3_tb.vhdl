@@ -1969,6 +1969,7 @@ end component;
    constant WORD_SEPARATOR_CHAR: STD_LOGIC_VECTOR(7 downto 0) := X"1D"; 
    signal LOCAL_WS_TEST: STD_LOGIC := '0';  -- '1' if we are testing load mode
    signal LOCAL_F_CH_TEST: STD_LOGIC := '0'; -- '1' if we are testing 2nd channel
+   signal LOCAL_i: integer := 64;  -- copy of loop  variable
 
 --procedure check1(
 --    checked: in STD_LOGIC;
@@ -2968,7 +2969,7 @@ memory: IBM1410Memory
    TAU_CHANNEL_1: IBM1410TapeAdapterUnit
    generic map (
        CHANNEL_STROBE_LENGTH => 25,  -- Reduced from default of 100 (1us => 250ns)  
-       CHANNEL_CYCLE_LENGTH => 1150 ) -- Reduced from default of 11.5 us
+       CHANNEL_CYCLE_LENGTH => 10000) -- test with big channel wait -- slow UART 1150 ) -- Reduced from default of 11.5 us
    port map (
        FPGA_CLK => FPGA_CLK,
        MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_E_CH,
@@ -3267,6 +3268,12 @@ uut_process: process
       
 -- ===============================================================================================
 
+-- Set whether or not we are testing load mode, and which channel to tset.
+   
+   LOCAL_WS_TEST <= '1';
+   LOCAL_F_CH_TEST <= '0';  -- 0 means E Channel
+   wait for 10 ns;
+
 if LOCAL_F_CH_TEST = '0' then     
       
    -- Set Tape unit 0 not at load point, and ready   
@@ -3342,9 +3349,6 @@ if LOCAL_F_CH_TEST = '0' then
    ----------------------------------------------------------------------------------------------
    -- Wait for a read request
    
-   -- Set whether or not we are testing load mode
-   
-   LOCAL_WS_TEST <= '1';
    
    if MC_READ_TAPE_CALL_STAR_E_CH = '1' then
       wait until MC_READ_TAPE_CALL_STAR_E_CH = '0' for 25 ms;
@@ -3420,7 +3424,7 @@ if LOCAL_F_CH_TEST = '0' then
          
          -- Wait for the channel strobe...         
          if MC_TAPE_READ_STROBE /= '0' then
-            wait until MC_TAPE_READ_STROBE = '0' for 25 us;
+            wait until MC_TAPE_READ_STROBE = '0' for 100 us;
          end if;
          assert MC_TAPE_READ_STROBE = '0' report "Read Test 1, no Read Strobe" severity failure;
          wait for 10 ns;
@@ -3538,6 +3542,8 @@ if LOCAL_F_CH_TEST = '0' then
    for i in 0 to 19 loop
    
       report "Waiting for UART Strobe";
+      LOCAL_i <= i;
+      
       
       -- If the test data has a word mark, and we are testing load mode, then we need to do both
       -- the word separator check and the character check in this "i" loop
@@ -3554,7 +3560,7 @@ if LOCAL_F_CH_TEST = '0' then
       
          -- Wait for TAU to send the next character...
          if IBM1410_TAU_XMT_STROBE = '0' then            
-            wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+            wait until IBM1410_TAU_XMT_STROBE = '1' for 100 us;
          end if;   
          assert IBM1410_TAU_XMT_STROBE = '1' 
             report "Write Test 1, No data char transmitted" severity failure;
@@ -3576,7 +3582,7 @@ if LOCAL_F_CH_TEST = '0' then
          report "Waiting for strobe to channel";
 
          if MC_TAPE_WRITE_STROBE /= '0' then
-            wait until MC_TAPE_WRITE_STROBE = '0' for 25 us;
+            wait until MC_TAPE_WRITE_STROBE = '0' for 100 us;
          end if;
          
          assert MC_TAPE_WRITE_STROBE = '0' report "Write Test 1, No Write Strobe from TAU"
@@ -3608,7 +3614,7 @@ if LOCAL_F_CH_TEST = '0' then
          wait for 10 ns;
          
       end loop;  -- Word Separator handling loop
-              
+                    
    end loop;  -- "i" count loop
    
    -- At this point, we are expecting a disconnect from the Channel -- handled in TAU
@@ -3900,6 +3906,8 @@ if LOCAL_F_CH_TEST = '1' then
          wait for 10 ns;
         
       end loop; -- Word separater loop
+      
+      wait for 91 us;  -- simulate a UART at 115,000 bps / 11000 cps
               
    end loop;  -- test data loop
 
@@ -3978,6 +3986,7 @@ if LOCAL_F_CH_TEST = '1' then
    for i in 0 to 19 loop
    
       report "Waiting for UART Strobe";
+      LOCAL_i <= i;
       
       -- If the test data has a word mark, and we are testing load mode, then we need to do both
       -- the word separator check and the character check in this "i" loop
