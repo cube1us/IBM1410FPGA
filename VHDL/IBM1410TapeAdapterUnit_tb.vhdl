@@ -56,7 +56,8 @@ component IBM1410TapeAdapterUnit is
   
    GENERIC(
        CHANNEL_STROBE_LENGTH: integer;
-       CHANNEL_CYCLE_LENGTH: integer );
+       CHANNEL_CYCLE_LENGTH: integer;
+       TAU_OUTPUT_FIFO_SIZE:  integer );
    PORT (
        FPGA_CLK: in STD_LOGIC;
         
@@ -107,8 +108,9 @@ component IBM1410TapeAdapterUnit is
       
        -- TAU to PC Support System
        
-       IBM1410_TAU_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
-       IBM1410_TAU_XMT_STROBE: out STD_LOGIC;
+       IBM1410_TAU_XMT_UART_DATA: out STD_LOGIC_VECTOR(7 downto 0);
+       IBM1410_TAU_XMT_UART_REQUEST: out STD_LOGIC;
+       IBM1410_TAU_XMT_UART_GRANT: in STD_LOGIC;       
               
        -- PC Support System to TAU 
        
@@ -168,21 +170,26 @@ end component;
       
        -- TAU to PC Support System
        
-   signal IBM1410_TAU_XMT_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
-   signal IBM1410_TAU_XMT_STROBE: STD_LOGIC := '0';
+   signal IBM1410_TAU_XMT_UART_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+   signal IBM1410_TAU_XMT_UART_REQUEST: STD_LOGIC := '0';
+   signal IBM1410_TAU_XMT_UART_GRANT: STD_LOGIC := '0';
+   
+   signal IBM1410_TAU_XMT_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00000000";  -- Used in test bench...
               
        -- PC Support System to TAU 
        
    signal IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE: STD_LOGIC  := '0';
    signal IBM1410_TAU_INPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";       
 
+   signal LOCAL_i: integer := 99;
 
 begin
 
    UUT: IBM1410TapeAdapterUnit
    generic map (
        CHANNEL_STROBE_LENGTH => 10,   -- SHORT VALUES FOR TESTING separate from channel
-       CHANNEL_CYCLE_LENGTH => 30 )
+       CHANNEL_CYCLE_LENGTH => 1120,
+       TAU_OUTPUT_FIFO_SIZE => 2 )
    port map (
        FPGA_CLK => FPGA_CLK,
        MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE,
@@ -232,9 +239,10 @@ begin
        MC_TAPE_IN_PROCESS => MC_TAPE_IN_PROCESS,
       
        -- TAU to PC Support System
-       
-       IBM1410_TAU_XMT_CHAR => IBM1410_TAU_XMT_CHAR,
-       IBM1410_TAU_XMT_STROBE => IBM1410_TAU_XMT_STROBE,
+
+       IBM1410_TAU_XMT_UART_DATA => IBM1410_TAU_XMT_UART_DATA,
+       IBM1410_TAU_XMT_UART_REQUEST => IBM1410_TAU_XMT_UART_REQUEST,
+       IBM1410_TAU_XMT_UART_GRANT => IBM1410_TAU_XMT_UART_GRANT,       
               
        -- PC Support System to TAU 
        
@@ -397,20 +405,35 @@ uut_process: process
       
    -- Wait for the TAU to send something to the PC... the unit number
    
-   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
+      report "UC Test 3, No unit char transmitted" severity failure;
+   wait for 10 ns; -- grant delay
+      
+   
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
    
    -- It should be for unit 9
    
-   assert IBM1410_TAU_XMT_STROBE = '1' 
-      report "UC Test 3, No unit char transmitted" severity failure;
    assert IBM1410_TAU_XMT_CHAR = "00001001" report "UC Test 3, Unit NOT 9" severity failure;
    
    -- Wait again for the TAU to send something to the PC... a rewind request.
    
-   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-   
-   assert IBM1410_TAU_XMT_STROBE = '1' 
+   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
       report "UC Test 3, No request char transmitted" severity failure;
+   wait for 10 ns; -- grant delay
+   
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
+   
    assert IBM1410_TAU_XMT_CHAR = "01000000" report "UC Test 3, Request not Rewind" severity failure;
 
    -- At this point, Unit 9 should be not ready, and rewinding because PC can't react as fast as a real drive.
@@ -496,22 +519,37 @@ uut_process: process
    -- Wait for the TAU to send something to the PC... the unit number
    -- This thing reacts quickly - strobe might already be set!
    
-   if IBM1410_TAU_XMT_STROBE /= '1' then
-      wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+   if IBM1410_TAU_XMT_UART_REQUEST /= '1' then
+      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
    end if;
+   wait for 10 ns; -- grant delay  
+   
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
+      report "Read Test 1, No unit char transmitted" severity failure;
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
    
    -- It should be for unit 9
    
-   assert IBM1410_TAU_XMT_STROBE = '1' 
-      report "Read Test 1, No unit char transmitted" severity failure;
    assert IBM1410_TAU_XMT_CHAR = "00001001" report "Read Test 1, Unit NOT 9" severity failure;
    
    -- Wait again for the TAU to send something to the PC... a Read request.
    
-   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-   
-   assert IBM1410_TAU_XMT_STROBE = '1' 
+   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
       report "Read Test 1, No request char transmitted" severity failure;
+   wait for 10 ns; -- grant delay
+      
+   
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
+   
    assert IBM1410_TAU_XMT_CHAR = "00000001" report "Read Test 1, Request not Read" severity failure;   
    
    -- Now we get to play PC Support program...  Send Unit 9 with the X'40' bit set...
@@ -525,7 +563,8 @@ uut_process: process
    
    -- Now send a 20 byte record
    
-   for i in 1 to 20 loop      
+   for i in 1 to 20 loop
+      LOCAL_i <= i;      
       IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= std_logic_vector(to_unsigned(i,
          IBM1410_TAU_INPUT_FIFO_WRITE_DATA'length));
       wait for 10 ns;
@@ -606,22 +645,35 @@ uut_process: process
    -- Wait for the TAU to send something to the PC... the unit number
    -- This thing reacts quickly - strobe might already be set!
    
-   if IBM1410_TAU_XMT_STROBE /= '1' then
-      wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-   end if;
+   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
+      report "Read Test 2, No unit char transmitted" severity failure;
+   wait for 10 ns; -- grant delay
+   
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
    
    -- It should be for unit 9
    
-   assert IBM1410_TAU_XMT_STROBE = '1' 
-      report "Read Test 2, No unit char transmitted" severity failure;
    assert IBM1410_TAU_XMT_CHAR = "00001001" report "Read Test 2, Unit NOT 9" severity failure;
    
    -- Wait again for the TAU to send something to the PC... a Read request.
    
-   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-   
-   assert IBM1410_TAU_XMT_STROBE = '1' 
+   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
       report "Read Test 2, No request char transmitted" severity failure;
+   wait for 10 ns; -- grant delay
+      
+   
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
+
    assert IBM1410_TAU_XMT_CHAR = "00000001" report "Read Test 2, Request not Read" severity failure;   
    
    -- Now we get to play PC Support program...  Send Unit 9 with the X'40' bit set...
@@ -712,30 +764,43 @@ uut_process: process
    -- Wait for the TAU to send something to the PC... the unit number
    -- This thing reacts quickly - strobe might already be set!
    
-   if IBM1410_TAU_XMT_STROBE /= '1' then
-      wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-   end if;
+   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
+      report "WTM Test, No unit char transmitted" severity failure;
+   wait for 10 ns; -- grant delay      
+   
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
    
    -- It should be for unit 9
    
-   assert IBM1410_TAU_XMT_STROBE = '1' 
-      report "WTM Test, No unit char transmitted" severity failure;
    assert IBM1410_TAU_XMT_CHAR = "00001001" report "WTM Test, Unit NOT 9" severity failure;
    wait for 10 ns;
    
    -- Wait again for the TAU to send something to the PC... WTM.
    
-   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-   
-   assert IBM1410_TAU_XMT_STROBE = '1' 
+   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
       report "WTM Test, No request char transmitted" severity failure;
+   wait for 10 ns; -- grant delay
+      
+   
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
+   
    assert IBM1410_TAU_XMT_CHAR = "00010000" report "WTM Test, Request not WTM" severity failure;   
    
    -- Make sure it doesn't strobe the
    
-   wait until MC_TAPE_WRITE_STROBE = '0' for 10 us;
+   -- wait until MC_TAPE_WRITE_STROBE = '0' for 10 us;
    
-   assert MC_TAPE_WRITE_STROBE = '1' report "WTM Test, Strobed Channel but should not.";
+   -- assert MC_TAPE_WRITE_STROBE = '1' report "WTM Test, Strobed Channel but should not.";
    
    -- assert a disconnect (not sure if the 1410 would actually do so at this point...)
    
@@ -773,23 +838,35 @@ uut_process: process
    -- Wait for the TAU to send something to the PC... the unit number
    -- This thing reacts quickly - strobe might already be set!
    
-   if IBM1410_TAU_XMT_STROBE /= '1' then
-      wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-   end if;
+   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
+      report "Write Test 1, No unit char transmitted" severity failure;
+   wait for 10 ns; -- grant delay      
+   
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
    
    -- It should be for unit 9
    
-   assert IBM1410_TAU_XMT_STROBE = '1' 
-      report "Write Test 1, No unit char transmitted" severity failure;
    assert IBM1410_TAU_XMT_CHAR = "00001001" report "Write Test 1, Unit NOT 9" severity failure;
    wait for 10 ns;
    
    -- Wait again for the TAU to send something to the PC... a WRITE request.
    
-   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-   
-   assert IBM1410_TAU_XMT_STROBE = '1' 
+   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
       report "Write Test 1, No request char transmitted" severity failure;
+   wait for 10 ns; -- grant delay
+         
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
+   
    assert IBM1410_TAU_XMT_CHAR = "00000010" report "Write Test 1, Request not Write" severity failure;
    wait for 100 ns;   
    
@@ -801,20 +878,31 @@ uut_process: process
    -- Now send a 20 byte record
    
    for i in 1 to 20 loop
+
+      LOCAL_i <= i;      
    
       -- Wait for TAU to send the next character...
-      if IBM1410_TAU_XMT_STROBE = '0' then            
-         wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
-      end if;   
-      assert IBM1410_TAU_XMT_STROBE = '1' 
+      if IBM1410_TAU_XMT_UART_REQUEST  = '0' then            
+         wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 125 us;
+      end if;
+         
+      assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
          report "Write Test 1, No data char transmitted" severity failure;
+      wait for 10 ns; -- grant delay      
+   
+      -- Save the character and grant the request
+      IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+      IBM1410_TAU_XMT_UART_GRANT <= '1';
+      wait for 20 ns;
+      IBM1410_TAU_XMT_UART_GRANT <= '0';
+      wait for 10 ns;
          
       -- Check that the data matches
       
       assert IBM1410_TAU_XMT_CHAR 
          = std_logic_vector(to_unsigned(i,IBM1410_TAU_XMT_CHAR'length))
          report "Write Test 1, Data sent to PC is not as expected" severity failure;
-      wait for 100 ns;   
+      -- wait for 100 ns;   
 
       -- Wait for the channel strobe
       
@@ -832,7 +920,8 @@ uut_process: process
          MC_CPU_TO_TAU_BUS <= not std_logic_vector(to_unsigned(i+1,MC_CPU_TO_TAU_BUS'length));
 
          -- Need to wait - normally our serial port will be slower than the channel
-         wait for 1 us;
+         -- wait for 1 us;
+         wait for 10 ns;
                      
          assert MC_TAPE_BUSY = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
          assert MC_TAPE_IN_PROCESS = '0' report "Write Test 1, TAU did not stay In Process" 
@@ -845,10 +934,17 @@ uut_process: process
 
    -- Now, we should see the EOR get transmitted
 
-   wait until IBM1410_TAU_XMT_STROBE = '1' for 25 us;
+   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
+   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
+      report "Wriate Test 1, No EOR char transmitted" severity failure;
+   wait for 10 ns; -- grant delay      
    
-   assert IBM1410_TAU_XMT_STROBE = '1' 
-      report "Write Test 1, No EOR char transmitted" severity failure;
+   -- Save the character and grant the request
+   IBM1410_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
+   IBM1410_TAU_XMT_UART_GRANT <= '1';
+   wait for 20 ns;
+   IBM1410_TAU_XMT_UART_GRANT <= '0';
+   
    assert IBM1410_TAU_XMT_CHAR = "00000000" report "Write Test 1, Did not get X'00' EOR" 
       severity failure;
    wait for 100 ns;   

@@ -13,6 +13,8 @@
 -- 
 -- Revision:
 -- Revision 0.01 - File Created
+-- Revision 0.10 - Need to use Request/Grant, not strobe, for tape output.
+--                 Also, can't use the same FIFO as tape input!!!
 
 -- Additional Comments:
 -- 
@@ -31,13 +33,12 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
--- Multipler is 10000 for ms, 100 for testing.
-
 entity IBM1410TapeAdapterUnit is
 
    GENERIC(
       CHANNEL_STROBE_LENGTH: integer := 100;  -- 1 us strobe
-      CHANNEL_CYCLE_LENGTH:  integer := 1120  -- 11.2us per 800 bpi char
+      CHANNEL_CYCLE_LENGTH:  integer := 1120; -- 11.2us per 800 bpi char
+      TAU_OUTPUT_FIFO_SIZE:  integer := 80    -- Size of outbound FIFO
    );   
      
    PORT (
@@ -90,8 +91,9 @@ entity IBM1410TapeAdapterUnit is
       
        -- TAU to PC Support System
        
-       IBM1410_TAU_XMT_CHAR: out STD_LOGIC_VECTOR(7 downto 0);
-       IBM1410_TAU_XMT_STROBE: out STD_LOGIC;
+       IBM1410_TAU_XMT_UART_DATA: out STD_LOGIC_VECTOR(7 downto 0);
+       IBM1410_TAU_XMT_UART_REQUEST: out STD_LOGIC;
+       IBM1410_TAU_XMT_UART_GRANT: in STD_LOGIC;       
               
        -- PC Support System to TAU 
        
@@ -158,19 +160,30 @@ constant TAPE_UNIT_CTL_RESET_INDICATE: integer := 7;
 
 constant OUT_STROBE_TIME: integer := 10;      -- 100ns UART strobe time
 constant TAU_INPUT_FIFO_SIZE: integer := 10;  -- 1410 will be faster than PC support for now
-constant TAU_INPUT_FIFO_WIDTH: integer := 8;  -- Bits per character 
+constant TAU_FIFO_WIDTH: integer := 8;        -- Bits per PC character
 
 constant TAU_SUPPORT_INPUT_DATA_FLAG: integer := 6;    -- This bit set means PC sending tape data.
 
 constant TAPE_MARK_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00001111";
 
-signal FIFO_READ_ENABLE: STD_LOGIC := '0';
-signal FIFO_READ_DATA_VALID: STD_LOGIC;
-signal FIFO_READ_DATA: STD_LOGIC_VECTOR(7 downto 0);
-signal FIFO_EMPTY: STD_LOGIC;
-signal FIFO_EMPTY_NEXT: STD_LOGIC;
-signal FIFO_FULL: STD_LOGIC;
-signal FIFO_FULL_NEXT: STD_LOGIC;
+signal INPUT_FIFO_READ_ENABLE: STD_LOGIC := '0';
+signal INPUT_FIFO_READ_DATA_VALID: STD_LOGIC := '0';
+signal INPUT_FIFO_READ_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+signal INPUT_FIFO_EMPTY: STD_LOGIC := '0'; 
+signal INPUT_FIFO_EMPTY_NEXT: STD_LOGIC := '0';
+signal INPUT_FIFO_FULL: STD_LOGIC := '0';
+signal INPUT_FIFO_FULL_NEXT: STD_LOGIC := '0';
+
+signal OUTPUT_FIFO_READ_ENABLE: STD_LOGIC := '0';
+signal OUTPUT_FIFO_READ_DATA_VALID: STD_LOGIC := '0';
+signal OUTPUT_FIFO_READ_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+signal OUTPUT_FIFO_EMPTY: STD_LOGIC := '0';
+signal OUTPUT_FIFO_EMPTY_NEXT: STD_LOGIC := '0';
+signal OUTPUT_FIFO_FULL: STD_LOGIC := '0';
+signal OUTPUT_FIFO_FULL_NEXT: STD_LOGIC := '0';
+signal OUTPUT_FIFO_WRITE_ENABLE: STD_LOGIC := '0';
+signal OUTPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+
 signal UART_RESET: STD_LOGIC;
 
 -- States for Process to handle tape action initiated from PC
@@ -180,6 +193,15 @@ type tauTriggerState_type is (
    tau_trigger_idle,
    tau_trigger, 
    tau_trigger_wait);   
+   
+-- States to handle transfer of data from internal FIFO to UART Subsystem
+
+type tauUARTOutputState_type is (
+   tau_uart_output_idle,
+   tau_uart_output_getChar,
+   tau_uart_output_wait,
+   tau_uart_output_sendChar,
+   tau_uart_output_grantWait);
    
 -- States to handle drive status update from PC   
    
@@ -266,6 +288,7 @@ signal tauUnitStatusState: tauUnitStatusState_type := tau_unit_status_idle;
 signal tauReadState: tauReadState_type := tau_read_idle;
 signal tauBRUEState: tauBRUEState_type := tau_brue_idle;
 signal tauWriteState: tauWriteState_type := tau_write_idle;
+signal tauUARTOutputState: tauUARTOutputState_type := tau_uart_output_idle;
 
 signal tauRewindLatch: STD_LOGIC := '0';
 signal tauUnloadLatch: STD_LOGIC := '0';
@@ -338,6 +361,65 @@ tauUnitProcess: process(
    end if;
    end process;
 
+-- Process that takes dat from the OUTPUT FIFO and when there is data, makes a UART
+-- output request, and then waits for the grant.
+
+tauUARTOutputProcess: process(
+   FPGA_CLK,
+   OUTPUT_FIFO_READ_DATA_VALID,
+   OUTPUT_FIFO_READ_DATA,
+   OUTPUT_FIFO_EMPTY,   
+   IBM1410_TAU_XMT_UART_GRANT)
+   
+   begin
+   
+   if FPGA_CLK'event and FPGA_CLK = '1' then
+      case tauUARTOutputState is
+      
+      when tau_uart_output_idle =>
+         -- wait for a character to appear in the internal FIFO
+         if OUTPUT_FIFO_EMPTY = '1' then
+            tauUARTOutputState <= tau_uart_output_idle;
+         else
+            tauUARTOutputState <= tau_uart_output_getChar;
+         end if;
+      
+      when tau_uart_output_getChar =>
+         -- Read the character from the FIFO -- raise read enable
+         if OUTPUT_FIFO_READ_DATA_VALID = '1' then
+            tauUARTOutputState <= tau_uart_output_wait;
+            IBM1410_TAU_XMT_UART_DATA <= OUTPUT_FIFO_READ_DATA;
+         else
+            tauUARTOutputState <= tau_uart_output_getChar;
+         end if;
+      
+      when tau_uart_output_wait =>
+         -- Drop read eanble
+         -- Wait for grant to go away, in case it is still up from a previous
+         -- request!!
+         if IBM1410_TAU_XMT_UART_GRANT = '1' then
+            tauUARTOutputState <= tau_uart_output_wait;
+         else
+            tauUARTOutputState <= tau_uart_output_sendChar;
+         end if;
+      
+      when tau_uart_output_sendChar =>
+         -- Raise UART subsystem request here...
+         tauUARTOutputState <= tau_uart_output_grantWait;
+      
+      when tau_uart_output_grantWait =>
+         -- Wait for request to be granted before getting another character
+         if IBM1410_TAU_XMT_UART_GRANT = '1' then
+            tauUARTOutputState <= tau_uart_output_idle;
+         else
+            tauUARTOutputState <= tau_uart_output_grantWait;
+         end if;
+            
+      end case;
+   end if;
+      
+end process;
+
 -- The tauTriggerProcess wakes up when it gets input from the PC Console Support Program.
 -- It uses the first character to decide if it is a unit status update (first character has x'40') or
 -- tape read data (first charcter has no x'40').  
@@ -347,10 +429,10 @@ tauTriggerProcess: process(
    MC_COMP_RESET_TO_TAPE,
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
    IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
-   FIFO_READ_DATA_VALID,
-   FIFO_EMPTY,
-   FIFO_EMPTY_NEXT,
-   FIFO_READ_DATA,
+   INPUT_FIFO_READ_DATA_VALID,
+   INPUT_FIFO_EMPTY,
+   INPUT_FIFO_EMPTY_NEXT,
+   INPUT_FIFO_READ_DATA,
    tauTriggerRead,
    tauTriggerStatus,
    tauTriggerState)
@@ -367,18 +449,18 @@ tauTriggerProcess: process(
          tauTriggerState <= tau_trigger_idle;
          
       when tau_trigger_idle =>
-         if FIFO_EMPTY = '0' then
+         if INPUT_FIFO_EMPTY = '0' then
             tauTriggerState <= tau_trigger;
          else
             tauTriggerState <= tau_trigger_idle;
          end if;
          
       when tau_trigger =>
-         if FIFO_READ_DATA_VALID = '1' then            
+         if INPUT_FIFO_READ_DATA_VALID = '1' then            
             tauTriggerState <= tau_trigger_wait;            
             -- Latch the unit number send from the support program.
             -- Received byte will set either tauTriggerRead or tauTriggerStatus.
-            tauSupportUnit <= to_integer(unsigned(FIFO_READ_DATA));
+            tauSupportUnit <= to_integer(unsigned(INPUT_FIFO_READ_DATA));
          else
             tauTriggerState <= tau_trigger;
          end if;
@@ -402,9 +484,9 @@ tauTriggerProcess: process(
 tauStatusProcess: process(
    FPGA_CLK,
    MC_COMP_RESET_TO_TAPE,
-   FIFO_READ_DATA_VALID,
-   FIFO_READ_DATA,
-   FIFO_EMPTY,
+   INPUT_FIFO_READ_DATA_VALID,
+   INPUT_FIFO_READ_DATA,
+   INPUT_FIFO_EMPTY,
    tauTriggerStatus,
    tauSupportUnit,
    tauUnitStatusState)
@@ -425,19 +507,19 @@ tauStatusProcess: process(
          end if;
          
       when tau_unit_status_waitForChar =>
-         if FIFO_EMPTY = '0' then
+         if INPUT_FIFO_EMPTY = '0' then
             tauUnitStatusState <= tau_unit_status_getChar;
          else
             tauUnitStatusState <= tau_unit_status_waitForChar;
          end if;
             
       when tau_unit_status_getChar => 
-         if FIFO_READ_DATA_VALID = '1' then
+         if INPUT_FIFO_READ_DATA_VALID = '1' then
             -- Remember the status for this unit.  Have to do this thru a separate process/arbiter
             -- Because we may need to set an initial status in the FPGA, but it can also bet set
             -- here via received data from the PC
             -- TAU_TAPE_UNIT_STATUSES(tauSupportUnit) <= FIFO_READ_DATA;
-            tauSupportStatus <= FIFO_READ_DATA;
+            tauSupportStatus <= INPUT_FIFO_READ_DATA;
             tauUnitStatusState <= tau_unit_set_status;
          else
             tauUnitStatusState <= tau_unit_status_getChar;
@@ -567,7 +649,7 @@ tauBRUEProcess: process(
          end if;
           
       when tau_brue_fifo_wait =>
-         if FIFO_FULL = '1' then
+         if OUTPUT_FIFO_FULL = '1' then
             tauBRUEState <= tau_brue_fifo_wait;
          else
             tauBRUEState <= tau_brue_send_unit_to_PC;
@@ -592,7 +674,7 @@ tauBRUEProcess: process(
          -- Here we don't need a special FIFO wait state.
          
       when tau_brue_action_fifo_wait =>
-         if FIFO_FULL = '1' then
+         if OUTPUT_FIFO_FULL = '1' then
             tauBRUEState <= tau_brue_prepare_action;
          else
             tauBRUEState <= tau_brue_send_action_to_PC;
@@ -626,9 +708,9 @@ taureadProcess: process(
    MC_COMP_RESET_TO_TAPE,
    IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
    IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
-   FIFO_EMPTY,
-   FIFO_READ_DATA,
-   FIFO_READ_DATA_VALID,
+   INPUT_FIFO_EMPTY,
+   INPUT_FIFO_READ_DATA,
+   INPUT_FIFO_READ_DATA_VALID,
    TAU_SELECTED_TAPE_DRIVE,
    MC_READ_TAPE_CALL,
    tauBusy,
@@ -668,7 +750,7 @@ taureadProcess: process(
       
       -- Wait until FIFO used to send data to PC has room
       when tau_read_fifo_wait_1 =>
-         if FIFO_FULL = '1' then
+         if OUTPUT_FIFO_FULL = '1' then
             tauReadState <= tau_read_fifo_wait_1;
          else
             tauReadState <= tau_read_send_unit_to_PC;
@@ -688,7 +770,7 @@ taureadProcess: process(
 
       -- Wait at least one tick for data to settle before strobing UART         
       when tau_read_fifo_wait_2 =>
-         if FIFO_FULL = '1' then
+         if OUTPUT_FIFO_FULL = '1' then
             tauReadState <= tau_read_fifo_wait_2;
          else
             tauReadState <= tau_read_send_action_to_PC;
@@ -708,7 +790,7 @@ taureadProcess: process(
          end if;
       
       when tau_read_waitForChar =>
-         if FIFO_EMPTY = '0' then
+         if INPUT_FIFO_EMPTY = '0' then
             tauReadState <= tau_read_getChar;
          else
             tauReadState <= tau_read_waitForChar;
@@ -721,22 +803,22 @@ taureadProcess: process(
          -- Note that on a REAL machine, the TAU would have to tell the tape drive it hit a
          -- tape mark, but in OUR case, we can handle that in the PC Support program.
          
-         if FIFO_READ_DATA_VALID = '1' then
+         if INPUT_FIFO_READ_DATA_VALID = '1' then
             -- All zeroes is End of Record.  (Blanks show up as C + A bits.
-            if FIFO_READ_DATA = "00000000" then  
+            if INPUT_FIFO_READ_DATA = "00000000" then  
                tauReadState <= tau_read_done;           
             elsif tauReadFirstCharLatch = '1' and 
-                  (FIFO_READ_DATA and "00111111") = TAPE_MARK_CHAR then
+                  (INPUT_FIFO_READ_DATA and "00111111") = TAPE_MARK_CHAR then
                tauReadTapeIndicateLatch <= '1';
                tauReadState <= tau_read_wait_channel; 
                -- Move the check bit into position, and send data to CPU         
-               MC_TAU_TO_CPU_BUS <= not (FIFO_READ_DATA(6) & '0' &
-                  FIFO_READ_DATA(5 downto 0));
+               MC_TAU_TO_CPU_BUS <= not (INPUT_FIFO_READ_DATA(6) & '0' &
+                  INPUT_FIFO_READ_DATA(5 downto 0));
             else
                tauReadState <= tau_read_wait_channel;
                -- Move the check bit into position, and send data to CPU         
-               MC_TAU_TO_CPU_BUS <= not (FIFO_READ_DATA(6) & '0' &
-                  FIFO_READ_DATA(5 downto 0));
+               MC_TAU_TO_CPU_BUS <= not (INPUT_FIFO_READ_DATA(6) & '0' &
+                  INPUT_FIFO_READ_DATA(5 downto 0));
             end if;          
          else
             tauReadState <= tau_read_getChar;  -- Really should never happen...
@@ -771,9 +853,7 @@ taureadProcess: process(
          tauReadState <= tau_read_idle;
          tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;
          tauReadXMTChar <= "00000000";         
-         
-      
-      
+                     
       end case;     
    end if;
    
@@ -785,11 +865,7 @@ taureadProcess: process(
 tauWriteProcess: process(
    FPGA_CLK,
    MC_COMP_RESET_TO_TAPE,
-   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
-   IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
-   FIFO_EMPTY,
-   FIFO_READ_DATA,
-   FIFO_READ_DATA_VALID,
+   OUTPUT_FIFO_FULL,
    TAU_SELECTED_TAPE_DRIVE,
    MC_WRITE_TAPE_CALL,
    MC_WRITE_TAPE_MK_CALL,
@@ -830,7 +906,7 @@ tauWriteProcess: process(
       
       -- Wait until FIFO used to send data to PC has room
       when tau_write_fifo_wait_1 =>
-         if FIFO_FULL = '1' then
+         if OUTPUT_FIFO_FULL = '1' then
             tauWriteState <= tau_write_fifo_wait_1;
          else
             tauWriteState <= tau_write_send_unit_to_PC;
@@ -852,7 +928,7 @@ tauWriteProcess: process(
          
       -- Wait for FIFO, and for at least one tick for data to settle before strobing UART
       when tau_write_fifo_wait_2 =>
-         if FIFO_FULL = '1' then
+         if OUTPUT_FIFO_FULL = '1' then
             tauWriteState <= tau_write_fifo_wait_2;
          else
             tauWriteState <= tau_write_send_action_to_PC;
@@ -866,9 +942,14 @@ tauWriteProcess: process(
       -- Wait for FIFO to not be full, and also overlap count up channel wait time
       when tau_write_fifo_wait_3 =>
          if MC_DISCONNECT_CALL = '0' then
-            -- DISCONNECT: No more chars - send EOR unless WMT         
-            tauWriteState <= tau_write_fifo_wait_4;           
-         elsif FIFO_FULL = '1' then
+            -- DISCONNECT: No more chars - send EOR unless WTM  
+            -- NOTE:  Not sure if channel actually does a disconnect on WTM.
+            if tauWTMLatch = '0' then      
+               tauWriteState <= tau_write_fifo_wait_4;
+            else
+               tauWriteState <= tau_write_done;
+            end if;           
+         elsif OUTPUT_FIFO_FULL = '1' then
             if tauWriteDelayCounter /= CHANNEL_CYCLE_LENGTH then
                tauWriteDelayCounter <= tauWriteDelayCounter + 1;
             end if;
@@ -878,10 +959,15 @@ tauWriteProcess: process(
          end if;
             
       -- Give the channel time to give us a character if we have not already done so.
-      -- At that point, if this is a WTM, we are all done. 
+      -- At that point, if this is a WTM, we are all done.  If we get a disconnect call
+      -- we can end the WTM earlier.  (Not sure if we get a disconnect on a WTM, anyway).
       when tau_write_wait_channel =>
          if MC_DISCONNECT_CALL = '0' then
-            tauWriteState <= tau_write_fifo_wait_4;  -- No more characters!            
+            if tauWTMLatch = '1' then
+               tauWriteState <= tau_write_done;
+            else
+               tauWriteState <= tau_write_fifo_wait_4;  -- No more characters!
+            end if;            
          elsif tauWriteDelayCounter /= CHANNEL_CYCLE_LENGTH then
             tauWriteDelayCounter <= tauWriteDelayCounter + 1;
             tauWriteState <= tau_write_wait_channel;
@@ -900,7 +986,7 @@ tauWriteProcess: process(
          
       -- Wait at least 1 tick for data to settle before strobing UART
       when tau_write_char_fifo_wait =>
-         if FIFO_FULL = '1' then
+         if OUTPUT_FIFO_FULL = '1' then
             tauWriteState <= tau_write_char_fifo_wait;
          else
             tauWriteState <= tau_write_send_char_to_PC;
@@ -932,7 +1018,7 @@ tauWriteProcess: process(
       -- End of record for normal write - prep to send EOR flag to PC, wait for FIFO
       when tau_write_fifo_wait_4 =>
          tauWriteXMTChar <= "00000000";  -- End of record flag.
-         if FIFO_FULL = '1' then
+         if OUTPUT_FIFO_FULL = '1' then
             tauWriteState <= tau_write_fifo_wait_4;
          else
             tauWriteState <= tau_write_send_eor_to_PC;
@@ -985,9 +1071,9 @@ tauSetStatusProcess: process(
 
 -- Instantiate components   
 
-   FIFO : ring_buffer
+   TAU_INPUT_FIFO : ring_buffer
       generic map (
-         RAM_WIDTH => TAU_INPUT_FIFO_WIDTH,
+         RAM_WIDTH => TAU_FIFO_WIDTH,
          RAM_DEPTH => TAU_INPUT_FIFO_SIZE
       )
       port map (
@@ -995,15 +1081,40 @@ tauSetStatusProcess: process(
          rst => UART_RESET,
          wr_en => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
          wr_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
-         rd_en => FIFO_READ_ENABLE,
-         rd_valid => FIFO_READ_DATA_VALID,
-         rd_data => FIFO_READ_DATA,
-         empty => FIFO_EMPTY,
-         empty_next => FIFO_EMPTY_NEXT,
-         full => FIFO_FULL,
-         full_next => FIFO_FULL_NEXT,
+         rd_en => INPUT_FIFO_READ_ENABLE,
+         rd_valid => INPUT_FIFO_READ_DATA_VALID,
+         rd_data => INPUT_FIFO_READ_DATA,
+         empty => INPUT_FIFO_EMPTY,
+         empty_next => INPUT_FIFO_EMPTY_NEXT,
+         full => INPUT_FIFO_FULL,
+         full_next => INPUT_FIFO_FULL_NEXT,
          fill_count => OPEN
     );
+   
+   -- I decided to put a FIFO in between the TAU and the PC Support grant system.
+   -- It saves a bunch of states because they can just check full and strobe, 
+   -- without having to have a state that checks for grants.
+   
+   TAU_OUTPUT_FIFO : ring_buffer
+      generic map (
+         RAM_WIDTH => TAU_FIFO_WIDTH,
+         RAM_DEPTH => TAU_OUTPUT_FIFO_SIZE
+      )
+      port map (
+         clk => FPGA_CLK,
+         rst => UART_RESET,
+         wr_en => OUTPUT_FIFO_WRITE_ENABLE,
+         wr_data => OUTPUT_FIFO_WRITE_DATA,
+         rd_en => OUTPUT_FIFO_READ_ENABLE,
+         rd_valid => OUTPUT_FIFO_READ_DATA_VALID,
+         rd_data => OUTPUT_FIFO_READ_DATA,
+         empty => OUTPUT_FIFO_EMPTY,
+         empty_next => OUTPUT_FIFO_EMPTY_NEXT,
+         full => OUTPUT_FIFO_FULL,
+         full_next => OUTPUT_FIFO_FULL_NEXT,
+         fill_count => OPEN
+    );
+   
    
 -- Combinatorial code
 
@@ -1052,28 +1163,28 @@ tauBusy <= tauBRUEBusy or tauReadBusy or tauWriteBusy;
 MC_TAPE_BUSY <= not tauBusy;
 
 
-FIFO_READ_ENABLE <= '1' when
+INPUT_FIFO_READ_ENABLE <= '1' when
    tauTriggerState = tau_trigger OR tauUnitStatusState = tau_unit_status_getchar or
       tauReadState = tau_read_getChar
    else '0';
     
 tauTriggerStatus <= '1' when
-   (tauTriggerState = tau_trigger and FIFO_READ_DATA_VALID = '1' and 
-      FIFO_READ_DATA(TAU_SUPPORT_INPUT_DATA_FLAG) = '0') OR
+   (tauTriggerState = tau_trigger and INPUT_FIFO_READ_DATA_VALID = '1' and 
+      INPUT_FIFO_READ_DATA(TAU_SUPPORT_INPUT_DATA_FLAG) = '0') OR
       tauUnitStatusState /= tau_unit_status_idle
    else '0';
    
 tauTriggerRead <= '1' when
-   (tauTriggerState = tau_trigger and FIFO_READ_DATA_VALID = '1' and 
-      FIFO_READ_DATA(TAU_SUPPORT_INPUT_DATA_FLAG) = '1') OR
+   (tauTriggerState = tau_trigger and INPUT_FIFO_READ_DATA_VALID = '1' and 
+      INPUT_FIFO_READ_DATA(TAU_SUPPORT_INPUT_DATA_FLAG) = '1') OR
       tauReadState = tau_read_waitForChar or tauReadState = tau_read_getChar or
       tauReadState = tau_read_wait_channel or tauReadState = tau_read_strobe_channel 
    else '0';
 
-IBM1410_TAU_XMT_CHAR <= 
+OUTPUT_FIFO_WRITE_DATA <= 
    tauUnitControlXMTChar or tauWriteXMTChar or tauReadXMTChar;
    
-IBM1410_TAU_XMT_STROBE <= '1' when
+OUTPUT_FIFO_WRITE_ENABLE <= '1' when
    tauBRUEState = tau_brue_send_unit_to_PC or
    tauBRUEState = tau_brue_send_action_to_PC or
    tauReadState = tau_read_send_unit_to_PC or
@@ -1082,6 +1193,13 @@ IBM1410_TAU_XMT_STROBE <= '1' when
    tauWriteState = tau_write_send_action_to_PC or
    tauWritestate = tau_write_send_char_to_PC or
    tauWritestate = tau_write_send_eor_to_PC
+   else '0';
+   
+OUTPUT_FIFO_READ_ENABLE <= '1' when tauUARTOutputState = tau_Uart_output_getChar
+   else '0';
+   
+IBM1410_TAU_XMT_UART_REQUEST <= '1' when tauUARTOutputState = tau_uart_output_sendChar or
+   tauUARTOutputState = tau_uart_output_grantWait
    else '0';
 
 tauSupportSetStatus <= '1'  when 
