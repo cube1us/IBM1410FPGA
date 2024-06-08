@@ -1,6 +1,12 @@
-Generating HDL for page 13.67.03.1 F CH EXT END OF TRF AND DISC LATC at 8/10/2020 1:42:44 PM
-Old test bench file ALD_13_67_03_1_F_CH_EXT_END_OF_TRF_AND_DISC_LATC_tb.vhdl 55 lines preserved and 32 declaration lines preserved
+Generating HDL for page 13.67.03.1 F CH EXT END OF TRF AND DISC LATC at 6/8/2024 1:35:26 PM
+Old test bench file ALD_13_67_03_1_F_CH_EXT_END_OF_TRF_AND_DISC_LATC_tb.vhdl 377 lines preserved and 32 declaration lines preserved
+Note: DOT Function at 5B has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 4A has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 1D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 2D has input level(s) of S, and output level(s) of S, Logic Function set to OR
+Note: DOT Function at 5H has input level(s) of C, and output level(s) of C, Logic Function set to OR
 NOTE: DOT Function at 5H is fed only by rotary switch(es) and/or resistors an/or -C inputs. Changing logic function to AND
+Note: DOT Function at 2G has input level(s) of S, and output level(s) of S, Logic Function set to OR
 Found combinatorial loop (need D FF) at output of gate at 3B
 Found combinatorial loop (need D FF) at output of gate at 4C
 Found combinatorial loop (need D FF) at output of gate at 4E
@@ -59,7 +65,7 @@ Generating Statement for block at 1D with output pin(s) of OUT_1D_C
 	and inputs of OUT_DOT_2D
 	and logic function of NAND
 Generating Statement for block at 5E with output pin(s) of OUT_5E_B, OUT_5E_B
-	and inputs of MC_TAPE_IN_PROCESS
+	and inputs of MC_TAPE_IN_PROCESS_F_CH_JRJ
 	and logic function of NOR
 Generating Statement for block at 4E with *latched* output pin(s) of OUT_4E_NoPin_Latch
 	and inputs of MS_F_CH_RESET,OUT_3E_C
