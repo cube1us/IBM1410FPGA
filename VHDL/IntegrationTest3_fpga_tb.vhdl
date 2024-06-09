@@ -143,10 +143,32 @@ begin
   
   -- wait for 25 ms;
   wait for 20 ms;
+  
+  -- Tell it unit E channel tape unit 0 is ready
+  
+  UART_XMT_DATA <= "10000100"; -- TAU E Channel Flag byte
+  UART_XMT_DATA_VALID <= '1';
+  wait for 100 ns; 
+  UART_XMT_DATA_VALID <= '0';
+  wait until UART_XMT_ACTIVE = '0';
+  
+  UART_XMT_DATA <= "00000000"; -- Unit 0
+  UART_XMT_DATA_VALID <= '1';
+  wait for 100 ns; 
+  UART_XMT_DATA_VALID <= '0';
+  wait until UART_XMT_ACTIVE = '0';
+
+  UART_XMT_DATA <= "00000011"; -- TAU E Channel Status: Read write, Ready read
+  UART_XMT_DATA_VALID <= '1';
+  wait for 100 ns; 
+  UART_XMT_DATA_VALID <= '0';
+  wait until UART_XMT_ACTIVE = '0';
+  
+  -- Press Start  
     
   btnC <= '1';
   report "Pressed Start";
-  wait for 11 ms;
+  wait for 10100 us; 
   btnC <= '0';
   
   -- Begin Console CE INPUT test
@@ -298,99 +320,110 @@ begin
   
   -- Press Inquiry Request
   
-  report "Sending Keyboard data flag byte before Inq. Req.";
+--  report "Sending Keyboard data flag byte before Inq. Req.";
   
-  UART_XMT_DATA <= "10000001";
-  UART_XMT_DATA_VALID <= '1';
-  wait for 100 ns; 
-  UART_XMT_DATA_VALID <= '0';
-  wait until UART_XMT_ACTIVE = '0';
+--  UART_XMT_DATA <= "10000001";
+--  UART_XMT_DATA_VALID <= '1';
+--  wait for 100 ns; 
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';
     
-  -- Send Inquiry Request Key  (0x42)
+--  -- Send Inquiry Request Key  (0x42)
 
-  UART_XMT_DATA <= "01000010";
-  UART_XMT_DATA_VALID <= '1';
-  wait for 100 ns; 
-  UART_XMT_DATA_VALID <= '0';
-  wait until UART_XMT_ACTIVE = '0';
+--  UART_XMT_DATA <= "01000010";
+--  UART_XMT_DATA_VALID <= '1';
+--  wait for 100 ns; 
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';
   
-  wait for 1 ms;
+--  wait for 1 ms;
   
-  -- Release the Inquiry Request Key 
+--  -- Release the Inquiry Request Key 
 
-  UART_XMT_DATA <= "01000000";
-  UART_XMT_DATA_VALID <= '1';
-  wait for 100 ns; 
-  UART_XMT_DATA_VALID <= '0';
-  wait until UART_XMT_ACTIVE = '0';
+--  UART_XMT_DATA <= "01000000";
+--  UART_XMT_DATA_VALID <= '1';
+--  wait for 100 ns; 
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';
   
-  report "Inquiry Request Released";
+--  report "Inquiry Request Released";
     
-  -- Wait for the keyboard to unlock
+--  -- Wait for the keyboard to unlock
   
-  while UART_RECEIVED_UNLOCK /= "00000001" loop
-     while UART_RECEIVED_BYTE /= "10000010" loop
-        wait until UART_RCV_DATA_VALID = '1';  -- Wait for the lock code control byte
-        UART_RECEIVED_BYTE := UART_RCV_DATA;
-        report "Received UART byte of " & to_string(UART_RCV_DATA);
-        wait until UART_RCV_DATA_VALID = '0';        
-     end loop;
-     wait until UART_RCV_DATA_VALID = '1'; -- We have a lock/unlock contro byte
-     report "Received UART Lock/Unlock byte of " & to_string(UART_RCV_DATA);
-     UART_RECEIVED_UNLOCK := UART_RCV_DATA;
-     wait until UART_RCV_DATA_VALID = '0';     
-  end loop;
+--  while UART_RECEIVED_UNLOCK /= "00000001" loop
+--     while UART_RECEIVED_BYTE /= "10000010" loop
+--        wait until UART_RCV_DATA_VALID = '1';  -- Wait for the lock code control byte
+--        UART_RECEIVED_BYTE := UART_RCV_DATA;
+--        report "Received UART byte of " & to_string(UART_RCV_DATA);
+--        wait until UART_RCV_DATA_VALID = '0';        
+--     end loop;
+--     wait until UART_RCV_DATA_VALID = '1'; -- We have a lock/unlock contro byte
+--     report "Received UART Lock/Unlock byte of " & to_string(UART_RCV_DATA);
+--     UART_RECEIVED_UNLOCK := UART_RCV_DATA;
+--     wait until UART_RCV_DATA_VALID = '0';     
+--  end loop;
   
-  -- Keyboard should now be unlocked... 
+--  -- Keyboard should now be unlocked... 
   
-  -- Send the "I have data from the keyboard" flag byte.
+--  -- Send the "I have data from the keyboard" flag byte.
    
-  -- At this point the print mechanism might be in upper case...
+--  -- At this point the print mechanism might be in upper case...
   
-  report "Sending Lower Case Shift Code";
+--  report "Sending Lower Case Shift Code";
 
-  UART_XMT_DATA <= "01000000";
-  UART_XMT_DATA_VALID <= '1';
-  wait for 100 ns; 
-  UART_XMT_DATA_VALID <= '0';
-  wait until UART_XMT_ACTIVE = '0';  
-  wait for 2 ms;
+--  UART_XMT_DATA <= "01000000";
+--  UART_XMT_DATA_VALID <= '1';
+--  wait for 100 ns; 
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';  
+--  wait for 2 ms;
 
-  -- Followed by BCD 00000 ...
+--  -- Followed by BCD 00000 ...
     
-  for n in 1 to 5 loop
-     report "Sending BCD 0";
-     UART_XMT_DATA <= "00001010"; 
-     UART_XMT_DATA_VALID <= '1';  
-     wait for 100 ns;  
-     UART_XMT_DATA_VALID <= '0';
-     wait until UART_XMT_ACTIVE = '0';
-     wait until UART_RCV_DATA_VALID = '1';  -- Wait for each 0 to be echoed. (could check value?)
-     wait until UART_RCV_DATA_VALID = '0';
-     wait for 1 ms;
+--  for n in 1 to 5 loop
+--     report "Sending BCD 0";
+--     UART_XMT_DATA <= "00001010"; 
+--     UART_XMT_DATA_VALID <= '1';  
+--     wait for 100 ns;  
+--     UART_XMT_DATA_VALID <= '0';
+--     wait until UART_XMT_ACTIVE = '0';
+--     wait until UART_RCV_DATA_VALID = '1';  -- Wait for each 0 to be echoed. (could check value?)
+--     wait until UART_RCV_DATA_VALID = '0';
+--     wait for 1 ms;
+--  end loop;
+  
+--  -- Send Inquiry Release
+  
+--  UART_XMT_DATA <= "01000100";
+--  UART_XMT_DATA_VALID <= '1';
+--  wait for 100 ns; 
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';
+  
+--  wait for 1 ms;
+  
+--  -- Release the Inquiry Release Key 
+
+--  UART_XMT_DATA <= "01000000";
+--  UART_XMT_DATA_VALID <= '1';
+--  wait for 100 ns; 
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';
+  
+--  End of Console I/O Input Test
+
+  -- Basic tape testting -- rewind
+  
+  for i in 1 to 3 loop
+     if UART_RCV_DATA_VALID = '0' then
+        wait until UART_RCV_DATA_VALID = '1' for 10 ms;
+     end if;
+     assert UART_RCV_DATA_VALID = '1' report "No Data Recevied" severity failure;
+     report "Received Byte " & integer'image(to_integer(unsigned(UART_RCV_DATA)));
+     wait for 20 ns;
   end loop;
   
-  -- Send Inquiry Release
-  
-  UART_XMT_DATA <= "01000100";
-  UART_XMT_DATA_VALID <= '1';
-  wait for 100 ns; 
-  UART_XMT_DATA_VALID <= '0';
-  wait until UART_XMT_ACTIVE = '0';
-  
-  wait for 1 ms;
-  
-  -- Release the Inquiry Release Key 
-
-  UART_XMT_DATA <= "01000000";
-  UART_XMT_DATA_VALID <= '1';
-  wait for 100 ns; 
-  UART_XMT_DATA_VALID <= '0';
-  wait until UART_XMT_ACTIVE = '0';
-  
---  End of Console I/O Input Test  
-  
-  wait for 19 ms; 
+  -- wait for 19 ms; 
  
   assert false report "Normal End of Test" severity failure;
      
