@@ -3283,7 +3283,7 @@ uut_process: process
 -- Set whether or not we are testing load mode, and which channel to tset.
    
    LOCAL_WS_TEST <= '1';
-   LOCAL_F_CH_TEST <= '1';  -- 0 means E Channel
+   LOCAL_F_CH_TEST <= '0';  -- 0 means E Channel
    wait for 10 ns;
 
 if LOCAL_F_CH_TEST = '0' then     
