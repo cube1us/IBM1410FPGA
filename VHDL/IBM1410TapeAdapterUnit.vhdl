@@ -1198,8 +1198,8 @@ OUTPUT_FIFO_WRITE_ENABLE <= '1' when
 OUTPUT_FIFO_READ_ENABLE <= '1' when tauUARTOutputState = tau_Uart_output_getChar
    else '0';
    
-IBM1410_TAU_XMT_UART_REQUEST <= '1' when tauUARTOutputState = tau_uart_output_sendChar or
-   tauUARTOutputState = tau_uart_output_grantWait
+IBM1410_TAU_XMT_UART_REQUEST <= '1' when tauUARTOutputState = tau_uart_output_sendChar -- or
+   -- tauUARTOutputState = tau_uart_output_grantWait
    else '0';
 
 tauSupportSetStatus <= '1'  when 
