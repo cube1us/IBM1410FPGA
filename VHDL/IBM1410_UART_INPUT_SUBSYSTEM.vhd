@@ -54,7 +54,7 @@ end IBM1410_UART_INPUT_SUBSYSTEM;
 
 architecture Behavioral of IBM1410_UART_INPUT_SUBSYSTEM is
 
-   -- These need to move one level up!
+   -- These need to move one level up!  (They are really just documentation at this point)
 
    constant SWITCH_FIFO_INDEX: INTEGER := 0;
    constant SWITCH_FIFO_FLAG:  STD_LOGIC_VECTOR(7 downto 0) := "10000000";
@@ -65,15 +65,15 @@ architecture Behavioral of IBM1410_UART_INPUT_SUBSYSTEM is
    constant MEMORY_LOAD_FIFO_INDEX: INTEGER := 2;
    constant MEMORY_LOAD_FIFO_FLAG: STD_LOGIC_VECTOR(7 downto 0) := "10000010";
    
-   constant CARD_READER_CH1_FIFO_INDEX: INTEGER := 3; 
-   constant CARD_READER_CH1_FIFO_FLAG: STD_LOGIC_VECTOR(7 downto 0) := "10000011";
-   
+   constant TAPE_INPUT_CH2_FIFO_INDEX: INTEGER := 3;
+   constant TAPE_INPUT_CH2_FIFO_FLAG: STD_LOGIC_VECTOR(7 downto 0) := "10000011";
+
    constant TAPE_INPUT_CH1_FIFO_INDEX: INTEGER := 4;
    constant TAPE_INPUT_CH1_FIFO_FLAG: STD_LOGIC_VECTOR(7 downto 0) := "10000100";
-   
-   constant TAPE_INPUT_CH2_FIFO_INDEX: INTEGER := 5;
-   constant TAPE_INPUT_CH2_FIFO_FLAG: STD_LOGIC_VECTOR(7 downto 0) := "10000101";
 
+   constant CARD_READER_CH1_FIFO_INDEX: INTEGER := 5; 
+   constant CARD_READER_CH1_FIFO_FLAG: STD_LOGIC_VECTOR(7 downto 0) := "10000101";
+      
    constant DISK_INPUT_CH1_FIFO_INDEX: INTEGER := 6;
    constant DISK_INPUT_CH1_FIFO_FLAG: STD_LOGIC_VECTOR(7 downto 0) := "10000110";
 
@@ -168,8 +168,7 @@ input_process: process(FPGA_CLK, RESET, inputState, UART_RCV_DATA_VALID, UART_RC
          when others =>
             -- Invalid stream - ignore character
          end case;
-         inputState <= input_CharDone;
-         
+         inputState <= input_CharDone;         
          
       when input_CharDone =>
          INPUT_FIFO_ENABLES <= (others => '0');  -- Need to drop FIFO write enables immediately
