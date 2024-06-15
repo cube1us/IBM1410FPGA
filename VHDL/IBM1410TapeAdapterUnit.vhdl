@@ -156,7 +156,7 @@ constant TAPE_UNIT_CTL_ERASE_REQUEST: integer := 3;
 constant TAPE_UNIT_CTL_MARK_REQUEST: integer := 4;
 constant TAPE_UNIT_CTL_UNLOAD_REQUEST: integer := 5;
 constant TAPE_UNIT_CTL_REWIND_REQUEST: integer := 6;
-constant TAPE_UNIT_CTL_RESET_INDICATE: integer := 7;
+constant TAPE_UNIT_CTL_RESET_INDICATE: STD_LOGIC_VECTOR(7 downto 0) := X"3F";  --  Can't use high bit for this!
 
 constant OUT_STROBE_TIME: integer := 10;      -- 100ns UART strobe time
 constant TAU_INPUT_FIFO_SIZE: integer := 10;  -- 1410 will be faster than PC support for now
@@ -272,6 +272,7 @@ signal tauTriggerComplete: STD_LOGIC := '0';
 
 signal tauBusy: STD_LOGIC := '0';
 signal tauBRUEBusy: STD_LOGIC := '0';
+
 signal tauReadBusy: STD_LOGIC := '0';
 signal tauWriteBusy: STD_LOGIC := '0';
 
@@ -600,25 +601,37 @@ tauBRUEProcess: process(
                   
       when tau_brue_called =>
 
-         -- Mark drive as not ready unless this is an erase call or a TI reset.
-         -- The drive should later also say not ready for a while from the Support Program.
-         if MC_ERASE_CALL = '1' and tauBRUEAction = '1' then
-            tauBRUEStatus(TAPE_UNIT_READ_READY_BIT) <= '0';
-            tauBRUEStatus(TAPE_UNIT_WRITE_READY_BIT) <= '0';
+         -- If this is a rewind, and the drive is at load point, nothing happens
+         
+         if not(MC_REWIND_CALL = '0' and tauBRUEStatus(TAPE_UNIT_LOAD_POINT_BIT) = '1') then
+         
+            -- Since this is NOT a rewind at load point,
+            -- mark drive as busy unless this is an erase call or a TI reset.
+            -- The drive should later also say not ready for a while from the Support Program.
+            
+            if MC_ERASE_CALL = '1' and tauBRUEAction = '1' then
+               tauBRUEStatus(TAPE_UNIT_READ_READY_BIT) <= '0';
+               tauBRUEStatus(TAPE_UNIT_WRITE_READY_BIT) <= '0';
+            end if;
+         
+            -- If a rewind or unload call, set the rewind bit as well.
+            if tauRewindLatch = '1' or tauUnloadLatch = '1' then
+               tauBRUEStatus(TAPE_UNIT_TAPE_REWIND_BIT) <= '1';
+            end if;  
+         
+            -- If this is a TI reset action, then turn off the local copy for this drive
+            if tauBRUEResetTI = '1' then
+               -- Turn off local copy of the tape indicate for this drive ASAP
+               tauBRUEStatus(TAPE_UNIT_TAPE_IND_BIT) <= '0';
+               -- And set the reset TI latch so we don't keep updating the status on the PC
+               tauResetTILatch <= '1';
+            end if;
+
+         else
+            tauBRUEStatus(TAPE_UNIT_TAPE_REWIND_BIT) <= '0';  -- Rewind call and at load point
+         
          end if;
          
-         -- If a rewind or unload call, set the rewind bit as well.
-         if tauRewindLatch = '1' or tauUnloadLatch = '1' then
-            tauBRUEStatus(TAPE_UNIT_TAPE_REWIND_BIT) <= '1';
-         end if;  
-         
-         -- If this is a TI reset action, then turn off the local copy for this drive
-         if tauBRUEResetTI = '1' then
-            -- Turn off local copy of the tape indicate for this drive ASAP
-            tauBRUEStatus(TAPE_UNIT_TAPE_IND_BIT) <= '0';
-            -- And set the reset TI latch so we don't keep updating the status on the PC
-            tauResetTILatch <= '1';
-         end if;
                 
          -- Prepare unit number to send to PC
          tauUnitControlXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
@@ -667,7 +680,7 @@ tauBRUEProcess: process(
          tauUnitControlXMTChar(TAPE_UNIT_CTL_BACKSPACE_REQUEST) <= tauBackspaceLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_ERASE_REQUEST) <= tauEraseLatch;
          if tauResetTILatch = '1' and MC_TURN_OFF_TAPE_IND = '0' then
-            tauUnitControlXMTChar(TAPE_UNIT_CTL_RESET_INDICATE) <= '1';
+            tauUnitControlXMTChar <= TAPE_UNIT_CTL_RESET_INDICATE;
          end if;
          tauBrueState <= tau_brue_action_fifo_wait;
 
@@ -1137,7 +1150,8 @@ MC_SEL_OR_TAPE_IND_ON <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAP
 MC_SELECT_AND_REWIND <= not(TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_REWIND_BIT));
 
 tauBRUEBusy  <= '1' when 
-   ((tauBRUEState = tau_brue_called or tauBRUEState = tau_brue_twiddle) and MC_ERASE_CALL = '1')   
+   ((tauBRUEState = tau_brue_called or tauBRUEState = tau_brue_twiddle) and MC_ERASE_CALL = '1') and
+   not(MC_REWIND_CALL = '0' and TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE)(TAPE_UNIT_TAPE_REWIND_BIT) = '1')   
    else '0';
    
 tauBRUEAction <= '1' when
