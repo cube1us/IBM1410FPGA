@@ -2197,7 +2197,7 @@ end component;
    -- LAMP vector transmission constants
 
    constant CLOCKPERIOD: integer := 10;  -- nanoseconds per FPGA clock cycle
-   constant REFRESH_TIME: integer := 100 * 1000;  -- nanoseconds between lamp refreshes
+   constant REFRESH_TIME: integer := 1000 * 1000;  -- nanoseconds between lamp refreshes
 
 --procedure check1(
 --    checked: in STD_LOGIC;
@@ -2220,8 +2220,14 @@ end component;
    signal tmrCntr : std_logic_vector(26 downto 0) := (others => '0');
 
    signal LOCAL_MY_MEM_AR_NOT_TTHP_BUS: STD_LOGIC_VECTOR(4 downto 0);
-     
-      
+   
+   signal debugMCReady: STD_LOGIC := '1';
+   signal debugMCBusy: STD_LOGIC := '1';
+   signal debugMCSelAtLP: STD_LOGIC := '1';
+   signal debugMCSelRewind: STD_LOGIC := '1';
+   signal debugECHReady: STD_LOGIC := '0';
+   signal debugMCRewindCall: STD_LOGIC := '1';
+         
 ---- END USER TEST BENCH DECLARATIONS
    
 
@@ -3184,7 +3190,7 @@ memory: IBM1410Memory
    generic map (
        CHANNEL_STROBE_LENGTH => 25,   -- Reduced from default of 100 (1us => 250ns)  
        CHANNEL_CYCLE_LENGTH => 1120,
-       TAU_OUTPUT_FIFO_SIZE => 2)     -- Test with a really small internal FIFO
+       TAU_OUTPUT_FIFO_SIZE => 80)     -- Test with a really small internal FIFO
    port map (
        FPGA_CLK => FPGA_CLK,
        MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_E_CH,
@@ -3251,7 +3257,7 @@ memory: IBM1410Memory
    generic map (
        CHANNEL_STROBE_LENGTH => 25,  -- Reduced from default of 100 (1us => 250ns)  
        CHANNEL_CYCLE_LENGTH => 1120, -- Reduced from default of 11.5 us
-       TAU_OUTPUT_FIFO_SIZE => 2)     -- Test with a really small internal FIFO       
+       TAU_OUTPUT_FIFO_SIZE => 80)     -- Test with a really small internal FIFO       
    port map (
        FPGA_CLK => FPGA_CLK,
        MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_F_CH,
@@ -3466,6 +3472,32 @@ begin
     end if;
 end process;
 
+-- Process to sample some signals at a certain point in time and put them in LEDs.
+
+debugLEDProcess: process(
+   CLK,
+   PS_E_CH_STATUS_SAMPLE_A,
+   MC_TAPE_READY,
+   MC_TAPE_BUSY,
+   MC_SELECT_AT_LOAD_POINT_STAR_E_CH,
+   MC_SELECT_AND_REWIND_STAR_E_CH,
+   MC_REWIND_CALL_STAR_E_CH,
+   PS_E_CH_READY_BUS)
+   begin
+   
+   -- Sample and remember various signals to put into the LEDs
+   
+   if CLK'EVENT and CLK = '1' then -- and PS_E_CH_STATUS_SAMPLE_A = '1' then
+      debugMCReady <= MC_TAPE_READY;
+      debugMCBusy <= MC_TAPE_BUSY;
+      debugMCSelAtLP <= MC_SELECT_AT_LOAD_POINT_STAR_E_CH;
+      debugMCSelRewind <= MC_SELECT_AND_REWIND_STAR_E_CH;
+      debugECHReady <= PS_E_CH_READY_BUS;
+      debugMCRewindCall <= MC_REWIND_CALL_STAR_E_CH;
+   end if;
+   
+end process;   
+
 -- Assign lamp vector from lamps for transmission to PC host
 
 	LAMP_VECTOR(202) <= LAMP_11C8A01;  -- TP B TAG 14.50.02.1
@@ -3639,18 +3671,26 @@ end process;
    -- LED(4 downto 1) <= IBM1410_MEMORY_LOADER_DEBUG_VECTOR(4 downto 1);
    -- LED(0) <= UART_INPUT_FIFO_WRITE_ENABLES(2);
    -- LED(4 downto 0) <= UART_INPUT_CURRENT_STREAM(4 downto 0);
-   LED(3 downto 0) <= IBM1410_MEMORY_LOADER_DEBUG_VECTOR(4 downto 1);
-   LED(4) <= '1' when UART_INPUT_CURRENT_STREAM = "00000010" else '0';
+   -- LED(3 downto 0) <= IBM1410_MEMORY_LOADER_DEBUG_VECTOR(4 downto 1);
+   -- LED(4) <= '1' when UART_INPUT_CURRENT_STREAM = "00000010" else '0';
    
    -- LED(9) <= btnC;
    -- LED(9) <= SWITCH_MOM_CO_CPR_RST;
-   LED(9) <= MW_KEYBOARD_LOCK_SOLENOID;
+   -- LED(9) <= MW_KEYBOARD_LOCK_SOLENOID;
    -- LED(8) <= not btnCpuReset;
-   LED(8) <= MV_KEYBOARD_LOCK_MODE_STAR_NO;
+   -- LED(8) <= MV_KEYBOARD_LOCK_MODE_STAR_NO;
    -- LED(7) <= initSystem;
-   LED(7) <= MV_KEYBOARD_UNLOCK_MODE;
+   -- LED(7) <= MV_KEYBOARD_UNLOCK_MODE;
+   
+   LED(0) <= debugMCReady;
+   LED(1) <= debugMCBusy;
+   LED(2) <= debugMCSelAtLP;
+   LED(3) <= debugMCSelRewind;
+   LED(4) <= debugECHready;
+   led(5) <= debugMCRewindCall;
+   
    LED(6) <= SWITCH_REL_PWR_ON_RST;
-   LED(5) <= IBM1410_CONSOLE_LOCK_XMT_STROBE;
+   -- LED(5) <= IBM1410_CONSOLE_LOCK_XMT_STROBE;
    
    LED(15) <= LAMP_15A1K24; -- Stop
    
