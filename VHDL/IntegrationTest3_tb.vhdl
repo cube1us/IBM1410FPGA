@@ -3649,9 +3649,9 @@ uut_process: process
 -- Set whether or not we are testing load mode, and which channel to tset.
    
    LOCAL_WS_TEST <= '0';          -- True if testing in load mode
-   LOCAL_E_CH_TAPE_TEST <= '0'; 
+   LOCAL_E_CH_TAPE_TEST <= '1'; 
    LOCAL_F_CH_TAPE_TEST <= '0';
-   LOCAL_REWIND_TEST <= '1';
+   LOCAL_REWIND_TEST <= '0';
     
    wait for 10 ns;
 
@@ -3662,25 +3662,7 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
    report "Starting E Channel Tape Test";
 
    -- Set Tape unit 0 not at load point, and ready   
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  -- Indicate we will provide status for Unit 0
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
 
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";     
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY   
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-
-   -- Send unit 0 status: Ready, Read ready, Write Ready
    send_tape_status(unit => 0, status => 
       TAPE_UNIT_READY_STATUS or TAPE_UNIT_READ_READY_STATUS or TAPE_UNIT_WRITE_READY_STATUS,
       write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
@@ -3694,11 +3676,6 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
       TAPE_UNIT_TAPE_IND_STATUS or TAPE_UNIT_TAPE_REWIND_STATUS,
       status_cares => "00111100", status => LOCAL_E_CH_TAPE_STATUS);
         
---   assert MC_TAPE_READY = '1' report "Test 1, Ready w/no unit asserted" severity failure;
---   assert MC_SELECT_AT_LOAD_POINT_STAR_E_CH = '1' report "Test 1, Load Point asserted" severity failure;
---   assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Test 1, Tape IND asserted" severity failure;
---   assert MC_SELECT_AND_REWIND_STAR_E_CH = '1' report "Test 1, Rewind asserted" severity failure;  
-      
    SWITCH_MOM_CONS_START <= '1';
    report "Pressed Start";
    wait for 5 us;  -- Normally we'd wait longer
@@ -3717,53 +3694,15 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
       status_target => TAPE_UNIT_LOAD_POINT_STATUS or  
       TAPE_UNIT_TAPE_IND_STATUS or TAPE_UNIT_TAPE_REWIND_STATUS,
       status_cares => "00111100", status => LOCAL_E_CH_TAPE_STATUS);
-   
---   assert MC_TAPE_READY = '0' report "Rewind Test, Ready Unit 0 NOT asserted" severity failure;
---   assert MC_SELECT_AT_LOAD_POINT_STAR_E_CH = '1' report "Rewind Test, Load Point asserted" severity failure;
---   assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Rewind Test, Tape IND asserted" severity failure;
---   assert MC_SELECT_AND_REWIND_STAR_E_CH = '1' report "Rewind test, Rewind NOT asserted" severity failure;  
 
+   -- Check rewind request
+   
    check_tape_request(test => "E CH Tape", subtest => "Rewind test",
       waitTime => 25 us, unit => 0, request_signal => IBM1410_TAU_XMT_UART_REQUEST, 
       grant_signal => IBM1410_TAU_XMT_UART_GRANT,
       request_char => IBM1410_TAU_XMT_UART_DATA, target_char => "01000000", 
       holding_char => LOCAL_TAU_XMT_CHAR);
-
---   -- Wait for the TAU to send something to the PC... the unit number
-    
---   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "UC Test 3, No unit char transmitted" severity failure;
---   wait for 10 ns; -- grant delay
-         
---   -- Save the character and grant the request
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
---   wait for 10 ns;  -- grant delay
-   
---   -- It should be for unit 0
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000000" report "Rewind Test, Unit NOT 0" severity failure;
-   
---   -- Wait again for the TAU to send something to the PC... a rewind request.
-   
---   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Rewind Test, No request char transmitted" severity failure;
---   wait for 10 ns; -- grant delay
-   
---   -- Save the character and grant the request
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "01000000" report "Rewind Test, Request not Rewind" severity failure;
-
-   -- At this point, Unit 0 should be not ready, and rewinding because PC can't react as fast as a real drive.
-            
+           
    -- A short pretend rewind period.
    
    wait for 1 ms;
@@ -3779,32 +3718,6 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
 
    report "E Channel Rewind Completed";
       
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  -- Indicate we will provide status for Unit 0
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";     
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_LOAD_POINT_BIT) <= '1';  -- Set Status to load pt.   
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
- 
-   -- It turns out that the channel resets the selected drive during the rewind.  Also, at this point,
-   -- the test 1410 code is trying to do a READ (and getting busy from the rewind)
-
-   -- assert MC_TAPE_READY = '0' report "Rewind Test, Ready Unit 0 NOT asserted" severity failure;
-   -- assert MC_SELECT_AT_LOAD_POINT_STAR_E_CH = '0' report "Rewind Test, Load Point NOT asserted" severity failure;
-   -- assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Rewind Test, Tape IND asserted" severity failure;
-   -- assert MC_SELECT_AND_REWIND_STAR_E_CH = '1' report "Rewind Test, Rewind STILL asserted" severity failure;  
-   
    ----------------------------------------------------------------------------------------------
    -- Wait for a read request
       
@@ -3815,7 +3728,7 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
    assert MC_READ_TAPE_CALL_STAR_E_CH = '0' 
      report "Read Test 1, No Read Call" severity failure;
           
-   -- Set our odd parity mask to flip the TEST DATA parity bit.
+   -- If odd parity, set our odd parity mask to flip the TEST DATA parity bit.
    
    if MC_ODD_PARITY_TO_TAPE_STAR_E_CH = '0' then
       LOCAL_ODD_PARITY_MASK <= "01000000";
@@ -3825,51 +3738,16 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
          
    report "E Channel Received read call";
    
-   -- next, the TAU should issue a UART strobe to send the unit number
+   -- next, the TAU should issue a UART strobe to send the unit number and 
+   -- read request
    
    check_tape_request(test => "E CH Tape", subtest => "Read Call",
       waitTime => 25 us, unit => 0, request_signal => IBM1410_TAU_XMT_UART_REQUEST, 
       grant_signal => IBM1410_TAU_XMT_UART_GRANT,
       request_char => IBM1410_TAU_XMT_UART_DATA, target_char => "00000001", 
       holding_char => LOCAL_TAU_XMT_CHAR);
-   
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Read Test 1, No unit char transmitted" severity failure;
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   -- It should be for unit 0
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000000" report "Read Test 1, Unit NOT 0" severity failure;
-   
---   -- Wait again for the TAU to send something to the PC... a Read request.
-   
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---     report "Read Test 1, No request char transmitted" severity failure;   
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000001" report "Read Test 1, Request not Read" severity failure;   
-   
-   -- Now we get to play PC Support program...  Send Unit 0 with the X'40' bit set...
+     
+   -- Now we get to play PC Support program and send the read data
    
    do_tape_read(test => "E Ch Tape", subtest => "Read Data", unit => 0,
       numchars => 20, checkData => true, loadMode => true, 
@@ -3880,110 +3758,7 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
       write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
       write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
       LOCAL_WS_FLAG => LOCAL_WS_FLAG, LOCAL_WS_CHAR => LOCAL_WS_CHAR);
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "01000000";  -- Read data for Unit 0
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-   
---   -- Now send a 20 byte record 
-   
---   for i in 0 to 19 loop
-   
---      -- See if this char has a word separator
       
---      LOCAL_WS_FLAG <= '1';  -- Have to go thru loop at least once.
---      if TapeTestDataWM(i) = '1' and LOCAL_WS_TEST = '1' then
---         LOCAL_WS_CHAR <= WORD_SEPARATOR_CHAR;
---      else
---         LOCAL_WS_CHAR <= "00000000";
---      end if;
---      wait for 10 ns;  -- Make the above take effect.
-
---      -- If WM in test data, send WS first
-                  
---      while LOCAL_WS_FLAG = '1' loop
---         if LOCAL_WS_CHAR /= "00000000" then
---            IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= WORD_SEPARATOR_CHAR xor LOCAL_ODD_PARITY_MASK;
---         else
---            IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= tapeTestDataEven(i) xor LOCAL_ODD_PARITY_MASK;
---         end if;
-      
---         wait for 10 ns;
---         IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---         wait for 10 ns;
---         IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
-         
---         -- Wait for the channel strobe...         
---         if MC_TAPE_READ_STROBE /= '0' then
---            wait until MC_TAPE_READ_STROBE = '0' for 100 us;
---         end if;
---         assert MC_TAPE_READ_STROBE = '0' report "Read Test 1, no Read Strobe" severity failure;
---         wait for 10 ns;
-      
---         -- Check the data.   It should match what we told the TAU about.
---         -- (Word separators are handled in the CPU, not the TAU)
---         -- Have to swap location of check bit....
-         
---         assert MC_E_CH_TAU_TO_CPU_BUS = not (
---            IBM1410_TAU_INPUT_FIFO_WRITE_DATA(6) & '0' &
---            IBM1410_TAU_INPUT_FIFO_WRITE_DATA(5 downto 0))
---            report "Read Test 1 Data to Channel mismatch" severity failure;
---         -- wait for strobe to go away
---         if MC_TAPE_READ_STROBE /= '1' then
---            wait until MC_TAPE_READ_STROBE = '1' for 25 us;
---         end if;
---         assert MC_TAPE_READ_STROBE = '1' report "Read Test 1, Read Strobe Stayed active"
---            severity failure;
- 
---         -- Need to wait as a test - normally our serial port will be slower than the channel
---         wait for 1 us;
-                     
---         assert MC_TAPE_BUSY = '0' report "Read Test 1, TAU did not stay busy" severity failure;  
---         assert MC_TAPE_IN_PROCESS = '0' report "Read Test 1, TAU did not stay In Process" 
---           severity failure;  
-        
---         -- IF we just wrote a word separator while testing word marks, then 
---         -- leave the LOCAL_WS_FLAG set, otherwise clear it.
---         -- Clear the remembered WS Character regardless.
-        
---         if LOCAL_WS_CHAR /= "00000000" then
---            LOCAL_WS_FLAG <= '1';
---         else
---            LOCAL_WS_FLAG <= '0';         
---         end if;
---         wait for 10 ns;
---         LOCAL_WS_CHAR <= "00000000";
---         wait for 10 ns;
-        
---      end loop; -- Word separater loop
-              
---   end loop;  -- test data loop
-
---   -- We are no longer at load point...  (TODO)
-                         
-   -- Indicate the read is complete
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  -- End of record flag
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
-   
---   -- Now, wait for TAU to go un-busy
-   
---   if MC_TAPE_BUSY /= '1' then
---      wait until MC_TAPE_BUSY = '1' for 25 us;
---   end if;
---   assert MC_TAPE_BUSY = '1' report "Read Test 1, TAU Stayed busy after EOR" severity failure;     
-   
---   if MC_TAPE_IN_PROCESS /= '1' then
---      wait until MC_TAPE_IN_PROCESS = '1' for 25 us;
---   end if;
---   assert MC_TAPE_IN_PROCESS = '1' report "Read Test 1, TAU Stayed in process after EOR" 
---      severity failure; 
-   
    report "E Channel Read completed";
    
    ---------------------------------------------------------------------------------------------
@@ -4012,54 +3787,14 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
    assert MC_TAPE_BUSY = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
    assert MC_TAPE_IN_PROCESS = '0' report "Write Test 1, TAU not In Process" severity failure; 
       
-   -- Wait for the TAU to send something to the PC... the unit number
-   -- This thing reacts quickly - strobe might already be set!
+   -- Check the request from the TAU to the PC support program is for a Write
    
    check_tape_request(test => "E CH Tape", subtest => "Write Call",
       waitTime => 25 us, unit => 0, request_signal => IBM1410_TAU_XMT_UART_REQUEST, 
       grant_signal => IBM1410_TAU_XMT_UART_GRANT,
       request_char => IBM1410_TAU_XMT_UART_DATA, target_char => "00000010", 
       holding_char => LOCAL_TAU_XMT_CHAR);   
-   
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Write Test 1, No unit char transmitted" severity failure;
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   -- It should be for unit 0
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000000" report "Write Test 1, Unit NOT 0" severity failure;
---   wait for 20 ns;
-   
---   -- Wait again for the TAU to send something to the PC... a WRITE request.
-
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Write Test 1, No request char transmitted" severity failure;
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000010" report "Write Test 1, Request not Write" severity failure;
---   wait for 20 ns;  -- Wait for XMT strobe to go away 
-     
+       
    -- Now expect a 20 byte record
 
    do_tape_write(test => "E Ch Tape", subtest => "Write test", numchars => 20,
@@ -4075,136 +3810,11 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
       LOCAL_TAU_XMT_CHAR => LOCAL_TAU_XMT_CHAR,
       LOCAL_WS_FLAG => LOCAL_WS_FLAG, LOCAL_WS_CHAR => LOCAL_WS_CHAR);            
       
---   for i in 0 to 19 loop
-   
---      report "Waiting for UART Strobe";
---      LOCAL_i <= i;
-      
-      
---      -- If the test data has a word mark, and we are testing load mode, then we need to do both
---      -- the word separator check and the character check in this "i" loop
-      
---      LOCAL_WS_FLAG <= '1';  -- Have to go thru the loop at least once
---      if TapeTestDataWM(i) = '1' and LOCAL_WS_TEST = '1' then
---         LOCAL_WS_CHAR <= WORD_SEPARATOR_CHAR;
---      else
---         LOCAL_WS_CHAR <= "00000000";
---      end if;
---      wait for 10 ns;  -- Make the above take effect
-      
---      while LOCAL_WS_FLAG = '1' loop
-      
---         -- Wait for TAU to send the next character...
---         if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---            wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---         end if;
---         assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---            report "Write Test 1, No data char transmitted" severity failure;
---         wait for 10 ns; -- Grant Delay
-   
---         -- Issue a grant for the request, and snag the data.
-   
---         LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---         IBM1410_TAU_XMT_UART_GRANT <= '1';   
---         wait for 20 ns;
---         IBM1410_TAU_XMT_UART_GRANT <= '0';
---         wait for 10 ns;
-                  
---         -- Check that the data matches what was sent to 1410 during read test
---         -- (If this is supposed to be a word separator, check that the first time thru)
-      
---         if LOCAL_WS_CHAR /= "00000000" then
---            assert LOCAL_TAU_XMT_CHAR = (LOCAL_WS_CHAR xor LOCAL_ODD_PARITY_MASK)
---               report "Write Test 1, Data send to PC not expected Word Separator" severity failure;
---         else
---            assert LOCAL_TAU_XMT_CHAR = (tapeTestDataEven(i) xor LOCAL_ODD_PARITY_MASK) 
---               report "Write Test 1, Data sent to PC is not as expected" severity failure;
---         end if;
---         wait for 100 ns;   
-
---         -- Wait for the channel strobe from the TAU for the next character
-      
---         report "Waiting for strobe to channel";
-
---         if MC_TAPE_WRITE_STROBE /= '0' then
---            wait until MC_TAPE_WRITE_STROBE = '0' for 100 us;
---         end if;
-         
---         assert MC_TAPE_WRITE_STROBE = '0' report "Write Test 1, No Write Strobe from TAU"
---            severity failure;
-         
---         -- Until the last character, TAU should stay busy...
-      
---         if i /= 19 or LOCAL_WS_CHAR /= "00000000" then           
-
---            -- Need to wait - normally our serial port will be slower than the channel
---            wait for 1 us;
-                     
---            assert MC_TAPE_BUSY = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
---            assert MC_TAPE_IN_PROCESS = '0' report "Write Test 1, TAU did not stay In Process" 
---              severity failure;
---         end if;
-         
---         -- IF we just got a WS character while testign with word parms, then
---         -- leave LOCAL_WS_FLAG set, otherwise, clar it.
---         -- Clear the remembered WS Character regardless.
-         
---         if LOCAL_WS_CHAR /= "00000000" then
---            LOCAL_WS_FLAG <= '1';
---         else
---            LOCAL_WS_FLAG <= '0';         
---         end if;
---         wait for 10 ns;
---         LOCAL_WS_CHAR <= "00000000";
---         wait for 10 ns;
-         
---      end loop;  -- Word Separator handling loop
-                    
---   end loop;  -- "i" count loop
-   
---   -- At this point, we are expecting a disconnect from the Channel -- handled in TAU
-
---   -- After the disconnect, we should see the EOR get transmitted
-
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Write Test 1, No EOR char transmitted" severity failure;
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000000" report "Write Test 1, Did not get X'40' EOR" 
---      severity failure;
---   wait for 100 ns;   
-   
---   -- Now, wait for TAU to go un-busy
-   
---   if MC_TAPE_BUSY /= '1' then
---      wait until MC_TAPE_BUSY = '1' for 25 us;
---   end if;
---   assert MC_TAPE_BUSY = '1' report "Write Test 1, TAU Stayed busy after EOR" severity failure;     
-   
---   if MC_TAPE_IN_PROCESS /= '1' then
---      wait until MC_TAPE_IN_PROCESS = '1' for 25 us;
---   end if;
---   assert MC_TAPE_IN_PROCESS = '1' report "Write Test 1, TAU Stayed in process after EOR" 
---      severity failure; 
-   
---   wait for 100 ns;
-
    report "E Channel Write Completed";
 
    ---------------------------------------------------------------------------------------------
 
-   -- Write Tape Mark Test
+   -- E Channel Write Tape Mark Test
 
    -- Wait for the request
    
@@ -4217,6 +3827,8 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
    wait for 20 ns;
    assert MC_TAPE_BUSY = '0' report "WTM Test, TAU did not go busy" severity failure;  
    assert MC_TAPE_IN_PROCESS = '0' report "WTM, TAU not In Process" severity failure; 
+
+   -- Verify the unit and request type
       
    check_tape_request(test => "E CH Tape", subtest => "Write Tape Mark Call",
       waitTime => 25 us, unit => 0, request_signal => IBM1410_TAU_XMT_UART_REQUEST, 
@@ -4224,49 +3836,7 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
       request_char => IBM1410_TAU_XMT_UART_DATA, target_char => "00010000", 
       holding_char => LOCAL_TAU_XMT_CHAR);
       
-   report "Stopped Early: WTM Request OK" severity failure;
-            
-      
---   -- Wait for the TAU to send something to the PC... the unit number
---   -- This thing reacts quickly - strobe might already be set!
-   
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "WTM Test, No unit char transmitted" severity failure;
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   -- It should be for unit 0
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000000" report "WTM Test, Unit NOT 0" severity failure;
---   wait for 20 ns;
-   
---   -- Wait again for the TAU to send something to the PC... WTM.
-   
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "WTM Test, No request char transmitted" severity failure;
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-
-   
---   assert LOCAL_TAU_XMT_CHAR = "00010000" report "WTM Test, Request not WTM" severity failure;   
+   report "E Channel WTM Request OK";            
    
    -- Make sure it doesn't strobe the channel
    
@@ -4281,7 +3851,6 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
    end if;
    
    -- Apparently, there is no disconnect call from a WTM (makes sense, I guess)
-   -- assert MC_DISCONNECT_CALL_STAR_E_CH = '0' report "WTM Test, No Disconnect Call" severity failure;
    
    -- Everything should be done, now.
    
@@ -4295,7 +3864,7 @@ if LOCAL_E_CH_TAPE_TEST = '1' then
    
    report "E Channel Write Tape Mark Completed";
    
-end if;  -- LOCAL_E_CH_TAPE_TEST
+end if; -- E Channel Tape Test
 
 -- ===============================================================================================
 
@@ -4310,36 +3879,13 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
       write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH,
       write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH);
       
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "00000000";  -- Indicate we will provide status for Unit 0
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
---   wait for 100 ns;
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "00000000";
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY     
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY   
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
---   wait for 100 ns;
-
-   -- At this point, the CPU has not selected a tape drive.
-
+   -- Verify the status - the drive is NOT yet selected.
+        
    check_tape_status(test => "F CH Tape", subtest => "Test 1", 
       -- NOTE: Include bits that should be "1" -- NOT asserted by MC_*
       status_target => TAPE_UNIT_READY_STATUS or TAPE_UNIT_LOAD_POINT_STATUS or  
       TAPE_UNIT_TAPE_IND_STATUS or TAPE_UNIT_TAPE_REWIND_STATUS,
       status_cares => "00111100", status => LOCAL_F_CH_TAPE_STATUS);
-
---   assert MC_TAPE_READY_F_CH_JRJ = '1' report "Test 1, Ready w/no unit asserted" severity failure;
---   assert MC_SELECT_AT_LOAD_POINT_STAR_F_CH = '1' report "Test 1, Load Point asserted" severity failure;
---   assert MC_SEL_OR_TI_ON_CH_2 = '1' report "Test 1, Tape IND asserted" severity failure;
---   assert MC_SELECT_AND_REWIND_STAR_F_CH = '1' report "Test 1, Rewind asserted" severity failure;  
       
    SWITCH_MOM_CONS_START <= '1';
    report "Pressed Start";
@@ -4352,11 +3898,8 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
    
    wait until MC_REWIND_CALL_STAR_F_CH = '0';
    wait for 20 ns;
-   
---   assert MC_TAPE_READY_F_CH_JRJ = '0' report "Test 2, Ready Unit 0 NOT asserted" severity failure;
---   assert MC_SELECT_AT_LOAD_POINT_STAR_F_CH = '1' report "Test 2, Load Point asserted" severity failure;
---   assert MC_SEL_OR_TI_ON_CH_2 = '1' report "Test 2, Tape IND asserted" severity failure;
---   assert MC_SELECT_AND_REWIND_STAR_F_CH = '1' report "Test 0, Rewind NOT asserted" severity failure;  
+
+   -- Check the status is still not at load point
 
    check_tape_status(test => "F CH Tape", subtest => "Rewind Test", 
       -- Include bits that should be "1" -- NOT asserted by MC_*
@@ -4365,46 +3908,14 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
       TAPE_UNIT_TAPE_IND_STATUS or TAPE_UNIT_TAPE_REWIND_STATUS,
       status_cares => "00111100", status => LOCAL_F_CH_TAPE_STATUS);
 
+   -- Check the request information sent to support program
+
    check_tape_request(test => "F CH Tape", subtest => "Rewind test",
       waitTime => 25 us, unit => 0, request_signal => IBM1410_TAU_XMT_UART_REQUEST_F_CH, 
       grant_signal => IBM1410_TAU_XMT_UART_GRANT_F_CH,
       request_char => IBM1410_TAU_XMT_UART_DATA_F_CH, target_char => "01000000", 
       holding_char => LOCAL_TAU_XMT_CHAR);
-
-   -- Wait for the TAU to send something to the PC... the unit number
-   
---   wait until IBM1410_TAU_XMT_UART_REQUEST_F_CH  = '1' for 25 us;
---   assert IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' 
---      report "UC Test 3, No unit char transmitted" severity failure;
---   wait for 10 ns; -- grant delay
-         
---   -- Save the character and grant the request
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA_F_CH;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '1';
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '0';
---   wait for grantWait;  -- grant delay
-   
---   -- It should be for unit 0
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000000" report "Rewind Test, Unit NOT 0" severity failure;
-   
---   -- Wait again for the TAU to send something to the PC... a rewind request.
-   
---   wait until IBM1410_TAU_XMT_UART_REQUEST_F_CH  = '1' for 25 us;
---   assert IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' 
---      report "Rewind Test, No request char transmitted" severity failure;
---   wait for grantWait; -- grant delay
-   
---   -- Save the character and grant the request
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA_F_CH;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '1';
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "01000000" report "Rewind Test, Request not Rewind" severity failure;
-
-            
+           
    -- A short pretend rewind period.
    
    wait for 1 ms;
@@ -4418,36 +3929,12 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
       write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH);
       
    report "F Channel Rewind Completed";
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "00000000";  -- Indicate we will provide status for Unit 0
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
---   wait for 100 ns;
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "00000000";     
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(TAPE_UNIT_LOAD_POINT_BIT) <= '1';  -- Set Status to load pt.   
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
---   wait for 100 ns;
-
-   -- assert MC_TAPE_READY_F_CH_JRJ = '0' report "Test 3, Ready Unit 0 NOT asserted" severity failure;
-   -- assert MC_SELECT_AT_LOAD_POINT_STAR_F_CH = '0' report "Test 3 Load Point NOT asserted" severity failure;
-   -- assert MC_SEL_OR_TI_ON_CH_2 = '1' report "Test 3, Tape IND asserted" severity failure;
-   -- assert MC_SELECT_AND_REWIND_STAR_F_CH = '1' report "Test 3, Rewind STILL asserted" severity failure;  
-   
+      
    ----------------------------------------------------------------------------------------------
    -- Wait for a read request
    
    -- Set whether or not we are testing load mode
-   
-   
+      
    if MC_READ_TAPE_CALL_STAR_F_CH = '1' then
       wait until MC_READ_TAPE_CALL_STAR_F_CH = '0' for 25 ms;
    end if;
@@ -4455,57 +3942,23 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
    assert MC_READ_TAPE_CALL_STAR_F_CH = '0' 
      report "Read Test 1, No Read Call" severity failure;
      
-   -- Set our odd parity mask to flip the TEST DATA parity bit.
+   -- For Odd parity, set our odd parity mask to flip the TEST DATA parity bit.
    
-  if MC_ODD_PARITY_TO_TAPE_STAR_F_CH = '0' then
-     LOCAL_ODD_PARITY_MASK <= "01000000";
-  else
-     LOCAL_ODD_PARITY_MASK <= "00000000";
-  end if;
+   if MC_ODD_PARITY_TO_TAPE_STAR_F_CH = '0' then
+      LOCAL_ODD_PARITY_MASK <= "01000000";
+   else
+      LOCAL_ODD_PARITY_MASK <= "00000000";
+   end if;
    
+   -- Check that the FPGA sends the proper read request to the support program
+
    check_tape_request(test => "F CH Tape", subtest => "Read Call",
       waitTime => 25 us, unit => 0, request_signal => IBM1410_TAU_XMT_UART_REQUEST_F_CH, 
       grant_signal => IBM1410_TAU_XMT_UART_GRANT_F_CH,
       request_char => IBM1410_TAU_XMT_UART_DATA_F_CH, target_char => "00000001", 
       holding_char => LOCAL_TAU_XMT_CHAR);
-   
---   -- next, the TAU should issue a UART strobe to send the unit number
-   
---   if IBM1410_TAU_XMT_UART_REQUEST_F_CH /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' 
---      report "Read Test 1, No unit char transmitted" severity failure;   
---   wait for grantWait; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA_F_CH;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '0';
-   
---   -- It should be for unit 0
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000000" report "Read Test 1, Unit NOT 0" severity failure;
-   
---   -- Wait again for the TAU to send something to the PC... a Read request.
-   
---   if IBM1410_TAU_XMT_UART_REQUEST_F_CH /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' 
---      report "Read Test 1, No request char transmitted" severity failure;   
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA_F_CH;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000001" report "Read Test 1, Request not Read" severity failure;   
+
+   -- Now we get to play PC Support program: send the tape data      
 
    do_tape_read(test => "F Ch Tape", subtest => "Read Data", unit => 0,
       numchars => 20, checkData => true, loadMode => true, 
@@ -4516,114 +3969,7 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
       write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH,
       write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH,
       LOCAL_WS_FLAG => LOCAL_WS_FLAG, LOCAL_WS_CHAR => LOCAL_WS_CHAR);
-   
-   
-   -- Now we get to play PC Support program...  Send Unit 9 with the X'40' bit set...
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "01000000";  -- Read data for Unit 0
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
---   wait for 100 ns;
-   
---   -- Now send a 20 byte record 
-   
---   for i in 0 to 19 loop
-   
---      -- See if this char has a word separator
-      
---      LOCAL_WS_FLAG <= '1';  -- Have to go thru loop at least once.
---      if TapeTestDataWM(i) = '1' and LOCAL_WS_TEST = '1' then
---         LOCAL_WS_CHAR <= WORD_SEPARATOR_CHAR;
---      else
---         LOCAL_WS_CHAR <= "00000000";
---      end if;
---      wait for 10 ns;  -- Make the above take effect.
-
---      -- If WM in test data, send WS first
-                  
---      while LOCAL_WS_FLAG = '1' loop
---         if LOCAL_WS_CHAR /= "00000000" then
---            IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= WORD_SEPARATOR_CHAR xor LOCAL_ODD_PARITY_MASK;
---         else
---            IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= tapeTestDataEven(i) xor LOCAL_ODD_PARITY_MASK;
---         end if;
-      
---         wait for 10 ns;
---         IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
---         wait for 10 ns;
---         IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
-         
---         -- Wait for the channel strobe...         
---         if MC_TAPE_READ_STROBE /= '0' then
---            wait until MC_TAPE_READ_STROBE_F_CH_JRJ = '0' for 25 us;
---         end if;
---         assert MC_TAPE_READ_STROBE_F_CH_JRJ = '0' report "Read Test 1, no Read Strobe" severity failure;
---         wait for 10 ns;
-      
---         -- Check the data.   It should match what we told the TAU about.
---         -- (Word separators are handled in the CPU, not the TAU)
---         -- Have to swap location of check bit....
---         assert MC_F_CH_TAU_TO_CPU_BUS = not (
---            IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(6) & '0' &
---            IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH(5 downto 0))
---            report "Read Test 1 Data to Channel mismatch" severity failure;
---         -- wait for strobe to go away
---         if MC_TAPE_READ_STROBE_F_CH_JRJ /= '1' then
---            wait until MC_TAPE_READ_STROBE_F_CH_JRJ = '1' for 25 us;
---         end if;
---         assert MC_TAPE_READ_STROBE_F_CH_JRJ = '1' report "Read Test 1, Read Strobe Stayed active"
---            severity failure;
- 
---         -- Need to wait as a test - normally our serial port will be slower than the channel
---         wait for 1 us;
-                     
---         assert MC_TAPE_BUSY_F_CH_JRJ = '0' report "Read Test 1, TAU did not stay busy" severity failure;  
---         assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '0' report "Read Test 1, TAU did not stay In Process" 
---           severity failure;  
-        
---         -- IF we just wrote a word separator while testing word marks, then 
---         -- leave the LOCAL_WS_FLAG set, otherwise clear it.
---         -- Clear the remembered WS Character regardless.
-        
---         if LOCAL_WS_CHAR /= "00000000" then
---            LOCAL_WS_FLAG <= '1';
---         else
---            LOCAL_WS_FLAG <= '0';         
---         end if;
---         wait for 10 ns;
---         LOCAL_WS_CHAR <= "00000000";
---         wait for 10 ns;
-        
---      end loop; -- Word separater loop
-      
---      wait for 91 us;  -- simulate a UART at 115,000 bps / 11000 cps
-              
---   end loop;  -- test data loop
-
---   -- We are no longer at load point...  (TODO)
-                         
---   -- Indicate the read is complete
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH <= "00000000";  -- End of record flag
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE_F_CH <= '0';
-   
---   -- Now, wait for TAU to go un-busy
-   
---   if MC_TAPE_BUSY_F_CH_JRJ /= '1' then
---      wait until MC_TAPE_BUSY_F_CH_JRJ = '1' for 25 us;
---   end if;
---   assert MC_TAPE_BUSY_F_CH_JRJ = '1' report "Read Test 1, TAU Stayed busy after EOR" severity failure;     
-   
---   if MC_TAPE_IN_PROCESS_F_CH_JRJ /= '1' then
---      wait until MC_TAPE_IN_PROCESS_F_CH_JRJ = '1' for 25 us;
---   end if;
---   assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '1' report "Read Test 1, TAU Stayed in process after EOR" 
---      severity failure; 
-
+     
    report "F Channel Read Completed";   
    ---------------------------------------------------------------------------------------------
 
@@ -4650,54 +3996,14 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
    assert MC_TAPE_BUSY_F_CH_JRJ = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
    assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '0' report "Write Test 1, TAU not In Process" severity failure; 
       
-   -- Wait for the TAU to send something to the PC... the unit number
-   -- This thing reacts quickly - strobe might already be set!
+   -- Check that the FPGA sends a proper write requst to the PC
    
    check_tape_request(test => "F CH Tape", subtest => "Write Call",
       waitTime => 25 us, unit => 0, request_signal => IBM1410_TAU_XMT_UART_REQUEST_F_CH, 
       grant_signal => IBM1410_TAU_XMT_UART_GRANT_F_CH,
       request_char => IBM1410_TAU_XMT_UART_DATA_F_CH, target_char => "00000010", 
       holding_char => LOCAL_TAU_XMT_CHAR);   
-   
-   
---   if IBM1410_TAU_XMT_UART_REQUEST_F_CH /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' 
---      report "Write Test 1, No unit char transmitted" severity failure;
---   wait for grantWait; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA_F_CH;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '0';
-   
---   -- It should be for unit 0
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000000" report "Write Test 1, Unit NOT 0" severity failure;
---   wait for 20 ns;
-   
---   -- Wait again for the TAU to send something to the PC... a WRITE request.
-
---   if IBM1410_TAU_XMT_UART_REQUEST_F_CH /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' 
---      report "Write Test 1, No request char transmitted" severity failure;
---   wait for grantWait; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA_F_CH;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000010" report "Write Test 1, Request not Write" severity failure;
---   wait for 20 ns;  -- Wait for XMT strobe to go away 
-     
+        
    -- Now expect a 20 byte record
 
    do_tape_write(test => "F Ch Tape", subtest => "Write test", numchars => 20,
@@ -4714,128 +4020,6 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
       write_char => IBM1410_TAU_XMT_UART_DATA_F_CH,
       LOCAL_TAU_XMT_CHAR => LOCAL_TAU_XMT_CHAR,
       LOCAL_WS_FLAG => LOCAL_WS_FLAG, LOCAL_WS_CHAR => LOCAL_WS_CHAR);            
-
-   
---   for i in 0 to 19 loop
-   
---      report "Waiting for UART Strobe";
---      LOCAL_i <= i;
-      
---      -- If the test data has a word mark, and we are testing load mode, then we need to do both
---      -- the word separator check and the character check in this "i" loop
-      
---      LOCAL_WS_FLAG <= '1';  -- Have to go thru the loop at least once
---      if TapeTestDataWM(i) = '1' and LOCAL_WS_TEST = '1' then
---         LOCAL_WS_CHAR <= WORD_SEPARATOR_CHAR;
---      else
---         LOCAL_WS_CHAR <= "00000000";
---      end if;
---      wait for 10 ns;  -- Make the above take effect
-      
---      while LOCAL_WS_FLAG = '1' loop
-      
---         -- Wait for TAU to send the next character...
---         if IBM1410_TAU_XMT_UART_REQUEST_F_CH /= '1' then
---            wait until IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' for 25 us;
---         end if;
---         assert IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' 
---            report "Write Test 1, No data char transmitted" severity failure;
---         wait for grantWait; -- Grant Delay
-   
---         -- Issue a grant for the request, and snag the data.
-   
---         LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA_F_CH;
---         IBM1410_TAU_XMT_UART_GRANT_F_CH <= '1';   
---         wait for 20 ns;
---         IBM1410_TAU_XMT_UART_GRANT_F_CH <= '0';
-
-         
---         -- Check that the data matches what was sent to 1410 during read test
---         -- (If this is supposed to be a word separator, check that the first time thru)
-      
---         if LOCAL_WS_CHAR /= "00000000" then
---            assert LOCAL_TAU_XMT_CHAR = (LOCAL_WS_CHAR xor LOCAL_ODD_PARITY_MASK)
---               report "Write Test 1, Data send to PC not expected Word Separator" severity failure;
---         else
---            assert LOCAL_TAU_XMT_CHAR = (tapeTestDataEven(i) xor LOCAL_ODD_PARITY_MASK) 
---               report "Write Test 1, Data sent to PC is not as expected" severity failure;
---         end if;
---         wait for 100 ns;   
-
---         -- Wait for the channel strobe from the TAU for the next character
-      
---         report "Waiting for strobe to channel";
-
---         if MC_TAPE_WRITE_STROBE_F_CH_JRJ /= '0' then
---            wait until MC_TAPE_WRITE_STROBE_F_CH_JRJ = '0' for 25 us;
---         end if;
-         
---         assert MC_TAPE_WRITE_STROBE_F_CH_JRJ = '0' report "Write Test 1, No Write Strobe from TAU"
---            severity failure;
-         
---         -- Until the last character, TAU should stay busy...
-      
---         if i /= 19 or LOCAL_WS_CHAR /= "00000000" then           
-
---            -- Need to wait - normally our serial port will be slower than the channel
---            wait for 1 us;
-                     
---            assert MC_TAPE_BUSY_F_CH_JRJ = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
---            assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '0' report "Write Test 1, TAU did not stay In Process" 
---              severity failure;
---         end if;
-         
---         -- IF we just got a WS character while testign with word parms, then
---         -- leave LOCAL_WS_FLAG set, otherwise, clar it.
---         -- Clear the remembered WS Character regardless.
-         
---         if LOCAL_WS_CHAR /= "00000000" then
---            LOCAL_WS_FLAG <= '1';
---         else
---            LOCAL_WS_FLAG <= '0';         
---         end if;
---         wait for 10 ns;
---         LOCAL_WS_CHAR <= "00000000";
---         wait for 10 ns;
-         
---      end loop;  -- Word Separator handling loop
-              
---   end loop;  -- "i" count loop
-   
---   -- At this point, we are expecting a disconnect from the Channel -- handled in TAU
-
---   -- After the disconnect, we should see the EOR get transmitted
-
---   if IBM1410_TAU_XMT_UART_REQUEST_F_CH /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' 
---      report "Write Test 1, No EOR char transmitted" severity failure;
---   wait for grantWait; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA_F_CH;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000000" report "Write Test 1, Did not get X'40' EOR" 
---      severity failure;
---   wait for 100 ns;   
-   
---   -- Now, wait for TAU to go un-busy
-   
---   if MC_TAPE_BUSY_F_CH_JRJ /= '1' then
---      wait until MC_TAPE_BUSY_F_CH_JRJ = '1' for 25 us;
---   end if;
---   assert MC_TAPE_BUSY_F_CH_JRJ = '1' report "Write Test 1, TAU Stayed busy after EOR" severity failure;     
-   
---   if MC_TAPE_IN_PROCESS_F_CH_JRJ /= '1' then
---      wait until MC_TAPE_IN_PROCESS_F_CH_JRJ = '1' for 25 us;
---   end if;
---   assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '1' report "Write Test 1, TAU Stayed in process after EOR" 
---      severity failure; 
    
    wait for 100 ns;
 
@@ -4843,7 +4027,7 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
 
    ---------------------------------------------------------------------------------------------
 
-   -- Write Tape Mark Test
+   -- F Channel Write Tape Mark Test
 
    -- Wait for the request
    
@@ -4854,61 +4038,22 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
    -- For a WTM, the TAU should STAY busy for a little while.
 
    wait for 20 ns;
-   assert MC_TAPE_BUSY_F_CH_JRJ = '0' report "WTM Test, TAU did not go busy" severity failure;  
-   assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '0' report "WTM, TAU not In Process" severity failure; 
+   assert MC_TAPE_BUSY_F_CH_JRJ = '0' report "F Ch WTM Test, TAU did not go busy" severity failure;  
+   assert MC_TAPE_IN_PROCESS_F_CH_JRJ = '0' report "F Ch WTM, TAU not In Process" severity failure; 
+
+   -- Check for a proper WMT request
 
    check_tape_request(test => "F CH Tape", subtest => "Write Tape Mark Call",
       waitTime => 25 us, unit => 0, request_signal => IBM1410_TAU_XMT_UART_REQUEST_F_CH, 
       grant_signal => IBM1410_TAU_XMT_UART_GRANT_F_CH,
       request_char => IBM1410_TAU_XMT_UART_DATA_F_CH, target_char => "00010000", 
       holding_char => LOCAL_TAU_XMT_CHAR);
-
-      
---   -- Wait for the TAU to send something to the PC... the unit number
---   -- This thing reacts quickly - strobe might already be set!
-   
---   if IBM1410_TAU_XMT_UART_REQUEST_F_CH /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' 
---      report "WTM Test, No unit char transmitted" severity failure;
---   wait for grantWait; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA_F_CH;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '0';
-   
---   -- It should be for unit 0
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000000" report "WTM Test, Unit NOT 0" severity failure;
---   wait for 20 ns;
-   
---   -- Wait again for the TAU to send something to the PC... WTM.
-   
---   if IBM1410_TAU_XMT_UART_REQUEST_F_CH /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST_F_CH = '1' 
---      report "WTM Test, No request char transmitted" severity failure;
---   wait for grantWait; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA_F_CH;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT_F_CH <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "00010000" report "WTM Test, Request not WTM" severity failure;   
    
    -- Make sure it doesn't strobe the channel
    
    wait until MC_TAPE_WRITE_STROBE_F_CH_JRJ = '0' for 10 us;
    
-   assert MC_TAPE_WRITE_STROBE_F_CH_JRJ = '1' report "WTM Test, Strobed Channel but should not.";
+   assert MC_TAPE_WRITE_STROBE_F_CH_JRJ = '1' report "F Ch WTM Test, Strobed Channel but should not.";
    
    -- Wait for the 1410 to issue a disconnect (it might not?)
    
@@ -4917,7 +4062,6 @@ if LOCAL_F_CH_TAPE_TEST = '1' then
    end if;
    
    -- Apparently, there is no disconnect call from a WTM (makes sense, I guess)
-   -- assert MC_DISCONNECT_CALL_STAR_E_CH = '0' report "WTM Test, No Disconnect Call" severity failure;
    
    -- Everything should be done, now.
    
@@ -4956,31 +4100,6 @@ if LOCAL_REWIND_TEST = '1' then
       status_target => TAPE_UNIT_READY_STATUS or TAPE_UNIT_LOAD_POINT_STATUS or  
       TAPE_UNIT_TAPE_IND_STATUS or TAPE_UNIT_TAPE_REWIND_STATUS,
       status_cares => "00111100", status => LOCAL_E_CH_TAPE_STATUS);
-
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000001";  -- Indicate we will provide status for Unit 1
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY  
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_LOAD_POINT_BIT) <= '1';  -- Set at load point!
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-
-   -- At this point, the CPU has not selected a tape drive.
-
---   assert MC_TAPE_READY = '1' report "Rewind Test 1, Ready w/no unit asserted" severity failure;
---   assert MC_SELECT_AT_LOAD_POINT_STAR_E_CH = '1' report "Rewind Test 1, Load Point asserted" severity failure;
---   assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Rewind Test 1, Tape IND asserted" severity failure;
---   assert MC_SELECT_AND_REWIND_STAR_E_CH = '1' report "Rewind Test 1, Rewind asserted" severity failure;  
       
    -- Start the CPU
       
@@ -4990,7 +4109,7 @@ if LOCAL_REWIND_TEST = '1' then
    SWITCH_MOM_CONS_START <= '0';
    wait for 5 us; -- Normally this would take longer
    
-   -- WRite a record.
+   -- Write a record.
    
    report "Start released, waiting for Write request";
    
@@ -5024,6 +4143,7 @@ if LOCAL_REWIND_TEST = '1' then
       LOCAL_ODD_PARITY_MASK <= "00000000";
    end if;
 
+   -- Check that the apropriate Rewind call is sent to the PC
 
    check_tape_request(test => "E CH Rewind", subtest => "Write Call",
       waitTime => 25 us, unit => 1, request_signal => IBM1410_TAU_XMT_UART_REQUEST, 
@@ -5031,47 +4151,6 @@ if LOCAL_REWIND_TEST = '1' then
       request_char => IBM1410_TAU_XMT_UART_DATA, target_char => "00000010", 
       holding_char => LOCAL_TAU_XMT_CHAR);   
       
---   -- Wait for the TAU to send something to the PC... the unit number
---   -- This thing reacts quickly - strobe might already be set!
-   
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Unit Control Write Test, No unit char transmitted" severity failure;
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   -- It should be for unit 1
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000001" report "Unit Control Write Test, Unit NOT 1" severity failure;
---   wait for 20 ns;
-   
---   -- Wait again for the TAU to send something to the PC... a WRITE request.
-
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Unit Control Write Test, No request char transmitted" severity failure;
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000010" report "Unit Control Write Test, Request not Write" severity failure;
---   wait for 20 ns;  -- Wait for XMT strobe to go away 
-
    -- Now expect a 20 byte record, EVEN parity, not load mode.  In this case we are NOT checking the data
    -- as the write is preceeding the read - probably mostly blanks.  Also, we are in MOVE mode.
    
@@ -5088,83 +4167,16 @@ if LOCAL_REWIND_TEST = '1' then
       LOCAL_TAU_XMT_CHAR => LOCAL_TAU_XMT_CHAR,
       LOCAL_WS_FLAG => LOCAL_WS_FLAG, LOCAL_WS_CHAR => LOCAL_WS_CHAR);            
      
---   loop
-   
---      report "Unit Control Write Test: Waiting for UART Strobe";
-           
---      -- Wait for TAU to send the next character...
---      if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---         wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---      end if;
---      assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---         report "Unit Control Write Test, No data char transmitted" severity failure;
---      wait for 10 ns; -- Grant Delay
-   
---         -- Issue a grant for the request, and snag the data.
-   
---      LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---      IBM1410_TAU_XMT_UART_GRANT <= '1';   
---      wait for 20 ns;
---      IBM1410_TAU_XMT_UART_GRANT <= '0';
-         
---      exit when LOCAL_TAU_XMT_CHAR = "00000000";
-
---      -- Wait for the channel strobe from the TAU for the next character
-      
---      report "Unit Control Write Test: Waiting for strobe to channel";
-
---      if MC_TAPE_WRITE_STROBE /= '0' then
---         wait until MC_TAPE_WRITE_STROBE = '0' for 100 us;
---      end if;
-      
---      assert MC_TAPE_WRITE_STROBE = '0' report "Unit Control Write Test, No Write Strobe from TAU"
---         severity failure;
-                  
---   end loop;
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000001";  -- Indicate we will provide status for Unit 1
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_LOAD_POINT_BIT) <= '0'; -- NOT at load point
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;   
-      
---   -- Now, wait for TAU to go un-busy from the write.
-   
---   if MC_TAPE_BUSY /= '1' then
---     wait until MC_TAPE_BUSY = '1' for 25 us;
---   end if;
---   assert MC_TAPE_BUSY = '1' report "Unit Control Write Test, TAU Stayed busy after EOR" severity failure;     
-   
---   if MC_TAPE_IN_PROCESS /= '1' then
---      wait until MC_TAPE_IN_PROCESS = '1' for 25 us;
---   end if;
---   assert MC_TAPE_IN_PROCESS = '1' report "Unit Control Write Test, TAU Stayed in process after EOR" 
---      severity failure; 
-   
---   wait for 10 ns;  -- reduced from 100ns
-
    -- Next, we expect to see a rewind request (RWD 0)
    
    wait until MC_REWIND_CALL_STAR_E_CH = '0' for 25 ms;  
    assert MC_REWIND_CALL_STAR_E_CH = '0' report "Unit control RWD 0, no rewind request" severity failure;
    wait for 50 ns; -- Give the TAU time to react.  Reduced from 200 ns
    
-   -- assert MC_TAPE_READY = '1' report "Unit control RWD 0, Ready asserted" severity failure;
-   -- assert MC_SELECT_AT_LOAD_POINT_STAR_E_CH = '1' report "Unit control RWD 0, Load Point asserted" severity failure;
    assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Unit control RWD 0, Tape IND asserted" severity failure;
    assert MC_SELECT_AND_REWIND_STAR_E_CH = '0' report "Unit control RWD 0, Rewind NOT asserted" severity failure;  
+
+   -- Check that the expected rewind request is sent.
 
    check_tape_request(test => "E CH Rewind", subtest => "Rewind at RWD0",
       waitTime => 25 us, unit => 1, request_signal => IBM1410_TAU_XMT_UART_REQUEST, 
@@ -5172,68 +4184,13 @@ if LOCAL_REWIND_TEST = '1' then
       request_char => IBM1410_TAU_XMT_UART_DATA, target_char => "01000000",  
       holding_char => LOCAL_TAU_XMT_CHAR);   
 
---   -- Wait for the TAU to send something to the PC... the unit number
-   
---   if IBM1410_TAU_XMT_UART_REQUEST /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---     report "Unit control RWD 0, No unit char transmitted" severity failure;
---   wait for 10 ns; -- grant delay
-         
---   -- Save the character and grant the request
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
---   wait for grantWait;  -- grant delay
-   
---   -- It should be for unit 1
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000001" report "Unit control RWD 0, Unit NOT 1" severity failure;
-   
---   -- Wait again for the TAU to send something to the PC... a rewind request.
-   
---   if IBM1410_TAU_XMT_UART_REQUEST /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Unit control RWD 0, No request char transmitted" severity failure;
---   wait for grantWait; -- grant delay
-   
---   -- Save the character and grant the request
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "01000000" report "Unit control RWD 0, Request not Rewind" severity failure;
-
    report "Unit control RWD 0: Received rewind request, going busy for a while";
+
+   -- Indicate that the tape drive is in the process of rewinding
 
    send_tape_status(unit => 1, status => TAPE_UNIT_TAPE_REWIND_STATUS,
       write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
       write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE);
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000001";  -- Indicate we will provide status for Unit 1
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";    
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '0';  -- Set Status to NOT READY 
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '0';  -- Set Status to NOT READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '0';  -- Set Status to NOT READY   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_LOAD_POINT_BIT) <= '0'; -- NOT At load point
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_TAPE_REWIND_BIT) <= '1';  -- Indicate we are rewinding
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;   
    
    wait for 1 ms; -- Go busy for a while.
    wait for 5 us; -- Tweak the timing to see if we still get 2 erase calls.
@@ -5245,133 +4202,10 @@ if LOCAL_REWIND_TEST = '1' then
          TAPE_UNIT_LOAD_POINT_STATUS,      
       write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
       write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE);
-   
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000001";  -- Indicate we will provide status for Unit 1
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 10 ns;
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";    
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY 
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_LOAD_POINT_BIT) <= '1'; -- At load point
-
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   -- wait for 10 ns;   
-   
-     -- There are some ERASE calls, but the TAU treats those as NOPs.  
-     -- Also, Rewind calls at Load Point are NOPs   
-   
---   -- Now the TAU will want to tell us to do a skip (ERASE) (in MONITOR)
-   
---   if MC_ERASE_CALL_STAR_E_CH /= '0' then
---      wait until MC_ERASE_CALL_STAR_E_CH = '0' for 25 ms;
---   end if;  
---   assert MC_ERASE_CALL_STAR_E_CH = '0' report "Unit control RWD0 MONITR, no ERASE request" severity failure;
---   wait for 50 ns; -- Give the TAU time to react.  Reduced from 200 ns
---   report "RWD0 Erase Call Received.";
-   
-   
---   if IBM1410_TAU_XMT_UART_REQUEST /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Unit control RWD0 MONITR, No Unit char transmitted" severity failure;
---   wait for grantWait; -- grant delay
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   -- It should be for unit 1
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000001" report "Unit Control RWD0 MONITR, Unit NOT 1" severity failure;
---   wait for 20 ns;
-   
---   if IBM1410_TAU_XMT_UART_REQUEST /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Unit control RWD0 MONITR, No request char transmitted" severity failure;
---   wait for grantWait; -- grant delay
-   
---   -- Save the character and grant the request
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "00001000" report "Unit control RWD0 MONITR, Request not ERASE" severity failure;
-   
---   -- The timing is such that we now need to wait for that erase call to go away.  It 
---   -- lasts 2+ microseconds
-   
---   if MC_ERASE_CALL_STAR_E_CH = '0' then
---      wait until MC_ERASE_CALL_STAR_E_CH = '1' for 25 us;
---   end if;   
-   
-   -- The next thing would be RWD1 and RWD2 - but we are at load point.
-   -- So the TAU should not send us a rewind call.
-   
-   -- HOWEVER, MONITR gets called after RWD2 -- so, another ERASE call
-
---   if MC_ERASE_CALL_STAR_E_CH /= '0' then
---      wait until MC_ERASE_CALL_STAR_E_CH = '0' for 25 ms;
---   end if;  
---   assert MC_ERASE_CALL_STAR_E_CH = '0' report "Unit control RWD2 MONITR, no ERASE request" severity failure;
---   wait for 50 ns; -- Give the TAU time to react.  Reduced from 200 ns
---   report "RWD2 MONITR Erase Call Received.";
-   
-   
---   if IBM1410_TAU_XMT_UART_REQUEST /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Unit control RWD2 MONITR, No Unit char transmitted" severity failure;
---   wait for grantWait; -- grant delay
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   -- It should be for unit 1
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000001" report "Unit Control RWD2 MONITR, Unit NOT 1" severity failure;
---   wait for 20 ns;
-   
---   if IBM1410_TAU_XMT_UART_REQUEST /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Unit control RWD2 MONITR, No request char transmitted" severity failure;
---   wait for grantWait; -- grant delay
-   
---   -- Save the character and grant the request
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "00001000" report "Unit control RWD2 MONITR, Request not ERASE" severity failure;      
-
---   -- The timing is such that we now need to wait for that erase call to go away.  It 
---   -- lasts 2+ microseconds
-   
---   if MC_ERASE_CALL_STAR_E_CH = '0' then
---      wait until MC_ERASE_CALL_STAR_E_CH = '1' for 25 us;
---   end if;   
-   
+         
+    -- There are some ERASE calls, but the TAU treats those as NOPs.  
+    -- Also, Rewind calls at Load Point are NOPs   
+      
    -- After that comes the Read call for the SPACE instruction.
     
    loop
@@ -5386,52 +4220,15 @@ if LOCAL_REWIND_TEST = '1' then
      report "Unit Control Test SPC1, No Read Call" severity failure;
 
    report "Unit Control Test SPC1: Received Read request from SPACE instruction.";
+
+   -- Check that the SPACE instruction issues a proper read call.
      
    check_tape_request(test => "E CH Rewind", subtest => "Read Call",
       waitTime => 25 us, unit => 1, request_signal => IBM1410_TAU_XMT_UART_REQUEST, 
       grant_signal => IBM1410_TAU_XMT_UART_GRANT,
       request_char => IBM1410_TAU_XMT_UART_DATA, target_char => "00000001", 
       holding_char => LOCAL_TAU_XMT_CHAR);
-     
---   -- next, the TAU should issue a UART strobe to send the unit number
-   
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 50 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Unit Control Test SPC1, No unit char transmitted" severity failure;
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   -- It should be for unit 1
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000001" report "Unit Control Test SPC1, Unit NOT 1" severity failure;
-   
---   -- Wait again for the TAU to send something to the PC... a Read request. (The TAU doesn't
---   -- know that the CPU will throw away the data for a space request...)
-   
---   if IBM1410_TAU_XMT_UART_REQUEST  /= '1' then
---      wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 50 us;
---   end if;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---     report "Unit Control Test SPC1, No request char transmitted" severity failure;   
---   wait for 10 ns; -- Grant Delay
-   
---   -- Issue a grant for the request, and snag the data.
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';   
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000001" report "Unit Control Test SPC1, Request not Read" severity failure;   
-   
+        
    report "Unit Control Test SPC1: Sending data to satisfy space request.";
    
    -- Now we get to play PC support program, and send read data...
@@ -5445,49 +4242,7 @@ if LOCAL_REWIND_TEST = '1' then
       write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
       write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
       LOCAL_WS_FLAG => LOCAL_WS_FLAG, LOCAL_WS_CHAR => LOCAL_WS_CHAR);
-   
---   -- Now we get to play PC Support program...  Send Unit 0 with the X'40' bit set...
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "01000001";  -- Read data for Unit 1
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-   
---   -- Now send a 19 byte record 
-   
---   for i in 0 to 19 loop
-
---      IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= X"03";  -- Even parity 3.        
---      wait for 10 ns;
---      IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---      wait for 10 ns;
---      IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
-         
---      -- Wait for the channel strobe...         
---      if MC_TAPE_READ_STROBE /= '0' then
---         wait until MC_TAPE_READ_STROBE = '0' for 100 us;
---      end if;
---      assert MC_TAPE_READ_STROBE = '0' report "Unit Control Test SPC1, no Read Strobe" severity failure;
---      wait for 10 ns;
-             
---      -- Need to wait as a test - normally our serial port will be slower than the channel
---      wait for 1 us;
-                     
---      assert MC_TAPE_BUSY = '0' report "Unit Control Test SPC1, TAU did not stay busy" severity failure;  
---      assert MC_TAPE_IN_PROCESS = '0' report "Unit Control Test SPC1, TAU did not stay In Process" 
---        severity failure;  
-                      
---   end loop;  -- test data loop
-                           
---   -- Indicate the read is complete
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  -- End of record flag
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
-   
+      
    report "Unit Control Test SPC1: Read data EOR sent";
 
    -- Move tape off of load point
@@ -5496,27 +4251,7 @@ if LOCAL_REWIND_TEST = '1' then
       TAPE_UNIT_READY_STATUS or TAPE_UNIT_READ_READY_STATUS or TAPE_UNIT_WRITE_READY_STATUS,
       write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
       write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE);
-   
-   -- Move the tape off of load point  (The TAU should ALSO have done this!)
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000001";  -- Indicate we will provide status for Unit 1
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";  
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_LOAD_POINT_BIT) <= '0'; -- NOT at load point
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-   
+      
    report "Unit Control Test SPC1: Tape now off load point, waiting for TAU to become not busy";
    
    -- Now, wait for TAU to go un-busy from the SPACE request
@@ -5541,50 +4276,16 @@ if LOCAL_REWIND_TEST = '1' then
    assert MC_REWIND_CALL_STAR_E_CH = '0' report "Unit Control Test RWD3, no rewind request" severity failure;
    wait for 45 ns; -- Give the TAU time to react.
    
-   -- assert MC_TAPE_READY = '1' report "Unit Control Test RWD3, Ready asserted" severity failure;
-   -- assert MC_SELECT_AT_LOAD_POINT_STAR_E_CH = '1' report "Unit Control Test RWD3, Load Point asserted" severity failure;
    assert MC_SEL_OR_TAPE_IND_ON_CH_1 = '1' report "Unit Control Test RWD3, Tape IND asserted" severity failure;
    assert MC_SELECT_AND_REWIND_STAR_E_CH = '0' report "Unit Control Test RWD3, Rewind NOT asserted" severity failure;  
+
+   -- Check that a proper rewind request is sent
 
    check_tape_request(test => "E CH Rewind", subtest => "Rewind RWD3",
       waitTime => 25 us, unit => 1, request_signal => IBM1410_TAU_XMT_UART_REQUEST, 
       grant_signal => IBM1410_TAU_XMT_UART_GRANT,
       request_char => IBM1410_TAU_XMT_UART_DATA, target_char => "01000000", 
       holding_char => LOCAL_TAU_XMT_CHAR);
-
---   -- Wait for the TAU to send something to the PC... the unit number
-   
---   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---     report "Unit Control Test RWD3, No unit char transmitted" severity failure;
---   wait for 10 ns; -- grant delay
-         
---   -- Save the character and grant the request
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
---   wait for grantWait;  -- grant delay
-   
---   -- It should be for unit 1
-   
---   assert LOCAL_TAU_XMT_CHAR = "00000001" report "Unit Control Test RWD3, Unit NOT 1" severity failure;
-   
---   -- Wait again for the TAU to send something to the PC... a rewind request.
-   
---   wait until IBM1410_TAU_XMT_UART_REQUEST  = '1' for 25 us;
---   assert IBM1410_TAU_XMT_UART_REQUEST = '1' 
---      report "Rewind Test 2, No request char transmitted" severity failure;
---   wait for grantWait; -- grant delay
-   
---   -- Save the character and grant the request
-   
---   LOCAL_TAU_XMT_CHAR <= IBM1410_TAU_XMT_UART_DATA;
---   IBM1410_TAU_XMT_UART_GRANT <= '1';
---   wait for 20 ns;
---   IBM1410_TAU_XMT_UART_GRANT <= '0';
-   
---   assert LOCAL_TAU_XMT_CHAR = "01000000" report "Unit Control Test RWD3, Request not Rewind" severity failure;
 
    report "Unit Control Test RWD3: Received rewind request, going busy for a while";
 
@@ -5594,25 +4295,6 @@ if LOCAL_REWIND_TEST = '1' then
       TAPE_UNIT_TAPE_REWIND_STATUS,
       write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
       write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE);
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000001";  -- Indicate we will provide status for Unit 1
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";    
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '0';  -- Set Status to NOT READY 
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '0';  -- Set Status to NOT READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '0';  -- Set Status to NOT READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_TAPE_REWIND_BIT) <= '1'; -- Rewinding
-      
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
    
      wait for 1 ms; -- Go busy for a while.
 
@@ -5623,25 +4305,6 @@ if LOCAL_REWIND_TEST = '1' then
          TAPE_UNIT_LOAD_POINT_STATUS,      
       write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
       write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE);
-   
-   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000001";  -- Indicate we will provide status for Unit 1
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;
-
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA <= "00000000";    
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READY_BIT) <= '1';  -- Set Status to READY 
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_READ_READY_BIT) <= '1';  -- Set Status to READY
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_WRITE_READY_BIT) <= '1';  -- Set Status to READY   
---   IBM1410_TAU_INPUT_FIFO_WRITE_DATA(TAPE_UNIT_LOAD_POINT_BIT) <= '1'; -- At load point
---   wait for 100 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '1';
---   wait for 10 ns;
---   IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE <= '0';
---   wait for 100 ns;   
    
    report "Unit Control Test RWD3: Successful end of rewind test.";
 
