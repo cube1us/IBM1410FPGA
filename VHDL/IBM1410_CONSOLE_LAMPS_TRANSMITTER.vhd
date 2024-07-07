@@ -52,15 +52,34 @@ architecture Behavioral of IBM1410_CONSOLE_LAMPS_TRANSMITTER is
 
 constant LAMP_SECTIONS: INTEGER := LAMP_VECTOR_BITS / 7;  -- Each lamp section is 7 bits
 constant COUNTER_MAX: INTEGER := REFRESH_TIME / CLOCKPERIOD;
+constant LAMP_SYNC_COUNT: INTEGER := 5;
+constant LAMP_SYNC_INIT: std_logic_vector((LAMP_SYNC_COUNT * 8)-1 downto 0) := X"3F003F003F";
 
-type lampState_type is (lamp_reset, lamp_counting, lamp_check, lamp_start,
-   lamp_wait, lamp_send, lamp_grant_wait, lamp_rotate, lamp_done);
+type lampState_type is (
+   lamp_reset, 
+   lamp_counting, 
+   lamp_check, 
+   lamp_sync_start,
+   lamp_sync_wait,
+   lamp_sync_send,
+   lamp_sync_grant_wait,
+   lamp_sync_rotate,
+   lamp_start,
+   lamp_wait, 
+   lamp_send, 
+   lamp_grant_wait, 
+   lamp_rotate, 
+   lamp_done);
 
 signal LAMPS: STD_LOGIC_VECTOR(LAMP_VECTOR_BITS-1 downto 0) := (others => '0');
 signal COUNT: INTEGER RANGE 0 to COUNTER_MAX;
 signal SECTION: INTEGER RANGE 0 to LAMP_SECTIONS;
+signal lampSyncCounter: integer RANGE 0 to LAMP_SYNC_COUNT;
 
 signal lampState: lampState_type := lamp_reset;
+
+signal lampSyncVector: std_logic_vector((LAMP_SYNC_COUNT * 8)-1 downto 0) := LAMP_SYNC_INIT;
+signal lampSyncData: std_logic_vector(7 downto 0);
 
 begin
 
@@ -85,7 +104,7 @@ lamp_process: process(FPGA_CLK, RESET, LAMP_VECTOR, UART_OUTPUT_GRANT, LAMP_VECT
                lampState <= lamp_counting;
             end if;
             
-         -- Delay between sends of lamp data to support hose
+         -- Delay between sends of lamp data to support host
             
          when lamp_counting =>
             if COUNT = 0 then
@@ -95,14 +114,59 @@ lamp_process: process(FPGA_CLK, RESET, LAMP_VECTOR, UART_OUTPUT_GRANT, LAMP_VECT
                lampState <= lamp_counting;
             end if;
             
-         -- If lamps are the same as before, wait here
+         -- If lamps are the same as before, wait here, otherwise
+         -- initialize the data we need to send the sync bytes and move on.
          
          when lamp_check =>
             if LAMPS = LAMP_VECTOR then
                lampState <= lamp_check;
             else
-               lampState <= lamp_start;
+               lampSyncCounter <= LAMP_SYNC_COUNT;
+               lampSyncVector <= LAMP_SYNC_INIT;
+               lampState <= lamp_sync_start;
             end if;
+            
+         -- Send a sequence of sync bytes before the start of each set of lamp data
+         
+         -- Start by copying the low 7 bits from the sync vector in prep to send it.
+         
+         when lamp_sync_start =>
+            lampSyncData <= lampSyncVector(7 downto 0);
+            lampState <= lamp_sync_wait;
+            
+         -- Make sure any previous grant is gone...
+         
+         when lamp_sync_wait =>
+            if UART_OUTPUT_GRANT = '0' then
+               lampState <= lamp_sync_send;
+            else
+               lampState <= lamp_sync_wait;
+            end if;
+            
+         -- send the current sync byte: just raises request
+         
+         when lamp_sync_send =>
+            lampSyncCounter <= lampSyncCounter - 1;
+            lampState <= lamp_sync_grant_wait;
+            
+         -- Wait for the grant before looping back..
+            
+         when lamp_sync_grant_wait =>
+            if UART_OUTPUT_GRANT = '1' then
+               lampState <= lamp_sync_rotate;
+            else
+               lampState <= lamp_sync_grant_wait;
+            end if;
+            
+         -- Shift the sync vector and see if we are done with sync data
+               
+         when lamp_sync_rotate =>
+            lampSyncVector <= X"00" & lampSyncVector((LAMP_SYNC_COUNT * 8)-1 downto 8);
+            if lampSyncCounter = 0 then
+               lampState <= lamp_start;
+            else
+               lampState <= lamp_sync_start;
+            end if;            
             
          -- Copy the lamp vector in preparation for rotations
          
@@ -131,6 +195,7 @@ lamp_process: process(FPGA_CLK, RESET, LAMP_VECTOR, UART_OUTPUT_GRANT, LAMP_VECT
           when lamp_rotate =>
              SECTION <= SECTION - 1;
              -- Rotate lamps right 7 bits
+             -- We rotate so LAMPS ends up where it started for later compare for changes
              LAMPS <= LAMPS(6 downto 0) & LAMPS(LAMP_VECTOR_BITS-1 downto 7);
              lampState <= lamp_done;
            
@@ -147,7 +212,13 @@ lamp_process: process(FPGA_CLK, RESET, LAMP_VECTOR, UART_OUTPUT_GRANT, LAMP_VECT
    
    end process;
    
-UART_OUTPUT_REQUEST <= '1' when lampState = lamp_send else '0';
-UART_OUTPUT_REQUEST_DATA <= "0" &  LAMPS(6 downto 0);   
+UART_OUTPUT_REQUEST <= 
+   '1' when lampState = lamp_send or lampState = lamp_sync_send 
+   else '0';
+   
+UART_OUTPUT_REQUEST_DATA <= 
+   "0" &  LAMPS(6 downto 0) when lampState = lamp_send 
+   else lampSyncData when lampstate = lamp_sync_send
+   else X"00";   
    
 end Behavioral;
