@@ -1,0 +1,36 @@
+##################################################
+#TAU_CHANNEL_1/tauBRUESetStatus
+# For info on creating trigger state machines:
+#   1) In the main Vivado menu bar, select
+#      Window > Language Templates
+#   2) In the Templates window, select
+#      Debug > Trigger State Machine
+#   3) Refer to the entry 'Info' for an overview
+#      of the trigger state machine language.
+#
+# More information can be found in this document:
+#
+#   Vivado Design Suite User Guide: Programming
+#   and Debugging (UG908)
+#
+##################################################
+state wait_nth_rising_edge:
+  if ( # (TAU_CHANNEL_1/tauBRUESetStatus == 1'bR ||
+     # TAU_CHANNEL_1/tauUnitStatusState == 2'b1R) 
+     # MC_BACKSPACE_CALL_STAR_E_CH == 1'bR &&
+     # MC_READ_TAPE_CALL_STAR_E_CH == 1'bR &&
+      (memory/MemoryBank0/ena == 1'bR) && 
+      u_ila_0_PS_I_CYCLE == 1'b1 && 
+      (memory/MemoryBank0/addra == 14'u2023) &&
+      $counter0 == 16'u001) then
+         reset_counter $counter0;
+         trigger;
+  elseif (
+      (memory/MemoryBank0/ena == 1'bR) && 
+      u_ila_0_PS_I_CYCLE == 1'b1 && 
+      (memory/MemoryBank0/addra == 14'u2023)) then
+     increment_counter $counter0;
+     goto wait_nth_rising_edge;
+  else
+     goto wait_nth_rising_edge;
+  endif
