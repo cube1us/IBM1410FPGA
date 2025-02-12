@@ -56,12 +56,12 @@ type muxOutputState_type is (
    mux_output_grant_data, mux_output_write_data, mux_output_accepted);
    
 signal muxOutputState: muxOutputState_type := mux_output_idle;
-signal muxOutputID: STD_LOGIC_VECTOR(8 downto 0);  -- Includes a '0' flush flag.
+signal muxOutputID: STD_LOGIC_VECTOR(7 downto 0);  -- Flush flag added later
 
 begin
 
 mux_output_process: process(FPGA_CLK, UDP_RESET, muxOutputState, UDP_OUTPUT_GRANTS,
-   UDP_OUTPUT_NEW_REQUESTER, UDP_OUTPUT_FULL, UDP_OUTPUT_FULL_NEX)
+   UDP_OUTPUT_NEW_REQUESTER, UDP_OUTPUT_FULL, UDP_OUTPUT_FULL_NEXT)
    
    begin
    
@@ -154,7 +154,7 @@ mux_output_process: process(FPGA_CLK, UDP_RESET, muxOutputState, UDP_OUTPUT_GRAN
       muxOutputState = mux_output_accepted else '0';
       
    UDP_OUTPUT_FIFO_DATA <=
-      UDP_MUX_FLUSH_IN & UDP_OUTPUT_MUX_IN when 
+      UDP_OUTPUT_MUX_FLUSH_IN & UDP_OUTPUT_MUX_IN when 
          muxOutputState = mux_output_grant_data or 
          muxOutputState = mux_output_write_data or
          muxOutputState = mux_output_accepted
@@ -162,6 +162,6 @@ mux_output_process: process(FPGA_CLK, UDP_RESET, muxOutputState, UDP_OUTPUT_GRAN
          muxOutputState = mux_output_grant_id or
          muxOutputState = mux_output_write_id or
          muxOutputState = mux_output_done_id
-      else "00000000";
+      else "000000000";
 
 end Behavioral;

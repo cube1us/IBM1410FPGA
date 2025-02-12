@@ -33,15 +33,18 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity IBM1410U_UDP_OUTPUT_SUBSYSTEM_tb is
+entity IBM1410_UDP_OUTPUT_SUBSYSTEM_tb is
    Port (
       CLK: in STD_LOGIC
    );
-end IBM1410U_UDP_OUTPUT_SUBSYSTEM_tb;
+end IBM1410_UDP_OUTPUT_SUBSYSTEM_tb;
 
-architecture Behavioral of IBM1410U_UDP_OUTPUT_SUBSYSTEM_tb is
+architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM_tb is
 
    component IBM1410_UDP_OUTPUT_SUBSYSTEM is
+    GENERIC (
+       SIMULATED_UART: integer := 1
+    );
     Port ( FPGA_CLK                     : in STD_LOGIC;
            UDP_RESET                    : in STD_LOGIC;
            UDP_OUTPUT_REQUESTER_STROBES : in STD_LOGIC_VECTOR (7 downto 0);
@@ -56,8 +59,13 @@ architecture Behavioral of IBM1410U_UDP_OUTPUT_SUBSYSTEM_tb is
            UDP_OUTPUT_REQUEST_DATA_7    : in STD_LOGIC_VECTOR (7 downto 0);
            UDP_OUTPUT_ARBITER_REQUESTS  : out STD_LOGIC_VECTOR(7 downto 0);
            UDP_OUTPUT_ARBITER_GRANTS    : out STD_LOGIC_VECTOR(7 downto 0);
-           -- TODO - Actual interface to UDP
-           UART_OUTPUT_TX_DATA : out STD_LOGIC);
+           -- UDP UART-like interface signals
+           UDP_UART_TX_ACTIVE           : in STD_LOGIC;
+           UDP_UART_TX_DATA_VALID       : out STD_LOGIC;
+           UDP_UART_TX_BYTE             : out STD_LOGIC_VECTOR(7 downto 0);
+           UDP_UART_TX_FLUSH            : out STD_LOGIC;
+           -- Fake serial output from internal uart, for testing
+           SERIAL_OUTPUT_TX_DATA : out STD_LOGIC);
    end component;
    
    -- constant UART_OUTPUT_CLKS_PER_BIT: integer := 100000000 / 115200;
@@ -69,36 +77,52 @@ architecture Behavioral of IBM1410U_UDP_OUTPUT_SUBSYSTEM_tb is
    signal UDP_OUTPUT_REQUESTER_STROBES: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
    signal UDP_OUTPUT_REQUESTER_FLUSHES: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
    signal UDP_OUTPUT_REQUEST_DATA_0: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
-   signal UDP_OUTPUT_REQUEST_DATA_1 STD_LOGIC_VECTOR (7 downto 0) := "00000000";
-   signal UDP_OUTPUT_REQUEST_DATA_2 STD_LOGIC_VECTOR (7 downto 0) := "00000000";
+   signal UDP_OUTPUT_REQUEST_DATA_1: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
+   signal UDP_OUTPUT_REQUEST_DATA_2: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
    signal UDP_OUTPUT_REQUEST_DATA_3: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
    signal UDP_OUTPUT_REQUEST_DATA_4: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
    signal UDP_OUTPUT_REQUEST_DATA_5: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
    signal UDP_OUTPUT_REQUEST_DATA_6: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
-   signal UDP_OUTPUT_REQUEST_DATA_7  STD_LOGIC_VECTOR (7 downto 0) := "00000000";
+   signal UDP_OUTPUT_REQUEST_DATA_7:  STD_LOGIC_VECTOR (7 downto 0) := "00000000";
    signal UDP_OUTPUT_ARBITER_REQUESTS : STD_LOGIC_VECTOR (7 downto 0) := "00000000";
    signal UDP_OUTPUT_ARBITER_GRANTS: STD_LOGIC_VECTOR (7 downto 0) := "00000000";
-   signal UART_OUTPUT_TX_DATA: STD_LOGIC;   
+   
+   -- UDP UART-like interface signals
+   
+   signal UDP_UART_TX_ACTIVE:      STD_LOGIC;
+   signal UDP_UART_TX_DATA_VALID:  STD_LOGIC;
+   signal UDP_UART_TX_BYTE:        STD_LOGIC_VECTOR(7 downto 0);
+   signal UDP_UART_TX_FLUSH:       STD_LOGIC;
+   
+   -- Simulated UART output for testing
+   signal SERIAL_OUTPUT_TX_DATA: STD_LOGIC;   
 
 begin
 
    UUT: IBM1410_UDP_OUTPUT_SUBSYSTEM
+    Generic map (
+       SIMULATED_UART => 1
+    )
     Port map (
        FPGA_CLK => FPGA_CLK,
        UDP_RESET => UDP_RESET,
        UDP_OUTPUT_REQUESTER_STROBES => UDP_OUTPUT_REQUESTER_STROBES,
        UDP_OUTPUT_REQUESTER_FLUSHES => UDP_OUTPUT_REQUESTER_FLUSHES,
        UDP_OUTPUT_REQUEST_DATA_0 => UDP_OUTPUT_REQUEST_DATA_0,
-       UDP_OUTPUT_REQUEST_DATA_1 => UDP_OUTPUT_REQUEST_DATA_1
-       UDP_OUTPUT_REQUEST_DATA_2 => UDP_OUTPUT_REQUEST_DATA_2
-       UDP_OUTPUT_REQUEST_DATA_3 => UDP_OUTPUT_REQUEST_DATA_,
+       UDP_OUTPUT_REQUEST_DATA_1 => UDP_OUTPUT_REQUEST_DATA_1,
+       UDP_OUTPUT_REQUEST_DATA_2 => UDP_OUTPUT_REQUEST_DATA_2,
+       UDP_OUTPUT_REQUEST_DATA_3 => UDP_OUTPUT_REQUEST_DATA_3,
        UDP_OUTPUT_REQUEST_DATA_4 => UDP_OUTPUT_REQUEST_DATA_4,
        UDP_OUTPUT_REQUEST_DATA_5 => UDP_OUTPUT_REQUEST_DATA_5,
        UDP_OUTPUT_REQUEST_DATA_6 => UDP_OUTPUT_REQUEST_DATA_6,
-       UDP_OUTPUT_REQUEST_DATA_7    => UDP_OUTPUT_REQUEST_DATA_7   
-       UDP_OUTPUT_ARBITER_REQUESTS  => UDP_OUTPUT_ARBITER_REQUESTS,
+       UDP_OUTPUT_REQUEST_DATA_7 => UDP_OUTPUT_REQUEST_DATA_7,   
+       UDP_OUTPUT_ARBITER_REQUESTS => UDP_OUTPUT_ARBITER_REQUESTS,
        UDP_OUTPUT_ARBITER_GRANTS => UDP_OUTPUT_ARBITER_GRANTS,
-       UART_OUTPUT_TX_DATA => UART_OUTPUT_TX_DATA
+       UDP_UART_TX_ACTIVE => UDP_UART_TX_ACTIVE,
+       UDP_UART_TX_DATA_VALID => UDP_UART_TX_DATA_VALID,
+       UDP_UART_TX_BYTE => UDP_UART_TX_BYTE,
+       UDP_UART_TX_FLUSH => UDP_UART_TX_FLUSH,
+       SERIAL_OUTPUT_TX_DATA => SERIAL_OUTPUT_TX_DATA
     );
 
 
@@ -133,6 +157,8 @@ uut_process: process
    wait until UDP_OUTPUT_ARBITER_REQUESTS (7) = '1';
    wait until UDP_OUTPUT_ARBITER_REQUESTS (7) = '0';
    
+   wait for 100 us;
+   
    UDP_OUTPUT_REQUEST_DATA_7    <= "00110010";
    wait for 10 ns;
    UDP_OUTPUT_REQUESTER_STROBES <= "10000000";
@@ -140,7 +166,7 @@ uut_process: process
    UDP_OUTPUT_REQUESTER_STROBES <= "00000000";
    wait until UDP_OUTPUT_ARBITER_REQUESTS (7) = '1';
    wait until UDP_OUTPUT_ARBITER_REQUESTS (7) = '0';
-   wait for 5 ms;  -- Give UART a chance to finish
+   wait for 100 us;  -- Give UART a chance to finish
 
    -- Now test simultaneous requests
 
@@ -148,15 +174,16 @@ uut_process: process
    UDP_OUTPUT_REQUEST_DATA_6 <= "00110100";
    wait for 10 ns;
    UDP_OUTPUT_REQUESTER_STROBES <= "11000000";
+   UDP_OUTPUT_REQUESTER_FLUSHES <= "01000000";
    wait for 5 us;
    UDP_OUTPUT_REQUESTER_STROBES <= "00000000";
    wait until UDP_OUTPUT_ARBITER_REQUESTS (7) = '1';
    wait until UDP_OUTPUT_ARBITER_REQUESTS (7) = '0';
    wait until UDP_OUTPUT_ARBITER_REQUESTS (6) = '0';
-
-   --  TODO:  Test a FLUSH
    
-   wait for 5 ms;  -- Give UART a chance to finish
+   wait for 100 us;  -- Give UART a chance to finish
+   
+   UDP_OUTPUT_REQUESTER_FLUSHES <= "00000000";
 
    
    assert false report "Simulation Ended NORMALLY" severity failure;

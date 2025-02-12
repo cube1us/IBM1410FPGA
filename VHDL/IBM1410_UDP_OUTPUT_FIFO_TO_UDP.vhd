@@ -31,7 +31,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity IBM1410_UDP_FIFO_TO_UDP is
+entity IBM1410_UDP_OUTPUT_FIFO_TO_UDP is
     Port ( FPGA_CLK : in STD_LOGIC;
            UDP_RESET : in STD_LOGIC;
            UDP_OUTPUT_FIFO_EMPTY : in STD_LOGIC;
@@ -39,10 +39,11 @@ entity IBM1410_UDP_FIFO_TO_UDP is
            UDP_TX_ACTIVE : in STD_LOGIC;
            UDP_OUTPUT_FIFO_RD_EN : out STD_LOGIC;
            UDP_TX_DATA_VALID : out STD_LOGIC;
+           UDP_TX_FLUSH : out STD_LOGIC;
            UDP_TX_BYTE : out STD_LOGIC_VECTOR (7 downto 0));
-end IBM1410_UDP_FIFO_TO_UDP;
+end IBM1410_UDP_OUTPUT_FIFO_TO_UDP;
 
-architecture Behavioral of IBM1410_UDP_FIFO_TO_UDP is
+architecture Behavioral of IBM1410_UDP_OUTPUT_FIFO_TO_UDP is
 
 type outputState_type is (output_waiting, output_strobe_fifo, output_strobe_uart, output_done);
 
@@ -94,6 +95,7 @@ output_process: process(FPGA_CLK, UDP_RESET, outputState, UDP_OUTPUT_FIFO_EMPTY,
 
 UDP_OUTPUT_FIFO_RD_EN <= '1' when outputState = output_strobe_fifo else '0';
 UDP_TX_DATA_VALID <= '1' when outputState = output_strobe_uart else '0';
-UDP_TX_BYTE <= UDP_OUTPUT_FIFO_DATA;
+UDP_TX_BYTE <= UDP_OUTPUT_FIFO_DATA(7 downto 0);
+UDP_TX_FLUSH <= UDP_OUTPUT_FIFO_DATA(8);
    
 end Behavioral;

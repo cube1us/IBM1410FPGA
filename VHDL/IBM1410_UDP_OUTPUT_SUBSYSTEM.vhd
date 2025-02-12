@@ -35,6 +35,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity IBM1410_UDP_OUTPUT_SUBSYSTEM is
+    GENERIC (
+       SIMULATED_UART: integer := 1
+    );
     Port ( FPGA_CLK : in STD_LOGIC;
            UDP_RESET: in STD_LOGIC;
            UDP_OUTPUT_REQUESTER_STROBES : in STD_LOGIC_VECTOR (7 downto 0);
@@ -49,8 +52,13 @@ entity IBM1410_UDP_OUTPUT_SUBSYSTEM is
            UDP_OUTPUT_REQUEST_DATA_7    : in STD_LOGIC_VECTOR (7 downto 0);
            UDP_OUTPUT_ARBITER_REQUESTS  : out STD_LOGIC_VECTOR (7 downto 0);
            UDP_OUTPUT_ARBITER_GRANTS    : out STD_LOGIC_VECTOR (7 downto 0);
-           -- TODO - actual interface to UDP in place of the following
-           UART_OUTPUT_TX_DATA : out STD_LOGIC);
+           -- UDP UART-like interface signals
+           UDP_UART_TX_ACTIVE           : in STD_LOGIC;
+           UDP_UART_TX_DATA_VALID       : out STD_LOGIC;
+           UDP_UART_TX_BYTE             : out STD_LOGIC_VECTOR(7 downto 0);
+           UDP_UART_TX_FLUSH            : out STD_LOGIC;
+           -- Fake serial output from internal uart, for testing
+           SERIAL_OUTPUT_TX_DATA : out STD_LOGIC);
 end IBM1410_UDP_OUTPUT_SUBSYSTEM;
 
 architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
@@ -90,7 +98,7 @@ architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
              UDP_OUTPUT_DATA_6              : in STD_LOGIC_VECTOR (7 downto 0);
              UDP_OUTPUT_DATA_7              : in STD_LOGIC_VECTOR (7 downto 0);
              UDP_OUTPUT_MUX_OUT             : out STD_LOGIC_VECTOR (7 downto 0);
-             UDP_OUTPUT_MUX_FLUSH           : out STD_LOGIC);
+             UDP_OUTPUT_MUX_FLUSH_OUT       : out STD_LOGIC);
    end component;
      
    component IBM1410_UDP_OUTPUT_MUX_TO_FIFO
@@ -103,7 +111,7 @@ architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
              UDP_OUTPUT_FULL            : in STD_LOGIC;
              UDP_OUTPUT_FULL_NEXT       : in STD_LOGIC;
              UDP_OUTPUT_CHAR_ACCEPTED   : out STD_LOGIC;
-             UDP_OUTPUT_FIFO_DATA       : out STD_LOGIC_VECTOR (7 downto 0);
+             UDP_OUTPUT_FIFO_DATA       : out STD_LOGIC_VECTOR (8 downto 0); -- Includes Flush as MSB
              UDP_OUTPUT_WR_EN           : out STD_LOGIC);
    end component;
 
@@ -111,10 +119,11 @@ architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
       Port ( FPGA_CLK               : in STD_LOGIC;
              UDP_RESET              : in STD_LOGIC;
              UDP_OUTPUT_FIFO_EMPTY  : in STD_LOGIC;
-             UDP_OUTPUT_FIFO_DATA   : in STD_LOGIC_VECTOR (7 downto 0);
+             UDP_OUTPUT_FIFO_DATA   : in STD_LOGIC_VECTOR (8 downto 0); -- Includes Flush as MSB
              UDP_TX_ACTIVE          : in STD_LOGIC;
              UDP_OUTPUT_FIFO_RD_EN  : out STD_LOGIC;
              UDP_TX_DATA_VALID      : out STD_LOGIC;
+             UDP_TX_FLUSH           : out STD_LOGIC;
              UDP_TX_BYTE            : out STD_LOGIC_VECTOR (7 downto 0));
    end component;
    
@@ -186,7 +195,7 @@ architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
    signal UDPOutputFIFOFullNext     : STD_LOGIC;
    signal UDPOutputFIFOEmpty        : STD_LOGIC;
    signal UDPOutputMUXOut           : STD_LOGIC_VECTOR(7 downto 0);
-   signal UDPOutputMUXFlush         : STD_LOGIC;
+   signal UDPOutputMUXFlushOut      : STD_LOGIC;
    signal UDPOutputFIFOIn           : STD_LOGIC_VECTOR(8 downto 0);  -- Includes Flush as MSB
    signal UDPOutputFIFOOut          : STD_LOGIC_VECTOR(8 downto 0);  -- Includes Flush as MSB
    signal UDPOutputFIFOWrEn         : STD_LOGIC;
@@ -194,10 +203,31 @@ architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
    signal UDPOutputRdValid          : STD_LOGIC;
    signal UDPOutputFIFOEmptyNext    : STD_LOGIC;
    
+   -- These are the "switchable" signals used for the generate to switch between
+   -- simulation via the embedded UART in this module vs actual UDP
+   
+   signal TxActive                  : STD_LOGIC;
+   signal TxByte                    : STD_LOGIC_VECTOR(7 downto 0);
+   signal TxDataValid               : STD_LOGIC;
+   signal TxDone                    : STD_LOGIC;
+   signal TxData                    : STD_LOGIC;
+   signal TxFlush                   : STD_LOGIC;
+      
+   -- These are for simulation without the actual UDP logic
+   
+   signal SerialTxActive            : STD_LOGIC;
+   signal SerialTxByte              : STD_LOGIC_VECTOR(7 downto 0);
+   signal SerialTxDataValid         : STD_LOGIC;
+   signal SerialTXDone              : STD_LOGIC;
+   signal SerialTxData              : STD_LOGIC;
+   
+   -- These are for actualy UDP packet I/O
+   
    signal UDPTxActive               : STD_LOGIC;
    signal UDPTxByte                 : STD_LOGIC_VECTOR(7 downto 0);
    signal UDPTxDataValid            : STD_LOGIC;
    signal UDPTXDone                 : STD_LOGIC;
+   signal UDPTxData                 : STD_LOGIC;
                    
    begin
    
@@ -219,7 +249,7 @@ architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
       port map (
          FPGA_CLK => FPGA_CLK,
          UDP_RESET => UDP_RESET,         
-         UDP_OUTPUT_REQUESTER_STROBE    => UDP_OUTPUT_REQUETER_STROBES(1),
+         UDP_OUTPUT_REQUESTER_STROBE    => UDP_OUTPUT_REQUESTER_STROBES(1),
          UDP_OUTPUT_REQUESTER_FLUSH     => UDP_OUTPUT_REQUESTER_FLUSHES(1),
          UDP_OUTPUT_GRANT               => UDPOutputArbiterGrants(1),
          UDP_OUTPUT_DATA_IN             => UDP_OUTPUT_REQUEST_DATA_1,
@@ -276,6 +306,7 @@ architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
          UDP_OUTPUT_DATA_OUT            => UDPOutputData_5         );
 
    REQUESTER_6: IBM1410_UDP_OUTPUT_REQUESTER 
+      port map (
          FPGA_CLK => FPGA_CLK,
          UDP_RESET => UDP_RESET,
          UDP_OUTPUT_REQUESTER_STROBE    => UDP_OUTPUT_REQUESTER_STROBES(6),
@@ -295,7 +326,7 @@ architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
          UDP_OUTPUT_GRANT               => UDPOutputArbiterGrants(7),
          UDP_OUTPUT_DATA_IN             => UDP_OUTPUT_REQUEST_DATA_7   ,
          UDP_OUTPUT_REQUEST             => UDPOutputAribterRequests(7),
-         UDP_OUTPUT_FLUSH_OUT           => UDPOutputRequesterFlushes(0),
+         UDP_OUTPUT_FLUSH_OUT           => UDPOutputRequesterFlushes(7),
          UDP_OUTPUT_DATA_OUT            => UDPOutputData_7         );
          
    ARBITER: IBM1410_UDP_OUTPUT_ARBITER
@@ -339,31 +370,29 @@ architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
          UDP_OUTPUT_WR_EN           => UDPOutputFIFOWrEn            );
          
    -- This will get rewritten for UDP
-
-   FIFO_TO_UART: IBM1410_UDP_OUTPUT_FIFO_TO_UDP
+   FIFO_TO_UDP: IBM1410_UDP_OUTPUT_FIFO_TO_UDP   
       port map (
          FPGA_CLK               => FPGA_CLK,
          UDP_RESET              => UDP_RESET,
          UDP_OUTPUT_FIFO_EMPTY  => UDPOutputFIFOEmpty,
          UDP_OUTPUT_FIFO_DATA   => UDPOutputFIFOOut,  -- Includes Flush as MSB
-         UDP_TX_ACTIVE          => UDPTxActive,
+         UDP_TX_ACTIVE          => TxActive,
          UDP_OUTPUT_FIFO_RD_EN  => UDPOutputFIFORdEn,
-         UDP_TX_DATA_VALID      => UDPTxDataValid,
-         UDP_TX_BYTE            => UDPTxByte                    );
+         UDP_TX_DATA_VALID      => TxDataValid,
+         UDP_TX_FLUSH           => TxFlush,
+         UDP_TX_BYTE            => TxByte                    );
          
    -- Instantiate UART transmitter
    
-   UART_TX_INST : uart_tx
-      generic map (
-         g_CLKS_PER_BIT => UART_OUTPUT_CLKS_PER_BIT
-      )
+   UDP_TX_INST : uart_tx
+      -- This is just for testing, so we don't care about clocks per bit - let it default
       port map (
          i_clk       => FPGA_CLK,
-         i_tx_dv     => UDPTxDataValid,
-         i_tx_byte   => UDPTxByte,
-         o_tx_active => UDPTxActive,
-         o_tx_serial => UART_OUTPUT_TX_DATA,
-         o_tx_done   => UDPTXDone                   
+         i_tx_dv     => SerialTxDataValid,
+         i_tx_byte   => SerialTxByte,
+         o_tx_active => SerialTxActive,
+         o_tx_serial => SerialTxData,
+         o_tx_done   => SerialTxDone                   
       );
       
    -- Instantiate the FIFO ring buffer
@@ -388,6 +417,25 @@ architecture Behavioral of IBM1410_UDP_OUTPUT_SUBSYSTEM is
          fill_count => OPEN
     );
    
+   
+-- Generate statement to choose between the UART module provided in this
+-- module, for testing, vs the UART to UDP interface logic module
+   
+simulatedSend: if SIMULATED_UART = 1 generate
+   SerialTxDataValid <= TxDataValid;
+   SerialTxByte <= TxByte;
+   TxActive <= SerialTxActive;
+   TxData <= SerialTxData;
+   TxDone <= SerialTxDone;
+   SERIAL_OUTPUT_TX_DATA <= SerialTxData;
+end generate;
+
+UDPUartInterface: if SIMULATED_UART = 0 generate
+   UDP_UART_TX_DATA_VALID <= TxDataValid;  
+   UDP_UART_TX_BYTE <= TxByte;             
+   UDP_UART_TX_FLUSH <= TxFlush;           
+   TxActive <= UDP_UART_TX_ACTIVE;            
+end generate;
 
 -- Output signal "copies        "
 

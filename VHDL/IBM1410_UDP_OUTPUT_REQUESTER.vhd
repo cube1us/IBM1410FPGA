@@ -46,7 +46,7 @@ entity IBM1410_UDP_OUTPUT_REQUESTER is
            UDP_OUTPUT_REQUEST   : out STD_LOGIC;
            UDP_OUTPUT_FLUSH_OUT : out STD_LOGIC;
            UDP_OUTPUT_DATA_OUT  : out STD_LOGIC_VECTOR (7 downto 0));
-eUD;
+end IBM1410_UDP_OUTPUT_REQUESTER;
 
 architecture Behavioral of IBM1410_UDP_OUTPUT_REQUESTER is
 
@@ -67,6 +67,7 @@ requester_process: process(FPGA_CLK, UDP_RESET, requesterState, UDP_OUTPUT_REQUE
    if UDP_RESET = '1' then
       requesterState <= requester_idle;
       UDP_OUTPUT_DATA_OUT <= "00000000";
+      UDP_OUTPUT_FLUSH_OUT <= '0';
       
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
       case requesterState is
@@ -79,6 +80,7 @@ requester_process: process(FPGA_CLK, UDP_RESET, requesterState, UDP_OUTPUT_REQUE
             if UDP_OUTPUT_REQUESTER_STROBE = '1' then
                requesterState <= requester_strobing;
                UDP_OUTPUT_DATA_OUT <= UDP_OUTPUT_DATA_IN;
+               UDP_OUTPUT_FLUSH_OUT <= UDP_OUTPUT_REQUESTER_FLUSH;
             else
                requesterState <= requester_idle;
             end if;
