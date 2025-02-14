@@ -34,21 +34,21 @@ use IEEE.NUMERIC_STD.ALL;
 entity IBM1410_UDP_OUTPUT_UART_TX is
     Generic (
         MAX_UDP_PACKET_SIZE:            integer := 20  -- Eventually, 1400
-    )
+    );
     Port (FPGA_CLOCK:                   in std_logic;
           UDP_UART_RESET:               in std_logic;
           -- UDP Side Interface 
           tx_udp_hdr_ready:             in std_logic;
           tx_udp_payload_axis_tready:   in std_logic;
           tx_udp_hdr_valid:             out std_logic;
-          tx_udp_hdr_axis_tvalid:       out std_logic;
+          tx_udp_payload_axis_tvalid:   out std_logic;
           tx_udp_payload_axis_tdata:    out std_logic_vector(7 downto 0);
           tx_udp_payload_axis_tlast:    out std_logic;
           -- UART-like Interface
           UDP_UART_TX_DATA_VALID:       in std_logic;
           UDP_UART_TX_FLUSH:            in std_logic;
           UDP_UART_TX_BYTE:             in std_logic_vector(7 downto 0);
-          UDP_UART_TX_ACTIVE:           out std_logic;
+          UDP_UART_TX_ACTIVE:           out std_logic
            );
 end IBM1410_UDP_OUTPUT_UART_TX;
 
@@ -76,7 +76,7 @@ begin
         tx_udp_payload_axis_tlast <= '0';
         tx_udp_payload_axis_tvalid <= '0';
         tx_udp_hdr_valid <= '0';
-        tx_udp_payload_axis_tdata <= "00";
+        tx_udp_payload_axis_tdata <= "00000000";
         txUdpUartState <= UDP_UART_TX_IDLE;
 
     elsif FPGA_CLOCK'event and FPGA_CLOCK = '1' then
@@ -103,7 +103,7 @@ begin
             -- New packet - give UDP a chance to get ready
             UDP_UART_TX_ACTIVE <= '1';
             tx_udp_payload_axis_tlast <= '0';
-            tx_udp_payload_axis_tdata <= tx_udp_payload_axis_tdata;
+            -- tx_udp_payload_axis_tdata <= tx_udp_payload_axis_tdata;
                    
             if tx_udp_hdr_ready = '1' then
                 tx_udp_hdr_valid <= '1';
@@ -117,7 +117,7 @@ begin
             if tx_udp_payload_axis_tready = '1' then
                 -- Put the first data byte in the FIFO
                 UDP_UART_TX_ACTIVE <= '0';   
-                tx_udp_payload_axis_tdata <= tx_udp_payload_axis_tdata;
+                -- tx_udp_payload_axis_tdata <= tx_udp_payload_axis_tdata;
                 tx_udp_payload_axis_tvalid <= '1';            
                 tx_udp_hdr_valid <= '0';
                 tx_udp_payload_axis_tlast <= '0';
@@ -125,7 +125,7 @@ begin
             else
                 -- Otherwise, we are waiting for the UDP FIFO to go ready.
                 UDP_UART_TX_ACTIVE <= '1';
-                tx_udp_payload_axis_tdata <= tx_udp_payload_axis_tdata;
+                -- tx_udp_payload_axis_tdata <= tx_udp_payload_axis_tdata;
                 tx_udp_payload_axis_tvalid <= '0';
                 tx_udp_hdr_valid <= '0';
                 tx_udp_payload_axis_tlast <= '0';
@@ -154,7 +154,7 @@ begin
                 end if;
             else
                 tx_udp_payload_axis_tvalid <= '0';
-                tx_udp_payload_axis_tdata <= tx_udp_payload_axis_tdata;
+                -- tx_udp_payload_axis_tdata <= tx_udp_payload_axis_tdata;
                 tx_udp_payload_axis_tlast <= '0';
                 UDP_UART_TX_ACTIVE <= '0';
                 txUdpUartState <= UDP_UART_TX_FILL;
