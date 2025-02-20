@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="EthernetTest_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="EthernetTest_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="1,031.066250 us"></ZoomStartTime>
+      <ZoomEndTime time="1,274.466251 us"></ZoomEndTime>
+      <Cursor1Time time="1,071.566250 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="270"></NameColumnWidth>
+      <ValueColumnWidth column_width="72"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="151" />
+   <wvobject fp_name="/EthernetTest_tb/FPGA_CLK" type="logic">
+      <obj_property name="ElementShortName">FPGA_CLK</obj_property>
+      <obj_property name="ObjectShortName">FPGA_CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/mmcm_clkfb" type="logic">
+      <obj_property name="ElementShortName">mmcm_clkfb</obj_property>
+      <obj_property name="ObjectShortName">mmcm_clkfb</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/mmcm_rst" type="logic">
+      <obj_property name="ElementShortName">mmcm_rst</obj_property>
+      <obj_property name="ObjectShortName">mmcm_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyClk50Mhz" type="logic">
+      <obj_property name="ElementShortName">PhyClk50Mhz</obj_property>
+      <obj_property name="ObjectShortName">PhyClk50Mhz</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyRstn" type="logic">
+      <obj_property name="ElementShortName">PhyRstn</obj_property>
+      <obj_property name="ObjectShortName">PhyRstn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/btnCpuReset" type="logic">
+      <obj_property name="ElementShortName">btnCpuReset</obj_property>
+      <obj_property name="ObjectShortName">btnCpuReset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/clk_mmcm_out" type="logic">
+      <obj_property name="ElementShortName">clk_mmcm_out</obj_property>
+      <obj_property name="ObjectShortName">clk_mmcm_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/clk_50mhz_mmcm_out" type="logic">
+      <obj_property name="ElementShortName">clk_50mhz_mmcm_out</obj_property>
+      <obj_property name="ObjectShortName">clk_50mhz_mmcm_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/mmcm_locked" type="logic">
+      <obj_property name="ElementShortName">mmcm_locked</obj_property>
+      <obj_property name="ObjectShortName">mmcm_locked</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/btnCpuReset" type="logic">
+      <obj_property name="ElementShortName">btnCpuReset</obj_property>
+      <obj_property name="ObjectShortName">btnCpuReset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/SW" type="array">
+      <obj_property name="ElementShortName">SW[15:0]</obj_property>
+      <obj_property name="ObjectShortName">SW[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/btnU" type="logic">
+      <obj_property name="ElementShortName">btnU</obj_property>
+      <obj_property name="ObjectShortName">btnU</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/tx_axis_tdata" type="array">
+      <obj_property name="ElementShortName">tx_axis_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_axis_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyTxEn" type="logic">
+      <obj_property name="ElementShortName">PhyTxEn</obj_property>
+      <obj_property name="ObjectShortName">PhyTxEn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyTxd" type="array">
+      <obj_property name="ElementShortName">PhyTxd[1:0]</obj_property>
+      <obj_property name="ObjectShortName">PhyTxd[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/rx_byte_buf" type="array">
+      <obj_property name="ElementShortName">rx_byte_buf[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_byte_buf[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/rx_byte" type="array">
+      <obj_property name="ElementShortName">rx_byte[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_byte[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/udp_ip_tx_inst/state_reg" type="array">
+      <obj_property name="ElementShortName">state_reg[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_reg[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/crc_rst" type="logic">
+      <obj_property name="ElementShortName">crc_rst</obj_property>
+      <obj_property name="ObjectShortName">crc_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/crc_vld" type="logic">
+      <obj_property name="ElementShortName">crc_vld</obj_property>
+      <obj_property name="ObjectShortName">crc_vld</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/crc_dat" type="array">
+      <obj_property name="ElementShortName">crc_dat[7:0]</obj_property>
+      <obj_property name="ObjectShortName">crc_dat[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/crc_code" type="array">
+      <obj_property name="ElementShortName">crc_code[31:0]</obj_property>
+      <obj_property name="ObjectShortName">crc_code[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/crc_bswap" type="array">
+      <obj_property name="ElementShortName">crc_bswap[31:0]</obj_property>
+      <obj_property name="ObjectShortName">crc_bswap[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/udp_ip_tx_inst/state_reg" type="array">
+      <obj_property name="ElementShortName">state_reg[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_reg[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/udp_ip_tx_inst/store_udp_hdr" type="logic">
+      <obj_property name="ElementShortName">store_udp_hdr</obj_property>
+      <obj_property name="ObjectShortName">store_udp_hdr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/RgB1_Red" type="logic">
+      <obj_property name="ElementShortName">RgB1_Red</obj_property>
+      <obj_property name="ObjectShortName">RgB1_Red</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/RGB1_Green" type="logic">
+      <obj_property name="ElementShortName">RGB1_Green</obj_property>
+      <obj_property name="ObjectShortName">RGB1_Green</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/RGB1_Blue" type="logic">
+      <obj_property name="ElementShortName">RGB1_Blue</obj_property>
+      <obj_property name="ObjectShortName">RGB1_Blue</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/RgB2_Red" type="logic">
+      <obj_property name="ElementShortName">RgB2_Red</obj_property>
+      <obj_property name="ObjectShortName">RgB2_Red</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/RGB2_Green" type="logic">
+      <obj_property name="ElementShortName">RGB2_Green</obj_property>
+      <obj_property name="ObjectShortName">RGB2_Green</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/RGB2_Blue" type="logic">
+      <obj_property name="ElementShortName">RGB2_Blue</obj_property>
+      <obj_property name="ObjectShortName">RGB2_Blue</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/RsRx" type="logic">
+      <obj_property name="ElementShortName">RsRx</obj_property>
+      <obj_property name="ObjectShortName">RsRx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/LED" type="array">
+      <obj_property name="ElementShortName">LED[15:0]</obj_property>
+      <obj_property name="ObjectShortName">LED[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/btnCpuReset" type="logic">
+      <obj_property name="ElementShortName">btnCpuReset</obj_property>
+      <obj_property name="ObjectShortName">btnCpuReset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/resetState" type="other">
+      <obj_property name="ElementShortName">resetState</obj_property>
+      <obj_property name="ObjectShortName">resetState</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/rst_int" type="logic">
+      <obj_property name="ElementShortName">rst_int</obj_property>
+      <obj_property name="ObjectShortName">rst_int</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/mii_to_rmii_interface/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/RsTx" type="logic">
+      <obj_property name="ElementShortName">RsTx</obj_property>
+      <obj_property name="ObjectShortName">RsTx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/RxRx" type="logic">
+      <obj_property name="ElementShortName">RxRx</obj_property>
+      <obj_property name="ObjectShortName">RxRx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyMdc" type="logic">
+      <obj_property name="ElementShortName">PhyMdc</obj_property>
+      <obj_property name="ObjectShortName">PhyMdc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyMdio" type="logic">
+      <obj_property name="ElementShortName">PhyMdio</obj_property>
+      <obj_property name="ObjectShortName">PhyMdio</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyRxErr" type="logic">
+      <obj_property name="ElementShortName">PhyRxErr</obj_property>
+      <obj_property name="ObjectShortName">PhyRxErr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyClk50Mhz" type="logic">
+      <obj_property name="ElementShortName">PhyClk50Mhz</obj_property>
+      <obj_property name="ObjectShortName">PhyClk50Mhz</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyCrs" type="logic">
+      <obj_property name="ElementShortName">PhyCrs</obj_property>
+      <obj_property name="ObjectShortName">PhyCrs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyRxd" type="array">
+      <obj_property name="ElementShortName">PhyRxd[1:0]</obj_property>
+      <obj_property name="ObjectShortName">PhyRxd[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/tx_i" type="other">
+      <obj_property name="ElementShortName">tx_i</obj_property>
+      <obj_property name="ObjectShortName">tx_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/crc_code" type="array">
+      <obj_property name="ElementShortName">crc_code[31:0]</obj_property>
+      <obj_property name="ObjectShortName">crc_code[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/crc_bswap" type="array">
+      <obj_property name="ElementShortName">crc_bswap[31:0]</obj_property>
+      <obj_property name="ObjectShortName">crc_bswap[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/PhyIntn" type="logic">
+      <obj_property name="ElementShortName">PhyIntn</obj_property>
+      <obj_property name="ObjectShortName">PhyIntn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/mii_to_rmii_interface/U0/phy2rmii_crs_dv" type="logic">
+      <obj_property name="ElementShortName">phy2rmii_crs_dv</obj_property>
+      <obj_property name="ObjectShortName">phy2rmii_crs_dv</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/mii_to_rmii_interface/U0/phy2rmii_rx_er" type="logic">
+      <obj_property name="ElementShortName">phy2rmii_rx_er</obj_property>
+      <obj_property name="ObjectShortName">phy2rmii_rx_er</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/mii_to_rmii_interface/U0/phy2rmii_rxd" type="array">
+      <obj_property name="ElementShortName">phy2rmii_rxd[1:0]</obj_property>
+      <obj_property name="ObjectShortName">phy2rmii_rxd[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/rmii2mac_rx_clk" type="logic">
+      <obj_property name="ElementShortName">rmii2mac_rx_clk</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_rx_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/rmii2mac_crs" type="logic">
+      <obj_property name="ElementShortName">rmii2mac_crs</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_crs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/rmii2mac_rx_dv" type="logic">
+      <obj_property name="ElementShortName">rmii2mac_rx_dv</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_rx_dv</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/rmii2mac_rx_er" type="logic">
+      <obj_property name="ElementShortName">rmii2mac_rx_er</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_rx_er</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/mii_to_rmii_interface/rmii2mac_rxd" type="array">
+      <obj_property name="ElementShortName">rmii2mac_rxd[3:0]</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_rxd[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/phy_rxd" type="array">
+      <obj_property name="ElementShortName">phy_rxd[3:0]</obj_property>
+      <obj_property name="ObjectShortName">phy_rxd[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/incoming_frame_ready" type="logic">
+      <obj_property name="ElementShortName">incoming_frame_ready</obj_property>
+      <obj_property name="ObjectShortName">incoming_frame_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/rx_axis_tdata" type="array">
+      <obj_property name="ElementShortName">rx_axis_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_axis_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/rx_axis_tlast" type="logic">
+      <obj_property name="ElementShortName">rx_axis_tlast</obj_property>
+      <obj_property name="ObjectShortName">rx_axis_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/rx_axis_tready" type="logic">
+      <obj_property name="ElementShortName">rx_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">rx_axis_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/rx_axis_tuser" type="logic">
+      <obj_property name="ElementShortName">rx_axis_tuser</obj_property>
+      <obj_property name="ObjectShortName">rx_axis_tuser</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/rx_axis_tvalid" type="logic">
+      <obj_property name="ElementShortName">rx_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">rx_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/s_eth_hdr_valid" type="logic">
+      <obj_property name="ElementShortName">s_eth_hdr_valid</obj_property>
+      <obj_property name="ObjectShortName">s_eth_hdr_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/s_select_arp" type="logic">
+      <obj_property name="ElementShortName">s_select_arp</obj_property>
+      <obj_property name="ObjectShortName">s_select_arp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/s_select_ip" type="logic">
+      <obj_property name="ElementShortName">s_select_ip</obj_property>
+      <obj_property name="ObjectShortName">s_select_ip</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/s_eth_type" type="array">
+      <obj_property name="ElementShortName">s_eth_type[15:0]</obj_property>
+      <obj_property name="ObjectShortName">s_eth_type[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/arp_response_valid" type="logic">
+      <obj_property name="ElementShortName">arp_response_valid</obj_property>
+      <obj_property name="ObjectShortName">arp_response_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/arp_response_ready" type="logic">
+      <obj_property name="ElementShortName">arp_response_ready</obj_property>
+      <obj_property name="ObjectShortName">arp_response_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/arp_response_error" type="logic">
+      <obj_property name="ElementShortName">arp_response_error</obj_property>
+      <obj_property name="ObjectShortName">arp_response_error</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/arp_response_mac" type="array">
+      <obj_property name="ElementShortName">arp_response_mac[47:0]</obj_property>
+      <obj_property name="ObjectShortName">arp_response_mac[47:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/incoming_frame_valid" type="logic">
+      <obj_property name="ElementShortName">incoming_frame_valid</obj_property>
+      <obj_property name="ObjectShortName">incoming_frame_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/incoming_frame_ready" type="logic">
+      <obj_property name="ElementShortName">incoming_frame_ready</obj_property>
+      <obj_property name="ObjectShortName">incoming_frame_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/incoming_eth_type" type="array">
+      <obj_property name="ElementShortName">incoming_eth_type[15:0]</obj_property>
+      <obj_property name="ObjectShortName">incoming_eth_type[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/incoming_arp_htype" type="array">
+      <obj_property name="ElementShortName">incoming_arp_htype[15:0]</obj_property>
+      <obj_property name="ObjectShortName">incoming_arp_htype[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/incoming_arp_ptype" type="array">
+      <obj_property name="ElementShortName">incoming_arp_ptype[15:0]</obj_property>
+      <obj_property name="ObjectShortName">incoming_arp_ptype[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/arp_inst/s_eth_payload_axis_tdata" type="array">
+      <obj_property name="ElementShortName">s_eth_payload_axis_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_eth_payload_axis_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_axis_rx_inst/s_axis_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_axis_rx_inst/s_axis_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/rx_axis_tvalid" type="logic">
+      <obj_property name="ElementShortName">rx_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">rx_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/s_axis_tready" type="logic">
+      <obj_property name="ElementShortName">s_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/s_axis_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/s_axis_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/s_axis_tlast" type="logic">
+      <obj_property name="ElementShortName">s_axis_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/overflow_reg" type="logic">
+      <obj_property name="ElementShortName">overflow_reg</obj_property>
+      <obj_property name="ObjectShortName">overflow_reg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/bad_frame_reg" type="logic">
+      <obj_property name="ElementShortName">bad_frame_reg</obj_property>
+      <obj_property name="ObjectShortName">bad_frame_reg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/s_status_bad_frame" type="logic">
+      <obj_property name="ElementShortName">s_status_bad_frame</obj_property>
+      <obj_property name="ObjectShortName">s_status_bad_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/s_axis_tuser" type="array">
+      <obj_property name="ElementShortName">s_axis_tuser[0:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_tuser[0:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/m_axis_tvalid" type="logic">
+      <obj_property name="ElementShortName">m_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/m_axis_tvalid_out" type="logic">
+      <obj_property name="ElementShortName">m_axis_tvalid_out</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tvalid_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/m_axis_tvalid_pipe" type="logic">
+      <obj_property name="ElementShortName">m_axis_tvalid_pipe</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tvalid_pipe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/m_axis_tvalid_pipe_reg" type="array">
+      <obj_property name="ElementShortName">m_axis_tvalid_pipe_reg[1:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tvalid_pipe_reg[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/m_axis_tdata" type="array">
+      <obj_property name="ElementShortName">m_axis_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/m_axis_tready" type="logic">
+      <obj_property name="ElementShortName">m_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/m_axis_tready_pipe" type="logic">
+      <obj_property name="ElementShortName">m_axis_tready_pipe</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tready_pipe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/m_axis_tready_out" type="logic">
+      <obj_property name="ElementShortName">m_axis_tready_out</obj_property>
+      <obj_property name="ObjectShortName">m_axis_tready_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/drop_frame_reg" type="logic">
+      <obj_property name="ElementShortName">drop_frame_reg</obj_property>
+      <obj_property name="ObjectShortName">drop_frame_reg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/s_clk" type="logic">
+      <obj_property name="ElementShortName">s_clk</obj_property>
+      <obj_property name="ObjectShortName">s_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/eth_mac_inst/rx_fifo/fifo_inst/m_drop_frame_reg" type="logic">
+      <obj_property name="ElementShortName">m_drop_frame_reg</obj_property>
+      <obj_property name="ObjectShortName">m_drop_frame_reg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/tx_arp" type="array">
+      <obj_property name="ElementShortName">tx_arp[479:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_arp[479:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/tx_data" type="array">
+      <obj_property name="ElementShortName">tx_data[12175:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data[12175:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/arp_request_valid" type="logic">
+      <obj_property name="ElementShortName">arp_request_valid</obj_property>
+      <obj_property name="ObjectShortName">arp_request_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/arp_request_ready" type="logic">
+      <obj_property name="ElementShortName">arp_request_ready</obj_property>
+      <obj_property name="ObjectShortName">arp_request_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/arp_request_ip" type="array">
+      <obj_property name="ElementShortName">arp_request_ip[31:0]</obj_property>
+      <obj_property name="ObjectShortName">arp_request_ip[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/arp_response_valid" type="logic">
+      <obj_property name="ElementShortName">arp_response_valid</obj_property>
+      <obj_property name="ObjectShortName">arp_response_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/arp_response_ready" type="logic">
+      <obj_property name="ElementShortName">arp_response_ready</obj_property>
+      <obj_property name="ObjectShortName">arp_response_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/arp_response_error" type="logic">
+      <obj_property name="ElementShortName">arp_response_error</obj_property>
+      <obj_property name="ObjectShortName">arp_response_error</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/arp_response_mac" type="array">
+      <obj_property name="ElementShortName">arp_response_mac[47:0]</obj_property>
+      <obj_property name="ObjectShortName">arp_response_mac[47:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/state_reg" type="array">
+      <obj_property name="ElementShortName">state_reg[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state_reg[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/drop_packet_reg" type="logic">
+      <obj_property name="ElementShortName">drop_packet_reg</obj_property>
+      <obj_property name="ObjectShortName">drop_packet_reg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/drop_packet_next" type="logic">
+      <obj_property name="ElementShortName">drop_packet_next</obj_property>
+      <obj_property name="ObjectShortName">drop_packet_next</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/s_ip_payload_axis_tdata" type="array">
+      <obj_property name="ElementShortName">s_ip_payload_axis_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_ip_payload_axis_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/s_ip_payload_axis_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_ip_payload_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_ip_payload_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/s_ip_payload_axis_tready" type="logic">
+      <obj_property name="ElementShortName">s_ip_payload_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">s_ip_payload_axis_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/s_ip_payload_axis_tlast" type="logic">
+      <obj_property name="ElementShortName">s_ip_payload_axis_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_ip_payload_axis_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/ip_complete_inst/ip_inst/s_ip_payload_axis_tuser" type="logic">
+      <obj_property name="ElementShortName">s_ip_payload_axis_tuser</obj_property>
+      <obj_property name="ObjectShortName">s_ip_payload_axis_tuser</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/rx_err" type="logic">
+      <obj_property name="ElementShortName">rx_err</obj_property>
+      <obj_property name="ObjectShortName">rx_err</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/rx_i" type="other">
+      <obj_property name="ElementShortName">rx_i</obj_property>
+      <obj_property name="ObjectShortName">rx_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/rx_b" type="other">
+      <obj_property name="ElementShortName">rx_b</obj_property>
+      <obj_property name="ObjectShortName">rx_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/rx_byte_buf" type="array">
+      <obj_property name="ElementShortName">rx_byte_buf[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_byte_buf[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/rx_preamble_buffer" type="array">
+      <obj_property name="ElementShortName">rx_preamble_buffer[63:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_preamble_buffer[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/udp_ip_tx_inst/state_reg" type="array">
+      <obj_property name="ElementShortName">state_reg[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_reg[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/udp_ip_tx_inst/state_next" type="array">
+      <obj_property name="ElementShortName">state_next[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_next[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/btnU" type="logic">
+      <obj_property name="ElementShortName">btnU</obj_property>
+      <obj_property name="ObjectShortName">btnU</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/s_udp_hdr_ready" type="logic">
+      <obj_property name="ElementShortName">s_udp_hdr_ready</obj_property>
+      <obj_property name="ObjectShortName">s_udp_hdr_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/tx_udp_hdr_valid" type="logic">
+      <obj_property name="ElementShortName">tx_udp_hdr_valid</obj_property>
+      <obj_property name="ObjectShortName">tx_udp_hdr_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/test_payload_tready" type="logic">
+      <obj_property name="ElementShortName">test_payload_tready</obj_property>
+      <obj_property name="ObjectShortName">test_payload_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/test_payload_tvalid" type="logic">
+      <obj_property name="ElementShortName">test_payload_tvalid</obj_property>
+      <obj_property name="ObjectShortName">test_payload_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/test_payload_tdata" type="array">
+      <obj_property name="ElementShortName">test_payload_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">test_payload_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/test_payload_tlast" type="logic">
+      <obj_property name="ElementShortName">test_payload_tlast</obj_property>
+      <obj_property name="ObjectShortName">test_payload_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/tx_udp_payload_axis_tvalid" type="logic">
+      <obj_property name="ElementShortName">tx_udp_payload_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">tx_udp_payload_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/txNextTestState" type="array">
+      <obj_property name="ElementShortName">txNextTestState[2:0]</obj_property>
+      <obj_property name="ObjectShortName">txNextTestState[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/txTestState" type="array">
+      <obj_property name="ElementShortName">txTestState[2:0]</obj_property>
+      <obj_property name="ObjectShortName">txTestState[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/tx_fill_counter" type="array">
+      <obj_property name="ElementShortName">tx_fill_counter[5:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_fill_counter[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/tx_udp_length" type="array">
+      <obj_property name="ElementShortName">tx_udp_length[15:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_udp_length[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/s_udp_length" type="array">
+      <obj_property name="ElementShortName">s_udp_length[15:0]</obj_property>
+      <obj_property name="ObjectShortName">s_udp_length[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/udp_ip_tx_inst/s_udp_length" type="array">
+      <obj_property name="ElementShortName">s_udp_length[15:0]</obj_property>
+      <obj_property name="ObjectShortName">s_udp_length[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/tx_udp_length" type="array">
+      <obj_property name="ElementShortName">tx_udp_length[15:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_udp_length[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_hdr_ready" type="logic">
+      <obj_property name="ElementShortName">s_udp_hdr_ready</obj_property>
+      <obj_property name="ObjectShortName">s_udp_hdr_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_payload_axis_tdata" type="array">
+      <obj_property name="ElementShortName">s_udp_payload_axis_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_udp_payload_axis_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_payload_axis_tlast" type="logic">
+      <obj_property name="ElementShortName">s_udp_payload_axis_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_udp_payload_axis_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_payload_axis_tready" type="logic">
+      <obj_property name="ElementShortName">s_udp_payload_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">s_udp_payload_axis_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_payload_fifo_tdata" type="array">
+      <obj_property name="ElementShortName">s_udp_payload_fifo_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">s_udp_payload_fifo_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_payload_fifo_tlast" type="logic">
+      <obj_property name="ElementShortName">s_udp_payload_fifo_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_udp_payload_fifo_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_payload_fifo_tready" type="logic">
+      <obj_property name="ElementShortName">s_udp_payload_fifo_tready</obj_property>
+      <obj_property name="ObjectShortName">s_udp_payload_fifo_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_payload_fifo_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_udp_payload_fifo_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_udp_payload_fifo_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /state_reg" type="array">
+      <obj_property name="ElementShortName">state_reg[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_reg[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_payload_axis_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_udp_payload_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_udp_payload_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_payload_axis_tready" type="logic">
+      <obj_property name="ElementShortName">s_udp_payload_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">s_udp_payload_axis_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/EthernetTest_tb/EthernetTestUUT/UDP/core_inst/udp_complete_inst/udp_inst/\genblk1.udp_checksum_gen_inst /s_udp_payload_axis_tlast" type="logic">
+      <obj_property name="ElementShortName">s_udp_payload_axis_tlast</obj_property>
+      <obj_property name="ObjectShortName">s_udp_payload_axis_tlast</obj_property>
+   </wvobject>
+</wave_config>

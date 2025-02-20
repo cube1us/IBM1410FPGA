@@ -1,0 +1,1 @@
+create_clock -period 20.00 -name phy_clk [get_ports PhyClk50Mhz]
