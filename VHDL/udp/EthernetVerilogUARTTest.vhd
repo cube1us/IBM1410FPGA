@@ -54,8 +54,8 @@ entity EthernetVerilogUARTTest is
       RGB2_Green: out STD_LOGIC;
       RGB2_Blue:  out STD_LOGIC;
       btnC, btnL, btnR, btnU, btnD, btnCpuReset: in STD_LOGIC;
---      RsTx:       out STD_LOGIC; -- from FPGA to USB/Serial
---      RsRx:       in STD_LOGIC;  -- to FPGA from USB/Serial
+      RsTx:       out STD_LOGIC; -- from FPGA to USB/Serial
+      RsRx:       in STD_LOGIC;  -- to FPGA from USB/Serial
       
       -- Ethernet Port (PHY)
       PhyMdc:      out STD_LOGIC;  -- Not used
