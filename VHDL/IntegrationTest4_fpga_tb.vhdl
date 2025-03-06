@@ -745,11 +745,13 @@ end RECEIVE_TX;
    variable receivedMac: STD_LOGIC_VECTOR(47 downto 0);
    variable i,j: integer;
    variable LOOPBACK: integer := 0;
+   variable ETHERNETTEST: integer := 0;
+   variable SWITCHTEST : integer := 1;
    
 
   begin
   
-  if LOOPBACK /= 1 then
+  if LOOPBACK /= 1 and ETHERNETTEST = 1 then
   
     report "Starting non loopback Ethernet test" severity note;
   
@@ -848,7 +850,47 @@ end RECEIVE_TX;
     wait for 500 us;
      
     report "Normal End of Ethernet Test" severity failure;
-    end if;  -- LOOPACK /= 1
+    end if;  -- LOOPACK /= 1 and EthernetTest = 1
+    
+if SWITCHTEST = 1 then
+
+    btnU <= '0';
+    btnC <= '0';
+    PhyRxErr <= '0';
+    PhyIntn <= '1';    
+    wait for 100 ns;
+    wait until PhyRstn = '1';
+    wait for 1500 us;
+    
+    -- Send a packet for the UDP input handler
+    
+    -- This packet turns OFF the Run Mode (starts to rotate the switch)
+
+    tx_data(663 downto 0) <=
+        X"0000030002000140200004000000000001000000000000100000000000400020" &
+        X"0000004000040000800C75310000040004FE2AA8C03C2AA8C01CA41140000001" &
+        X"0045000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(83,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 83, testName => "Off Run Mode Packet to FPGA", verbosity => 1); 
+    wait for 1 ms;   
+        
+    -- this packet sets the mode to Display.  (Note that the data below is
+    -- in least significant nybble first.)
+
+    tx_data(663 downto 0) <=
+        X"0000030002000140200004000000000000010000000000100000000000400020" &
+        X"0000004000040000800B76310000040004FE2AA8C03C2AA8C01CA41140000001" &
+        X"0045000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(83,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 83, testName => "Display Mode Packet to FPGA", verbosity => 1);    
+
+    wait for 1 ms;
+
+    report "Normal End of UDP Switch Test" severity failure;    
+
+end if;
 
 if LOOPBACK = 1 then
    wait for 1 ms;
