@@ -1144,6 +1144,28 @@ end component;
        );
    end component;
 
+component IBM1410_UDP_INPUT_SUBSYSTEM is
+
+    GENERIC (
+       UDP_INPUT_FIFO_COUNT: Integer := 8
+       );
+    Port ( 
+       FPGA_CLK: in STD_LOGIC;
+       RESET: in STD_LOGIC;
+       -- Interface to UART-LIKE UDP INTERFACE
+       UDP_UART_RX_DATA_READY: out STD_LOGIC;  -- Indicates this component ready for data
+       UDP_UART_RX_DATA_VALID: in  STD_LOGIC;  -- Indicates a byte of UDP data available
+       UDP_UART_RX_BYTE: in STD_LOGIC_VECTOR(7 downto 0); -- A byte of UDP data
+       UDP_UART_RX_PACKET_END: in STD_LOGIC;   -- Indicates end of packet (not currently used)
+       -- Interface to the IBM 1410 FPGA I/O components.  They are required to have FIFOs
+       -- large enough that this component does NOT need to wait for them
+       UDP_INPUT_FIFO_WRITE_ENABLE : out STD_LOGIC_VECTOR (UDP_INPUT_FIFO_COUNT-1 downto 0);
+       UDP_INPUT_FIFO_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0);
+       UDP_INPUT_CURRENT_STREAM: out STD_LOGIC_VECTOR(7 downto 0) 
+       );
+end component;
+
+
 component IBM1410_UDP_OUTPUT_SUBSYSTEM is
     GENERIC (
        SIMULATED_UART: integer := 1
@@ -2400,6 +2422,16 @@ end component udp_fpga;
    signal UDP_UART_RX_DATA_VALID:     std_logic := '0';
    signal UDP_UART_RX_BYTE:           std_logic_vector (7 downto 0) := X"00";
    signal UDP_UART_RX_PACKET_END:     std_logic := '0';
+
+   -- UDP Input FIFOs Interface Signals
+
+   constant UDP_INPUT_FIFO_COUNT: integer := 8;
+
+   signal UDP_INPUT_FIFO_WRITE_ENABLES: STD_LOGIC_VECTOR (UDP_INPUT_FIFO_COUNT-1 downto 0) 
+      := (others => '0');
+   signal UDP_INPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0);
+   signal UDP_INPUT_CURRENT_STREAM: STD_LOGIC_VECTOR(7 downto 0);
+   
    
    -- Signals for UDP output TO the network
    
@@ -3701,6 +3733,7 @@ memory: IBM1410Memory
        UART_INPUT_CURRENT_STREAM => UART_INPUT_CURRENT_STREAM 
        );
 
+
    -- Instantiate the Xilinx provided IP to translate between the mii interface
    -- used by the UDP logic, and the rmii interface used by the PHY Ethernet
    -- on the NEXYS4 development board.
@@ -3769,6 +3802,29 @@ udp_uart_rx_interface: IBM1410_UDP_INPUT_UART_RX
           UDP_UART_RX_BYTE => UDP_UART_RX_BYTE, 
           UDP_UART_RX_PACKET_END => UDP_UART_RX_PACKET_END
     );
+
+-- Instantiate the IBM1410 UDP based input subsystem
+
+UDP_INPUT_SUBSYSTEM: IBM1410_UDP_INPUT_SUBSYSTEM is
+
+    GENERIC (
+       UDP_INPUT_FIFO_COUNT: Integer := UDP_INPUT_FIFO_COUNT
+       );
+    Port ( 
+       FPGA_CLK => FLGA_CLK,
+       RESET =>    UDP_RESET,
+       -- Interface to UART-LIKE UDP INTERFACE
+       UDP_UART_RX_DATA_READY => UDP_UART_RX_DATA_READY,  -- Indicates this component ready for data
+       UDP_UART_RX_DATA_VALID => UDP_RX_DATA_VALID,       -- Indicates a byte of UDP data available
+       UDP_UART_RX_BYTE       => UDP_UART_RX_BYTE,        -- A byte of UDP data
+       UDP_UART_RX_PACKET_END => UDP_UART_RX_PACKET_END,  -- Indicates end of packet (not currently used)
+       -- Interface to the IBM 1410 FPGA I/O components.  They are required to have FIFOs
+       -- large enough that this component does NOT need to wait for them
+       UDP_INPUT_FIFO_WRITE_ENABLE => UDP_INPUT_FIFO_WRITE_ENABLES,
+       UDP_INPUT_FIFO_WRITE_DATA   => UDP_INPUT_FIFL_WRITE_DATA,
+       UDP_INPUT_CURRENT_STREAM    => UDP_INPUT_CURRENT_STREAM
+       );
+
 
 -- Instantiate the IBM 1410 UDP based output subsystem
 
@@ -3876,10 +3932,13 @@ UDP: udp_fpga
        SWITCH_VECTOR_BITS => SWITCH_VECTOR_BITS
        )
     Port Map ( FPGA_CLK => FPGA_CLK,
-           RESET => UART_SWITCH_RESET,
+           -- RESET => UART_SWITCH_RESET,
+		   RESET => UDP_RESET
            SWITCH_VECTOR_INIT => SWITCH_VECTOR_INIT,
-           SWITCH_FIFO_WRITE_ENABLE => UART_INPUT_FIFO_WRITE_ENABLES(0),
-           SWITCH_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA,
+           -- SWITCH_FIFO_WRITE_ENABLE => UART_INPUT_FIFO_WRITE_ENABLES(0),
+           -- SWITCH_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA,
+           SWITCH_FIFO_WRITE_ENABLE => UDP_INPUT_FIFO_WRITE_ENABLES(0),
+           SWITCH_FIFO_WRITE_DATA => UDP_INPUT_FIFO_WRITE_DATA,
            SWITCH_VECTOR => SWITCH_VECTOR
     );
     
@@ -4167,45 +4226,47 @@ outputSubsystemOutput: if USE_UDP_OUTPUT_TEST = 1 generate
       
       end process;
       
-rxUartTest: process(FPGA_CLK, UDP_RESET, 
-   UDP_UART_RX_DATA_VALID, UDP_UART_RX_BYTE, UDP_UART_RX_PACKET_END,
-   rxTestState)
-   begin
+-- rxUartTest: process(FPGA_CLK, UDP_RESET, 
+--    UDP_UART_RX_DATA_VALID, UDP_UART_RX_BYTE, UDP_UART_RX_PACKET_END,
+--    rxTestState)
+--    begin
    
-   if UDP_RESET = '1' then
-      rxTestState <= RX_IDLE;
-      rx_first_byte <= X"FF";
-      rx_last_byte <= X"FF";
-      rx_byte_count <= 0;
-      rx_delay_counter <= 0;
+--    if UDP_RESET = '1' then
+--       rxTestState <= RX_IDLE;
+--       rx_first_byte <= X"FF";
+--       rx_last_byte <= X"FF";
+--       rx_byte_count <= 0;
+--       rx_delay_counter <= 0;
       
-   elsif FPGA_CLK'event and FPGA_CLK = '1' then
-      if UDP_UART_RX_DATA_READY = '1' then  --- This is ME being ready for data from UART
-         if UDP_UART_RX_DATA_VALID = '1' then         
-            if rx_byte_count = 0 then
-               rx_first_byte <= UDP_UART_RX_BYTE;
-            end if;
-            rx_byte_count <= rx_byte_count + 1;
-            if UDP_UART_RX_PACKET_END = '1' then
-               rx_last_byte <= UDP_UART_RX_BYTE;
-            end if;
-         end if;
-      end if;
+--    elsif FPGA_CLK'event and FPGA_CLK = '1' then
+      -- if UDP_UART_RX_DATA_READY = '1' then  --- This is ME being ready for data from UART
+      --    if UDP_UART_RX_DATA_VALID = '1' then         
+      --       if rx_byte_count = 0 then
+      --          rx_first_byte <= UDP_UART_RX_BYTE;
+      --       end if;
+      --       rx_byte_count <= rx_byte_count + 1;
+      --       if UDP_UART_RX_PACKET_END = '1' then
+      --          rx_last_byte <= UDP_UART_RX_BYTE;
+      --       end if;
+      --    end if;
+      -- end if;
       
+	  -- 
+
       -- The following controls the UDP_UART_RX_DATA_READY so it is only
       -- true once every 5 cycles -- to test speed matching!
       -- UDP_UART_RX_DATA_READY is a combinatorial signal fed to
       -- the Uart interface.
       
-      if rx_delay_counter =32 then
-         rx_delay_counter <= 0;
-      else
-         rx_delay_counter <= rx_delay_counter + 1;
-      end if;
+      -- if rx_delay_counter =32 then
+      --    rx_delay_counter <= 0;
+	  -- else
+      --    rx_delay_counter <= rx_delay_counter + 1;
+      -- end if;
       
-   end if;
+--    end if;
      
-   end process;
+--    end process;
       
       
    end generate;
