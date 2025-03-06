@@ -1349,6 +1349,7 @@ end component udp_fpga;
        );
     Port ( FPGA_CLK : in STD_LOGIC;
            RESET : in STD_LOGIC;
+           DEBUG_VECTOR: out STD_LOGIC_VECTOR(7 downto 0);
            SWITCH_VECTOR_INIT: in STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downto 0);
            SWITCH_FIFO_WRITE_ENABLE : in STD_LOGIC;
            SWITCH_FIFO_WRITE_DATA : in STD_LOGIC_VECTOR (7 downto 0);
@@ -2311,6 +2312,7 @@ end component udp_fpga;
       SWITCH_ROT_STOR_SCAN_DK1_INDEX+3 => '1', SWITCH_MOM_STARTPRINT_INDEX => '1',
       SWITCH_TOG_ASTERISK_PL2_INDEX => '1',
       others => '0');
+   signal SWITCHES_DEBUG_VECTOR: STD_LOGIC_VECTOR(7 downto 0) := (others => '0');
    
    -- Debounced hardware START switch
    
@@ -3805,23 +3807,23 @@ udp_uart_rx_interface: IBM1410_UDP_INPUT_UART_RX
 
 -- Instantiate the IBM1410 UDP based input subsystem
 
-UDP_INPUT_SUBSYSTEM: IBM1410_UDP_INPUT_SUBSYSTEM is
+UDP_INPUT_SUBSYSTEM: IBM1410_UDP_INPUT_SUBSYSTEM
 
-    GENERIC (
-       UDP_INPUT_FIFO_COUNT: Integer := UDP_INPUT_FIFO_COUNT
-       );
-    Port ( 
-       FPGA_CLK => FLGA_CLK,
+    GENERIC MAP (
+       UDP_INPUT_FIFO_COUNT => UDP_INPUT_FIFO_COUNT
+       )
+    Port Map ( 
+       FPGA_CLK => FPGA_CLK,
        RESET =>    UDP_RESET,
        -- Interface to UART-LIKE UDP INTERFACE
        UDP_UART_RX_DATA_READY => UDP_UART_RX_DATA_READY,  -- Indicates this component ready for data
-       UDP_UART_RX_DATA_VALID => UDP_RX_DATA_VALID,       -- Indicates a byte of UDP data available
+       UDP_UART_RX_DATA_VALID => UDP_UART_RX_DATA_VALID,  -- Indicates a byte of UDP data available
        UDP_UART_RX_BYTE       => UDP_UART_RX_BYTE,        -- A byte of UDP data
        UDP_UART_RX_PACKET_END => UDP_UART_RX_PACKET_END,  -- Indicates end of packet (not currently used)
        -- Interface to the IBM 1410 FPGA I/O components.  They are required to have FIFOs
        -- large enough that this component does NOT need to wait for them
        UDP_INPUT_FIFO_WRITE_ENABLE => UDP_INPUT_FIFO_WRITE_ENABLES,
-       UDP_INPUT_FIFO_WRITE_DATA   => UDP_INPUT_FIFL_WRITE_DATA,
+       UDP_INPUT_FIFO_WRITE_DATA   => UDP_INPUT_FIFO_WRITE_DATA,
        UDP_INPUT_CURRENT_STREAM    => UDP_INPUT_CURRENT_STREAM
        );
 
@@ -3933,7 +3935,8 @@ UDP: udp_fpga
        )
     Port Map ( FPGA_CLK => FPGA_CLK,
            -- RESET => UART_SWITCH_RESET,
-		   RESET => UDP_RESET
+           DEBUG_VECTOR => SWITCHES_DEBUG_VECTOR,
+		     RESET => UDP_RESET,
            SWITCH_VECTOR_INIT => SWITCH_VECTOR_INIT,
            -- SWITCH_FIFO_WRITE_ENABLE => UART_INPUT_FIFO_WRITE_ENABLES(0),
            -- SWITCH_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA,
@@ -4479,7 +4482,11 @@ outputSubsystemOutput: if USE_UDP_OUTPUT_TEST = 1 generate
 --      else "1011" when outputSubsystemTestState = outputSubsystemTestButtonWait
 --      else "0000";
    
-   LED(7 downto 0) <= rx_last_byte;
+   -- LED(7 downto 0) <= rx_last_byte;
+   -- LED(7 downto 0) <= SWITCHES_DEBUG_VECTOR;
+   -- LED(7 downto 0) <= SWITCH_VECTOR(15 downto 8);
+   -- LED(7 downto 0) <= SWITCH_VECTOR(
+   --    to_integer(unsigned(SW(15 downto 8))) downto to_integer(unsigned(SW(15 downto 8))) -7);
    
    LED(15) <= LAMP_15A1K24; -- Stop
    
@@ -4667,8 +4674,9 @@ outputSubsystemOutput: if USE_UDP_OUTPUT_TEST = 1 generate
       rx_udp_ip_dest_ip = udp_local_ip
       else '0';
       
-   UDP_UART_RX_DATA_READY <= '1' when 
-      rx_delay_counter = 0 else '0';      
+--   Testing logic for simulating a delay in reading UDP input packet data
+--   UDP_UART_RX_DATA_READY <= '1' when 
+--      rx_delay_counter = 0 else '0';      
    
 -- Your test bench code
 
