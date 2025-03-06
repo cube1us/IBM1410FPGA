@@ -41,7 +41,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity IBM1410_UDP_INPUT_SUBSYSTEM is
 
     GENERIC (
-       UART_INPUT_FIFO_COUNT: Integer := 8
+       UDP_INPUT_FIFO_COUNT: Integer := 8
        );
     Port ( 
        FPGA_CLK: in STD_LOGIC;
@@ -53,7 +53,7 @@ entity IBM1410_UDP_INPUT_SUBSYSTEM is
        UDP_UART_RX_PACKET_END: in STD_LOGIC;   -- Indicates end of packet (not currently used)
        -- Interface to the IBM 1410 FPGA I/O components.  They are required to have FIFOs
        -- large enough that this component does NOT need to wait for them
-       UDP_INPUT_FIFO_WRITE_ENABLE : out STD_LOGIC_VECTOR (UART_INPUT_FIFO_COUNT-1 downto 0);
+       UDP_INPUT_FIFO_WRITE_ENABLE : out STD_LOGIC_VECTOR (UDP_INPUT_FIFO_COUNT-1 downto 0);
        UDP_INPUT_FIFO_WRITE_DATA: out STD_LOGIC_VECTOR(7 downto 0);
        UDP_INPUT_CURRENT_STREAM: out STD_LOGIC_VECTOR(7 downto 0) 
        );
@@ -92,7 +92,7 @@ architecture Behavioral of IBM1410_UDP_INPUT_SUBSYSTEM is
 
    signal inputState: inputState_Type := input_Reset;
   
-   signal INPUT_FIFO_ENABLES: STD_LOGIC_VECTOR(UART_INPUT_FIFO_COUNT-1 downto 0) := (others => '0');
+   signal INPUT_FIFO_ENABLES: STD_LOGIC_VECTOR(UDP_INPUT_FIFO_COUNT-1 downto 0) := (others => '0');
    signal INPUT_FIFO_DATA: STD_LOGIC_VECTOR(7 downto 0);
    signal INPUT_CURRENT_STREAM: STD_LOGIC_VECTOR(7 downto 0);
    
@@ -102,7 +102,8 @@ architecture Behavioral of IBM1410_UDP_INPUT_SUBSYSTEM is
 
 begin
 
-input_process: process(FPGA_CLK, RESET, inputState, UART_RCV_DATA_VALID, UART_RCV_DATA)
+input_process: process(FPGA_CLK, RESET, inputState, UDP_UART_RX_DATA_VALID, 
+   UDP_UART_RX_BYTE)
 
    begin
 
@@ -115,10 +116,11 @@ input_process: process(FPGA_CLK, RESET, inputState, UART_RCV_DATA_VALID, UART_RC
          INPUT_CURRENT_STREAM <= "11111111";
          INPUT_FIFO_ENABLES <= (others => '0');
          inputState <= input_WaitForChar;
+         UDP_UART_RX_DATA_READY <= '1';
       
       when input_WaitForChar =>
-         -- UDP_UART_RX_DATA_READY is '1' ONLY IN THIS STATE
          if UDP_UART_RX_DATA_VALID = '1' then
+            UDP_UART_RX_DATA_READY <= '0';
             if (UDP_UART_RX_BYTE and "10000000") = "10000000" then
                INPUT_CURRENT_STREAM <= UDP_UART_RX_BYTE and "01111111";
                inputState <= input_CharDone;            
@@ -127,10 +129,12 @@ input_process: process(FPGA_CLK, RESET, inputState, UART_RCV_DATA_VALID, UART_RC
                inputState <= input_Strobe;
             end if;
          else
+            UDP_UART_RX_DATA_READY <= '1';
             inputState <= input_WaitForChar;
          end if;
       
       when input_Strobe =>
+         UDP_UART_RX_DATA_READY <= '0';
          case INPUT_CURRENT_STREAM is
          when "00000000" =>
             INPUT_FIFO_ENABLES <= (0 => '1', others => '0');
@@ -154,6 +158,7 @@ input_process: process(FPGA_CLK, RESET, inputState, UART_RCV_DATA_VALID, UART_RC
          inputState <= input_CharDone;         
          
       when input_CharDone =>
+         UDP_UART_RX_DATA_READY <= '1';     
          INPUT_FIFO_ENABLES <= (others => '0');  -- Need to drop FIFO write enables immediately
          inputState <= input_WaitForChar;            
       
@@ -163,8 +168,9 @@ input_process: process(FPGA_CLK, RESET, inputState, UART_RCV_DATA_VALID, UART_RC
 
    end process;
    
-   UDP_UART_RX_DATA_READY <= '1' when inputState = input_WaitForChar
-      else '0';
+   -- The following did NOT work
+   -- UDP_UART_RX_DATA_READY <= '1' when inputState = input_WaitForChar
+   --    else '0';
     
    UDP_INPUT_FIFO_WRITE_ENABLE <= INPUT_FIFO_ENABLES;
    UDP_INPUT_FIFO_WRITE_DATA <= INPUT_FIFO_DATA;

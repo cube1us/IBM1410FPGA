@@ -26,7 +26,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
---use IEEE.NUMERIC_STD.ALL;
+use IEEE.NUMERIC_STD.ALL;
 
 -- Uncomment the following library declaration if instantiating
 -- any Xilinx leaf cells in this code.
@@ -39,6 +39,7 @@ entity IBM1410_CONSOLE_SWITCHES_RECEIVER is
        );
     Port ( FPGA_CLK : in STD_LOGIC;
            RESET : in STD_LOGIC;
+           DEBUG_VECTOR: out STD_LOGIC_VECTOR(7 downto 0);
            SWITCH_VECTOR_INIT: in STD_LOGIC_VECTOR (SWITCH_VECTOR_BITS-1 downto 0); 
            SWITCH_FIFO_WRITE_ENABLE : in STD_LOGIC;
            SWITCH_FIFO_WRITE_DATA : in STD_LOGIC_VECTOR (7 downto 0);
@@ -94,10 +95,12 @@ signal FIFO_FULL: STD_LOGIC;        -- Not used - assumption for now is that 141
 signal FIFO_FULL_NEXT: STD_LOGIC;   -- Not used - assumption for now is that 1410 will keep up.
 
 signal SWITCH_RECEIVE_VECTOR: STD_LOGIC_VECTOR(SWITCH_VECTOR_BITS-1 downto 0);
-signal SWITCH_RECEIVE_BUFFER: STD_LOGIC_VECTOR(SWITCH_VECTOR_BITS-1 downto 0);
+signal SWITCH_RECEIVE_BUFFER: STD_LOGIC_VECTOR(SWITCH_VECTOR_BITS-1 downto 0) := (others => '0');
 signal SWITCH_BYTE_COUNTER: INTEGER RANGE 0 to SWITCH_VECTOR_BYTES+1;
 
 begin
+
+DEBUG_VECTOR <= std_logic_vector(to_unsigned(SWITCH_BYTE_COUNTER, DEBUG_VECTOR'length));
 
 switch_process: process(FPGA_CLK, RESET, switchState, SWITCH_FIFO_WRITE_ENABLE, SWITCH_FIFO_WRITE_DATA,
    FIFO_READ_DATA_VALID, FIFO_EMPTY, FIFO_EMPTY_NEXT, SWITCH_VECTOR_INIT)
@@ -112,7 +115,9 @@ switch_process: process(FPGA_CLK, RESET, switchState, SWITCH_FIFO_WRITE_ENABLE, 
       
          when switch_reset => 
             SWITCH_BYTE_COUNTER <= SWITCH_VECTOR_BYTES;
-            switchState <= switch_WaitForChar;
+            -- switchState <= switch_WaitForChar;
+            FIFO_READ_ENABLE <= '1';
+            switchState <= switch_GetChar;
             
          when switch_WaitForChar =>
             if(FIFO_EMPTY = '0') then
@@ -127,17 +132,22 @@ switch_process: process(FPGA_CLK, RESET, switchState, SWITCH_FIFO_WRITE_ENABLE, 
                SWITCH_RECEIVE_BUFFER <= SWITCH_RECEIVE_BUFFER(SWITCH_VECTOR_BITS-1-7 downto 0) & 
                   FIFO_READ_DATA(6 downto 0);
                SWITCH_BYTE_COUNTER <= SWITCH_BYTE_COUNTER - 1;
+               FIFO_READ_ENABLE <= '0';
                switchState <= switch_CheckDone;
             else
-               switchState <= switch_GetChar;  -- Should never actually get here...
+               FIFO_READ_ENABLE <= '1';
+               switchState <= switch_GetChar;  -- (NOT any more) Should never actually get here...
             end if;  
              
          when switch_CheckDone =>
             if(SWITCH_BYTE_COUNTER = 0) then 
                SWITCH_RECEIVE_VECTOR <= SWITCH_RECEIVE_BUFFER;
+               FIFO_READ_ENABLE <= '0';
                switchState <= switch_Reset;
             else
-               switchState <= switch_WaitForChar;
+               FIFO_READ_ENABLE <= '1';
+               -- switchState <= switch_WaitForChar;
+               switchState <= switch_GetChar;
             end if; 
             
       end case;
