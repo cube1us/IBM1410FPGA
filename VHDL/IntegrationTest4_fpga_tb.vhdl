@@ -884,7 +884,19 @@ if SWITCHTEST = 1 then
         X"0045000045000823F8AF5ED5E0000A04010002" ;
     tx_len <= std_logic_vector(to_unsigned(83,tx_len'length));
     wait for 1 ns;
-    SEND_RX(minSize => 83, testName => "Display Mode Packet to FPGA", verbosity => 1);    
+    SEND_RX(minSize => 83, testName => "Display Mode Packet to FPGA", verbosity => 1);  
+    wait for 1 ms;  
+
+    -- This packet starts a memory load operation
+    
+    tx_data(975 downto 0) <=
+        X"707012201720132819281A2812251A281A281A281A281A24102810281F271028" &
+        X"13281A28192811201A281126122319281328112019281A281F2710281A281A28" &
+        X"1A2812201A28112610284040404041825B44580000040004FE2AA8C03C2AA8C0" &
+        X"F5A31140000001006C000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(122,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 122, testName => "Packet MEM Load to FPGA", verbosity => 1);    
 
     wait for 1 ms;
 

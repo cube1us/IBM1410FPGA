@@ -135,7 +135,15 @@ switch_process: process(FPGA_CLK, RESET, switchState, SWITCH_FIFO_WRITE_ENABLE, 
                FIFO_READ_ENABLE <= '0';
                switchState <= switch_CheckDone;
             else
-               FIFO_READ_ENABLE <= '1';
+               -- This state is reached with FIFO_READ_ENABLE already a '1'
+               -- If we are still in this state, then we already told the FIFO we are
+               -- ready, and as long as the FIFO isn't empty, we should NOT asswert
+               -- FIFO_READ_ENABLE, or we will get two characters at once.
+               if(FIFO_EMPTY = '0') then
+                  FIFO_READ_ENABLE <= '0';
+               else
+                  FIFO_READ_ENABLE <= '1';
+               end if;
                switchState <= switch_GetChar;  -- (NOT any more) Should never actually get here...
             end if;  
              

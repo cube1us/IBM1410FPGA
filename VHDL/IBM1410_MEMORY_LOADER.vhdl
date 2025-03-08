@@ -77,7 +77,7 @@ architecture Behavioral of IBM1410_MEMORY_LOADER_RECEIVER is
       );
    end component;
    
-constant MEMORY_LOADER_FIFO_SIZE: INTEGER := 16;
+constant MEMORY_LOADER_FIFO_SIZE: INTEGER := 2048;  -- Space for two packet
 constant MEMORY_LOADER_FIFO_WIDTH: INTEGER := 8;
 constant MEMORY_LOADER_ADDRESS_MARK: STD_LOGIC_VECTOR(2 downto 0) := "100";
 constant MEMORY_LOADER_END_MARK: STD_LOGIC_VECTOR(2 downto 0) := "111";
@@ -91,6 +91,7 @@ type loaderState_type is (
 	loader_Freeze);
 
 signal loaderState: loaderState_type := loader_Reset;
+signal memoryData:  STD_LOGIC_VECTOR(7 downto 0);
 
 
 signal FIFO_READ_ENABLE:     STD_LOGIC;
@@ -133,10 +134,13 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
            IN_DATA <= '0';
            ADDR <= "00000000000000";
            LOAD_DATA <= "00000000";
-           loaderState <= loader_WaitForChar;
+           FIFO_READ_ENABLE <= '1';
+           loaderState <= loader_GetChar;
+           
             
          when loader_WaitForChar =>
             if(FIFO_EMPTY = '0') then
+               FIFO_READ_ENABLE <= '1';
                IN_DATA <= IN_DATA;
                loaderState <= loader_GetChar;
             else
@@ -146,6 +150,8 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
          
          when loader_GetChar =>
             if(FIFO_READ_DATA_VALID = '1') then
+               memoryData <= FIFO_READ_DATA;
+               FIFO_READ_ENABLE <= '0';               
                if(IN_DATA = '0') then
                   IN_DATA <= '0';
                   loaderState <= loader_Addr;
@@ -154,24 +160,30 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
                   loaderState <= loader_Data;
                end if;
             else
-               -- Should never actually get here...
-               -- IN_DATA <= '0';
-               -- loaderState <= loader_Reset;
+               -- This state is reached with FIFO_READ_ENABLE already a '1'
+               -- If we are still in this state, then we already told the FIFO we are
+               -- ready, and as long as the FIFO isn't empty, we should NOT asswert
+               -- FIFO_READ_ENABLE, or we will get two characters at once.            
+               if(FIFO_EMPTY = '0') then
+                  FIFO_READ_ENABLE <= '0';
+               else
+                  FIFO_READ_ENABLE <= '1';
+               end if;
                loaderState <= loader_getChar;
             end if;  
 
 
          when loader_Addr =>
-            if(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_END_MARK) then
+            if(memoryData(6 downto 4) = MEMORY_LOADER_END_MARK) then
                loaderState <= loader_Reset;
                IN_DATA <= '0';
-            elsif(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_ADDRESS_MARK) then
+            elsif(memoryData(6 downto 4) = MEMORY_LOADER_ADDRESS_MARK) then
                -- Receiving address and see an address mark - OK
                -- The first byte of address is actually the bank select
                if(ADDR_COUNTER = 0) then
-                  MEMORY_WRITE_BANK <= FIFO_READ_DATA(3 downto 0);
+                  MEMORY_WRITE_BANK <= memoryData(3 downto 0);
                else
-                  ADDR <= ADDR(9 downto 0) & FIFO_READ_DATA(3 downto 0);
+                  ADDR <= ADDR(9 downto 0) & memoryData(3 downto 0);
                end if;
                if(ADDR_COUNTER = 4) then
                   IN_DATA <= '1';
@@ -189,21 +201,21 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
             end if;
 
          when loader_Data =>
-            if(FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_END_MARK) then
+            if(memoryData(6 downto 4) = MEMORY_LOADER_END_MARK) then
                -- All Done
                IN_DATA <= '0';
                loaderState <= loader_Reset;
-            elsif((FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_DATA_0_MARK) AND 
+            elsif((memoryData(6 downto 4) = MEMORY_LOADER_DATA_0_MARK) AND 
                (DATA_LAST = '0')) then
                -- Received top bits of data...
-               LOAD_DATA(7 downto 4) <= FIFO_READ_DATA(3 downto 0);
+               LOAD_DATA(7 downto 4) <= memoryData(3 downto 0);
                DATA_LAST <= '1';
                IN_DATA <= '1';
                loaderState <= loader_WaitForChar;
-            elsif((FIFO_READ_DATA(6 downto 4) = MEMORY_LOADER_DATA_1_MARK) AND
+            elsif((memoryData(6 downto 4) = MEMORY_LOADER_DATA_1_MARK) AND
                (DATA_LAST = '1')) then
                -- Received bottom bits of data...
-               LOAD_DATA(3 downto 0) <= FIFO_READ_DATA(3 downto 0);
+               LOAD_DATA(3 downto 0) <= memoryData(3 downto 0);
                DATA_LAST <= '0';
                IN_DATA <= '0';
                loaderState <= loader_Write;
@@ -318,9 +330,9 @@ loader_process: process(FPGA_CLK, RESET, DATA_LAST, ADDR_COUNTER, IN_DATA)
 --      "0001" when loaderState = loader_Write else                                  -- 00000 to 09999
 --      "0000";                                                                     -- NOT writing
       
-   FIFO_READ_ENABLE <= '1' when (loaderState = loader_WaitForChar OR
-      loaderState = loader_GetChar) AND FIFO_EMPTY = '0' else
-      '0';
+--   FIFO_READ_ENABLE <= '1' when (loaderState = loader_WaitForChar OR
+--      loaderState = loader_GetChar) AND FIFO_EMPTY = '0' else
+--      '0';
       
 
 
