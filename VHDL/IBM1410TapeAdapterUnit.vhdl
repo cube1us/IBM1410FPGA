@@ -159,15 +159,16 @@ constant TAPE_UNIT_CTL_UNLOAD_REQUEST: integer := 5;
 constant TAPE_UNIT_CTL_REWIND_REQUEST: integer := 6;
 constant TAPE_UNIT_CTL_RESET_INDICATE: STD_LOGIC_VECTOR(7 downto 0) := X"3F";  --  Can't use high bit for this!
 
-constant OUT_STROBE_TIME: integer := 10;      -- 100ns UART strobe time
-constant TAU_INPUT_FIFO_SIZE: integer := 10;  -- 1410 will be faster than PC support for now
-constant TAU_FIFO_WIDTH: integer := 8;        -- Bits per PC character
+constant OUT_STROBE_TIME: integer := 10;        -- 100ns UART strobe time
+constant TAU_INPUT_FIFO_SIZE: integer := 2048;  -- Enough to hold two UDP packets from PC
+constant TAU_FIFO_WIDTH: integer := 8;          -- Bits per PC character
 
 constant TAU_SUPPORT_INPUT_DATA_FLAG: integer := 6;    -- This bit set means PC sending tape data.
 
 constant TAPE_MARK_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00001111";
 
 constant TAPE_TWIDDLE_TIME: integer := 100;  -- 40 us of busy time in TAU minimum.  (TODO: Parameterize)
+
 
 signal INPUT_FIFO_READ_ENABLE: STD_LOGIC := '0';
 signal INPUT_FIFO_READ_DATA_VALID: STD_LOGIC := '0';
@@ -176,6 +177,13 @@ signal INPUT_FIFO_EMPTY: STD_LOGIC := '0';
 signal INPUT_FIFO_EMPTY_NEXT: STD_LOGIC := '0';
 signal INPUT_FIFO_FULL: STD_LOGIC := '0';
 signal INPUT_FIFO_FULL_NEXT: STD_LOGIC := '0';
+
+-- There are three different processes that might set INPUT_FIFO_READ_ENABLE, so each needs
+-- its own signal.
+
+signal FIFO_READ_ENABLE_TAU_TRIGGER: STD_LOGIC := '0';
+signal FIFO_READ_ENABLE_TAU_STATUS:  STD_LOGIC := '0';
+signal FIFO_READ_ENABLE_TAU_READ:    STD_LOGIC := '0';
 
 signal OUTPUT_FIFO_READ_ENABLE: STD_LOGIC := '0';
 signal OUTPUT_FIFO_READ_DATA_VALID: STD_LOGIC := '0';
@@ -334,6 +342,8 @@ signal tauUnitRewinding: STD_LOGIC := '0';
 signal tauBRUEAction: STD_LOGIC := '0';  -- Indicates rewind, unload, erase or backspace
 signal tauBRUEResetTI: STD_LOGIC := '0'; -- Indicates request to reset TI and tauResetLatch not set
 
+signal tauReadDataLatch:  STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+
 -- Vivado debugging constraints so that we can find signals in the netlist to debug
 
 attribute dont_touch: string;
@@ -472,25 +482,38 @@ tauTriggerProcess: process(
       
       when tau_trigger_reset =>
          tauTriggerState <= tau_trigger_idle;
+         FIFO_READ_ENABLE_TAU_TRIGGER <= '1';
          
       when tau_trigger_idle =>
          if INPUT_FIFO_EMPTY = '0' then
             tauTriggerState <= tau_trigger;
+            FIFO_READ_ENABLE_TAU_TRIGGER <= '1';
          else
             tauTriggerState <= tau_trigger_idle;
          end if;
          
       when tau_trigger =>
          if INPUT_FIFO_READ_DATA_VALID = '1' then            
-            tauTriggerState <= tau_trigger_wait;            
+            FIFO_READ_ENABLE_TAU_TRIGGER <= '0';            
             -- Latch the unit number send from the support program.
             -- Received byte will set either tauTriggerRead or tauTriggerStatus.
             tauSupportUnit <= to_integer(unsigned(INPUT_FIFO_READ_DATA));
+            tauTriggerState <= tau_trigger_wait;
          else
+            -- This state is reached with FIFO_READ_ENABLE already a '1'
+            -- If we are still in this state, then we already told the FIFO we are
+            -- ready, and as long as the FIFO isn't empty, we should NOT asswert
+            -- FIFO_READ_ENABLE, or we will get two characters at once.                     
+            if INPUT_FIFO_EMPTY = '0' then
+               FIFO_READ_ENABLE_TAU_TRIGGER <= '0';
+            else
+               FIFO_READ_ENABLE_TAU_TRIGGER <= '1';
+            end if;
             tauTriggerState <= tau_trigger;
          end if;
          
       when tau_trigger_wait =>
+         FIFO_READ_ENABLE_TAU_TRIGGER <= '0';
          if tauTriggerRead = '1' or tauTriggerStatus = '1' then
             tauTriggerState <= tau_trigger_wait;
          else
@@ -525,6 +548,7 @@ tauStatusProcess: process(
       case tauUnitStatusState is
       
       when tau_unit_status_idle => 
+         FIFO_READ_ENABLE_TAU_STATUS <= '0';
          if tauTriggerStatus = '1' then
             tauUnitStatusState <= tau_unit_status_waitForChar;
          else
@@ -533,7 +557,8 @@ tauStatusProcess: process(
          
       when tau_unit_status_waitForChar =>
          if INPUT_FIFO_EMPTY = '0' then
-            tauUnitStatusState <= tau_unit_status_getChar;
+            FIFO_READ_ENABLE_TAU_STATUS <= '1';
+            tauUnitStatusState <= tau_unit_status_getChar;            
          else
             tauUnitStatusState <= tau_unit_status_waitForChar;
          end if;
@@ -544,9 +569,19 @@ tauStatusProcess: process(
             -- Because we may need to set an initial status in the FPGA, but it can also bet set
             -- here via received data from the PC
             -- TAU_TAPE_UNIT_STATUSES(tauSupportUnit) <= FIFO_READ_DATA;
+            FIFO_READ_ENABLE_TAU_STATUS <= '0';
             tauSupportStatus <= INPUT_FIFO_READ_DATA;
             tauUnitStatusState <= tau_unit_set_status;
          else
+            -- This state is reached with FIFO_READ_ENABLE already a '1'
+            -- If we are still in this state, then we already told the FIFO we are
+            -- ready, and as long as the FIFO isn't empty, we should NOT asswert
+            -- FIFO_READ_ENABLE, or we will get two characters at once.            
+            if(INPUT_FIFO_EMPTY = '0') then
+               FIFO_READ_ENABLE_TAU_STATUS <= '0';
+            else
+               FIFO_READ_ENABLE_TAU_STATUS <= '1';
+            end if;         
             tauUnitStatusState <= tau_unit_status_getChar;
          end if; 
          
@@ -572,6 +607,7 @@ tauBRUEProcess: process(
    MC_REWIND_CALL,
    MC_BACKSPACE_CALL,
    MC_TURN_OFF_TAPE_IND,
+   tauBRUEResetTI,
    TAU_TAPE_UNIT_STATUSES,
    tauBusy,
    tauBRUEState)
@@ -734,8 +770,9 @@ tauBRUEProcess: process(
          tauUnitControlXMTChar(TAPE_UNIT_CTL_UNLOAD_REQUEST) <= tauUnloadLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_BACKSPACE_REQUEST) <= tauBackspaceLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_ERASE_REQUEST) <= tauEraseLatch;
-         if tauResetTILatch = '1' and MC_TURN_OFF_TAPE_IND = '0' then
+         if tauResetTILatch = '1' then -- and MC_TURN_OFF_TAPE_IND = '0' then
             tauUnitControlXMTChar <= TAPE_UNIT_CTL_RESET_INDICATE;
+            tauResetTILatch <= '0';
          end if;
          tauBrueState <= tau_brue_action_fifo_wait;
          
@@ -817,11 +854,12 @@ taureadProcess: process(
       -- Wake up on a read call to a read tape drive
       
       when tau_read_idle =>
+         FIFO_READ_ENABLE_TAU_READ <= '0';
          if tauBusy = '0' and MC_READ_TAPE_CALL = '0' and tauUnitReadReady = '1' then
             tauReadState <= tau_read_fifo_wait_1;
             tauReadXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
                tauReadXMTChar'length));
-            tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;
+            tauReadDelayCounter <= 0; -- was CHANNEL_CYCLE_LENGTH;
             -- tauReadTapeIndicateLatch <= '0'; -- Reset TAU tape indicate latch before 1st char.
             -- Turn off load point bit.
             tauReadStatus <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE) and "11111011";
@@ -872,6 +910,7 @@ taureadProcess: process(
       
       when tau_read_waitForChar =>
          if INPUT_FIFO_EMPTY = '0' then
+            FIFO_READ_ENABLE_TAU_READ <= '1';
             tauReadState <= tau_read_getChar;
          else
             tauReadState <= tau_read_waitForChar;
@@ -885,24 +924,37 @@ taureadProcess: process(
          -- tape mark, but in OUR case, we can handle that in the PC Support program.
          
          if INPUT_FIFO_READ_DATA_VALID = '1' then
+            FIFO_READ_ENABLE_TAU_READ <= '0';
             -- All zeroes is End of Record.  (Blanks show up as C + A bits.
-            if INPUT_FIFO_READ_DATA = "00000000" then  
-               tauReadState <= tau_read_done;           
-            elsif tauReadFirstCharLatch = '1' and 
+            -- Test for end of record moved to tau_channel_wait to give channel
+            -- enough time to digest the last character.
+--            if INPUT_FIFO_READ_DATA = "00000000" then  
+--               tauReadState <= tau_read_done;           
+--            elsif tauReadFirstCharLatch = '1' and 
+            if tauReadFirstCharLatch = '1' and 
                   (INPUT_FIFO_READ_DATA and "00111111") = TAPE_MARK_CHAR then
                -- tauReadTapeIndicateLatch <= '1';               
                tauReadStatus(TAPE_UNIT_TAPE_IND_BIT) <= '1';
                tauReadState <= tau_read_set_tape_indicate; 
-               -- Move the check bit into position, and send data to CPU         
-               MC_TAU_TO_CPU_BUS <= not (INPUT_FIFO_READ_DATA(6) & '0' &
-                  INPUT_FIFO_READ_DATA(5 downto 0));
+               -- Latch the data to be send to the CPU evenutally.
+               tauReadDataLatch <= INPUT_FIFO_READ_DATA;         
             else
                tauReadState <= tau_read_wait_channel;
-               -- Move the check bit into position, and send data to CPU         
-               MC_TAU_TO_CPU_BUS <= not (INPUT_FIFO_READ_DATA(6) & '0' &
-                  INPUT_FIFO_READ_DATA(5 downto 0));
+               -- Latch the data t be sent to the CPU eventually.
+               -- We even do this with the X"00" end of record, because we have to let
+               -- the channel have time after the strobe to take in the last character.
+               tauReadDataLatch <= INPUT_FIFO_READ_DATA;
             end if;          
          else
+            -- This state is reached with FIFO_READ_ENABLE already a '1'
+            -- If we are still in this state, then we already told the FIFO we are
+            -- ready, and as long as the FIFO isn't empty, we should NOT asswert
+            -- FIFO_READ_ENABLE, or we will get two characters at once.            
+            if(INPUT_FIFO_EMPTY = '0') then
+               FIFO_READ_ENABLE_TAU_READ <= '0';
+            else
+               FIFO_READ_ENABLE_TAU_READ <= '1';
+            end if;
             tauReadState <= tau_read_getChar;  -- Really should never happen...
          end if;                           
          
@@ -912,11 +964,27 @@ taureadProcess: process(
          tauReadState <= tau_read_wait_channel;
       
       when tau_read_wait_channel =>
+         if tauReadDelayCounter = CHANNEL_CYCLE_LENGTH - 1 then
+               -- Put the data on the bus to the CPU just before we strobe
+               -- It will stay there until we are ready to strobe the next
+               -- character.  Had to do this because with the PC feeding data
+               -- via UDP, the next character is ready immediately, and it was
+               -- changin the data after the strobe but before the channel 
+               -- actually grabbed the data on the next 1410 CPU clock cycle.
+               MC_TAU_TO_CPU_BUS <= not (tauReadDataLatch(6) & '0' &
+                  tauReadDataLatch(5 downto 0));
+         end if;
          -- Make sure we don't strobe channel faster than 800 bpi * 112.5 ips 
          if tauReadDelayCounter = CHANNEL_CYCLE_LENGTH then
             tauReadStrobeCounter <= 0;  
             tauReadDelayCounter <= 0;
-            tauReadState <= tau_read_strobe_channel;
+            -- All zeros in data means end of record, and by now the channel
+            -- has digested that last character.
+            if tauReadDataLatch = "00000000" then
+               tauReadState <= tau_read_done;
+            else
+               tauReadState <= tau_read_strobe_channel;
+            end if;
          else
             tauReadDelayCounter <= tauReadDelayCounter + 1;
             tauReadState <= tau_read_wait_channel;
@@ -926,6 +994,7 @@ taureadProcess: process(
          -- Generate strobe.  Also, this counts as part of the channel cycle length.
          tauReadFirstCharLatch <= '0';
          if tauReadStrobeCounter = CHANNEL_STROBE_LENGTH then
+            FIFO_READ_ENABLE_TAU_READ <= '1';
             tauReadState <= tau_read_getChar;
          else
             tauReadStrobeCounter <= tauReadStrobeCounter + 1;
@@ -938,7 +1007,7 @@ taureadProcess: process(
       when tau_read_done =>
          MC_TAU_TO_CPU_BUS <= "11111111";
          tauReadState <= tau_read_idle;
-         tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;
+         tauReadDelayCounter <= 0; -- Was CHANNEL_CYCLE_LENGTH;
          tauReadXMTChar <= "00000000";         
                      
       end case;     
@@ -1264,9 +1333,15 @@ tauBusy <= tauBRUEBusy or tauReadBusy or tauWriteBusy;
 MC_TAPE_BUSY <= not tauBusy;
 
 
+--INPUT_FIFO_READ_ENABLE <= '1' when
+--   tauTriggerState = tau_trigger OR tauUnitStatusState = tau_unit_status_getchar or
+--      tauReadState = tau_read_getChar
+--   else '0';
+
 INPUT_FIFO_READ_ENABLE <= '1' when
-   tauTriggerState = tau_trigger OR tauUnitStatusState = tau_unit_status_getchar or
-      tauReadState = tau_read_getChar
+   FIFO_READ_ENABLE_TAU_TRIGGER = '1' OR 
+   FIFO_READ_ENABLE_TAU_STATUS = '1' OR
+   FIFO_READ_ENABLE_TAU_READ = '1'
    else '0';
     
 tauTriggerStatus <= '1' when
@@ -1279,7 +1354,8 @@ tauTriggerRead <= '1' when
    (tauTriggerState = tau_trigger and INPUT_FIFO_READ_DATA_VALID = '1' and 
       INPUT_FIFO_READ_DATA(TAU_SUPPORT_INPUT_DATA_FLAG) = '1') OR
       tauReadState = tau_read_waitForChar or tauReadState = tau_read_getChar or
-      tauReadState = tau_read_wait_channel or tauReadState = tau_read_strobe_channel 
+      tauReadState = tau_read_wait_channel or tauReadState = tau_read_strobe_channel or
+      tauReadState = tau_read_set_tape_indicate
    else '0';
 
 OUTPUT_FIFO_WRITE_DATA <= 
