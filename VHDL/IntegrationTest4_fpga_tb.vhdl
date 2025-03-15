@@ -221,7 +221,7 @@ begin
    
   FPGA_CLK <= not FPGA_CLK after 5 ns;
    
-  uut_process: process is
+uut_process: process is
   
   variable UART_RECEIVED_BYTE: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
   variable UART_RECEIVED_UNLOCK: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
@@ -236,36 +236,36 @@ begin
   SW(0) <= '0';  -- FAST console
   
   -- wait for 25 ms;
-  wait for 20 ms;
+  wait for 50 ms;
   
   -- Tell it unit E channel tape unit 0 is ready
   
-  UART_XMT_DATA <= "10000100"; -- TAU E Channel Flag byte
-  UART_XMT_DATA_VALID <= '1';
-  wait for 100 ns; 
-  UART_XMT_DATA_VALID <= '0';
-  wait until UART_XMT_ACTIVE = '0';
+--  UART_XMT_DATA <= "10000100"; -- TAU E Channel Flag byte
+--  UART_XMT_DATA_VALID <= '1';
+--  wait for 100 ns; 
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';
   
-  UART_XMT_DATA <= "00000000"; -- Unit 0
-  UART_XMT_DATA_VALID <= '1';
-  wait for 100 ns; 
-  UART_XMT_DATA_VALID <= '0';
-  wait until UART_XMT_ACTIVE = '0';
+--  UART_XMT_DATA <= "00000000"; -- Unit 0
+--  UART_XMT_DATA_VALID <= '1';
+--  wait for 100 ns; 
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';
 
-  UART_XMT_DATA <= "00000011"; -- TAU E Channel Status: Read write, Ready read
-  UART_XMT_DATA_VALID <= '1';
-  wait for 100 ns; 
-  UART_XMT_DATA_VALID <= '0';
-  wait until UART_XMT_ACTIVE = '0';
+--  UART_XMT_DATA <= "00000011"; -- TAU E Channel Status: Read write, Ready read
+--  UART_XMT_DATA_VALID <= '1';
+--  wait for 100 ns; 
+--  UART_XMT_DATA_VALID <= '0';
+--  wait until UART_XMT_ACTIVE = '0';
   
   -- Press Start  
     
     -- DISABLE FOR NOW WHILE TESTING ETHERNET
     
-   btnC <= '1';
-   report "Pressed Start";
-   wait for 10100 us; 
-   btnC <= '0';
+--   btnC <= '1';
+--   report "Pressed Start";
+--   wait for 10100 us; 
+--   btnC <= '0';
   
   -- Begin Console CE INPUT test
     
@@ -510,14 +510,14 @@ begin
 
   -- Basic tape testting -- rewind
   
-  for i in 1 to 3 loop
-     if UART_RCV_DATA_VALID = '0' then
-        wait until UART_RCV_DATA_VALID = '1' for 10 ms;
-     end if;
-     assert UART_RCV_DATA_VALID = '1' report "No Data Recevied" severity failure;
-     report "Received Byte " & integer'image(to_integer(unsigned(UART_RCV_DATA)));
-     wait for 20 ns;
-  end loop;
+--  for i in 1 to 3 loop
+--     if UART_RCV_DATA_VALID = '0' then
+--        wait until UART_RCV_DATA_VALID = '1' for 10 ms;
+--     end if;
+--     assert UART_RCV_DATA_VALID = '1' report "No Data Recevied" severity failure;
+--     report "Received Byte " & integer'image(to_integer(unsigned(UART_RCV_DATA)));
+--     wait for 20 ns;
+--  end loop;
   
   -- wait for 19 ms; 
  
@@ -866,41 +866,105 @@ if SWITCHTEST = 1 then
     
     -- This packet turns OFF the Run Mode (starts to rotate the switch)
 
-    tx_data(663 downto 0) <=
-        X"0000030002000140200004000000000001000000000000100000000000400020" &
-        X"0000004000040000800C75310000040004FE2AA8C03C2AA8C01CA41140000001" &
-        X"0045000045000823F8AF5ED5E0000A04010002" ;
-    tx_len <= std_logic_vector(to_unsigned(83,tx_len'length));
-    wait for 1 ns;
-    SEND_RX(minSize => 83, testName => "Off Run Mode Packet to FPGA", verbosity => 1); 
-    wait for 1 ms;   
+--    tx_data(663 downto 0) <=
+--        X"0000030002000140200004000000000001000000000000100000000000400020" &
+--        X"0000004000040000800C75310000040004FE2AA8C03C2AA8C01CA41140000001" &
+--        X"0045000045000823F8AF5ED5E0000A04010002" ;
+--    tx_len <= std_logic_vector(to_unsigned(83,tx_len'length));
+--    wait for 1 ns;
+--    SEND_RX(minSize => 83, testName => "Off Run Mode Packet to FPGA", verbosity => 1); 
+--    wait for 1 ms;   
         
-    -- this packet sets the mode to Display.  (Note that the data below is
-    -- in least significant nybble first.)
+--    -- this packet sets the mode to Display.  (Note that the data below is
+--    -- in least significant nybble first.)
 
-    tx_data(663 downto 0) <=
-        X"0000030002000140200004000000000000010000000000100000000000400020" &
-        X"0000004000040000800B76310000040004FE2AA8C03C2AA8C01CA41140000001" &
-        X"0045000045000823F8AF5ED5E0000A04010002" ;
-    tx_len <= std_logic_vector(to_unsigned(83,tx_len'length));
-    wait for 1 ns;
-    SEND_RX(minSize => 83, testName => "Display Mode Packet to FPGA", verbosity => 1);  
-    wait for 1 ms;  
+--    tx_data(663 downto 0) <=
+--        X"0000030002000140200004000000000000010000000000100000000000400020" &
+--        X"0000004000040000800B76310000040004FE2AA8C03C2AA8C01CA41140000001" &
+--        X"0045000045000823F8AF5ED5E0000A04010002" ;
+--    tx_len <= std_logic_vector(to_unsigned(83,tx_len'length));
+--    wait for 1 ns;
+--    SEND_RX(minSize => 83, testName => "Display Mode Packet to FPGA", verbosity => 1);  
+--    wait for 1 ms;  
 
-    -- This packet starts a memory load operation
+--    -- This packet starts a memory load operation
     
-    tx_data(975 downto 0) <=
-        X"707012201720132819281A2812251A281A281A281A281A24102810281F271028" &
-        X"13281A28192811201A281126122319281328112019281A281F2710281A281A28" &
-        X"1A2812201A28112610284040404041825B44580000040004FE2AA8C03C2AA8C0" &
-        X"F5A31140000001006C000045000823F8AF5ED5E0000A04010002" ;
-    tx_len <= std_logic_vector(to_unsigned(122,tx_len'length));
+--    tx_data(975 downto 0) <=
+--        X"707012201720132819281A2812251A281A281A281A281A24102810281F271028" &
+--        X"13281A28192811201A281126122319281328112019281A281F2710281A281A28" &
+--        X"1A2812201A28112610284040404041825B44580000040004FE2AA8C03C2AA8C0" &
+--        X"F5A31140000001006C000045000823F8AF5ED5E0000A04010002" ;
+--    tx_len <= std_logic_vector(to_unsigned(122,tx_len'length));
+--    wait for 1 ns;
+--    SEND_RX(minSize => 122, testName => "Packet MEM Load to FPGA", verbosity => 1);    
+
+
+   wait for 20 ms;
+
+   -- Send a packet to set up the status on tape unit 0
+
+   tx_data(407 downto 0) <=
+       X"270084040084000084B7F1110000040004FE2AA8C03C2AA8C03CA41140000001" &
+       X"0025000045000823F8AF5ED5E0000A04010002" ;
+   tx_len <= std_logic_vector(to_unsigned(51,tx_len'length));
+   wait for 1 ns;
+   SEND_RX(minSize => 51, testName => "Packet Set Tape Status to FPGA", verbosity => 1);
+
+
+   btnC <= '1';
+   report "Pressed Start";
+   wait for 10100 us; 
+   btnC <= '0';
+   
+   -- Send a packet in reponse to a READ
+   
+   report "Sending Tape Unit Select";
+
+    tx_data(351 downto 0) <=
+        X"40840E9D0A0000040004FE2AA8C03C2AA8C043A41140000001001E0000450008" &
+        X"23F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(44,tx_len'length));
     wait for 1 ns;
-    SEND_RX(minSize => 122, testName => "Packet MEM Load to FPGA", verbosity => 1);    
+    SEND_RX(minSize => 44, testName => "Packet to FPGA", verbosity => 1);
+    
+    wait for 100 us;
+   
+   report "Sending tape read data...";
 
-    wait for 1 ms;
+    tx_data(2503 downto 0) <=
+        X"005D5D5D5D405D205D105D085D045D025D015D76376B5D5D3E3E5D5D6B37766B" &
+        X"5D5D3E3E5D5D6B76376B5D5D3E40014020402010201008100804080402040201" &
+        X"02013B5D404A4A4A024A615D570143434A4A4943014A4A345D570243434A4A4A" &
+        X"04014A4A345D7F0445014A4A295D434A43014A4A295D6B4A4A4A014A4A321C23" &
+        X"5D7F4A43014A4A295D404A4A4A024A615D570143434A4A07084A4A4A345D5702" &
+        X"43434A4A08084A4A4A345D7F024A014A4A295D4308074A4A4A295D6B4A4A4A01" &
+        X"4A4A321C235D7F08074A4A4A295D4349074A4A4A024A4A4A4A345D4F45494A4A" &
+        X"4A4A4A4A4A4A345D4F08084A4A4A4A4A4A4A4A345D4F01074A4A4A4A4A4A4A4A" &
+        X"345D10014A4A4A4A4302014A4A165D2862170100040004FE2AA8C03C2AA8C036" &
+        X"A31140000001002B010045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(313,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 313, testName => "Packet to FPGA", verbosity => 1);
 
-    report "Normal End of UDP Switch Test" severity failure;    
+--   This a packet with the unit select and data together - causing an error
+--   tx_data(2519 downto 0) <=
+--       X"005D5D5D5D405D205D105D085D045D025D015D76376B5D5D3E3E5D5D6B37766B" &
+--       X"5D5D3E3E5D5D6B76376B5D5D3E40014020402010201008100804080402040201" &
+--       X"02013B5D404A4A4A024A615D570143434A4A4943014A4A345D570243434A4A4A" &
+--       X"04014A4A345D7F0445014A4A295D434A43014A4A295D6B4A4A4A014A4A321C23" &
+--       X"5D7F4A43014A4A295D404A4A4A024A615D570143434A4A07084A4A4A345D5702" &
+--       X"43434A4A08084A4A4A345D7F024A014A4A295D4308074A4A4A295D6B4A4A4A01" &
+--       X"4A4A321C235D7F08074A4A4A295D4349074A4A4A024A4A4A4A345D4F45494A4A" &
+--       X"4A4A4A4A4A4A345D4F08084A4A4A4A4A4A4A4A345D4F01074A4A4A4A4A4A4A4A" &
+--       X"345D10014A4A4A4A4302014A4A165D4084E3DD190100040004FE2AA8C03C2AA8" &
+--       X"C034A31140000001002D010045000823F8AF5ED5E0000A04010002" ;
+--   tx_len <= std_logic_vector(to_unsigned(315,tx_len'length));
+--   wait for 1 ns;
+--   SEND_RX(minSize => 315, testName => "Tape Read Packet to FPGA", verbosity => 1);
+
+   wait for 10 ms;
+
+   report "Normal End of UDP Switch Test" severity failure;    
 
 end if;
 
