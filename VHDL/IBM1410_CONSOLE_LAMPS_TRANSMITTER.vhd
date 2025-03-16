@@ -41,7 +41,8 @@ entity IBM1410_CONSOLE_LAMPS_TRANSMITTER is
            LAMP_SUPPRESSION: in STD_LOGIC;
            LAMP_VECTOR : in STD_LOGIC_VECTOR (LAMP_VECTOR_BITS-1 downto 0);
            UART_OUTPUT_GRANT: in STD_LOGIC;           
-           UART_OUTPUT_REQUEST : out STD_LOGIC;
+           UART_OUTPUT_REQUEST : inout STD_LOGIC;
+           UDP_OUTPUT_FLUSH: out STD_LOGIC;
            UART_OUTPUT_REQUEST_DATA : out STD_LOGIC_VECTOR (7 downto 0));
 end IBM1410_CONSOLE_LAMPS_TRANSMITTER;
 
@@ -215,6 +216,12 @@ lamp_process: process(FPGA_CLK, RESET, LAMP_VECTOR, UART_OUTPUT_GRANT, LAMP_VECT
 UART_OUTPUT_REQUEST <= 
    '1' when lampState = lamp_send or lampState = lamp_sync_send 
    else '0';
+   
+UDP_OUTPUT_FLUSH <= '1' when UART_OUTPUT_REQUEST = '1' and
+   SECTION = 1
+   else '0';
+   
+   
    
 UART_OUTPUT_REQUEST_DATA <= 
    "0" &  LAMPS(6 downto 0) when lampState = lamp_send 

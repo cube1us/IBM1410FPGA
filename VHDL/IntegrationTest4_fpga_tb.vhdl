@@ -13,6 +13,10 @@ end IntegrationTest4_fpga_tb;
 architecture behavioral of IntegrationTest4_fpga_tb is
  
 component IntegrationTest4_fpga is
+   GENERIC (
+      USE_UDP_OUTPUT_TEST: integer := 0;
+      USE_UDP_INPUT_TEST:  integer := 0
+   );
    PORT (
       CLK: in  STD_LOGIC;
       SW:  in  STD_LOGIC_VECTOR(15 downto 0);
@@ -168,8 +172,12 @@ begin
          
   -- Instantiate the top level module
 
-   UUT: IntegrationTest4_fpga port map(
-     
+   UUT: IntegrationTest4_fpga 
+   generic map(
+      USE_UDP_OUTPUT_TEST => 0,
+      USE_UDP_INPUT_TEST => 0
+   )
+   port map(     
       CLK => FPGA_CLK,
       SW => SW,
       LED => LED,
@@ -231,7 +239,7 @@ uut_process: process is
 
   SW(15) <= '0'; -- Mode DISPLAY
   SW(14) <= '0'; -- Mode ALTER
-  SW(2) <= '1';  -- Suppress lamp data transmission.
+  SW(2) <= '0';  -- Suppress lamp data transmission if '1'
   SW(1) <= '0';  -- 1401 Mode (for testing)
   SW(0) <= '0';  -- FAST console
   
@@ -861,7 +869,7 @@ if SWITCHTEST = 1 then
     wait for 100 ns;
     wait until PhyRstn = '1';
     wait for 1500 us;
-    
+        
     -- Send a packet for the UDP input handler
     
     -- This packet turns OFF the Run Mode (starts to rotate the switch)
@@ -898,6 +906,45 @@ if SWITCHTEST = 1 then
 --    wait for 1 ns;
 --    SEND_RX(minSize => 122, testName => "Packet MEM Load to FPGA", verbosity => 1);    
 
+    -- The first attempt by the lamps to transmit should generate an ARP request...
+
+    RECEIVE_TX(minSize => 60, testName => "LAMP UDP ARP REQUEST", verbosity => 2);    
+
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+
+    j := 28*8;
+    i := 0;    
+    while i < 6 loop
+       receivedMac(i*8+7 downto i*8) := rx_data(j-1 downto j-8);
+       j := j - 8; 
+       i := i + 1;
+    end loop;
+
+    BUILD_ARP_FRAME(
+       testName => "LAMP UDP ARP REPLY",
+       verbosity => 1,
+       srcMac => X"E0D55EAFF823",
+       destMac => receivedMac,
+       arpOperation => X"0002", -- Reply
+       srcIP => X"C0A82A3C", 
+       tgtMac => receivedMac,
+       tgtIp => X"C0A82AFE"); -- Hard coded for now till I figure out the offset
+    
+    report "Built ARP Reply Frame";
+    
+    wait for 10 ns;
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+    i := 0;
+    while i < 8*to_integer(unsigned(tx_len)) loop
+       tx_data(8*60-i-1 downto 8*60-i-8) <= tx_arp(i+7 downto i);
+       i := i + 8;       
+    end loop;
+    
+    wait for 100 us;
+    
+    -- tx_data(8*60-1 downto 0) <= tx_arp;
+    SEND_RX(minSize => 60, testName => "LAMP UDP ARP REPLY", verbosity => 2);
+    wait for 1 us;
 
    wait for 20 ms;
 
