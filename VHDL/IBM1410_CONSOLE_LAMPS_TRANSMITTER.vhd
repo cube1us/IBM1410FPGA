@@ -55,8 +55,8 @@ constant LAMP_SECTIONS: INTEGER := LAMP_VECTOR_BITS / 7;  -- Each lamp section i
 constant COUNTER_MAX: INTEGER := REFRESH_TIME / CLOCKPERIOD;
 
 -- Lamp sync vector - with OUR ID flag stuck on the front.
-constant LAMP_SYNC_COUNT: INTEGER := 6;
-constant LAMP_SYNC_INIT: std_logic_vector((LAMP_SYNC_COUNT * 8)-1 downto 0) := X"3F003F003F81";
+constant LAMP_SYNC_COUNT: INTEGER := 5;
+constant LAMP_SYNC_INIT: std_logic_vector((LAMP_SYNC_COUNT * 8)-1 downto 0) := X"3F003F003F";
 
 type lampState_type is (
    lamp_reset, 
