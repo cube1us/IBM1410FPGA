@@ -239,7 +239,7 @@ uut_process: process is
 
   SW(15) <= '0'; -- Mode DISPLAY
   SW(14) <= '0'; -- Mode ALTER
-  SW(2) <= '0';  -- Suppress lamp data transmission if '1'
+  SW(2) <= '1';  -- Suppress lamp data transmission if '1'
   SW(1) <= '0';  -- 1401 Mode (for testing)
   SW(0) <= '0';  -- FAST console
   
@@ -752,14 +752,20 @@ end RECEIVE_TX;
 
    variable receivedMac: STD_LOGIC_VECTOR(47 downto 0);
    variable i,j: integer;
-   variable LOOPBACK: integer := 0;
+   
+   -- Test Selection
+   
+   variable LOOPBACKTEST: integer := 0;
    variable ETHERNETTEST: integer := 0;
-   variable SWITCHTEST : integer := 1;
+   variable SWITCHTEST:   integer := 0;
+   variable LAMPTEST:     integer := 0;
+   variable TAUREADTEST:  integer := 0;
+   variable TAUWRITETEST: integer := 1;
    
 
   begin
   
-  if LOOPBACK /= 1 and ETHERNETTEST = 1 then
+  if LOOPBACKTEST /= 1 and ETHERNETTEST = 1 then
   
     report "Starting non loopback Ethernet test" severity note;
   
@@ -819,7 +825,7 @@ end RECEIVE_TX;
     SEND_RX(minSize => 60, testName => "ARP REPLY", verbosity => 1);
     wait for 1 us;
             
-    RECEIVE_TX(minSize => 64, testName => "FIRST UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "Tape Request UDP Receive Packet", verbosity => 2);
     
     btnU <= '0';  -- Added
                         
@@ -827,11 +833,8 @@ end RECEIVE_TX;
     
     -- report "Pressing btnU again...";
     -- btnU <= '1';
-    RECEIVE_TX(minSize => 64, testName => "SECOND UDP Receive Packet", verbosity => 2);
-
-    RECEIVE_TX(minSize => 64, testName => "THIRD UDP Receive Packet", verbosity => 2);
-
-    RECEIVE_TX(minSize => 64, testName => "FOURTH UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "UDP Receive Packet", verbosity => 2);
+    
 
     -- wait for 100 us;
     -- btnU <= '0';
@@ -857,11 +860,12 @@ end RECEIVE_TX;
       
     wait for 500 us;
      
-    report "Normal End of Ethernet Test" severity failure;
-    end if;  -- LOOPACK /= 1 and EthernetTest = 1
+    report "Normal End of Loopback Ethernet Test" severity failure;
+    end if;  -- LOOPACKTEST /= 1 and EthernetTest = 1
     
 if SWITCHTEST = 1 then
 
+    -- Give Ethernet a chance to initialize...
     btnU <= '0';
     btnC <= '0';
     PhyRxErr <= '0';
@@ -906,10 +910,29 @@ if SWITCHTEST = 1 then
 --    wait for 1 ns;
 --    SEND_RX(minSize => 122, testName => "Packet MEM Load to FPGA", verbosity => 1);    
 
-    -- The first attempt by the lamps to transmit should generate an ARP request...
+
+   -- Send a packet to set up the status on tape unit 0
+
+    tx_data(407 downto 0) <=
+        X"270084040084000084B7F1110000040004FE2AA8C03C2AA8C03CA41140000001" &
+        X"0025000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(51,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 51, testName => "Packet Sent Tape Status to FPGA", verbosity => 1);
+
+    btnC <= '1';
+    report "Pressed Start";
+
+    -- The first attempt by the lamps to transmit should generate an ARP request... OR
+    -- Once start has been pressed, we should see an ARP request for the tape read or write
+    
+    -- Look for the ARP request before we release start.
 
     RECEIVE_TX(minSize => 60, testName => "LAMP UDP ARP REQUEST", verbosity => 2);    
 
+    wait for 10000 us; -- was 10100 
+    btnC <= '0';   
+    
     tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
 
     j := 28*8;
@@ -921,7 +944,136 @@ if SWITCHTEST = 1 then
     end loop;
 
     BUILD_ARP_FRAME(
-       testName => "LAMP UDP ARP REPLY",
+       testName => "Tape UDP ARP REPLY",
+       verbosity => 1,
+       srcMac => X"E0D55EAFF823",
+       destMac => receivedMac,
+       arpOperation => X"0002", -- Reply
+       srcIP => X"C0A82A3C", 
+       tgtMac => receivedMac,
+       tgtIp => X"C0A82AFE"); -- Hard coded for now till I figure out the offset
+    
+    report "Built ARP Reply Frame";
+    
+    wait for 10 ns;
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+    i := 0;
+    while i < 8*to_integer(unsigned(tx_len)) loop
+       tx_data(8*60-i-1 downto 8*60-i-8) <= tx_arp(i+7 downto i);
+       i := i + 8;       
+    end loop;
+    
+    wait for 100 us;
+    
+   -- tx_data(8*60-1 downto 0) <= tx_arp;
+   SEND_RX(minSize => 60, testName => "Tape Write UDP ARP REPLY", verbosity => 2);
+   wait for 1 us;
+
+   -- Send a packet to set up the status on tape unit 0
+   
+   -- The following is for testing tape READ
+
+   -- Send a packet in reponse to a READ
+   
+--   report "Sending Tape Unit Select";
+
+--    tx_data(351 downto 0) <=
+--        X"40840E9D0A0000040004FE2AA8C03C2AA8C043A41140000001001E0000450008" &
+--        X"23F8AF5ED5E0000A04010002" ;
+--    tx_len <= std_logic_vector(to_unsigned(44,tx_len'length));
+--    wait for 1 ns;
+--    SEND_RX(minSize => 44, testName => "Packet to FPGA", verbosity => 1);
+    
+--    wait for 100 us;
+   
+--   report "Sending tape read data...";
+
+--    tx_data(2503 downto 0) <=
+--        X"005D5D5D5D405D205D105D085D045D025D015D76376B5D5D3E3E5D5D6B37766B" &
+--        X"5D5D3E3E5D5D6B76376B5D5D3E40014020402010201008100804080402040201" &
+--        X"02013B5D404A4A4A024A615D570143434A4A4943014A4A345D570243434A4A4A" &
+--        X"04014A4A345D7F0445014A4A295D434A43014A4A295D6B4A4A4A014A4A321C23" &
+--        X"5D7F4A43014A4A295D404A4A4A024A615D570143434A4A07084A4A4A345D5702" &
+--        X"43434A4A08084A4A4A345D7F024A014A4A295D4308074A4A4A295D6B4A4A4A01" &
+--        X"4A4A321C235D7F08074A4A4A295D4349074A4A4A024A4A4A4A345D4F45494A4A" &
+--        X"4A4A4A4A4A4A345D4F08084A4A4A4A4A4A4A4A345D4F01074A4A4A4A4A4A4A4A" &
+--        X"345D10014A4A4A4A4302014A4A165D2862170100040004FE2AA8C03C2AA8C036" &
+--        X"A31140000001002B010045000823F8AF5ED5E0000A04010002" ;
+--    tx_len <= std_logic_vector(to_unsigned(313,tx_len'length));
+--    wait for 1 ns;
+--    SEND_RX(minSize => 313, testName => "Packet to FPGA", verbosity => 1);
+
+--   This a packet with the unit select and data together - causing an error
+--   tx_data(2519 downto 0) <=
+--       X"005D5D5D5D405D205D105D085D045D025D015D76376B5D5D3E3E5D5D6B37766B" &
+--       X"5D5D3E3E5D5D6B76376B5D5D3E40014020402010201008100804080402040201" &
+--       X"02013B5D404A4A4A024A615D570143434A4A4943014A4A345D570243434A4A4A" &
+--       X"04014A4A345D7F0445014A4A295D434A43014A4A295D6B4A4A4A014A4A321C23" &
+--       X"5D7F4A43014A4A295D404A4A4A024A615D570143434A4A07084A4A4A345D5702" &
+--       X"43434A4A08084A4A4A345D7F024A014A4A295D4308074A4A4A295D6B4A4A4A01" &
+--       X"4A4A321C235D7F08074A4A4A295D4349074A4A4A024A4A4A4A345D4F45494A4A" &
+--       X"4A4A4A4A4A4A345D4F08084A4A4A4A4A4A4A4A345D4F01074A4A4A4A4A4A4A4A" &
+--       X"345D10014A4A4A4A4302014A4A165D4084E3DD190100040004FE2AA8C03C2AA8" &
+--       X"C034A31140000001002D010045000823F8AF5ED5E0000A04010002" ;
+--   tx_len <= std_logic_vector(to_unsigned(315,tx_len'length));
+--   wait for 1 ns;
+--   SEND_RX(minSize => 315, testName => "Tape Read Packet to FPGA", verbosity => 1);
+
+   wait for 10 ms;
+
+   report "Normal End of UDP Switch/Lamp/tape Test" severity failure;    
+
+end if;  -- SWITCHTEST = 1
+
+if TAUWRITETEST = 1 then
+
+    report "Beging TAU Tape Write Test";
+
+    -- Give Ethernet a chance to initialize...
+    btnU <= '0';
+    btnC <= '0';
+    PhyRxErr <= '0';
+    PhyIntn <= '1';    
+    wait for 100 ns;
+    wait until PhyRstn = '1';
+    wait for 1500 us;
+        
+   -- Send a packet to set up the status on tape unit 0
+
+    tx_data(407 downto 0) <=
+        X"270084040084000084B7F1110000040004FE2AA8C03C2AA8C03CA41140000001" &
+        X"0025000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(51,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 51, testName => "Packet Sent Tape Status to FPGA", verbosity => 1);
+
+    -- Start the CPU, but do not wait for the start to complete before waiting for the
+    -- ARP packet 
+
+    btnC <= '1';
+    report "Pressed Start";
+
+    -- Look for the ARP request before we release start.
+
+    RECEIVE_TX(minSize => 60, testName => "TAPE UDP ARP REQUEST", verbosity => 2);    
+
+    wait for 10000 us; -- was 10100 
+    btnC <= '0';   
+    
+    -- Set up the ARP reply
+    
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+
+    j := 28*8;
+    i := 0;    
+    while i < 6 loop
+       receivedMac(i*8+7 downto i*8) := rx_data(j-1 downto j-8);
+       j := j - 8; 
+       i := i + 1;
+    end loop;
+
+    BUILD_ARP_FRAME(
+       testName => "Tape UDP ARP REPLY",
        verbosity => 1,
        srcMac => X"E0D55EAFF823",
        destMac => receivedMac,
@@ -943,79 +1095,31 @@ if SWITCHTEST = 1 then
     wait for 100 us;
     
     -- tx_data(8*60-1 downto 0) <= tx_arp;
-    SEND_RX(minSize => 60, testName => "LAMP UDP ARP REPLY", verbosity => 2);
+    SEND_RX(minSize => 60, testName => "Tape Write UDP ARP REPLY", verbosity => 2);
     wait for 1 us;
-
-   wait for 20 ms;
-
-   -- Send a packet to set up the status on tape unit 0
-
-   tx_data(407 downto 0) <=
-       X"270084040084000084B7F1110000040004FE2AA8C03C2AA8C03CA41140000001" &
-       X"0025000045000823F8AF5ED5E0000A04010002" ;
-   tx_len <= std_logic_vector(to_unsigned(51,tx_len'length));
-   wait for 1 ns;
-   SEND_RX(minSize => 51, testName => "Packet Set Tape Status to FPGA", verbosity => 1);
-
-
-   btnC <= '1';
-   report "Pressed Start";
-   wait for 10100 us; 
-   btnC <= '0';
-   
-   -- Send a packet in reponse to a READ
-   
-   report "Sending Tape Unit Select";
-
-    tx_data(351 downto 0) <=
-        X"40840E9D0A0000040004FE2AA8C03C2AA8C043A41140000001001E0000450008" &
-        X"23F8AF5ED5E0000A04010002" ;
-    tx_len <= std_logic_vector(to_unsigned(44,tx_len'length));
-    wait for 1 ns;
-    SEND_RX(minSize => 44, testName => "Packet to FPGA", verbosity => 1);
     
-    wait for 100 us;
-   
-   report "Sending tape read data...";
+    -- Then we expect to seee the write request, followed by the tape record data
 
-    tx_data(2503 downto 0) <=
-        X"005D5D5D5D405D205D105D085D045D025D015D76376B5D5D3E3E5D5D6B37766B" &
-        X"5D5D3E3E5D5D6B76376B5D5D3E40014020402010201008100804080402040201" &
-        X"02013B5D404A4A4A024A615D570143434A4A4943014A4A345D570243434A4A4A" &
-        X"04014A4A345D7F0445014A4A295D434A43014A4A295D6B4A4A4A014A4A321C23" &
-        X"5D7F4A43014A4A295D404A4A4A024A615D570143434A4A07084A4A4A345D5702" &
-        X"43434A4A08084A4A4A345D7F024A014A4A295D4308074A4A4A295D6B4A4A4A01" &
-        X"4A4A321C235D7F08074A4A4A295D4349074A4A4A024A4A4A4A345D4F45494A4A" &
-        X"4A4A4A4A4A4A345D4F08084A4A4A4A4A4A4A4A345D4F01074A4A4A4A4A4A4A4A" &
-        X"345D10014A4A4A4A4302014A4A165D2862170100040004FE2AA8C03C2AA8C036" &
-        X"A31140000001002B010045000823F8AF5ED5E0000A04010002" ;
-    tx_len <= std_logic_vector(to_unsigned(313,tx_len'length));
-    wait for 1 ns;
-    SEND_RX(minSize => 313, testName => "Packet to FPGA", verbosity => 1);
+    RECEIVE_TX(minSize => 60, testName => "Tape Write 1 Request", verbosity => 2);    
+    RECEIVE_TX(minSize => 64, testName => "Tape W 1 UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "Tape W 2 UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "Tape W 3 UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "Tape W 4 UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "Tape W 5 UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "Tape W 6 UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "Tape W 7 UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "Tape W 8 UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "Tape W 9 UDP Receive Packet", verbosity => 2);
+    RECEIVE_TX(minSize => 64, testName => "Tape W 10 UDP Receive Packet", verbosity => 2);
 
---   This a packet with the unit select and data together - causing an error
---   tx_data(2519 downto 0) <=
---       X"005D5D5D5D405D205D105D085D045D025D015D76376B5D5D3E3E5D5D6B37766B" &
---       X"5D5D3E3E5D5D6B76376B5D5D3E40014020402010201008100804080402040201" &
---       X"02013B5D404A4A4A024A615D570143434A4A4943014A4A345D570243434A4A4A" &
---       X"04014A4A345D7F0445014A4A295D434A43014A4A295D6B4A4A4A014A4A321C23" &
---       X"5D7F4A43014A4A295D404A4A4A024A615D570143434A4A07084A4A4A345D5702" &
---       X"43434A4A08084A4A4A345D7F024A014A4A295D4308074A4A4A295D6B4A4A4A01" &
---       X"4A4A321C235D7F08074A4A4A295D4349074A4A4A024A4A4A4A345D4F45494A4A" &
---       X"4A4A4A4A4A4A345D4F08084A4A4A4A4A4A4A4A345D4F01074A4A4A4A4A4A4A4A" &
---       X"345D10014A4A4A4A4302014A4A165D4084E3DD190100040004FE2AA8C03C2AA8" &
---       X"C034A31140000001002D010045000823F8AF5ED5E0000A04010002" ;
---   tx_len <= std_logic_vector(to_unsigned(315,tx_len'length));
---   wait for 1 ns;
---   SEND_RX(minSize => 315, testName => "Tape Read Packet to FPGA", verbosity => 1);
+    wait for 10 ms;
 
-   wait for 10 ms;
+   report "Normal End of UDP Tape Write Test" severity failure;    
 
-   report "Normal End of UDP Switch Test" severity failure;    
+end if;  -- TAPEWRITE = 1
 
-end if;
 
-if LOOPBACK = 1 then
+if LOOPBACKTEST = 1 then
    wait for 1 ms;
    tx_data(4*120-1 downto 0) <= 
        -- X"020001040A00E0D55EAFF82308004500002EB3FE00008011B035C0A82A3CC0A82AFE04000400001AD8DD000102030405060708090A0B0C0D0E0F1011";
