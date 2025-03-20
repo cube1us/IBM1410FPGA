@@ -93,7 +93,8 @@ entity IBM1410TapeAdapterUnit is
        
        IBM1410_TAU_XMT_UART_DATA: out STD_LOGIC_VECTOR(7 downto 0);
        IBM1410_TAU_XMT_UART_REQUEST: out STD_LOGIC;
-       IBM1410_TAU_XMT_UART_GRANT: in STD_LOGIC;       
+       IBM1410_TAU_XMT_UART_GRANT: in STD_LOGIC;
+       IBM1410_TAU_XMT_UDP_FLUSH: out STD_LOGIC;       
               
        -- PC Support System to TAU 
        
@@ -161,7 +162,8 @@ constant TAPE_UNIT_CTL_RESET_INDICATE: STD_LOGIC_VECTOR(7 downto 0) := X"3F";  -
 
 constant OUT_STROBE_TIME: integer := 10;        -- 100ns UART strobe time
 constant TAU_INPUT_FIFO_SIZE: integer := 2048;  -- Enough to hold two UDP packets from PC
-constant TAU_FIFO_WIDTH: integer := 8;          -- Bits per PC character
+constant TAU_INPUT_FIFO_WIDTH: integer := 8;    -- Bits per PC character
+constant TAU_OUTPUT_FIFO_WIDTH: integer := 9;   -- Output FIFO needs to carry flush flag
 
 constant TAU_SUPPORT_INPUT_DATA_FLAG: integer := 6;    -- This bit set means PC sending tape data.
 
@@ -187,13 +189,13 @@ signal FIFO_READ_ENABLE_TAU_READ:    STD_LOGIC := '0';
 
 signal OUTPUT_FIFO_READ_ENABLE: STD_LOGIC := '0';
 signal OUTPUT_FIFO_READ_DATA_VALID: STD_LOGIC := '0';
-signal OUTPUT_FIFO_READ_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+signal OUTPUT_FIFO_READ_DATA: STD_LOGIC_VECTOR(8 downto 0) := "000000000";
 signal OUTPUT_FIFO_EMPTY: STD_LOGIC := '0';
 signal OUTPUT_FIFO_EMPTY_NEXT: STD_LOGIC := '0';
 signal OUTPUT_FIFO_FULL: STD_LOGIC := '0';
 signal OUTPUT_FIFO_FULL_NEXT: STD_LOGIC := '0';
 signal OUTPUT_FIFO_WRITE_ENABLE: STD_LOGIC := '0';
-signal OUTPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+signal OUTPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(8 downto 0) := "000000000";
 
 signal UART_RESET: STD_LOGIC;
 
@@ -290,9 +292,11 @@ signal tauBRUEBusy: STD_LOGIC := '0';
 signal tauReadBusy: STD_LOGIC := '0';
 signal tauWriteBusy: STD_LOGIC := '0';
 
-signal tauUnitControlXMTChar: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
-signal tauWriteXMTChar: STD_LOGIC_VECTOR(7 downto 0) := "00000000"; 
-signal tauReadXMTChar: STD_LOGIC_VECTOR(7 downto 0) := "00000000";  -- Used to send unit # and operationt to PC
+-- The Following have an extra bit, to allow for a flush flag
+
+signal tauUnitControlXMTChar: STD_LOGIC_VECTOR(8 downto 0) := "000000000";
+signal tauWriteXMTChar: STD_LOGIC_VECTOR(8 downto 0) := "000000000"; 
+signal tauReadXMTChar: STD_LOGIC_VECTOR(8 downto 0) := "000000000";  -- Used to send unit # and operationt to PC
 
 signal tauBRUEStrobe: STD_LOGIC := '0';
 signal tauWriteDataStrobe: STD_LOGIC := '0';
@@ -423,7 +427,8 @@ tauUARTOutputProcess: process(
          -- Read the character from the FIFO -- raise read enable
          if OUTPUT_FIFO_READ_DATA_VALID = '1' then
             tauUARTOutputState <= tau_uart_output_wait;
-            IBM1410_TAU_XMT_UART_DATA <= OUTPUT_FIFO_READ_DATA;
+            IBM1410_TAU_XMT_UART_DATA <= OUTPUT_FIFO_READ_DATA (7 downto 0);
+            IBM1410_TAU_XMT_UDP_FLUSH <= OUTPUT_FIFO_READ_DATA(8);
          else
             tauUARTOutputState <= tau_uart_output_getChar;
          end if;
@@ -625,7 +630,7 @@ tauBRUEProcess: process(
       
       when tau_brue_idle =>        
 
-         tauUnitControlXMTChar <= "00000000";
+         tauUnitControlXMTChar <= "000000000";
          tauRewindLatch <= '0'; tauUnloadLatch <= '0'; tauBackspaceLatch <= '0'; 
          tauEraseLatch <= '0';
          
@@ -708,9 +713,9 @@ tauBRUEProcess: process(
          
          -- end if;
                          
-         -- Prepare unit number to send to PC
-         tauUnitControlXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
-            tauUnitControlXMTChar'length));
+         -- Prepare unit number to send to PC, no flush flag here
+         tauUnitControlXMTChar <= '0' & std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
+            tauUnitControlXMTChar'length -1));
 
          -- Possible issue:  we may need another state to hold "tape busy" long enough
          -- for the channel to notice.  Not sure.
@@ -764,14 +769,15 @@ tauBRUEProcess: process(
          tauBRUEState <= tau_brue_prepare_action;
       
       when tau_brue_prepare_action =>
-         -- Prepare the byte specifying the action to take to send to the PC      
-         tauUnitControlXMTChar <= "00000000";
+         -- Prepare the byte specifying the action to take to send to the PC,
+         -- with the flush flag set      
+         tauUnitControlXMTChar <= "100000000";
          tauUnitControlXMTChar(TAPE_UNIT_CTL_REWIND_REQUEST) <= tauRewindLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_UNLOAD_REQUEST) <= tauUnloadLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_BACKSPACE_REQUEST) <= tauBackspaceLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_ERASE_REQUEST) <= tauEraseLatch;
          if tauResetTILatch = '1' then -- and MC_TURN_OFF_TAPE_IND = '0' then
-            tauUnitControlXMTChar <= TAPE_UNIT_CTL_RESET_INDICATE;
+            tauUnitControlXMTChar <= '1' & TAPE_UNIT_CTL_RESET_INDICATE;
             tauResetTILatch <= '0';
          end if;
          tauBrueState <= tau_brue_action_fifo_wait;
@@ -801,7 +807,7 @@ tauBRUEProcess: process(
          end if;
       
       when tau_brue_wait =>
-         tauUnitControlXMTChar <= "00000000";
+         tauUnitControlXMTChar <= "000000000";
          -- Wait for call signal from channel to go away.  Here we use the actual call
          -- signals, NOT our latched ones.
          -- We don't wait for the reset TI signal to go away.
@@ -844,7 +850,7 @@ taureadProcess: process(
       -- tauReadTapeIndicateLatch <= '0';
       tauReadStrobeCounter <= 0;
       tauReadDelayCounter <= CHANNEL_CYCLE_LENGTH;
-      tauReadXMTChar <= "00000000";
+      tauReadXMTChar <= "000000000";
       MC_TAU_TO_CPU_BUS <= "11111111";
       tauReadStatus <= "00000000";
       
@@ -857,8 +863,9 @@ taureadProcess: process(
          FIFO_READ_ENABLE_TAU_READ <= '0';
          if tauBusy = '0' and MC_READ_TAPE_CALL = '0' and tauUnitReadReady = '1' then
             tauReadState <= tau_read_fifo_wait_1;
-            tauReadXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
-               tauReadXMTChar'length));
+            -- No flush flag yet...
+            tauReadXMTChar <= '0' &  std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
+               tauReadXMTChar'length - 1));
             tauReadDelayCounter <= 0; -- was CHANNEL_CYCLE_LENGTH;
             -- tauReadTapeIndicateLatch <= '0'; -- Reset TAU tape indicate latch before 1st char.
             -- Turn off load point bit.
@@ -881,8 +888,9 @@ taureadProcess: process(
          -- tauReadTapeIndicateLatch <= '0';
       
       -- Prepare read action to send to PC, and wait for FIFO if necessary
+      -- With the flush flag...
       when tau_read_prepare_action =>
-         tauReadXMTChar <= "00000000";
+         tauReadXMTChar <= "100000000";
          tauReadFirstCharLatch <= '1';
          tauReadXMTChar(TAPE_UNIT_CTL_READ_REQUEST) <= '1';
          tauReadState <= tau_read_fifo_wait_2;
@@ -1008,7 +1016,7 @@ taureadProcess: process(
          MC_TAU_TO_CPU_BUS <= "11111111";
          tauReadState <= tau_read_idle;
          tauReadDelayCounter <= 0; -- Was CHANNEL_CYCLE_LENGTH;
-         tauReadXMTChar <= "00000000";         
+         tauReadXMTChar <= "000000000";         
                      
       end case;     
    end if;
@@ -1040,7 +1048,7 @@ tauWriteProcess: process(
       tauWriteState <= tau_write_idle;
       tauWriteStrobeCounter <= 0;
       tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH;
-      tauWriteXMTChar <= "00000000";
+      tauWriteXMTChar <= "000000000";
       tauWTMLatch <= '0';
       
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
@@ -1052,8 +1060,9 @@ tauWriteProcess: process(
          if (MC_WRITE_TAPE_CALL = '0' or MC_WRITE_TAPE_MK_CALL = '0') and tauUnitWriteReady = '1' and
             tauBusy = '0' then
             tauWriteState <= tau_write_fifo_wait_1;
-            tauWriteXMTChar <= std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
-               tauWriteXMTChar'length));
+            -- Prepare the character, without a flush flag
+            tauWriteXMTChar <= '0' & std_logic_vector(to_unsigned(TAU_SELECTED_TAPE_DRIVE,
+               tauWriteXMTChar'length -1));
             tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH;
             tauWTMLatch <= not MC_WRITE_TAPE_MK_CALL;
             -- Turn off load point bit.
@@ -1074,9 +1083,9 @@ tauWriteProcess: process(
       when tau_write_send_unit_to_PC =>
          tauWriteState <= tau_write_prepare_action;
       
-      -- Prepare write or write tape mark request
+      -- Prepare write or write tape mark request, with the flush flag.
       when tau_write_prepare_action =>
-         tauWriteXMTChar <= "00000000";
+         tauWriteXMTChar <= "100000000";
          if tauWTMlatch = '0' then
             tauWriteXMTChar(TAPE_UNIT_CTL_WRITE_REQUEST) <= '1';
          else
@@ -1135,8 +1144,9 @@ tauWriteProcess: process(
             else
                -- Latch character from CPU now, throwing away WM bit
                -- and repositioning check bit where WM bit is normally
-               -- tauWriteXMTChar <= (not MC_CPU_TO_TAU_BUS) and "10111111";
-               tauWriteXMTChar <= not("1" & MC_CPU_TO_TAU_BUS(7) &
+               -- with no flush flag (that happens at end of record, later)
+               -- tauWriteXMTChar <= '0' & (not MC_CPU_TO_TAU_BUS) and "10111111";
+               tauWriteXMTChar <= '0' & not("1" & MC_CPU_TO_TAU_BUS(7) &
                   MC_CPU_TO_TAU_BUS(5 downto 0)); 
                tauWriteState <= tau_write_char_fifo_wait; 
             end if;                       
@@ -1175,7 +1185,7 @@ tauWriteProcess: process(
 
       -- End of record for normal write - prep to send EOR flag to PC, wait for FIFO
       when tau_write_fifo_wait_4 =>
-         tauWriteXMTChar <= "00000000";  -- End of record flag.
+         tauWriteXMTChar <= "100000000";  -- End of record flag, WITH FLUSH
          if OUTPUT_FIFO_FULL = '1' then
             tauWriteState <= tau_write_fifo_wait_4;
          else
@@ -1190,7 +1200,7 @@ tauWriteProcess: process(
          tauWriteState <= tau_write_idle;
          tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH; 
          tauWTMLatch <= '0';      
-         tauWriteXMTChar <= "00000000";  
+         tauWriteXMTChar <= "000000000";  
                      
       end case;     
    end if;
@@ -1238,7 +1248,7 @@ tauSetStatusProcess: process(
 
    TAU_INPUT_FIFO : ring_buffer
       generic map (
-         RAM_WIDTH => TAU_FIFO_WIDTH,
+         RAM_WIDTH => TAU_INPUT_FIFO_WIDTH,
          RAM_DEPTH => TAU_INPUT_FIFO_SIZE
       )
       port map (
@@ -1262,7 +1272,7 @@ tauSetStatusProcess: process(
    
    TAU_OUTPUT_FIFO : ring_buffer
       generic map (
-         RAM_WIDTH => TAU_FIFO_WIDTH,
+         RAM_WIDTH => TAU_OUTPUT_FIFO_WIDTH,
          RAM_DEPTH => TAU_OUTPUT_FIFO_SIZE
       )
       port map (
