@@ -57,11 +57,12 @@ type muxOutputState_type is (
    
 signal muxOutputState: muxOutputState_type := mux_output_idle;
 signal muxOutputID: STD_LOGIC_VECTOR(7 downto 0);  -- Flush flag added later
+signal lastByteHadFlush:  STD_LOGIC := '0';   -- True if last byte through had a flush - to force ID on next byte
 
 begin
 
 mux_output_process: process(FPGA_CLK, UDP_RESET, muxOutputState, UDP_OUTPUT_GRANTS,
-   UDP_OUTPUT_NEW_REQUESTER, UDP_OUTPUT_FULL, UDP_OUTPUT_FULL_NEXT)
+   UDP_OUTPUT_NEW_REQUESTER, UDP_OUTPUT_FULL, UDP_OUTPUT_FULL_NEXT, lastByteHadFlush)
    
    begin
    
@@ -69,6 +70,8 @@ mux_output_process: process(FPGA_CLK, UDP_RESET, muxOutputState, UDP_OUTPUT_GRAN
    
    if UDP_RESET = '1' then
       muxOutputState <= mux_output_idle;
+      lastByteHadFlush <= '0';
+      
 
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
    
@@ -78,7 +81,8 @@ mux_output_process: process(FPGA_CLK, UDP_RESET, muxOutputState, UDP_OUTPUT_GRAN
       
       when mux_output_idle =>
          if UDP_OUTPUT_GRANTS /= "00000000" then
-            if UDP_OUTPUT_NEW_REQUESTER   = '1' then
+            if UDP_OUTPUT_NEW_REQUESTER = '1' or
+               lastByteHadFlush  = '1' then
                muxOutputState <= mux_output_grant_id;
             else
                muxOutputState <= mux_output_grant_data;
@@ -121,6 +125,8 @@ mux_output_process: process(FPGA_CLK, UDP_RESET, muxOutputState, UDP_OUTPUT_GRAN
       
       when mux_output_write_data =>
          muxOutputState <= mux_output_accepted;
+         -- Remember if this byte had a flush flag, to force ID next byte...
+         lastByteHadFlush <= UDP_OUTPUT_MUX_FLUSH_IN;
          
       when mux_output_accepted =>
          if UDP_OUTPUT_GRANTS = "00000000" then
