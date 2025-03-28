@@ -36,9 +36,10 @@ use IEEE.NUMERIC_STD.ALL;
 entity IBM1410TapeAdapterUnit is
 
    GENERIC(
-      CHANNEL_STROBE_LENGTH: integer := 100;  -- 1 us strobe
-      CHANNEL_CYCLE_LENGTH:  integer := 1120; -- 11.2us per 800 bpi char
-      TAU_OUTPUT_FIFO_SIZE:  integer := 80    -- Size of outbound FIFO
+      CHANNEL_STROBE_LENGTH: integer := 100;    -- 1 us strobe
+      CHANNEL_CYCLE_LENGTH:  integer := 1120;   -- 11.2us per 800 bpi char
+      TAU_WRITE_RBC_DELAY:   integer := 3000000; -- Delay in 10ns units to use for EOR to avoid PC overrun
+      TAU_OUTPUT_FIFO_SIZE:  integer := 80      -- Size of outbound FIFO
    );   
      
    PORT (
@@ -257,6 +258,7 @@ type tauWriteState_type is (
    tau_write_strobe_channel,
    tau_write_fifo_wait_4,
    tau_write_send_eor_to_PC,
+   tau_write_rbc_wait,
    tau_write_done);
    
 -- States for Backup, Rewind and Rewind/Unload state machine   
@@ -337,6 +339,7 @@ signal tauReadDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := CHANNEL_
 signal tauWriteStrobeCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 signal tauWriteDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := CHANNEL_CYCLE_LENGTH;
 signal tauBRUETwiddleCounter: integer range 0 to TAPE_TWIDDLE_TIME := 0;
+signal tauWriteRBCDelayCounter: integer range 0 to TAU_WRITE_RBC_DELAY := 0;
 
 signal tauUnitReadReady: STD_LOGIC := '0';
 signal tauUnitWriteReady: STD_LOGIC := '0';
@@ -1040,6 +1043,7 @@ tauWriteProcess: process(
    tauUnitWriteReady,
    tauWriteStrobeCounter,
    tauWriteDelayCounter,
+   tauWriteRBCDelayCounter,
    tauWriteState)
    
    begin
@@ -1049,6 +1053,7 @@ tauWriteProcess: process(
       tauWriteStrobeCounter <= 0;
       tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH;
       tauWriteXMTChar <= "000000000";
+      tauWRiteRBCDelayCounter <= 0;
       tauWTMLatch <= '0';
       
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
@@ -1173,7 +1178,7 @@ tauWriteProcess: process(
       -- Having sent the char off to the PC, we can now tell the channel we are
       -- ready for another character.  This is combinatorial logic.
       when tau_write_strobe_channel =>
-         if MC_DISCONNECT_CALL = '0' then            
+         if MC_DISCONNECT_CALL = '0' and tauWriteStrobeCounter = 0 then            
             tauWriteState <= tau_write_fifo_wait_4; -- End of Record tell the PC          
          elsif tauWriteStrobeCounter /= CHANNEL_STROBE_LENGTH then
             tauWriteStrobeCounter <= tauWriteStrobeCounter + 1;
@@ -1194,7 +1199,16 @@ tauWriteProcess: process(
       
       -- Strobe to transmit the EOR charcter to the PC...  (strobe)
       when tau_write_send_eor_to_PC =>
-         tauWriteState <= tau_write_done;
+         tauWriteRBCDelayCounter <= 0;
+         tauWriteState <= tau_write_rbc_wait;
+         
+      when tau_write_rbc_wait =>
+         if tauWriteRBCDelayCounter = TAU_WRITE_RBC_DELAY then
+            tauWriteState <= tau_write_done;
+         else
+            tauWriteRBCDelayCounter <= tauWriteRBCDelayCounter + 1;
+            tauWriteState <= tau_write_rbc_wait;
+         end if;            
                
       when tau_write_done =>
          tauWriteState <= tau_write_idle;
