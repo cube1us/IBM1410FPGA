@@ -20,6 +20,7 @@ use WORK.ALL;
 
 entity IntegrationTest4_fpga is
    GENERIC (
+      TAU_WRITE_RBC_DELAY: integer := 4000000;  -- in 10ns units, 40ms
       USE_UDP_OUTPUT_TEST: integer := 0;
       USE_UDP_INPUT_TEST:  integer := 0
    );
@@ -1031,6 +1032,7 @@ architecture behavioral of IntegrationTest4_fpga is
       GENERIC(
           CHANNEL_STROBE_LENGTH: integer;
           CHANNEL_CYCLE_LENGTH: integer;
+          TAU_WRITE_RBC_DELAY:  integer;
           TAU_OUTPUT_FIFO_SIZE: integer );
       PORT (
           FPGA_CLK: in STD_LOGIC;
@@ -2465,7 +2467,7 @@ end component udp_fpga;
 
    -- Signals for UDP based 1410 output subsystem
    
-   constant UDP_UART_MAX_PACKET:      integer := 100;  -- 1450 later
+   constant UDP_UART_MAX_PACKET:      integer := 512;  -- 1450 later
    
    
    -- The Ethernet PHY has some special erset considerations...
@@ -3564,6 +3566,7 @@ memory: IBM1410Memory
    generic map (
        CHANNEL_STROBE_LENGTH => 25,   -- Reduced from default of 100 (1us => 250ns)  
        CHANNEL_CYCLE_LENGTH => 1120,
+       TAU_WRITE_RBC_DELAY => TAU_WRITE_RBC_DELAY,  -- Generic at top
        TAU_OUTPUT_FIFO_SIZE => 80)     -- Test with a really small internal FIFO
    port map (
        FPGA_CLK => FPGA_CLK,
@@ -3636,6 +3639,7 @@ memory: IBM1410Memory
    generic map (
        CHANNEL_STROBE_LENGTH => 25,  -- Reduced from default of 100 (1us => 250ns)  
        CHANNEL_CYCLE_LENGTH => 1120, -- Reduced from default of 11.5 us
+       TAU_WRITE_RBC_DELAY => TAU_WRITE_RBC_DELAY,
        TAU_OUTPUT_FIFO_SIZE => 80)     -- Test with a really small internal FIFO       
    port map (
        FPGA_CLK => FPGA_CLK,
