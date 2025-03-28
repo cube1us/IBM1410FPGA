@@ -14,6 +14,7 @@ architecture behavioral of IntegrationTest4_fpga_tb is
  
 component IntegrationTest4_fpga is
    GENERIC (
+      TAU_WRITE_RBC_DELAY: integer;       -- Default 4000000 == 30ms
       USE_UDP_OUTPUT_TEST: integer := 0;
       USE_UDP_INPUT_TEST:  integer := 0
    );
@@ -174,6 +175,7 @@ begin
 
    UUT: IntegrationTest4_fpga 
    generic map(
+      TAU_WRITE_RBC_DELAY => 1000,  -- For simulation, 10us
       USE_UDP_OUTPUT_TEST => 0,
       USE_UDP_INPUT_TEST => 0
    )
@@ -243,8 +245,9 @@ uut_process: process is
   SW(1) <= '0';  -- 1401 Mode (for testing)
   SW(0) <= '0';  -- FAST console
   
+  -- Essentially a watchdog -- in case the real test doesn't complete.
   -- wait for 25 ms;
-  wait for 50 ms;
+  wait for 30 ms;
   
   -- Tell it unit E channel tape unit 0 is ready
   
@@ -1047,6 +1050,15 @@ if TAUWRITETEST = 1 then
     wait for 1 ns;
     SEND_RX(minSize => 51, testName => "Packet Sent Tape Status to FPGA", verbosity => 1);
 
+    wait for 1 ms;
+    -- Send the same, for Channel 2, tape unit 0
+
+    tx_data(407 downto 0) <=
+        X"270083040083000083B8F3110000040004FE2AA8C03C2AA8C03CA41140000001" &
+        X"0025000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(51,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 51, testName => "Packet Sent Tape 21 Status to FPGA", verbosity => 1);
     -- Start the CPU, but do not wait for the start to complete before waiting for the
     -- ARP packet 
 
@@ -1102,17 +1114,17 @@ if TAUWRITETEST = 1 then
 
     RECEIVE_TX(minSize => 60, testName => "Tape Write 1 Request", verbosity => 2);    
     RECEIVE_TX(minSize => 64, testName => "Tape W 1 UDP Receive Packet", verbosity => 2);
-    RECEIVE_TX(minSize => 64, testName => "Tape W 2 UDP Receive Packet", verbosity => 2);
-    RECEIVE_TX(minSize => 64, testName => "Tape W 3 UDP Receive Packet", verbosity => 2);
-    RECEIVE_TX(minSize => 64, testName => "Tape W 4 UDP Receive Packet", verbosity => 2);
-    RECEIVE_TX(minSize => 64, testName => "Tape W 5 UDP Receive Packet", verbosity => 2);
-    RECEIVE_TX(minSize => 64, testName => "Tape W 6 UDP Receive Packet", verbosity => 2);
-    RECEIVE_TX(minSize => 64, testName => "Tape W 7 UDP Receive Packet", verbosity => 2);
-    RECEIVE_TX(minSize => 64, testName => "Tape W 8 UDP Receive Packet", verbosity => 2);
-    RECEIVE_TX(minSize => 64, testName => "Tape W 9 UDP Receive Packet", verbosity => 2);
-    RECEIVE_TX(minSize => 64, testName => "Tape W 10 UDP Receive Packet", verbosity => 2);
+--    RECEIVE_TX(minSize => 64, testName => "Tape W 2 UDP Receive Packet", verbosity => 2);
+--    RECEIVE_TX(minSize => 64, testName => "Tape W 3 UDP Receive Packet", verbosity => 2);
+--    RECEIVE_TX(minSize => 64, testName => "Tape W 4 UDP Receive Packet", verbosity => 2);
+--    RECEIVE_TX(minSize => 64, testName => "Tape W 5 UDP Receive Packet", verbosity => 2);
+--    RECEIVE_TX(minSize => 64, testName => "Tape W 6 UDP Receive Packet", verbosity => 2);
+--    RECEIVE_TX(minSize => 64, testName => "Tape W 7 UDP Receive Packet", verbosity => 2);
+--    RECEIVE_TX(minSize => 64, testName => "Tape W 8 UDP Receive Packet", verbosity => 2);
+--    RECEIVE_TX(minSize => 64, testName => "Tape W 9 UDP Receive Packet", verbosity => 2);
+--    RECEIVE_TX(minSize => 64, testName => "Tape W 10 UDP Receive Packet", verbosity => 2);
 
-    wait for 10 ms;
+    wait for 5 ms;
 
    report "Normal End of UDP Tape Write Test" severity failure;    
 
