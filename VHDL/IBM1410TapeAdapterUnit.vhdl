@@ -38,6 +38,7 @@ entity IBM1410TapeAdapterUnit is
    GENERIC(
       CHANNEL_STROBE_LENGTH: integer := 100;    -- 1 us strobe
       CHANNEL_CYCLE_LENGTH:  integer := 1120;   -- 11.2us per 800 bpi char
+      TAU_IRG_DELAY:         integer := 10000;   -- Delay for IRG startup to try to fix overlap issue (100 us)
       TAU_WRITE_RBC_DELAY:   integer := 3000000; -- Delay in 10ns units to use for EOR to avoid PC overrun
       TAU_OUTPUT_FIFO_SIZE:  integer := 80      -- Size of outbound FIFO
    );   
@@ -330,6 +331,9 @@ signal tauReadSetStatus: STD_LOGIC := '0';
 signal tauWriteStatus: STD_LOGIC_VECTOR(7 downto 0);
 signal tauWriteSetStatus: STD_LOGIC := '0';
 
+signal tauWriteIRGDelayCounter: integer range 0 to TAU_IRG_DELAY := 0;
+signal tauReadIRGDelayCounter: integer range 0 to TAU_IRG_DELAY := 0;
+signal tauUnitIRGDelayCounter: integer range 0 to TAU_IRG_DELAY := 0;
 
 signal tauReadFirstCharLatch: STD_LOGIC := '0';  -- For tape mark detection
 -- signal tauReadTapeIndicateLatch:  STD_LOGIC := '0';
@@ -843,6 +847,7 @@ taureadProcess: process(
    tauReadFirstCharLatch,
    tauReadStrobeCounter,
    tauReadDelayCounter,
+   tauReadIRGDelayCounter,
    tauReadState)
    
    begin
@@ -856,6 +861,7 @@ taureadProcess: process(
       tauReadXMTChar <= "000000000";
       MC_TAU_TO_CPU_BUS <= "11111111";
       tauReadStatus <= "00000000";
+      tauReadIRGDelayCounter <= 0;
       
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
       case tauReadState is
@@ -864,6 +870,7 @@ taureadProcess: process(
       
       when tau_read_idle =>
          FIFO_READ_ENABLE_TAU_READ <= '0';
+         tauReadIRGDelayCounter <= 0;
          if tauBusy = '0' and MC_READ_TAPE_CALL = '0' and tauUnitReadReady = '1' then
             tauReadState <= tau_read_fifo_wait_1;
             -- No flush flag yet...
@@ -878,11 +885,19 @@ taureadProcess: process(
          end if;
       
       -- Wait until FIFO used to send data to PC has room
+      -- Also delay so that overlapped I/O can be properly handled
       when tau_read_fifo_wait_1 =>
-         if OUTPUT_FIFO_FULL = '1' then
-            tauReadState <= tau_read_fifo_wait_1;
+         if tauReadIRGDelayCounter = TAU_IRG_DELAY then
+            if OUTPUT_FIFO_FULL = '1' then
+               -- no change to tauReadIRGDelayCounter here...
+               tauReadState <= tau_read_fifo_wait_1;
+            else
+               tauReadState <= tau_read_send_unit_to_PC;
+               tauReadIRGDelayCounter <= 0;
+            end if;
          else
-            tauReadState <= tau_read_send_unit_to_PC;
+            tauReadIRGDelayCounter <= tauReadIRGDelayCounter + 1;
+            tauReadState <= tau_read_fifo_wait_1;         
          end if;
       
       -- Send unit number to PC - trigger's strobe
@@ -1044,6 +1059,7 @@ tauWriteProcess: process(
    tauWriteStrobeCounter,
    tauWriteDelayCounter,
    tauWriteRBCDelayCounter,
+   tauWriteIRGDelayCounter,
    tauWriteState)
    
    begin
@@ -1053,7 +1069,8 @@ tauWriteProcess: process(
       tauWriteStrobeCounter <= 0;
       tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH;
       tauWriteXMTChar <= "000000000";
-      tauWRiteRBCDelayCounter <= 0;
+      tauWriteRBCDelayCounter <= 0;
+      tauWriteIRGDelayCounter <= 0;
       tauWTMLatch <= '0';
       
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
@@ -1074,14 +1091,22 @@ tauWriteProcess: process(
             tauWriteStatus <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE) and "11111011";            
          else
             tauWriteState <= tau_write_idle;
+            tauWriteIRGDelayCounter <= 0;
          end if;
       
-      -- Wait until FIFO used to send data to PC has room
+      -- Wait to emulate drive startup, and until FIFO used to send data to PC has room
       when tau_write_fifo_wait_1 =>
-         if OUTPUT_FIFO_FULL = '1' then
-            tauWriteState <= tau_write_fifo_wait_1;
+         if tauWriteIRGDelayCounter = TAU_IRG_DELAY then
+            if OUTPUT_FIFO_FULL = '1' then
+               -- no change to tauWriteIRGDelayCounter here...
+               tauWriteState <= tau_write_fifo_wait_1;
+            else
+               tauWriteState <= tau_write_send_unit_to_PC;
+               tauWriteIRGDelayCounter <= 0;
+            end if;
          else
-            tauWriteState <= tau_write_send_unit_to_PC;
+            tauWriteIRGDelayCounter <= tauWriteIRGDelayCounter + 1;
+            tauWriteState <= tau_write_fifo_wait_1;
          end if;
       
       -- Send unit number to PC - trigger's strobe
