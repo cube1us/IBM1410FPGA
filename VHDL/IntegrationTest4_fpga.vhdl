@@ -20,10 +20,12 @@ use WORK.ALL;
 
 entity IntegrationTest4_fpga is
    GENERIC (
-      TAU_IRG_DELAY:       integer :=  100000;   -- 1 ms in 10ns units
-      TAU_WRITE_RBC_DELAY: integer := 4000000;   -- in 10ns units, 40ms
-      USE_UDP_OUTPUT_TEST: integer := 0;
-      USE_UDP_INPUT_TEST:  integer := 0
+      TAU_IRG_DELAY:         integer  :=  100000;   -- 1 ms in 10ns units
+      TAU_WRITE_RBC_DELAY:   integer  := 4000000;   -- in 10ns units, 40ms
+      CHANNEL_CYCLE_LENGTH:  integer  :=    2000;   -- 20us in 10ns units - inter-character delay
+      CHANNEL_STROBE_LENGTH: integer  :=     100;   -- 1 us channel strobe
+      USE_UDP_OUTPUT_TEST: integer    := 0;
+      USE_UDP_INPUT_TEST:  integer    := 0
    );
    PORT (
       CLK: in  STD_LOGIC;
@@ -3566,10 +3568,10 @@ memory: IBM1410Memory
 
    TAU_CHANNEL_1: IBM1410TapeAdapterUnit
    generic map (
-       CHANNEL_STROBE_LENGTH => 25,   -- Reduced from default of 100 (1us => 250ns)  
-       CHANNEL_CYCLE_LENGTH => 1120,
-       TAU_IRG_DELAY => TAU_IRG_DELAY,              -- Generic at top
-       TAU_WRITE_RBC_DELAY => TAU_WRITE_RBC_DELAY,  -- Generic at top
+       CHANNEL_STROBE_LENGTH => CHANNEL_STROBE_LENGTH,   -- Generic at top  
+       CHANNEL_CYCLE_LENGTH => CHANNEL_CYCLE_LENGTH,     -- Generic at top
+       TAU_IRG_DELAY => TAU_IRG_DELAY,                   -- Generic at top
+       TAU_WRITE_RBC_DELAY => TAU_WRITE_RBC_DELAY,       -- Generic at top
        TAU_OUTPUT_FIFO_SIZE => 80)     -- Test with a really small internal FIFO
    port map (
        FPGA_CLK => FPGA_CLK,
@@ -3640,10 +3642,10 @@ memory: IBM1410Memory
 
    TAU_CHANNEL_2: IBM1410TapeAdapterUnit
    generic map (
-       CHANNEL_STROBE_LENGTH => 25,  -- Reduced from default of 100 (1us => 250ns)  
-       CHANNEL_CYCLE_LENGTH => 1120, -- Reduced from default of 11.5 us
-       TAU_IRG_DELAY => TAU_IRG_DELAY,
-       TAU_WRITE_RBC_DELAY => TAU_WRITE_RBC_DELAY,
+       CHANNEL_STROBE_LENGTH => CHANNEL_STROBE_LENGTH,  -- Reduced from default of 100 (1us => 250ns)  
+       CHANNEL_CYCLE_LENGTH => CHANNEL_CYCLE_LENGTH,    -- Wait time between chars for channel
+       TAU_IRG_DELAY => TAU_IRG_DELAY,                  -- Tape drive startup delay
+       TAU_WRITE_RBC_DELAY => TAU_WRITE_RBC_DELAY,      -- Tape driver read back check delay
        TAU_OUTPUT_FIFO_SIZE => 80)     -- Test with a really small internal FIFO       
    port map (
        FPGA_CLK => FPGA_CLK,

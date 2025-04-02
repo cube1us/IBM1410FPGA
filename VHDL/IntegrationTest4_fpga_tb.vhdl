@@ -14,9 +14,12 @@ architecture behavioral of IntegrationTest4_fpga_tb is
  
 component IntegrationTest4_fpga is
    GENERIC (
-      TAU_WRITE_RBC_DELAY: integer;       -- Default 4000000 == 30ms
-      USE_UDP_OUTPUT_TEST: integer := 0;
-      USE_UDP_INPUT_TEST:  integer := 0
+      CHANNEL_STROBE_LENGTH: integer;     -- Default 100 == 1 us
+      CHANNEL_CYCLE_LENGTH:  integer;     -- Default 1120 == 11.2 us
+      TAU_IRG_DELAY:         integer;     -- Default 10000 == 100 us
+      TAU_WRITE_RBC_DELAY:   integer;     -- Default 4000000 == 30ms
+      USE_UDP_OUTPUT_TEST:   integer := 0;
+      USE_UDP_INPUT_TEST:    integer := 0
    );
    PORT (
       CLK: in  STD_LOGIC;
@@ -175,7 +178,10 @@ begin
 
    UUT: IntegrationTest4_fpga 
    generic map(
-      TAU_WRITE_RBC_DELAY => 1000,  -- For simulation, 10us
+      CHANNEL_STROBE_LENGTH =>   100,  -- 1 us strobe
+      CHANNEL_CYCLE_LENGTH  =>  2000,  -- 20 us (would be 1120 for 11.2 us per 800 bpi char)
+      TAU_IRG_DELAY         => 10000,  -- 1ms to allow for overlap to start up
+      TAU_WRITE_RBC_DELAY =>    1000,  -- For simulation, just 10us
       USE_UDP_OUTPUT_TEST => 0,
       USE_UDP_INPUT_TEST => 0
    )
