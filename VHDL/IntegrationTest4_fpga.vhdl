@@ -22,7 +22,7 @@ entity IntegrationTest4_fpga is
    GENERIC (
       TAU_IRG_DELAY:         integer  :=  100000;   -- 1 ms in 10ns units
       TAU_WRITE_RBC_DELAY:   integer  := 4000000;   -- in 10ns units, 40ms
-      CHANNEL_CYCLE_LENGTH:  integer  :=    2000;   -- 20us in 10ns units - inter-character delay
+      CHANNEL_CYCLE_LENGTH:  integer  :=    1120;   -- 20us in 10ns units - inter-character delay
       CHANNEL_STROBE_LENGTH: integer  :=     100;   -- 1 us channel strobe
       USE_UDP_OUTPUT_TEST: integer    := 0;
       USE_UDP_INPUT_TEST:  integer    := 0
