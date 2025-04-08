@@ -54,8 +54,13 @@ architecture behavioral of ALD_15_41_10_1_E_CH_FULL_CONTROL_ACC is
 	signal OUT_DOT_3E: STD_LOGIC;
 	
 	signal E1Full: STD_LOGIC := '0';
+	
+	signal E2Full: STD_LOGIC := '0';
+	signal E2NotFull: STD_LOGIC := '0';
+	signal E2FullSet2: STD_LOGIC := '0';
 
 begin
+
 
    -- Stand in for problematic latch using collector pullover reset at 4A, 3A   
 
@@ -92,11 +97,13 @@ begin
 	OUT_5C_K <= NOT(PS_E2_REG_WORD_SEPARATOR AND PS_SET_E2_REG );
 	-- OUT_5E_K <= NOT(PS_E_CH_OUTPUT_MODE AND PS_SET_E2_REG );
    OUT_5E_K <= NOT(PS_E_CH_OUTPUT_MODE AND PS_SET_E2_REG_DELAYED );
-	OUT_3E_E <= NOT(OUT_5C_K AND OUT_5E_K );
-	OUT_1E_Q <= OUT_DOT_3E;
+	OUT_3E_E <= NOT(OUT_5C_K AND OUT_5E_K );	
+	-- OUT_1E_Q <= OUT_DOT_3E;
+	OUT_1E_Q <= E2Full;
 	OUT_4F_D_Latch <= NOT(MS_RESET_E2_FULL_LATCH AND MS_E_CH_RESET AND OUT_DOT_3E );
 	OUT_3F_P <= NOT(OUT_5B_C AND OUT_4F_D );
-	OUT_2G_C <= OUT_4F_D;
+	-- OUT_2G_C <= OUT_4F_D;
+	OUT_2G_C <= not E2Full;
 	OUT_DOT_4A <= OUT_4A_D OR OUT_4B_P;
 	OUT_DOT_3E <= OUT_3E_E OR OUT_3F_P OR PS_E2_FULL_LATCH_STAR_SIF;
 
@@ -123,6 +130,17 @@ begin
 		D => OUT_4F_D_Latch,
 		Q => OUT_4F_D,
 		QBar => OPEN );
-
-
+		
+   E2FullSet2 <= not OUT_3E_E;
+		
+   E2_FULL_LATCH: entity SMS_LATCH port map (
+      FPGA_CLK => FPGA_CLK,
+      RESET1 => MS_RESET_E2_FULL_LATCH,
+      RESET2 => MS_E_CH_RESET,
+      SET1 => OUT_5B_C,
+      SET2 => E2FullSet2,
+      SET3 => '1',
+      OUTON => E2FUll,
+      OUTOFF => OPEN);
+   
 end;
