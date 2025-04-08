@@ -1990,6 +1990,7 @@ end component;
    signal LOCAL_E_CH_TAPE_TEST: STD_LOGIC := '0'; -- '1' if we are doing full E channel test
    signal LOCAL_F_CH_TAPE_TEST: STD_LOGIC := '0'; -- '1' if we are doing full F channel test
    signal LOCAL_REWIND_TEST: STD_LOGIC := '0';  -- '1' if we are doing rewind test
+   signal LOCAL_TEST_WRITE_TAPE_EOM: STD_LOGIC := '0';  -- 1 to do this test
    signal LOCAL_i: integer := 64;  -- copy of loop  variable
    signal LOCAL_TAU_XMT_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
    
@@ -2315,7 +2316,7 @@ procedure do_tape_write(
             assert MCTapeWRiteStrobe = '0' report "Test: " & test & ", subtest: " &
                subtest & ", Write: No Write Strobe from TAU" severity failure;
             -- Tau should stay busy until the last character
-            if i /= 19 or LOCAL_WS_CHAR /= "00000000" then
+            if i /= (numchars-1) or LOCAL_WS_CHAR /= "00000000" then
                wait for 1 us;  -- Arbitrary wait
                assert MCTapeBusy = '0' report "Test: " & test & ", subtest: " &
                   subtest & ", Write: TAU did not stay busy";
@@ -3648,10 +3649,11 @@ uut_process: process
 
 -- Set whether or not we are testing load mode, and which channel to tset.
    
-   LOCAL_WS_TEST <= '0';          -- True if testing in load mode
+   LOCAL_WS_TEST <= '1';          -- True if testing in load mode
    LOCAL_E_CH_TAPE_TEST <= '1'; 
    LOCAL_F_CH_TAPE_TEST <= '0';
    LOCAL_REWIND_TEST <= '0';
+   LOCAL_TEST_WRITE_TAPE_EOM <= '0';
     
    wait for 10 ns;
 
@@ -4308,9 +4310,79 @@ if LOCAL_REWIND_TEST = '1' then
    
    report "Unit Control Test RWD3: Successful end of rewind test.";
 
-end if; -- Unit Control Test  LOCAL_ERWIND_TEST
+end if; -- Unit Control Test  LOCAL_REWIND_TEST
 
 -- ===============================================================================================
+
+
+if LOCAL_TEST_WRITE_TAPE_EOM = '1' then
+      
+-- Special test: End of memory write to End of Memory
+
+   send_tape_status(unit => 0, status => 
+      TAPE_UNIT_READY_STATUS or TAPE_UNIT_READ_READY_STATUS or TAPE_UNIT_WRITE_READY_STATUS,
+      write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
+      write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE);
+
+   -- At this point, the CPU has not selected a tape drive.
+   
+   SWITCH_MOM_CONS_START <= '1';
+   report "Pressed Start";
+   wait for 5 us;  -- Normally we'd wait longer
+   SWITCH_MOM_CONS_START <= '0';
+   wait for 5 us; -- Normally this would take longer
+   report "Start released";      
+   
+   wait until MC_WRITE_TAPE_CALL_STAR_E_CH = '0' for 25 ms;
+   wait for 20 ns;
+   
+   assert MC_WRITE_TAPE_CALL_STAR_E_CH = '0' report
+      "Write Test 1, Didn't wait long enough for Write Call" severity failure;
+
+   if MC_ODD_PARITY_TO_TAPE_STAR_E_CH = '0' then
+      LOCAL_ODD_PARITY_MASK <= "01000000";
+   else
+      LOCAL_ODD_PARITY_MASK <= "00000000";
+   end if;
+   
+   report "E Ch Wrap Test: Received Write Call";
+   
+   assert MC_TAPE_BUSY = '0' report "Write Test 1, TAU did not go busy" severity failure;
+
+   -- For a write, the TAU should STAY busy
+
+   wait for 10 ns;
+   assert MC_TAPE_BUSY = '0' report "Write Test 1, TAU did not stay busy" severity failure;  
+   assert MC_TAPE_IN_PROCESS = '0' report "Write Test 1, TAU not In Process" severity failure; 
+      
+   -- Check the request from the TAU to the PC support program is for a Write
+   
+   check_tape_request(test => "E CH Wrap Test", subtest => "Write Call",
+      waitTime => 25 us, unit => 0, request_signal => IBM1410_TAU_XMT_UART_REQUEST, 
+      grant_signal => IBM1410_TAU_XMT_UART_GRANT,
+      request_char => IBM1410_TAU_XMT_UART_DATA, target_char => "00000010", 
+      holding_char => LOCAL_TAU_XMT_CHAR);   
+       
+   -- Now expect a 10 byte record
+
+   do_tape_write(test => "E Ch Wrap Test", subtest => "Write test", numchars => 10,
+      checkData => false, loadMode => false, 
+      MCTapeWRiteStrobe => MC_TAPE_WRITE_STROBE, MCTapeBusy => MC_TAPE_BUSY,
+      MCTapeInProcess => MC_TAPE_IN_PROCESS, oddParityMask => LOCAL_ODD_PARITY_MASK,
+      tapeTestDataEven => tapeTestDataEven, tapeTestdataWM => TapeTestDataWM,
+      write_data => IBM1410_TAU_INPUT_FIFO_WRITE_DATA,
+      write_enable => IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE,
+      request_signal => IBM1410_TAU_XMT_UART_REQUEST, 
+      grant_signal => IBM1410_TAU_XMT_UART_GRANT,
+      write_char => IBM1410_TAU_XMT_UART_DATA,
+      LOCAL_TAU_XMT_CHAR => LOCAL_TAU_XMT_CHAR,
+      LOCAL_WS_FLAG => LOCAL_WS_FLAG, LOCAL_WS_CHAR => LOCAL_WS_CHAR);            
+      
+   report "E Channel Write to End of Memory Completed";
+      
+end if;
+
+-- =========================================================================
       
    wait for 5 ms;  -- Give it a chance to halt somewhere.
    
