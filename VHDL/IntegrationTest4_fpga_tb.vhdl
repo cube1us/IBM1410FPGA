@@ -179,7 +179,7 @@ begin
    UUT: IntegrationTest4_fpga 
    generic map(
       CHANNEL_STROBE_LENGTH =>   100,  -- 1 us strobe
-      CHANNEL_CYCLE_LENGTH  =>  2000,  -- 20 us (would be 1120 for 11.2 us per 800 bpi char)
+      CHANNEL_CYCLE_LENGTH  =>  1120,  -- 20 us (would be 1120 for 11.2 us per 800 bpi char)
       TAU_IRG_DELAY         => 10000,  -- 1ms to allow for overlap to start up
       TAU_WRITE_RBC_DELAY =>    1000,  -- For simulation, just 10us
       USE_UDP_OUTPUT_TEST => 0,
@@ -769,7 +769,8 @@ end RECEIVE_TX;
    variable SWITCHTEST:   integer := 0;
    variable LAMPTEST:     integer := 0;
    variable TAUREADTEST:  integer := 0;
-   variable TAUWRITETEST: integer := 1;
+   variable TAUWRITETEST: integer := 0;
+   variable TAUREADTMCONDTEST: integer := 1;
    
 
   begin
@@ -1036,7 +1037,7 @@ end if;  -- SWITCHTEST = 1
 
 if TAUWRITETEST = 1 then
 
-    report "Beging TAU Tape Write Test";
+    report "Begin TAU Tape Write Test";
 
     -- Give Ethernet a chance to initialize...
     btnU <= '0';
@@ -1134,7 +1135,70 @@ if TAUWRITETEST = 1 then
 
    report "Normal End of UDP Tape Write Test" severity failure;    
 
-end if;  -- TAPEWRITE = 1
+end if;  -- TAPEWRITETEST = 1
+
+if TAUREADTMCONDTEST = 1 then
+
+    report "Begin TAU Tape Write Test";
+
+    -- Give Ethernet a chance to initialize...
+    btnU <= '0';
+    btnC <= '0';
+    PhyRxErr <= '0';
+    PhyIntn <= '1';    
+    wait for 100 ns;
+    wait until PhyRstn = '1';
+    wait for 1500 us;
+        
+   -- Send a packet to set up the status on tape unit 0
+
+    tx_data(407 downto 0) <=
+        X"270084040084000084B7F1110000040004FE2AA8C03C2AA8C03CA41140000001" &
+        X"0025000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(51,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 51, testName => "Packet Sent Tape Status to FPGA", verbosity => 1);
+
+    wait for 1 ms;
+    -- Send the same, for Channel 2, tape unit 0
+
+    tx_data(407 downto 0) <=
+        X"270083040083000083B8F3110000040004FE2AA8C03C2AA8C03CA41140000001" &
+        X"0025000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(51,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 51, testName => "Packet Sent Tape 21 Status to FPGA", verbosity => 1);
+    
+    -- Start the CPU.  This test needs no ARP packet.
+
+    btnC <= '1';
+    report "Pressed Start";
+
+    wait for 12 ms;    
+    
+    -- Send a TM packet for E Channel Unit 0
+    
+--    tx_data(367 downto 0) <=
+--        X"000F40840A8E0C0000040004FE2AA8C03C2AA8C041A411400000010020000045" &
+--        X"000823F8AF5ED5E0000A04010002" ;
+--    tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+--    wait for 1 ns;
+--    SEND_RX(minSize => 46, testName => "Packet to read TM TU 10 to FPGA", verbosity => 1); 
+
+    -- Send a TM packet for F Channel Unit 0
+    
+    tx_data(367 downto 0) <=
+        X"000F40830A8F0C0000040004FE2AA8C03C2AA8C041A411400000010020000045" &
+        X"000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 46, testName => "Packet to read TM TU 20to FPGA", verbosity => 1);       
+
+    wait for 5 ms;  -- hope this is long enough.
+    
+    report "Normal End of UDP Tape Read TM / Condition Test" severity failure;    
+
+end if;
 
 
 if LOOPBACKTEST = 1 then
