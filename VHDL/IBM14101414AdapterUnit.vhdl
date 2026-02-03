@@ -341,9 +341,12 @@ unitTriggerProcess: process (
 
                elsif UNIT_SUPPORT_OPERATION = 0 then
                   -- The second byte we will see is the operation.
-                  -- Latch that, too, for alter use, and stay here.
+                  -- Latch that, too, for later use, and stay here.
                   UNIT_SUPPORT_OPERATION <= to_integer(unsigned(UNIT_INPUT_FIFO_READ_DATA));
-                  if UNIT_SUPPORT_OPERATION = UNIT_RECEIVE_STATUS_OPERATION then
+                  -- If this is a receive status operation, stick around until we get the
+                  -- status, otherwise go wait for data
+                  if to_integer(unsigned(UNIT_INPUT_FIFO_READ_DATA)) = 
+                     UNIT_RECEIVE_STATUS_OPERATION then
                      unitTriggerState <= unit_trigger_idle;
                   else
                      unitTriggerState <= unit_trigger_wait;
@@ -470,7 +473,7 @@ unitCh1ReaderDataProcess: process (
                -- Hmm.  Should really do a WLR check here, but then I would have
                -- to have two sets of reader status signals.  8(
                unitCh1ReaderState <= unit_reader_done;
-            elsif READER_CH1_BUFFER_INPUT_POSITION < 79 then
+            elsif READER_CH1_BUFFER_INPUT_POSITION < READER_BUFFER_LENGTH then
                READER_CH1_BUFFER(READER_CH1_BUFFER_INPUT_POSITION) <= UNIT_INPUT_FIFO_READ_DATA;
                READER_CH1_BUFFER_INPUT_POSITION <= READER_CH1_BUFFER_INPUT_POSITION + 1;
                unitCh1ReaderState <= unit_reader_waitForChar;
@@ -489,7 +492,9 @@ unitCh1ReaderDataProcess: process (
          end if;
 
       when unit_reader_done =>
-         unitCh1ReaderState <= unit_reader_idle;
+         -- TODO: Need to set something here indicating buffer is full and ready,
+         -- so the channel process can start up when asked.
+         unitCh1ReaderState <= unit_reader_reset;
 
    end case;
       

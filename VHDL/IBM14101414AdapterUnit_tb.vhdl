@@ -325,6 +325,7 @@ uut_process: process
     -- Set up card reader is ready
     v := "00000000";
     v(UNIT_READY_BIT) := '1';
+    -- Consider also setting busy during the data transmission.
     
     IBM1410_1414_INPUT_FIFO_WRITE_DATA <= v;    -- Status: reader ready.
     wait for 100 ns;
@@ -359,6 +360,7 @@ uut_process: process
         v := std_logic_vector(to_unsigned(i, v'length));
         v(HDL_WM_BIT) := '0';  -- Turn off wordmark - just 6 bits of actual data from reader
         v(HDL_C_BIT) := calculate_odd_parity(v);
+        LOCAL_i <= i;
 
         IBM1410_1414_INPUT_FIFO_WRITE_DATA <= v;        
         wait for 100 ns;
@@ -367,6 +369,10 @@ uut_process: process
         IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
         wait for 100 ns;
     end loop;
+    
+    -- TODO: Next, we should tell it the card reader is no longer busy.
+    
+    assert false report "Normal end of 1414 Unit Record I/O Sync Test Bench" severity failure;
 
 end process;
 
