@@ -140,6 +140,11 @@ mux_output_process: process(FPGA_CLK, UDP_RESET, muxOutputState, UDP_OUTPUT_GRAN
    end if;
 
    end process;
+
+   -- IMPORTANT NOTE:  Note that the value sent for the output ID to
+   -- the PC Console / Support program is ONE MORE than one might 
+   -- expect from the grant's bit position, so grant 0 Results in 
+   -- an ID of 0x81 up to to grant 7 which results in an ID of 0x88.
    
    muxOutputID <= 
       "10000001" when UDP_OUTPUT_GRANTS = "00000001"
