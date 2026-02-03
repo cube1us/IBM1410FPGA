@@ -310,7 +310,7 @@ uut_process: process
         to_unsigned(READER_CH1_DEVICE_NUMBER, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));    -- Device 1 (reader)
     wait for 100 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
-    wait for 100 ns;
+    wait for 10 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
     wait for 100 ns;
    
@@ -318,15 +318,18 @@ uut_process: process
         to_unsigned(UNIT_RECEIVE_STATUS_OPERATION, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length )); -- Status Update
     wait for 100 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
-    wait for 100 ns;
+    wait for 10 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
     wait for 100 ns;
 
-    IBM1410_1414_INPUT_FIFO_WRITE_DATA <= std_logic_vector(
-        to_unsigned(UNIT_READY_BIT, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));  -- Status: reader ready.
+    -- Set up card reader is ready
+    v := "00000000";
+    v(UNIT_READY_BIT) := '1';
+    
+    IBM1410_1414_INPUT_FIFO_WRITE_DATA <= v;    -- Status: reader ready.
     wait for 100 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
-    wait for 100 ns;
+    wait for 10 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
     wait for 100 ns;
 
@@ -338,7 +341,7 @@ uut_process: process
         to_unsigned(READER_CH1_DEVICE_NUMBER, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));    -- Device 1 (reader)
     wait for 100 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
-    wait for 100 ns;
+    wait for 10 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
     wait for 100 ns;
    
@@ -346,7 +349,7 @@ uut_process: process
         to_unsigned(UNIT_RECEIVE_DATA_OPERATION, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length )); -- Receive Data
     wait for 100 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
-    wait for 100 ns;
+    wait for 10 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
     wait for 100 ns;
 
@@ -360,7 +363,7 @@ uut_process: process
         IBM1410_1414_INPUT_FIFO_WRITE_DATA <= v;        
         wait for 100 ns;
         IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
-        wait for 100 ns;
+        wait for 10 ns;
         IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
         wait for 100 ns;
     end loop;

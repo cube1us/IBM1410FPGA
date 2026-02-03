@@ -162,6 +162,7 @@ constant UNIT_OUTPUT_FIFO_WIDTH: integer  := 9;   -- Ouptut FIFO also has a flus
 
 constant UNIT_TWIDDLE_TIME: integer       := 100; -- 100 us of busy time in UR minimum (TODO: Param)
 
+signal UDP_RESET:                         std_logic := '1';
 signal UNIT_INPUT_FIFO_READ_ENABLE:       std_logic := '0';
 signal UNIT_INPUT_FIFO_READ_DATA_VALID:   std_logic := '0';
 signal UNIT_INPUT_FIFO_READ_DATA:         std_logic_vector(7 downto 0) := "00000000";
@@ -272,6 +273,29 @@ attribute dont_touch of PRINTER_CH2_STATUS:  signal is "true";
 
 begin
 
+-- Instantiate Components
+
+UNIT_INPUT_FIFO: ring_buffer
+   generic map (
+      RAM_WIDTH => UNIT_INPUT_FIFO_WIDTH,
+      RAM_DEPTH => UNIT_INPUT_FIFO_SIZE
+   )
+   port map (
+      clk => FPGA_CLK,
+      rst => UDP_RESET,
+      wr_en => IBM1410_1414_INPUT_FIFO_WRITE_ENABLE,
+      wr_data => IBM1410_1414_INPUT_FIFO_WRITE_DATA,
+      rd_en => UNIT_INPUT_FIFO_READ_ENABLE,
+      rd_valid => UNIT_INPUT_FIFO_READ_DATA_VALID,
+      rd_data => UNIT_INPUT_FIFO_READ_DATA,
+      empty => UNIT_INPUT_FIFO_EMPTY,
+      empty_next => UNIT_INPUT_FIFO_EMPTY_NEXT,
+      full => UNIT_INPUT_FIFO_FULL,
+      full_next => UNIT_INPUT_FIFO_FULL_NEXT,
+      fill_count => OPEN
+   );
+      
+
 unitTriggerProcess: process (
    FPGA_CLK,
    MC_COMP_RESET_TO_BUFFER,
@@ -294,7 +318,7 @@ unitTriggerProcess: process (
          
          when unit_trigger_reset =>
             unitTriggerState <= unit_trigger_idle;
-            FIFO_READ_ENABLE_UNIT_TRIGGER <= '1';
+            FIFO_READ_ENABLE_UNIT_TRIGGER <= '0';
          
          when unit_trigger_idle =>
             if UNIT_INPUT_FIFO_EMPTY = '0' then
@@ -343,10 +367,14 @@ unitTriggerProcess: process (
                            PRINTER_CH1_STATUS <= UNIT_INPUT_FIFO_READ_DATA;
                         when PRINTER_CH2_DEVICE_NUMBER =>
                            PRINTER_CH2_STATUS <= UNIT_INPUT_FIFO_READ_DATA;
+                        when others => null;
                      end case;
                   end if;
                   -- Since this is (presumably) just a status message, go back to idle
-                  -- after setting the status
+                  -- after setting the status, and reset the unit and operation, to 
+                  -- prepare for the next message.
+                  UNIT_SUPPORT_UNIT <= 0;
+                  UNIT_SUPPORT_OPERATION <= 0;
                   unitTriggerState <= unit_trigger_idle;
                end if;
 
@@ -376,6 +404,9 @@ unitTriggerProcess: process (
             if unitTriggerCH1ReaderData = '1' then
                unitTriggerState <= unit_trigger_wait;
             else
+               -- Once we have received the data, reset our state, unit and operation
+               UNIT_SUPPORT_UNIT <= 0;
+               UNIT_SUPPORT_OPERATION <= 0;               
                unitTriggerState <= unit_trigger_idle;
             end if;
 
@@ -466,6 +497,8 @@ unitCh1ReaderDataProcess: process (
 
 end process;
 
+UDP_RESET <= not MC_COMP_RESET_TO_BUFFER;
+
 -- Wake up trigger for the reader data process and to keep the trigger process
 -- sleeping until the data from the PC is read
 
@@ -483,5 +516,9 @@ UNIT_INPUT_FIFO_READ_ENABLE <= '1' when
    FIFO_READ_ENABLE_UNIT_TRIGGER = '1' OR 
    FIFO_READ_ENABLE_READER_DATA  = '1'
    else '0';
+
+-- TODO: Determine when 1414 buffer is ready, busy, etc.
+
+MC_BUFFER_READY <= '0';
 
 end Behavioral;
