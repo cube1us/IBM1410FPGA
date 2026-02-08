@@ -57,7 +57,7 @@ component IBM14101414AdapterUnit is
 
         -- 1414 Input Signals from CPU
 
-        MC_CPU_TO_I_SYNC_BUS:           in std_logic_vector(7 downto 0);
+        MC_CPU_TO_I_O_SYNC_BUS:           in std_logic_vector(7 downto 0);
 
         MC_UNIT_1_SELECT_TO_I_O:        in std_logic;  -- Card Reader
         MC_UNIT_2_SELECT_TO_I_O:        in std_logic;  -- Printer
@@ -68,7 +68,7 @@ component IBM14101414AdapterUnit is
         MC_READY_TO_BUFFER:             in std_logic;
         MC_COMP_RESET_TO_BUFFER:        in std_logic;
         MC_RESET_SELECT_BUFFER_LATCHES: in std_logic;
-        MC_CORRECT_TRANSFER_TO_BUFFER:  in std_logic;
+        MC_CORRECT_TRANS_TO_BUFFER:     in std_logic;
         MC_STACK_SELECT_TO_BUFFER:      in std_logic;
         MC_FORMS_STACKER_GO:            in std_logic;
 
@@ -101,7 +101,7 @@ component IBM14101414AdapterUnit is
         IBM1410_1414_XMT_UART_DATA:     out std_logic_vector(7 downto 0);
         IBM1410_1414_UART_REQUEST:      out std_logic;
         IBM1410_1414_UART_GRANT:        out std_logic;
-        IBM1410_UAT_XMT_UDP_FLUSH:      out std_logic;
+        IBM1410_UART_XMT_UDP_FLUSH:      out std_logic;
 
         -- PC Support System to 1414
 
@@ -144,7 +144,7 @@ constant READER_LAST_CARD_BIT: integer := 5;
 signal FPGA_CLK:    std_logic := '0';
 signal UDP_RESET:   std_logic := '0';
 
-signal MC_CPU_TO_I_SYNC_BUS:            std_logic_vector(7 downto 0) := "11111111";
+signal MC_CPU_TO_I_O_SYNC_BUS:            std_logic_vector(7 downto 0) := "11111111";
 
 signal MC_UNIT_1_SELECT_TO_I_O:         std_logic := '1';  -- Card Reader
 signal MC_UNIT_2_SELECT_TO_I_O:         std_logic := '1';  -- Printer
@@ -155,7 +155,7 @@ signal MC_1401_MODE_TO_BUFFER:          std_logic := '1';
 signal MC_READY_TO_BUFFER:              std_logic := '1';
 signal MC_COMP_RESET_TO_BUFFER:         std_logic := '1';
 signal MC_RESET_SELECT_BUFFER_LATCHES:  std_logic := '1';
-signal MC_CORRECT_TRANSFER_TO_BUFFER:   std_logic := '1';
+signal MC_CORRECT_TRANS_TO_BUFFER:      std_logic := '1';
 signal MC_STACK_SELECT_TO_BUFFER:       std_logic := '1';
 signal MC_FORMS_STACKER_GO:             std_logic := '1';
 
@@ -188,7 +188,7 @@ signal MC_I_O_CLOCK_080_090_TIME:       std_logic := '1';
 signal IBM1410_1414_XMT_UART_DATA:      std_logic_vector(7 downto 0) := "00000000";
 signal IBM1410_1414_UART_REQUEST:       std_logic := '0';
 signal IBM1410_1414_UART_GRANT:         std_logic := '0';
-signal IBM1410_UAT_XMT_UDP_FLUSH:       std_logic := '0';
+signal IBM1410_UART_XMT_UDP_FLUSH:       std_logic := '0';
 
     -- PC Support System to 1414
 
@@ -212,7 +212,7 @@ UUT: IBM14101414AdapterUnit
 
         -- 1414 Input Signals from CPU
 
-        MC_CPU_TO_I_SYNC_BUS => MC_CPU_TO_I_SYNC_BUS,
+        MC_CPU_TO_I_O_SYNC_BUS => MC_CPU_TO_I_O_SYNC_BUS,
 
         MC_UNIT_1_SELECT_TO_I_O => MC_UNIT_1_SELECT_TO_I_O,
         MC_UNIT_2_SELECT_TO_I_O => MC_UNIT_2_SELECT_TO_I_O,
@@ -223,7 +223,7 @@ UUT: IBM14101414AdapterUnit
         MC_READY_TO_BUFFER => MC_READY_TO_BUFFER,
         MC_COMP_RESET_TO_BUFFER => MC_COMP_RESET_TO_BUFFER,
         MC_RESET_SELECT_BUFFER_LATCHES => MC_RESET_SELECT_BUFFER_LATCHES,
-        MC_CORRECT_TRANSFER_TO_BUFFER => MC_CORRECT_TRANSFER_TO_BUFFER,
+        MC_CORRECT_TRANS_TO_BUFFER => MC_CORRECT_TRANS_TO_BUFFER,
         MC_STACK_SELECT_TO_BUFFER => MC_STACK_SELECT_TO_BUFFER,
         MC_FORMS_STACKER_GO => MC_FORMS_STACKER_GO,
 
@@ -256,7 +256,7 @@ UUT: IBM14101414AdapterUnit
         IBM1410_1414_XMT_UART_DATA => IBM1410_1414_XMT_UART_DATA,
         IBM1410_1414_UART_REQUEST => IBM1410_1414_UART_REQUEST,
         IBM1410_1414_UART_GRANT => IBM1410_1414_UART_GRANT,
-        IBM1410_UAT_XMT_UDP_FLUSH => IBM1410_UAT_XMT_UDP_FLUSH,
+        IBM1410_UART_XMT_UDP_FLUSH => IBM1410_UART_XMT_UDP_FLUSH,
 
         -- PC Support System to 1414
 
