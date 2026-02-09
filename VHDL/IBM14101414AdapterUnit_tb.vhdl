@@ -100,8 +100,8 @@ component IBM14101414AdapterUnit is
 
         IBM1410_1414_XMT_UART_DATA:     out std_logic_vector(7 downto 0);
         IBM1410_1414_UART_REQUEST:      out std_logic;
-        IBM1410_1414_UART_GRANT:        out std_logic;
-        IBM1410_UART_XMT_UDP_FLUSH:      out std_logic;
+        IBM1410_1414_UART_GRANT:        in std_logic;
+        IBM1410_UART_XMT_UDP_FLUSH:     out std_logic;
 
         -- PC Support System to 1414
 
@@ -203,7 +203,7 @@ UUT: IBM14101414AdapterUnit
 
     GENERIC MAP (
         CHANNEL_STROBE_LENGTH => 10,       -- SHORT value for testing separate from channel
-        CHANNEL_CYCLE_LENGTH => 1120,      -- 11.2 us per character
+        CHANNEL_CYCLE_LENGTH => 112,       -- 11.2 us per character, SHORTER for testing for now (1.12 us)
         IOSYNC_OUTPUT_FIFO_SIZE => 140     -- Enough for printer, too
     )
 
@@ -300,7 +300,8 @@ uut_process: process
     wait for 100 ns;
     t := now;
 
-    assert MC_BUFFER_READY = '0' report "Test 1, Ready NOT asserted" severity failure;
+    -- The following test wasn't valid.
+    -- assert MC_BUFFER_READY = '0' report "Test 1, Ready NOT asserted" severity failure;
 
     -- Send a status update to the FPGA
     -- Note that we do not have to send the leading 0x85 to the 1414 - that is handled
@@ -370,7 +371,33 @@ uut_process: process
         wait for 100 ns;
     end loop;
     
-    -- TODO: Next, we should tell it the card reader is no longer busy.
+    -- Send the end of card indicator.
+    
+    IBM1410_1414_INPUT_FIFO_WRITE_DATA <= "00000000";
+    wait for 100 ns;
+    IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
+    wait for 10 ns;
+    IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
+    wait for 100 ns;
+    
+    
+    -- Start up a request to the buffer, and check the status
+    
+    MC_CPU_TO_I_O_SYNC_BUS <= "11111110";  -- Stacker select character == 1    
+    MC_UNIT_1_SELECT_TO_I_O <= '0';
+    MC_INPUT_MODE_TO_BUFFER <= '0';
+    wait for 100 ns;
+    
+    assert MC_BUFFER_READY = '0'     report "Test 2 MC Buffer Ready not asserted" severity failure;
+    assert MC_BUFFER_BUSY = '1'      report "Test 2 MC Buffer Busy asserted" severity failure;
+    assert MC_BUFFER_CONDITION = '1' report "Test 2 MC Buffer Condition asserted" severity failure;
+    
+    -- Now, tell the 1414 that the CPU is ready to receive data
+    
+    MC_READY_TO_BUFFER <= '0';
+    wait for 100 ns;
+    wait until MC_BUFFER_STROBE = '0' for 1 us;
+    
     
     assert false report "Normal end of 1414 Unit Record I/O Sync Test Bench" severity failure;
 

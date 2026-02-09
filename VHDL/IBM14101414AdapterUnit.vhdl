@@ -225,6 +225,7 @@ type unitReaderTransferState_type is (
    unit_reader_transfer_start,
    unit_reader_transfer_wait_channel,    -- To make sure we dont' strobe the channel too fast.
    unit_reader_transfer_strobe_channel,
+   unit_reader_transfer_end_of_transfer,
    unit_reader_transfer_done
 );
 
@@ -636,8 +637,6 @@ unitCh1ReaderDataProcess: process (
          if UNIT_INPUT_FIFO_READ_DATA_VALID = '1' then
             FIFO_READ_ENABLE_READER_DATA <= '0';
             if UNIT_INPUT_FIFO_READ_DATA = "00000000" then
-               -- Hmm.  Should really do a WLR check here, but then I would have
-               -- to have two sets of reader status signals.  8(
                unitCh1ReaderState <= unit_reader_done;
             elsif READER_CH1_BUFFER_INPUT_POSITION < READER_BUFFER_LENGTH then
                READER_CH1_BUFFER(READER_CH1_BUFFER_INPUT_POSITION) <= UNIT_INPUT_FIFO_READ_DATA;
@@ -659,6 +658,7 @@ unitCh1ReaderDataProcess: process (
 
       when unit_reader_done =>
          -- This will also reset the READER_CH1_BUFFER_EMPTY "latch" via another process
+         READER_CH1_BUFFER_FILLING <= '0';  -- So Buffer won't be busy now.
          unitCh1ReaderState <= unit_reader_reset;
 
    end case;
@@ -743,13 +743,20 @@ unitReaderCh1TransferProcess: process(
 
       when unit_reader_transfer_strobe_channel =>
          if unitReaderStrobeCounter = CHANNEL_STROBE_LENGTH then
-            unitCh1ReaderTransferState <= unit_reader_transfer_done;
+         unitCh1ReaderTransferState <= unit_reader_transfer_end_of_transfer;
          else
             unitReaderStrobeCounter <= unitReaderStrobeCounter + 1;
             if unitReaderDelayCounter /= CHANNEL_CYCLE_LENGTH then
                unitReaderDelayCounter <= unitReaderDelayCounter + 1; -- this counts towards channel cycle delay
             end if;
             unitCh1ReaderTransferState <= unit_reader_transfer_strobe_channel;
+         end if;
+
+      when unit_reader_transfer_end_of_transfer =>
+         if MC_CORRECT_TRANS_TO_BUFFER = '0' then
+            unitCh1ReaderTransferState <= unit_reader_transfer_done;
+         else
+            unitCh1ReaderTransferState <= unit_reader_transfer_end_of_transfer;
          end if;
 
       when unit_reader_transfer_done =>
@@ -880,31 +887,38 @@ UNIT_OUTPUT_FIFO_WRITE_DATA <=
 
 MC_BUFFER_READY <= '0'
    when UNIT_SELECT_UNIT_1 = '1' and
-      (READER_CH1_END_OF_FILE = '1' or READER_CH1_STATUS(UNIT_READY_BIT) = '1')
+      (READER_CH1_END_OF_FILE = '1' or READER_CH1_STATUS(UNIT_READY_BIT) = '1')  -- More devices later
    else '1';
 
 MC_BUFFER_BUSY <= '0' 
    -- TODO --- Need to add 1401 mode read here
-   when UNIT_SELECT_UNIT_1 = '1' and (READER_CH1_FED = '1' or READER_CH1_BUFFER_FILLING = '1')
+   when UNIT_SELECT_UNIT_1 = '1' and (READER_CH1_FED = '1' or READER_CH1_BUFFER_FILLING = '1') -- More devices later
    else '1';
 
 MC_BUFFER_CONDITION <= '0' 
-   when UNIT_SELECT_UNIT_1 = '1' and READER_CH1_END_OF_FILE = '1'
+   when UNIT_SELECT_UNIT_1 = '1' and READER_CH1_END_OF_FILE = '1'  -- More deivces later
    else '1';
 
 MC_BUFFER_NO_TRANS_COND <= '0'
-   when UNIT_SELECT_UNIT_1 = '1' and READER_CH1_NO_TRANSFER = '1'
+   when UNIT_SELECT_UNIT_1 = '1' and READER_CH1_NO_TRANSFER = '1'  -- More devices later
    else  '1';
   
 MC_BUFFER_STROBE <= '0'
-   when unitCh1ReaderTransferState = unit_reader_transfer_strobe_channel -- More deivces later
+   when unitCh1ReaderTransferState = unit_reader_transfer_strobe_channel -- More devices later
    else '1';
 
 --  TODO: The following may need fixing?
  -- (For Priority Feature) Reader is reloading the buffer
+
 MC_READER_BUSY <= '0'
    when (READER_CH1_FED = '1' or READER_CH1_BUFFER_FILLING = '1')
    else  '1';
+
+MC_BUFFER_END_OF_TRANSFER <= '0'
+   when  unitCh1ReaderTransferState = unit_reader_transfer_end_of_transfer 
+   else '1';
+
+MC_BUFFER_ERROR <= '1';  -- Not sure what if anything would assert this.
 
 -- TODO: Not uuet implemented
 MC_PUNCH_BUSY <= '1';
