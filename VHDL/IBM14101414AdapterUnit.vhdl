@@ -54,7 +54,7 @@ PORT (
     MC_READY_TO_BUFFER:             in std_logic;
     MC_COMP_RESET_TO_BUFFER:        in std_logic;
     MC_RESET_SELECT_BUFFER_LATCHES: in std_logic;
-    MC_CORRECT_TRANS_TO_BUFFER:      in std_logic;
+    MC_CORRECT_TRANS_TO_BUFFER:     in std_logic;
     MC_STACK_SELECT_TO_BUFFER:      in std_logic;
     MC_FORMS_STACKER_GO:            in std_logic;
 
@@ -519,10 +519,11 @@ unitCh1ReaderNoTransferLatchProcess: process (
       elsif READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
          READER_CH1_EOF_DELAY <= '0';
       elsif FPGA_CLK'event and FPGA_CLK = '1' then
-
-         if READER_CH1_FED = '0' and READER_CH1_MULTI_READ = '1' and UNIT_SELECT_UNIT_1 = '1' then
+         -- TODO: Maybe this part can be moved into the combinatorial section at the end,
+         -- dropping READER_CH1_NO_TRANSFER in the process
+         if MC_STACK_SELECT_TO_BUFFER = '1' and READER_CH1_MULTI_READ = '1' and UNIT_SELECT_UNIT_1 = '1' then
             READER_CH1_NO_TRANSFER <= '1';
-         elsif READER_CH1_FED = '1' and UNIT_SELECT_UNIT_1 = '1' and READER_CH1_MULTI_READ_FEED = '1' then
+         elsif MC_STACK_SELECT_TO_BUFFER = '0' and UNIT_SELECT_UNIT_1 = '1' and READER_CH1_MULTI_READ_FEED = '1' then
             READER_CH1_NO_TRANSFER <= '1';
          else
             READER_CH1_NO_TRANSFER <= '0';
@@ -543,7 +544,7 @@ unitCh1ReaderNoTransferLatchProcess: process (
             READER_CH1_MULTI_READ_FEED <= '1';
          end if;
 
-         if READER_CH1_STATUS(UNIT_READY_BIT) = '0' and
+         if MC_READY_TO_BUFFER = '1' and  -- MC_READY_TO_BUFFER is known as READY2 as well
             READER_CH1_MULTI_READ_FEED = '1' then
             READER_CH1_MULTI_READ <= '0';
          elsif MC_CORRECT_TRANS_TO_BUFFER = '0' and
@@ -724,6 +725,7 @@ unitReaderCh1TransferProcess: process(
          READER_CH1_BUFFER_SCAN_POSITION <= 0;
          unitReaderDelayCounter <= 0;
          unitReaderStrobeCounter <= 0;
+         READER_CH1_FEED_START <= '0'; -- Feed message to PC should have already started.
          unitCh1ReaderTransferState <= unit_reader_transfer_wait_channel;
 
       when unit_reader_transfer_wait_channel =>
@@ -743,11 +745,16 @@ unitReaderCh1TransferProcess: process(
 
       when unit_reader_transfer_strobe_channel =>
          if unitReaderStrobeCounter = CHANNEL_STROBE_LENGTH then
-         unitCh1ReaderTransferState <= unit_reader_transfer_end_of_transfer;
+            if READER_CH1_BUFFER_SCAN_POSITION < READER_BUFFER_LENGTH then
+               unitCh1ReaderTransferState <= unit_reader_transfer_wait_channel;
+            else
+               unitCh1ReaderTransferState <= unit_reader_transfer_end_of_transfer;
+            end if;
          else
             unitReaderStrobeCounter <= unitReaderStrobeCounter + 1;
-            if unitReaderDelayCounter /= CHANNEL_CYCLE_LENGTH then
-               unitReaderDelayCounter <= unitReaderDelayCounter + 1; -- this counts towards channel cycle delay
+            if unitReaderDelayCounter /= CHANNEL_CYCLE_LENGTH - 1 then
+               -- this counts towards channel cycle delay
+               unitReaderDelayCounter <= unitReaderDelayCounter + 1; 
             end if;
             unitCh1ReaderTransferState <= unit_reader_transfer_strobe_channel;
          end if;
@@ -760,13 +767,18 @@ unitReaderCh1TransferProcess: process(
          end if;
 
       when unit_reader_transfer_done =>
-         READER_CH1_FEED_START <= '0'; -- Feed process should have already started
-         READER_CH1_BUFFER_TRANSFERRING <= '0';
-         READER_CH1_BUFFER_SCAN_POSITION <= 0;         
-         unitReaderDelayCounter <= 0;
-         unitReaderStrobeCounter <= 0;
-         READER_CH1_FED <= '0';
-         unitCh1ReaderTransferState <= unit_reader_transfer_idle;
+         READER_CH1_FEED_START <= '0';      -- Feed process should have already started
+         if UNIT_SELECT_UNIT_1 = '1' then   -- Wait for CPU to deselect us
+            unitCh1ReaderTransferState <= unit_reader_transfer_done;
+         else
+            READER_CH1_FEED_START <= '0';   -- Feed process should have already started
+            READER_CH1_BUFFER_TRANSFERRING <= '0';
+            READER_CH1_BUFFER_SCAN_POSITION <= 0;         
+            unitReaderDelayCounter <= 0;
+            unitReaderStrobeCounter <= 0;
+            READER_CH1_FED <= '0';
+            unitCh1ReaderTransferState <= unit_reader_transfer_idle;
+         end if;
       end case;
 
    end if;

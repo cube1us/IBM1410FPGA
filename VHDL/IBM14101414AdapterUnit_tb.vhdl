@@ -388,24 +388,58 @@ uut_process: process
     MC_INPUT_MODE_TO_BUFFER <= '0';
     wait for 100 ns;
     
-    assert MC_BUFFER_READY = '0'     report "Test 2 MC Buffer Ready not asserted" severity failure;
-    assert MC_BUFFER_BUSY = '1'      report "Test 2 MC Buffer Busy asserted" severity failure;
-    assert MC_BUFFER_CONDITION = '1' report "Test 2 MC Buffer Condition asserted" severity failure;
+    assert MC_BUFFER_READY = '0'     report "Buffer Ready not asserted" severity failure;
+    assert MC_BUFFER_BUSY = '1'      report "Buffer Busy asserted" severity failure;
+    assert MC_BUFFER_CONDITION = '1' report "Buffer Condition asserted" severity failure;
     
     -- Now, tell the 1414 that the CPU is ready to receive data
     
+    MC_STACK_SELECT_TO_BUFFER <= '1';  -- Not a stacker opcode
+    MC_FORMS_STACKER_GO <= '1';        -- Not a stacker opcode
     MC_READY_TO_BUFFER <= '0';
     wait for 100 ns;
-    wait until MC_BUFFER_STROBE = '0' for 1 us;
+
+    -- Receive the data from the 1414 (and compare to the card we sent
     
+    for i in 0 to 79 loop
+       v := std_logic_vector(to_unsigned(i, v'length));
+       v(HDL_WM_BIT) := '0';  -- Turn off wordmark - just 6 bits of actual data from reader
+       v(HDL_C_BIT) := calculate_odd_parity(v);
+       wait until MC_BUFFER_STROBE = '0' for 10 us; 
+       assert MC_BUFFER_STROBE = '0'    report "Buffer Strobe not asserted" severity failure;
+       assert MC_I_O_SYNC_TO_CPU_BUS = not v report "Data mismatched" severity failure;
+       wait until MC_BUFFER_STROBE = '1' for 1 us;
+       assert MC_BUFFER_STROBE = '1'    report "Buffer Strobe not de-asserted." severity failure;
+    end loop;
+
+    wait until MC_BUFFER_END_OF_TRANSFER = '0' for 10 us;
+    assert MC_BUFFER_END_OF_TRANSFER = '0'  report "Buffer End of Transfer not asserted." severity failure;
+    
+    MC_CORRECT_TRANS_TO_BUFFER <= '0';
+    wait for 1 us; -- short for testing
+    assert MC_BUFFER_END_OF_TRANSFER = '1';
+
+    -- Check status
+    
+    assert MC_BUFFER_NO_TRANS_COND = '1'  report "Buffer No Transfer Asserted." severity failure;
+    assert MC_BUFFER_ERROR = '1'          report "Buffer Error Asserted." severity failure;
+
+    -- Deselect the connection to the 1414
+    
+    MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
+    MC_UNIT_1_SELECT_TO_I_O <= '1';
+    MC_INPUT_MODE_TO_BUFFER <= '1';
+    MC_READY_TO_BUFFER <= '1';
+    wait for 100 ns;
+
+    wait until MC_BUFFER_END_OF_TRANSFER = '1' for 10 us;
+    assert MC_BUFFER_END_OF_TRANSFER = '1'  report "Buffer End of Transfer not de-asserted." severity failure;
+
     
     assert false report "Normal end of 1414 Unit Record I/O Sync Test Bench" severity failure;
 
 end process;
 
 MC_COMP_RESET_TO_BUFFER <= not UDP_RESET;
-
-MC_BUFFER_READY <= '0';  -- Not yet sure when it would NOT be ready (TODO: Look at ILDs)
-
 
 end Behavioral;
