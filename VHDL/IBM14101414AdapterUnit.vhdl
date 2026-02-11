@@ -932,7 +932,7 @@ MC_BUFFER_END_OF_TRANSFER <= '0'
 
 MC_BUFFER_ERROR <= '1';  -- Not sure what if anything would assert this.
 
--- TODO: Not uuet implemented
+-- TODO: Not yet implemented
 MC_PUNCH_BUSY <= '1';
 MC_1403_PRINT_BUFFER_BUSY <= '1';
 MC_PRINTER_CHANNEL_9 <= '1';

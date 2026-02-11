@@ -195,7 +195,46 @@ signal IBM1410_UART_XMT_UDP_FLUSH:       std_logic := '0';
 signal IBM1410_1414_INPUT_FIFO_WRITE_ENABLE:   std_logic := '0';
 signal IBM1410_1414_INPUT_FIFO_WRITE_DATA:     std_logic_vector(7 downto 0) := "00000000";
 
+-- Test bench signals
+
+constant READER_BUFFER_LENGTH:   integer := 80;
+type READER_BUFFER_TYPE is array (READER_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
+signal readerTestBuffer:  READER_BUFFER_TYPE := (others => X"80");
+
+
 signal LOCAL_i: integer := 99;
+
+-- Functions and procedures used to make life easier
+
+-- Function to calculate parity bit to use for odd parity
+
+function calculate_odd_parity(input_data: std_logic_vector) return std_logic is
+    variable parity_temp: std_logic := '0'; -- Initialize to 0 for even parity logic
+    begin
+    for i in input_data'range loop
+        parity_temp := parity_temp xor input_data(i); -- XOR all bits
+    end loop;
+    -- For odd parity, the final bit is the inversion of the even parity result
+    return (not parity_temp); 
+end function calculate_odd_parity;    
+
+-- Function to convert a standard logic vector into a string for displaying
+
+function to_string ( a: std_logic_vector) return string is
+    variable b : string (1 to a'length) := (others => NUL);
+    variable stri : integer := 1; 
+    begin
+        for i in a'range loop
+            b(stri) := std_logic'image(a((i)))(2);
+        stri := stri+1;
+        end loop;
+    return b;
+end function;
+
+-- Procedure to send a device status update to the FPGA
+-- Note that we do not have to send the leading 0x85 to the 1414 - that is handled
+-- at a higher level in the implementation.
+
 
 begin
 
@@ -282,71 +321,56 @@ uut_process: process
     variable t: time;
     variable v: std_logic_vector(7 downto 0);
 
-    function calculate_odd_parity(input_data: std_logic_vector) return std_logic is
-        variable parity_temp: std_logic := '0'; -- Initialize to 0 for even parity logic
-        begin
-        for i in input_data'range loop
-            parity_temp := parity_temp xor input_data(i); -- XOR all bits
-        end loop;
-        -- For odd parity, the final bit is the inversion of the even parity result
-        return (not parity_temp); 
-    end function calculate_odd_parity;    
+procedure sendStatusUpdate (
+    statusDevice: in INTEGER; 
+    statusVector: in std_logic_vector(7 downto 0)) is
 
     begin
 
-    UDP_RESET <= '1';
-    wait for 100 ns;
-    UDP_RESET <= '0';
-    wait for 100 ns;
-    t := now;
-
-    -- The following test wasn't valid.
-    -- assert MC_BUFFER_READY = '0' report "Test 1, Ready NOT asserted" severity failure;
-
-    -- Send a status update to the FPGA
-    -- Note that we do not have to send the leading 0x85 to the 1414 - that is handled
-    -- at a higher level in the implementation.
-
+    -- Send 1414 sub-device we are sending status for
     IBM1410_1414_INPUT_FIFO_WRITE_DATA <= std_logic_vector(
-        to_unsigned(READER_CH1_DEVICE_NUMBER, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));    -- Device 1 (reader)
-    wait for 100 ns;
-    IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
-    wait for 10 ns;
-    IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
-    wait for 100 ns;
-   
-    IBM1410_1414_INPUT_FIFO_WRITE_DATA <= std_logic_vector(
-        to_unsigned(UNIT_RECEIVE_STATUS_OPERATION, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length )); -- Status Update
+        to_unsigned(statusDevice, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));
     wait for 100 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
     wait for 10 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
     wait for 100 ns;
 
-    -- Set up card reader is ready
-    v := "00000000";
-    v(UNIT_READY_BIT) := '1';
-    -- Consider also setting busy during the data transmission.
+    -- Indicate that this is a Status Update
+    IBM1410_1414_INPUT_FIFO_WRITE_DATA <= std_logic_vector(
+        to_unsigned(UNIT_RECEIVE_STATUS_OPERATION, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length )); 
+    wait for 100 ns;
+    IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
+    wait for 10 ns;
+    IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
+    wait for 100 ns;
     
-    IBM1410_1414_INPUT_FIFO_WRITE_DATA <= v;    -- Status: reader ready.
+    -- Put the status itself into the FIFO
+    IBM1410_1414_INPUT_FIFO_WRITE_DATA <= statusVector;
     wait for 100 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
     wait for 10 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
     wait for 100 ns;
+    
+    end sendStatusUpdate;
 
-    --   Next, send a card image.  Make sure everything is odd parity.  ;)
+    -- Procedure to send a card image to the 1414
 
-    wait for 1 us;
+procedure sendReaderBuffer(deviceNumber: in integer) is
 
+    begin
+    
+    -- Send Device 1 (reader) to the FPGA
     IBM1410_1414_INPUT_FIFO_WRITE_DATA <= std_logic_vector(
-        to_unsigned(READER_CH1_DEVICE_NUMBER, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));    -- Device 1 (reader)
+        to_unsigned(deviceNumber, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));   
     wait for 100 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
     wait for 10 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
     wait for 100 ns;
    
+    -- Tell the 1414 to expect data (as opposed to status)
     IBM1410_1414_INPUT_FIFO_WRITE_DATA <= std_logic_vector(
         to_unsigned(UNIT_RECEIVE_DATA_OPERATION, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length )); -- Receive Data
     wait for 100 ns;
@@ -358,12 +382,7 @@ uut_process: process
     -- Give it 80 columns of data
 
     for i in 0 to 79 loop
-        v := std_logic_vector(to_unsigned(i, v'length));
-        v(HDL_WM_BIT) := '0';  -- Turn off wordmark - just 6 bits of actual data from reader
-        v(HDL_C_BIT) := calculate_odd_parity(v);
-        LOCAL_i <= i;
-
-        IBM1410_1414_INPUT_FIFO_WRITE_DATA <= v;        
+        IBM1410_1414_INPUT_FIFO_WRITE_DATA <= readerTestBuffer(i);        
         wait for 100 ns;
         IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
         wait for 10 ns;
@@ -379,7 +398,70 @@ uut_process: process
     wait for 10 ns;
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
     wait for 100 ns;
+
+    end sendReaderBuffer;
+
+    -- START OF THE ACTUAL TEST BENCH 
+
+    begin
+
+    -- Fill a buffer with test data
+
+    for i in 0 to 79 loop
+        v := std_logic_vector(to_unsigned(i, v'length));
+        v(HDL_WM_BIT) := '0';  -- Turn off wordmark - just 6 bits of actual data from reader
+        v(HDL_C_BIT) := calculate_odd_parity(v);
+        readerTestBuffer(i) <= v;
+    end loop;
+
+    UDP_RESET <= '1';
+    wait for 100 ns;
+    UDP_RESET <= '0';
+    wait for 100 ns;
+    t := now;
+
+    -- The following test wasn't valid.
+    -- assert MC_BUFFER_READY = '0' report "Test 1, Ready NOT asserted" severity failure;
+
+    -- Send a status update to the FPGA
+    -- Note that we do not have to send the leading 0x85 to the 1414 - that is handled
+    -- at a higher level in the implementation.
+
+    -- IBM1410_1414_INPUT_FIFO_WRITE_DATA <= std_logic_vector(
+    --     to_unsigned(READER_CH1_DEVICE_NUMBER, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));    -- Device 1 (reader)
+    -- wait for 100 ns;
+    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
+    -- wait for 10 ns;
+    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
+    -- wait for 100 ns;
+   
+    -- IBM1410_1414_INPUT_FIFO_WRITE_DATA <= std_logic_vector(
+    --     to_unsigned(UNIT_RECEIVE_STATUS_OPERATION, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length )); -- Status Update
+    -- wait for 100 ns;
+    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
+    -- wait for 10 ns;
+    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
+    -- wait for 100 ns;
+
+    -- Set up card reader is ready
+    v := "00000000";
+    v(UNIT_READY_BIT) := '1';
+    -- Consider also setting busy during the data transmission.
     
+    -- IBM1410_1414_INPUT_FIFO_WRITE_DATA <= v;    -- Status: reader ready.
+    -- wait for 100 ns;
+    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
+    -- wait for 10 ns;
+    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
+    -- wait for 100 ns;
+
+    sendStatusUpdate(statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
+
+    --   Next, send a card image.  Make sure everything is odd parity.  ;)
+
+    wait for 1 us;
+
+    sendReaderBuffer(deviceNumber => READER_CH1_DEVICE_NUMBER);
     
     -- Start up a request to the buffer, and check the status
     
@@ -399,15 +481,13 @@ uut_process: process
     MC_READY_TO_BUFFER <= '0';
     wait for 100 ns;
 
-    -- Receive the data from the 1414 (and compare to the card we sent
+    -- Receive the data from the 1414 (and compare to the card we sent from the test buffer)
     
     for i in 0 to 79 loop
-       v := std_logic_vector(to_unsigned(i, v'length));
-       v(HDL_WM_BIT) := '0';  -- Turn off wordmark - just 6 bits of actual data from reader
-       v(HDL_C_BIT) := calculate_odd_parity(v);
        wait until MC_BUFFER_STROBE = '0' for 10 us; 
        assert MC_BUFFER_STROBE = '0'    report "Buffer Strobe not asserted" severity failure;
-       assert MC_I_O_SYNC_TO_CPU_BUS = not v report "Data mismatched" severity failure;
+       assert MC_I_O_SYNC_TO_CPU_BUS = not readerTestBuffer(i) 
+          report "Data mismatched" severity failure;
        wait until MC_BUFFER_STROBE = '1' for 1 us;
        assert MC_BUFFER_STROBE = '1'    report "Buffer Strobe not de-asserted." severity failure;
     end loop;
