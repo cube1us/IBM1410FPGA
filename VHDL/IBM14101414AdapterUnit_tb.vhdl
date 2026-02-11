@@ -201,6 +201,7 @@ constant READER_BUFFER_LENGTH:   integer := 80;
 type READER_BUFFER_TYPE is array (READER_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
 signal readerTestBuffer:  READER_BUFFER_TYPE := (others => X"80");
 
+signal unitDataSentToPC: std_logic_vector(7 downto 0) := "00000000";
 
 signal LOCAL_i: integer := 99;
 
@@ -320,9 +321,8 @@ uut_process: process
     variable t: time;
     variable v: std_logic_vector(7 downto 0);
 
-
-    -- Procedure to send a status update for a device to the 1414
-    -- (Acting as PC Support program would)
+-- Procedure to send a status update for a device to the 1414
+-- (Acting as PC Support program would)
 
 procedure sendStatusUpdate (
     statusDevice: in INTEGER; 
@@ -358,8 +358,7 @@ procedure sendStatusUpdate (
     
     end sendStatusUpdate;
 
-    
-    -- Procedure to send a card image to the 1414 (acting as PC Support Program)
+-- Procedure to send a card image to the 1414 (acting as PC Support Program)
 
 procedure sendReaderToBuffer(deviceNumber: in integer) is
 
@@ -405,8 +404,8 @@ procedure sendReaderToBuffer(deviceNumber: in integer) is
 
     end sendReaderToBuffer;
 
-    -- Procedure to receive data from 1414 Card reader Buffer as though we are the CPU, and
-    -- compare it to the reader buffer we previously sent
+-- Procedure to receive data from 1414 Card reader Buffer as though we are the CPU, and
+-- compare it to the reader buffer we previously sent
 
 procedure getReaderBufferToChannel(
     testName: in STRING;
@@ -515,6 +514,47 @@ procedure getReaderBufferToChannel(
         testName => "Test 2", readerOpCode => '1', stackerOpcode => '0', 
         stackerNumber => 1, expectNoTransfer => '0'
     );
+
+    -- There ought to be a read feed request outstanding at this point.
+    -- For this first test, code it here - later move to a procedure?  TODO
+
+    -- The first byte is the reader device code: 00000001
+
+    wait until IBM1410_1414_UART_REQUEST = '1' for 100 ns;   -- Requst should already be there
+    assert IBM1410_1414_UART_REQUEST = '1' report 
+       "No UART request for expected reader start device code." severity failure;
+    IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
+    wait for 10 ns;
+    unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+    IBM1410_1414_UART_GRANT <= '0'; -- Remove the grant
+    wait for 10 ns;
+    assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
+       report "UDP Flush Flag set when not expected." severity failure;
+    assert unitDataSentToPC = "00000001"
+       report "Expected Device number not received." severity failure;
+    
+    -- The second byte is the operation.  For a normal read, that is 10 (reader
+    -- device code & stacker) - and we asked for stacker 1.  The flush flag 
+    -- should also be set.
+
+    assert IBM1410_1414_UART_REQUEST = '1' report 
+       "No UART request for expected reader start device code." severity failure;
+    IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
+    wait for 10 ns;
+    unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+    IBM1410_1414_UART_GRANT <= '0'; -- Remove the grant
+    wait for 10 ns;
+    assert IBM1410_UART_XMT_UDP_FLUSH = '1' 
+       report "UDP Flush Flag NOT set when not expected." severity failure;
+    assert unitDataSentToPC = "00010001" 
+       report "Expected Device number not received." severity failure;
+
+    -- There should NOT be an immediate request to send more data
+
+    wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
+    assert IBM1410_1414_UART_REQUEST = '0' report
+       "Unexpected request to send more UART data on read feed message to PC" severity failure;
+
 
     assert false report "Normal end of 1414 Unit Record I/O Sync Test Bench" severity failure;
 

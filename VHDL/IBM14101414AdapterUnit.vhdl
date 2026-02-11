@@ -219,6 +219,8 @@ type unitUARTOutputState_type is (
    unit_uart_output_grantwait
 );
 
+-- States to handle an Input request for the reader from the 1410 Channel
+
 type unitReaderTransferState_type is (
    unit_reader_transfer_reset,
    unit_reader_transfer_idle,
@@ -228,6 +230,8 @@ type unitReaderTransferState_type is (
    unit_reader_transfer_end_of_transfer,
    unit_reader_transfer_done
 );
+
+-- States to handle sending a request to the reader to read and stack a card
 
 type unitReaderRequestState_type is (
    unit_reader_request_reset,
@@ -280,7 +284,7 @@ signal UNIT_CH1_STACKER_SELECTED:         integer range 0 to 9 := 0;  -- Selecte
 signal unitTriggerState: unitTriggerState_type := unit_trigger_reset;
 signal unitCh1ReaderState: unitReaderState_type := unit_reader_reset;
 signal unitCH1ReaderTransferState: unitReaderTransferState_type := unit_reader_transfer_reset;
--- signal unitUARTOutputState: unitUARTOutputState_type := unit_uart_output_idle;
+signal unitUARTOutputState: unitUARTOutputState_type := unit_uart_output_idle;
 signal unitCh1ReaderRequestState: unitReaderrequestState_type := unit_reader_request_reset;
 
 signal UNIT_SUPPORT_UNIT:        integer := 0; -- Unit in incoming PC message
@@ -364,6 +368,68 @@ UNIT_INPUT_FIFO: ring_buffer
          fill_count => OPEN
     );
    
+UnitUARTOutputProcess: process(
+   FPGA_CLK,
+   MC_COMP_RESET_TO_BUFFER,
+   UNIT_OUTPUT_FIFO_READ_DATA_VALID,
+   UNIT_OUTPUT_FIFO_READ_DATA,
+   UNIT_OUTPUT_FIFO_EMPTY,   
+   IBM1410_1414_UART_GRANT,
+   unitUARTOutputState)
+   
+   begin
+   
+   if MC_COMP_RESET_TO_BUFFER = '0' then
+      unitUARTOutputState <= unit_uart_output_idle;      
+   
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+      case unitUARTOutputState is
+      
+      when unit_uart_output_idle =>
+         -- wait for a character to appear in the internal FIFO
+         if UNIT_OUTPUT_FIFO_EMPTY = '1' then
+            unitUARTOutputState <= unit_uart_output_idle;
+         else
+            unitUARTOutputState <= unit_uart_output_getChar;
+         end if;
+      
+      when unit_uart_output_getChar =>
+         -- Read the character from the FIFO -- raise read enable
+         if UNIT_OUTPUT_FIFO_READ_DATA_VALID = '1' then
+            IBM1410_1414_XMT_UART_DATA <= UNIT_OUTPUT_FIFO_READ_DATA (7 downto 0);
+            IBM1410_UART_XMT_UDP_FLUSH <= UNIT_OUTPUT_FIFO_READ_DATA(8);
+            unitUARTOutputState <= unit_uart_output_wait;
+         else
+            unitUARTOutputState <= unit_uart_output_getChar;
+         end if;
+      
+      when unit_uart_output_wait =>
+         -- Drop read eanble
+         -- Wait for grant to go away, in case it is still up from a previous
+         -- request!!
+         if IBM1410_1414_UART_GRANT = '1' then
+            unitUARTOutputState <= unit_uart_output_wait;
+         else
+            unitUARTOutputState <= unit_uart_output_sendChar;
+         end if;
+      
+      when unit_uart_output_sendChar =>
+         -- Raise UART subsystem request here...
+         unitUARTOutputState <= unit_uart_output_grantWait;
+      
+      when unit_uart_output_grantWait =>
+         -- Wait for request to be granted before getting another character
+         if IBM1410_1414_UART_GRANT = '1' then
+            unitUARTOutputState <= unit_uart_output_idle;
+         else
+            unitUARTOutputState <= unit_uart_output_grantWait;
+         end if;
+            
+      end case;
+   end if;
+      
+end process;
+
 
 unitCh1TriggerProcess: process (
    FPGA_CLK,
@@ -784,8 +850,8 @@ unitReaderCh1TransferProcess: process(
    end if;
 end process;
 
--- TODO: Process to waith for READER_CH1_FEED_START = '1', and send feed message to PC, then
-   -- wait for READER_CH1_FEED_START to go back to '0'
+-- Process to wait for READER_CH1_FEED_START = '1', and send feed message to PC
+-- It also waits for READER_CH1_FEED_START to go back to '0' as a "safety" measure.
 
 unitCh1ReaderRequestProcess: process (
    FPGA_CLK,
@@ -819,7 +885,7 @@ unitCh1ReaderRequestProcess: process (
             if UNIT_OUTPUT_FIFO_FULL = '1' then
                unitCh1ReaderRequestState <= unit_reader_request_fifo_wait_1;
             else
-               READER_CH1_REQUEST_DATA <= "000000001";  -- Top bit is flush bit.
+               READER_CH1_REQUEST_DATA <= "000000001";  -- Reader Unit.  Top bit is flush bit.
                unitCh1ReaderRequestState <= unit_reader_request_send_unit;
             end if;
          
@@ -831,13 +897,20 @@ unitCh1ReaderRequestProcess: process (
             if UNIT_OUTPUT_FIFO_FULL = '1' then
                unitCh1ReaderRequestState <= unit_reader_request_fifo_wait_2;
             else
-               READER_CH1_REQUEST_DATA <= '0' & 
-                  std_logic_vector(to_unsigned(READER_CH1_STACKER_SELECTED, 8));
+               -- Send the operation with the flush bit set.
+               -- The operation has the reader code in the top 4 bits, and
+               -- the selected stacker in the bottom 4 bits.
+               READER_CH1_REQUEST_DATA <= '1' & "0001" &
+                  std_logic_vector(to_unsigned(READER_CH1_STACKER_SELECTED, 4));
                unitCh1ReaderRequestState <= unit_reader_request_send_operation;
             end if;
 
          when unit_reader_request_send_operation =>
-            unitCh1ReaderRequestState <= unit_reader_request_done;
+            if READER_CH1_FEED_START = '0' then
+               unitCh1ReaderRequestState <= unit_reader_request_done;
+            else
+               unitCh1ReaderRequestState <= unit_reader_request_send_operation;
+            end if;
 
          when unit_reader_request_done =>
             unitCh1ReaderRequestState <= unit_reader_request_idle;
