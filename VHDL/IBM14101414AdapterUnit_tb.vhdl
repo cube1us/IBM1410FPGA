@@ -235,7 +235,6 @@ end function;
 -- Note that we do not have to send the leading 0x85 to the 1414 - that is handled
 -- at a higher level in the implementation.
 
-
 begin
 
 UUT: IBM14101414AdapterUnit
@@ -321,6 +320,10 @@ uut_process: process
     variable t: time;
     variable v: std_logic_vector(7 downto 0);
 
+
+    -- Procedure to send a status update for a device to the 1414
+    -- (Acting as PC Support program would)
+
 procedure sendStatusUpdate (
     statusDevice: in INTEGER; 
     statusVector: in std_logic_vector(7 downto 0)) is
@@ -355,9 +358,10 @@ procedure sendStatusUpdate (
     
     end sendStatusUpdate;
 
-    -- Procedure to send a card image to the 1414
+    
+    -- Procedure to send a card image to the 1414 (acting as PC Support Program)
 
-procedure sendReaderBuffer(deviceNumber: in integer) is
+procedure sendReaderToBuffer(deviceNumber: in integer) is
 
     begin
     
@@ -399,7 +403,78 @@ procedure sendReaderBuffer(deviceNumber: in integer) is
     IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
     wait for 100 ns;
 
-    end sendReaderBuffer;
+    end sendReaderToBuffer;
+
+    -- Procedure to receive data from 1414 Card reader Buffer as though we are the CPU, and
+    -- compare it to the reader buffer we previously sent
+
+procedure getReaderBufferToChannel(
+    testName: in STRING;
+    readerOpcode: in std_logic;
+    stackerOpcode: in std_logic;
+    stackerNumber: in integer;      -- As POSITIVE logic, 9 means no stacker
+    expectNoTransfer: in std_logic  -- As POSITIVE logic
+    ) is
+
+    begin
+
+    MC_CPU_TO_I_O_SYNC_BUS <= not 
+       std_logic_vector(to_unsigned(stackerNumber,MC_CPU_TO_I_O_SYNC_BUS'length));        
+    MC_UNIT_1_SELECT_TO_I_O <= '0';  -- For this prcedure, it is always the reader.
+    MC_INPUT_MODE_TO_BUFFER <= '0';
+    wait for 100 ns;
+    
+    assert MC_BUFFER_READY = '0'     report testName & "Buffer Ready not asserted" severity failure;
+    assert MC_BUFFER_BUSY = '1'      report testName & "Buffer Busy asserted" severity failure;
+    assert MC_BUFFER_CONDITION = '1' report testName & "Buffer Condition asserted" severity failure;
+    
+    -- Now, tell the 1414 that the CPU is ready to receive data
+    
+    MC_STACK_SELECT_TO_BUFFER <= not stackerOpcode; -- '1';  -- Not a stacker opcode
+    MC_FORMS_STACKER_GO <= not stackerOpcode; -- '1';        -- Not a stacker opcode
+    MC_READY_TO_BUFFER <= not readerOpcode; -- '0';
+    wait for 100 ns;
+
+    -- Receive the data from the 1414 (and compare to the card we sent from the test buffer)
+    
+    for i in 0 to 79 loop
+       wait until MC_BUFFER_STROBE = '0' for 10 us; 
+       assert MC_BUFFER_STROBE = '0'
+          report testName & "Buffer Strobe not asserted" severity failure;
+       assert MC_I_O_SYNC_TO_CPU_BUS = not readerTestBuffer(i) 
+          report testName & "Data mismatched" severity failure;
+       wait until MC_BUFFER_STROBE = '1' for 1 us;
+       assert MC_BUFFER_STROBE = '1' 
+          report testName & "Buffer Strobe not de-asserted." severity failure;
+    end loop;
+
+    wait until MC_BUFFER_END_OF_TRANSFER = '0' for 10 us;
+    assert MC_BUFFER_END_OF_TRANSFER = '0'
+       report testName & "Buffer End of Transfer not asserted." severity failure;
+    
+    MC_CORRECT_TRANS_TO_BUFFER <= '0';
+    wait for 1 us; -- short for testing
+    assert MC_BUFFER_END_OF_TRANSFER = '1';
+
+    -- Check status
+    
+    assert MC_BUFFER_NO_TRANS_COND = (not expectNoTransfer) 
+       report testName & "Buffer No Transfer Did not match expected value" severity failure;
+    assert MC_BUFFER_ERROR = '1' report testName & "Buffer Error Asserted." severity failure;
+
+    -- Deselect the connection to the 1414
+    
+    MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
+    MC_UNIT_1_SELECT_TO_I_O <= '1';
+    MC_INPUT_MODE_TO_BUFFER <= '1';
+    MC_READY_TO_BUFFER <= '1';
+    wait for 100 ns;
+
+    wait until MC_BUFFER_END_OF_TRANSFER = '1' for 10 us;
+    assert MC_BUFFER_END_OF_TRANSFER = '1'  
+       report testName & "Buffer End of Transfer not de-asserted." severity failure;
+
+    end getReaderBufferToChannel;
 
     -- START OF THE ACTUAL TEST BENCH 
 
@@ -420,102 +495,27 @@ procedure sendReaderBuffer(deviceNumber: in integer) is
     wait for 100 ns;
     t := now;
 
-    -- The following test wasn't valid.
-    -- assert MC_BUFFER_READY = '0' report "Test 1, Ready NOT asserted" severity failure;
-
-    -- Send a status update to the FPGA
-    -- Note that we do not have to send the leading 0x85 to the 1414 - that is handled
-    -- at a higher level in the implementation.
-
-    -- IBM1410_1414_INPUT_FIFO_WRITE_DATA <= std_logic_vector(
-    --     to_unsigned(READER_CH1_DEVICE_NUMBER, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));    -- Device 1 (reader)
-    -- wait for 100 ns;
-    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
-    -- wait for 10 ns;
-    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
-    -- wait for 100 ns;
-   
-    -- IBM1410_1414_INPUT_FIFO_WRITE_DATA <= std_logic_vector(
-    --     to_unsigned(UNIT_RECEIVE_STATUS_OPERATION, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length )); -- Status Update
-    -- wait for 100 ns;
-    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
-    -- wait for 10 ns;
-    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
-    -- wait for 100 ns;
-
     -- Set up card reader is ready
+
     v := "00000000";
     v(UNIT_READY_BIT) := '1';
     -- Consider also setting busy during the data transmission.
     
-    -- IBM1410_1414_INPUT_FIFO_WRITE_DATA <= v;    -- Status: reader ready.
-    -- wait for 100 ns;
-    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
-    -- wait for 10 ns;
-    -- IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '0';
-    -- wait for 100 ns;
-
     sendStatusUpdate(statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
 
-    --   Next, send a card image.  Make sure everything is odd parity.  ;)
+    --   Next, send a card image to the 1414.
 
     wait for 1 us;
 
-    sendReaderBuffer(deviceNumber => READER_CH1_DEVICE_NUMBER);
+    sendReaderToBuffer(deviceNumber => READER_CH1_DEVICE_NUMBER);
     
-    -- Start up a request to the buffer, and check the status
-    
-    MC_CPU_TO_I_O_SYNC_BUS <= "11111110";  -- Stacker select character == 1    
-    MC_UNIT_1_SELECT_TO_I_O <= '0';
-    MC_INPUT_MODE_TO_BUFFER <= '0';
-    wait for 100 ns;
-    
-    assert MC_BUFFER_READY = '0'     report "Buffer Ready not asserted" severity failure;
-    assert MC_BUFFER_BUSY = '1'      report "Buffer Busy asserted" severity failure;
-    assert MC_BUFFER_CONDITION = '1' report "Buffer Condition asserted" severity failure;
-    
-    -- Now, tell the 1414 that the CPU is ready to receive data
-    
-    MC_STACK_SELECT_TO_BUFFER <= '1';  -- Not a stacker opcode
-    MC_FORMS_STACKER_GO <= '1';        -- Not a stacker opcode
-    MC_READY_TO_BUFFER <= '0';
-    wait for 100 ns;
+    -- Now, pretend to be the CPU, and ask for the card data, and compare it.
 
-    -- Receive the data from the 1414 (and compare to the card we sent from the test buffer)
-    
-    for i in 0 to 79 loop
-       wait until MC_BUFFER_STROBE = '0' for 10 us; 
-       assert MC_BUFFER_STROBE = '0'    report "Buffer Strobe not asserted" severity failure;
-       assert MC_I_O_SYNC_TO_CPU_BUS = not readerTestBuffer(i) 
-          report "Data mismatched" severity failure;
-       wait until MC_BUFFER_STROBE = '1' for 1 us;
-       assert MC_BUFFER_STROBE = '1'    report "Buffer Strobe not de-asserted." severity failure;
-    end loop;
+    getReaderBufferToChannel(
+        testName => "Test 2", readerOpCode => '1', stackerOpcode => '0', 
+        stackerNumber => 1, expectNoTransfer => '0'
+    );
 
-    wait until MC_BUFFER_END_OF_TRANSFER = '0' for 10 us;
-    assert MC_BUFFER_END_OF_TRANSFER = '0'  report "Buffer End of Transfer not asserted." severity failure;
-    
-    MC_CORRECT_TRANS_TO_BUFFER <= '0';
-    wait for 1 us; -- short for testing
-    assert MC_BUFFER_END_OF_TRANSFER = '1';
-
-    -- Check status
-    
-    assert MC_BUFFER_NO_TRANS_COND = '1'  report "Buffer No Transfer Asserted." severity failure;
-    assert MC_BUFFER_ERROR = '1'          report "Buffer Error Asserted." severity failure;
-
-    -- Deselect the connection to the 1414
-    
-    MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
-    MC_UNIT_1_SELECT_TO_I_O <= '1';
-    MC_INPUT_MODE_TO_BUFFER <= '1';
-    MC_READY_TO_BUFFER <= '1';
-    wait for 100 ns;
-
-    wait until MC_BUFFER_END_OF_TRANSFER = '1' for 10 us;
-    assert MC_BUFFER_END_OF_TRANSFER = '1'  report "Buffer End of Transfer not de-asserted." severity failure;
-
-    
     assert false report "Normal end of 1414 Unit Record I/O Sync Test Bench" severity failure;
 
 end process;
