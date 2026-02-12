@@ -523,6 +523,7 @@ procedure getReaderBufferToChannel(
     wait until IBM1410_1414_UART_REQUEST = '1' for 100 ns;   -- Request should already be there
     assert IBM1410_1414_UART_REQUEST = '1' report 
        "No UART request for expected reader start device code." severity failure;
+    wait for 10 ns;
     IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
     wait for 10 ns;
     unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
@@ -540,6 +541,7 @@ procedure getReaderBufferToChannel(
     wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;   -- Request should already be there
     assert IBM1410_1414_UART_REQUEST = '1' report 
        "No UART request for expected reader operation code." severity failure;
+    wait for 10 ns;
     IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
     wait for 10 ns;
     unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
@@ -548,7 +550,7 @@ procedure getReaderBufferToChannel(
     assert IBM1410_UART_XMT_UDP_FLUSH = '1' 
        report "UDP Flush Flag NOT set when not expected." severity failure;
     assert unitDataSentToPC = "00010001" 
-       report "Expected Device number not received." severity failure;
+       report "Expected operation code not received." severity failure;
 
     -- There should NOT be an immediate request to send more data
 

@@ -383,6 +383,9 @@ UnitUARTOutputProcess: process(
    begin
    
    if MC_COMP_RESET_TO_BUFFER = '0' then
+      IBM1410_1414_UART_REQUEST <= '0';
+      IBM1410_UART_XMT_UDP_FLUSH <= '0';
+      IBM1410_1414_XMT_UART_DATA <= "00000000";
       unitUARTOutputState <= unit_uart_output_idle;      
    
    elsif FPGA_CLK'event and FPGA_CLK = '1' then
@@ -946,7 +949,9 @@ unitTriggerCh1ReaderData <= '1' when
 
 
 UNIT_INPUT_FIFO_READ_ENABLE <= (FIFO_READ_ENABLE_UNIT_TRIGGER OR FIFO_READ_ENABLE_READER_DATA);
+
 UNIT_OUTPUT_FIFO_READ_ENABLE <= '1' when unitUartOutputState = unit_uart_output_getchar
+   and UNIT_OUTPUT_FIFO_READ_DATA_VALID = '0'
    else '0';
 
 -- Inidicate when the buffer is busy
@@ -958,12 +963,12 @@ READER_CH1_BUFFER_BUSY <= READER_CH1_BUFFER_FILLING or READER_CH1_BUFFER_TRANSFE
 UNIT_SELECT_UNIT_1 <= (not MC_UNIT_1_SELECT_TO_I_O) AND not (MC_INPUT_MODE_TO_BUFFER);
 
 UNIT_CH1_STACKER_SELECTED <=
-   0 when MC_CPU_TO_I_O_SYNC_BUS = "10001010" else
-   1 when MC_CPU_TO_I_O_SYNC_BUS = "00000001" else
-   2 when MC_CPU_TO_I_O_SYNC_BUS = "00000010" else
-   4 when MC_CPU_TO_I_O_SYNC_BUS = "00000100" else
-   8 when MC_CPU_TO_I_O_SYNC_BUS = "00001000" else
-   9 when MC_CPU_TO_I_O_SYNC_BUS = "00001001" else
+   0 when not MC_CPU_TO_I_O_SYNC_BUS = "10001010" else
+   1 when not MC_CPU_TO_I_O_SYNC_BUS = "00000001" else
+   2 when not MC_CPU_TO_I_O_SYNC_BUS = "00000010" else
+   4 when not MC_CPU_TO_I_O_SYNC_BUS = "00000100" else
+   8 when not MC_CPU_TO_I_O_SYNC_BUS = "00001000" else
+   9 when not MC_CPU_TO_I_O_SYNC_BUS = "00001001" else
    0;
 
 UNIT_OUTPUT_FIFO_WRITE_ENABLE <= '1' when  -- Eventuall will include punch and printer stuff
