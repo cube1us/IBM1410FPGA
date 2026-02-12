@@ -368,6 +368,9 @@ UNIT_INPUT_FIFO: ring_buffer
          fill_count => OPEN
     );
    
+-- Process to take data from the output FIFO and request the containing
+-- module to process
+
 UnitUARTOutputProcess: process(
    FPGA_CLK,
    MC_COMP_RESET_TO_BUFFER,
@@ -415,11 +418,13 @@ UnitUARTOutputProcess: process(
       
       when unit_uart_output_sendChar =>
          -- Raise UART subsystem request here...
+         IBM1410_1414_UART_REQUEST <= '1';
          unitUARTOutputState <= unit_uart_output_grantWait;
       
       when unit_uart_output_grantWait =>
          -- Wait for request to be granted before getting another character
          if IBM1410_1414_UART_GRANT = '1' then
+            IBM1410_1414_UART_REQUEST <= '0';
             unitUARTOutputState <= unit_uart_output_idle;
          else
             unitUARTOutputState <= unit_uart_output_grantWait;
@@ -866,6 +871,7 @@ unitCh1ReaderRequestProcess: process (
 
       if MC_COMP_RESET_TO_BUFFER = '0' then
          unitCh1ReaderRequestState <= unit_reader_request_reset;
+         READER_CH1_REQUEST_DATA <= "000000000";
       
       elsif FPGA_CLK'event and FPGA_CLK = '1' then
 
@@ -905,10 +911,12 @@ unitCh1ReaderRequestProcess: process (
                unitCh1ReaderRequestState <= unit_reader_request_send_operation;
             end if;
 
-         when unit_reader_request_send_operation =>
+         when unit_reader_request_send_operation =>            
             if READER_CH1_FEED_START = '0' then
+               READER_CH1_REQUEST_DATA <= "000000000";
                unitCh1ReaderRequestState <= unit_reader_request_done;
             else
+               -- Should never really get here.
                unitCh1ReaderRequestState <= unit_reader_request_send_operation;
             end if;
 
@@ -938,6 +946,8 @@ unitTriggerCh1ReaderData <= '1' when
 
 
 UNIT_INPUT_FIFO_READ_ENABLE <= (FIFO_READ_ENABLE_UNIT_TRIGGER OR FIFO_READ_ENABLE_READER_DATA);
+UNIT_OUTPUT_FIFO_READ_ENABLE <= '1' when unitUartOutputState = unit_uart_output_getchar
+   else '0';
 
 -- Inidicate when the buffer is busy
 
@@ -962,7 +972,8 @@ UNIT_OUTPUT_FIFO_WRITE_ENABLE <= '1' when  -- Eventuall will include punch and p
    else '0';
 
 UNIT_OUTPUT_FIFO_WRITE_DATA <= 
-   READER_CH1_REQUEST_DATA;  -- Eventually will include punch and printer stuff
+   READER_CH1_REQUEST_DATA;  -- Eventually will include punch and printer stuff,
+   -- Make sure it is "00000000" when not in use.
 
 
 -- Reader No transfer latch is set by a process that empties the reader buffer,

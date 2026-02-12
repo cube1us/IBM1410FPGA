@@ -520,7 +520,7 @@ procedure getReaderBufferToChannel(
 
     -- The first byte is the reader device code: 00000001
 
-    wait until IBM1410_1414_UART_REQUEST = '1' for 100 ns;   -- Requst should already be there
+    wait until IBM1410_1414_UART_REQUEST = '1' for 100 ns;   -- Request should already be there
     assert IBM1410_1414_UART_REQUEST = '1' report 
        "No UART request for expected reader start device code." severity failure;
     IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
@@ -537,8 +537,9 @@ procedure getReaderBufferToChannel(
     -- device code & stacker) - and we asked for stacker 1.  The flush flag 
     -- should also be set.
 
+    wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;   -- Request should already be there
     assert IBM1410_1414_UART_REQUEST = '1' report 
-       "No UART request for expected reader start device code." severity failure;
+       "No UART request for expected reader operation code." severity failure;
     IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
     wait for 10 ns;
     unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
