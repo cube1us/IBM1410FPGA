@@ -171,7 +171,7 @@ signal UNIT_INPUT_FIFO_EMPTY_NEXT:        std_logic := '0';
 signal UNIT_INPUT_FIFO_FULL:              std_logic := '0';
 signal UNIT_INPUT_FIFO_FULL_NEXT:         std_logic := '0';
 
--- There are three different processes that might set INPUT_FIFO_READ_ENABLE, so each needs
+-- There are multiple different processes that might set INPUT_FIFO_READ_ENABLE, so each needs
 -- its own signal.
 
 signal FIFO_READ_ENABLE_UNIT_TRIGGER:     std_logic := '0';
@@ -189,7 +189,7 @@ signal UNIT_OUTPUT_FIFO_WRITE_DATA:       std_logic_vector(8 downto 0) := "00000
 
 signal UART_RESET: std_logic := '0';
 
--- States for process to handle unit record actions initated from PC Support program
+-- States for the process to handle unit record actions initated from PC Support program
 
 type unitTriggerState_type is (
    unit_trigger_reset,
@@ -301,9 +301,6 @@ signal unitReaderStrobeCounter:   integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 -- We need a buffer for the reader, just like a real IBM 1414.
 -- (I don't think we will need that for output devices - we can just fill the packet)
 
--- type reader_buffer_type is array (79 downto 0) of std_logic_vector(7 downto 0);
--- signal reader_buffer:  reader_buffer_type := (others => X"00");
-
 -- Vivado debugging constraints so that we can find signals in the netlist to debug
 
 attribute dont_touch: string;
@@ -314,10 +311,6 @@ attribute dont_touch of PUNCH_CH2_STATUS:    signal is "true";
 attribute dont_touch of PRINTER_CH1_STATUS:  signal is "true";
 attribute dont_touch of PRINTER_CH2_STATUS:  signal is "true";
 
--- The unitTriggerProcess wakes up when it gets input from the PC Console Support Program.
--- It uses the first characcter to decide which device it is for, and stores the second
--- character the kind of operation:  a status update, or data (e.g., from the reader),
--- and if it is a status report, that goes in the third character.
 
 begin
 
@@ -441,6 +434,11 @@ end process;
 -- Process to wait for an incoming message from the PC support program to start, and
 -- trigger the appropriate process to handle the message
 
+-- The unitTriggerProcess wakes up when it gets input from the PC Console Support Program.
+-- It uses the first characcter to decide which device it is for, and stores the second
+-- character as the kind of operation:  a status update, or data (e.g., from the reader),
+-- and if it is a status report, that goes in the third character.
+
 unitCh1TriggerProcess: process (
    FPGA_CLK,
    MC_COMP_RESET_TO_BUFFER,
@@ -481,13 +479,13 @@ unitCh1TriggerProcess: process (
 
                if UNIT_SUPPORT_UNIT = 0 then
                   -- The first byte we will see is the unit identifier.
-                  -- Latch that for latter use.
+                  -- Latch that for later use.
                   UNIT_SUPPORT_UNIT <= to_integer(unsigned(UNIT_INPUT_FIFO_READ_DATA));
                   unitTriggerState <= unit_trigger_idle;  -- Wait for next char (operation)
 
                elsif UNIT_SUPPORT_OPERATION = 0 then
                   -- The second byte we will see is the operation.
-                  -- Latch that, too, for later use, and stay here.
+                  -- Latch that, too, for later use.
                   UNIT_SUPPORT_OPERATION <= to_integer(unsigned(UNIT_INPUT_FIFO_READ_DATA));
                   -- If this is a receive status operation, stick around until we get the
                   -- status, otherwise go wait for data
@@ -589,18 +587,15 @@ unitCh1ReaderLatchProcess: process (
       if MC_COMP_RESET_TO_BUFFER = '0' then
          READER_CH1_EOF_DELAY <= '0';
          READER_CH1_END_OF_FILE <= '0';
-         -- READER_CH1_NO_TRANSFER_LATCH <= '0';
-         -- READER_CH1_MULTI_READ <= '0';
-         -- READER_CH1_MULTI_READ_FEED <= '0';
       elsif MC_RESET_SELECT_BUFFER_LATCHES = '0' and UNIT_SELECT_UNIT_1 = '1' then
-         -- READER_CH1_NO_TRANSFER_LATCH <= '0';
          READER_CH1_END_OF_FILE <= '0';
+         -- There may be more to reset here . . . 
       elsif READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
          READER_CH1_EOF_DELAY <= '0';
       elsif FPGA_CLK'event and FPGA_CLK = '1' then
 
          -- TODO: Maybe this FIRST part can be moved into the combinatorial section at the end
-         -- maybe even dropping READER_CH1_NO_TRANSFER in the process
+         -- maybe even dropping READER_CH1_NO_TRANSFER signal in the process
          if MC_STACK_SELECT_TO_BUFFER = '1' and READER_CH1_MULTI_READ = '1' and 
             UNIT_SELECT_UNIT_1 = '0' then
             READER_CH1_NO_TRANSFER <= '1';
@@ -611,7 +606,7 @@ unitCh1ReaderLatchProcess: process (
             READER_CH1_NO_TRANSFER <= '0';
          end if;
 
-         -- EOF Latch (?)
+         -- EOF Latch (not yet tested)
 
          if READER_CH1_STATUS(READER_LAST_CARD_BIT) = '1' and 
             unitCh1ReaderState = unit_reader_waitForBuffer then
@@ -715,7 +710,7 @@ unitCh1ReaderDataProcess: process (
          end if;
 
       when unit_reader_waitForChar =>
-         READER_CH1_BUFFER_READY <= '0';
+         READER_CH1_BUFFER_READY <= '0'; -- Not sure about this one . . .
          if UNIT_INPUT_FIFO_EMPTY = '0' then
             FIFO_READ_ENABLE_READER_DATA <= '1';
             unitCh1ReaderState <= unit_reader_getchar;            
@@ -795,7 +790,7 @@ unitReaderCh1TransferOrStackProcess: process(
             -- so that we don't start the reader until we see "Go".
             
             if MC_READY_TO_BUFFER = '0' then  -- True if this is a read instruction M%1saaaaaR
-               -- But don't start the read feed yet
+               -- Go start the actual transfer, but don't start the read feed yet
                unitCh1ReaderTransferState <= unit_reader_transfer_start;
             elsif MC_STACK_SELECT_TO_BUFFER = '0' and MC_FORMS_STACKER_GO = '0' then
                -- This is a stacker instruction Ks and Forms Stacker Go has been asserted,
@@ -826,36 +821,43 @@ unitReaderCh1TransferOrStackProcess: process(
       when unit_reader_transfer_wait_channel =>
          READER_CH1_FEED_START <= '0';   -- The reader feed should have started now. 
          if unitReaderDelayCounter = CHANNEL_CYCLE_LENGTH - 1 then
-            -- Put the data on the bus one tick early => .
+            -- Put the data on the bus one tick early . . .
             MC_I_O_SYNC_TO_CPU_BUS <= not READER_CH1_BUFFER(READER_CH1_BUFFER_SCAN_POSITION);
          end if;
          if unitReaderDelayCounter = CHANNEL_CYCLE_LENGTH then
+            -- Now we are ready to strobe the 1411's channel
             unitReaderDelayCounter <= 0;
             unitReaderStrobeCounter <= 0;
             READER_CH1_BUFFER_SCAN_POSITION <= READER_CH1_BUFFER_SCAN_POSITION + 1;
             unitCh1ReaderTransferState <= unit_reader_transfer_strobe_channel;
          else
+            -- Still giving the channel time.
             unitReaderDelayCounter <= unitReaderDelayCounter + 1;
             unitCh1ReaderTransferState <= unit_reader_transfer_wait_channel;
          end if;
 
       when unit_reader_transfer_strobe_channel =>
+         -- Tell the 1411 CPU Channel we have data for it 
+         -- (strobe happens in combinatorial logic based on this state)
          if unitReaderStrobeCounter = CHANNEL_STROBE_LENGTH then
+            -- Strobe is done.  Have we hit the end of the buffer yet?
             if READER_CH1_BUFFER_SCAN_POSITION < READER_BUFFER_LENGTH then
                unitCh1ReaderTransferState <= unit_reader_transfer_wait_channel;
             else
                unitCh1ReaderTransferState <= unit_reader_transfer_end_of_transfer;
             end if;
          else
+            -- Still in the process of the strobe signal
             unitReaderStrobeCounter <= unitReaderStrobeCounter + 1;
             if unitReaderDelayCounter /= CHANNEL_CYCLE_LENGTH - 1 then
-               -- this counts towards channel cycle delay
+               -- this counts towards channel cycle delay, too.
                unitReaderDelayCounter <= unitReaderDelayCounter + 1; 
             end if;
             unitCh1ReaderTransferState <= unit_reader_transfer_strobe_channel;
          end if;
 
       when unit_reader_transfer_end_of_transfer =>
+         -- Transfer should be done, now.
          if MC_CORRECT_TRANS_TO_BUFFER = '0' then
             unitCh1ReaderTransferState <= unit_reader_transfer_done;
          else
@@ -867,7 +869,7 @@ unitReaderCh1TransferOrStackProcess: process(
          if UNIT_SELECT_UNIT_1 = '1' then   -- Wait for CPU to deselect us
             unitCh1ReaderTransferState <= unit_reader_transfer_done;
          else
-            READER_CH1_FEED_START <= '0';   -- Feed process should have already started
+            -- Clean up / reset signals, and go idle
             READER_CH1_BUFFER_TRANSFERRING <= '0';
             READER_CH1_BUFFER_SCAN_POSITION <= 0;         
             unitReaderDelayCounter <= 0;
@@ -913,9 +915,11 @@ unitCh1ReaderRequestProcess: process (
             end if;
 
          when unit_reader_request_fifo_wait_1 =>
+            -- Got a request to start a feed.  Waiting for the output FIFO to have room
             if UNIT_OUTPUT_FIFO_FULL = '1' then
                unitCh1ReaderRequestState <= unit_reader_request_fifo_wait_1;
             else
+               -- FIFO has room, so fill in the unit number
                READER_CH1_REQUEST_DATA <= "000000001";  -- Reader Unit.  Top bit is flush bit.
                unitCh1ReaderRequestState <= unit_reader_request_send_unit;
             end if;
@@ -925,6 +929,7 @@ unitCh1ReaderRequestProcess: process (
             unitCh1ReaderRequestState <= unit_reader_request_fifo_wait_2;
 
          when unit_reader_request_fifo_wait_2 =>
+            -- Now, wait until the FIFO has room for the operation
             if UNIT_OUTPUT_FIFO_FULL = '1' then
                unitCh1ReaderRequestState <= unit_reader_request_fifo_wait_2;
             else
@@ -937,6 +942,8 @@ unitCh1ReaderRequestProcess: process (
             end if;
 
          when unit_reader_request_send_operation =>            
+            -- Send the operation number.  Wait for feed start to go away - though
+            -- it ought to have already gone away by now.
             if READER_CH1_FEED_START = '0' then
                READER_CH1_REQUEST_DATA <= "000000000";
                unitCh1ReaderRequestState <= unit_reader_request_done;
@@ -953,8 +960,9 @@ unitCh1ReaderRequestProcess: process (
 
    end process; -- unitCh1ReaderRequestProcess
 
+-- Combinatorial logic follows.
 
-   UDP_RESET <= not MC_COMP_RESET_TO_BUFFER;
+UDP_RESET <= not MC_COMP_RESET_TO_BUFFER;
 
 -- Wake up trigger for the reader data process and to keep the trigger process
 -- sleeping until the data from the PC is read
