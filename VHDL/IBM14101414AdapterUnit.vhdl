@@ -438,6 +438,8 @@ UnitUARTOutputProcess: process(
       
 end process;
 
+-- Process to wait for an incoming message from the PC support program to start, and
+-- trigger the appropriate process to handle the message
 
 unitCh1TriggerProcess: process (
    FPGA_CLK,
@@ -564,12 +566,13 @@ unitCh1TriggerProcess: process (
 
    end process;
 
-   -- Process to set and reset various reader latches
+-- Process to set and reset various reader latches
 
-unitCh1ReaderNoTransferLatchProcess: process (
+unitCh1ReaderLatchProcess: process (
    FPGA_CLK,
    MC_COMP_RESET_TO_BUFFER,
    MC_RESET_SELECT_BUFFER_LATCHES,
+   MC_STACK_SELECT_TO_BUFFER,
    READER_CH1_FED,
    UNIT_SELECT_UNIT_1,
    READER_CH1_BUFFER_EMPTY,
@@ -577,7 +580,9 @@ unitCh1ReaderNoTransferLatchProcess: process (
    READER_CH1_STATUS,
    READER_CH1_FEED_START,
    READER_CH1_MULTI_READ_FEED,
-   unitCh1ReaderState)
+   READER_CH1_MULTI_READ,
+   unitCh1ReaderState,
+   unitCh1ReaderTransferState)
 
    begin
 
@@ -585,23 +590,28 @@ unitCh1ReaderNoTransferLatchProcess: process (
          READER_CH1_EOF_DELAY <= '0';
          READER_CH1_END_OF_FILE <= '0';
          -- READER_CH1_NO_TRANSFER_LATCH <= '0';
-         READER_CH1_MULTI_READ <= '0';
-         READER_CH1_MULTI_READ_FEED <= '0';
+         -- READER_CH1_MULTI_READ <= '0';
+         -- READER_CH1_MULTI_READ_FEED <= '0';
       elsif MC_RESET_SELECT_BUFFER_LATCHES = '0' and UNIT_SELECT_UNIT_1 = '1' then
          -- READER_CH1_NO_TRANSFER_LATCH <= '0';
          READER_CH1_END_OF_FILE <= '0';
       elsif READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
          READER_CH1_EOF_DELAY <= '0';
       elsif FPGA_CLK'event and FPGA_CLK = '1' then
-         -- TODO: Maybe this part can be moved into the combinatorial section at the end,
-         -- dropping READER_CH1_NO_TRANSFER in the process
-         if MC_STACK_SELECT_TO_BUFFER = '1' and READER_CH1_MULTI_READ = '1' and UNIT_SELECT_UNIT_1 = '1' then
+
+         -- TODO: Maybe this FIRST part can be moved into the combinatorial section at the end
+         -- maybe even dropping READER_CH1_NO_TRANSFER in the process
+         if MC_STACK_SELECT_TO_BUFFER = '1' and READER_CH1_MULTI_READ = '1' and 
+            UNIT_SELECT_UNIT_1 = '0' then
             READER_CH1_NO_TRANSFER <= '1';
-         elsif MC_STACK_SELECT_TO_BUFFER = '0' and UNIT_SELECT_UNIT_1 = '1' and READER_CH1_MULTI_READ_FEED = '1' then
+         elsif MC_STACK_SELECT_TO_BUFFER = '0' and UNIT_SELECT_UNIT_1 = '1' and 
+            READER_CH1_MULTI_READ_FEED = '1' then
             READER_CH1_NO_TRANSFER <= '1';
          else
             READER_CH1_NO_TRANSFER <= '0';
          end if;
+
+         -- EOF Latch (?)
 
          if READER_CH1_STATUS(READER_LAST_CARD_BIT) = '1' and 
             unitCh1ReaderState = unit_reader_waitForBuffer then
@@ -612,17 +622,20 @@ unitCh1ReaderNoTransferLatchProcess: process (
             READER_CH1_END_OF_FILE <= '1';
          end if;
 
-         if unitCh1ReaderState = unit_reader_waitForBuffer then
+         -- Multi Read Fead Latch
+
+         if unitCh1ReaderTransferState = unit_reader_transfer_start then
             READER_CH1_MULTI_READ_FEED <= '0';
          elsif READER_CH1_FEED_START = '1' then
             READER_CH1_MULTI_READ_FEED <= '1';
          end if;
 
+         -- Multi Read Latch
+
          if MC_READY_TO_BUFFER = '1' and  -- MC_READY_TO_BUFFER is known as READY2 as well
             READER_CH1_MULTI_READ_FEED = '1' then
             READER_CH1_MULTI_READ <= '0';
-         elsif MC_CORRECT_TRANS_TO_BUFFER = '0' and
-            (MC_RESET_SELECT_BUFFER_LATCHES = '0' or MC_FORMS_STACKER_GO = '0') and
+         elsif (MC_CORRECT_TRANS_TO_BUFFER = '0' or MC_RESET_SELECT_BUFFER_LATCHES = '0') and
             UNIT_SELECT_UNIT_1 = '1' then
             READER_CH1_MULTI_READ <= '1';
          end if;
@@ -630,8 +643,8 @@ unitCh1ReaderNoTransferLatchProcess: process (
       end if;
    end process;
 
-   -- Process to set whether or not the reader buffer is empty.  To work, has to monitor the
-   -- states of the filling and emptying processes
+-- Process to set whether or not the reader buffer is empty.  To work, it has to monitor the
+-- states of the filling and emptying processes
 
 unitCh1ReaderBufferStatusProcess: process (
    FPGA_CLK,
@@ -648,6 +661,9 @@ unitCh1ReaderBufferStatusProcess: process (
          end if;
       end if;
    end process;
+
+-- Process to handle an incoming card image from the card reader emulation
+-- in the PC support program.
 
 unitCh1ReaderDataProcess: process (
    FPGA_CLK,
@@ -744,7 +760,7 @@ end process;
 
 -- Process to handle a 1410 Read instruction M%1saaaaaR or an SSF Kd
 
-unitReaderCh1TransferProcess: process(
+unitReaderCh1TransferOrStackProcess: process(
    FPGA_CLK,
    UNIT_SELECT_UNIT_1,
    READER_CH1_BUFFER_FILLING
@@ -769,24 +785,21 @@ unitReaderCh1TransferProcess: process(
 
       when unit_reader_transfer_idle =>
          -- Have we received either a read request or stack request, and we are ready?
-         if UNIT_SELECT_UNIT_1 = '1' and MC_READY_TO_BUFFER = '0' and READER_CH1_BUFFER_FILLING = '0' and
-            (MC_INPUT_MODE_TO_BUFFER = '0' or 
-            (MC_STACK_SELECT_TO_BUFFER = '0' and MC_FORMS_STACKER_GO = '0')) then
+         if UNIT_SELECT_UNIT_1 = '1' and READER_CH1_BUFFER_FILLING = '0' and
+            (MC_READY_TO_BUFFER = '0' or MC_STACK_SELECT_TO_BUFFER = '0') then
 
             READER_CH1_STACKER_SELECTED <= UNIT_CH1_STACKER_SELECTED;
 
             -- The read feed starts in another process in parallel when READER_CH1_FEED_START is set
+            -- Note that for SSF instructions, we stay in this state until we see Forms Stacker GO asserted,
+            -- so that we don't start the reader until we see "Go".
             
-            if MC_FORMS_STACKER_GO = '1' then  -- True if this is a read instruction M%1saaaaaR
-               if UNIT_CH1_STACKER_SELECTED = 9 then
-                  READER_CH1_FEED_START <= '0';
-                  READER_CH1_FED <= '0';
-               else
-                  READER_CH1_FEED_START <= '1';
-                  READER_CH1_FED <= '1';
-               end if;               
+            if MC_READY_TO_BUFFER = '0' then  -- True if this is a read instruction M%1saaaaaR
+               -- But don't start the read feed yet
                unitCh1ReaderTransferState <= unit_reader_transfer_start;
-            else -- This is a stacker instruction Ks
+            elsif MC_STACK_SELECT_TO_BUFFER = '0' and MC_FORMS_STACKER_GO = '0' then
+               -- This is a stacker instruction Ks and Forms Stacker Go has been asserted,
+               -- So we can start the read feed.
                READER_CH1_FED <= '1';
                READER_CH1_FEED_START <= '1';
                unitCh1ReaderTransferState <= unit_reader_transfer_done;
@@ -797,12 +810,21 @@ unitReaderCh1TransferProcess: process(
 
       when unit_reader_transfer_start =>
          READER_CH1_BUFFER_SCAN_POSITION <= 0;
+         -- We will initiate the reader feed, if appropriate, as we LEAVE this state, because
+         -- this state first RESETS multi-read feed!
+         if UNIT_CH1_STACKER_SELECTED = 9 then
+            READER_CH1_FEED_START <= '0';
+            READER_CH1_FED <= '0';
+         else
+            READER_CH1_FEED_START <= '1';
+            READER_CH1_FED <= '1';
+         end if;               
          unitReaderDelayCounter <= 0;
          unitReaderStrobeCounter <= 0;
-         READER_CH1_FEED_START <= '0'; -- Feed message to PC should have already started.
          unitCh1ReaderTransferState <= unit_reader_transfer_wait_channel;
 
       when unit_reader_transfer_wait_channel =>
+         READER_CH1_FEED_START <= '0';   -- The reader feed should have started now. 
          if unitReaderDelayCounter = CHANNEL_CYCLE_LENGTH - 1 then
             -- Put the data on the bus one tick early => .
             MC_I_O_SYNC_TO_CPU_BUS <= not READER_CH1_BUFFER(READER_CH1_BUFFER_SCAN_POSITION);
