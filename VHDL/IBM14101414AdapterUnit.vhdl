@@ -262,8 +262,9 @@ signal READER_CH1_BUFFER_READY:           std_logic := '0'; -- Indicates buffer 
 signal READER_CH1_NO_TRANSFER:            std_logic := '0';
 signal READER_CH1_END_OF_FILE:            std_logic := '0';
 signal READER_CH1_EOF_DELAY:              std_logic := '0';
-signal READER_CH1_FED:                    std_logic := '0';
+-- signal READER_CH1_FED:                    std_logic := '0';
 signal READER_CH1_FEED_START:             std_logic := '0';
+signal READER_CH1_FEEDING:                std_logic := '0';
 signal READER_CH1_MULTI_READ:             std_logic := '0';
 signal READER_CH1_MULTI_READ_FEED:        std_logic := '0';
 signal READER_CH1_ERROR:                  std_logic := '0';
@@ -571,7 +572,7 @@ unitCh1ReaderLatchProcess: process (
    MC_COMP_RESET_TO_BUFFER,
    MC_RESET_SELECT_BUFFER_LATCHES,
    MC_STACK_SELECT_TO_BUFFER,
-   READER_CH1_FED,
+   -- READER_CH1_FED,
    UNIT_SELECT_UNIT_1,
    READER_CH1_BUFFER_EMPTY,
    READER_CH1_EOF_DELAY,
@@ -604,6 +605,15 @@ unitCh1ReaderLatchProcess: process (
             READER_CH1_NO_TRANSFER <= '1';
          else
             READER_CH1_NO_TRANSFER <= '0';
+         end if;
+
+         -- Read Latch (and trigger, in the ILD).  Sets when a request to feed a card is sent,
+         -- resets when the PC message for the card image has been received and processed.
+
+         if READER_CH1_FEED_START = '1' then
+            READER_CH1_FEEDING <= '1';
+         elsif unitCh1ReaderState = unit_reader_done then
+            READER_CH1_FEEDING <= '0';
          end if;
 
          -- EOF Latch (not yet tested)
@@ -773,7 +783,7 @@ unitReaderCh1TransferOrStackProcess: process(
       when unit_reader_transfer_reset =>
          READER_CH1_BUFFER_TRANSFERRING <= '0';
          READER_CH1_BUFFER_SCAN_POSITION <= 0;
-         READER_CH1_FED <= '0';
+         -- READER_CH1_FED <= '0';
          unitReaderDelayCounter <= 0;
          unitReaderStrobeCounter <= 0;
          unitCh1ReaderTransferState <= unit_reader_transfer_idle;
@@ -795,7 +805,7 @@ unitReaderCh1TransferOrStackProcess: process(
             elsif MC_STACK_SELECT_TO_BUFFER = '0' and MC_FORMS_STACKER_GO = '0' then
                -- This is a stacker instruction Ks and Forms Stacker Go has been asserted,
                -- So we can start the read feed.
-               READER_CH1_FED <= '1';
+               -- READER_CH1_FED <= '1';
                READER_CH1_FEED_START <= '1';
                unitCh1ReaderTransferState <= unit_reader_transfer_done;
             end if;
@@ -809,10 +819,10 @@ unitReaderCh1TransferOrStackProcess: process(
          -- this state first RESETS multi-read feed!
          if UNIT_CH1_STACKER_SELECTED = 9 then
             READER_CH1_FEED_START <= '0';
-            READER_CH1_FED <= '0';
+            -- READER_CH1_FED <= '0';
          else
             READER_CH1_FEED_START <= '1';
-            READER_CH1_FED <= '1';
+            -- READER_CH1_FED <= '1';
          end if;               
          unitReaderDelayCounter <= 0;
          unitReaderStrobeCounter <= 0;
@@ -844,6 +854,7 @@ unitReaderCh1TransferOrStackProcess: process(
             if READER_CH1_BUFFER_SCAN_POSITION < READER_BUFFER_LENGTH then
                unitCh1ReaderTransferState <= unit_reader_transfer_wait_channel;
             else
+               unitReaderDelayCounter <= 0;  -- Also use this counter for end of transfer signal
                unitCh1ReaderTransferState <= unit_reader_transfer_end_of_transfer;
             end if;
          else
@@ -858,11 +869,19 @@ unitReaderCh1TransferOrStackProcess: process(
 
       when unit_reader_transfer_end_of_transfer =>
          -- Transfer should be done, now.
-         if MC_CORRECT_TRANS_TO_BUFFER = '0' then
+         if unitReaderDelayCounter = CHANNEL_CYCLE_LENGTH - 1 then            
             unitCh1ReaderTransferState <= unit_reader_transfer_done;
          else
+            unitReaderDelayCounter <= unitReaderDelayCounter + 1;
             unitCh1ReaderTransferState <= unit_reader_transfer_end_of_transfer;
          end if;
+         -- Removed the following, as MC_BUFFER_END_OF_TRANSFER should NOT wait for MC_CORRECT_TRANS_TO_BUFFER
+
+         -- if MC_CORRECT_TRANS_TO_BUFFER = '0' then
+         --    unitCh1ReaderTransferState <= unit_reader_transfer_done;
+         -- else
+         --    unitCh1ReaderTransferState <= unit_reader_transfer_end_of_transfer;
+         -- end if;
 
       when unit_reader_transfer_done =>
          READER_CH1_FEED_START <= '0';      -- Feed process should have already started
@@ -874,7 +893,7 @@ unitReaderCh1TransferOrStackProcess: process(
             READER_CH1_BUFFER_SCAN_POSITION <= 0;         
             unitReaderDelayCounter <= 0;
             unitReaderStrobeCounter <= 0;
-            READER_CH1_FED <= '0';
+            -- READER_CH1_FED <= '0';
             unitCh1ReaderTransferState <= unit_reader_transfer_idle;
          end if;
       end case;
@@ -998,10 +1017,10 @@ UNIT_CH1_STACKER_SELECTED <=
    2 when not MC_CPU_TO_I_O_SYNC_BUS = "00000010" else
    4 when not MC_CPU_TO_I_O_SYNC_BUS = "00000100" else
    8 when not MC_CPU_TO_I_O_SYNC_BUS = "00001000" else
-   9 when not MC_CPU_TO_I_O_SYNC_BUS = "00001001" else
+   9 when not MC_CPU_TO_I_O_SYNC_BUS = "10001001" else
    0;
 
-UNIT_OUTPUT_FIFO_WRITE_ENABLE <= '1' when  -- Eventuall will include punch and printer stuff
+UNIT_OUTPUT_FIFO_WRITE_ENABLE <= '1' when  -- Eventually will include punch and printer stuff
    unitCh1ReaderRequestState = unit_reader_request_send_unit or
    unitCh1ReaderRequestState = unit_reader_request_send_operation
    else '0';
@@ -1023,7 +1042,7 @@ MC_BUFFER_READY <= '0'
 
 MC_BUFFER_BUSY <= '0' 
    -- TODO --- Need to add 1401 mode read here
-   when UNIT_SELECT_UNIT_1 = '1' and (READER_CH1_FED = '1' or READER_CH1_BUFFER_FILLING = '1') -- More devices later
+   when UNIT_SELECT_UNIT_1 = '1' and (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1') -- More devices later
    else '1';
 
 MC_BUFFER_CONDITION <= '0' 
@@ -1039,11 +1058,11 @@ MC_BUFFER_STROBE <= '0'
    else '1';
 
 --  TODO: The following may need fixing?
- -- (For Priority Feature) Reader is reloading the buffer
-
-MC_READER_BUSY <= '0'
-   when (READER_CH1_FED = '1' or READER_CH1_BUFFER_FILLING = '1')
-   else  '1';
+-- (For Priority Feature) Reader is reloading the buffer
+-- MC_READER_BUSY <= '0'
+--   when (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1')
+--    else  '1';
+MC_READER_BUSY <= '1';
 
 MC_BUFFER_END_OF_TRANSFER <= '0'
    when  unitCh1ReaderTransferState = unit_reader_transfer_end_of_transfer 

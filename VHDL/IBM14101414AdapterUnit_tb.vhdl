@@ -360,6 +360,8 @@ procedure sendStatusUpdate (
     
     end sendStatusUpdate;
 
+
+
 -- Procedure to send a card image to the 1414 (acting as PC Support Program)
 
 procedure sendReaderToBuffer(
@@ -431,9 +433,15 @@ procedure getReaderBufferToChannel(
         report testName & " Requesting Stacking Card (SSF Instruction)";
     end if;
     
-    MC_CPU_TO_I_O_SYNC_BUS <= not 
-       std_logic_vector(to_unsigned(stackerNumber,MC_CPU_TO_I_O_SYNC_BUS'length));        
-    
+    case stackerNumber is
+        when 0 => MC_CPU_TO_I_O_SYNC_BUS <= not "10001010";
+        when 1 => MC_CPU_TO_I_O_SYNC_BUS <= not "00000001";
+        when 2 => MC_CPU_TO_I_O_SYNC_BUS <= not "00000010";
+        when 9 => MC_CPU_TO_I_O_SYNC_BUS <= not "10001001";
+        when others => MC_CPU_TO_I_O_SYNC_BUS <= "11111111";
+    end case;
+    wait for 10 ns;
+
     -- Enable getting status from the 1414
     MC_UNIT_1_SELECT_TO_I_O <= '0';  --For this prcedure, it is always the reader. 
     MC_INPUT_MODE_TO_BUFFER <= '0';
@@ -474,11 +482,13 @@ procedure getReaderBufferToChannel(
            report testName & " No transfer condition not as expected (1). " severity failure;           
         if MC_BUFFER_NO_TRANS_COND = '1' then   -- Not no transfer, so proceed to start reader feed
             MC_FORMS_STACKER_GO <= '0';         -- Tell reader to engage clutch
-            wait for 100 ns;
+            wait for 100 ns;                    -- In the real case, this will be q lot longer.
         end if;
         -- Otherwise, if no transfer, the CPU will (should) never issue the forms stacker go.
         -- Either way, the channel is now done.
         MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
+        MC_FORMS_STACKER_GO <= '1';
+        MC_STACK_SELECT_TO_BUFFER <= '1';
         MC_UNIT_1_SELECT_TO_I_O <= '1';
         MC_INPUT_MODE_TO_BUFFER <= '1';
         MC_READY_TO_BUFFER <= '1';
@@ -497,21 +507,30 @@ procedure getReaderBufferToChannel(
         for i in 0 to 79 loop
         wait until MC_BUFFER_STROBE = '0' for 10 us; 
         assert MC_BUFFER_STROBE = '0'
-            report testName & "Buffer Strobe not asserted" severity failure;
+            report testName & " Buffer Strobe not asserted" severity failure;
         assert MC_I_O_SYNC_TO_CPU_BUS = not readerTestBuffer(i) 
-            report testName & "Data mismatched" severity failure;
+            report testName & " Data mismatched" severity failure;
         wait until MC_BUFFER_STROBE = '1' for 1 us;
         assert MC_BUFFER_STROBE = '1' 
-            report testName & "Buffer Strobe not de-asserted." severity failure;
+            report testName & " Buffer Strobe not de-asserted." severity failure;
         end loop;
 
-        wait until MC_BUFFER_END_OF_TRANSFER = '0' for 10 us;
+        report "DEBUG: Waiting for Buffer end of transfer";
+
+        -- Because MC_BUFFER_END_OF_TRANSFER is asserted right as MC_BUFFER_STROBE is de-asserted
+        -- We cannot just use a wait until.  That is an annoying thing in VHDL.
+        if MC_BUFFER_END_OF_TRANSFER /= '0' then
+            wait until MC_BUFFER_END_OF_TRANSFER = '0' for 10 us;
+        end if;
         assert MC_BUFFER_END_OF_TRANSFER = '0'
-        report testName & "Buffer End of Transfer not asserted." severity failure;
+            report testName & " Buffer End of Transfer not asserted." severity failure;
         
         MC_CORRECT_TRANS_TO_BUFFER <= '0';
-        wait for 1 us; -- short for testing
-        assert MC_BUFFER_END_OF_TRANSFER = '1';
+        if MC_BUFFER_END_OF_TRANSFER /= '1' then
+            wait until MC_BUFFER_END_OF_TRANSFER = '1' for 10 us;
+        end if;
+        assert MC_BUFFER_END_OF_TRANSFER = '1'
+            report testName & " Buffer End of Transfer did not de-assert." severity failure;
     end if;
 
     -- Check status
@@ -530,7 +549,7 @@ procedure getReaderBufferToChannel(
 
     wait until MC_BUFFER_END_OF_TRANSFER = '1' for 10 us;
     assert MC_BUFFER_END_OF_TRANSFER = '1'  
-       report testName & "Buffer End of Transfer not de-asserted." severity failure;
+       report testName & " Buffer End of Transfer not de-asserted." severity failure;
 
     end getReaderBufferToChannel;
 
@@ -558,16 +577,16 @@ procedure getExpectedReaderRequest(
     IBM1410_1414_UART_GRANT <= '0'; -- Remove the grant
     wait for 10 ns;
     assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
-       report testName & "UDP Flush Flag set when not expected." severity failure;
+       report testName & " UDP Flush Flag set when not expected." severity failure;
     assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode, unitDataSentToPC'length ))
-       report testName & "Expected Device number not received." severity failure;
+       report testName & " Expected Device number not received." severity failure;
     
     -- The second byte is the operation.  For a normal read, that is 11 (reader
     -- device code & stacker).  The flush flag should also be set.
 
     wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;   -- Request should already be there
     assert IBM1410_1414_UART_REQUEST = '1' report 
-       testName & "No UART request for expected reader operation code." severity failure;
+       testName & " No UART request for expected reader operation code." severity failure;
     wait for 10 ns;
     IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
     wait for 10 ns;
@@ -575,25 +594,99 @@ procedure getExpectedReaderRequest(
     IBM1410_1414_UART_GRANT <= '0'; -- Remove the grant
     wait for 10 ns;
     assert IBM1410_UART_XMT_UDP_FLUSH = '1' 
-       report testName & "UDP Flush Flag NOT set when not expected." severity failure;
+       report testName & " UDP Flush Flag NOT set when not expected." severity failure;
+
+    report testName & " Debug: unitDataSentToPC is " & to_bstring(to_bitvector(unitDataSentToPC)) &
+        ", deviceCode is " & integer'image(deviceCode) & ", stackerNumber is " & integer'image(stackerNumber);
+
     assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode,4)) &
        std_logic_vector(to_unsigned(stackerNumber,4))
-       report testName & "Expected operation code not received." severity failure;
+       report testName & " Expected Reader Support operation code not received." severity failure;
 
     -- There should NOT be an immediate request to send more data
 
     wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
     assert IBM1410_1414_UART_REQUEST = '0' report
-       testName & "Unexpected request to send more UART data on read feed message to PC" 
+       testName & " Unexpected request to send more UART data on read feed message to PC" 
        severity failure;
 
     end getExpectedReaderRequest;
+
+-- Procedure to do a given reader command, calling the procedures above as required
+
+procedure doReaderTest(
+    testName: in String;
+    testSequence: integer range 0 to 9;
+    testStep: in String;
+    testStepBCD: in std_logic_vector(7 downto 0);
+    readInstruction: in std_logic;  -- If false, then this is an SSF instruction
+    deviceNumber: in integer;
+    sendImageToBuffer: in std_logic;       -- true if we should send the buffer image to the 1414
+    expectFeed: in std_logic;       -- true if we expect a reader feed
+    stackerNumber: in integer;      -- As POSITIVE logic, 9 means no stacker
+    expectNoTransfer: in std_logic; -- As POSITIVE logic
+    expectNotReady: in std_logic;
+    expectBusy: in std_logic;
+    expectCondition: in std_logic
+) is
+    
+    begin
+
+    report "*** Begin Reader test " & testName & integer'image(testSequence) & testStep;
+
+    -- First send the buffer image to the 1414 if requested.
+
+    if sendImageToBuffer = '1' then
+        -- First, prepare the first 3 columns of the card with unique information for this test
+        readerTestBuffer(0) <= std_logic_vector(to_unsigned(testSequence,8));
+        readerTestBuffer(1) <= testStepBCD;   
+        wait for 10 ns;     
+        -- Next, send the reader to the 1414
+        sendReaderToBuffer(testName => testName & integer'image(testSequence) & testStep & " sendReaderToBuffer",
+            deviceNumber => deviceNumber);
+    end if;
+
+    -- Next, if this is a read instruction, fetch the card image from the 1414, pretending to be the 
+    -- 1411 CPU.  Otherwise, for an SSF instruction, pretend to be the CPU issuing the SSF to the 1414.
+
+    if readInstruction = '1' then
+        getReaderBufferToChannel(
+            testName => testName & integer'image(testSequence) & testStep & " getReaderBufferToChannel",
+            readerOpCode => '1', stackerOpcode => '0', stackerNumber => stackerNumber, 
+            expectNoTransfer => expectNoTransfer, expectNotReady => expectNotready, expectBusy => expectBusy, 
+            expectCondition => expectCondition);
+    else
+        -- This is a stacker op code, so no actual transfer
+        getReaderBufferToChannel(
+            testName => testName & integer'image(testSequence) & testStep & " getReaderBufferToChannel (SSF)",
+            readerOpCode => '0', stackerOpcode => '1', stackerNumber => stackerNumber,
+            expectNoTransfer => expectNoTransfer, expectNotReady => expectNotReady, expectBusy => expectBusy, 
+            expectCondition => expectCondition);
+    end if;
+
+    -- If the caller expected there to be a feed instruction check that it happened (or vice-versa)
+
+    if expectFeed = '1' then
+        getExpectedReaderRequest(
+            testName => testName & integer'image(testSequence) & testStep & " getExpectedReaderRequest ",
+            deviceCode => READER_CH1_DEVICE_NUMBER,
+            stackerNumber => stackerNumber); 
+    else
+        -- NOT expected a reader feed request
+        wait until IBM1410_1414_UART_REQUEST = '1' for 1us;
+        assert IBM1410_1414_UART_REQUEST = '0' 
+            report testname & integer'image(testSequence) & testStep & " Unexpected reader feed received." 
+            severity failure;
+    end if;
+
+    end doReaderTest;
+
 
     -- START OF THE ACTUAL TEST BENCH 
 
     begin
 
-    -- Fill a buffer with test data
+    -- Fill a buffer with initial test data
 
     for i in 0 to 79 loop
         v := std_logic_vector(to_unsigned(i, v'length));
@@ -608,16 +701,52 @@ procedure getExpectedReaderRequest(
     wait for 100 ns;
     t := now;
 
-    -- Set up card reader is ready
 
+    -- Start of test sequence 1 - normal read and SSF sequences with no No Transfer results.
+
+    -- Send a statups update that the reader is ready.
+
+    sendStatusUpdate(testName => "Reader Status Update",statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
     v := "00000000";
     v(UNIT_READY_BIT) := '1';
-    -- Consider also setting busy during the data transmission.
     
-    sendStatusUpdate(testName => "Sequence#3a1",statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
+    -- DEBUGGING:  SendImageToBuffer is 1 here, presuming card reader was pre-loaded with cards
 
-    --   Next, send a card image to the 1414.
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "a", testStepBCD => "00110001",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '1',
+        stackerNumber => 0, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
 
+    -- Now do it again for a second card  (Sequence 1, second instruction)
+    -- DEBUGGING: sendImageToBuffer is 1 here because of the preceeding FEED.
+
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "b", testStepBCD => "00110010",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '1',
+        stackerNumber => 1, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- Next, for the third line, send a M%19 (Read card but no feed)
+    -- DEBUGGING: SendImageToBuffer is 1 here, again because of the preceeding feed.
+
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "c", testStepBCD => "00110010",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '0',
+        stackerNumber => 9, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- Then do a select stacker and feed, which should be OK given the pervious M%19
+    -- DEBUGGING: SendImageToBuffer is 0 here, because there was no feed on the previuos M%19, but
+    -- NOW we feed the NEXT card.
+
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "d", testStepBCD => "00110010",
+        readInstruction => '0', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '0', expectFeed => '1',
+        stackerNumber => 2, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+
+    -- Start of test sequence 3 -- M%10 followed by SSF should result in no transfer.
+
+    -- Next, send a card image to the 1414.  Set up beginng of buffer with test sequence info,
+    -- to help make sure there isn't stale data that satisfies the test.
+
+    readerTestBuffer(0) <= "10000011";  -- Test 3
+    readerTestBuffer(1) <= "00110001";  -- a
+    readerTestBuffer(2) <= "00000010";  -- 2
     wait for 1 us;
 
     sendReaderToBuffer(testName => "Sequence#3a2",deviceNumber => READER_CH1_DEVICE_NUMBER);
@@ -640,10 +769,6 @@ procedure getExpectedReaderRequest(
 
     v := "00000000";
     v(UNIT_READY_BIT) := '1';
-
-    -- Consider also setting busy during the data transmission.
-    
-    sendStatusUpdate(testName => "Sequence#3b1", statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
 
     --   Next, send a card image to the 1414.
 
