@@ -525,6 +525,22 @@ procedure getReaderBufferToChannel(
         assert MC_BUFFER_END_OF_TRANSFER = '0'
             report testName & " Buffer End of Transfer not asserted." severity failure;
         
+        -- We are now at Status Sample "B" in the 1411 CPU - THIS is where no transfer, etc., are sampled.
+        -- We have to do this now, becuase if we wait until we assert MC_CORRECT_TRANS_TO_BUFFER or
+        -- MC_RESET_SELECT_BUFFER_LATCHES (which is used at the end for data check and Wrong Length Record)
+        -- we will get an incorrect no transfer condition.
+
+        wait for 100 ns;
+        
+        assert MC_BUFFER_NO_TRANS_COND = (not expectNoTransfer) 
+            report testName & " Buffer No Transfer Did not match expected value. (2)" severity failure;
+        assert MC_BUFFER_ERROR = '1' report testName & "Buffer Error Asserted." severity failure;
+
+        wait for 100 ns;  -- Time between the status samples.
+
+        -- Now we are in 2nd Status Sample B, which will set the Multi-Read latch.  Technically, if we get
+        -- a read error then we should assert MC_RESET_SELECT_BUFFER_LATCHES instead.
+
         MC_CORRECT_TRANS_TO_BUFFER <= '0';
         if MC_BUFFER_END_OF_TRANSFER /= '1' then
             wait until MC_BUFFER_END_OF_TRANSFER = '1' for 10 us;
@@ -535,9 +551,9 @@ procedure getReaderBufferToChannel(
 
     -- Check status
     
-    assert MC_BUFFER_NO_TRANS_COND = (not expectNoTransfer) 
-       report testName & " Buffer No Transfer Did not match expected value. (2)" severity failure;
-    assert MC_BUFFER_ERROR = '1' report testName & "Buffer Error Asserted." severity failure;
+    -- assert MC_BUFFER_NO_TRANS_COND = (not expectNoTransfer) 
+    --   report testName & " Buffer No Transfer Did not match expected value. (2)" severity failure;
+    -- assert MC_BUFFER_ERROR = '1' report testName & "Buffer Error Asserted." severity failure;
 
     -- Deselect the connection to the 1414
     
@@ -550,6 +566,10 @@ procedure getReaderBufferToChannel(
     wait until MC_BUFFER_END_OF_TRANSFER = '1' for 10 us;
     assert MC_BUFFER_END_OF_TRANSFER = '1'  
        report testName & " Buffer End of Transfer not de-asserted." severity failure;
+
+    MC_CORRECT_TRANS_TO_BUFFER <= '1';
+    MC_RESET_SELECT_BUFFER_LATCHES <= '1';
+    wait for 100 ns;
 
     end getReaderBufferToChannel;
 
@@ -706,40 +726,95 @@ procedure doReaderTest(
 
     -- Send a statups update that the reader is ready.
 
-    sendStatusUpdate(testName => "Reader Status Update",statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
     v := "00000000";
     v(UNIT_READY_BIT) := '1';
+
+    sendStatusUpdate(testName => "Reader Status Update",statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
     
-    -- DEBUGGING:  SendImageToBuffer is 1 here, presuming card reader was pre-loaded with cards
+    -- M%10 read.  SendImageToBuffer is 1 here, presuming card reader was pre-loaded with cards, and the
+    -- first one therefore sent to the 1414
 
     doReaderTest(testName => "Sequence", testSequence => 1, testStep => "a", testStepBCD => "00110001",
         readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '1',
         stackerNumber => 0, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
 
-    -- Now do it again for a second card  (Sequence 1, second instruction)
-    -- DEBUGGING: sendImageToBuffer is 1 here because of the preceeding FEED.
+    -- Now do it again for a second card  (Sequence 1, second instruction).  M%11 this time.
 
     doReaderTest(testName => "Sequence", testSequence => 1, testStep => "b", testStepBCD => "00110010",
         readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '1',
         stackerNumber => 1, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
 
     -- Next, for the third line, send a M%19 (Read card but no feed)
-    -- DEBUGGING: SendImageToBuffer is 1 here, again because of the preceeding feed.
 
-    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "c", testStepBCD => "00110010",
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "c", testStepBCD => "10110011",
         readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '0',
         stackerNumber => 9, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
 
     -- Then do a select stacker and feed, which should be OK given the pervious M%19
-    -- DEBUGGING: SendImageToBuffer is 0 here, because there was no feed on the previuos M%19, but
+    -- SendImageToBuffer is 0 here, because there was no feed on the previuos M%19, but
     -- NOW we feed the NEXT card.
 
-    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "d", testStepBCD => "00110010",
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "d", testStepBCD => "00110100",
         readInstruction => '0', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '0', expectFeed => '1',
         stackerNumber => 2, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
 
+    -- Now, do another read with no feed (M%19) after the preceeding SSF.  SendImageToBuffer is 1 because
+    -- we fed a card in the previous SSF.
+
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "e", testStepBCD => "10110101",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '0',
+        stackerNumber => 9, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- And, just like before, follow it with an SSF with no sendImageToBuffer, this time to stacker 0 just because
+
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "f", testStepBCD => "10110110",
+        readInstruction => '0', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '0', expectFeed => '1',
+        stackerNumber => 0, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- Now, do yet another read with no feed (M%19) after the preceeding SSF
+
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "g", testStepBCD => "00110111",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '0',
+        stackerNumber => 9, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- And, yet again, just like before, follow it with an SSF, this time to stacker 1 just because
+
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "h", testStepBCD => "00111000",
+        readInstruction => '0', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '0', expectFeed => '1',
+        stackerNumber => 1, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- Finish off sequnece 1 with a plain old read t stacker 1 (M%11)
+
+    doReaderTest(testName => "Sequence", testSequence => 1, testStep => "i", testStepBCD => "10111001",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '1',
+        stackerNumber => 1, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+
+
+    -- Start of test sequence 2, an M%19 followed by TWO SSF - the second of which should produce a No Transfer
+    -- condition.  The end of sequence 1 would have left a card in station 2, so we can send an image to the 1414
+
+    doReaderTest(testName => "Sequence", testSequence => 2, testStep => "a", testStepBCD => "00110001",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '0',
+        stackerNumber => 9, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- Follow that with an SSF, which should be OK.
+
+    doReaderTest(testName => "Sequence", testSequence => 2, testStep => "b", testStepBCD => "00111010",
+        readInstruction => '0', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '0', expectFeed => '1',
+        stackerNumber => 1, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- Now do a SECOND SSF which should fail right out of the box with No Transfer, and NO subsequent feed, either,
+    -- as this would fail during Status Sample A in the 1414.  SendImageToBuffer is 1 here, because the previous
+    -- SSF would have read in a card and transmitted a new one from station 2.
+
+    doReaderTest(testName => "Sequence", testSequence => 2, testStep => "c", testStepBCD => "10111011",
+        readInstruction => '0', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '0',
+        stackerNumber => 1, expectNoTransfer => '1', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
 
     -- Start of test sequence 3 -- M%10 followed by SSF should result in no transfer.
+    -- As these were the first tests I coded, they do not use "dorReaderTest".
 
     -- Next, send a card image to the 1414.  Set up beginng of buffer with test sequence info,
     -- to help make sure there isn't stale data that satisfies the test.
@@ -791,6 +866,99 @@ procedure doReaderTest(
 
     wait until IBM1410_1414_UART_REQUEST = '1' for 1us;
     assert IBM1410_1414_UART_REQUEST = '0' report "Sequence#3b4, Feed Request on SSF with No Transfer Unexpected"
+        severity failure;
+
+
+    -- Beginning of test sequence 4 - two M%19 requests in a row.  Sequence 3 would leave the reader with a
+    -- card imaage in station 2, so no need to send a card image on these - it is already there.
+
+    doReaderTest(testName => "Sequence", testSequence => 4, testStep => "a", testStepBCD => "00110001",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '0', expectFeed => '0',
+        stackerNumber => 9, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- Now repeat the above M%19 - but without sending an image to the 1414 - it wouild still be there due to the
+    -- preceeding M%19.  This second should result in a No Transfer condition, but still no feed.
+
+    doReaderTest(testName => "Sequence", testSequence => 4, testStep => "b", testStepBCD => "00110010",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '0', expectFeed => '0',
+        stackerNumber => 9, expectNoTransfer => '1', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+
+    -- Beginning of test sequence 5.  Because of how sequence 4 ended, we first need to do an SSF to get the
+    -- next card into the 1414 buffer.  So, the first step is labelled as a space.
+
+    doReaderTest(testName => "Sequence", testSequence => 5, testStep => " ", testStepBCD => "10110000",
+        readInstruction => '0', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '0', expectFeed => '1',
+        stackerNumber => 1, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- Follow that up with a read M%19 to transfer the image just fed into the CPU, but without a subsequent feed.
+
+    doReaderTest(testName => "Sequence", testSequence => 5, testStep => "a", testStepBCD => "00110001",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '1', expectFeed => '0',
+        stackerNumber => 9, expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    -- Then do a regular read.  Since there was no feed from the preceeding M%19, this results in no transfer.
+
+    doReaderTest(testName => "Sequence", testSequence => 5, testStep => "b", testStepBCD => "10110010",
+        readInstruction => '1', deviceNumber => READER_CH1_DEVICE_NUMBER, sendImageToBuffer => '0', expectFeed => '1',
+        stackerNumber => 0, expectNoTransfer => '1', expectNotReady => '0', expectBusy => '0', expectCondition => '0');
+
+    
+    -- End of file test - do this stepwise instead of using doReaderTest
+
+    -- First we need to pretend we just fed a card.
+
+    readerTestBuffer(0) <= "10000110";  -- Test 6
+    readerTestBuffer(1) <= "00110001";  -- a
+    readerTestBuffer(2) <= "00000001";  -- 1
+    wait for 1 us;
+
+    sendReaderToBuffer(testName => "Sequence#6a1 - EOF Test",deviceNumber => READER_CH1_DEVICE_NUMBER);
+    
+    -- Now, we need to tell the 1414 that this will be the last card.  (Note that it has NOT yet been stacked)
+
+    v := "00000000";
+    v(UNIT_READY_BIT) := '1';
+    v(READER_LAST_CARD_BIT) := '1';
+
+    sendStatusUpdate(testName => "Sequence#6a2 - EOF Test Reader Status Update",
+        statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
+
+    wait for 100 ns;
+
+    -- Now, pretend to be the CPU, and ask for the card data, and compare it.  This will send another feed request, too,
+    -- causing the last card to be stacked.
+
+    getReaderBufferToChannel(
+        testName => "Sequence#6a3 - EOF Test", readerOpCode => '1', stackerOpcode => '0', stackerNumber => 2, 
+        expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '0'
+    );
+
+    wait for 100 ns;
+
+    -- The above will also generate a feed request (which causes the last card to be stacked)
+
+    getExpectedReaderRequest(testName => "Sequence6a4 - EOF Test", deviceCode => READER_CH1_DEVICE_NUMBER,
+        stackerNumber => 2); 
+
+    wait for 100 ns;
+
+    -- OK.  Now try another read request.  There is no new data, but it should not result in a NO Transfer.
+    -- Instead, this should result in a condition status, and NOT generate a feed.
+
+    getReaderBufferToChannel(
+        testName => "Sequence#6a3 - EOF Test", readerOpCode => '1', stackerOpcode => '0', stackerNumber => 2, 
+        expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '1'
+    );
+
+    -- And there should NOT be a feed request, either.
+
+    if IBM1410_1414_UART_REQUEST /= '1' then
+        wait until IBM1410_1414_UART_REQUEST = '1' for 1us;
+    end if;
+           
+    assert IBM1410_1414_UART_REQUEST = '0' 
+        report "Sequence6a5 - EOF Test - Unexpected reader feed received." 
         severity failure;
 
     assert false report "Normal end of 1414 Unit Record I/O Sync Test Bench" severity failure;

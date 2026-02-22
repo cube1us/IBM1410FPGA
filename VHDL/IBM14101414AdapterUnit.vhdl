@@ -585,20 +585,12 @@ unitCh1ReaderLatchProcess: process (
 
    begin
 
-      if MC_COMP_RESET_TO_BUFFER = '0' then
-         READER_CH1_EOF_DELAY <= '0';
-         READER_CH1_END_OF_FILE <= '0';
-      elsif MC_RESET_SELECT_BUFFER_LATCHES = '0' and UNIT_SELECT_UNIT_1 = '1' then
-         READER_CH1_END_OF_FILE <= '0';
-         -- There may be more to reset here . . . 
-      elsif READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
-         READER_CH1_EOF_DELAY <= '0';
-      elsif FPGA_CLK'event and FPGA_CLK = '1' then
+      if FPGA_CLK'event and FPGA_CLK = '1' then
 
          -- TODO: Maybe this FIRST part can be moved into the combinatorial section at the end
          -- maybe even dropping READER_CH1_NO_TRANSFER signal in the process
          if MC_STACK_SELECT_TO_BUFFER = '1' and READER_CH1_MULTI_READ = '1' and 
-            UNIT_SELECT_UNIT_1 = '0' then
+            UNIT_SELECT_UNIT_1 = '1' then
             READER_CH1_NO_TRANSFER <= '1';
          elsif MC_STACK_SELECT_TO_BUFFER = '0' and UNIT_SELECT_UNIT_1 = '1' and 
             READER_CH1_MULTI_READ_FEED = '1' then
@@ -616,14 +608,28 @@ unitCh1ReaderLatchProcess: process (
             READER_CH1_FEEDING <= '0';
          end if;
 
-         -- EOF Latch (not yet tested)
+         -- EOF Latch and EOF_DELAY latches
 
          if READER_CH1_STATUS(READER_LAST_CARD_BIT) = '1' and 
+            READER_CH1_STATUS(UNIT_READY_BIT) = '1' and
             unitCh1ReaderState = unit_reader_waitForBuffer then
                READER_CH1_EOF_DELAY <= '1';
          end if;
 
-         if READER_CH1_EOF_DELAY = '1' then -- or TODO 1401 READ LATCH
+         if MC_COMP_RESET_TO_BUFFER = '0' then
+            READER_CH1_EOF_DELAY <= '0';
+            READER_CH1_END_OF_FILE <= '0';
+         elsif MC_RESET_SELECT_BUFFER_LATCHES = '0' and UNIT_SELECT_UNIT_1 = '1' then
+            READER_CH1_END_OF_FILE <= '0';
+            -- There may be more to reset here . . . 
+         elsif READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
+            READER_CH1_EOF_DELAY <= '0';
+         end if;
+
+
+         if READER_CH1_EOF_DELAY = '1' and
+            READER_CH1_FEED_START = '1' then 
+            -- or TODO 1401 READ LATCH
             READER_CH1_END_OF_FILE <= '1';
          end if;
 
@@ -1046,7 +1052,7 @@ MC_BUFFER_BUSY <= '0'
    else '1';
 
 MC_BUFFER_CONDITION <= '0' 
-   when UNIT_SELECT_UNIT_1 = '1' and READER_CH1_END_OF_FILE = '1'  -- More deivces later
+   when UNIT_SELECT_UNIT_1 = '1' and READER_CH1_END_OF_FILE = '1'  -- More devices later
    else '1';
 
 MC_BUFFER_NO_TRANS_COND <= '0'
