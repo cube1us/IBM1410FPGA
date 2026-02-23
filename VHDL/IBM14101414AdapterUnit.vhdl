@@ -284,7 +284,7 @@ signal UNIT_CH1_STACKER_SELECTED:         integer range 0 to 9 := 0;  -- Selecte
 
 signal unitTriggerState: unitTriggerState_type := unit_trigger_reset;
 signal unitCh1ReaderState: unitReaderState_type := unit_reader_reset;
-signal unitCH1ReaderTransferState: unitReaderTransferState_type := unit_reader_transfer_reset;
+signal unitCh1ReaderTransferState: unitReaderTransferState_type := unit_reader_transfer_reset;
 signal unitUARTOutputState: unitUARTOutputState_type := unit_uart_output_idle;
 signal unitCh1ReaderRequestState: unitReaderrequestState_type := unit_reader_request_reset;
 
@@ -612,7 +612,8 @@ unitCh1ReaderLatchProcess: process (
 
          if READER_CH1_STATUS(READER_LAST_CARD_BIT) = '1' and 
             READER_CH1_STATUS(UNIT_READY_BIT) = '1' and
-            unitCh1ReaderState = unit_reader_waitForBuffer then
+            -- unitCh1ReaderState = unit_reader_waitForBuffer then
+            unitCh1ReaderTransferState = unit_reader_transfer_end_of_transfer then
                READER_CH1_EOF_DELAY <= '1';
          end if;
 

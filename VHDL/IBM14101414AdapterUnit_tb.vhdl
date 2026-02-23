@@ -447,7 +447,7 @@ procedure getReaderBufferToChannel(
     MC_INPUT_MODE_TO_BUFFER <= '0';
     wait for 100 ns;
     
-    -- Check that the status is as expected.
+    -- Check that the status is as expected.  (Not equal - because MC_* are active LOW)
 
     assert MC_BUFFER_READY = expectNotReady   -- Remembering that MC signals are active low
        report testName & " Buffer ready/not ready not as expected" severity failure;
@@ -458,7 +458,8 @@ procedure getReaderBufferToChannel(
     assert MC_BUFFER_CONDITION /= expectCondition
        report testName & " Buffer condition not as expected" severity failure;
     
-    -- If any of the not ready, busy or condition are set, the 1411 will stop here.
+    -- If any of the not ready, busy or condition are set, the 1411 will stop here (Status Sample "A")
+
     if MC_BUFFER_READY = '1' or MC_BUFFER_BUSY = '0' or MC_BUFFER_CONDITION = '0' then
         report testName & " Status indicates that no actual read will take place.  returning (no error).";
         MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
@@ -906,16 +907,24 @@ procedure doReaderTest(
     
     -- End of file test - do this stepwise instead of using doReaderTest
 
-    -- First we need to pretend we just fed a card.
-
+    
     readerTestBuffer(0) <= "10000110";  -- Test 6
     readerTestBuffer(1) <= "00110001";  -- a
     readerTestBuffer(2) <= "00000001";  -- 1
+    wait for 100 ns;
+
+    -- The last step in sequence 5 should have resulted in a feed (which it checked for), so now we can
+    -- transfer that subsequent card image to the 1414
+
     wait for 1 us;
 
     sendReaderToBuffer(testName => "Sequence#6a1 - EOF Test",deviceNumber => READER_CH1_DEVICE_NUMBER);
     
-    -- Now, we need to tell the 1414 that this will be the last card.  (Note that it has NOT yet been stacked)
+    wait for 100 ns;
+
+    -- We need to tell the 1414 that this will be the last card.  (Note that it has NOT yet been stacked)
+    -- The ILD implies this happens during any of the encodes of columns (though it might not really be until
+    -- the encode cycles to transfer the card to the CPU)
 
     v := "00000000";
     v(UNIT_READY_BIT) := '1';
@@ -923,8 +932,6 @@ procedure doReaderTest(
 
     sendStatusUpdate(testName => "Sequence#6a2 - EOF Test Reader Status Update",
         statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
-
-    wait for 100 ns;
 
     -- Now, pretend to be the CPU, and ask for the card data, and compare it.  This will send another feed request, too,
     -- causing the last card to be stacked.
