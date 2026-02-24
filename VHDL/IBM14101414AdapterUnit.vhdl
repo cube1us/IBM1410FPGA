@@ -600,11 +600,13 @@ unitCh1ReaderLatchProcess: process (
          end if;
 
          -- Read Latch (and trigger, in the ILD).  Sets when a request to feed a card is sent,
-         -- resets when the PC message for the card image has been received and processed.
-
+         -- resets when the PC message for the card image has been received and processed, or
+         -- (thought this isn't explicitly in the ILD) if we receive an EOF from the card reader.
+         
          if READER_CH1_FEED_START = '1' then
             READER_CH1_FEEDING <= '1';
-         elsif unitCh1ReaderState = unit_reader_done then
+         elsif unitCh1ReaderState = unit_reader_done or
+            READER_CH1_END_OF_FILE = '1' then
             READER_CH1_FEEDING <= '0';
          end if;
 
@@ -615,21 +617,19 @@ unitCh1ReaderLatchProcess: process (
             -- unitCh1ReaderState = unit_reader_waitForBuffer then
             unitCh1ReaderTransferState = unit_reader_transfer_end_of_transfer then
                READER_CH1_EOF_DELAY <= '1';
-         end if;
-
-         if MC_COMP_RESET_TO_BUFFER = '0' then
-            READER_CH1_EOF_DELAY <= '0';
-            READER_CH1_END_OF_FILE <= '0';
-         elsif MC_RESET_SELECT_BUFFER_LATCHES = '0' and UNIT_SELECT_UNIT_1 = '1' then
-            READER_CH1_END_OF_FILE <= '0';
-            -- There may be more to reset here . . . 
          elsif READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
             READER_CH1_EOF_DELAY <= '0';
          end if;
 
+         if MC_COMP_RESET_TO_BUFFER = '0' or
+            (MC_RESET_SELECT_BUFFER_LATCHES = '0' and UNIT_SELECT_UNIT_1 = '1') then
+            READER_CH1_END_OF_FILE <= '0';
+            -- There may be more to reset here . . . 
+         end if;
 
          if READER_CH1_EOF_DELAY = '1' and
-            READER_CH1_FEED_START = '1' then 
+            -- READER_CH1_FEED_START = '1' then 
+            READER_CH1_FEEDING = '1' then            
             -- or TODO 1401 READ LATCH
             READER_CH1_END_OF_FILE <= '1';
          end if;

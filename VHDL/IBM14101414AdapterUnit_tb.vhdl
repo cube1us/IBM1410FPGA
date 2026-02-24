@@ -462,6 +462,11 @@ procedure getReaderBufferToChannel(
 
     if MC_BUFFER_READY = '1' or MC_BUFFER_BUSY = '0' or MC_BUFFER_CONDITION = '0' then
         report testName & " Status indicates that no actual read will take place.  returning (no error).";
+        if MC_BUFFER_CONDITION = '0' then
+           MC_RESET_SELECT_BUFFER_LATCHES <= '0';
+           wait for 100 ns;
+           MC_RESET_SELECT_BUFFER_LATCHES <= '1';
+        end if;
         MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
         MC_UNIT_1_SELECT_TO_I_O <= '1';
         MC_INPUT_MODE_TO_BUFFER <= '1';
@@ -528,7 +533,7 @@ procedure getReaderBufferToChannel(
         
         -- We are now at Status Sample "B" in the 1411 CPU - THIS is where no transfer, etc., are sampled.
         -- We have to do this now, becuase if we wait until we assert MC_CORRECT_TRANS_TO_BUFFER or
-        -- MC_RESET_SELECT_BUFFER_LATCHES (which is used at the end for data check and Wrong Length Record)
+        -- MC_RESET_SELECT_BUFFER_LATCHES (which is used at the end for data check, Wrong Length Record and EOF)
         -- we will get an incorrect no transfer condition.
 
         wait for 100 ns;
@@ -954,7 +959,7 @@ procedure doReaderTest(
     -- Instead, this should result in a condition status, and NOT generate a feed.
 
     getReaderBufferToChannel(
-        testName => "Sequence#6a3 - EOF Test", readerOpCode => '1', stackerOpcode => '0', stackerNumber => 2, 
+        testName => "Sequence#6a5 - EOF Test", readerOpCode => '1', stackerOpcode => '0', stackerNumber => 2, 
         expectNoTransfer => '0', expectNotReady => '0', expectBusy => '0', expectCondition => '1'
     );
 
@@ -965,8 +970,26 @@ procedure doReaderTest(
     end if;
            
     assert IBM1410_1414_UART_REQUEST = '0' 
-        report "Sequence6a5 - EOF Test - Unexpected reader feed received." 
+        report "Sequence6a6 - EOF Test - Unexpected reader feed received." 
         severity failure;
+
+    -- The CPU would now do a reset of select buffer latches => .
+
+    MC_RESET_SELECT_BUFFER_LATCHES <= '0';
+    wait for 100 ns;
+    MC_RESET_SELECT_BUFFER_LATCHES <= '1';
+
+    -- Now the PC Support program, with a suitable delay after sending the EOF (i.e., having stacked the
+    -- card) will go not ready, to reset the EOF DELAY latch.
+
+    v := "00000000";
+    v(UNIT_READY_BIT) := '0';
+    v(READER_LAST_CARD_BIT) := '0';
+
+    sendStatusUpdate(testName => "Sequence#6a7 - EOF Test Reader STOP Status Update",
+        statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
+
+    wait for 100 ns;
 
     assert false report "Normal end of 1414 Unit Record I/O Sync Test Bench" severity failure;
 
