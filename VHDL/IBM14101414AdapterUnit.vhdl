@@ -243,6 +243,28 @@ type unitReaderRequestState_type is (
    unit_reader_request_done
 );
 
+type unitPunchTransferState_type is (
+   unit_punch_transfer_reset,
+   unit_punch_transfer_idle,
+   unit_punch_transfer_strobe_channel,
+   unit_punch_transfer_wait_channel,
+   unit_punch_transfer_getchar,
+   unit_punch_transfer_end_of_transfer,
+   unit_punch_transfer_start_feed
+);
+
+type unitPunchFeedRequestState_type is (
+   unit_punch_feed_request_reset,
+   unit_punch_feed_request_idle,
+   unit_punch_feed_request_fifo_wait_1,
+   unit_punch_feed_request_send_unit,
+   unit_punch_feed_request_fifo_wait_2,
+   unit_punch_feed_request_send_operation,
+   unit_punch_feed_request_fifo_wait_3,
+   unit_punch_feed_request_send_column,
+   unit_punch_feed_request_done
+);
+
 signal UNIT_RECEIVED_DEVICE:     std_logic_vector(7 downto 0) := "00000000";
 signal UNIT_RECEIVED_OPERATION:  std_logic_vector(7 downto 0) := "00000000";
 
@@ -277,16 +299,33 @@ signal READER_CH1_BUFFER_TRANSFERRING:    std_logic := '0'; -- True when we are 
 
 signal READER_CH1_REQUEST_DATA:           std_logic_vector(8 downto 0) := "000000000";
 
+constant PUNCH_BUFFER_LENGTH: integer := 80;
+type PUNCH_BUFFER_TYPE is array (PUNCH_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
+signal PUNCH_CH1_BUFFER: PUNCH_BUFFER_TYPE := (others => X"80");
+signal PUNCH_CH1_BUFFER_FILL_POSITION:    integer range 0 to PUNCH_BUFFER_LENGTH := 0;  -- Channel to Buffer
+signal PUNCH_CH1_BUFFER_SCAN_POSITION:    integer range 0 to PUNCH_BUFFER_LENGTH := 0;  -- Buffer to Support Program
+signal PUNCH_CH1_BUFFER_BUSY:             std_logic := '0';
+signal PUNCH_CH1_BUFFER_FILLING:          std_logic := '0';  -- Channel to Buffer
+signal PUNCH_CH1_BUFFER_SENDING:          std_logic := '0';  -- Buffer to Support Program
+signal PUNCH_CH1_STACKER_SELECTED:        integer range 0 to 9 := 0;  -- Selected punch stacker
+signal PUNCH_CH1_START_FEED:              std_logic := '0';  -- True to send card to PC support pgm
+
+signal PUNCH_CH1_REQUEST_DATA:            std_logic_vector(8 downto 0) := "000000000";
+
 -- Signals deduced from the ILD and signals related to that.
 
 signal UNIT_SELECT_UNIT_1:                std_logic := '0'; -- Indicates unit 1 is selected with channel in input mode.
 signal UNIT_CH1_STACKER_SELECTED:         integer range 0 to 9 := 0;  -- Selected stacker
+signal UNIT_SELECT_UNIT_4:                std_logic := '0'; -- Indicates Unit 4 is selected with channel in output mode
 
 signal unitTriggerState: unitTriggerState_type := unit_trigger_reset;
 signal unitCh1ReaderState: unitReaderState_type := unit_reader_reset;
 signal unitCh1ReaderTransferState: unitReaderTransferState_type := unit_reader_transfer_reset;
 signal unitUARTOutputState: unitUARTOutputState_type := unit_uart_output_idle;
 signal unitCh1ReaderRequestState: unitReaderrequestState_type := unit_reader_request_reset;
+signal unitCh1PunchTransferState: unitPunchTransferState_type := unit_punch_transfer_reset;
+signal unitCh1PunchFeedRequestState: unitPunchFeedRequestState_type := unit_punch_feed_request_reset;
+
 
 signal UNIT_SUPPORT_UNIT:        integer := 0; -- Unit in incoming PC message
 signal UNIT_SUPPORT_OPERATION:   integer := 0; -- Operation in incoming PC message
@@ -297,7 +336,9 @@ signal UNIT_SUPPORT_OPERATION:   integer := 0; -- Operation in incoming PC messa
 
 signal unitTriggerCH1ReaderData: std_logic := '0'; -- '1' while we are reading card image from PC
 signal unitReaderDelayCounter:   integer range 0 to CHANNEL_CYCLE_LENGTH := 0;
-signal unitReaderStrobeCounter:   integer range 0 to CHANNEL_STROBE_LENGTH := 0;
+signal unitReaderStrobeCounter:  integer range 0 to CHANNEL_STROBE_LENGTH := 0;
+signal unitPunchDelayCounter:    integer range 0 to CHANNEL_CYCLE_LENGTH := 0;
+signal unitPunchStrobeCounter:   integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 
 -- We need a buffer for the reader, just like a real IBM 1414.
 -- (I don't think we will need that for output devices - we can just fill the packet)
@@ -774,8 +815,17 @@ end process;
 
 unitReaderCh1TransferOrStackProcess: process(
    FPGA_CLK,
+   unitCh1ReaderTransferState,
    UNIT_SELECT_UNIT_1,
-   READER_CH1_BUFFER_FILLING
+   READER_CH1_BUFFER_FILLING,
+   MC_READY_TO_BUFFER,
+   MC_STACK_SELECT_TO_BUFFER,
+   UNIT_CH1_STACKER_SELECTED,
+   READER_CH1_BUFFER,
+   unitReaderDelayCounter,
+   unitReaderStrobeCounter,
+   READER_CH1_BUFFER_SCAN_POSITION,
+   MC_CORRECT_TRANS_TO_BUFFER
    )
 
    begin
@@ -986,6 +1036,110 @@ unitCh1ReaderRequestProcess: process (
 
    end process; -- unitCh1ReaderRequestProcess
 
+-- Process to handle CPU requests to fill the Punch buffer
+
+unitCh1PunchTransferProcess: process (
+   FPGA_CLK,
+   unitCh1PunchTransferState,
+   UNIT_SELECT_UNIT_4,
+   PUNCH_CH1_BUFFER_SENDING,
+   MC_READY_TO_BUFFER,
+   UNIT_CH1_STACKER_SELECTED,
+   PUNCH_CH1_BUFFER,
+   unitPunchDelayCounter,
+   unitPunchStrobeCounter,   
+   PUNCH_CH1_BUFFER_FILL_POSITION,
+   MC_CORRECT_TRANS_TO_BUFFER
+)
+
+   begin
+
+   if MC_COMP_RESET_TO_BUFFER = '0' then
+      unitCh1PunchTransferState <= unit_punch_transfer_reset;
+
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+
+      case unitCh1PunchTransferState is
+
+         when unit_punch_transfer_reset =>
+            PUNCH_CH1_BUFFER_FILLING <= '0';
+            PUNCH_CH1_BUFFER_FILL_POSITION <= 0;
+            PUNCH_CH1_START_FEED <= '0';
+            unitPunchDelayCounter <= 0;
+            unitPunchStrobeCounter <= 0;
+            unitCh1PunchTransferState <= unit_punch_transfer_idle;
+
+         when unit_punch_transfer_idle =>
+            -- Wait for a punch request from the CPU.
+            if UNIT_SELECT_UNIT_4 = '1' and PUNCH_CH1_BUFFER_SENDING = '0' and
+               MC_READY_TO_BUFFER = '0' then
+               PUNCH_CH1_STACKER_SELECTED <= UNIT_CH1_STACKER_SELECTED;
+               PUNCH_CH1_BUFFER_FILLING <= '1';
+               unitCh1PunchTransferState <= unit_punch_transfer_strobe_channel;
+            else
+               unitCh1PunchTransferState <= unit_punch_transfer_idle;
+            end if;
+
+         when unit_punch_transfer_strobe_channel =>
+            -- Strobe the next character from the channel
+            if MC_READY_TO_BUFFER = '1' then
+               unitCh1PunchTransferState <= unit_punch_transfer_reset;
+            elsif unitPunchStrobeCounter = CHANNEL_STROBE_LENGTH then
+               unitPunchStrobeCounter <= 0;
+               unitPunchDelayCounter <= 0;
+               unitCh1PunchTransferState <= unit_punch_transfer_wait_channel;
+            else
+               unitPunchStrobeCounter <= unitPunchStrobeCounter + 1;
+               unitCh1PunchTransferState <= unit_punch_transfer_strobe_channel;
+            end if;
+
+         when unit_punch_transfer_wait_channel =>
+            -- Give the channel time to produce the next character
+            -- (I wonder if there is a signal that can be checked?)
+            if MC_READY_TO_BUFFER = '1' then
+               unitCh1PunchTransferState <= unit_punch_transfer_reset;
+            elsif unitPunchDelayCounter = CHANNEL_CYCLE_LENGTH then
+               unitPunchDelayCounter <= 0;
+               unitCh1PunchTransferState <= unit_punch_transfer_getchar;
+            else
+               unitPunchDelaycounter <= unitPunchDelayCounter + 1;
+            end if;
+
+         when unit_punch_transfer_getchar =>
+            if MC_READY_TO_BUFFER = '1' then
+               unitCh1PunchTransferState <= unit_punch_transfer_reset;
+            else
+               PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_FILL_POSITION) <=
+                  not MC_CPU_TO_I_O_SYNC_BUS;
+               if PUNCH_CH1_BUFFER_FILL_POSITION = PUNCH_BUFFER_LENGTH - 1 then
+                  PUNCH_CH1_BUFFER_FILL_POSITION <= 0;
+                  unitCh1PunchTransferState <= unit_punch_transfer_end_of_transfer;
+               else
+                  PUNCH_CH1_BUFFER_FILL_POSITION <= PUNCH_CH1_BUFFER_FILL_POSITION + 1;
+                  unitCh1PunchTransferState <= unit_punch_transfer_strobe_channel;
+               end if;
+            end if;
+
+         when unit_punch_transfer_end_of_transfer =>
+            if MC_CORRECT_TRANS_TO_BUFFER = '0' then
+               unitCh1PunchTransferState <= unit_punch_transfer_start_feed;
+            elsif MC_READY_TO_BUFFER = '1' then
+               unitCh1PunchTransferState <= unit_punch_transfer_reset;
+            else
+               unitCh1PunchTransferState <= unit_punch_transfer_end_of_transfer;
+            end if;               
+
+         when unit_punch_transfer_start_feed =>
+            PUNCH_CH1_START_FEED <= '1';
+            unitCh1PunchTransferState <= unit_punch_transfer_reset;         
+
+      end case;
+
+   
+   end if;
+
+   end process;  -- unitCh1PunchTransferProcess
+
 -- Combinatorial logic follows.
 
 UDP_RESET <= not MC_COMP_RESET_TO_BUFFER;
@@ -1010,13 +1164,23 @@ UNIT_OUTPUT_FIFO_READ_ENABLE <= '1' when unitUartOutputState = unit_uart_output_
    and UNIT_OUTPUT_FIFO_READ_DATA_VALID = '0'
    else '0';
 
--- Inidicate when the buffer is busy
+-- Inidicate when the buffers are busy
 
 READER_CH1_BUFFER_BUSY <= READER_CH1_BUFFER_FILLING or READER_CH1_BUFFER_TRANSFERRING;
 
+PUNCH_CH1_BUFFER_FILLING <= '1' when
+   unitCh1PunchTransferState /= unit_punch_transfer_idle;
+
+PUNCH_CH1_BUFFER_SENDING <= '1' when
+   unitCh1PunchFeedRequestState /= unit_punch_feed_request_idle;
+
+PUNCH_CH1_BUFFER_BUSY <= PUNCH_CH1_BUFFER_FILLING or PUNCH_CH1_BUFFER_SENDING;
+
 -- 1414 ILD signals and signals related to that.
 
-UNIT_SELECT_UNIT_1 <= (not MC_UNIT_1_SELECT_TO_I_O) AND not (MC_INPUT_MODE_TO_BUFFER);
+UNIT_SELECT_UNIT_1 <= (not MC_UNIT_1_SELECT_TO_I_O) AND (not MC_INPUT_MODE_TO_BUFFER);
+UNIT_SELECT_UNIT_4 <= (not MC_UNIT_4_SELECT_TO_I_O) and 
+   ((not MC_OUTPUT_MODE_TO_BUFFER) or (not MC_READY_TO_BUFFER)) ;
 
 UNIT_CH1_STACKER_SELECTED <=
    0 when not MC_CPU_TO_I_O_SYNC_BUS = "10001010" else
@@ -1033,7 +1197,7 @@ UNIT_OUTPUT_FIFO_WRITE_ENABLE <= '1' when  -- Eventually will include punch and 
    else '0';
 
 UNIT_OUTPUT_FIFO_WRITE_DATA <= 
-   READER_CH1_REQUEST_DATA;  -- Eventually will include punch and printer stuff,
+   READER_CH1_REQUEST_DATA or PUNCH_CH1_REQUEST_DATA;  -- Eventually will include printer stuff
    -- Make sure it is "00000000" when not in use.
 
 
@@ -1043,17 +1207,20 @@ UNIT_OUTPUT_FIFO_WRITE_DATA <=
 -- 1414 to 1411 interface signals (MC => ACTIVE LOW)
 
 MC_BUFFER_READY <= '0'
-   when UNIT_SELECT_UNIT_1 = '1' and
-      (READER_CH1_END_OF_FILE = '1' or READER_CH1_STATUS(UNIT_READY_BIT) = '1')  -- More devices later
+   when 
+      (UNIT_SELECT_UNIT_1 = '1' and
+         (READER_CH1_END_OF_FILE = '1' or READER_CH1_STATUS(UNIT_READY_BIT) = '1')) or
+      (UNIT_SELECT_UNIT_4 = '1' and PUNCH_CH1_STATUS(UNIT_READY_BIT) = '1')
    else '1';
 
 MC_BUFFER_BUSY <= '0' 
    -- TODO --- Need to add 1401 mode read here
-   when UNIT_SELECT_UNIT_1 = '1' and (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1') -- More devices later
+   when (UNIT_SELECT_UNIT_1 = '1' and (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1')) or
+      (UNIT_SELECT_UNIT_4 = '1' and (PUNCH_CH1_BUFFER_SENDING = '1' or PUNCH_CH1_BUFFER_FILLING = '1'))
    else '1';
 
 MC_BUFFER_CONDITION <= '0' 
-   when UNIT_SELECT_UNIT_1 = '1' and READER_CH1_END_OF_FILE = '1'  -- More devices later
+   when UNIT_SELECT_UNIT_1 = '1' and READER_CH1_END_OF_FILE = '1'  -- More devices later (punch not applicable)
    else '1';
 
 MC_BUFFER_NO_TRANS_COND <= '0'
@@ -1061,7 +1228,9 @@ MC_BUFFER_NO_TRANS_COND <= '0'
    else  '1';
   
 MC_BUFFER_STROBE <= '0'
-   when unitCh1ReaderTransferState = unit_reader_transfer_strobe_channel -- More devices later
+   when unitCh1ReaderTransferState = unit_reader_transfer_strobe_channel or
+      unitCh1PunchTransferState = unit_punch_transfer_strobe_channel
+      -- More devices later (punch not applicable)
    else '1';
 
 --  TODO: The following may need fixing?
