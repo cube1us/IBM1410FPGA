@@ -443,7 +443,7 @@ procedure getReaderBufferToChannel(
     wait for 10 ns;
 
     -- Enable getting status from the 1414
-    MC_UNIT_1_SELECT_TO_I_O <= '0';  --For this prcedure, it is always the reader. 
+    MC_UNIT_1_SELECT_TO_I_O <= '0';  --For this procedure, it is always the reader. 
     MC_INPUT_MODE_TO_BUFFER <= '0';
     wait for 100 ns;
     
@@ -706,6 +706,136 @@ procedure doReaderTest(
     end if;
 
     end doReaderTest;
+
+procedure sendChannelToPunchBuffer (
+    testname: in STRING;
+    stackerNumber: in integer;    -- As POSITIVE logic
+    charsToTransfer: in integer;  -- So we can test WLR
+    expectNoTransfer: in std_logic;
+    expectNotReady: in std_logic;
+    expectBusy: in std_logic;
+    expectCondition: in std_logic
+    ) is
+
+    begin
+
+    -- First select unit 4 at I4, but NOT output mode or ready to buffer.
+
+    MC_UNIT_4_SELECT_TO_I_O <= '0'; -- For this procedure, it is always the punch
+    wait for 100 ns;
+
+    -- Next at I5, put the stacker character onto the E Channel
+
+    case stackerNumber is
+        when 0 => MC_CPU_TO_I_O_SYNC_BUS <= not "10001010";
+        when 4 => MC_CPU_TO_I_O_SYNC_BUS <= not "00000100";
+        when 8 => MC_CPU_TO_I_O_SYNC_BUS <= not "00001000";
+        when others => MC_CPU_TO_I_O_SYNC_BUS <= "11111111";
+    end case;
+    wait for 100 ns;
+
+    -- At I 11, set output mode latch
+
+    MC_OUTPUT_MODE_TO_BUFFER <= '0';
+    wait for 100 ns;
+
+    -- Check status sample A signals
+
+    assert MC_BUFFER_READY = expectNotReady  -- Remembering that MC signals are active LOW
+        report testName & " Buffer ready/not ready not as expected" severity failure;
+
+    assert MC_BUFFER_BUSY /= expectNotReady
+        report testName & " Buffer busy/not busy not as expected" severity failure;
+
+    assert MC_BUFFER_CONDITION /= expectCondition
+       report testName & " Buffer condition not as expected" severity failure;
+
+    -- If any of the not ready, busy or condition are set, the 1411 will stop here (Status Sample "A")
+
+    if MC_BUFFER_READY = '1' or MC_BUFFER_BUSY = '0' or MC_BUFFER_CONDITION = '0' then
+        report testName & " Status indicates that no actual read will take place.  returning (no error).";
+        if MC_BUFFER_CONDITION = '0' then
+           MC_RESET_SELECT_BUFFER_LATCHES <= '0';
+           wait for 100 ns;
+           MC_RESET_SELECT_BUFFER_LATCHES <= '1';
+        end if;
+        MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
+        MC_UNIT_4_SELECT_TO_I_O <= '1';
+        MC_OUTPUT_MODE_TO_BUFFER <= '1';
+        MC_READY_TO_BUFFER <= '1';
+        wait for 100 ns;
+        return;
+    end if;
+
+    -- Tell the 1414 we are ready to send data to it, starting with the stacker number
+    -- We start out with Ready to buffer, so that the 1414 can snag the stacker charcter,
+    -- then send characters until we reach our end conddition.
+
+    MC_CORRECT_TRANS_TO_BUFFER <= '1';
+    MC_READY_TO_BUFFER <= '0';
+    -- MC_CPU_TO_I_O_SYNC_BUS has already been set
+
+    -- Now we wait for a strobe.  The 1414 is expecting EXACTLY 80 characters, but
+    -- to test WLR conditions, we may send more or less than that.
+
+    for i in 0 to charsToTransfer - 1 loop
+        wait until MC_BUFFER_STROBE = '0' for 10 us;  -- In test mode, it strobes much faster than th
+        assert MC_BUFFER_STROBE = '0'
+            report testName & " Buffer Strobe not asserted" severity failure;
+        -- Make the next character available
+        MC_CPU_TO_I_O_SYNC_BUS <= not readerTestBuffer(i);
+        wait for 100 ns;
+        if MC_BUFFER_STROBE = '0' then
+            wait until MC_BUFFER_STROBE = '1' for 10 us;
+        end if;
+        assert MC_BUFFER_STROBE = '1' 
+            report testName & " Buffer Strobe not de-asserted." severity failure;
+
+        -- Now, see if the 1414 has decided to end the transfer before our loop ends 
+        if MC_BUFFER_END_OF_TRANSFER = '1' then
+            wait until MC_BUFFER_END_OF_TRANSFER = '0' for 1 us;
+        end if;
+
+        -- Terminate early?
+        exit when MC_BUFFER_END_OF_TRANSFER = '0';
+    end loop;
+
+    --  Check for expected wrong length record conditions
+
+    if charsToTransfer < 80 then
+        -- in this case, we need to stop the transfer from the channel side.
+        assert MC_BUFFER_END_OF_TRANSFER = '1'
+            report testName & " Buffer end of Transfer asserted for chars < 80" severity failure;
+        MC_CORRECT_TRANS_TO_BUFFER <= '1';
+    end if;
+
+    if charsToTransfer > 80 then
+        -- in this case, the 1414 should have ended the transfer early
+        assert MC_BUFFER_END_OF_TRANSFER = '0'
+            report testName & " Buffer end of Transfer NOT asserted for chars > 80" severity failure;
+        MC_CORRECT_TRANS_TO_BUFFER <= '1';
+    end if;
+    
+    if charsToTransfer = 80 then
+        assert MC_BUFFER_END_OF_TRANSFER = '0'
+            report testName & " Buffer end of Transfer NOT asserted for chars == 80" severity failure;
+        MC_CORRECT_TRANS_TO_BUFFER <= '0';
+    end if;
+
+    -- Now, end the transfer.  Later test bench code will test to see if the 1414 send
+    -- data to the PC to be "punched", or not.
+
+    wait for 100 ns;
+    MC_CORRECT_TRANS_TO_BUFFER <= '1';
+    MC_READY_TO_BUFFER <= '1';
+    MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
+    MC_UNIT_4_SELECT_TO_I_O <= '1';
+    MC_OUTPUT_MODE_TO_BUFFER <= '1';
+    MC_READY_TO_BUFFER <= '1';
+    wait for 100 ns;
+    return;
+
+    end sendChannelToPunchBuffer;
 
 
     -- START OF THE ACTUAL TEST BENCH 
