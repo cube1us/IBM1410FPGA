@@ -1062,7 +1062,6 @@ unitCh1PunchTransferProcess: process (
       case unitCh1PunchTransferState is
 
          when unit_punch_transfer_reset =>
-            PUNCH_CH1_BUFFER_FILLING <= '0';
             PUNCH_CH1_BUFFER_FILL_POSITION <= 0;
             PUNCH_CH1_START_FEED <= '0';
             unitPunchDelayCounter <= 0;
@@ -1074,7 +1073,6 @@ unitCh1PunchTransferProcess: process (
             if UNIT_SELECT_UNIT_4 = '1' and PUNCH_CH1_BUFFER_SENDING = '0' and
                MC_READY_TO_BUFFER = '0' then
                PUNCH_CH1_STACKER_SELECTED <= UNIT_CH1_STACKER_SELECTED;
-               PUNCH_CH1_BUFFER_FILLING <= '1';
                unitCh1PunchTransferState <= unit_punch_transfer_strobe_channel;
             else
                unitCh1PunchTransferState <= unit_punch_transfer_idle;
@@ -1139,6 +1137,99 @@ unitCh1PunchTransferProcess: process (
    end if;
 
    end process;  -- unitCh1PunchTransferProcess
+
+-- Process to send the punch card image to the PC Support program
+
+unitCh1PunchFeedProcess: process (
+   FPGA_CLK,
+   MC_COMP_RESET_TO_BUFFER,
+   PUNCH_CH1_START_FEED,
+   UNIT_OUTPUT_FIFO_WRITE_ENABLE,
+   UNIT_OUTPUT_FIFO_FULL,
+   PUNCH_CH1_BUFFER,
+   unitCh1PunchFeedRequestState
+   )
+
+   begin
+
+   if MC_COMP_RESET_TO_BUFFER = '0' then
+      PUNCH_CH1_REQUEST_DATA <= "000000000";
+      unitCh1PunchFeedRequestState <= unit_punch_feed_request_reset;
+
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+      
+      case unitCh1PunchFeedRequestState is
+
+         when unit_punch_feed_request_reset =>
+            PUNCH_CH1_BUFFER_SCAN_POSITION <= 0;
+            PUNCH_CH1_REQUEST_DATA <= "000000000";
+            unitCh1PunchFeedRequestState <= unit_punch_feed_request_idle;
+
+         when unit_punch_feed_request_idle =>
+            -- Wait for a request for a punch feed - to send data to punch
+            if PUNCH_CH1_START_FEED = '1' then
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_fifo_wait_1;
+            else
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_idle;
+            end if;
+
+         when unit_punch_feed_request_fifo_wait_1 =>
+            -- Got a request to start a feed.  Wait for the output FIFO to have room
+            if UNIT_OUTPUT_FIFO_FULL = '1' then
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_fifo_wait_1;
+            else
+               PUNCH_CH1_REQUEST_DATA <= "000000100"; -- Punch Unit.  Top bit is flush bit
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_send_unit;
+            end if;
+
+         when unit_punch_feed_request_send_unit =>
+            -- In this state, the unit data is written to the FIFO
+            unitCh1PunchFeedRequestState <= unit_punch_feed_request_fifo_wait_2;
+
+         when unit_punch_feed_request_fifo_wait_2 =>
+            -- We have sent the unit.  Wait the output FIFO to have room for the operation
+            if UNIT_OUTPUT_FIFO_FULL = '1' then
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_fifo_wait_2;
+            else
+               PUNCH_CH1_REQUEST_DATA <= "00100" &
+                  std_logic_vector(to_unsigned(PUNCH_CH1_STACKER_SELECTED, 4));
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_send_operation;
+            end if;
+
+         when unit_punch_feed_request_send_operation =>
+            -- In this state, the operation data is written to the FIFO
+            unitCh1PunchFeedRequestState <= unit_punch_feed_request_fifo_wait_3;
+
+         when unit_punch_feed_request_fifo_wait_3 =>
+            -- We have sent the unit and operation.  Wait for the FIFO to have room for data
+            if UNIT_OUTPUT_FIFO_FULL = '1' then
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_fifo_wait_3;
+            else
+               if PUNCH_CH1_BUFFER_SCAN_POSITION = 80 then
+                  PUNCH_CH1_REQUEST_DATA <= "100000000";  -- 0x00 byte with flush bit set at end
+               else
+                  PUNCH_CH1_REQUEST_DATA <= "0" & PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_SCAN_POSITION);
+               end if;
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_send_column;
+            end if;
+
+         when unit_punch_feed_request_send_column =>
+            -- In this state, we send a column, or the trailiing 0x00 with the flush bit.
+            -- But now we have to check to see if we are all done,a s well.
+            if PUNCH_CH1_BUFFER_SCAN_POSITION = 80 then
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_done;
+            else
+               PUNCH_CH1_BUFFER_SCAN_POSITION <= PUNCH_CH1_BUFFER_SCAN_POSITION + 1;
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_fifo_wait_3;
+            end if;
+
+         when unit_punch_feed_request_done =>
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_reset;
+               
+      end case;
+   end if;
+
+   end process; -- unitCh1PunchFeedProcess
 
 -- Combinatorial logic follows.
 
