@@ -1205,7 +1205,7 @@ unitCh1PunchFeedProcess: process (
             if UNIT_OUTPUT_FIFO_FULL = '1' then
                unitCh1PunchFeedRequestState <= unit_punch_feed_request_fifo_wait_3;
             else
-               if PUNCH_CH1_BUFFER_SCAN_POSITION = 80 then
+               if PUNCH_CH1_BUFFER_SCAN_POSITION = PUNCH_BUFFER_LENGTH then
                   PUNCH_CH1_REQUEST_DATA <= "100000000";  -- 0x00 byte with flush bit set at end
                else
                   PUNCH_CH1_REQUEST_DATA <= "0" & PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_SCAN_POSITION);
@@ -1216,7 +1216,7 @@ unitCh1PunchFeedProcess: process (
          when unit_punch_feed_request_send_column =>
             -- In this state, we send a column, or the trailiing 0x00 with the flush bit.
             -- But now we have to check to see if we are all done,a s well.
-            if PUNCH_CH1_BUFFER_SCAN_POSITION = 80 then
+            if PUNCH_CH1_BUFFER_SCAN_POSITION = PUNCH_BUFFER_LENGTH then
                unitCh1PunchFeedRequestState <= unit_punch_feed_request_done;
             else
                PUNCH_CH1_BUFFER_SCAN_POSITION <= PUNCH_CH1_BUFFER_SCAN_POSITION + 1;
@@ -1260,10 +1260,12 @@ UNIT_OUTPUT_FIFO_READ_ENABLE <= '1' when unitUartOutputState = unit_uart_output_
 READER_CH1_BUFFER_BUSY <= READER_CH1_BUFFER_FILLING or READER_CH1_BUFFER_TRANSFERRING;
 
 PUNCH_CH1_BUFFER_FILLING <= '1' when
-   unitCh1PunchTransferState /= unit_punch_transfer_idle;
+   unitCh1PunchTransferState /= unit_punch_transfer_idle
+   else '0';
 
 PUNCH_CH1_BUFFER_SENDING <= '1' when
-   unitCh1PunchFeedRequestState /= unit_punch_feed_request_idle;
+   unitCh1PunchFeedRequestState /= unit_punch_feed_request_idle
+   else '0';
 
 PUNCH_CH1_BUFFER_BUSY <= PUNCH_CH1_BUFFER_FILLING or PUNCH_CH1_BUFFER_SENDING;
 
@@ -1282,9 +1284,12 @@ UNIT_CH1_STACKER_SELECTED <=
    9 when not MC_CPU_TO_I_O_SYNC_BUS = "10001001" else
    0;
 
-UNIT_OUTPUT_FIFO_WRITE_ENABLE <= '1' when  -- Eventually will include punch and printer stuff
+UNIT_OUTPUT_FIFO_WRITE_ENABLE <= '1' when  -- Eventually will include printer stuff
    unitCh1ReaderRequestState = unit_reader_request_send_unit or
-   unitCh1ReaderRequestState = unit_reader_request_send_operation
+   unitCh1ReaderRequestState = unit_reader_request_send_operation or
+   unitCh1PunchFeedRequestState = unit_punch_feed_request_send_unit or
+   unitCh1PunchFeedRequestState = unit_punch_feed_request_send_operation or
+   unitCh1PunchFeedRequestState = unit_punch_feed_request_send_column
    else '0';
 
 UNIT_OUTPUT_FIFO_WRITE_DATA <= 
@@ -1332,7 +1337,8 @@ MC_BUFFER_STROBE <= '0'
 MC_READER_BUSY <= '1';
 
 MC_BUFFER_END_OF_TRANSFER <= '0'
-   when  unitCh1ReaderTransferState = unit_reader_transfer_end_of_transfer 
+   when  unitCh1ReaderTransferState = unit_reader_transfer_end_of_transfer or
+         unitCh1PunchTransferState = unit_punch_transfer_end_of_transfer
    else '1';
 
 MC_BUFFER_ERROR <= '1';  -- Not sure what if anything would assert this.

@@ -200,6 +200,7 @@ signal IBM1410_1414_INPUT_FIFO_WRITE_DATA:     std_logic_vector(7 downto 0) := "
 constant READER_BUFFER_LENGTH:   integer := 80;
 type READER_BUFFER_TYPE is array (READER_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
 signal readerTestBuffer:  READER_BUFFER_TYPE := (others => X"80");
+signal punchTestBuffer:   READER_BUFFER_TYPE := (others => X"80");
 
 signal unitDataSentToPC: std_logic_vector(7 downto 0) := "00000000";
 
@@ -744,7 +745,7 @@ procedure sendChannelToPunchBuffer (
     assert MC_BUFFER_READY = expectNotReady  -- Remembering that MC signals are active LOW
         report testName & " Buffer ready/not ready not as expected" severity failure;
 
-    assert MC_BUFFER_BUSY /= expectNotReady
+    assert MC_BUFFER_BUSY /= expectBusy
         report testName & " Buffer busy/not busy not as expected" severity failure;
 
     assert MC_BUFFER_CONDITION /= expectCondition
@@ -753,7 +754,7 @@ procedure sendChannelToPunchBuffer (
     -- If any of the not ready, busy or condition are set, the 1411 will stop here (Status Sample "A")
 
     if MC_BUFFER_READY = '1' or MC_BUFFER_BUSY = '0' or MC_BUFFER_CONDITION = '0' then
-        report testName & " Status indicates that no actual read will take place.  returning (no error).";
+        report testName & " Status indicates that no actual punch will take place.  returning (no error).";
         if MC_BUFFER_CONDITION = '0' then
            MC_RESET_SELECT_BUFFER_LATCHES <= '0';
            wait for 100 ns;
@@ -781,15 +782,15 @@ procedure sendChannelToPunchBuffer (
     for i in 0 to charsToTransfer - 1 loop
         wait until MC_BUFFER_STROBE = '0' for 10 us;  -- In test mode, it strobes much faster than th
         assert MC_BUFFER_STROBE = '0'
-            report testName & " Buffer Strobe not asserted" severity failure;
+            report testName & " Punch Buffer Strobe not asserted" severity failure;
         -- Make the next character available
-        MC_CPU_TO_I_O_SYNC_BUS <= not readerTestBuffer(i);
+        MC_CPU_TO_I_O_SYNC_BUS <= not punchTestBuffer(i);
         wait for 100 ns;
         if MC_BUFFER_STROBE = '0' then
             wait until MC_BUFFER_STROBE = '1' for 10 us;
         end if;
         assert MC_BUFFER_STROBE = '1' 
-            report testName & " Buffer Strobe not de-asserted." severity failure;
+            report testName & " Punch Buffer Strobe not de-asserted." severity failure;
 
         -- Now, see if the 1414 has decided to end the transfer before our loop ends 
         if MC_BUFFER_END_OF_TRANSFER = '1' then
@@ -800,25 +801,26 @@ procedure sendChannelToPunchBuffer (
         exit when MC_BUFFER_END_OF_TRANSFER = '0';
     end loop;
 
+    wait for 1 us;  -- Give the 1414 a chance to clean up.
     --  Check for expected wrong length record conditions
 
     if charsToTransfer < 80 then
         -- in this case, we need to stop the transfer from the channel side.
         assert MC_BUFFER_END_OF_TRANSFER = '1'
-            report testName & " Buffer end of Transfer asserted for chars < 80" severity failure;
+            report testName & " Punch Buffer end of Transfer asserted for chars < 80" severity failure;
         MC_CORRECT_TRANS_TO_BUFFER <= '1';
     end if;
 
     if charsToTransfer > 80 then
         -- in this case, the 1414 should have ended the transfer early
         assert MC_BUFFER_END_OF_TRANSFER = '0'
-            report testName & " Buffer end of Transfer NOT asserted for chars > 80" severity failure;
+            report testName & " Punch Buffer end of Transfer NOT asserted for chars > 80" severity failure;
         MC_CORRECT_TRANS_TO_BUFFER <= '1';
     end if;
     
     if charsToTransfer = 80 then
         assert MC_BUFFER_END_OF_TRANSFER = '0'
-            report testName & " Buffer end of Transfer NOT asserted for chars == 80" severity failure;
+            report testName & " Punch Buffer end of Transfer NOT asserted for chars == 80" severity failure;
         MC_CORRECT_TRANS_TO_BUFFER <= '0';
     end if;
 
@@ -837,18 +839,121 @@ procedure sendChannelToPunchBuffer (
 
     end sendChannelToPunchBuffer;
 
+    -- Procedure to snarf up an expected punch request being sent from the 1414 to the PC
+
+    procedure getExpectedPunchRequest(
+        testname: in String;
+        deviceCode: in integer;
+        stackerNumber: in integer
+    ) is
+
+    begin
+
+    -- The first byte should be the punch device code = 000000004
+
+    report testName & " Looking for expected Punch request from 1414";
+    if IBM1410_1414_UART_REQUEST /= '1' then
+        wait until IBM1410_1414_UART_REQUEST = '1' for 100 ns; -- Should already be there
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '1' report 
+       testName & " No UART request for expected Punch start device code." severity failure;
+    wait for 10 ns;
+    IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
+    wait for 10 ns;
+    unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+    IBM1410_1414_UART_GRANT <= '0'; -- Remove the grant
+    wait for 10 ns;
+    assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
+       report testName & " UDP Flush Flag set when not expected." severity failure;
+    assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode, unitDataSentToPC'length ))
+       report testName & " Expected Device number not received." severity failure;
+
+    -- The second byte is the operation.  For a normal punch, that is 44 (reader
+    -- device code & stacker).  The flush flag should also be set.
+
+    if IBM1410_1414_UART_REQUEST /= '1' then
+        wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '1' report 
+       testName & " No UART request for expected punch operation code." severity failure;
+    wait for 10 ns;
+    IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
+    wait for 10 ns;
+    unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+    IBM1410_1414_UART_GRANT <= '0'; -- Remove the grant
+    wait for 10 ns;
+    assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
+       report testName & " UDP Flush Flag set when not expected." severity failure;
+
+    report testName & " Debug: unitDataSentToPC is " & to_bstring(to_bitvector(unitDataSentToPC)) &
+        ", deviceCode is " & integer'image(deviceCode) & ", stackerNumber is " & integer'image(stackerNumber);
+
+    assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode,4)) &
+       std_logic_vector(to_unsigned(stackerNumber,4))
+       report testName & " Expected Reader Support operation code not received." severity failure;
+
+    --  The rest of the message is the punch data, 80 columns, followed by X"00"
+    --  So, get and check the data.
+
+    for i in 0 to 79 loop
+        if IBM1410_1414_UART_REQUEST /= '1' then
+            wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
+        end if;
+        assert IBM1410_1414_UART_REQUEST = '1' report 
+            testName & " No UART request for expected data." severity failure;
+        wait for 10 ns;
+        IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
+        wait for 10 ns;
+        unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+        IBM1410_1414_UART_GRANT <= '0'; -- Remove the grant
+        wait for 10 ns;
+        assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
+            report testName & " UDP Flush Flag set when not expected." severity failure;
+        assert unitDataSentToPC = punchTestBuffer(i)
+            report testName & " Data mismatch at column " & integer'image(i+1) severity failure;
+    end loop;
+
+    --  Now, check for the trailing X"00"
+
+    if IBM1410_1414_UART_REQUEST /= '1' then
+        wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '1' report 
+        testName & " No UART request for expected terminating 0x00" severity failure;
+    wait for 10 ns;
+    IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
+    wait for 10 ns;
+    unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+    IBM1410_1414_UART_GRANT <= '0'; -- Remove the grant
+    wait for 10 ns;
+    assert IBM1410_UART_XMT_UDP_FLUSH = '1' 
+        report testName & " UDP Flush Flag NOT set when not expected." severity failure;
+    assert unitDataSentToPC = "00000000"
+        report testName & " Value other than 0x00 when terminating 0x00 expected." severity failure;
+
+    --  There should NOT be a erquest to send more data
+
+    if IBM1410_1414_UART_REQUEST /= '1' then
+        wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '0' report
+       testName & " Unexpected request to send more UART data on punch feed message to PC" 
+       severity failure;
+
+    end getExpectedPunchRequest;
 
     -- START OF THE ACTUAL TEST BENCH 
 
     begin
 
-    -- Fill a buffer with initial test data
+    -- Fill a buffers with initial test data
 
     for i in 0 to 79 loop
         v := std_logic_vector(to_unsigned(i, v'length));
         v(HDL_WM_BIT) := '0';  -- Turn off wordmark - just 6 bits of actual data from reader
         v(HDL_C_BIT) := calculate_odd_parity(v);
         readerTestBuffer(i) <= v;
+        punchTestBuffer(i) <= v;
     end loop;
 
     UDP_RESET <= '1';
@@ -1120,6 +1225,34 @@ procedure sendChannelToPunchBuffer (
         statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => v);
 
     wait for 100 ns;
+
+    -- Simple punch test to start off with
+
+    sendChannelToPunchBuffer(testName => "PunchTest 0 - Basic Punch Test, Not Ready",
+        stackerNumber => 4, charsToTransfer => 80, expectNoTransfer => '0', expectNotReady => '1',
+        expectBusy => '0', expectCondition => '0' );
+
+    wait for 1 us;
+
+    -- Make the punch ready
+
+    sendStatusUpdate(testName => "PunchTest 1 - Basic Punch Test, Ready",
+        statusDevice => PUNCH_CH1_DEVICE_NUMBER, statusVector => "00000001");
+
+    wait for 1 us;
+
+    --  Punch a card - should be OK this time
+
+    sendChannelToPunchBuffer(testName => "PunchTest 1 - Basic Punch Test, Transfer",
+        stackerNumber => 4, charsToTransfer => 80, expectNoTransfer => '0', expectNotReady => '0',
+        expectBusy => '0', expectCondition => '0' );
+
+    wait for 1 us;
+
+    --  Get and check the expected punch data stream sent to PC Support Program
+
+    getExpectedPunchRequest(testName => "PunchTest 1 - Basic Punch Test, Message to PC",
+        deviceCode => PUNCH_CH1_DEVICE_NUMBER, stackerNumber => 4 );
 
     assert false report "Normal end of 1414 Unit Record I/O Sync Test Bench" severity failure;
 
