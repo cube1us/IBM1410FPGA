@@ -780,17 +780,24 @@ procedure sendChannelToPunchBuffer (
     -- to test WLR conditions, we may send more or less than that.
 
     for i in 0 to charsToTransfer - 1 loop
-        wait until MC_BUFFER_STROBE = '0' for 10 us;  -- In test mode, it strobes much faster than th
+        if MC_BUFFER_STROBE = '1' then
+            wait until MC_BUFFER_STROBE = '0' or MC_BUFFER_END_OF_TRANSFER = '0' for 10 us;
+        end if;
+        exit when MC_BUFFER_END_OF_TRANSFER = '0';
         assert MC_BUFFER_STROBE = '0'
             report testName & " Punch Buffer Strobe not asserted" severity failure;
         -- Make the next character available
+        
         MC_CPU_TO_I_O_SYNC_BUS <= not punchTestBuffer(i);
         wait for 100 ns;
+
         if MC_BUFFER_STROBE = '0' then
             wait until MC_BUFFER_STROBE = '1' for 10 us;
         end if;
         assert MC_BUFFER_STROBE = '1' 
             report testName & " Punch Buffer Strobe not de-asserted." severity failure;
+
+        wait for 100 ns;
 
         -- Now, see if the 1414 has decided to end the transfer before our loop ends 
         if MC_BUFFER_END_OF_TRANSFER = '1' then
@@ -798,7 +805,7 @@ procedure sendChannelToPunchBuffer (
         end if;
 
         -- Terminate early?
-        exit when MC_BUFFER_END_OF_TRANSFER = '0';
+        -- exit when MC_BUFFER_END_OF_TRANSFER = '0';
     end loop;
 
     wait for 1 us;  -- Give the 1414 a chance to clean up.
@@ -827,7 +834,7 @@ procedure sendChannelToPunchBuffer (
     -- Now, end the transfer.  Later test bench code will test to see if the 1414 send
     -- data to the PC to be "punched", or not.
 
-    wait for 100 ns;
+    wait for 1 us;
     MC_CORRECT_TRANS_TO_BUFFER <= '1';
     MC_READY_TO_BUFFER <= '1';
     MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
@@ -841,7 +848,7 @@ procedure sendChannelToPunchBuffer (
 
     -- Procedure to snarf up an expected punch request being sent from the 1414 to the PC
 
-    procedure getExpectedPunchRequest(
+procedure getExpectedPunchRequest(
         testname: in String;
         deviceCode: in integer;
         stackerNumber: in integer
@@ -1253,6 +1260,37 @@ procedure sendChannelToPunchBuffer (
 
     getExpectedPunchRequest(testName => "PunchTest 1 - Basic Punch Test, Message to PC",
         deviceCode => PUNCH_CH1_DEVICE_NUMBER, stackerNumber => 4 );
+
+    -- Wrong Length record test - stopped by the 1411 CPU early.  Unlike the card reader, the
+    -- WLR is handled entirely in the CPU
+
+    sendChannelToPunchBuffer(testName => "PunchTest 2 - WLR Punch Test, Transfer",
+        stackerNumber => 0, charsToTransfer => 79, expectNoTransfer => '0', expectNotReady => '0',
+        expectBusy => '0', expectCondition => '0' );
+
+    -- Make sure there is no read request
+
+    if IBM1410_1414_UART_REQUEST = '0' then 
+        wait until IBM1410_1414_UART_REQUEST = '1' for 10 us;
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '0'
+        report " PunchTest 2 - Short Record, but 1414 wants to send to PC" severity failure;
+
+    -- Wrong Length record test - stopped by the 1414 when 80 columns are reached.
+    -- WLR is handled entirely in the CPU
+
+    sendChannelToPunchBuffer(testName => "PunchTest 3 - WLR Punch Test, Transfer",
+        stackerNumber => 4, charsToTransfer => 81, expectNoTransfer => '0', expectNotReady => '0',
+        expectBusy => '0', expectCondition => '0' );
+
+    -- Make sure there is no read request
+
+    if IBM1410_1414_UART_REQUEST = '0' then 
+        wait until IBM1410_1414_UART_REQUEST = '1' for 10 us;
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '0'
+        report " PunchTest 3 - Long Record, but 1414 wants to send to PC" severity failure;
+
 
     assert false report "Normal end of 1414 Unit Record I/O Sync Test Bench" severity failure;
 
