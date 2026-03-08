@@ -265,6 +265,34 @@ type unitPunchFeedRequestState_type is (
    unit_punch_feed_request_done
 );
 
+type unitPrinterTransferState_type is (
+   unit_printer_transfer_reset,
+   unit_printer_transfer_idle,
+   unit_printer_transfer_getchar,
+   unit_printer_transfer_strobe_channel,
+   unit_printer_transfer_wait_channel,
+   unit_printer_transfer_end_of_transfer,
+   unit_printer_transfer_start_print
+);
+
+type unitPrinterPrintRequestState_type is (
+   unit_printer_print_request_reset,
+   unit_printer_print_request_idle,
+   unit_printer_print_request_fifo_wait_1,
+   unit_printer_print_request_send_unit,
+   unit_printer_print_request_fifo_wait_2,
+   unit_printer_print_request_send_operation,
+   unit_printer_print_request_fifo_wait_3,
+   unit_printer_print_request_send_column,
+   unit_printer_print_request_done
+);
+
+type unitPrinterCarriageState_type is (
+   unit_printer_carriage_reset,
+   unit_printer_carriage_idle,
+   unit_printer_carriage_forms_go
+);
+
 signal UNIT_RECEIVED_DEVICE:     std_logic_vector(7 downto 0) := "00000000";
 signal UNIT_RECEIVED_OPERATION:  std_logic_vector(7 downto 0) := "00000000";
 
@@ -312,11 +340,30 @@ signal PUNCH_CH1_START_FEED:              std_logic := '0';  -- True to send car
 
 signal PUNCH_CH1_REQUEST_DATA:            std_logic_vector(8 downto 0) := "000000000";
 
+constant PRINTER_BUFFER_LENGTH: integer := 132;
+type PRINTER_BUFFER_TYPE is array (PRINTER_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
+signal PRINTER_CH1_BUFFER: PRINTER_BUFFER_TYPE := (others => X"80");
+
+signal PRINTER_CH1_CARRIAGE_CHARACTER:    std_logic_vector(7 downto 0);
+
+signal PRINTER_CH1_BUFFER_FILL_POSITION:  integer range 0 to PRINTER_BUFFER_LENGTH := 0;  -- Channel to Buffer
+signal PRINTER_CH1_BUFFER_SCAN_POSITION:  integer range 0 to PRINTER_BUFFER_LENGTH := 0;  -- Buffer to Support Program
+signal PRINTER_CH1_BUFFER_BUSY:           std_logic := '0';
+signal PRINTER_CH1_BUFFER_FILLING:        std_logic := '0';  -- Channel to Buffer
+signal PRINTER_CH1_BUFFER_SENDING:        std_logic := '0';  -- Buffer to Support Program
+signal PRINTER_CH1_CARRIAGE_SENDING:      std_logic := '0';  -- While sending carriage control char to support pgm
+signal PRINTER_CH1_START_PRINT:           std_logic := '0';  -- True to send card to PC support pgm
+signal PRINTER_CH1_START_CARRIAGE:	      std_logic := '0';  -- True to send carriage control to PC support pgm
+signal PRINTER_CH1_CARRIAGE_OPERATION:	   std_logic := '0';  -- Latch: True if we are sending a carriage operation
+
+signal PRINTER_CH1_REQUEST_DATA:          std_logic_vector(8 downto 0) := "000000000";
+
 -- Signals deduced from the ILD and signals related to that.
 
 signal UNIT_SELECT_UNIT_1:                std_logic := '0'; -- Indicates unit 1 is selected with channel in input mode.
 signal UNIT_CH1_STACKER_SELECTED:         integer range 0 to 9 := 0;  -- Selected stacker
 signal UNIT_SELECT_UNIT_4:                std_logic := '0'; -- Indicates Unit 4 is selected with channel in output mode
+signal UNIT_SELECT_UNIT_2:                std_logic := '0'; -- Indicates Unit 2 is selected with channel in output mode
 
 signal unitTriggerState: unitTriggerState_type := unit_trigger_reset;
 signal unitCh1ReaderState: unitReaderState_type := unit_reader_reset;
@@ -325,7 +372,9 @@ signal unitUARTOutputState: unitUARTOutputState_type := unit_uart_output_idle;
 signal unitCh1ReaderRequestState: unitReaderrequestState_type := unit_reader_request_reset;
 signal unitCh1PunchTransferState: unitPunchTransferState_type := unit_punch_transfer_reset;
 signal unitCh1PunchFeedRequestState: unitPunchFeedRequestState_type := unit_punch_feed_request_reset;
-
+signal unitCh1PrinterTransferState: unitPrinterTransferState_type := unit_printer_transfer_reset;
+signal unitCh1PrinterPrintRequestState: unitPrinterPrintRequestState_type := unit_printer_print_request_reset;
+signal unitCh1PrinterCarriageState: unitPrinterCarriageState_type := unit_printer_carriage_reset;
 
 signal UNIT_SUPPORT_UNIT:        integer := 0; -- Unit in incoming PC message
 signal UNIT_SUPPORT_OPERATION:   integer := 0; -- Operation in incoming PC message
@@ -339,6 +388,8 @@ signal unitReaderDelayCounter:   integer range 0 to CHANNEL_CYCLE_LENGTH := 0;
 signal unitReaderStrobeCounter:  integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 signal unitPunchDelayCounter:    integer range 0 to CHANNEL_CYCLE_LENGTH := 0;
 signal unitPunchStrobeCounter:   integer range 0 to CHANNEL_STROBE_LENGTH := 0;
+signal unitPrinterDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := 0;
+signal unitPrinterStrobeCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 
 -- We need a buffer for the reader, just like a real IBM 1414.
 -- (I don't think we will need that for output devices - we can just fill the packet)
@@ -1233,6 +1284,270 @@ unitCh1PunchFeedProcess: process (
 
 -- Combinatorial logic follows.
 
+-- Process to handle CPU request to transfer data to the printer buffer
+
+unitCh1PrintTransferProcess: process (
+   FPGA_CLK,
+   unitCh1PrinterTransferState,
+   UNIT_SELECT_UNIT_2,
+   PRINTER_CH1_BUFFER_SENDING,
+   PRINTER_CH1_CARRIAGE_SENDING,
+   MC_READY_TO_BUFFER,
+   PRINTER_CH1_BUFFER,
+   unitPrinterDelayCounter,
+   unitPrinterStrobeCounter,   
+   PRINTER_CH1_BUFFER_FILL_POSITION,
+   MC_CORRECT_TRANS_TO_BUFFER
+)
+
+   begin
+
+   if MC_COMP_RESET_TO_BUFFER = '0' then
+      unitCh1PrinterTransferState <= unit_printer_transfer_reset;
+
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+
+      case unitCh1PrinterTransferState is
+
+         when unit_printer_transfer_reset =>
+            PRINTER_CH1_BUFFER_FILL_POSITION <= 0;
+            PRINTER_CH1_START_PRINT <= '0';
+            unitPrinterDelayCounter <= 0;
+            unitPrinterStrobeCounter <= 0;
+            unitCh1PrinterTransferState <= unit_printer_transfer_idle;
+
+         when unit_printer_transfer_idle =>
+            -- Wait for a print request from the CPU.
+            if UNIT_SELECT_UNIT_2 = '1' and PRINTER_CH1_BUFFER_SENDING = '0' and 
+               PRINTER_CH1_CARRIAGE_SENDING = '0' and MC_READY_TO_BUFFER = '0' then
+               unitCh1PrinterTransferState <= unit_printer_transfer_getchar;
+            else
+               unitCh1PrinterTransferState <= unit_printer_transfer_idle;
+            end if;
+
+         -- Unlike the punch, there is no "extra" strobe here to save anything.
+
+         when unit_printer_transfer_getchar =>
+            if MC_READY_TO_BUFFER = '1' then
+               unitCh1PunchTransferState <= unit_punch_transfer_reset;
+            else
+               PRINTER_CH1_BUFFER(PRINTER_CH1_BUFFER_FILL_POSITION) <=
+                  not MC_CPU_TO_I_O_SYNC_BUS;
+               if PRINTER_CH1_BUFFER_FILL_POSITION = PRINTER_BUFFER_LENGTH - 1 then
+                  PRINTER_CH1_BUFFER_FILL_POSITION <= 0;
+                  unitCh1PrinterTransferState <= unit_printer_transfer_end_of_transfer;
+               else
+                  PRINTER_CH1_BUFFER_FILL_POSITION <= PRINTER_CH1_BUFFER_FILL_POSITION + 1;
+                  unitCh1PrinterTransferState <= unit_printer_transfer_strobe_channel;
+               end if;
+            end if;
+
+         when unit_printer_transfer_strobe_channel =>
+            -- Strobe the next character from the channel
+            if MC_READY_TO_BUFFER = '1' then
+               unitCh1PrinterTransferState <= unit_printer_transfer_reset;
+            elsif unitPrinterStrobeCounter = CHANNEL_STROBE_LENGTH then
+               unitPrinterStrobeCounter <= 0;
+               unitPrinterDelayCounter <= 0;
+               unitCh1PrinterTransferState <= unit_printer_transfer_wait_channel;
+            else
+               unitPrinterStrobeCounter <= unitPrinterStrobeCounter + 1;
+               unitCh1PrinterTransferState <= unit_printer_transfer_strobe_channel;
+            end if;
+
+         when unit_printer_transfer_wait_channel =>
+            -- Give the channel time to produce the next character
+            -- (I wonder if there is a signal that can be checked?)
+            if MC_READY_TO_BUFFER = '1' then
+               unitCh1PrinterTransferState <= unit_printer_transfer_reset;
+            elsif unitPrinterDelayCounter = CHANNEL_CYCLE_LENGTH then
+               unitPrinterDelayCounter <= 0;
+               unitCh1PrinterTransferState <= unit_printer_transfer_getchar;
+            else
+               unitPrinterDelaycounter <= unitPrinterDelayCounter + 1;
+            end if;
+
+
+         when unit_printer_transfer_end_of_transfer =>
+            if MC_CORRECT_TRANS_TO_BUFFER = '0' then
+               unitCh1PrinterTransferState <= unit_printer_transfer_start_print;
+            elsif MC_READY_TO_BUFFER = '1' then
+               unitCh1PrinterTransferState <= unit_printer_transfer_reset;
+            else
+               unitCh1PrinterTransferState <= unit_printer_transfer_end_of_transfer;
+            end if;               
+
+         when unit_printer_transfer_start_print =>
+            PRINTER_CH1_START_PRINT <= '1';
+            unitCh1PrinterTransferState <= unit_printer_transfer_reset;         
+
+      end case;
+
+   end if;
+
+   end process;  -- unitCh1rinterTransferProcess
+
+-- Process to handle a form feed instruction from CPU
+
+unitCh1PrinterCarriageControlProcess: process (
+   FPGA_CLK,
+   unitCh1PrinterCarriageState,
+   UNIT_SELECT_UNIT_2,
+   PRINTER_CH1_BUFFER_SENDING,
+   PRINTER_CH1_BUFFER_FILLING,
+   PRINTER_CH1_CARRIAGE_SENDING,
+   PRINTER_CH1_CARRIAGE_CHARACTER,
+   MC_FORMS_STACKER_GO
+   )
+
+   begin
+
+   if MC_COMP_RESET_TO_BUFFER = '0' then
+      unitCh1PrinterCarriageState <= unit_printer_carriage_reset;
+
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+
+      case unitCh1PrinterCarriageState is
+
+         when unit_printer_carriage_reset =>
+            PRINTER_CH1_START_CARRIAGE <= '0';
+            unitCh1PrinterCarriageState <= unit_printer_carriage_idle;
+
+         when unit_printer_carriage_idle =>
+            -- Wait for carriage control instruction from CPU
+            if UNIT_SELECT_UNIT_2 = '1' and PRINTER_CH1_BUFFER_SENDING = '0' and
+               PRINTER_CH1_CARRIAGE_SENDING = '0' and MC_FORMS_STACKER_GO = '0' then
+               PRINTER_CH1_CARRIAGE_CHARACTER <= (not MC_CPU_TO_I_O_SYNC_BUS) and "00111111";  -- Strip down to 6 bits
+               unitCh1PrinterCarriageState <= unit_printer_carriage_forms_go;
+            else
+               unitCh1PrinterCarriageState <= unit_printer_carriage_idle;
+            end if;
+
+         when unit_printer_carriage_forms_go =>
+            PRINTER_CH1_START_CARRIAGE <= '1';
+            unitCh1PrinterCarriageState <= unit_printer_carriage_reset;
+
+      end case;
+   end if;
+
+   end process; -- unitCh1PrinterCarriageControlProcess
+
+-- Process to handle creating and sending message for a print line or carriage control
+-- operation to the PC Support program.
+
+-- Process to send the punch card image to the PC Support program
+
+unitCh1PrintRequestProcess: process (
+   FPGA_CLK,
+   MC_COMP_RESET_TO_BUFFER,
+   PRINTER_CH1_START_PRINT,
+   PRINTER_CH1_START_CARRIAGE,
+   PRINTER_CH1_CARRIAGE_OPERATION,
+   UNIT_OUTPUT_FIFO_WRITE_ENABLE,
+   UNIT_OUTPUT_FIFO_FULL,
+   PRINTER_CH1_BUFFER,
+   PRINTER_CH1_CARRIAGE_CHARACTER,
+   unitCh1PrinterPrintRequestState
+   )
+
+   begin
+
+   if MC_COMP_RESET_TO_BUFFER = '0' then
+      PRINTER_CH1_REQUEST_DATA <= "000000000";
+      unitCh1PrinterPrintRequestState <= unit_printer_print_request_reset;
+
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+      
+      case unitCh1PrinterPrintRequestState is
+
+         when unit_printer_print_request_reset =>
+            PRINTER_CH1_BUFFER_SCAN_POSITION <= 0;
+            PRINTER_CH1_CARRIAGE_OPERATION <= '0';
+            PRINTER_CH1_REQUEST_DATA <= "000000000";
+            unitCh1PrinterPrintRequestState <= unit_printer_print_request_idle;
+
+         when unit_printer_print_request_idle =>
+            -- Wait for a request for a print line or carraige control operation
+            if PRINTER_CH1_START_PRINT = '1' or PRINTER_CH1_START_CARRIAGE = '1' then
+               PRINTER_CH1_CARRIAGE_OPERATION <= PRINTER_CH1_START_CARRIAGE;
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_1;
+            else
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_idle;
+            end if;
+
+         when unit_printer_print_request_fifo_wait_1 =>
+            -- Got a request to start a print operation.  Wait for the output FIFO to have room
+            if UNIT_OUTPUT_FIFO_FULL = '1' then
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_1;
+            else
+               PUNCH_CH1_REQUEST_DATA <= "00000010"; -- Printer Unit.  Top bit is flush bit
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_send_unit;
+            end if;
+
+         when unit_printer_print_request_send_unit =>
+            -- In this state, the unit data is written to the FIFO
+            unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_2;
+
+         when unit_printer_print_request_fifo_wait_2 =>
+            -- We have sent the unit.  Wait the output FIFO to have room for the operation
+            if UNIT_OUTPUT_FIFO_FULL = '1' then
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_2;
+            else
+               if PRINTER_CH1_CARRIAGE_OPERATION = '1' then
+                  PRINTER_CH1_REQUEST_DATA <= "00101111";   -- 0x2f - carriage operation
+               else
+                  PRINTER_CH1_REQUEST_DATA <= "00100000";   -- 0x20 - print line operation
+               end if;
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_send_operation;
+            end if;
+
+         when unit_printer_print_request_send_operation =>
+            -- In this state, the operation data is written to the FIFO
+            unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_3;
+
+         when unit_printer_print_request_fifo_wait_3 =>
+            -- We have sent the unit and operation.  Wait for the FIFO to have room for data
+            if UNIT_OUTPUT_FIFO_FULL = '1' then
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_3;
+            else
+               if PRINTER_CH1_CARRIAGE_OPERATION = '1' then
+                  PRINTER_CH1_REQUEST_DATA <= PRINTER_CH1_CARRIAGE_CHARACTER;
+               elsif PRINTER_CH1_BUFFER_SCAN_POSITION = PUNCH_BUFFER_LENGTH then
+                     PRINTER_CH1_REQUEST_DATA <= "100000000";  -- 0x00 byte with flush bit set at end
+               else
+                     PRINTER_CH1_REQUEST_DATA <= "0" & PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_SCAN_POSITION);
+               end if;
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_send_column;
+            end if;
+
+         when unit_printer_print_request_send_column =>
+            -- In this state, we send a column, or the trailiing 0x00 with the flush bit or
+            -- the carriage control character.
+            -- But now we have to check to see if we are all done, as well.
+            if PRINTER_CH1_CARRIAGE_OPERATION = '1' then
+               -- We want to send the 0x00 after a carriage operation, so fake it out so we can
+               -- use the normal print operation termination by removing the carriage operation flag
+               -- and setting the buffer scan position to the printer buffer length.
+               PRINTER_CH1_CARRIAGE_OPERATION <= '0';
+               PRINTER_CH1_BUFFER_SCAN_POSITION <= PRINTER_BUFFER_LENGTH;  -- Fakey.
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_3;
+            elsif PRINTER_CH1_BUFFER_SCAN_POSITION <= PRINTER_BUFFER_LENGTH then
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_done;
+            else
+               PRINTER_CH1_BUFFER_SCAN_POSITION <= PRINTER_CH1_BUFFER_SCAN_POSITION + 1;
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_3;
+            end if;
+
+         when unit_printer_print_request_done =>
+               unitCh1PrinterPrintRequestState <= unit_printer_print_request_reset;
+               
+      end case;
+   end if;
+
+   end process; -- unitCh1PrintRequestProcess
+
+
+
 UDP_RESET <= not MC_COMP_RESET_TO_BUFFER;
 
 -- Wake up trigger for the reader data process and to keep the trigger process
@@ -1269,6 +1584,16 @@ PUNCH_CH1_BUFFER_SENDING <= '1' when
 
 PUNCH_CH1_BUFFER_BUSY <= PUNCH_CH1_BUFFER_FILLING or PUNCH_CH1_BUFFER_SENDING;
 
+PRINTER_CH1_BUFFER_FILLING <= '1' when
+   unitCh1PrinterTransferState /= unit_printer_transfer_idle
+   else '0';
+
+PRINTER_CH1_BUFFER_SENDING <= '1' when
+   unitCh1PrinterPrintRequestState /= unit_printer_print_request_idle
+else '0';
+
+PRINTER_CH1_BUFFER_BUSY <= PRINTER_CH1_BUFFER_FILLING or PRINTER_CH1_BUFFER_SENDING;
+
 -- 1414 ILD signals and signals related to that.
 
 UNIT_SELECT_UNIT_1 <= (not MC_UNIT_1_SELECT_TO_I_O) AND (not MC_INPUT_MODE_TO_BUFFER);
@@ -1289,13 +1614,15 @@ UNIT_OUTPUT_FIFO_WRITE_ENABLE <= '1' when  -- Eventually will include printer st
    unitCh1ReaderRequestState = unit_reader_request_send_operation or
    unitCh1PunchFeedRequestState = unit_punch_feed_request_send_unit or
    unitCh1PunchFeedRequestState = unit_punch_feed_request_send_operation or
-   unitCh1PunchFeedRequestState = unit_punch_feed_request_send_column
+   unitCh1PunchFeedRequestState = unit_punch_feed_request_send_column OR
+   unitCh1PrinterPrintRequestState = unit_printer_print_request_send_unit or
+   unitCh1PrinterPrintRequestState = unit_printer_print_request_send_operation or
+   unitCh1PrinterPrintRequestState = unit_printer_print_request_send_column
    else '0';
 
 UNIT_OUTPUT_FIFO_WRITE_DATA <= 
-   READER_CH1_REQUEST_DATA or PUNCH_CH1_REQUEST_DATA;  -- Eventually will include printer stuff
+   READER_CH1_REQUEST_DATA or PUNCH_CH1_REQUEST_DATA or PRINTER_CH1_REQUEST_DATA;
    -- Make sure it is "00000000" when not in use.
-
 
 -- Reader No transfer latch is set by a process that empties the reader buffer,
 -- an cleared on CPU reset or the reader clutch is engaged.
@@ -1306,13 +1633,16 @@ MC_BUFFER_READY <= '0'
    when 
       (UNIT_SELECT_UNIT_1 = '1' and
          (READER_CH1_END_OF_FILE = '1' or READER_CH1_STATUS(UNIT_READY_BIT) = '1')) or
-      (UNIT_SELECT_UNIT_4 = '1' and PUNCH_CH1_STATUS(UNIT_READY_BIT) = '1')
+      (UNIT_SELECT_UNIT_4 = '1' and PUNCH_CH1_STATUS(UNIT_READY_BIT) = '1') or
+      (UNIT_SELECT_UNIT_2 = '1' and PRINTER_CH1_STATUS(UNIT_READY_BIT) = '1')
    else '1';
 
 MC_BUFFER_BUSY <= '0' 
    -- TODO --- Need to add 1401 mode read here
    when (UNIT_SELECT_UNIT_1 = '1' and (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1')) or
-      (UNIT_SELECT_UNIT_4 = '1' and (PUNCH_CH1_BUFFER_SENDING = '1' or PUNCH_CH1_BUFFER_FILLING = '1'))
+      (UNIT_SELECT_UNIT_4 = '1' and (PUNCH_CH1_BUFFER_SENDING = '1' or PUNCH_CH1_BUFFER_FILLING = '1')) or
+      (UNIT_SELECT_UNIT_2 = '1' and (PRINTER_CH1_BUFFER_SENDING = '1' or PRINTER_CH1_BUFFER_FILLING = '1')) or
+      (UNIT_SELECT_UNIT_2 = '1' and (PRINTER_CH1_CARRIAGE_SENDING = '1'))
    else '1';
 
 MC_BUFFER_CONDITION <= '0' 
@@ -1325,26 +1655,26 @@ MC_BUFFER_NO_TRANS_COND <= '0'
   
 MC_BUFFER_STROBE <= '0'
    when unitCh1ReaderTransferState = unit_reader_transfer_strobe_channel or
-      unitCh1PunchTransferState = unit_punch_transfer_strobe_channel
-      -- More devices later (punch not applicable)
+      unitCh1PunchTransferState = unit_punch_transfer_strobe_channel or
+      unitCh1PrinterTransferState = unit_printer_transfer_strobe_channel
    else '1';
+
+MC_BUFFER_END_OF_TRANSFER <= '0'
+   when  unitCh1ReaderTransferState = unit_reader_transfer_end_of_transfer or
+         unitCh1PunchTransferState = unit_punch_transfer_end_of_transfer or
+         unitCh1PrinterTransferState = unit_printer_transfer_end_of_transfer
+
+   else '1';
+
+MC_BUFFER_ERROR <= '1';  -- Not sure what if anything would assert this.
 
 --  TODO: The following may need fixing?
 -- (For Priority Feature) Reader is reloading the buffer
 -- MC_READER_BUSY <= '0'
 --   when (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1')
 --    else  '1';
-MC_READER_BUSY <= '1';
-
-MC_BUFFER_END_OF_TRANSFER <= '0'
-   when  unitCh1ReaderTransferState = unit_reader_transfer_end_of_transfer or
-         unitCh1PunchTransferState = unit_punch_transfer_end_of_transfer
-   else '1';
-
-MC_BUFFER_ERROR <= '1';  -- Not sure what if anything would assert this.
-
--- TODO: Not yet implemented
 MC_PUNCH_BUSY <= '1';
+MC_READER_BUSY <= '1';
 MC_1403_PRINT_BUFFER_BUSY <= '1';
 MC_PRINTER_CHANNEL_9 <= '1';
 MC_PRINTER_CHANNEL_12 <= '1';
