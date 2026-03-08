@@ -199,8 +199,13 @@ signal IBM1410_1414_INPUT_FIFO_WRITE_DATA:     std_logic_vector(7 downto 0) := "
 
 constant READER_BUFFER_LENGTH:   integer := 80;
 type READER_BUFFER_TYPE is array (READER_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
+
+constant PRINTER_BUFFER_LENGTH:  integer := 132;
+type PRINTER_BUFFER_TYPE is array (PRINTER_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
+
 signal readerTestBuffer:  READER_BUFFER_TYPE := (others => X"80");
 signal punchTestBuffer:   READER_BUFFER_TYPE := (others => X"80");
+signal printTestBuffer:   PRINTER_BUFFER_TYPE := (others => x"80");
 
 signal unitDataSentToPC: std_logic_vector(7 downto 0) := "00000000";
 
@@ -708,8 +713,10 @@ procedure doReaderTest(
 
     end doReaderTest;
 
-procedure sendChannelToPunchBuffer (
+procedure sendChannelToPunchOrPrintBuffer (
     testname: in STRING;
+    punchTest: in std_logic;
+    printTest: in std_logic;
     stackerNumber: in integer;    -- As POSITIVE logic
     charsToTransfer: in integer;  -- So we can test WLR
     expectNoTransfer: in std_logic;
@@ -718,26 +725,38 @@ procedure sendChannelToPunchBuffer (
     expectCondition: in std_logic
     ) is
 
+    variable punchSpecialStrobe: std_logic := '0';
+
     begin
 
     -- First select unit 4 at I4, but NOT output mode or ready to buffer.
 
-    MC_UNIT_4_SELECT_TO_I_O <= '0'; -- For this procedure, it is always the punch
+    if punchTest = '1' then
+        MC_UNIT_4_SELECT_TO_I_O <= '0'; -- For this procedure, it is always the punch
+    elsif printTest = '1' then
+        MC_UNIT_2_SELECT_TO_I_O <= '0'; -- For this procedure, it is always the punch
+    end if;
     wait for 100 ns;
 
-    -- Next at I5, put the stacker character onto the E Channel
-
-    case stackerNumber is
-        when 0 => MC_CPU_TO_I_O_SYNC_BUS <= not "10001010";
-        when 4 => MC_CPU_TO_I_O_SYNC_BUS <= not "00000100";
-        when 8 => MC_CPU_TO_I_O_SYNC_BUS <= not "00001000";
-        when others => MC_CPU_TO_I_O_SYNC_BUS <= "11111111";
-    end case;
-    wait for 100 ns;
-
-    -- At I 11, set output mode latch
+    -- At I3, set output mode latch
 
     MC_OUTPUT_MODE_TO_BUFFER <= '0';
+    wait for 100 ns;
+
+    -- For a punch test, at I5, put the stacker character onto the E Channel.
+    -- Fir a print test, prep E2 with the first print character, and put that onto the channel.
+
+    if punchTest = '1' then
+        case stackerNumber is
+            when 0 => MC_CPU_TO_I_O_SYNC_BUS <= not "10001010";
+            when 4 => MC_CPU_TO_I_O_SYNC_BUS <= not "00000100";
+            when 8 => MC_CPU_TO_I_O_SYNC_BUS <= not "00001000";
+            when others => MC_CPU_TO_I_O_SYNC_BUS <= "11111111";
+        end case;
+    end if;
+    if printTest = '1' then
+        MC_CPU_TO_I_O_SYNC_BUS <= not printTestBuffer(0);
+    end if;
     wait for 100 ns;
 
     -- Check status sample A signals
@@ -754,7 +773,7 @@ procedure sendChannelToPunchBuffer (
     -- If any of the not ready, busy or condition are set, the 1411 will stop here (Status Sample "A")
 
     if MC_BUFFER_READY = '1' or MC_BUFFER_BUSY = '0' or MC_BUFFER_CONDITION = '0' then
-        report testName & " Status indicates that no actual punch will take place.  returning (no error).";
+        report testName & " Status indicates that no actual punch or print will take place.  returning (no error).";
         if MC_BUFFER_CONDITION = '0' then
            MC_RESET_SELECT_BUFFER_LATCHES <= '0';
            wait for 100 ns;
@@ -762,6 +781,7 @@ procedure sendChannelToPunchBuffer (
         end if;
         MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
         MC_UNIT_4_SELECT_TO_I_O <= '1';
+        MC_UNIT_2_SELECT_TO_I_O <= '1';
         MC_OUTPUT_MODE_TO_BUFFER <= '1';
         MC_READY_TO_BUFFER <= '1';
         wait for 100 ns;
@@ -774,10 +794,11 @@ procedure sendChannelToPunchBuffer (
 
     MC_CORRECT_TRANS_TO_BUFFER <= '1';
     MC_READY_TO_BUFFER <= '0';
+    
     -- MC_CPU_TO_I_O_SYNC_BUS has already been set
 
-    -- Now we wait for a strobe.  The 1414 is expecting EXACTLY 80 characters, but
-    -- to test WLR conditions, we may send more or less than that.
+    -- Now we wait for a strobe.  The 1414 is expecting EXACTLY 80 characters for punch data, or
+    -- 132 characters for printer data, but to test WLR conditions, we may send more or less than that.
 
     for i in 0 to charsToTransfer - 1 loop
         if MC_BUFFER_STROBE = '1' then
@@ -785,17 +806,22 @@ procedure sendChannelToPunchBuffer (
         end if;
         exit when MC_BUFFER_END_OF_TRANSFER = '0';
         assert MC_BUFFER_STROBE = '0'
-            report testName & " Punch Buffer Strobe not asserted" severity failure;
+            report testName & " Punch or Print Buffer Strobe not asserted" severity failure;
         -- Make the next character available
         
-        MC_CPU_TO_I_O_SYNC_BUS <= not punchTestBuffer(i);
+        if punchTest = '1' then
+            MC_CPU_TO_I_O_SYNC_BUS <= not punchTestBuffer(i);
+        end if;
+        if printTest = '1' then
+            MC_CPU_TO_I_O_SYNC_BUS <= not printTestBuffer(i+1);
+        end if;
         wait for 100 ns;
 
         if MC_BUFFER_STROBE = '0' then
             wait until MC_BUFFER_STROBE = '1' for 10 us;
         end if;
         assert MC_BUFFER_STROBE = '1' 
-            report testName & " Punch Buffer Strobe not de-asserted." severity failure;
+            report testName & " Punch or Print Buffer Strobe not de-asserted." severity failure;
 
         wait for 100 ns;
 
@@ -804,6 +830,9 @@ procedure sendChannelToPunchBuffer (
             wait until MC_BUFFER_END_OF_TRANSFER = '0' for 1 us;
         end if;
 
+        --  If this is a print test, we quit 1 character early.
+        exit when printTest = '1' and i = (charsToTransfer -1);
+
         -- Terminate early?
         -- exit when MC_BUFFER_END_OF_TRANSFER = '0';
     end loop;
@@ -811,23 +840,26 @@ procedure sendChannelToPunchBuffer (
     wait for 1 us;  -- Give the 1414 a chance to clean up.
     --  Check for expected wrong length record conditions
 
-    if charsToTransfer < 80 then
+    if (punchTest = '1' and charsToTransfer < 80) or
+        (printTest = '1' and charsToTransfer < 132) then
         -- in this case, we need to stop the transfer from the channel side.
         assert MC_BUFFER_END_OF_TRANSFER = '1'
-            report testName & " Punch Buffer end of Transfer asserted for chars < 80" severity failure;
+            report testName & " Buffer end of Transfer asserted for chars < 80 or < 132" severity failure;
         MC_CORRECT_TRANS_TO_BUFFER <= '1';
     end if;
 
-    if charsToTransfer > 80 then
+    if (punchTest = '1' and charsToTransfer > 80) or
+        (printTest = '1' and charsToTransfer > 132) then
         -- in this case, the 1414 should have ended the transfer early
         assert MC_BUFFER_END_OF_TRANSFER = '0'
-            report testName & " Punch Buffer end of Transfer NOT asserted for chars > 80" severity failure;
+            report testName & " Buffer end of Transfer NOT asserted for chars > 80 or > 132" severity failure;
         MC_CORRECT_TRANS_TO_BUFFER <= '1';
     end if;
     
-    if charsToTransfer = 80 then
+    if (punchTest = '1' and charsToTransfer = 80) or
+        (printTest = '1' and charsToTransfer = 132) then
         assert MC_BUFFER_END_OF_TRANSFER = '0'
-            report testName & " Punch Buffer end of Transfer NOT asserted for chars == 80" severity failure;
+            report testName & " Buffer end of Transfer NOT asserted for chars == 80 or == 132" severity failure;
         MC_CORRECT_TRANS_TO_BUFFER <= '0';
     end if;
 
@@ -839,12 +871,13 @@ procedure sendChannelToPunchBuffer (
     MC_READY_TO_BUFFER <= '1';
     MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
     MC_UNIT_4_SELECT_TO_I_O <= '1';
+    MC_UNIT_2_SELECT_TO_I_O <= '1';
     MC_OUTPUT_MODE_TO_BUFFER <= '1';
     MC_READY_TO_BUFFER <= '1';
     wait for 100 ns;
     return;
 
-    end sendChannelToPunchBuffer;
+    end sendChannelToPunchOrPrintBuffer;
 
     -- Procedure to snarf up an expected punch request being sent from the 1414 to the PC
 
@@ -1235,7 +1268,8 @@ procedure getExpectedPunchRequest(
 
     -- Simple punch test to start off with
 
-    sendChannelToPunchBuffer(testName => "PunchTest 0 - Basic Punch Test, Not Ready",
+    sendChannelToPunchOrPrintBuffer(testName => "PunchTest 0 - Basic Punch Test, Not Ready",
+        punchTest => '1', printTest => '0',
         stackerNumber => 4, charsToTransfer => 80, expectNoTransfer => '0', expectNotReady => '1',
         expectBusy => '0', expectCondition => '0' );
 
@@ -1250,8 +1284,10 @@ procedure getExpectedPunchRequest(
 
     --  Punch a card - should be OK this time
 
-    sendChannelToPunchBuffer(testName => "PunchTest 1 - Basic Punch Test, Transfer",
-        stackerNumber => 4, charsToTransfer => 80, expectNoTransfer => '0', expectNotReady => '0',
+    sendChannelToPunchOrPrintBuffer(testName => "PunchTest 1 - Basic Punch Test, Transfer",
+        punchTest => '1', printTest => '0', 
+        stackerNumber => 4, charsToTransfer => 80, 
+        expectNoTransfer => '0', expectNotReady => '0',
         expectBusy => '0', expectCondition => '0' );
 
     wait for 1 us;
@@ -1264,7 +1300,8 @@ procedure getExpectedPunchRequest(
     -- Wrong Length record test - stopped by the 1411 CPU early.  Unlike the card reader, the
     -- WLR is handled entirely in the CPU
 
-    sendChannelToPunchBuffer(testName => "PunchTest 2 - WLR Punch Test, Transfer",
+    sendChannelToPunchOrPrintBuffer(testName => "PunchTest 2 - WLR Punch Test, Transfer",
+        punchTest => '1', printTest => '0', 
         stackerNumber => 0, charsToTransfer => 79, expectNoTransfer => '0', expectNotReady => '0',
         expectBusy => '0', expectCondition => '0' );
 
@@ -1279,7 +1316,8 @@ procedure getExpectedPunchRequest(
     -- Wrong Length record test - stopped by the 1414 when 80 columns are reached.
     -- WLR is handled entirely in the CPU
 
-    sendChannelToPunchBuffer(testName => "PunchTest 3 - WLR Punch Test, Transfer",
+    sendChannelToPunchOrPrintBuffer(testName => "PunchTest 3 - WLR Punch Test, Transfer",
+        punchTest => '1', printTest => '0', 
         stackerNumber => 4, charsToTransfer => 81, expectNoTransfer => '0', expectNotReady => '0',
         expectBusy => '0', expectCondition => '0' );
 
