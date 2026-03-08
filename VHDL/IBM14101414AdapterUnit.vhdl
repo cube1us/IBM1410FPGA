@@ -1329,7 +1329,7 @@ unitCh1PrintTransferProcess: process (
 
          when unit_printer_transfer_getchar =>
             if MC_READY_TO_BUFFER = '1' then
-               unitCh1PunchTransferState <= unit_punch_transfer_reset;
+               unitCh1PrinterTransferState <= unit_printer_transfer_reset;
             else
                PRINTER_CH1_BUFFER(PRINTER_CH1_BUFFER_FILL_POSITION) <=
                   not MC_CPU_TO_I_O_SYNC_BUS;
@@ -1435,8 +1435,6 @@ unitCh1PrinterCarriageControlProcess: process (
 -- Process to handle creating and sending message for a print line or carriage control
 -- operation to the PC Support program.
 
--- Process to send the punch card image to the PC Support program
-
 unitCh1PrintRequestProcess: process (
    FPGA_CLK,
    MC_COMP_RESET_TO_BUFFER,
@@ -1480,7 +1478,7 @@ unitCh1PrintRequestProcess: process (
             if UNIT_OUTPUT_FIFO_FULL = '1' then
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_1;
             else
-               PUNCH_CH1_REQUEST_DATA <= "00000010"; -- Printer Unit.  Top bit is flush bit
+               PRINTER_CH1_REQUEST_DATA <= "000000010"; -- Printer Unit.  Top bit is flush bit
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_send_unit;
             end if;
 
@@ -1494,9 +1492,9 @@ unitCh1PrintRequestProcess: process (
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_2;
             else
                if PRINTER_CH1_CARRIAGE_OPERATION = '1' then
-                  PRINTER_CH1_REQUEST_DATA <= "00101111";   -- 0x2f - carriage operation
+                  PRINTER_CH1_REQUEST_DATA <= "000101111";   -- 0x2f - carriage operation
                else
-                  PRINTER_CH1_REQUEST_DATA <= "00100000";   -- 0x20 - print line operation
+                  PRINTER_CH1_REQUEST_DATA <= "000100000";   -- 0x20 - print line operation
                end if;
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_send_operation;
             end if;
@@ -1511,11 +1509,11 @@ unitCh1PrintRequestProcess: process (
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_3;
             else
                if PRINTER_CH1_CARRIAGE_OPERATION = '1' then
-                  PRINTER_CH1_REQUEST_DATA <= PRINTER_CH1_CARRIAGE_CHARACTER;
-               elsif PRINTER_CH1_BUFFER_SCAN_POSITION = PUNCH_BUFFER_LENGTH then
+                  PRINTER_CH1_REQUEST_DATA <= "0" & PRINTER_CH1_CARRIAGE_CHARACTER;
+               elsif PRINTER_CH1_BUFFER_SCAN_POSITION = PRINTER_BUFFER_LENGTH then
                      PRINTER_CH1_REQUEST_DATA <= "100000000";  -- 0x00 byte with flush bit set at end
                else
-                     PRINTER_CH1_REQUEST_DATA <= "0" & PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_SCAN_POSITION);
+                     PRINTER_CH1_REQUEST_DATA <= "0" & PRINTER_CH1_BUFFER(PRINTER_CH1_BUFFER_SCAN_POSITION);
                end if;
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_send_column;
             end if;
