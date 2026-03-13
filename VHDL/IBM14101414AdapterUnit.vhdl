@@ -1144,7 +1144,13 @@ unitCh1PunchTransferProcess: process (
 
          when unit_punch_transfer_wait_channel =>
             -- Give the channel time to produce the next character
-            -- (I wonder if there is a signal that can be checked?)
+
+            -- It seems that even if there is an early GMWM, the channel will just leave the
+            -- last character before the GMWM in E2, and the buffer will fill with that until
+            -- it issues MC_BUFFEER_END_OF_TRANSFER.  This logic should work OK that way, but
+            -- it will also work if the channel drops assertion of MC_READY_TO_BUFFER in these
+            -- circumstances
+
             if MC_READY_TO_BUFFER = '1' then
                unitCh1PunchTransferState <= unit_punch_transfer_reset;
             elsif unitPunchDelayCounter = CHANNEL_CYCLE_LENGTH then
@@ -1344,6 +1350,13 @@ unitCh1PrintTransferProcess: process (
 
          when unit_printer_transfer_strobe_channel =>
             -- Strobe the next character from the channel
+
+            -- It seems that even if there is an early GMWM, the channel will just leave the
+            -- last character before the GMWM in E2, and the buffer will fill with that until
+            -- it issues MC_BUFFEER_END_OF_TRANSFER.  This logic should work OK that way, but
+            -- it will also work if the channel drops assertion of MC_READY_TO_BUFFER in these
+            -- circumstances
+
             if MC_READY_TO_BUFFER = '1' then
                unitCh1PrinterTransferState <= unit_printer_transfer_reset;
             elsif unitPrinterStrobeCounter = CHANNEL_STROBE_LENGTH then
@@ -1418,14 +1431,19 @@ unitCh1PrinterCarriageControlProcess: process (
             if UNIT_SELECT_UNIT_2 = '1' and PRINTER_CH1_BUFFER_SENDING = '0' and
                PRINTER_CH1_CARRIAGE_SENDING = '0' and MC_FORMS_STACKER_GO = '0' then
                PRINTER_CH1_CARRIAGE_CHARACTER <= (not MC_CPU_TO_I_O_SYNC_BUS) and "00111111";  -- Strip down to 6 bits
+               PRINTER_CH1_START_CARRIAGE <= '1';
                unitCh1PrinterCarriageState <= unit_printer_carriage_forms_go;
             else
                unitCh1PrinterCarriageState <= unit_printer_carriage_idle;
             end if;
 
          when unit_printer_carriage_forms_go =>
-            PRINTER_CH1_START_CARRIAGE <= '1';
-            unitCh1PrinterCarriageState <= unit_printer_carriage_reset;
+            PRINTER_CH1_START_CARRIAGE <= '0';
+            if MC_FORMS_STACKER_GO = '1' then
+               unitCh1PrinterCarriageState <= unit_printer_carriage_reset;
+            else
+               unitCh1PrinterCarriageState <= unit_printer_carriage_forms_go;
+            end if;
 
       end case;
    end if;
@@ -1465,7 +1483,7 @@ unitCh1PrintRequestProcess: process (
             unitCh1PrinterPrintRequestState <= unit_printer_print_request_idle;
 
          when unit_printer_print_request_idle =>
-            -- Wait for a request for a print line or carraige control operation
+            -- Wait for a request for a print line or carriage control operation
             if PRINTER_CH1_START_PRINT = '1' or PRINTER_CH1_START_CARRIAGE = '1' then
                PRINTER_CH1_CARRIAGE_OPERATION <= PRINTER_CH1_START_CARRIAGE;
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_1;
@@ -1529,7 +1547,7 @@ unitCh1PrintRequestProcess: process (
                PRINTER_CH1_CARRIAGE_OPERATION <= '0';
                PRINTER_CH1_BUFFER_SCAN_POSITION <= PRINTER_BUFFER_LENGTH;  -- Fakey.
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_3;
-            elsif PRINTER_CH1_BUFFER_SCAN_POSITION <= PRINTER_BUFFER_LENGTH then
+            elsif PRINTER_CH1_BUFFER_SCAN_POSITION = PRINTER_BUFFER_LENGTH then
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_done;
             else
                PRINTER_CH1_BUFFER_SCAN_POSITION <= PRINTER_CH1_BUFFER_SCAN_POSITION + 1;

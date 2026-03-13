@@ -718,6 +718,7 @@ procedure sendChannelToPunchOrPrintBuffer (
     punchTest: in std_logic;
     printTest: in std_logic;
     stackerNumber: in integer;    -- As POSITIVE logic
+    formsCharacter: in std_logic_vector(7 downto 0);
     charsToTransfer: in integer;  -- So we can test WLR
     expectNoTransfer: in std_logic;
     expectNotReady: in std_logic;
@@ -728,6 +729,14 @@ procedure sendChannelToPunchOrPrintBuffer (
     variable punchSpecialStrobe: std_logic := '0';
 
     begin
+
+    --  Validate first
+
+    if punchTest = printTest or
+        (punchTest = '1' and formsCharacter /= "00000000") or
+        (printTest = '1' and stackerNumber /= 0) then
+        report testName & " Invalid punchTest/printTest/stackerNumber/formsCharacter combination" severity failure;
+    end if;
 
     -- First select unit 4 at I4, but NOT output mode or ready to buffer.
 
@@ -754,8 +763,13 @@ procedure sendChannelToPunchOrPrintBuffer (
             when others => MC_CPU_TO_I_O_SYNC_BUS <= "11111111";
         end case;
     end if;
+
     if printTest = '1' then
-        MC_CPU_TO_I_O_SYNC_BUS <= not printTestBuffer(0);
+        if formsCharacter = "00000000" then
+            MC_CPU_TO_I_O_SYNC_BUS <= not printTestBuffer(0);
+        else
+            MC_CPU_TO_I_O_SYNC_BUS <= not formsCharacter;
+        end if;
     end if;
     wait for 100 ns;
 
@@ -787,6 +801,23 @@ procedure sendChannelToPunchOrPrintBuffer (
         wait for 100 ns;
         return;
     end if;
+
+    -- If this is a Carriage control operation, handle that here - with no character loop.
+
+    if printTest = '1' and formsCharacter /= "00000000" then
+        MC_FORMS_STACKER_GO <= '0';
+        wait for 1 us;
+        MC_FORMS_STACKER_GO <= '1';
+        MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
+        MC_UNIT_4_SELECT_TO_I_O <= '1';
+        MC_UNIT_2_SELECT_TO_I_O <= '1';
+        MC_OUTPUT_MODE_TO_BUFFER <= '1';
+        MC_READY_TO_BUFFER <= '1';
+        wait for 1 us;
+        return;
+    end if;
+
+    -- Otherwise, this is a punch or print buffer operation.
 
     -- Tell the 1414 we are ready to send data to it, starting with the stacker number
     -- We start out with Ready to buffer, so that the 1414 can snag the stacker charcter,
@@ -831,13 +862,13 @@ procedure sendChannelToPunchOrPrintBuffer (
         end if;
 
         --  If this is a print test, we quit 1 character early.
-        exit when printTest = '1' and i = (charsToTransfer -1);
+        exit when printTest = '1' and i = (charsToTransfer - 2);
 
         -- Terminate early?
         -- exit when MC_BUFFER_END_OF_TRANSFER = '0';
     end loop;
 
-    wait for 1 us;  -- Give the 1414 a chance to clean up.
+    wait for 500 ns;  -- Give the 1414 a chance to clean up.
     --  Check for expected wrong length record conditions
 
     if (punchTest = '1' and charsToTransfer < 80) or
@@ -866,7 +897,7 @@ procedure sendChannelToPunchOrPrintBuffer (
     -- Now, end the transfer.  Later test bench code will test to see if the 1414 send
     -- data to the PC to be "punched", or not.
 
-    wait for 1 us;
+    wait for 250 ns;
     MC_CORRECT_TRANS_TO_BUFFER <= '1';
     MC_READY_TO_BUFFER <= '1';
     MC_CPU_TO_I_O_SYNC_BUS <= "11111111";         
@@ -881,22 +912,32 @@ procedure sendChannelToPunchOrPrintBuffer (
 
     -- Procedure to snarf up an expected punch request being sent from the 1414 to the PC
 
-procedure getExpectedPunchRequest(
+procedure getExpectedPunchOrPrintRequest(    
         testname: in String;
         deviceCode: in integer;
-        stackerNumber: in integer
+        stackerNumber: in integer;
+        formsCharacter: in std_logic_vector(7 downto 0)
     ) is
+
+    variable expectedPrintDevice: integer;
+    variable expectedColumns: integer;
 
     begin
 
-    -- The first byte should be the punch device code = 000000004
+    report testName & " Looking for expected Print or Punch request from 1414";
 
-    report testName & " Looking for expected Punch request from 1414";
+    if (deviceCode  = PRINTER_CH1_DEVICE_NUMBER and stackerNumber /= 0) or
+        (deviceCode = PUNCH_CH1_DEVICE_NUMBER and formsCharacter /= "00000000") then
+        report testName & " Invalide combination of device number, stacker and forms character" severity failure;
+    end if;
+
+    -- Wait for initial character request -- device code.
+
     if IBM1410_1414_UART_REQUEST /= '1' then
         wait until IBM1410_1414_UART_REQUEST = '1' for 100 ns; -- Should already be there
     end if;
     assert IBM1410_1414_UART_REQUEST = '1' report 
-       testName & " No UART request for expected Punch start device code." severity failure;
+       testName & " No UART request for expected Print or Punch start device code." severity failure;
     wait for 10 ns;
     IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
     wait for 10 ns;
@@ -908,14 +949,16 @@ procedure getExpectedPunchRequest(
     assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode, unitDataSentToPC'length ))
        report testName & " Expected Device number not received." severity failure;
 
-    -- The second byte is the operation.  For a normal punch, that is 44 (reader
-    -- device code & stacker).  The flush flag should also be set.
+    -- The second byte is the operation.
+    -- For a punch, that is 0x4y where y is the stacker number
+    -- For a normal print, that is 0x20.  For carriage control, that is 0x2F
+    -- The flush flag should NOT be set in any event.
 
     if IBM1410_1414_UART_REQUEST /= '1' then
         wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
     end if;
     assert IBM1410_1414_UART_REQUEST = '1' report 
-       testName & " No UART request for expected punch operation code." severity failure;
+       testName & " No UART request for expected print or punch operation code." severity failure;
     wait for 10 ns;
     IBM1410_1414_UART_GRANT <= '1';  -- Grant the request.  Data should now appear
     wait for 10 ns;
@@ -925,17 +968,34 @@ procedure getExpectedPunchRequest(
     assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
        report testName & " UDP Flush Flag set when not expected." severity failure;
 
-    report testName & " Debug: unitDataSentToPC is " & to_bstring(to_bitvector(unitDataSentToPC)) &
-        ", deviceCode is " & integer'image(deviceCode) & ", stackerNumber is " & integer'image(stackerNumber);
-
-    assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode,4)) &
-       std_logic_vector(to_unsigned(stackerNumber,4))
-       report testName & " Expected Reader Support operation code not received." severity failure;
+    if deviceCode = PUNCH_CH1_DEVICE_NUMBER then
+        expectedColumns := 80;
+        report testName & " Debug: unitDataSentToPC is " & to_bstring(to_bitvector(unitDataSentToPC)) &
+            ", Expected deviceCode is " & integer'image(deviceCode) & ", Expected stackerNumber is " & 
+            integer'image(stackerNumber);
+        assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode,4)) &
+            std_logic_vector(to_unsigned(stackerNumber,4))
+            report testName & " Expected Punch Support operation code not received." severity failure;
+    elsif deviceCode = PRINTER_CH1_DEVICE_NUMBER then
+        if formsCharacter = "00000000" then
+            expectedPrintDevice := 16#20#;
+            expectedColumns := 132;
+        else
+            expectedPrintDevice := 16#2F#;
+            expectedColumns := 1;
+        end if;
+        report testName & " Debug: unitDataSentToPC is " & to_bstring(to_bitvector(unitDataSentToPC)) &
+            ", Expected deviceCode is " & integer'image(expectedPrintDevice);
+        assert unitDataSentToPC = std_logic_vector(to_unsigned(expectedPrintDevice,8))
+            report testName & " Expected Print Support operation code not received." severity failure;
+    end if;
 
     --  The rest of the message is the punch data, 80 columns, followed by X"00"
+    --  For a normal print request, it is 132 columns, followed by X"00"
+    --  For a forms request, it is 1 column, followed by X"00"
     --  So, get and check the data.
 
-    for i in 0 to 79 loop
+    for i in 0 to expectedColumns - 1 loop
         if IBM1410_1414_UART_REQUEST /= '1' then
             wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
         end if;
@@ -949,11 +1009,20 @@ procedure getExpectedPunchRequest(
         wait for 10 ns;
         assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
             report testName & " UDP Flush Flag set when not expected." severity failure;
-        assert unitDataSentToPC = punchTestBuffer(i)
-            report testName & " Data mismatch at column " & integer'image(i+1) severity failure;
+        if deviceCode = PUNCH_CH1_DEVICE_NUMBER then
+            assert unitDataSentToPC = punchTestBuffer(i)
+                report testName & " Punch Data mismatch at column " & integer'image(i+1) severity failure;
+        elsif deviceCode = PRINTER_CH1_DEVICE_NUMBER and formsCharacter = "00000000" then
+            assert unitDataSentToPC = printTestBuffer(i)
+                report testName & " Print Data mismatch at column " & integer'image(i+1) severity failure;
+        elsif deviceCode = PRINTER_CH1_DEVICE_NUMBER and formsCharacter /= "00000000" then
+            assert unitDataSentToPC = formsCharacter
+                report testName & " Print Forms Character mismatch at column " & integer'image(i+1) severity failure;
+        end if;
+            
     end loop;
 
-    --  Now, check for the trailing X"00"
+    --  Now, check for the expected trailing X"00"
 
     if IBM1410_1414_UART_REQUEST /= '1' then
         wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
@@ -980,7 +1049,7 @@ procedure getExpectedPunchRequest(
        testName & " Unexpected request to send more UART data on punch feed message to PC" 
        severity failure;
 
-    end getExpectedPunchRequest;
+    end getExpectedPunchOrPrintRequest;
 
     -- START OF THE ACTUAL TEST BENCH 
 
@@ -991,9 +1060,16 @@ procedure getExpectedPunchRequest(
     for i in 0 to 79 loop
         v := std_logic_vector(to_unsigned(i, v'length));
         v(HDL_WM_BIT) := '0';  -- Turn off wordmark - just 6 bits of actual data from reader
-        v(HDL_C_BIT) := calculate_odd_parity(v);
+        v(HDL_C_BIT) := calculate_odd_parity(v(6 downto 0));
         readerTestBuffer(i) <= v;
         punchTestBuffer(i) <= v;
+    end loop;
+
+    for i in 0 to 131 loop
+        v := std_logic_vector(to_unsigned(i, v'length));
+        v(HDL_WM_BIT) := '0';  -- Turn off wordmark - just 6 bits of actual data from reader
+        v(HDL_C_BIT) := calculate_odd_parity(v(6 downto 0));
+        printTestBuffer(i) <= v;
     end loop;
 
     UDP_RESET <= '1';
@@ -1269,8 +1345,8 @@ procedure getExpectedPunchRequest(
     -- Simple punch test to start off with
 
     sendChannelToPunchOrPrintBuffer(testName => "PunchTest 0 - Basic Punch Test, Not Ready",
-        punchTest => '1', printTest => '0',
-        stackerNumber => 4, charsToTransfer => 80, expectNoTransfer => '0', expectNotReady => '1',
+        punchTest => '1', printTest => '0', stackerNumber => 4, formsCharacter => "00000000",
+        charsToTransfer => 80, expectNoTransfer => '0', expectNotReady => '1',
         expectBusy => '0', expectCondition => '0' );
 
     wait for 1 us;
@@ -1285,8 +1361,8 @@ procedure getExpectedPunchRequest(
     --  Punch a card - should be OK this time
 
     sendChannelToPunchOrPrintBuffer(testName => "PunchTest 1 - Basic Punch Test, Transfer",
-        punchTest => '1', printTest => '0', 
-        stackerNumber => 4, charsToTransfer => 80, 
+        punchTest => '1', printTest => '0', stackerNumber => 4, formsCharacter => "00000000",
+        charsToTransfer => 80, 
         expectNoTransfer => '0', expectNotReady => '0',
         expectBusy => '0', expectCondition => '0' );
 
@@ -1294,18 +1370,18 @@ procedure getExpectedPunchRequest(
 
     --  Get and check the expected punch data stream sent to PC Support Program
 
-    getExpectedPunchRequest(testName => "PunchTest 1 - Basic Punch Test, Message to PC",
-        deviceCode => PUNCH_CH1_DEVICE_NUMBER, stackerNumber => 4 );
+    getExpectedPunchOrPrintRequest(testName => "PunchTest 1 - Basic Punch Test, Message to PC",
+        deviceCode => PUNCH_CH1_DEVICE_NUMBER, stackerNumber => 4, formsCharacter => "00000000" );
 
     -- Wrong Length record test - stopped by the 1411 CPU early.  Unlike the card reader, the
     -- WLR is handled entirely in the CPU
 
     sendChannelToPunchOrPrintBuffer(testName => "PunchTest 2 - WLR Punch Test, Transfer",
-        punchTest => '1', printTest => '0', 
-        stackerNumber => 0, charsToTransfer => 79, expectNoTransfer => '0', expectNotReady => '0',
+        punchTest => '1', printTest => '0', stackerNumber => 0, formsCharacter => "00000000",
+        charsToTransfer => 79, expectNoTransfer => '0', expectNotReady => '0',
         expectBusy => '0', expectCondition => '0' );
 
-    -- Make sure there is no read request
+    -- Make sure there is no Support request
 
     if IBM1410_1414_UART_REQUEST = '0' then 
         wait until IBM1410_1414_UART_REQUEST = '1' for 10 us;
@@ -1317,11 +1393,11 @@ procedure getExpectedPunchRequest(
     -- WLR is handled entirely in the CPU
 
     sendChannelToPunchOrPrintBuffer(testName => "PunchTest 3 - WLR Punch Test, Transfer",
-        punchTest => '1', printTest => '0', 
-        stackerNumber => 4, charsToTransfer => 81, expectNoTransfer => '0', expectNotReady => '0',
+        punchTest => '1', printTest => '0', stackerNumber => 4, formsCharacter => "00000000",
+        charsToTransfer => 81, expectNoTransfer => '0', expectNotReady => '0',
         expectBusy => '0', expectCondition => '0' );
 
-    -- Make sure there is no read request
+    -- Make sure there is no Support request
 
     if IBM1410_1414_UART_REQUEST = '0' then 
         wait until IBM1410_1414_UART_REQUEST = '1' for 10 us;
@@ -1329,6 +1405,73 @@ procedure getExpectedPunchRequest(
     assert IBM1410_1414_UART_REQUEST = '0'
         report " PunchTest 3 - Long Record, but 1414 wants to send to PC" severity failure;
 
+    --  OK, the punch tests good, on to the printer.
+
+    sendChannelToPunchOrPrintBuffer(testName => "PrintTest 0, Basic Not Ready",
+        punchTest => '0', printTest => '1', stackerNumber => 0, formsCharacter => "00000000",
+        charsToTransfer => 132, expectNoTransfer => '0', expectNotReady => '1',
+        expectBusy => '0', expectCondition => '0' );
+
+    -- Make the printer Ready
+
+    sendStatusUpdate(testName => "PunchTest 1 - Basic Punch Test, Ready",
+        statusDevice => PRINTER_CH1_DEVICE_NUMBER, statusVector => "00000001");
+
+    -- Tell the printer to print a line
+
+    sendChannelToPunchOrPrintBuffer(testName => "PrintTest 2, Basic Print Transfer",
+        punchTest => '0', printTest => '1', stackerNumber => 0, formsCharacter => "00000000",
+        charsToTransfer => 132, expectNoTransfer => '0', expectNotReady => '0',
+        expectBusy => '0', expectCondition => '0' );
+
+    --  Get and check the expected print data stream sent to PC Support Program
+
+    getExpectedPunchOrPrintRequest(testName => "PrintTest 2 - Basic Printer Test, Message to PC",
+        deviceCode => PRINTER_CH1_DEVICE_NUMBER, stackerNumber => 0, formsCharacter => "00000000" );
+
+    -- Tell the printer to do carriage control
+
+    sendChannelToPunchOrPrintBuffer(testName => "PrintTest 3, Basic Carriage Control",
+        punchTest => '0', printTest => '1', stackerNumber => 0, formsCharacter => "00001000",
+        charsToTransfer => 1, expectNoTransfer => '0', expectNotReady => '0',
+        expectBusy => '0', expectCondition => '0' );
+
+    --  Get and check the expected carriage control data stream sent to PC Support Program
+
+    getExpectedPunchOrPrintRequest(testName => "PrintTest 3 - Basic Carriage Control, Message to PC",
+        deviceCode => PRINTER_CH1_DEVICE_NUMBER, stackerNumber => 0, formsCharacter => "00001000" );
+
+    -- Wrong Length record test - stopped by the 1411 CPU early.  Unlike the card reader, the
+    -- WLR is handled entirely in the CPU
+
+    sendChannelToPunchOrPrintBuffer(testName => "PrintTest 4 - WLR Print Test, Transfer",
+        punchTest => '0', printTest => '1', stackerNumber => 0, formsCharacter => "00000000",
+        charsToTransfer => 131, expectNoTransfer => '0', expectNotReady => '0',
+        expectBusy => '0', expectCondition => '0' );
+
+    -- Make sure there is no Support request
+
+    if IBM1410_1414_UART_REQUEST = '0' then 
+        wait until IBM1410_1414_UART_REQUEST = '1' for 10 us;
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '0'
+        report " Printest 4 - Short Record, but 1414 wants to send to PC" severity failure;
+
+    -- Wrong Length record test - stopped by the 1414 when 80 columns are reached.
+    -- WLR is handled entirely in the CPU
+
+    sendChannelToPunchOrPrintBuffer(testName => "PrintTest 5 - WLR Punch Test, Transfer",
+        punchTest => '0', printTest => '1', stackerNumber => 0, formsCharacter => "00000000",
+        charsToTransfer => 133, expectNoTransfer => '0', expectNotReady => '0',
+        expectBusy => '0', expectCondition => '0' );
+
+    -- Make sure there is no Support request
+
+    if IBM1410_1414_UART_REQUEST = '0' then 
+        wait until IBM1410_1414_UART_REQUEST = '1' for 10 us;
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '0'
+        report " PrintTest 5 - Long Record, but 1414 wants to send to PC" severity failure;
 
     assert false report "Normal end of 1414 Unit Record I/O Sync Test Bench" severity failure;
 
