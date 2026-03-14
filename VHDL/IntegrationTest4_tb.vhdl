@@ -975,6 +975,8 @@ component IBM1410TapeAdapterUnit is
    GENERIC(
        CHANNEL_STROBE_LENGTH: integer;
        CHANNEL_CYCLE_LENGTH: integer;
+	   TAU_IRG_DELAY: integer;
+	   TAU_WRITE_RBC_DELAY: integer;
        TAU_OUTPUT_FIFO_SIZE: integer );
    PORT (
        FPGA_CLK: in STD_LOGIC;
@@ -1029,6 +1031,7 @@ component IBM1410TapeAdapterUnit is
        IBM1410_TAU_XMT_UART_DATA: out STD_LOGIC_VECTOR(7 downto 0);
        IBM1410_TAU_XMT_UART_REQUEST: out STD_LOGIC;
        IBM1410_TAU_XMT_UART_GRANT: in STD_LOGIC;       
+	   IBM1410_TAU_XMT_UDP_FLUSH: out STD_LOGIC;
               
        -- PC Support System to TAU 
        
@@ -1921,10 +1924,12 @@ end component;
    signal IBM1410_TAU_XMT_UART_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
    signal IBM1410_TAU_XMT_UART_REQUEST: STD_LOGIC := '0';
    signal IBM1410_TAU_XMT_UART_GRANT: STD_LOGIC := '0';
+   signal IBM1410_TAU_XMT_UDP_FLUSH: STD_LOGIC := '0';
    
    signal IBM1410_TAU_XMT_UART_DATA_F_CH: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
    signal IBM1410_TAU_XMT_UART_REQUEST_F_CH: STD_LOGIC := '0';
-   signal IBM1410_TAU_XMT_UART_GRANT_F_CH: STD_LOGIC := '0';   
+   signal IBM1410_TAU_XMT_UART_GRANT_F_CH: STD_LOGIC := '0'; 
+   signal IBM1410_TAU_XMT_UDP_FLUSH_F_CH: STD_LOGIC := '0';  
               
        -- PC Support System to TAU 
        
@@ -2044,16 +2049,17 @@ procedure send_tape_status (
    signal write_data: out std_logic_vector(7 downto 0);
    signal write_enable: out std_logic) is   
    begin
+	  report " Sending Tape status update.";
       write_data <= std_logic_vector(to_unsigned(unit,write_data'length));
       wait for 10 ns;
       write_enable <= '1';
-      wait for 20 ns;
+      wait for 10 ns;
       write_enable <= '0';
       wait for 100 ns;
       write_data <= status;
       wait for 10 ns;
       write_enable <= '1';
-      wait for 20 ns;
+      wait for 10 ns;
       write_enable <= '0';
       wait for 10 ns;         
    end send_tape_status;
@@ -2065,6 +2071,7 @@ procedure check_tape_status (
    constant status_cares: std_logic_vector(7 downto 0);
    constant status: std_logic_vector(7 downto 0)) is
    begin
+	  report "Test: " & test & ", Subtest: " & subtest & " Checking tape status";
       if (status_target and status_cares) /= (status and status_cares) then
          for i in 0 to 7 loop
             if(status_cares(i) = '1' and 
@@ -2089,7 +2096,10 @@ procedure check_tape_request(
    signal request_char: in std_logic_vector(7 downto 0);
    constant target_char:  in std_logic_vector(7 downto 0);
    signal holding_char: inout std_logic_vector(7 downto 0) ) is
-   begin
+   
+	begin
+
+	  report "Test: " & test & ", Subtest: " & subtest & " Check for expected tape request";
       -- Wait for and receive the unit number
       if request_signal /= '1' then
          wait until request_signal = '1' for waitTime;
@@ -2146,7 +2156,10 @@ procedure do_tape_read(
    signal write_enable: out std_logic;
    signal LOCAL_WS_FLAG: inout std_logic;
    signal LOCAL_WS_CHAR: inout std_logic_vector(7 downto 0)) is
+
    begin
+
+	  report "Test: " & test & ", Subtest: " & subtest & " Do tape read";
       -- Tell the TAU we have a record for it.
       write_data <= std_logic_vector(to_unsigned(unit,write_data'length)) or 
          "01000000";
@@ -2169,7 +2182,7 @@ procedure do_tape_read(
          end if;
          wait for 10 ns;
          
-         -- If WM in test data, send a Word Seprator first
+         -- If WM in test data, send a Word Seperator first
          while LOCAL_WS_FLAG = '1' loop
             -- Set up a WS or the data char, in the correct parity
             if LOCAL_WS_CHAR /= "00000000" then
@@ -2262,7 +2275,10 @@ procedure do_tape_write(
    signal LOCAL_TAU_XMT_CHAR: inout std_logic_vector(7 downto 0);  
    signal LOCAL_WS_FLAG: inout std_logic;
    signal LOCAL_WS_CHAR: inout std_logic_vector(7 downto 0)) is 
+
    begin
+
+	  report "Test: " & test & ", Subtest: " & subtest & " Do tape Write";
       -- Loop thru the expected characters...
       for i in 0 to numchars-1 loop
          -- If the test data has a WM and we are in load mode, then
@@ -3329,9 +3345,11 @@ memory: IBM1410Memory
 
    TAU_CHANNEL_1: IBM1410TapeAdapterUnit
    generic map (
-       CHANNEL_STROBE_LENGTH => 25,   -- Reduced from default of 100 (1us => 250ns)  
-       CHANNEL_CYCLE_LENGTH => 1120,
-       TAU_OUTPUT_FIFO_SIZE => 80)     -- Test with a really small internal FIFO
+       CHANNEL_STROBE_LENGTH => 100,  -- 1 us
+       CHANNEL_CYCLE_LENGTH => 1120,  -- 11.2 us
+	   TAU_IRG_DELAY => 2000,          -- Reduced for testing to 20 us
+	   TAU_WRITE_RBC_DELAY => 2000,    -- Reduced for testing to 20 us
+       TAU_OUTPUT_FIFO_SIZE => 80)    -- Test with a really small internal FIFO
    port map (
        FPGA_CLK => FPGA_CLK,
        MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_E_CH,
@@ -3385,6 +3403,7 @@ memory: IBM1410Memory
        IBM1410_TAU_XMT_UART_DATA => IBM1410_TAU_XMT_UART_DATA,
        IBM1410_TAU_XMT_UART_REQUEST => IBM1410_TAU_XMT_UART_REQUEST,
        IBM1410_TAU_XMT_UART_GRANT => IBM1410_TAU_XMT_UART_GRANT,
+	   IBM1410_TAU_XMT_UDP_FLUSH => IBM1410_TAU_XMT_UDP_FLUSH,
               
        -- PC Support System to TAU 
        
@@ -3396,9 +3415,11 @@ memory: IBM1410Memory
 
    TAU_CHANNEL_2: IBM1410TapeAdapterUnit
    generic map (
-       CHANNEL_STROBE_LENGTH => 25,  -- Reduced from default of 100 (1us => 250ns)  
-       CHANNEL_CYCLE_LENGTH => 1120, -- Reduced from default of 11.5 us
-       TAU_OUTPUT_FIFO_SIZE => 80)     -- Test with a really small internal FIFO       
+       CHANNEL_STROBE_LENGTH => 100,  -- 1 us
+       CHANNEL_CYCLE_LENGTH => 1120,  -- 11.2 us
+	   TAU_IRG_DELAY => 2000,          -- Reduced for testing to 20 us
+	   TAU_WRITE_RBC_DELAY => 2000,    -- Reduced for testing to 20 us
+	   TAU_OUTPUT_FIFO_SIZE => 80)    -- Test with a really small internal FIFO       
    port map (
        FPGA_CLK => FPGA_CLK,
        MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_F_CH,
@@ -3452,6 +3473,7 @@ memory: IBM1410Memory
        IBM1410_TAU_XMT_UART_DATA => IBM1410_TAU_XMT_UART_DATA_F_CH,
        IBM1410_TAU_XMT_UART_REQUEST => IBM1410_TAU_XMT_UART_REQUEST_F_CH, 
        IBM1410_TAU_XMT_UART_GRANT => IBM1410_TAU_XMT_UART_GRANT_F_CH,       
+	   IBM1410_TAU_XMT_UDP_FLUSH => IBM1410_TAU_XMT_UDP_FLUSH_F_CH,
               
        -- PC Support System to TAU 
        
