@@ -1041,6 +1041,75 @@ component IBM1410TapeAdapterUnit is
 
 end component;
 
+component IBM14101414AdapterUnit is
+
+    GENERIC(
+        CHANNEL_STROBE_LENGTH: integer := 100;      -- 1 us strobe
+        CHANNEL_CYCLE_LENGTH:  integer := 1120;     -- 11.2 us per character
+        IOSYNC_OUTPUT_FIFO_SIZE: integer := 140     -- Enough for printer, too
+    );
+
+    PORT (
+        FPGA_CLK: in STD_LOGIC;
+
+        -- 1414 Input Signals from CPU
+
+        MC_CPU_TO_I_O_SYNC_BUS:           in std_logic_vector(7 downto 0);
+
+        MC_UNIT_1_SELECT_TO_I_O:        in std_logic;  -- Card Reader
+        MC_UNIT_2_SELECT_TO_I_O:        in std_logic;  -- Printer
+        MC_UNIT_4_SELECT_TO_I_O:        in std_logic;  -- Card Punch
+        MC_INPUT_MODE_TO_BUFFER:        in std_logic;
+        MC_OUTPUT_MODE_TO_BUFFER:       in std_logic;
+        MC_1401_MODE_TO_BUFFER:         in std_logic;
+        MC_READY_TO_BUFFER:             in std_logic;
+        MC_COMP_RESET_TO_BUFFER:        in std_logic;
+        MC_RESET_SELECT_BUFFER_LATCHES: in std_logic;
+        MC_CORRECT_TRANS_TO_BUFFER:     in std_logic;
+        MC_STACK_SELECT_TO_BUFFER:      in std_logic;
+        MC_FORMS_STACKER_GO:            in std_logic;
+
+        -- 1414 Output Signals to CPU
+
+        MC_I_O_SYNC_TO_CPU_BUS:         out std_logic_vector(7 downto 0);
+
+        MC_BUFFER_READY:                out std_logic;
+        MC_BUFFER_BUSY:                 out std_logic;
+        MC_BUFFER_CONDITION:            out std_logic;
+        MC_BUFFER_ERROR:                out std_logic;
+        MC_BUFFER_END_OF_TRANSFER:      out std_logic;
+        MC_BUFFER_NO_TRANS_COND:        out std_logic;
+        MC_BUFFER_STROBE:               out std_logic;
+
+        MC_READER_BUSY:                 out std_logic;
+        MC_PUNCH_BUSY:                  out std_logic;
+        MC_1403_PRINT_BUFFER_BUSY:      out std_logic;
+        MC_PRINTER_CHANNEL_9:           out std_logic;
+        MC_PRINTER_CHANNEL_12:          out std_logic;
+        MC_I_O_PRINTER_READY:           out std_logic;
+        MC_FORMS_BUSY_STATUS_TO_CPU:    out std_logic;
+
+        -- Priority Feature Signals
+
+        MC_I_O_CLOCK_080_090_TIME:      out std_logic;
+
+        -- 1414 to PC Support System
+
+        IBM1410_1414_XMT_UART_DATA:     out std_logic_vector(7 downto 0);
+        IBM1410_1414_UART_REQUEST:      out std_logic;
+        IBM1410_1414_UART_GRANT:        in std_logic;
+        IBM1410_UART_XMT_UDP_FLUSH:     out std_logic;
+
+        -- PC Support System to 1414
+
+        IBM1410_1414_INPUT_FIFO_WRITE_ENABLE:   in std_logic;
+        IBM1410_1414_INPUT_FIFO_WRITE_DATA:     in std_logic_vector(7 downto 0)
+
+    );
+
+end component;
+
+
 	-- Inputs
 
 	signal FPGA_CLK: STD_LOGIC := '0';
@@ -1938,7 +2007,15 @@ end component;
    signal IBM1410_TAU_INPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";   
    signal IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
    
+-- IBM 1414 I/O Synchronizer signals
 
+   signal IBM1410_1414_XMT_UART_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
+   signal IBM1410_1414_UART_REQUEST:  STD_LOGIC := '0';
+   signal IBM1410_1414_UART_GRANT:    STD_LOGIC := '0';
+   signal IBM1410_UART_XMT_UDP_FLUSH: STD_LOGIC := '0';  -- TODO: Rename this signal
+
+   signal IBM1410_1414_INPUT_FIFO_WRITE_ENABLE: STD_LOGIC := '0';
+   signal IBM1410_1414_INPUT_FIFO_WRITE_DATA:   STD_LOGIC_VECTOR(7 downto 0) := "00000000";
     
 -- START USER TEST BENCH DECLARATIONS
 
@@ -3481,6 +3558,73 @@ memory: IBM1410Memory
        IBM1410_TAU_INPUT_FIFO_WRITE_DATA => IBM1410_TAU_INPUT_FIFO_WRITE_DATA_F_CH
    );
 
+-- Instantiate the IBM 1414 I/O Synchronizer for unit record devices
+
+IBM1414_CHANNEL_1: IBM14101414AdapterUnit
+
+    GENERIC MAP (
+        CHANNEL_STROBE_LENGTH => 10,       -- SHORT value for testing separate from channel
+        CHANNEL_CYCLE_LENGTH => 112,       -- 11.2 us per character, SHORTER for testing for now (1.12 us)
+        IOSYNC_OUTPUT_FIFO_SIZE => 140     -- Enough for printer, too
+    )
+
+    PORT MAP (
+        FPGA_CLK => FPGA_CLK,
+
+        -- 1414 Input Signals from CPU
+
+        MC_CPU_TO_I_O_SYNC_BUS => MC_CPU_TO_I_O_SYNC_BUS,
+
+        MC_UNIT_1_SELECT_TO_I_O => MC_UNIT_1_SELECT_TO_I_O,
+        MC_UNIT_2_SELECT_TO_I_O => MC_UNIT_2_SELECT_TO_I_O,
+        MC_UNIT_4_SELECT_TO_I_O => MC_UNIT_4_SELECT_TO_I_O,
+        MC_INPUT_MODE_TO_BUFFER => MC_INPUT_MODE_TO_BUFFER,
+        MC_OUTPUT_MODE_TO_BUFFER => MC_OUTPUT_MODE_TO_BUFFER,
+        MC_1401_MODE_TO_BUFFER => MC_1401_MODE_TO_BUFFER,
+        MC_READY_TO_BUFFER => MC_READY_TO_BUFFER,
+        MC_COMP_RESET_TO_BUFFER => MC_COMP_RESET_TO_BUFFER,
+        MC_RESET_SELECT_BUFFER_LATCHES => MC_RESET_SELECT_BUFFER_LATCHES,
+        MC_CORRECT_TRANS_TO_BUFFER => MC_CORRECT_TRANS_TO_BUFFER,
+        MC_STACK_SELECT_TO_BUFFER => MC_STACK_SELECT_TO_BUFFER,
+        MC_FORMS_STACKER_GO => MC_FORMS_STACKER_GO,
+
+        -- 1414 Output Signals to CPU
+
+        MC_I_O_SYNC_TO_CPU_BUS => MC_I_O_SYNC_TO_CPU_BUS,
+
+        MC_BUFFER_READY => MC_BUFFER_READY,
+        MC_BUFFER_BUSY => MC_BUFFER_BUSY,
+        MC_BUFFER_CONDITION => MC_BUFFER_CONDITION,
+        MC_BUFFER_ERROR => MC_BUFFER_ERROR,
+        MC_BUFFER_END_OF_TRANSFER => MC_BUFFER_END_OF_TRANSFER,
+        MC_BUFFER_NO_TRANS_COND => MC_BUFFER_NO_TRANS_COND,
+        MC_BUFFER_STROBE => MC_BUFFER_STROBE,
+
+        MC_READER_BUSY => MC_READER_BUSY,
+        MC_PUNCH_BUSY => MC_PUNCH_BUSY,
+        MC_1403_PRINT_BUFFER_BUSY => MC_1403_PRINT_BUFFER_BUSY,
+        MC_PRINTER_CHANNEL_9 => MC_PRINTER_CHANNEL_9,
+        MC_PRINTER_CHANNEL_12 => MC_PRINTER_CHANNEL_12,
+        MC_I_O_PRINTER_READY => MC_I_O_PRINTER_READY,
+        MC_FORMS_BUSY_STATUS_TO_CPU => MC_FORMS_BUSY_STATUS_TO_CPU,
+
+        -- Priority Feature Signals
+
+        MC_I_O_CLOCK_080_090_TIME => MC_I_O_CLOCK_080_090_TIME,
+
+        -- 1414 to PC Support System
+
+        IBM1410_1414_XMT_UART_DATA => IBM1410_1414_XMT_UART_DATA,
+        IBM1410_1414_UART_REQUEST => IBM1410_1414_UART_REQUEST,
+        IBM1410_1414_UART_GRANT => IBM1410_1414_UART_GRANT,
+        IBM1410_UART_XMT_UDP_FLUSH => IBM1410_UART_XMT_UDP_FLUSH,
+
+        -- PC Support System to 1414
+
+        IBM1410_1414_INPUT_FIFO_WRITE_ENABLE => IBM1410_1414_INPUT_FIFO_WRITE_ENABLE,
+        IBM1410_1414_INPUT_FIFO_WRITE_DATA => IBM1410_1414_INPUT_FIFO_WRITE_DATA
+
+    );
 
 -- 
 -- TestBenchFPGAClock.vhdl
