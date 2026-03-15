@@ -2009,6 +2009,10 @@ end component;
    
 -- IBM 1414 I/O Synchronizer signals
 
+   constant READER_CH1_DEVICE_NUMBER:	integer := 1;
+   constant PRINTER_CH1_DEVICE_NUMBER:	integer := 2;
+   constant PUNCH_CH1_DEVICE_NUMBER:	integer := 4;
+
    signal IBM1410_1414_XMT_UART_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
    signal IBM1410_1414_UART_REQUEST:  STD_LOGIC := '0';
    signal IBM1410_1414_UART_GRANT:    STD_LOGIC := '0';
@@ -2114,9 +2118,24 @@ end component;
      
    -- Word Marks to use during load mode testing.     
      
-   signal tapeTestDataWM: testWMType := (
+    signal tapeTestDataWM: testWMType := (
      8 => '1', others => '0');
    
+	constant READER_BUFFER_LENGTH:   integer := 80;
+	type READER_BUFFER_TYPE is array (READER_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
+
+	constant PRINTER_BUFFER_LENGTH:  integer := 132;
+	type PRINTER_BUFFER_TYPE is array (PRINTER_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
+
+	signal readerTestBuffer:  READER_BUFFER_TYPE := (others => X"80");
+	signal punchTestBuffer:   READER_BUFFER_TYPE := (others => X"80");
+	signal printTestBuffer:   PRINTER_BUFFER_TYPE := (others => x"80");
+
+	signal unitDataSentToPC: std_logic_vector(7 downto 0) := "00000000";
+
+	signal LOCAL_READER_TEST:	std_logic := '0';
+	signal LOCAL_PUNCH_TEST:	std_logic := '0';
+	signal LOCAL_PRINTER_TEST:	std_logic := '0';
    
 -- Factored test procedures
 
@@ -2462,6 +2481,148 @@ procedure do_tape_write(
          ", Write: TAU Stayed In Process after EOR" severity failure;
        
    end do_tape_write;      
+
+procedure getExpectedPunchOrPrintRequest(    
+        constant testname: String;
+        constant deviceCode: integer;
+        constant stackerNumber: integer;
+        constant formsCharacter: std_logic_vector(7 downto 0);
+		signal grantSignal: out std_logic;
+		signal unitDataSentToPC: inout std_logic_vector(7 downto 0)
+    ) is
+
+    variable expectedPrintDevice: integer;
+    variable expectedColumns: integer;
+
+    begin
+
+    report testName & " Looking for expected Print or Punch request from 1414";
+
+    if (deviceCode  = PRINTER_CH1_DEVICE_NUMBER and stackerNumber /= 0) or
+        (deviceCode = PUNCH_CH1_DEVICE_NUMBER and formsCharacter /= "00000000") then
+        report testName & " Invalide combination of device number, stacker and forms character" severity failure;
+    end if;
+
+    -- Wait for initial character request -- device code.
+
+    if IBM1410_1414_UART_REQUEST /= '1' then
+        wait until IBM1410_1414_UART_REQUEST = '1' for 100 ns; -- Should already be there
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '1' report 
+       testName & " No UART request for expected Print or Punch start device code." severity failure;
+    wait for 10 ns;
+    grantSignal <= '1';  -- Grant the request.  Data should now appear
+    wait for 10 ns;
+    unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+    grantSignal <= '0'; -- Remove the grant
+    wait for 10 ns;
+    assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
+       report testName & " UDP Flush Flag set when not expected." severity failure;
+    assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode, unitDataSentToPC'length ))
+       report testName & " Expected Device number not received." severity failure;
+
+    -- The second byte is the operation.
+    -- For a punch, that is 0x4y where y is the stacker number
+    -- For a normal print, that is 0x20.  For carriage control, that is 0x2F
+    -- The flush flag should NOT be set in any event.
+
+    if IBM1410_1414_UART_REQUEST /= '1' then
+        wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '1' report 
+       testName & " No UART request for expected print or punch operation code." severity failure;
+    wait for 10 ns;
+    grantSignal <= '1';  -- Grant the request.  Data should now appear
+    wait for 10 ns;
+    unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+    grantSignal <= '0'; -- Remove the grant
+    wait for 10 ns;
+    assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
+       report testName & " UDP Flush Flag set when not expected." severity failure;
+
+    if deviceCode = PUNCH_CH1_DEVICE_NUMBER then
+        expectedColumns := 80;
+        report testName & " Debug: unitDataSentToPC is " & to_bstring(to_bitvector(unitDataSentToPC)) &
+            ", Expected deviceCode is " & integer'image(deviceCode) & ", Expected stackerNumber is " & 
+            integer'image(stackerNumber);
+        assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode,4)) &
+            std_logic_vector(to_unsigned(stackerNumber,4))
+            report testName & " Expected Punch Support operation code not received." severity failure;
+    elsif deviceCode = PRINTER_CH1_DEVICE_NUMBER then
+        if formsCharacter = "00000000" then
+            expectedPrintDevice := 16#20#;
+            expectedColumns := 132;
+        else
+            expectedPrintDevice := 16#2F#;
+            expectedColumns := 1;
+        end if;
+        report testName & " Debug: unitDataSentToPC is " & to_bstring(to_bitvector(unitDataSentToPC)) &
+            ", Expected deviceCode is " & integer'image(expectedPrintDevice);
+        assert unitDataSentToPC = std_logic_vector(to_unsigned(expectedPrintDevice,8))
+            report testName & " Expected Print Support operation code not received." severity failure;
+    end if;
+
+    --  The rest of the message is the punch data, 80 columns, followed by X"00"
+    --  For a normal print request, it is 132 columns, followed by X"00"
+    --  For a forms request, it is 1 column, followed by X"00"
+    --  So, get and check the data.
+
+    for i in 0 to expectedColumns - 1 loop
+        if IBM1410_1414_UART_REQUEST /= '1' then
+            wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
+        end if;
+        assert IBM1410_1414_UART_REQUEST = '1' report 
+            testName & " No UART request for expected data." severity failure;
+        wait for 10 ns;
+        grantSignal <= '1';  -- Grant the request.  Data should now appear
+        wait for 10 ns;
+        unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+        grantSignal <= '0'; -- Remove the grant
+        wait for 10 ns;
+        assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
+            report testName & " UDP Flush Flag set when not expected." severity failure;
+        if deviceCode = PUNCH_CH1_DEVICE_NUMBER then
+            assert unitDataSentToPC = punchTestBuffer(i)
+                report testName & " Punch Data mismatch at column " & integer'image(i+1) severity failure;
+        elsif deviceCode = PRINTER_CH1_DEVICE_NUMBER and formsCharacter = "00000000" then
+            assert unitDataSentToPC = printTestBuffer(i)
+                report testName & " Print Data mismatch at column " & integer'image(i+1) severity failure;
+        elsif deviceCode = PRINTER_CH1_DEVICE_NUMBER and formsCharacter /= "00000000" then
+            assert unitDataSentToPC = formsCharacter
+                report testName & " Print Forms Character mismatch at column " & integer'image(i+1) severity failure;
+        end if;
+            
+    end loop;
+
+    --  Now, check for the expected trailing X"00"
+
+    if IBM1410_1414_UART_REQUEST /= '1' then
+        wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '1' report 
+        testName & " No UART request for expected terminating 0x00" severity failure;
+    wait for 10 ns;
+    grantSignal <= '1';  -- Grant the request.  Data should now appear
+    wait for 10 ns;
+    unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+    grantSignal <= '0'; -- Remove the grant
+    wait for 10 ns;
+    assert IBM1410_UART_XMT_UDP_FLUSH = '1' 
+        report testName & " UDP Flush Flag NOT set when not expected." severity failure;
+    assert unitDataSentToPC = "00000000"
+        report testName & " Value other than 0x00 when terminating 0x00 expected." severity failure;
+
+    --  There should NOT be a erquest to send more data
+
+    if IBM1410_1414_UART_REQUEST /= '1' then
+        wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
+    end if;
+    assert IBM1410_1414_UART_REQUEST = '0' report
+       testName & " Unexpected request to send more UART data on punch feed message to PC" 
+       severity failure;
+
+    end getExpectedPunchOrPrintRequest;
+
    
 
 ---- END USER TEST BENCH DECLARATIONS
@@ -3646,6 +3807,20 @@ fpga_clk_process: process
 --
 ---- End of TestBenchFPGAClock.vhdl
 
+--	Monitor for master errors and stop early if we hit one.
+
+masterErrorProcess: process
+
+	begin
+	if fpga_clk'event and fpga_clk = '1' then
+		if PS_MASTER_ERROR = '1' then
+			report " MASTER ERROR RAISED " severity failure;
+		end if;
+	end if;
+	wait for 1 us;
+end process;
+   
+
    -- Ten Thousands Position of Memory address
    
    LOCAL_MY_MEM_AR_NOT_TTHP_BUS <= not MY_MEM_AR_TTHP_BUS;
@@ -3814,10 +3989,14 @@ uut_process: process
 
 -- Set whether or not we are testing load mode, and which channel to tset.
    
-   LOCAL_WS_TEST <= '0';          -- True if testing in load mode
-   LOCAL_E_CH_TAPE_TEST <= '1'; 
+   LOCAL_WS_TEST 		<= '0';          -- True if testing in load mode
+   LOCAL_E_CH_TAPE_TEST <= '0'; 
    LOCAL_F_CH_TAPE_TEST <= '0';
-   LOCAL_REWIND_TEST <= '0';
+   LOCAL_REWIND_TEST	<= '0';
+
+   LOCAL_READER_TEST	<= '0';
+   LOCAL_PUNCH_TEST		<= '0';
+   LOCAL_PRINTER_TEST	<= '0';
     
    wait for 10 ns;
 
@@ -4475,6 +4654,24 @@ if LOCAL_REWIND_TEST = '1' then
    report "Unit Control Test RWD3: Successful end of rewind test.";
 
 end if; -- Unit Control Test  LOCAL_ERWIND_TEST
+
+if LOCAL_PUNCH_TEST = '1' then
+
+	if MC_UNIT_4_SELECT_TO_I_O = '1' then
+		wait until MC_UNIT_4_SELECT_TO_I_O = '0' for 10 ms;
+	wait for 20 ns;
+	end if;
+   
+	assert MC_UNIT_4_SELECT_TO_I_O = '0' report
+      "Write Test 1, Didn't wait long enough for Write Call" severity failure;
+
+
+	getExpectedPunchOrPrintRequest(testName => "Punch Test 1 - Normal Punch Test", 
+		deviceCode => PUNCH_CH1_DEVICE_NUMBER, stackerNumber => 4, formsCharacter => "00000000",
+		grantSignal => IBM1410_1414_UART_GRANT, 
+		unitDataSentToPC => unitDataSentToPC);
+
+end if;
 
 -- ===============================================================================================
       
