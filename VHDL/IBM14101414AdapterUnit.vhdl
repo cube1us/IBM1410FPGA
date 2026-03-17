@@ -1135,8 +1135,13 @@ unitCh1PunchTransferProcess: process (
                unitCh1PunchTransferState <= unit_punch_transfer_reset;
             elsif unitPunchStrobeCounter = CHANNEL_STROBE_LENGTH then
                unitPunchStrobeCounter <= 0;
-               unitPunchDelayCounter <= 0;
-               unitCh1PunchTransferState <= unit_punch_transfer_wait_channel;
+               unitPunchDelayCounter <= 0;               
+               if PUNCH_CH1_BUFFER_FILL_POSITION = PUNCH_BUFFER_LENGTH then
+                  PUNCH_CH1_BUFFER_FILL_POSITION <= 0;
+                  unitCh1PunchTransferState <= unit_punch_transfer_end_of_transfer;
+               else
+                  unitCh1PunchTransferState <= unit_punch_transfer_wait_channel;
+               end if;
             else
                unitPunchStrobeCounter <= unitPunchStrobeCounter + 1;
                unitCh1PunchTransferState <= unit_punch_transfer_strobe_channel;
@@ -1164,15 +1169,12 @@ unitCh1PunchTransferProcess: process (
             if MC_READY_TO_BUFFER = '1' then
                unitCh1PunchTransferState <= unit_punch_transfer_reset;
             else
+               -- Snag the character, dropping the WM bit.
+               -- I suppose one *could* check parity here, but really, no need.
                PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_FILL_POSITION) <=
-                  not MC_CPU_TO_I_O_SYNC_BUS;
-               if PUNCH_CH1_BUFFER_FILL_POSITION = PUNCH_BUFFER_LENGTH - 1 then
-                  PUNCH_CH1_BUFFER_FILL_POSITION <= 0;
-                  unitCh1PunchTransferState <= unit_punch_transfer_end_of_transfer;
-               else
-                  PUNCH_CH1_BUFFER_FILL_POSITION <= PUNCH_CH1_BUFFER_FILL_POSITION + 1;
-                  unitCh1PunchTransferState <= unit_punch_transfer_strobe_channel;
-               end if;
+                  (not MC_CPU_TO_I_O_SYNC_BUS) and "10111111";
+               PUNCH_CH1_BUFFER_FILL_POSITION <= PUNCH_CH1_BUFFER_FILL_POSITION + 1;
+               unitCh1PunchTransferState <= unit_punch_transfer_strobe_channel;
             end if;
 
          when unit_punch_transfer_end_of_transfer =>
@@ -1265,7 +1267,11 @@ unitCh1PunchFeedProcess: process (
                if PUNCH_CH1_BUFFER_SCAN_POSITION = PUNCH_BUFFER_LENGTH then
                   PUNCH_CH1_REQUEST_DATA <= "100000000";  -- 0x00 byte with flush bit set at end
                else
-                  PUNCH_CH1_REQUEST_DATA <= "0" & PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_SCAN_POSITION);
+                  -- Prepare the punch character with a 0 for the flush bit.
+                  -- We also need to move the parity bit from bit 7 down to where the WM bit would be, \
+                  -- because we can't set the high bit inside of a message.
+                  PUNCH_CH1_REQUEST_DATA <= "00" & PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_SCAN_POSITION)(7) &
+                     PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_SCAN_POSITION)(5 downto 0);
                end if;
                unitCh1PunchFeedRequestState <= unit_punch_feed_request_send_column;
             end if;
@@ -1621,10 +1627,11 @@ UNIT_SELECT_UNIT_2 <= (not MC_UNIT_2_SELECT_TO_I_O) and
 
 UNIT_CH1_STACKER_SELECTED <=
    0 when not MC_CPU_TO_I_O_SYNC_BUS = "10001010" else
+   0 when not MC_CPU_TO_I_O_SYNC_BUS = "01000000" else
    1 when not MC_CPU_TO_I_O_SYNC_BUS = "00000001" else
    2 when not MC_CPU_TO_I_O_SYNC_BUS = "00000010" else
-   4 when not MC_CPU_TO_I_O_SYNC_BUS = "00000100" else
-   8 when not MC_CPU_TO_I_O_SYNC_BUS = "00001000" else
+   4 when not MC_CPU_TO_I_O_SYNC_BUS = "01000100" else
+   8 when not MC_CPU_TO_I_O_SYNC_BUS = "01001000" else
    9 when not MC_CPU_TO_I_O_SYNC_BUS = "10001001" else
    0;
 

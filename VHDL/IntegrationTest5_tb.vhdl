@@ -2095,6 +2095,44 @@ end component;
 --    assert checked = val report testname & " (" & test & ") failed." severity failure;
 --    end procedure;
       
+-- Function to convert a std_logic_vector to a hext string for pre 2008 VHDL
+
+function jrj_hstring(slv: std_logic_vector) return string is
+    constant hexlen : integer := (slv'length+3)/4;
+    variable longslv : std_logic_vector(slv'length+3 downto 0) := (others => '0');
+    variable hex : string(1 to hexlen);
+    variable fourbit : std_logic_vector(3 downto 0);
+	
+	begin
+    longslv(slv'length-1 downto 0) := slv;
+    for i in hexlen-1 downto 0 loop
+        fourbit := longslv(i*4+3 downto i*4);
+        case fourbit is
+            when "0000" => hex(hexlen-i) := '0';
+            when "0001" => hex(hexlen-i) := '1';
+            when "0010" => hex(hexlen-i) := '2';
+            when "0011" => hex(hexlen-i) := '3';
+            when "0100" => hex(hexlen-i) := '4';
+            when "0101" => hex(hexlen-i) := '5';
+            when "0110" => hex(hexlen-i) := '6';
+            when "0111" => hex(hexlen-i) := '7';
+            when "1000" => hex(hexlen-i) := '8';
+            when "1001" => hex(hexlen-i) := '9';
+            when "1010" => hex(hexlen-i) := 'A';
+            when "1011" => hex(hexlen-i) := 'B';
+            when "1100" => hex(hexlen-i) := 'C';
+            when "1101" => hex(hexlen-i) := 'D';
+            when "1110" => hex(hexlen-i) := 'E';
+            when "1111" => hex(hexlen-i) := 'F';
+            when "ZZZZ" => hex(hexlen-i) := 'Z';
+            when "UUUU" => hex(hexlen-i) := 'U';
+            when "XXXX" => hex(hexlen-i) := 'X';
+            when others => hex(hexlen-i) := '?';
+        end case;
+    end loop;
+    return hex;
+end function jrj_hstring;
+
 
 
 --   -- Your test bench declarations go here
@@ -2630,7 +2668,9 @@ procedure getExpectedPunchOrPrintRequest(
             report testName & " UDP Flush Flag set when not expected." severity failure;
         if deviceCode = PUNCH_CH1_DEVICE_NUMBER then
             assert unitDataSentToPC = punchTestBuffer(i)
-                report testName & " Punch Data mismatch at column " & integer'image(i+1) severity failure;
+                report testName & " Punch Data mismatch at column " & integer'image(i+1) &
+				"Received: " & jrj_hstring(unitDataSentToPC) &
+				"Expected: " & jrj_hstring(punchTestBuffer(i)) severity failure;
         elsif deviceCode = PRINTER_CH1_DEVICE_NUMBER and formsCharacter = "00000000" then
             assert unitDataSentToPC = printTestBuffer(i)
                 report testName & " Print Data mismatch at column " & integer'image(i+1) severity failure;
@@ -2681,7 +2721,7 @@ function calculate_odd_parity(input_data: std_logic_vector) return std_logic is
     end loop;
     -- For odd parity, the final bit is the inversion of the even parity result
     return (not parity_temp); 
-end function calculate_odd_parity;       
+end function calculate_odd_parity;   
 
 ---- END USER TEST BENCH DECLARATIONS
 
@@ -4750,12 +4790,13 @@ if LOCAL_PUNCH_TEST = '1' then
 	assert MC_CORRECT_TRANS_TO_BUFFER = '0' report
 		"Punch Test 1, MC_CORRECT_TRANS_TO_BUFFER did not occur as expected." severity failure;
 
-	--	Expected punch data
+	--	Expected punch data.  The parity bit replaces the WM bit here - the high bit MUST
+	--	be 0.
 
 	for i in 0 to READER_BUFFER_LENGTH - 1 loop
 		v := std_logic_vector(to_unsigned(i,v'length));
-		v(HDL_WM_BIT) := '0';
-		v(HDL_C_BIT) := calculate_odd_parity(v(6 downto 0));
+		v(HDL_C_BIT) := '0';
+		v(HDL_WM_BIT) := calculate_odd_parity(v(5 downto 0));
 		punchTestBuffer(i) <= v;
 	end loop;
 	wait for 10 ns;
@@ -4764,6 +4805,8 @@ if LOCAL_PUNCH_TEST = '1' then
 		deviceCode => PUNCH_CH1_DEVICE_NUMBER, stackerNumber => 4, formsCharacter => "00000000",
 		grantSignal => IBM1410_1414_UART_GRANT, 
 		unitDataSentToPC => unitDataSentToPC);
+
+	report "Punch Test 1 Completed.";
 
 end if;
 
