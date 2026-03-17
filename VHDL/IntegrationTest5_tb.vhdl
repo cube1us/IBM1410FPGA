@@ -2013,6 +2013,9 @@ end component;
    constant PRINTER_CH1_DEVICE_NUMBER:	integer := 2;
    constant PUNCH_CH1_DEVICE_NUMBER:	integer := 4;
 
+   constant UNIT_RECEIVE_STATUS_OPERATION:   integer := 1;
+   constant UNIT_RECEIVE_DATA_OPERATION:     integer := 2;
+
    signal IBM1410_1414_XMT_UART_DATA: STD_LOGIC_VECTOR(7 downto 0) := "00000000";
    signal IBM1410_1414_UART_REQUEST:  STD_LOGIC := '0';
    signal IBM1410_1414_UART_GRANT:    STD_LOGIC := '0';
@@ -2480,7 +2483,51 @@ procedure do_tape_write(
       assert MCTapeInProcess = '1' report "Test: " & test & ", subtest: " & subtest &
          ", Write: TAU Stayed In Process after EOR" severity failure;
        
-   end do_tape_write;      
+   end do_tape_write; 
+   
+-- Procedure to send a device status update to the FPGA
+-- Note that we do not have to send the leading 0x85 to the 1414 - that is handled
+-- at a higher level in the implementation.
+
+procedure send1414StatusUpdate (
+    constant testName: STRING;
+    constant statusDevice: INTEGER;     
+    constant statusVector: std_logic_vector(7 downto 0);
+	signal fifoWriteEnable: out std_logic;
+	signal fifoWriteData: out std_logic_vector(7 downto 0)
+	) is
+
+    begin
+
+    report testName & " Sending Status Update to 1414";
+    -- Send 1414 sub-device we are sending status for
+    fifoWriteData <= std_logic_vector(
+        to_unsigned(statusDevice, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));
+    wait for 100 ns;
+    fifoWriteEnable <= '1';
+    wait for 10 ns;
+    fifoWriteEnable <= '0';
+    wait for 100 ns;
+
+    -- Indicate that this is a Status Update
+    fifoWriteData <= std_logic_vector(
+        to_unsigned(UNIT_RECEIVE_STATUS_OPERATION, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length )); 
+    wait for 100 ns;
+    fifoWriteEnable <= '1';
+    wait for 10 ns;
+    fifoWriteEnable <= '0';
+    wait for 100 ns;
+    
+    -- Put the status itself into the FIFO
+    fifoWriteData <= statusVector;
+    wait for 100 ns;
+    fifoWriteEnable <= '1';
+    wait for 10 ns;
+    fifoWriteEnable <= '0';
+    wait for 100 ns;
+    
+    end send1414StatusUpdate;
+   
 
 procedure getExpectedPunchOrPrintRequest(    
         constant testname: String;
@@ -2623,7 +2670,18 @@ procedure getExpectedPunchOrPrintRequest(
 
     end getExpectedPunchOrPrintRequest;
 
-   
+
+-- Function to calculate parity bit to use for odd parity
+
+function calculate_odd_parity(input_data: std_logic_vector) return std_logic is
+    variable parity_temp: std_logic := '0'; -- Initialize to 0 for even parity logic
+    begin
+    for i in input_data'range loop
+        parity_temp := parity_temp xor input_data(i); -- XOR all bits
+    end loop;
+    -- For odd parity, the final bit is the inversion of the even parity result
+    return (not parity_temp); 
+end function calculate_odd_parity;       
 
 ---- END USER TEST BENCH DECLARATIONS
 
@@ -3724,8 +3782,8 @@ memory: IBM1410Memory
 IBM1414_CHANNEL_1: IBM14101414AdapterUnit
 
     GENERIC MAP (
-        CHANNEL_STROBE_LENGTH => 10,       -- SHORT value for testing separate from channel
-        CHANNEL_CYCLE_LENGTH => 112,       -- 11.2 us per character, SHORTER for testing for now (1.12 us)
+        CHANNEL_STROBE_LENGTH => 100,      -- 1 us strobe
+        CHANNEL_CYCLE_LENGTH => 1120,      -- 11.2 us per character
         IOSYNC_OUTPUT_FIFO_SIZE => 140     -- Enough for printer, too
     )
 
@@ -3812,11 +3870,7 @@ fpga_clk_process: process
 masterErrorProcess: process
 
 	begin
-	if fpga_clk'event and fpga_clk = '1' then
-		if PS_MASTER_ERROR = '1' then
-			report " MASTER ERROR RAISED " severity failure;
-		end if;
-	end if;
+	assert PS_MASTER_ERROR /= '1' report " MASTER ERROR RAISED " severity failure;
 	wait for 1 us;
 end process;
    
@@ -3920,6 +3974,7 @@ uut_process: process
 
    variable testName: string(1 to 18);
    variable subtest: integer;
+   variable v: std_logic_vector(7 downto 0);
    
    variable grantWait: time := 20 ns;
 
@@ -3995,7 +4050,7 @@ uut_process: process
    LOCAL_REWIND_TEST	<= '0';
 
    LOCAL_READER_TEST	<= '0';
-   LOCAL_PUNCH_TEST		<= '0';
+   LOCAL_PUNCH_TEST		<= '1';
    LOCAL_PRINTER_TEST	<= '0';
     
    wait for 10 ns;
@@ -4657,14 +4712,53 @@ end if; -- Unit Control Test  LOCAL_ERWIND_TEST
 
 if LOCAL_PUNCH_TEST = '1' then
 
+	-- Set status to ready before we start.  (I had already tested without this,
+	-- and verified that the test program looped on not ready, or, one could count
+	-- the number of occurrences of MC_UNIT_4_SELECT_TO_I_O and update the status
+	-- after a couple, I suppose.
+
+	send1414StatusUpdate(testName => "Punch Test 0 Status Update - READY", 
+		statusDevice => PUNCH_CH1_DEVICE_NUMBER, statusVector => "00000001",
+		fifoWriteEnable => IBM1410_1414_INPUT_FIFO_WRITE_ENABLE,
+		fifoWriteData => IBM1410_1414_INPUT_FIFO_WRITE_DATA );
+
+	wait for 1 us;
+
+
+    SWITCH_MOM_CONS_START <= '1';
+    report "Pressed Start";
+    wait for 5 us;  -- Normally we'd wait longer
+    SWITCH_MOM_CONS_START <= '0';
+    wait for 5 us; -- Normally this would take longer
+    report "Start released";  
+
 	if MC_UNIT_4_SELECT_TO_I_O = '1' then
 		wait until MC_UNIT_4_SELECT_TO_I_O = '0' for 10 ms;
-	wait for 20 ns;
+		wait for 20 ns;
 	end if;
    
 	assert MC_UNIT_4_SELECT_TO_I_O = '0' report
-      "Write Test 1, Didn't wait long enough for Write Call" severity failure;
+      "Punch Test 1, Unit 4 Select did not occur as expected" severity failure;
 
+	-- The first test should be successful
+
+	if MC_CORRECT_TRANS_TO_BUFFER = '1' then
+		wait until MC_CORRECT_TRANS_TO_BUFFER = '0' for 2 ms;
+		wait for 20 ns;
+	end if;
+
+	assert MC_CORRECT_TRANS_TO_BUFFER = '0' report
+		"Punch Test 1, MC_CORRECT_TRANS_TO_BUFFER did not occur as expected." severity failure;
+
+	--	Expected punch data
+
+	for i in 0 to READER_BUFFER_LENGTH - 1 loop
+		v := std_logic_vector(to_unsigned(i,v'length));
+		v(HDL_WM_BIT) := '0';
+		v(HDL_C_BIT) := calculate_odd_parity(v(6 downto 0));
+		punchTestBuffer(i) <= v;
+	end loop;
+	wait for 10 ns;
 
 	getExpectedPunchOrPrintRequest(testName => "Punch Test 1 - Normal Punch Test", 
 		deviceCode => PUNCH_CH1_DEVICE_NUMBER, stackerNumber => 4, formsCharacter => "00000000",
