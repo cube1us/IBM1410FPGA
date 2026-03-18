@@ -197,11 +197,13 @@ signal IBM1410_1414_INPUT_FIFO_WRITE_DATA:     std_logic_vector(7 downto 0) := "
 
 -- Test bench signals
 
+-- NOTE: Test buffers have an extra character so we can test wrong length records, so no -1 on length.
+
 constant READER_BUFFER_LENGTH:   integer := 80;
-type READER_BUFFER_TYPE is array (READER_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
+type READER_BUFFER_TYPE is array (READER_BUFFER_LENGTH downto 0) of std_logic_vector(7 downto 0);
 
 constant PRINTER_BUFFER_LENGTH:  integer := 132;
-type PRINTER_BUFFER_TYPE is array (PRINTER_BUFFER_LENGTH-1 downto 0) of std_logic_vector(7 downto 0);
+type PRINTER_BUFFER_TYPE is array (PRINTER_BUFFER_LENGTH downto 0) of std_logic_vector(7 downto 0);
 
 signal readerTestBuffer:  READER_BUFFER_TYPE := (others => X"80");
 signal punchTestBuffer:   READER_BUFFER_TYPE := (others => X"80");
@@ -398,7 +400,10 @@ procedure sendReaderToBuffer(
     -- Give it 80 columns of data
 
     for i in 0 to 79 loop
-        IBM1410_1414_INPUT_FIFO_WRITE_DATA <= readerTestBuffer(i);        
+        --  Send a reader character.  Put the parity bit where the WM bit would normally be.
+        --  The high bit must be 0 or it would confuse the FPGA input stream.
+        IBM1410_1414_INPUT_FIFO_WRITE_DATA <= "0" & readerTestBuffer(i)(7) &
+            readerTestBuffer(i)(5 downto 0);
         wait for 100 ns;
         IBM1410_1414_INPUT_FIFO_WRITE_ENABLE <= '1';
         wait for 10 ns;
@@ -520,8 +525,10 @@ procedure getReaderBufferToChannel(
         wait until MC_BUFFER_STROBE = '0' for 10 us; 
         assert MC_BUFFER_STROBE = '0'
             report testName & " Buffer Strobe not asserted" severity failure;
-        assert MC_I_O_SYNC_TO_CPU_BUS = not readerTestBuffer(i) 
-            report testName & " Data mismatched" severity failure;
+        assert MC_I_O_SYNC_TO_CPU_BUS = not (readerTestBuffer(i)(7) & "1" &
+                readerTestBuffer(i)(5 downto 0))
+            report testName & " Read Buffer to Channel Data mismatched at column " &
+                integer'image(i) severity failure;
         wait until MC_BUFFER_STROBE = '1' for 1 us;
         assert MC_BUFFER_STROBE = '1' 
             report testName & " Buffer Strobe not de-asserted." severity failure;
@@ -741,9 +748,11 @@ procedure sendChannelToPunchOrPrintBuffer (
     -- First select unit 4 at I4, but NOT output mode or ready to buffer.
 
     if punchTest = '1' then
-        MC_UNIT_4_SELECT_TO_I_O <= '0'; -- For this procedure, it is always the punch
+        MC_UNIT_4_SELECT_TO_I_O <= '0'; -- Select the punch
+        report testName & " Sending punch request from channel to 1414.";
     elsif printTest = '1' then
-        MC_UNIT_2_SELECT_TO_I_O <= '0'; -- For this procedure, it is always the punch
+        MC_UNIT_2_SELECT_TO_I_O <= '0'; -- Select the printer
+        report testName & " Sending print request from channel to 1414";
     end if;
     wait for 100 ns;
 
@@ -758,7 +767,7 @@ procedure sendChannelToPunchOrPrintBuffer (
     if punchTest = '1' then
         case stackerNumber is
             when 0 => MC_CPU_TO_I_O_SYNC_BUS <= not "10001010";
-            when 4 => MC_CPU_TO_I_O_SYNC_BUS <= not "00000100";
+            when 4 => MC_CPU_TO_I_O_SYNC_BUS <= not "01000100";
             when 8 => MC_CPU_TO_I_O_SYNC_BUS <= not "00001000";
             when others => MC_CPU_TO_I_O_SYNC_BUS <= "11111111";
         end case;
@@ -832,19 +841,28 @@ procedure sendChannelToPunchOrPrintBuffer (
     -- 132 characters for printer data, but to test WLR conditions, we may send more or less than that.
 
     for i in 0 to charsToTransfer - 1 loop
+
+        --  Wait for the channel strobe from the 1414
         if MC_BUFFER_STROBE = '1' then
-            wait until MC_BUFFER_STROBE = '0' or MC_BUFFER_END_OF_TRANSFER = '0' for 10 us;
+            wait until MC_BUFFER_STROBE = '0' for 2 us;
         end if;
-        exit when MC_BUFFER_END_OF_TRANSFER = '0';
         assert MC_BUFFER_STROBE = '0'
             report testName & " Punch or Print Buffer Strobe not asserted" severity failure;
+
+        -- Check for end of transfer coming from the 1414 (Should be almost immediate when it occures.)
+
+        if MC_BUFFER_END_OF_TRANSFER = '1' then
+            wait until MC_BUFFER_END_OF_TRANSFER = '0' for 50 ns;
+        end if;
+        exit when MC_BUFFER_END_OF_TRANSFER = '0';
+
         -- Make the next character available
-        
         if punchTest = '1' then
-            MC_CPU_TO_I_O_SYNC_BUS <= not punchTestBuffer(i);
+            MC_CPU_TO_I_O_SYNC_BUS <= not (punchTestBuffer(i)(7) & "1" & punchTestBuffer(i)(5 downto 0));
         end if;
         if printTest = '1' then
-            MC_CPU_TO_I_O_SYNC_BUS <= not printTestBuffer(i+1);
+            MC_CPU_TO_I_O_SYNC_BUS <= not (printTestBuffer(i+1)(7) & "1" & 
+            printTestBuffer(i+1)(5 downto 0));
         end if;
         wait for 100 ns;
 
@@ -928,7 +946,7 @@ procedure getExpectedPunchOrPrintRequest(
 
     if (deviceCode  = PRINTER_CH1_DEVICE_NUMBER and stackerNumber /= 0) or
         (deviceCode = PUNCH_CH1_DEVICE_NUMBER and formsCharacter /= "00000000") then
-        report testName & " Invalide combination of device number, stacker and forms character" severity failure;
+        report testName & " Invalid combination of device number, stacker and forms character" severity failure;
     end if;
 
     -- Wait for initial character request -- device code.
@@ -1010,10 +1028,12 @@ procedure getExpectedPunchOrPrintRequest(
         assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
             report testName & " UDP Flush Flag set when not expected." severity failure;
         if deviceCode = PUNCH_CH1_DEVICE_NUMBER then
-            assert unitDataSentToPC = punchTestBuffer(i)
+            assert (unitDataSentToPC(6) = punchTestBuffer(i)(7)) and
+                   (unitDataSentToPC(5 downto 0) = punchTestBuffer(i)(5 downto 0))
                 report testName & " Punch Data mismatch at column " & integer'image(i+1) severity failure;
         elsif deviceCode = PRINTER_CH1_DEVICE_NUMBER and formsCharacter = "00000000" then
-            assert unitDataSentToPC = printTestBuffer(i)
+                assert (unitDataSentToPC(6) = printTestBuffer(i)(7)) and
+                   (unitDataSentToPC(5 downto 0) = printTestBuffer(i)(5 downto 0))
                 report testName & " Print Data mismatch at column " & integer'image(i+1) severity failure;
         elsif deviceCode = PRINTER_CH1_DEVICE_NUMBER and formsCharacter /= "00000000" then
             assert unitDataSentToPC = formsCharacter

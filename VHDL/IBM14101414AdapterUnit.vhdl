@@ -834,7 +834,10 @@ unitCh1ReaderDataProcess: process (
             if UNIT_INPUT_FIFO_READ_DATA = "00000000" then
                unitCh1ReaderState <= unit_reader_done;
             elsif READER_CH1_BUFFER_INPUT_POSITION < READER_BUFFER_LENGTH then
-               READER_CH1_BUFFER(READER_CH1_BUFFER_INPUT_POSITION) <= UNIT_INPUT_FIFO_READ_DATA;
+               -- The incoming stream has the parity where the WM bit would normally be.
+               -- Set them appropriately, with a 0 WM bit.
+               READER_CH1_BUFFER(READER_CH1_BUFFER_INPUT_POSITION) <= UNIT_INPUT_FIFO_READ_DATA(6) &
+                  "0" & UNIT_INPUT_FIFO_READ_DATA(5 downto 0);
                READER_CH1_BUFFER_INPUT_POSITION <= READER_CH1_BUFFER_INPUT_POSITION + 1;
                unitCh1ReaderState <= unit_reader_waitForChar;
             end if;
@@ -940,7 +943,8 @@ unitReaderCh1TransferOrStackProcess: process(
          READER_CH1_FEED_START <= '0';   -- The reader feed should have started now. 
          if unitReaderDelayCounter = CHANNEL_CYCLE_LENGTH - 1 then
             -- Put the data on the bus one tick early . . .
-            MC_I_O_SYNC_TO_CPU_BUS <= not READER_CH1_BUFFER(READER_CH1_BUFFER_SCAN_POSITION);
+            MC_I_O_SYNC_TO_CPU_BUS <= not (READER_CH1_BUFFER(READER_CH1_BUFFER_SCAN_POSITION)(7) &
+               "1" & READER_CH1_BUFFER(READER_CH1_BUFFER_SCAN_POSITION)(5 downto 0));
          end if;
          if unitReaderDelayCounter = CHANNEL_CYCLE_LENGTH then
             -- Now we are ready to strobe the 1411's channel
@@ -1268,7 +1272,7 @@ unitCh1PunchFeedProcess: process (
                   PUNCH_CH1_REQUEST_DATA <= "100000000";  -- 0x00 byte with flush bit set at end
                else
                   -- Prepare the punch character with a 0 for the flush bit.
-                  -- We also need to move the parity bit from bit 7 down to where the WM bit would be, \
+                  -- We also need to move the parity bit from bit 7 down to where the WM bit would be,
                   -- because we can't set the high bit inside of a message.
                   PUNCH_CH1_REQUEST_DATA <= "00" & PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_SCAN_POSITION)(7) &
                      PUNCH_CH1_BUFFER(PUNCH_CH1_BUFFER_SCAN_POSITION)(5 downto 0);
@@ -1332,26 +1336,27 @@ unitCh1PrintTransferProcess: process (
             -- Wait for a print request from the CPU.
             if UNIT_SELECT_UNIT_2 = '1' and PRINTER_CH1_BUFFER_SENDING = '0' and 
                PRINTER_CH1_CARRIAGE_SENDING = '0' and MC_READY_TO_BUFFER = '0' then
+               -- Unlike the punch, there is no "extra" strobe here to save the stacker.
                unitCh1PrinterTransferState <= unit_printer_transfer_getchar;
             else
                unitCh1PrinterTransferState <= unit_printer_transfer_idle;
             end if;
-
-         -- Unlike the punch, there is no "extra" strobe here to save anything.
 
          when unit_printer_transfer_getchar =>
             if MC_READY_TO_BUFFER = '1' then
                unitCh1PrinterTransferState <= unit_printer_transfer_reset;
             else
                PRINTER_CH1_BUFFER(PRINTER_CH1_BUFFER_FILL_POSITION) <=
-                  not MC_CPU_TO_I_O_SYNC_BUS;
-               if PRINTER_CH1_BUFFER_FILL_POSITION = PRINTER_BUFFER_LENGTH - 1 then
-                  PRINTER_CH1_BUFFER_FILL_POSITION <= 0;
-                  unitCh1PrinterTransferState <= unit_printer_transfer_end_of_transfer;
-               else
-                  PRINTER_CH1_BUFFER_FILL_POSITION <= PRINTER_CH1_BUFFER_FILL_POSITION + 1;
-                  unitCh1PrinterTransferState <= unit_printer_transfer_strobe_channel;
-               end if;
+                  (not MC_CPU_TO_I_O_SYNC_BUS) and "10111111";
+               --if PRINTER_CH1_BUFFER_FILL_POSITION = PRINTER_BUFFER_LENGTH - 1 then
+               --   PRINTER_CH1_BUFFER_FILL_POSITION <= 0;
+               --   unitCh1PrinterTransferState <= unit_printer_transfer_end_of_transfer;
+               -- else
+               --   PRINTER_CH1_BUFFER_FILL_POSITION <= PRINTER_CH1_BUFFER_FILL_POSITION + 1;
+               --    unitCh1PrinterTransferState <= unit_printer_transfer_strobe_channel;
+               -- end if;
+               PRINTER_CH1_BUFFER_FILL_POSITION <= PRINTER_CH1_BUFFER_FILL_POSITION + 1;
+               unitCh1PrinterTransferState <= unit_printer_transfer_strobe_channel;
             end if;
 
          when unit_printer_transfer_strobe_channel =>
@@ -1368,7 +1373,13 @@ unitCh1PrintTransferProcess: process (
             elsif unitPrinterStrobeCounter = CHANNEL_STROBE_LENGTH then
                unitPrinterStrobeCounter <= 0;
                unitPrinterDelayCounter <= 0;
-               unitCh1PrinterTransferState <= unit_printer_transfer_wait_channel;
+               -- unitCh1PrinterTransferState <= unit_printer_transfer_wait_channel;
+               if PRINTER_CH1_BUFFER_FILL_POSITION = PRINTER_BUFFER_LENGTH then
+                  PRINTER_CH1_BUFFER_FILL_POSITION <= 0;
+                  unitCh1PrinterTransferState <= unit_printer_transfer_end_of_transfer;
+               else
+                  unitCh1PrinterTransferState <= unit_printer_transfer_wait_channel;
+               end if;
             else
                unitPrinterStrobeCounter <= unitPrinterStrobeCounter + 1;
                unitCh1PrinterTransferState <= unit_printer_transfer_strobe_channel;
@@ -1376,7 +1387,6 @@ unitCh1PrintTransferProcess: process (
 
          when unit_printer_transfer_wait_channel =>
             -- Give the channel time to produce the next character
-            -- (I wonder if there is a signal that can be checked?)
             if MC_READY_TO_BUFFER = '1' then
                unitCh1PrinterTransferState <= unit_printer_transfer_reset;
             elsif unitPrinterDelayCounter = CHANNEL_CYCLE_LENGTH then
@@ -1537,7 +1547,11 @@ unitCh1PrintRequestProcess: process (
                elsif PRINTER_CH1_BUFFER_SCAN_POSITION = PRINTER_BUFFER_LENGTH then
                      PRINTER_CH1_REQUEST_DATA <= "100000000";  -- 0x00 byte with flush bit set at end
                else
-                     PRINTER_CH1_REQUEST_DATA <= "0" & PRINTER_CH1_BUFFER(PRINTER_CH1_BUFFER_SCAN_POSITION);
+                  -- Prepare the print character with a 0 for the flush bit.
+                  -- We also need to move the parity bit from bit 7 down to where the WM bit would be, 
+                  -- because we can't set the high bit inside of a message.
+                  PRINTER_CH1_REQUEST_DATA <= "00" & PRINTER_CH1_BUFFER(PRINTER_CH1_BUFFER_SCAN_POSITION)(7) &
+                  PRINTER_CH1_BUFFER(PRINTER_CH1_BUFFER_SCAN_POSITION)(5 downto 0);
                end if;
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_send_column;
             end if;
