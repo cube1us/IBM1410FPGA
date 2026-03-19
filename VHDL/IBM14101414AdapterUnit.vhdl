@@ -834,8 +834,9 @@ unitCh1ReaderDataProcess: process (
             if UNIT_INPUT_FIFO_READ_DATA = "00000000" then
                unitCh1ReaderState <= unit_reader_done;
             elsif READER_CH1_BUFFER_INPUT_POSITION < READER_BUFFER_LENGTH then
-               -- The incoming stream has the parity where the WM bit would normally be.
-               -- Set them appropriately, with a 0 WM bit.
+               -- The incoming stream has the parity where the WM bit would normally be, because
+               -- the high bit is used for identifying when the device in the message from the PC
+               -- changes, so set them appropriately, with a 0 WM bit.
                READER_CH1_BUFFER(READER_CH1_BUFFER_INPUT_POSITION) <= UNIT_INPUT_FIFO_READ_DATA(6) &
                   "0" & UNIT_INPUT_FIFO_READ_DATA(5 downto 0);
                READER_CH1_BUFFER_INPUT_POSITION <= READER_CH1_BUFFER_INPUT_POSITION + 1;
