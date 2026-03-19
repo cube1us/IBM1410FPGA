@@ -4808,6 +4808,58 @@ if LOCAL_PUNCH_TEST = '1' then
 
 	report "Punch Test 1 Completed.";
 
+	-- Next, we should expect a couple of Wrong Length Record results
+
+	-- The first one is short, so we should see PS_E_CH_INT_END_OF TRANSFER 
+	-- followed by MS_E_CH_EXT_END_OF_TRANSFER.
+
+	-- First make sure the previous test is done, then wait for this one to start.
+
+	wait until MC_UNIT_4_SELECT_TO_I_O = '1' for 150 us;
+	report "Punch test 2 - Short WLR - Punch deslected as expected";
+	wait until MC_UNIT_4_SELECT_TO_I_O = '0' for 150 us;
+	report "Punch test 2 - Short WLR - Punch selected as expected";
+
+	wait until PS_E_CH_INT_END_OF_TRANSFER = '1' for 2 ms;
+	assert PS_E_CH_INT_END_OF_TRANSFER = '1'
+		report "Punch Test 2 - Short WLR - No internal end of transfer" severity failure;
+
+	if MS_E_CH_EXT_END_OF_TRANSFER = '1' then
+		wait until MS_E_CH_EXT_END_OF_TRANSFER = '0' for 50 us;
+	end if;
+	assert MS_E_CH_EXT_END_OF_TRANSFER = '0'  
+		report "Punch Test 2 - Short WLR - No external end of transfer" severity failure;
+
+	assert MC_CORRECT_TRANS_TO_BUFFER = '1'
+		report "Punch Test 2 - Short WLR - Correct Transfer asserted" severity failure;	
+
+	-- The second one is long, so we should see MS_E_CH_EXT_END_OF_TRANSFER 
+	-- followed by PS_E_CH_INT_END_OF TRANSFER.
+
+	-- First make sure the previous test is done, then wait for this one to start.
+
+	wait until MC_UNIT_4_SELECT_TO_I_O = '1' for 150 us;
+	report "Punch test 3 - Long WLR - Punch deslected as expected";
+	wait until MC_UNIT_4_SELECT_TO_I_O = '0' for 150 us;
+	report "Punch test 3 - Long WLR - Punch selected as expected";
+
+	wait until MS_E_CH_EXT_END_OF_TRANSFER = '0' for 2 ms;
+	assert MS_E_CH_EXT_END_OF_TRANSFER = '0'  
+		report "Punch Test 3 - Long WLR - No external end of transfer" severity failure;
+
+	if PS_E_CH_INT_END_OF_TRANSFER = '0' then
+		wait until PS_E_CH_INT_END_OF_TRANSFER = '1' for 50 us;
+	end if;
+	assert PS_E_CH_INT_END_OF_TRANSFER = '1'
+		report "Punch Test 3 - Long WLR - No internal end of transfer" severity failure;
+
+	assert MC_CORRECT_TRANS_TO_BUFFER = '1'
+		report "Punch Test 3 - Long WLR - Correct Transfer asserted" severity failure;	
+
+
+
+
+
 end if;
 
 -- ===============================================================================================
