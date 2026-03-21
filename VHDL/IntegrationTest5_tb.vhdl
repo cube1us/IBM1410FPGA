@@ -2566,6 +2566,7 @@ procedure send1414StatusUpdate (
     
     end send1414StatusUpdate;
    
+-- Procedure to get a check a punch feed or print request from the serial data
 
 procedure getExpectedPunchOrPrintRequest(    
         constant testname: String;
@@ -2710,6 +2711,121 @@ procedure getExpectedPunchOrPrintRequest(
 
     end getExpectedPunchOrPrintRequest;
 
+-- Procedure to send a card image to the 1414 as though we are the PC Support Program
+
+procedure sendReaderToBuffer(
+    testName: in String; 
+	deviceNumber: in integer;
+	signal fifoWriteData: out std_logic_vector(7 downto 0);
+	signal fifoWriteEnable: out std_logic) is
+
+    begin
+
+    report testName & " Sending Card Reader data to 1414";
+    
+    -- Send Device 1 (reader) to the FPGA
+    fifoWriteData <= std_logic_vector(
+        to_unsigned(deviceNumber, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length ));   
+    wait for 100 ns;
+    fifoWriteEnable <= '1';
+    wait for 10 ns;
+    fifoWriteEnable <= '0';
+    wait for 100 ns;
+   
+    -- Tell the 1414 to expect data (as opposed to status)
+    fifoWriteData <= std_logic_vector(
+        to_unsigned(UNIT_RECEIVE_DATA_OPERATION, IBM1410_1414_INPUT_FIFO_WRITE_DATA'length )); -- Receive Data
+    wait for 100 ns;
+    fifoWriteEnable <= '1';
+    wait for 10 ns;
+    fifoWriteEnable <= '0';
+    wait for 100 ns;
+
+    -- Give it 80 columns of data
+
+    for i in 0 to 79 loop
+        --  Send a reader character.  Put the parity bit where the WM bit would normally be.
+        --  The high bit must be 0 or it would confuse the FPGA input stream.
+        fifoWriteData <= "0" & readerTestBuffer(i)(7) &
+            readerTestBuffer(i)(5 downto 0);
+        wait for 100 ns;
+        fifoWriteEnable <= '1';
+        wait for 10 ns;
+        fifoWriteEnable <= '0';
+        wait for 100 ns;
+    end loop;
+    
+    -- Send the end of card indicator.
+    
+    fifoWriteData <= "00000000";
+    wait for 100 ns;
+    fifoWriteEnable <= '1';
+    wait for 10 ns;
+    fifoWriteEnable <= '0';
+    wait for 100 ns;
+
+    end sendReaderToBuffer;
+
+-- Procedure to wait for an expected read request going out from the 1414 to the
+-- PC support program, and digest it.
+
+procedure getExpectedReaderRequest(
+    testName: in String;
+    deviceCode: in integer;
+    stackerNumber: in integer;
+	signal grantSignal: out std_logic;
+	signal unitDataSentToPC: inout std_logic_vector(7 downto 0)
+    )  is
+
+    begin
+
+    -- The first byte is the reader device code: 00000001
+
+    report testName & " Looking for expected Card Read Feed request from 1414";
+    wait until IBM1410_1414_UART_REQUEST = '1' for 100 ns;   -- Request should already be there
+    assert IBM1410_1414_UART_REQUEST = '1' report 
+       testName & " No UART request for expected reader start device code." severity failure;
+    wait for 10 ns;
+    grantSignal <= '1';  -- Grant the request.  Data should now appear
+    wait for 10 ns;
+    unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+    grantSignal <= '0'; -- Remove the grant
+    wait for 10 ns;
+    assert IBM1410_UART_XMT_UDP_FLUSH = '0' 
+       report testName & " UDP Flush Flag set when not expected." severity failure;
+    assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode, unitDataSentToPC'length ))
+       report testName & " Expected Device number not received." severity failure;
+    
+    -- The second byte is the operation.  For a normal read, that is 11 (reader
+    -- device code & stacker).  The flush flag should also be set.
+
+    wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;   -- Request should already be there
+    assert IBM1410_1414_UART_REQUEST = '1' report 
+       testName & " No UART request for expected reader operation code." severity failure;
+    wait for 10 ns;
+    grantSignal <= '1';  -- Grant the request.  Data should now appear
+    wait for 10 ns;
+    unitDataSentToPC <= IBM1410_1414_XMT_UART_DATA;
+    grantSignal <= '0'; -- Remove the grant
+    wait for 10 ns;
+    assert IBM1410_UART_XMT_UDP_FLUSH = '1' 
+       report testName & " UDP Flush Flag NOT set when not expected." severity failure;
+
+    report testName & " Debug: unitDataSentToPC is " & to_bstring(to_bitvector(unitDataSentToPC)) &
+        ", deviceCode is " & integer'image(deviceCode) & ", stackerNumber is " & integer'image(stackerNumber);
+
+    assert unitDataSentToPC = std_logic_vector(to_unsigned(deviceCode,4)) &
+       std_logic_vector(to_unsigned(stackerNumber,4))
+       report testName & " Expected Reader Support operation code not received." severity failure;
+
+    -- There should NOT be an immediate request to send more data
+
+    wait until IBM1410_1414_UART_REQUEST = '1' for 1 us;
+    assert IBM1410_1414_UART_REQUEST = '0' report
+       testName & " Unexpected request to send more UART data on read feed message to PC" 
+       severity failure;
+
+    end getExpectedReaderRequest;
 
 -- Function to calculate parity bit to use for odd parity
 
@@ -4088,7 +4204,7 @@ uut_process: process
    LOCAL_E_CH_TAPE_TEST <= '0'; 
    LOCAL_F_CH_TAPE_TEST <= '0';
    LOCAL_REWIND_TEST	<= '0';
-LOCAL_READER_TEST	<= '0';
+   LOCAL_READER_TEST	<= '1';
    LOCAL_PUNCH_TEST		<= '1';
    LOCAL_PRINTER_TEST	<= '1';
     
@@ -4747,7 +4863,9 @@ if LOCAL_REWIND_TEST = '1' then
    
    report "Unit Control Test RWD3: Successful end of rewind test.";
 
-end if; -- Unit Control Test  LOCAL_ERWIND_TEST
+end if; -- Unit Control Test  LOCAL_REWIND_TEST
+
+-- Punch tests
 
 if LOCAL_PUNCH_TEST = '1' then
 
@@ -4856,6 +4974,8 @@ if LOCAL_PUNCH_TEST = '1' then
 		report "Punch Test 3 - Long WLR - Correct Transfer asserted" severity failure;	
 
 end if;
+
+-- Printer and carriage control tests
 
 if LOCAL_PRINTER_TEST = '1' then
 
@@ -4980,8 +5100,71 @@ if LOCAL_PRINTER_TEST = '1' then
 
 	report "Print Test 4 - Carriage Control Test Completed.";
 
-	
 end if;
+
+-- Reader tests
+
+if LOCAL_READER_TEST = '1' then
+
+	--	Before this was enabled, checked waveforms in simulation to verify not ready worked.
+
+	--	Initialize reader test buffer.  We also initialize the punch test buffer, as we will use it
+	--  to read back what the reader sent to the CPU eventually
+
+	for i in 0 to READER_BUFFER_LENGTH - 1 loop
+		v := std_logic_vector(to_unsigned(i,v'length));
+		v(HDL_WM_BIT) := '0';
+		v(HDL_C_BIT) := calculate_odd_parity(v(5 downto 0));
+		readerTestBuffer(i) <= v;
+	end loop;
+	wait for 10 ns;
+
+	--  Send a card buffer to the reader
+
+    sendReaderToBuffer(testName => "Reader Test 0 - sendReaderToBuffer",
+        deviceNumber => READER_CH1_DEVICE_NUMBER,
+		fifoWriteData => IBM1410_1414_INPUT_FIFO_WRITE_DATA,
+		fifoWriteEnable => IBM1410_1414_INPUT_FIFO_WRITE_ENABLE);
+	wait for 1 us;
+
+	--	Tell the 1414 that the reader is ready.  This should trigger the read request
+
+	send1414StatusUpdate(testName => "Reader Test 1 Status Update - READY", 
+		statusDevice => READER_CH1_DEVICE_NUMBER, statusVector => "00000001",
+		fifoWriteEnable => IBM1410_1414_INPUT_FIFO_WRITE_ENABLE,
+		fifoWriteData => IBM1410_1414_INPUT_FIFO_WRITE_DATA );	
+
+	if MC_UNIT_1_SELECT_TO_I_O = '1' then
+		wait until MC_UNIT_1_SELECT_TO_I_O = '0' for 10 ms;
+		wait for 20 ns;
+	end if;
+   
+	assert MC_UNIT_1_SELECT_TO_I_O = '0' report
+       "Reader Test 1, Unit 1 Select did not occur as expected" severity failure;
+
+	-- The first test should be successful, so maybe should just tset for correct transfer here
+	-- (The reset select buffer latches is used for WLR, no transfer, etc.)
+
+	if MC_RESET_SELECT_BUFFER_LATCHES = '1' and MC_CORRECT_TRANS_TO_BUFFER = '1' then
+		wait until MC_RESET_SELECT_BUFFER_LATCHES = '0' or MC_CORRECT_TRANS_TO_BUFFER = '0' for 2 ms;
+		wait for 20 ns;
+	end if;
+
+	assert (MC_RESET_SELECT_BUFFER_LATCHES = '0' or MC_CORRECT_TRANS_TO_BUFFER = '0') report
+		"Reader Test 1, Correct Transfer or Reset Latches did not occur as expected." severity failure;
+
+	--	Now we should see a request to feed the next card (though the CPU won't read it yet)
+	
+	getExpectedReaderRequest(testName => "Reader Test 1 - getExpectedReaderRequest",
+		deviceCode => READER_CH1_DEVICE_NUMBER,
+		stackerNumber => 1,
+		grantSignal => IBM1410_1414_UART_GRANT,
+		unitDataSentToPC => unitDataSentToPC);
+
+	report "Successful end of reader tests.";
+
+end if;
+
 -- ===============================================================================================
       
    wait for 8 ms;  -- Give it a chance to halt somewhere.

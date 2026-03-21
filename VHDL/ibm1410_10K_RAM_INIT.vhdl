@@ -515,6 +515,12 @@ architecture behavioral of IBM1410_10K_RAM_INIT is
 -- _._.
    00240 => X"FB", 00241 => X"FB",
 
+-- Address set to 00250 -- unexpected card reader condition result.
+   00250 => X"FB", 00251 => X"FB",
+
+-- Address set to 00260 -- unexpected card reader no transfer result.
+   00260 => X"FB", 00261 => X"FB",
+
 -- Print test, Integration Test 5
 
 --  0000000000111111111122222222223333333333444444444455555555556666666666777777777788888888889999999999
@@ -556,7 +562,35 @@ architecture behavioral of IBM1410_10K_RAM_INIT is
    00412 => X"02", 00413 => X"8A", 00414 => X"80", 00415 => X"76",
    00416 => X"94", 00417 => X"E9", 00418 => X"8A", 00419 => X"8A",
    00420 => X"04", 00421 => X"01", 00422 => X"85", 00423 => X"83",
-   00424 => X"FB", 00425 => X"FB",
+   00424 => X"E9", 00425 => X"8A", 00426 => X"8A", 00427 => X"85",
+   00428 => X"8A", 00429 => X"01", 00430 => X"BF", 00431 => X"61",
+   00432 => X"8A", 00433 => X"8A", 00434 => X"85", 00435 => X"8A",
+   00436 => X"01", 00437 => X"80",
+   00438 => X"FB", 00439 => X"FB",
+
+--  Reader test, Integration Test 5, starts at 500
+--  (x == alternate blank, h = . == halt)
+
+--  0000000000111111111122222222223333333333444444444455555555556666666666777777777788888888889999999999
+--  0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789
+--  AM%1105000RR005013R002508R00260xR00539{hh (<for now>)
+
+--  11111111111111111111222222
+--  01234567890123456789012345
+--  
+
+   00500 => X"31", 00501 => X"64", 00502 => X"1C", 00503 => X"01",
+   00504 => X"01", 00505 => X"8A", 00506 => X"85", 00507 => X"8A",
+   00508 => X"8A", 00509 => X"8A", 00510 => X"29", 00511 => X"E9",
+   00512 => X"8A", 00513 => X"8A", 00514 => X"85", 00515 => X"8A",
+   00516 => X"01", 00517 => X"83", 00518 => X"E9", 00519 => X"8A",
+   00520 => X"8A", 00521 => X"02", 00522 => X"85", 00523 => X"8A",
+   00524 => X"08", 00525 => X"E9", 00526 => X"8A", 00527 => X"8A",
+   00528 => X"02", 00529 => X"86", 00530 => X"8A", 00531 => X"10",
+   00532 => X"E9", 00533 => X"8A", 00534 => X"8A", 00535 => X"85",
+   00536 => X"83", 00537 => X"89", 00538 => X"BF", 00539 => X"FB",
+   00540 => X"FB",
+
 
 -- Data for punch instructions, starts 1 char early to allow us to do a long WLR
      
@@ -582,7 +616,7 @@ architecture behavioral of IBM1410_10K_RAM_INIT is
    02075 => X"0B", 02076 => X"8C", 02077 => X"0D", 02078 => X"0E",
    02079 => X"8F", 
 
-   02080 => X"7F",  -- GMWM
+   02080 => X"7F",  -- GMWM for punch test data
 
 -- Data for print instructions, starts 1 char early to allow us to do a long WLR
      
@@ -621,7 +655,9 @@ architecture behavioral of IBM1410_10K_RAM_INIT is
    03127 => X"BF", 03128 => X"80", 03129 => X"01", 03130 => X"02",
    03131 => X"83",
 
-   03132 => X"7F",  -- GMWM
+   03132 => X"7F",  -- GMWM for print test data
+
+   05080 => X"7F",  -- GMWM for reader test buffer
 
 
      -- For now, leave high memory uninitialized.

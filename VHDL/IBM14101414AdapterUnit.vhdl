@@ -845,7 +845,7 @@ unitCh1ReaderDataProcess: process (
          else
             -- This state is reached with FIFO_READ_ENABLE already a '1'
             -- If we are still in this state, then we already told the FIFO we are
-            -- ready, and as long as the FIFO isn't empty, we should NOT asswert
+            -- ready, and as long as the FIFO isn't empty, we should NOT assert
             -- FIFO_READ_ENABLE, or we will get two characters at once.            
             if(UNIT_INPUT_FIFO_EMPTY = '0') then
                FIFO_READ_ENABLE_READER_DATA <= '0';
@@ -982,7 +982,9 @@ unitReaderCh1TransferOrStackProcess: process(
 
       when unit_reader_transfer_end_of_transfer =>
          -- Transfer should be done, now.
-         if unitReaderDelayCounter = CHANNEL_CYCLE_LENGTH - 1 then            
+         if MC_CORRECT_TRANS_TO_BUFFER = '0' or MC_RESET_SELECT_BUFFER_LATCHES = '0' then
+            unitCh1ReaderTransferState <= unit_reader_transfer_done;
+         elsif unitReaderDelayCounter = CHANNEL_CYCLE_LENGTH - 1 then            
             unitCh1ReaderTransferState <= unit_reader_transfer_done;
          else
             unitReaderDelayCounter <= unitReaderDelayCounter + 1;
@@ -998,7 +1000,8 @@ unitReaderCh1TransferOrStackProcess: process(
 
       when unit_reader_transfer_done =>
          READER_CH1_FEED_START <= '0';      -- Feed process should have already started
-         if UNIT_SELECT_UNIT_1 = '1' then   -- Wait for CPU to deselect us
+         -- Wait for CPU to deselect us
+         if UNIT_SELECT_UNIT_1 = '1' and MC_READY_TO_BUFFER = '0' then   
             unitCh1ReaderTransferState <= unit_reader_transfer_done;
          else
             -- Clean up / reset signals, and go idle
@@ -1646,11 +1649,11 @@ UNIT_SELECT_UNIT_2 <= (not MC_UNIT_2_SELECT_TO_I_O) and
 UNIT_CH1_STACKER_SELECTED <=
    0 when not MC_CPU_TO_I_O_SYNC_BUS = "10001010" else
    0 when not MC_CPU_TO_I_O_SYNC_BUS = "01000000" else
-   1 when not MC_CPU_TO_I_O_SYNC_BUS = "00000001" else
-   2 when not MC_CPU_TO_I_O_SYNC_BUS = "00000010" else
+   1 when not MC_CPU_TO_I_O_SYNC_BUS = "01000001" else
+   2 when not MC_CPU_TO_I_O_SYNC_BUS = "01000010" else
    4 when not MC_CPU_TO_I_O_SYNC_BUS = "01000100" else
    8 when not MC_CPU_TO_I_O_SYNC_BUS = "01001000" else
-   9 when not MC_CPU_TO_I_O_SYNC_BUS = "10001001" else
+   9 when not MC_CPU_TO_I_O_SYNC_BUS = "00001001" else
    0;
 
 UNIT_OUTPUT_FIFO_WRITE_ENABLE <= '1' when  -- Eventually will include printer stuff
