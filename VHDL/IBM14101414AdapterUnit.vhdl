@@ -1338,7 +1338,10 @@ unitCh1PrintTransferProcess: process (
             if UNIT_SELECT_UNIT_2 = '1' and PRINTER_CH1_BUFFER_SENDING = '0' and 
                PRINTER_CH1_CARRIAGE_SENDING = '0' and MC_READY_TO_BUFFER = '0' then
                -- Unlike the punch, there is no "extra" strobe here to save the stacker.
-               unitCh1PrinterTransferState <= unit_printer_transfer_getchar;
+               -- So, also, we need to wait a bit for the first character to appear as well.
+               -- unitCh1PrinterTransferState <= unit_printer_transfer_getchar;
+               unitPrinterDelayCounter <= 0;
+               unitCh1PrinterTransferState <= unit_printer_transfer_wait_channel;
             else
                unitCh1PrinterTransferState <= unit_printer_transfer_idle;
             end if;

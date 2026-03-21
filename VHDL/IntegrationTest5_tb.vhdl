@@ -4088,10 +4088,9 @@ uut_process: process
    LOCAL_E_CH_TAPE_TEST <= '0'; 
    LOCAL_F_CH_TAPE_TEST <= '0';
    LOCAL_REWIND_TEST	<= '0';
-
-   LOCAL_READER_TEST	<= '0';
+LOCAL_READER_TEST	<= '0';
    LOCAL_PUNCH_TEST		<= '1';
-   LOCAL_PRINTER_TEST	<= '0';
+   LOCAL_PRINTER_TEST	<= '1';
     
    wait for 10 ns;
 
@@ -4856,15 +4855,136 @@ if LOCAL_PUNCH_TEST = '1' then
 	assert MC_CORRECT_TRANS_TO_BUFFER = '1'
 		report "Punch Test 3 - Long WLR - Correct Transfer asserted" severity failure;	
 
-
-
-
-
 end if;
 
+if LOCAL_PRINTER_TEST = '1' then
+
+	-- Set printer status to ready.  (I had already tested without this,
+	-- and verified that the test program looped on not ready, or, one could count
+	-- the number of occurrences of MC_UNIT_2_SELECT_TO_I_O and update the status
+	-- after a couple, I suppose.
+
+	send1414StatusUpdate(testName => "Printer Test 0 Status Update - READY", 
+		statusDevice => PRINTER_CH1_DEVICE_NUMBER, statusVector => "00000001",
+		fifoWriteEnable => IBM1410_1414_INPUT_FIFO_WRITE_ENABLE,
+		fifoWriteData => IBM1410_1414_INPUT_FIFO_WRITE_DATA );
+
+	wait for 1 us;
+
+	if MC_UNIT_2_SELECT_TO_I_O = '1' then
+		wait until MC_UNIT_2_SELECT_TO_I_O = '0' for 10 ms;
+		wait for 20 ns;
+	end if;
+   
+	assert MC_UNIT_2_SELECT_TO_I_O = '0' report
+      "Print Test 1, Unit 2 Select did not occur as expected" severity failure;
+
+	-- The first test should be successful
+
+	if MC_CORRECT_TRANS_TO_BUFFER = '1' then
+		wait until MC_CORRECT_TRANS_TO_BUFFER = '0' for 2 ms;
+		wait for 20 ns;
+	end if;
+
+	assert MC_CORRECT_TRANS_TO_BUFFER = '0' report
+		"Print Test 1, MC_CORRECT_TRANS_TO_BUFFER did not occur as expected." severity failure;
+
+	--	Expected punch data.  The parity bit replaces the WM bit here - the high bit MUST
+	--	be 0.
+
+	for i in 0 to PRINTER_BUFFER_LENGTH - 1 loop
+		v := std_logic_vector(to_unsigned(i,v'length));
+		v(HDL_C_BIT) := '0';
+		v(HDL_WM_BIT) := calculate_odd_parity(v(5 downto 0));
+		printTestBuffer(i) <= v;
+	end loop;
+	wait for 10 ns;
+
+	getExpectedPunchOrPrintRequest(testName => "Print Test 1 - Normal Print Test", 
+		deviceCode => PRINTER_CH1_DEVICE_NUMBER, stackerNumber => 0, formsCharacter => "00000000",
+		grantSignal => IBM1410_1414_UART_GRANT, 
+		unitDataSentToPC => unitDataSentToPC);
+
+	report "Print Test 1 Completed.";
+
+	-- Next, we should expect a couple of Wrong Length Record results
+
+	-- The first one is short, so we should see PS_E_CH_INT_END_OF TRANSFER 
+	-- followed by MS_E_CH_EXT_END_OF_TRANSFER.
+
+	-- First make sure the previous test is done, then wait for this one to start.
+
+	wait until MC_UNIT_2_SELECT_TO_I_O = '1' for 150 us;
+	report "Print test 2 - Short WLR - Printer deslected as expected";
+	wait until MC_UNIT_2_SELECT_TO_I_O = '0' for 150 us;
+	report "Print test 2 - Short WLR - Printer selected as expected";
+
+	wait until PS_E_CH_INT_END_OF_TRANSFER = '1' for 2 ms;
+	assert PS_E_CH_INT_END_OF_TRANSFER = '1'
+		report "Print Test 2 - Short WLR - No internal end of transfer" severity failure;
+
+	if MS_E_CH_EXT_END_OF_TRANSFER = '1' then
+		wait until MS_E_CH_EXT_END_OF_TRANSFER = '0' for 50 us;
+	end if;
+	assert MS_E_CH_EXT_END_OF_TRANSFER = '0'  
+		report "Print Test 2 - Short WLR - No external end of transfer" severity failure;
+
+	assert MC_CORRECT_TRANS_TO_BUFFER = '1'
+		report "Print Test 2 - Short WLR - Correct Transfer asserted" severity failure;	
+
+	-- The second one is long, so we should see MS_E_CH_EXT_END_OF_TRANSFER 
+	-- followed by PS_E_CH_INT_END_OF TRANSFER.
+
+	-- First make sure the previous test is done, then wait for this one to start.
+
+	wait until MC_UNIT_2_SELECT_TO_I_O = '1' for 150 us;
+	report "Print test 3 - Long WLR - Printer deslected as expected";
+	wait until MC_UNIT_2_SELECT_TO_I_O = '0' for 150 us;
+	report "Print test 3 - Long WLR - Printer selected as expected";
+
+	wait until MS_E_CH_EXT_END_OF_TRANSFER = '0' for 2 ms;
+	assert MS_E_CH_EXT_END_OF_TRANSFER = '0'  
+		report "Print Test 3 - Long WLR - No external end of transfer" severity failure;
+
+	if PS_E_CH_INT_END_OF_TRANSFER = '0' then
+		wait until PS_E_CH_INT_END_OF_TRANSFER = '1' for 50 us;
+	end if;
+	assert PS_E_CH_INT_END_OF_TRANSFER = '1'
+		report "Print Test 3 - Long WLR - No internal end of transfer" severity failure;
+
+	assert MC_CORRECT_TRANS_TO_BUFFER = '1'
+		report "Print Test 3 - Long WLR - Correct Transfer asserted" severity failure;	
+
+
+	-- Carriage Control Test
+
+	-- First make sure the previous test is done, then wait for this one to start.
+
+	wait until MC_UNIT_2_SELECT_TO_I_O = '1' for 150 us;
+	report "Print test 4 - Carriage Control - Printer deslected as expected";
+	wait until MC_UNIT_2_SELECT_TO_I_O = '0' for 150 us;
+	report "Print test 4 - Carriage Control - Printer selected as expected";
+
+	if MC_FORMS_STACKER_GO = '1' then
+		wait until MC_FORMS_STACKER_GO = '0' for 150 us;
+	end if;
+	assert MC_FORMS_STACKER_GO = '0' report "Print Test 4 - Forms stacker GO not asserted";
+
+	wait until MC_FORMS_STACKER_GO = '1' for 150 us;
+	assert MC_FORMS_STACKER_GO = '1' report "Print Test 4 - Forms stacker GO not de-asserted";
+
+	getExpectedPunchOrPrintRequest(testName => "Print Test 4 - Carriage Control Test", 
+		deviceCode => PRINTER_CH1_DEVICE_NUMBER, stackerNumber => 0, formsCharacter => "00010100",
+		grantSignal => IBM1410_1414_UART_GRANT, 
+		unitDataSentToPC => unitDataSentToPC);
+
+	report "Print Test 4 - Carriage Control Test Completed.";
+
+	
+end if;
 -- ===============================================================================================
       
-   wait for 5 ms;  -- Give it a chance to halt somewhere.
+   wait for 8 ms;  -- Give it a chance to halt somewhere.
    
    -- Stop printout - starts with CR
    
