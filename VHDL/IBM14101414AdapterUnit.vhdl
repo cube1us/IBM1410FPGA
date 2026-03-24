@@ -511,9 +511,11 @@ UnitUARTOutputProcess: process(
          unitUARTOutputState <= unit_uart_output_grantWait;
       
       when unit_uart_output_grantWait =>
+         -- Have to drop the request - the UDP output requester expects that to go away.
+         IBM1410_1414_UART_REQUEST <= '0';
          -- Wait for request to be granted before getting another character
          if IBM1410_1414_UART_GRANT = '1' then
-            IBM1410_1414_UART_REQUEST <= '0';
+            IBM1410_UART_XMT_UDP_FLUSH <= '0';
             unitUARTOutputState <= unit_uart_output_idle;
          else
             unitUARTOutputState <= unit_uart_output_grantWait;

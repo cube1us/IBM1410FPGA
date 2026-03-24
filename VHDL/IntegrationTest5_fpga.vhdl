@@ -2490,7 +2490,7 @@ end component udp_fpga;
    signal udp_local_ip:    STD_LOGIC_VECTOR(31 downto 0) := X"C0A82AFE";  -- 192.168.42.254
    signal udp_gateway_ip:  STD_LOGIC_VECTOR(31 downto 0) := X"C0A82A01";  -- 192.168.42.1
    signal udp_subnet_mask: STD_LOGIC_VECTOR(31 downto 0) := X"FFFFFF00";  -- 255.255.255.000
-   signal udp_remote_ip:   STD_LOGIC_VECTOR(31 downto 0) := X"C0A82A3C";  -- 192.168.42.60
+   signal udp_remote_ip:   STD_LOGIC_VECTOR(31 downto 0) := X"C0A82A67";  -- 192.168.42.103
    signal udp_remote_port: STD_LOGIC_VECTOR(15 downto 0) := X"0400";
    
    -- Signals for UDP Input from the Network
@@ -4765,9 +4765,9 @@ outputSubsystemOutput: if USE_UDP_OUTPUT_TEST = 1 generate
    LAMP_TRANSMITTER_UART_OUTPUT_GRANT <= UDP_OUTPUT_ARBITER_GRANTS(0);
    -- IBM1410_TAU_XMT_UART_GRANT_F_CH <= UART_OUTPUT_ARBITER_GRANTS(3);
    -- IBM1410_TAU_XMT_UART_GRANT <= UART_OUTPUT_ARBITER_GRANTS(4);
+   IBM1410_1414_XMT_UART_GRANT     <= UDP_OUTPUT_ARBITER_GRANTS(2);
    IBM1410_TAU_XMT_UART_GRANT_F_CH <= UDP_OUTPUT_ARBITER_GRANTS(3);
    IBM1410_TAU_XMT_UART_GRANT      <= UDP_OUTPUT_ARBITER_GRANTS(4);
-   IBM1410_1414_XMT_UART_GRANT     <= UDP_OUTPUT_ARBITER_GRANTS(5);
    
    -- r_TX_BYTE <= UART_OUTPUT_TX_DATA;
    -- i_TX_DV <= IBM1410_CONSOLE_XMT_STROBE;
