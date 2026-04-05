@@ -72,47 +72,51 @@ begin
             OUTOFF <= '1';
             OUTON <= '0';
             SSTAGE1A <= '0';
-            SSTAGE2A <= '0';
+            -- SSTAGE2A <= '0';
             SSTAGE1B <= '0';
-            SSTAGE2B <= '0';
+            -- SSTAGE2B <= '0';
             RSTAGE1A <= '0';
-            RSTAGE2A <= '0';
+            -- RSTAGE2A <= '0';
             RSTAGE1B <= '0';
-            RSTAGE2B <= '0';
+            -- RSTAGE2B <= '0';
         elsif(DCSET = '0' OR DCSFORCE = '1') then
             OUTON <= '1';
             OUTOFF <= '0';
             SSTAGE1A <= '0';
-            SSTAGE2A <= '0';
+            -- SSTAGE2A <= '0';
             SSTAGE1B <= '0';
-            SSTAGE2B <= '0';
+            -- SSTAGE2B <= '0';
             RSTAGE1A <= '0';
-            RSTAGE2A <= '0';
+            -- RSTAGE2A <= '0';
             RSTAGE1B <= '0';
-            RSTAGE2B <= '0';
+            -- RSTAGE2B <= '0';
         elsif(rising_edge(FPGA_CLK)) then
             SSTAGE1A <= ACSET1;
-            SSTAGE2A <= SSTAGE1A;
+            -- SSTAGE2A <= SSTAGE1A;
             SSTAGE1B <= ACSET2;
-            SSTAGE2B <= SSTAGE1B;
+            -- SSTAGE2B <= SSTAGE1B;
             RSTAGE1A <= ACRESET1;
-            RSTAGE2A <= RSTAGE1A;
+            -- RSTAGE2A <= RSTAGE1A;
             RSTAGE1B <= ACRESET2;
-            RSTAGE2B <= RSTAGE1B;
-            if(GATEON1 = '1' AND SSTAGE2A = '0' AND 
-               SSTAGE1A = '1') then
+            -- RSTAGE2B <= RSTAGE1B;
+            if(GATEON1 = '1' AND -- SSTAGE2A = '0' AND
+               ACSET1 = '1' AND 
+               SSTAGE1A = '0') then
                 OUTON <= '1';
                 OUTOFF <= '0';
-            elsif(GATEON2 = '1' AND SSTAGE2B = '0' AND 
-               SSTAGE1B = '1') then
+            elsif(GATEON2 = '1' AND -- SSTAGE2B = '0' AND
+               ACSET2 = '1' AND 
+               SSTAGE1B = '0') then
                 OUTON <= '1';
                 OUTOFF <= '0';
-            elsif(GATEOFF1 = '1' AND RSTAGE2A = '0' AND
-                RSTAGE1A = '1') then
+            elsif(GATEOFF1 = '1' AND -- RSTAGE2A = '0' AND
+                ACRESET1 = '1' AND
+                RSTAGE1A = '0') then
                 OUTOFF <= '1';
                 OUTON <= '0';               
-            elsif(GATEOFF2 = '1' AND RSTAGE2B = '0' AND
-                RSTAGE1B = '1') then
+            elsif(GATEOFF2 = '1' AND -- RSTAGE2B = '0' AND
+                ACRESET2 = '1' AND
+                RSTAGE1B = '0') then
                 OUTOFF <= '1';
                 OUTON <= '0';               
             end if;
