@@ -33,9 +33,10 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity IBM14101414AdapterUnit is
     GENERIC(
-        CHANNEL_STROBE_LENGTH: integer := 100;      -- 1 us strobe
-        CHANNEL_CYCLE_LENGTH:  integer := 1120;     -- 11.2 us per character
-        IOSYNC_OUTPUT_FIFO_SIZE: integer := 140     -- Enough for printer, too
+        CHANNEL_STROBE_LENGTH: integer := 100;        -- 1 us strobe
+        CHANNEL_CYCLE_LENGTH:  integer := 1120;       -- 11.2 us per character
+        IOSYNC_OUTPUT_FIFO_SIZE: integer := 140;      -- Enough for printer, too
+        PUNCH_DELAY_TIME:      integer := 24000000    -- 240 ms/card in 10ns units
     );
 
 PORT (
@@ -333,6 +334,7 @@ signal PUNCH_CH1_BUFFER: PUNCH_BUFFER_TYPE := (others => X"80");
 signal PUNCH_CH1_BUFFER_FILL_POSITION:    integer range 0 to PUNCH_BUFFER_LENGTH := 0;  -- Channel to Buffer
 signal PUNCH_CH1_BUFFER_SCAN_POSITION:    integer range 0 to PUNCH_BUFFER_LENGTH := 0;  -- Buffer to Support Program
 signal PUNCH_CH1_BUFFER_BUSY:             std_logic := '0';
+signal PUNCH_CH1_DELAY_COUNTER:           integer range 0 to PUNCH_DELAY_TIME := 0;
 signal PUNCH_CH1_BUFFER_FILLING:          std_logic := '0';  -- Channel to Buffer
 signal PUNCH_CH1_BUFFER_SENDING:          std_logic := '0';  -- Buffer to Support Program
 signal PUNCH_CH1_STACKER_SELECTED:        integer range 0 to 9 := 0;  -- Selected punch stacker
@@ -1290,6 +1292,7 @@ unitCh1PunchFeedProcess: process (
             -- In this state, we send a column, or the trailiing 0x00 with the flush bit.
             -- But now we have to check to see if we are all done,a s well.
             if PUNCH_CH1_BUFFER_SCAN_POSITION = PUNCH_BUFFER_LENGTH then
+               PUNCH_CH1_DELAY_COUNTER <= 0;
                unitCh1PunchFeedRequestState <= unit_punch_feed_request_done;
             else
                PUNCH_CH1_BUFFER_SCAN_POSITION <= PUNCH_CH1_BUFFER_SCAN_POSITION + 1;
@@ -1297,7 +1300,13 @@ unitCh1PunchFeedProcess: process (
             end if;
 
          when unit_punch_feed_request_done =>
+            -- Keep the punch busy for a while
+            if PUNCH_CH1_DELAY_COUNTER = PUNCH_DELAY_TIME then
                unitCh1PunchFeedRequestState <= unit_punch_feed_request_reset;
+            else
+               PUNCH_CH1_DELAY_COUNTER <= PUNCH_CH1_DELAY_COUNTER + 1;
+               unitCh1PunchFeedRequestState <= unit_punch_feed_request_done;
+            end if;
                
       end case;
    end if;
