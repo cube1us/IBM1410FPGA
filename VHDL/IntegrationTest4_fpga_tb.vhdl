@@ -8,6 +8,14 @@ use ieee.numeric_std.all;
 use std.textio.all;
  
 entity IntegrationTest4_fpga_tb is
+   GENERIC (
+      CHANNEL_STROBE_LENGTH: integer := 100;     -- Default 100 == 1 us
+      CHANNEL_CYCLE_LENGTH:  integer := 1120;    -- Default 1120 == 11.2 us
+      TAU_IRG_DELAY:         integer := 10000;   -- Default 10000 == 100 us
+      TAU_WRITE_RBC_DELAY:   integer := 4000000; -- Default 4000000 == 30ms
+      USE_UDP_OUTPUT_TEST:   integer := 0;
+      USE_UDP_INPUT_TEST:    integer := 0
+   );
 end IntegrationTest4_fpga_tb;
  
 architecture behavioral of IntegrationTest4_fpga_tb is

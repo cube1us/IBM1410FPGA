@@ -2412,7 +2412,7 @@ end component udp_fpga;
    signal udp_local_ip:    STD_LOGIC_VECTOR(31 downto 0) := X"C0A82AFE";  -- 192.168.42.254
    signal udp_gateway_ip:  STD_LOGIC_VECTOR(31 downto 0) := X"C0A82A01";  -- 192.168.42.1
    signal udp_subnet_mask: STD_LOGIC_VECTOR(31 downto 0) := X"FFFFFF00";  -- 255.255.255.000
-   signal udp_remote_ip:   STD_LOGIC_VECTOR(31 downto 0) := X"C0A82A3C";  -- 192.168.42.60
+   signal udp_remote_ip:   STD_LOGIC_VECTOR(31 downto 0) := X"C0A82A67";  -- 192.168.42.103
    signal udp_remote_port: STD_LOGIC_VECTOR(15 downto 0) := X"0400";
    
    -- Signals for UDP Input from the Network
