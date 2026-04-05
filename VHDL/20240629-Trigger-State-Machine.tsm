@@ -14,23 +14,53 @@
 #   and Debugging (UG908)
 #
 ##################################################
-state wait_nth_rising_edge:
-  if ( # (TAU_CHANNEL_1/tauBRUESetStatus == 1'bR ||
-     # TAU_CHANNEL_1/tauUnitStatusState == 2'b1R) 
-     # MC_BACKSPACE_CALL_STAR_E_CH == 1'bR &&
-     # MC_READ_TAPE_CALL_STAR_E_CH == 1'bR &&
-      (memory/MemoryBank0/ena == 1'bR) && 
-      u_ila_0_PS_I_CYCLE == 1'b1 && 
-      (memory/MemoryBank0/addra == 14'u2023) &&
-      $counter0 == 16'u001) then
-         reset_counter $counter0;
-         trigger;
-  elseif (
-      (memory/MemoryBank0/ena == 1'bR) && 
-      u_ila_0_PS_I_CYCLE == 1'b1 && 
-      (memory/MemoryBank0/addra == 14'u2023)) then
-     increment_counter $counter0;
-     goto wait_nth_rising_edge;
-  else
-     goto wait_nth_rising_edge;
-  endif
+#state wait_nth_rising_edge:
+#  if ( # (TAU_CHANNEL_1/tauBRUESetStatus == 1'bR ||
+#     # TAU_CHANNEL_1/tauUnitStatusState == 2'b1R) 
+#     # MC_BACKSPACE_CALL_STAR_E_CH == 1'bR &&
+#     # MC_READ_TAPE_CALL_STAR_E_CH == 1'bR &&
+#      (memory/MemoryBank0/ena == 1'bR) && 
+#      u_ila_0_PS_I_CYCLE == 1'b1 && 
+#      (memory/MemoryBank0/addra == 14'u2023) &&
+#      $counter0 == 16'u001) then
+#         reset_counter $counter0;
+#         trigger;
+#  elseif (
+#      (memory/MemoryBank0/ena == 1'bR) && 
+#      u_ila_0_PS_I_CYCLE == 1'b1 && 
+#      (memory/MemoryBank0/addra == 14'u2023)) then
+#     increment_counter $counter0;
+#     goto wait_nth_rising_edge;
+#  else
+#     goto wait_nth_rising_edge;
+#  endif
+
+state wait_for_bsp_instruction:
+   if (u_ila_0_PS_I_CYCLE == 1'b1 && memory/MemoryBank0/addra == 14'u2472) then
+      goto wait_for_backspace_call;
+   else
+      goto wait_for_bsp_instruction;
+   endif 
+
+state wait_for_backspace_call:
+   if (MC_BACKSPACE_CALL_STAR_E_CH == 1'bF) then
+      goto wait_for_bsp_wait;
+   else
+      goto wait_for_backspace_call;
+   endif
+   
+state wait_for_bsp_wait:
+   if (TAU_CHANNEL_1/tauBRUEState[3]_i_1_n_0 == 1'b1 &&
+       TAU_CHANNEL_1/tauBRUEState[0]_i_1_n_0 == 1'bR) then
+      goto wait_for_status_update;
+   else
+      goto wait_for_bsp_wait;
+   endif
+   
+state wait_for_status_update:
+   if (TAU_CHANNEL_1/tauSupportSetStatus == 1'bR ||
+      TAU_CHANNEL_1/tauBRUESetStatus == 1'bR) then
+      trigger;
+   else
+      goto wait_for_status_update;
+   endif
