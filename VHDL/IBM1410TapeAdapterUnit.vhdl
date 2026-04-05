@@ -778,7 +778,11 @@ tauBRUEProcess: process(
       when tau_brue_prepare_action =>
          -- Prepare the byte specifying the action to take to send to the PC,
          -- with the flush flag set      
-         tauUnitControlXMTChar <= "100000000";
+         -- tauUnitControlXMTChar <= "100000000";
+         tauUnitControlXMTChar(8 downto 7) <= "10";
+         tauUnitControlXMTChar(TAPE_UNIT_CTL_WRITE_REQUEST downto TAPE_UNIT_CTL_READ_REQUEST) <= 
+            "00";
+         tauUnitControlXMTChar(TAPE_UNIT_CTL_MARK_REQUEST) <= '0';
          tauUnitControlXMTChar(TAPE_UNIT_CTL_REWIND_REQUEST) <= tauRewindLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_UNLOAD_REQUEST) <= tauUnloadLatch;
          tauUnitControlXMTChar(TAPE_UNIT_CTL_BACKSPACE_REQUEST) <= tauBackspaceLatch;
@@ -908,7 +912,8 @@ taureadProcess: process(
       -- Prepare read action to send to PC, and wait for FIFO if necessary
       -- With the flush flag...
       when tau_read_prepare_action =>
-         tauReadXMTChar <= "100000000";
+         -- tauReadXMTChar <= "100000000";
+         tauReadXMTChar(8 downto 1) <= "10000000";
          tauReadFirstCharLatch <= '1';
          tauReadXMTChar(TAPE_UNIT_CTL_READ_REQUEST) <= '1';
          tauReadState <= tau_read_fifo_wait_2;
@@ -1115,11 +1120,19 @@ tauWriteProcess: process(
       
       -- Prepare write or write tape mark request, with the flush flag.
       when tau_write_prepare_action =>
-         tauWriteXMTChar <= "100000000";
+         -- tauWriteXMTChar <= "100000000";
+         tauWriteXMTChar(7 downto 5) <= "000"; 
+         tauWRiteXMTChar(TAPE_UNIT_CTL_ERASE_REQUEST) <= '0';
+         tauWRiteXMTChar(TAPE_UNIT_CTL_BACKSPACE_REQUEST) <= '0';
+         tauWRiteXMTChar(TAPE_UNIT_CTL_READ_REQUEST) <= '0';         
          if tauWTMlatch = '0' then
+            tauWriteXMTChar(8) <= '0';  -- NO Flush on write
             tauWriteXMTChar(TAPE_UNIT_CTL_WRITE_REQUEST) <= '1';
+            tauWriteXMTChar(TAPE_UNIT_CTL_MARK_REQUEST) <= '0';
          else
+            tauWriteXMTChar(8) <= '1';  -- Flush on WTM
             tauWriteXMTChar(TAPE_UNIT_CTL_MARK_REQUEST) <= '1';
+            tauWriteXMTChar(TAPE_UNIT_CTL_WRITE_REQUEST) <= '0';
          end if;
          tauWriteState <= tau_write_fifo_wait_2;
          
