@@ -597,7 +597,7 @@ unitCh1TriggerProcess: process (
                   -- The third byte of a status message is the actual status.
                   -- Update the appropriate device's status.  This should ALWAYS be
                   -- a receive status operation at this point, but check just in case.
-                  if UNIT_SUPPORT_OPERATION <= UNIT_RECEIVE_STATUS_OPERATION then
+                  if UNIT_SUPPORT_OPERATION = UNIT_RECEIVE_STATUS_OPERATION then
                      case UNIT_SUPPORT_UNIT is
                         when READER_CH1_DEVICE_NUMBER =>
                            READER_CH1_STATUS <= UNIT_INPUT_FIFO_READ_DATA;
@@ -823,12 +823,17 @@ unitCh1ReaderDataProcess: process (
          end if;
 
       when unit_reader_waitForChar =>
-         READER_CH1_BUFFER_READY <= '0'; -- Not sure about this one . . .
-         if UNIT_INPUT_FIFO_EMPTY = '0' then
-            FIFO_READ_ENABLE_READER_DATA <= '1';
-            unitCh1ReaderState <= unit_reader_getchar;            
+         -- If we went not ready, reset feeding flag and reset.
+         if READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
+            unitCh1ReaderState <= unit_reader_done;
          else
-            unitCh1readerState <= unit_reader_waitForChar;
+            READER_CH1_BUFFER_READY <= '0'; -- Not sure about this one . . .
+            if UNIT_INPUT_FIFO_EMPTY = '0' then
+               FIFO_READ_ENABLE_READER_DATA <= '1';
+               unitCh1ReaderState <= unit_reader_getchar;            
+            else
+               unitCh1readerState <= unit_reader_waitForChar;
+            end if;
          end if;
 
       when unit_reader_getChar =>
@@ -930,6 +935,7 @@ unitReaderCh1TransferOrStackProcess: process(
          end if;
 
       when unit_reader_transfer_start =>
+         READER_CH1_BUFFER_TRANSFERRING <= '1';
          READER_CH1_BUFFER_SCAN_POSITION <= 0;
          -- We will initiate the reader feed, if appropriate, as we LEAVE this state, because
          -- this state first RESETS multi-read feed!
@@ -1658,13 +1664,13 @@ UNIT_SELECT_UNIT_2 <= (not MC_UNIT_2_SELECT_TO_I_O) and
 
 
 UNIT_CH1_STACKER_SELECTED <=
-   0 when not MC_CPU_TO_I_O_SYNC_BUS = "10001010" else
-   0 when not MC_CPU_TO_I_O_SYNC_BUS = "01000000" else
+   0 when not MC_CPU_TO_I_O_SYNC_BUS = "11001010" else
+   0 when not MC_CPU_TO_I_O_SYNC_BUS = "11000000" else
    1 when not MC_CPU_TO_I_O_SYNC_BUS = "01000001" else
    2 when not MC_CPU_TO_I_O_SYNC_BUS = "01000010" else
    4 when not MC_CPU_TO_I_O_SYNC_BUS = "01000100" else
    8 when not MC_CPU_TO_I_O_SYNC_BUS = "01001000" else
-   9 when not MC_CPU_TO_I_O_SYNC_BUS = "00001001" else
+   9 when not MC_CPU_TO_I_O_SYNC_BUS = "11001001" else
    0;
 
 UNIT_OUTPUT_FIFO_WRITE_ENABLE <= '1' when  -- Eventually will include printer stuff
