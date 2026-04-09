@@ -538,7 +538,7 @@ uut_process: process is
   
   -- wait for 19 ms; 
  
-  assert false report "Normal End of Test" severity failure;
+  assert false report "WATCHDOG: Normal End of Test" severity failure;
      
   end process;
   
@@ -638,7 +638,7 @@ procedure SEND_RX (minSize: in integer; testName: in STRING; verbosity: in INTEG
    end SEND_RX;
    
    
-   -- Receive a transmitted packet
+   -- Receive a transmitted packet (TODO:  This really should have a timeout param)
 
 procedure RECEIVE_TX (minSize: in INTEGER; testName: in STRING; verbosity: in INTEGER) is
     begin
@@ -771,7 +771,9 @@ end RECEIVE_TX;
    variable TAUREADTEST:  integer := 0;
    variable TAUWRITETEST: integer := 0;
    variable TAUREADTMCONDTEST: integer := 0;
-   variable IBM1414PUNCHTEST:  integer := 1;
+   variable IBM1414PUNCHTEST:  integer := 0;
+   variable IBM1414READERTEST: integer := 0;
+   variable IBM1414READEREOFTEST: integer := 1;
    
 
   begin
@@ -1289,6 +1291,177 @@ if IBM1414PUNCHTEST = 1 then
    report "Normal End of Punch/Printer Test" severity failure;    
 
 end if;  -- TAPEWRITETEST = 1
+
+if IBM1414READERTEST = 1 then
+
+    report "Begin 1414 1402 Reader %19 No Transfer Test.";
+
+    -- Give Ethernet a chance to initialize...
+    btnU <= '0';
+    btnC <= '0';
+    PhyRxErr <= '0';
+    PhyIntn <= '1';    
+    wait for 100 ns;
+    wait until PhyRstn = '1';
+    wait for 1500 us;
+        
+   -- Send a packet to set up the status for punch printer and reader
+
+    tx_data(431 downto 0) <=
+        X"010101850101028501010485048F140000040004FE2AA8C0672AA8C00EA41140" &
+        X"0000010028000045000823F8AF5ED5E0000A04010002" ;   
+    tx_len <= std_logic_vector(to_unsigned(54,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 54, testName => "Packet to FPGA", verbosity => 1);
+    wait for 1 ms;
+    
+    -- Send a card image.  We only need one for the No Transfer debugging
+
+   tx_data(1007 downto 0) <=
+        X"0040404040404040404040404040404040404040404040404040404040404040" &
+        X"4040404040404040404040404040404040404040404040404040404040404040" &
+        X"4040404040404040404040404040404040020185748F5C0000040004FE2AA8C0" &
+        X"672AA8C0C6A311400000010070000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(126,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 126, testName => "Packet to FPGA", verbosity => 1);
+    wait for 1 ms;
+
+    btnC <= '1';
+    report "Pressed Start";
+
+    --   Not expecting an ARP request.  It should just trundle on.
+
+    wait for 20 ms;    
+    
+    report "Normal End of Reader %19 No Transfer Test" severity failure;    
+
+end if;
+
+
+if IBM1414READEREOFTEST = 1 then
+
+    report "Begin 1414 1402 Reader %11 EOF Test.";
+
+    -- Give Ethernet a chance to initialize...
+    btnU <= '0';
+    btnC <= '0';
+    PhyRxErr <= '0';
+    PhyIntn <= '1';    
+    wait for 100 ns;
+    wait until PhyRstn = '1';
+    wait for 1500 us;
+        
+   -- Send a packet to set up the status for punch printer and reader
+
+   report "Reader EOF Test: Sending packet to indicate reader is ready.";
+    tx_data(431 downto 0) <=
+        X"010101850101028501010485048F140000040004FE2AA8C0672AA8C00EA41140" &
+        X"0000010028000045000823F8AF5ED5E0000A04010002" ;   
+    tx_len <= std_logic_vector(to_unsigned(54,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 54, testName => "First Status Packet to FPGA", verbosity => 1);
+    wait for 1 ms;
+    
+   -- Next, send a packet to indicate that the following card is the last.
+   -- (This is how it is set up now -- but that might not be correct!)
+
+   report "Reader EOF Test: Sending packet to indicate this is the last card.";
+    tx_data(367 downto 0) <=
+        X"110101850D9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+        X"000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 46, testName => "EOF Status Packet to FPGA", verbosity => 1);
+    wait for 1 ms;
+
+    -- Send a card image.  
+
+   report "Reader EOF Test: Sending card data packet.";
+   tx_data(1007 downto 0) <=
+        X"0040404040404040404040404040404040404040404040404040404040404040" &
+        X"4040404040404040404040404040404040404040404040404040404040404040" &
+        X"4040404040404040404040404040404040020185748F5C0000040004FE2AA8C0" &
+        X"672AA8C0C6A311400000010070000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(126,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 126, testName => "Packet to FPGA", verbosity => 1);
+    wait for 1 ms;
+
+    btnC <= '1';
+    report "Pressed Start";
+
+   -- Expecting an ARP request because it will want to send us a subsequent feed request.
+
+    -- Look for the ARP request  (This really should be a procedure => .)
+
+    report "Reader EOF Test, waiting for ARP request.";
+
+    RECEIVE_TX(minSize => 60, testName => "Reader UDP ARP REQUEST", verbosity => 1);    
+
+   report "Reader EOF Test: Received ARP request, Building ARP reply";
+
+    -- Set up the ARP reply
+    
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+
+    j := 28*8;
+    i := 0;    
+    while i < 6 loop
+       receivedMac(i*8+7 downto i*8) := rx_data(j-1 downto j-8);
+       j := j - 8; 
+       i := i + 1;
+    end loop;
+
+    BUILD_ARP_FRAME(
+       testName => "Reader EOF Test: Build UDP ARP REPLY",
+       verbosity => 1,
+       srcMac => X"E0D55EAFF823",
+       destMac => receivedMac,
+       arpOperation => X"0002", -- Reply
+       srcIP => X"C0A82A67",    -- Hard coded to match what FPGA is expecting
+       tgtMac => receivedMac,
+       tgtIp => X"C0A82AFE");   -- Hard coded for now till I figure out the offset
+    
+    report "Reader EOF Test: Built ARP Reply Frame";
+    
+    wait for 10 ns;
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+    i := 0;
+    while i < 8*to_integer(unsigned(tx_len)) loop
+       tx_data(8*60-i-1 downto 8*60-i-8) <= tx_arp(i+7 downto i);
+       i := i + 8;       
+    end loop;
+    
+    wait for 100 us;
+    
+    -- tx_data(8*60-1 downto 0) <= tx_arp;
+    SEND_RX(minSize => 60, testName => "Reader EOF Test: Sending  UDP ARP REPLY", verbosity => 1);
+    wait for 1 us;
+
+    -- wait for 5 ms;
+
+    -- We might now receive a read request, even though we should not.
+    -- Respond with a not ready status.
+
+    RECEIVE_TX(minSize => 60, testName => "Reader EOF Test: RCV Extra Read Request", verbosity => 2);    
+
+    wait for 1 ms;
+
+    -- Tell the reader we are not ready -- we ran out of cards!
+
+    tx_data(367 downto 0) <=
+        X"000101851E9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+        X"000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 46, testName => "Reader Not Ready Packet to FPGA", verbosity => 1);
+
+    wait for 10 ms;    
+    
+    report "Normal End of Reader EOF Test" severity failure;    
+
+end if;
 
 
 if LOOPBACKTEST = 1 then
