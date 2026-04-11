@@ -152,8 +152,8 @@ constant UNIT_RECEIVE_DATA_OPERATION:     integer := 2;
 constant UNIT_READY_BIT: integer       := 0;
 constant UNIT_BUSY_BIT:  integer       := 1;
 constant UNIT_DATA_CHECK_BIT: integer  := 2;
-constant UNIT_WLR_BIT: integer         := 4;
-constant READER_LAST_CARD_BIT: integer := 5; -- Only set if reader EOF button also pressed.
+constant UNIT_WLR_BIT: integer         := 3;
+constant READER_LAST_CARD_BIT: integer := 4; -- Only set if reader EOF button also pressed.
 
 constant OUT_STROBE_TIME: integer         := 10;  -- 100ns UART Strobe time
 constant UNIT_INPUT_FIFO_SIZE: integer    := 200; -- enough to hold two UDP data packets
@@ -320,6 +320,7 @@ signal READER_CH1_MULTI_READ:             std_logic := '0';
 signal READER_CH1_MULTI_READ_FEED:        std_logic := '0';
 signal READER_CH1_ERROR:                  std_logic := '0';
 signal READER_CH1_STACKER_SELECTED:       integer range 0 to 9 := 0;
+signal READER_CH1_VALIDITY_CHECK:         std_logic := '0';
 
 signal READER_CH1_BUFFER_BUSY:            std_logic := '0'; -- True when receiving a card image
 signal READER_CH1_BUFFER_EMPTY:           std_logic := '1'; -- Indicates we do not have a card image stored (process)
@@ -708,13 +709,16 @@ unitCh1ReaderLatchProcess: process (
 
          -- EOF Latch and EOF_DELAY latches
 
-         if READER_CH1_STATUS(READER_LAST_CARD_BIT) = '1' and 
+         if READER_CH1_STATUS(READER_LAST_CARD_BIT) = '1' and
             READER_CH1_STATUS(UNIT_READY_BIT) = '1' and
-            -- unitCh1ReaderState = unit_reader_waitForBuffer then
-            unitCh1ReaderTransferState = unit_reader_transfer_end_of_transfer then
-               READER_CH1_EOF_DELAY <= '1';
-         elsif READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
-            READER_CH1_EOF_DELAY <= '0';
+            -- unitCh1ReaderState = unit_reader_waitForBuffer and
+            unitCh1ReaderTransferState = unit_reader_transfer_done then
+               -- READER_CH1_EOF_DELAY <= '1';
+            READER_CH1_END_OF_FILE <= '1';
+         -- elsif READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
+         --   READER_CH1_EOF_DELAY <= '0';
+         -- else
+            -- READER_CH1_EOF_DELAY <= '0';
          end if;
 
          if MC_COMP_RESET_TO_BUFFER = '0' or
@@ -723,12 +727,12 @@ unitCh1ReaderLatchProcess: process (
             -- There may be more to reset here . . . 
          end if;
 
-         if READER_CH1_EOF_DELAY = '1' and
+         -- if READER_CH1_EOF_DELAY = '1' then -- and
             -- READER_CH1_FEED_START = '1' then 
-            READER_CH1_FEEDING = '1' then            
+            -- READER_CH1_FEEDING = '1' then            
             -- or TODO 1401 READ LATCH
-            READER_CH1_END_OF_FILE <= '1';
-         end if;
+         --    READER_CH1_END_OF_FILE <= '1';
+         -- end if;
 
          -- Multi Read Fead Latch
 
@@ -807,6 +811,7 @@ unitCh1ReaderDataProcess: process (
             READER_CH1_BUFFER_INPUT_POSITION <= 0;
             FIFO_READ_ENABLE_READER_DATA  <= '0';         
             READER_CH1_BUFFER_READY <= '0';
+            READER_CH1_VALIDITY_CHECK <= '0';
             unitCh1ReaderState <= unit_reader_waitForBuffer;
          else
             unitCh1ReaderState <= unit_reader_idle;
@@ -818,7 +823,7 @@ unitCh1ReaderDataProcess: process (
          if READER_CH1_BUFFER_TRANSFERRING = '1' then
             unitCh1ReaderState <= unit_reader_waitForBuffer;
          else
-            READER_CH1_BUFFER_FILLING <= '1';
+            -- Temporarily disabled.  READER_CH1_BUFFER_FILLING <= '1';
             unitCh1ReaderState <= unit_reader_waitForChar;
          end if;
 
@@ -848,6 +853,16 @@ unitCh1ReaderDataProcess: process (
                -- changes, so set them appropriately, with a 0 WM bit.
                READER_CH1_BUFFER(READER_CH1_BUFFER_INPUT_POSITION) <= UNIT_INPUT_FIFO_READ_DATA(6) &
                   "0" & UNIT_INPUT_FIFO_READ_DATA(5 downto 0);
+               -- If even parity, turn on the validity check latch
+               if (UNIT_INPUT_FIFO_READ_DATA(6) xor 
+                  UNIT_INPUT_FIFO_READ_DATA(5) xor
+                  UNIT_INPUT_FIFO_READ_DATA(4) xor
+                  UNIT_INPUT_FIFO_READ_DATA(3) xor
+                  UNIT_INPUT_FIFO_READ_DATA(2) xor
+                  UNIT_INPUT_FIFO_READ_DATA(1) xor
+                  UNIT_INPUT_FIFO_READ_DATA(0)) = '0' then
+                     READER_CH1_VALIDITY_CHECK <= '1';
+               end if;
                READER_CH1_BUFFER_INPUT_POSITION <= READER_CH1_BUFFER_INPUT_POSITION + 1;
                unitCh1ReaderState <= unit_reader_waitForChar;
             end if;
@@ -912,9 +927,16 @@ unitReaderCh1TransferOrStackProcess: process(
       when unit_reader_transfer_idle =>
          -- Have we received either a read request or stack request, and we are ready?
          if UNIT_SELECT_UNIT_1 = '1' and READER_CH1_BUFFER_FILLING = '0' and
+            READER_CH1_END_OF_FILE = '0' and
             (MC_READY_TO_BUFFER = '0' or MC_STACK_SELECT_TO_BUFFER = '0') then
 
-            READER_CH1_STACKER_SELECTED <= UNIT_CH1_STACKER_SELECTED;
+            -- If there was a validity check, stacker 0 is forced.
+
+            if READER_CH1_VALIDITY_CHECK = '0' then
+               READER_CH1_STACKER_SELECTED <= UNIT_CH1_STACKER_SELECTED;
+            else
+               READER_CH1_STACKER_SELECTED <= 0;
+            end if;
 
             -- The read feed starts in another process in parallel when READER_CH1_FEED_START is set
             -- Note that for SSF instructions, we stay in this state until we see Forms Stacker GO asserted,
@@ -1703,7 +1725,8 @@ MC_BUFFER_READY <= '0'
 
 MC_BUFFER_BUSY <= '0' 
    -- TODO --- Need to add 1401 mode read here
-   when (UNIT_SELECT_UNIT_1 = '1' and (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1')) or
+   when (UNIT_SELECT_UNIT_1 = '1' and (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1') and
+        READER_CH1_END_OF_FILE = '0') or
       (UNIT_SELECT_UNIT_4 = '1' and (PUNCH_CH1_BUFFER_SENDING = '1' or PUNCH_CH1_BUFFER_FILLING = '1')) or
       (UNIT_SELECT_UNIT_2 = '1' and (PRINTER_CH1_BUFFER_SENDING = '1' or PRINTER_CH1_BUFFER_FILLING = '1')) or
       (UNIT_SELECT_UNIT_2 = '1' and (PRINTER_CH1_CARRIAGE_SENDING = '1'))
@@ -1730,7 +1753,9 @@ MC_BUFFER_END_OF_TRANSFER <= '0'
 
    else '1';
 
-MC_BUFFER_ERROR <= '1';  -- Not sure what if anything would assert this.
+MC_BUFFER_ERROR <= '0' when
+   (UNIT_SELECT_UNIT_1 = '1' and READER_CH1_VALIDITY_CHECK = '1')
+   else '1';
 
 --  TODO: The following may need fixing?
 -- (For Priority Feature) Reader is reloading the buffer
