@@ -312,7 +312,8 @@ signal READER_CH1_BUFFER_SCAN_POSITION:   integer range 0 to READER_BUFFER_LENGT
 signal READER_CH1_BUFFER_READY:           std_logic := '0'; -- Indicates buffer has data
 signal READER_CH1_NO_TRANSFER:            std_logic := '0';
 signal READER_CH1_END_OF_FILE:            std_logic := '0';
-signal READER_CH1_EOF_DELAY:              std_logic := '0';
+signal READER_CH1_EOF_NOT_READY:          std_logic := '0';
+-- signal READER_CH1_EOF_DELAY:              std_logic := '0';
 -- signal READER_CH1_FED:                    std_logic := '0';
 signal READER_CH1_FEED_START:             std_logic := '0';
 signal READER_CH1_FEEDING:                std_logic := '0';
@@ -672,7 +673,7 @@ unitCh1ReaderLatchProcess: process (
    -- READER_CH1_FED,
    UNIT_SELECT_UNIT_1,
    READER_CH1_BUFFER_EMPTY,
-   READER_CH1_EOF_DELAY,
+   -- READER_CH1_EOF_DELAY,
    READER_CH1_STATUS,
    READER_CH1_FEED_START,
    READER_CH1_MULTI_READ_FEED,
@@ -707,7 +708,7 @@ unitCh1ReaderLatchProcess: process (
             READER_CH1_FEEDING <= '0';
          end if;
 
-         -- EOF Latch and EOF_DELAY latches
+         -- EOF Latch
 
          if READER_CH1_STATUS(READER_LAST_CARD_BIT) = '1' and
             READER_CH1_STATUS(UNIT_READY_BIT) = '1' and
@@ -725,6 +726,22 @@ unitCh1ReaderLatchProcess: process (
             (MC_RESET_SELECT_BUFFER_LATCHES = '0' and UNIT_SELECT_UNIT_1 = '1') then
             READER_CH1_END_OF_FILE <= '0';
             -- There may be more to reset here . . . 
+         end if;
+
+         -- After a EOF (CONDITION status to channel), the reader needs to go not
+         -- ready.  Unfortunately, we cannot guarantee that the PC Support program
+         -- will get the status updated from EOF to not ready fast enough (diagnostic
+         -- RP01A fails).  So there is a status signal which forces not ready after
+         -- the condition state (we had EOF and the 1411 reset select buffer latches)
+         -- until the next PC status update.
+
+         if READER_CH1_END_OF_FILE = '1' and MC_RESET_SELECT_BUFFER_LATCHES = '0' then
+            READER_CH1_EOF_NOT_READY <= '1';
+         elsif MC_COMP_RESET_TO_BUFFER = '0' or 
+            (READER_CH1_EOF_NOT_READY = '1' and unitTriggerState = unit_trigger and
+            UNIT_SUPPORT_UNIT = READER_CH1_DEVICE_NUMBER and
+            UNIT_SUPPORT_OPERATION = UNIT_RECEIVE_STATUS_OPERATION) then
+               READER_CH1_EOF_NOT_READY <= '0';
          end if;
 
          -- if READER_CH1_EOF_DELAY = '1' then -- and
@@ -823,15 +840,15 @@ unitCh1ReaderDataProcess: process (
          if READER_CH1_BUFFER_TRANSFERRING = '1' then
             unitCh1ReaderState <= unit_reader_waitForBuffer;
          else
-            -- Temporarily disabled.  READER_CH1_BUFFER_FILLING <= '1';
+            READER_CH1_BUFFER_FILLING <= '1';
             unitCh1ReaderState <= unit_reader_waitForChar;
          end if;
 
       when unit_reader_waitForChar =>
          -- If we went not ready, reset feeding flag and reset.
-         if READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
-            unitCh1ReaderState <= unit_reader_done;
-         else
+         -- if READER_CH1_STATUS(UNIT_READY_BIT) = '0' then
+         --   unitCh1ReaderState <= unit_reader_done;
+         -- else
             READER_CH1_BUFFER_READY <= '0'; -- Not sure about this one . . .
             if UNIT_INPUT_FIFO_EMPTY = '0' then
                FIFO_READ_ENABLE_READER_DATA <= '1';
@@ -839,7 +856,7 @@ unitCh1ReaderDataProcess: process (
             else
                unitCh1readerState <= unit_reader_waitForChar;
             end if;
-         end if;
+         -- end if;
 
       when unit_reader_getChar =>
          -- Have a character from the PC.
@@ -1717,7 +1734,7 @@ UNIT_OUTPUT_FIFO_WRITE_DATA <=
 
 MC_BUFFER_READY <= '0'
    when 
-      (UNIT_SELECT_UNIT_1 = '1' and
+      (UNIT_SELECT_UNIT_1 = '1' and READER_CH1_EOF_NOT_READY = '0' and
          (READER_CH1_END_OF_FILE = '1' or READER_CH1_STATUS(UNIT_READY_BIT) = '1')) or
       (UNIT_SELECT_UNIT_4 = '1' and PUNCH_CH1_STATUS(UNIT_READY_BIT) = '1') or
       (UNIT_SELECT_UNIT_2 = '1' and PRINTER_CH1_STATUS(UNIT_READY_BIT) = '1')
