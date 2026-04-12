@@ -1364,6 +1364,35 @@ if IBM1414READEREOFTEST = 1 then
 
     -- Send a card image.  
 
+    -- First, send a bogus reader packet, to make sure we overwrite with the next
+    -- reader data => .
+
+    report "Reader EOF Test: Sending One's packet to FPGA";
+    tx_data(1007 downto 0) <=
+        X"0001010101010101010101010101010101010101010101010101010101010101" &
+        X"0101010101010101010101010101010101010101010101010101010101010101" &
+        X"010101010101010101010101010101010102018556715C0000040004FE2AA8C0" &
+        X"672AA8C0C6A311400000010070000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(126,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 126, testName => "Sending Ones Packet to FPGA", verbosity => 1);    
+
+    wait for 1 ms;
+
+   -- Next, send a packet to indicate that this card is the last.
+   --  (This is how it is set up now -- but that might not be correct!)
+
+   report "Reader EOF Test: Sending packet to indicate this is the last card.";
+    tx_data(367 downto 0) <=
+        X"110101850D9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+        X"000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 46, testName => "EOF Status Packet to FPGA", verbosity => 1);
+
+    wait for 100 us;
+
+
     if IBM1414READERERRORTEST = 0 then
       report "Reader EOF Test: Sending GOOD card data packet.";
       tx_data(1007 downto 0) <=
@@ -1387,35 +1416,38 @@ if IBM1414READEREOFTEST = 1 then
 
    wait for 1 ms;
 
-   report "Reader EOF Test: Sending packet to indicate reader is ready.";
-    tx_data(431 downto 0) <=
-        X"010101850101028501010485048F140000040004FE2AA8C0672AA8C00EA41140" &
-        X"0000010028000045000823F8AF5ED5E0000A04010002" ;   
-    tx_len <= std_logic_vector(to_unsigned(54,tx_len'length));
-    wait for 1 ns;
-    SEND_RX(minSize => 54, testName => "Reader Ready Status Packet to FPGA", verbosity => 1);
-    wait for 100 us;
+   -- report "Reader EOF Test: Sending packet to indicate reader is ready.";
+   -- tx_data(431 downto 0) <=
+   --     X"010101850101028501010485048F140000040004FE2AA8C0672AA8C00EA41140" &
+   --     X"0000010028000045000823F8AF5ED5E0000A04010002" ;   
+   -- tx_len <= std_logic_vector(to_unsigned(54,tx_len'length));
+   -- wait for 1 ns;
+   -- SEND_RX(minSize => 54, testName => "Reader Ready Status Packet to FPGA", verbosity => 1);
+   -- wait for 100 us;
     
-   --  wait for 1 ms;  NO DELAY !
+   -- Once the condition state has been reached, the reader should automatically go
+   -- not ready inside the 1414.
 
-   -- Next, send a packet to indicate that the preceeding card was the last.
-   -- (This is how it is set up now -- but that might not be correct!)
+    wait for 5 ms;
 
-   report "Reader EOF Test: Sending packet to indicate this is the last card.";
+   -- Next send a packet to indicate that the reader is not ready.  This should reset
+   -- the special latch inside the 1414.  (We won't see an actual read request becauase
+   -- the CPU wil have halted by now.)
+
+   report "Reader EOF Test: Sending packet to indicate not ready after EOF.";
     tx_data(367 downto 0) <=
-        X"110101850D9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+        X"000101850D9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
         X"000823F8AF5ED5E0000A04010002" ;
     tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
     wait for 1 ns;
-    SEND_RX(minSize => 46, testName => "EOF Status Packet to FPGA", verbosity => 1);
+    SEND_RX(minSize => 46, testName => "EOF Not Ready Packet to FPGA", verbosity => 1);
     wait for 1 ms;
-
-
-   -- Expecting an ARP request because it will want to send us a subsequent feed request.
 
     -- Look for the ARP request  (This really should be a procedure => .)
 
     report "Reader EOF Test, waiting for ARP request.";
+
+    -- The following may not ever trigger because of the EOF condition.
 
     RECEIVE_TX(minSize => 60, testName => "Reader UDP ARP REQUEST", verbosity => 1);    
 
