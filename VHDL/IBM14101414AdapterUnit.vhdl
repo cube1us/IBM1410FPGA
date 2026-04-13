@@ -229,6 +229,7 @@ type unitReaderTransferState_type is (
    unit_reader_transfer_wait_channel,    -- To make sure we dont' strobe the channel too fast.
    unit_reader_transfer_strobe_channel,
    unit_reader_transfer_end_of_transfer,
+   unit_reader_transfer_stacker_wait,
    unit_reader_transfer_done
 );
 
@@ -967,7 +968,7 @@ unitReaderCh1TransferOrStackProcess: process(
                -- So we can start the read feed.
                -- READER_CH1_FED <= '1';
                READER_CH1_FEED_START <= '1';
-               unitCh1ReaderTransferState <= unit_reader_transfer_done;
+               unitCh1ReaderTransferState <= unit_reader_transfer_stacker_wait;
             end if;
          else
             unitCh1ReaderTransferState <= unit_reader_transfer_idle;
@@ -1046,6 +1047,17 @@ unitReaderCh1TransferOrStackProcess: process(
          -- else
          --    unitCh1ReaderTransferState <= unit_reader_transfer_end_of_transfer;
          -- end if;
+
+      -- For a SSF instruction, we need to wait for FORMS_STACKER_GO to go away, or
+      -- we will go nuts sending feed requests to the PC Support Program.
+
+      when unit_reader_transfer_stacker_wait =>
+         READER_CH1_FEED_START <= '0';       -- Feed process has already started.
+         if MC_FORMS_STACKER_GO = '1' then
+            unitCh1ReaderTransferState <= unit_reader_transfer_done;
+         else
+            unitCh1ReaderTransferState <= unit_reader_transfer_stacker_wait;
+         end if;
 
       when unit_reader_transfer_done =>
          READER_CH1_FEED_START <= '0';      -- Feed process should have already started
