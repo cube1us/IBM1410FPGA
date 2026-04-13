@@ -773,8 +773,9 @@ end RECEIVE_TX;
    variable TAUREADTMCONDTEST: integer := 0;
    variable IBM1414PUNCHTEST:  integer := 0;
    variable IBM1414READERTEST: integer := 0;
-   variable IBM1414READEREOFTEST: integer := 1;
+   variable IBM1414READEREOFTEST: integer := 0;
    variable IBM1414READERERRORTEST: integer := 0;
+   variable IBM1414READERSSFTEST: integer := 1;
    
 
   begin
@@ -1341,7 +1342,7 @@ if IBM1414READERTEST = 1 then
 end if;
 
 
-if IBM1414READEREOFTEST = 1 then
+if IBM1414READEREOFTEST = 1 or IBM1414READERERRORTEST = 1 or IBM1414READERSSFTEST = 1 then
 
     report "Begin 1414 1402 Reader %11 EOF Test.";
 
@@ -1367,7 +1368,7 @@ if IBM1414READEREOFTEST = 1 then
     -- First, send a bogus reader packet, to make sure we overwrite with the next
     -- reader data => .
 
-    report "Reader EOF Test: Sending One's packet to FPGA";
+    report "Reader Test: Sending One's packet to FPGA";
     tx_data(1007 downto 0) <=
         X"0001010101010101010101010101010101010101010101010101010101010101" &
         X"0101010101010101010101010101010101010101010101010101010101010101" &
@@ -1382,19 +1383,29 @@ if IBM1414READEREOFTEST = 1 then
    -- Next, send a packet to indicate that this card is the last.
    --  (This is how it is set up now -- but that might not be correct!)
 
-   report "Reader EOF Test: Sending packet to indicate this is the last card.";
-    tx_data(367 downto 0) <=
-        X"110101850D9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
-        X"000823F8AF5ED5E0000A04010002" ;
-    tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
-    wait for 1 ns;
-    SEND_RX(minSize => 46, testName => "EOF Status Packet to FPGA", verbosity => 1);
-
-    wait for 100 us;
+   if IBM1414READEREOFTEST = 1 then
+      report "Reader EOF Test: Sending packet to indicate this is the last card.";
+      tx_data(367 downto 0) <=
+           X"110101850D9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+         X"000823F8AF5ED5E0000A04010002" ;
+      tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+      wait for 1 ns;
+      SEND_RX(minSize => 46, testName => "EOF Status Packet to FPGA", verbosity => 1);
+      wait for 100 us;
+   else
+      report "Reader ERROR or SSF Test: Sending packet to indicate reader is ready.";
+      tx_data(367 downto 0) <=
+         X"010101850D9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+         X"000823F8AF5ED5E0000A04010002" ;
+      tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+      wait for 1 ns;
+      SEND_RX(minSize => 46, testName => "Ready Status Packet to FPGA", verbosity => 1);
+      wait for 100 us;
+   end if;
 
 
     if IBM1414READERERRORTEST = 0 then
-      report "Reader EOF Test: Sending GOOD card data packet.";
+      report "Reader EOF/SSF Test: Sending GOOD card data packet.";
       tx_data(1007 downto 0) <=
          X"0040404040404040404040404040404040404040404040404040404040404040" &
          X"4040404040404040404040404040404040404040404040404040404040404040" &
@@ -1402,7 +1413,7 @@ if IBM1414READEREOFTEST = 1 then
          X"672AA8C0C6A311400000010070000045000823F8AF5ED5E0000A04010002" ;
       tx_len <= std_logic_vector(to_unsigned(126,tx_len'length));
     else
-      report "Reader EOF Test: Sending DATA CHECK card data packet.";
+      report "Reader ERROR Test: Sending DATA CHECK card data packet.";
       tx_data(1007 downto 0) <=
          X"0040404040404040404040404040404040404040404040404040404040404040" &
          X"4040404040404040404040404040404040404040404040404040404040404040" &
@@ -1434,24 +1445,27 @@ if IBM1414READEREOFTEST = 1 then
    -- the special latch inside the 1414.  (We won't see an actual read request becauase
    -- the CPU wil have halted by now.)
 
-   report "Reader EOF Test: Sending packet to indicate not ready after EOF.";
-    tx_data(367 downto 0) <=
-        X"000101850D9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
-        X"000823F8AF5ED5E0000A04010002" ;
-    tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
-    wait for 1 ns;
-    SEND_RX(minSize => 46, testName => "EOF Not Ready Packet to FPGA", verbosity => 1);
-    wait for 1 ms;
+   if IBM1414READEREOFTEST = 1 then
+      report "Reader EOF Test: Sending packet to indicate not ready after EOF.";
+      tx_data(367 downto 0) <=
+         X"000101850D9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+         X"000823F8AF5ED5E0000A04010002" ;
+      tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+      wait for 1 ns;
+      SEND_RX(minSize => 46, testName => "EOF Not Ready Packet to FPGA", verbosity => 1);
+      wait for 1 ms;
+   end if;
 
     -- Look for the ARP request  (This really should be a procedure => .)
+    -- If this is an EOF test, this won't happen.
 
-    report "Reader EOF Test, waiting for ARP request.";
+    report "Reader Test, waiting for ARP request.";
 
     -- The following may not ever trigger because of the EOF condition.
 
     RECEIVE_TX(minSize => 60, testName => "Reader UDP ARP REQUEST", verbosity => 1);    
 
-    report "Reader EOF Test: Received ARP request, Building ARP reply";
+    report "Reader Test: Received ARP request, Building ARP reply";
 
     -- Set up the ARP reply
     
@@ -1488,14 +1502,14 @@ if IBM1414READEREOFTEST = 1 then
     wait for 100 us;
     
     -- tx_data(8*60-1 downto 0) <= tx_arp;
-    SEND_RX(minSize => 60, testName => "Reader EOF Test: Sending  UDP ARP REPLY", verbosity => 1);
+    SEND_RX(minSize => 60, testName => "Reader Test: Sending  UDP ARP REPLY", verbosity => 1);
     wait for 1 us;
 
     -- wait for 5 ms;
 
-    -- We will now receive a read request to stack that last card.
+    -- We will now receive a read request or SSF request to stack that last card.
     
-    RECEIVE_TX(minSize => 60, testName => "Reader EOF Test: Receive Read Request", verbosity => 2);    
+    RECEIVE_TX(minSize => 60, testName => "Reader Test: Receive Read Request", verbosity => 2);    
 
     wait for 1 ms;
 
