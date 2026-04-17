@@ -1141,7 +1141,7 @@ unitCh1ReaderRequestProcess: process (
             -- Send the operation number.  Wait for feed start to go away - though
             -- it ought to have already gone away by now.
             if READER_CH1_FEED_START = '0' then
-               READER_CH1_REQUEST_DATA <= "000000000";
+               READER_CH1_REQUEST_DATA <= "000000000";  -- Clear the flush flag
                unitCh1ReaderRequestState <= unit_reader_request_done;
             else
                -- Should never really get here.
@@ -1357,7 +1357,11 @@ unitCh1PunchFeedProcess: process (
             end if;
 
          when unit_punch_feed_request_done =>
-            -- Keep the punch busy for a while
+            -- Keep the punch busy for a while, but we have to clear the flush
+            -- flag because otherwise it could end up getting OR'd with the next
+            -- character(s) that get transmitted (say, for the reader or printer)
+            -- until this delay is finished.
+            PUNCH_CH1_REQUEST_DATA <= "000000000";
             if PUNCH_CH1_DELAY_COUNTER = PUNCH_DELAY_TIME then
                unitCh1PunchFeedRequestState <= unit_punch_feed_request_reset;
             else
@@ -1643,6 +1647,7 @@ unitCh1PrintRequestProcess: process (
                PRINTER_CH1_BUFFER_SCAN_POSITION <= PRINTER_BUFFER_LENGTH;  -- Fakey.
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_fifo_wait_3;
             elsif PRINTER_CH1_BUFFER_SCAN_POSITION = PRINTER_BUFFER_LENGTH then
+               PRINTER_CH1_REQUEST_DATA <= "000000000";  -- Clear the flush flag
                unitCh1PrinterPrintRequestState <= unit_printer_print_request_done;
             else
                PRINTER_CH1_BUFFER_SCAN_POSITION <= PRINTER_CH1_BUFFER_SCAN_POSITION + 1;
