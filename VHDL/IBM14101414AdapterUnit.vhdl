@@ -149,11 +149,13 @@ constant PRINTER_CH2_DEVICE_NUMBER: integer := 66;
 constant UNIT_RECEIVE_STATUS_OPERATION:   integer := 1;
 constant UNIT_RECEIVE_DATA_OPERATION:     integer := 2;
 
-constant UNIT_READY_BIT: integer       := 0;
-constant UNIT_BUSY_BIT:  integer       := 1;
-constant UNIT_DATA_CHECK_BIT: integer  := 2;
-constant UNIT_WLR_BIT: integer         := 3;
-constant READER_LAST_CARD_BIT: integer := 4; -- Only set if reader EOF button also pressed.
+constant UNIT_READY_BIT: integer          := 0;
+constant UNIT_BUSY_BIT:  integer          := 1;
+constant UNIT_DATA_CHECK_BIT: integer     := 2;
+constant UNIT_WLR_BIT: integer            := 3;
+constant READER_LAST_CARD_BIT: integer    := 4; -- Only set if reader EOF button also pressed.
+constant PRINTER_CHANNEL_9_BIT: integer   := 5;
+constant PRINTER_CHANNEL_12_BIT: integer  := 6;
 
 constant OUT_STROBE_TIME: integer         := 10;  -- 100ns UART Strobe time
 constant UNIT_INPUT_FIFO_SIZE: integer    := 200; -- enough to hold two UDP data packets
@@ -772,6 +774,30 @@ unitCh1ReaderLatchProcess: process (
          
       end if;
    end process;
+
+unitCh1PrinterLatchProcess: process (
+   FPGA_CLK,
+   unitCh1PrinterCarriageState,
+   UNIT_SUPPORT_OPERATION,
+   UNIT_INPUT_FIFO_READ_DATA
+   )
+
+   -- Latch process to make carriage busy on carriage operations until we get
+   -- ready not busy status back from PC Support Program.
+
+   begin
+      if FPGA_CLK'event and FPGA_CLK = '1' then
+         if unitCh1PrinterCarriageState = unit_printer_carriage_forms_go then
+            MC_FORMS_BUSY_STATUS_TO_CPU <= '0';
+         elsif unitTriggerState = unit_trigger and
+            UNIT_SUPPORT_UNIT = PRINTER_CH1_DEVICE_NUMBER and
+            UNIT_SUPPORT_OPERATION = UNIT_RECEIVE_STATUS_OPERATION  and
+            UNIT_INPUT_FIFO_READ_DATA(UNIT_BUSY_BIT) = '0' then
+               MC_FORMS_BUSY_STATUS_TO_CPU <= '1';
+         end if;
+      end if;
+   end process;
+
 
 -- Process to set whether or not the reader buffer is empty.  To work, it has to monitor the
 -- states of the filling and emptying processes
@@ -1708,6 +1734,8 @@ PRINTER_CH1_BUFFER_SENDING <= '1' when
    unitCh1PrinterPrintRequestState /= unit_printer_print_request_idle
 else '0';
 
+PRINTER_CH1_CARRIAGE_SENDING <= PRINTER_CH1_BUFFER_SENDING;
+
 PRINTER_CH1_BUFFER_BUSY <= PRINTER_CH1_BUFFER_FILLING or PRINTER_CH1_BUFFER_SENDING;
 
 -- 1414 ILD signals and signals related to that.
@@ -1791,16 +1819,19 @@ MC_BUFFER_ERROR <= '0' when
    (UNIT_SELECT_UNIT_1 = '1' and READER_CH1_VALIDITY_CHECK = '1')
    else '1';
 
+MC_PRINTER_CHANNEL_9 <= not PRINTER_CH1_STATUS(PRINTER_CHANNEL_9_BIT);
+MC_PRINTER_CHANNEL_12 <= not PRINTER_CH1_STATUS(PRINTER_CHANNEL_12_BIT);
+-- MC_FORMS_BUSY_STATUS_TO_CPU <= '1';  See printer latch process above.
+
 --  TODO: The following may need fixing?
 -- (For Priority Feature) Reader is reloading the buffer
 -- MC_READER_BUSY <= '0'
 --   when (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1')
 --    else  '1';
+
 MC_PUNCH_BUSY <= '1';
 MC_READER_BUSY <= '1';
 MC_1403_PRINT_BUFFER_BUSY <= '1';
-MC_PRINTER_CHANNEL_9 <= '1';
-MC_PRINTER_CHANNEL_12 <= '1';
 MC_I_O_PRINTER_READY <= '1';
 MC_FORMS_BUSY_STATUS_TO_CPU <= '1';
 
