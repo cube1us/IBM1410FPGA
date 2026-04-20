@@ -775,7 +775,8 @@ end RECEIVE_TX;
    variable IBM1414READERTEST: integer := 0;
    variable IBM1414READEREOFTEST: integer := 0;
    variable IBM1414READERERRORTEST: integer := 0;
-   variable IBM1414READERSSFTEST: integer := 1;
+   variable IBM1414READERSSFTEST: integer := 0;
+   variable IBM1414CARRIAGETEST:  integer := 1;
    
 
   begin
@@ -1522,6 +1523,108 @@ if IBM1414READEREOFTEST = 1 or IBM1414READERERRORTEST = 1 or IBM1414READERSSFTES
     wait for 1 ns;
     SEND_RX(minSize => 46, testName => "Reader Not Ready Packet to FPGA", verbosity => 1);
 
+    wait for 1 ms;    
+    
+    report "Normal End of Reader EOF Test" severity failure;    
+
+end if;
+
+
+if IBM1414CARRIAGETEST = '1' then
+
+    report "Begin 1414 1403 Printer Carriage Test.";
+
+    -- Give Ethernet a chance to initialize...
+    btnU <= '0';
+    btnC <= '0';
+    PhyRxErr <= '0';
+    PhyIntn <= '1';    
+    wait for 100 ns;
+    wait until PhyRstn = '1';
+    wait for 1500 us;
+        
+    btnC <= '1';
+    report "Pressed Start";
+    wait for 11 ms;
+    btnC <= '0';
+    wait for 1 ms;
+
+    -- Send a packet to set up the status for punch printer and reader
+
+
+    report "Printer Carriage Test: Indicate Printer is Ready.";
+    tx_data(431 downto 0) <=
+        X"010101850101028501010485048F140000040004FE2AA8C0672AA8C00EA41140" &
+        X"0000010028000045000823F8AF5ED5E0000A04010002" ;   
+    tx_len <= std_logic_vector(to_unsigned(54,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 54, testName => "Reader Ready Status Packet to FPGA", verbosity => 1);
+    wait for 100 us;
+    
+    -- Look for an ARP request which will be sent before a carriage request packet
+
+    report "Printer Carriage Test, waiting for ARP request.";
+
+    -- The following may not ever trigger because of the EOF condition.
+
+    RECEIVE_TX(minSize => 60, testName => "Printer Carriage UDP ARP REQUEST", verbosity => 1);    
+
+    report "Printer Carriage Test: Received ARP request, Building ARP reply";
+
+    -- Set up the ARP reply
+    
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+
+    j := 28*8;
+    i := 0;    
+    while i < 6 loop
+       receivedMac(i*8+7 downto i*8) := rx_data(j-1 downto j-8);
+       j := j - 8; 
+       i := i + 1;
+    end loop;
+
+    BUILD_ARP_FRAME(
+       testName => "Printer Carriage Test: Build UDP ARP REPLY",
+       verbosity => 1,
+       srcMac => X"E0D55EAFF823",
+       destMac => receivedMac,
+       arpOperation => X"0002", -- Reply
+       srcIP => X"C0A82A67",    -- Hard coded to match what FPGA is expecting
+       tgtMac => receivedMac,
+       tgtIp => X"C0A82AFE");   -- Hard coded for now till I figure out the offset
+    
+    report "Printer Carriage Test: Built ARP Reply Frame";
+    
+    wait for 10 ns;
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+    i := 0;
+    while i < 8*to_integer(unsigned(tx_len)) loop
+       tx_data(8*60-i-1 downto 8*60-i-8) <= tx_arp(i+7 downto i);
+       i := i + 8;       
+    end loop;
+    
+    wait for 100 us;
+    
+    -- tx_data(8*60-1 downto 0) <= tx_arp;
+    SEND_RX(minSize => 60, testName => "Printer Carriage Test: Sending  UDP ARP REPLY", verbosity => 1);
+    wait for 1 us;
+
+    -- wait for 5 ms;
+
+    -- We will now receive a Carriage request from the FPGA
+    
+    RECEIVE_TX(minSize => 60, testName => "Carriage Test: Receive Carriage Request", verbosity => 2);    
+
+    wait for 5 ms; -- Wait for the carriage to "move".
+
+    -- Now, tell the FPGA that the carriage has reached Channel 9, and is Ready
+
+    tx_data(367 downto 0) <=
+        X"21010285FC9A0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+        X"000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 46, testName => "CC at 9 Packet to FPGA", verbosity => 1);
     wait for 1 ms;    
     
     report "Normal End of Reader EOF Test" severity failure;    

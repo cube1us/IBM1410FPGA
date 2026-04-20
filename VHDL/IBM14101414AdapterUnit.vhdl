@@ -361,7 +361,9 @@ signal PRINTER_CH1_BUFFER_SENDING:        std_logic := '0';  -- Buffer to Suppor
 signal PRINTER_CH1_CARRIAGE_SENDING:      std_logic := '0';  -- While sending carriage control char to support pgm
 signal PRINTER_CH1_START_PRINT:           std_logic := '0';  -- True to send card to PC support pgm
 signal PRINTER_CH1_START_CARRIAGE:	      std_logic := '0';  -- True to send carriage control to PC support pgm
+signal PRINTER_CH1_PRINTER_PRINTING:      std_logic := '0';  -- Ture if printing but status not yet back
 signal PRINTER_CH1_CARRIAGE_OPERATION:	   std_logic := '0';  -- Latch: True if we are sending a carriage operation
+signal PRINTER_CH1_CARRIAGE_MOVING:       std_logic := '0';  -- Latch: Set on carriage go, reset by PC msg
 
 signal PRINTER_CH1_REQUEST_DATA:          std_logic_vector(8 downto 0) := "000000000";
 
@@ -782,20 +784,25 @@ unitCh1PrinterLatchProcess: process (
    UNIT_INPUT_FIFO_READ_DATA
    )
 
-   -- Latch process to make carriage busy on carriage operations until we get
-   -- ready not busy status back from PC Support Program.
+   -- Latch process to make carriage busy on carriage operations or printer busy on print ops
+   -- until we get ready not busy status back from PC Support Program.
 
    begin
       if FPGA_CLK'event and FPGA_CLK = '1' then
          if unitCh1PrinterCarriageState = unit_printer_carriage_forms_go then
-            MC_FORMS_BUSY_STATUS_TO_CPU <= '0';
+            PRINTER_CH1_CARRIAGE_MOVING <= '1';
+         elsif PRINTER_CH1_START_PRINT = '1' then
+            PRINTER_CH1_PRINTER_PRINTING <= '1';
          elsif unitTriggerState = unit_trigger and
             UNIT_SUPPORT_UNIT = PRINTER_CH1_DEVICE_NUMBER and
             UNIT_SUPPORT_OPERATION = UNIT_RECEIVE_STATUS_OPERATION  and
             UNIT_INPUT_FIFO_READ_DATA(UNIT_BUSY_BIT) = '0' then
-               MC_FORMS_BUSY_STATUS_TO_CPU <= '1';
+               PRINTER_CH1_CARRIAGE_MOVING <= '0';
+               PRINTER_CH1_PRINTER_PRINTING <= '0';
          end if;
       end if;
+
+
    end process;
 
 
@@ -1788,10 +1795,12 @@ MC_BUFFER_READY <= '0'
 MC_BUFFER_BUSY <= '0' 
    -- TODO --- Need to add 1401 mode read here
    when (UNIT_SELECT_UNIT_1 = '1' and (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1') and
-        READER_CH1_END_OF_FILE = '0') or
-      (UNIT_SELECT_UNIT_4 = '1' and (PUNCH_CH1_BUFFER_SENDING = '1' or PUNCH_CH1_BUFFER_FILLING = '1')) or
-      (UNIT_SELECT_UNIT_2 = '1' and (PRINTER_CH1_BUFFER_SENDING = '1' or PRINTER_CH1_BUFFER_FILLING = '1')) or
-      (UNIT_SELECT_UNIT_2 = '1' and (PRINTER_CH1_CARRIAGE_SENDING = '1'))
+         READER_CH1_END_OF_FILE = '0') or
+      (UNIT_SELECT_UNIT_4 = '1' and (PUNCH_CH1_BUFFER_SENDING = '1' or 
+         PUNCH_CH1_BUFFER_FILLING = '1')) or
+      (UNIT_SELECT_UNIT_2 = '1' and (PRINTER_CH1_BUFFER_SENDING = '1' or 
+         PRINTER_CH1_BUFFER_FILLING = '1' or PRINTER_CH1_PRINTER_PRINTING = '1' or
+         PRINTER_CH1_CARRIAGE_SENDING = '1' or  PRINTER_CH1_CARRIAGE_MOVING = '1'))      
    else '1';
 
 MC_BUFFER_CONDITION <= '0' 
@@ -1821,7 +1830,15 @@ MC_BUFFER_ERROR <= '0' when
 
 MC_PRINTER_CHANNEL_9 <= not PRINTER_CH1_STATUS(PRINTER_CHANNEL_9_BIT);
 MC_PRINTER_CHANNEL_12 <= not PRINTER_CH1_STATUS(PRINTER_CHANNEL_12_BIT);
--- MC_FORMS_BUSY_STATUS_TO_CPU <= '1';  See printer latch process above.
+MC_FORMS_BUSY_STATUS_TO_CPU  <= not PRINTER_CH1_CARRIAGE_MOVING;
+
+-- The following might only be for Interrupts
+
+MC_1403_PRINT_BUFFER_BUSY <= '0' 
+   when   (UNIT_SELECT_UNIT_2 = '1' and (PRINTER_CH1_BUFFER_SENDING = '1' or 
+         PRINTER_CH1_BUFFER_FILLING = '1'))      
+   else '1';
+
 
 --  TODO: The following may need fixing?
 -- (For Priority Feature) Reader is reloading the buffer
@@ -1831,8 +1848,7 @@ MC_PRINTER_CHANNEL_12 <= not PRINTER_CH1_STATUS(PRINTER_CHANNEL_12_BIT);
 
 MC_PUNCH_BUSY <= '1';
 MC_READER_BUSY <= '1';
-MC_1403_PRINT_BUFFER_BUSY <= '1';
 MC_I_O_PRINTER_READY <= '1';
-MC_FORMS_BUSY_STATUS_TO_CPU <= '1';
+-- MC_FORMS_BUSY_STATUS_TO_CPU <= '1';  -- Only used in 1401 mode  BZZZZT.  WRONG?
 
 end Behavioral;
