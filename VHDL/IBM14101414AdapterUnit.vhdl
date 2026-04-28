@@ -297,6 +297,11 @@ type unitPrinterCarriageState_type is (
    unit_printer_carriage_forms_go
 );
 
+type ioClock080090State_type is (
+   io_clock_080_090_idle,
+   io_clock_080_090_pulse
+);
+
 signal UNIT_RECEIVED_DEVICE:     std_logic_vector(7 downto 0) := "00000000";
 signal UNIT_RECEIVED_OPERATION:  std_logic_vector(7 downto 0) := "00000000";
 
@@ -400,8 +405,13 @@ signal unitPunchStrobeCounter:   integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 signal unitPrinterDelayCounter:  integer range 0 to CHANNEL_CYCLE_LENGTH := 0;
 signal unitPrinterStrobeCounter: integer range 0 to CHANNEL_STROBE_LENGTH := 0;
 
--- We need a buffer for the reader, just like a real IBM 1414.
--- (I don't think we will need that for output devices - we can just fill the packet)
+-- Signals used by the process to generate MC_I_O_CLOCK_080_090_TIME for Interrupts
+
+signal LAST_PUNCH_CH1_BUFFER_FILLING:        std_logic := '0';
+signal LAST_READER_CH1_FEEDING:              std_logic := '0';
+signal LAST_PRINTER_CH1_PRINTER_PRINTING:    std_logic := '0';
+signal IO_CLOCK_080_090_COUNTER:             integer range 0 to CHANNEL_CYCLE_LENGTH;
+signal io_clock_080_090_State:               ioClock080090State_type := io_clock_080_090_idle;
 
 -- Vivado debugging constraints so that we can find signals in the netlist to debug
 
@@ -777,6 +787,9 @@ unitCh1ReaderLatchProcess: process (
       end if;
    end process;
 
+
+-- Process to handle printer busy status.
+
 unitCh1PrinterLatchProcess: process (
    FPGA_CLK,
    unitCh1PrinterCarriageState,
@@ -793,12 +806,14 @@ unitCh1PrinterLatchProcess: process (
             PRINTER_CH1_CARRIAGE_MOVING <= '1';
          elsif PRINTER_CH1_START_PRINT = '1' then
             PRINTER_CH1_PRINTER_PRINTING <= '1';
+            -- MC_1403_PRINT_BUFFER_BUSY <= '0';
          elsif unitTriggerState = unit_trigger and
             UNIT_SUPPORT_UNIT = PRINTER_CH1_DEVICE_NUMBER and
             UNIT_SUPPORT_OPERATION = UNIT_RECEIVE_STATUS_OPERATION  and
             UNIT_INPUT_FIFO_READ_DATA(UNIT_BUSY_BIT) = '0' then
                PRINTER_CH1_CARRIAGE_MOVING <= '0';
                PRINTER_CH1_PRINTER_PRINTING <= '0';
+               -- MC_1403_PRINT_BUFFER_BUSY <= '1';
          end if;
       end if;
 
@@ -1695,6 +1710,66 @@ unitCh1PrintRequestProcess: process (
 
    end process; -- unitCh1PrintRequestProcess
 
+-- Process to handle generation of the MC_I_O_CLOCK_080_090_TIME signal.
+
+unitCh1IOClock080090process: process (
+   FPGA_CLK,
+   READER_CH1_FEEDING,
+   PUNCH_CH1_BUFFER_FILLING,
+   PRINTER_CH1_BUFFER_FILLING,
+   LAST_READER_CH1_FEEDING,
+   LAST_PUNCH_CH1_BUFFER_FILLING,
+   LAST_PRINTER_CH1_PRINTER_PRINTING,
+   IO_CLOCK_080_090_COUNTER,
+   IO_CLOCK_080_090_State
+   )  
+
+   begin
+
+   if MC_COMP_RESET_TO_BUFFER = '0' then
+      LAST_READER_CH1_FEEDING <= '0';
+      LAST_PUNCH_CH1_BUFFER_FILLING <= '0';
+      LAST_PRINTER_CH1_PRINTER_PRINTING <= '0';
+      io_clock_080_090_state <= io_clock_080_090_idle;
+
+   elsif FPGA_CLK'event and FPGA_CLK = '1' then
+
+      LAST_READER_CH1_FEEDING <= READER_CH1_FEEDING;
+      LAST_PUNCH_CH1_BUFFER_FILLING <= PUNCH_CH1_BUFFER_FILLING;
+      LAST_PRINTER_CH1_PRINTER_PRINTING <= PRINTER_CH1_PRINTER_PRINTING;
+
+      case io_clock_080_090_state is
+      
+      -- Look for a change of state of the verious signals indicating busy going from busy
+      -- to not busy
+
+      when io_clock_080_090_idle =>
+         if (LAST_READER_CH1_FEEDING /= READER_CH1_FEEDING and READER_CH1_FEEDING = '0') or
+            (LAST_PUNCH_CH1_BUFFER_FILLING /= PUNCH_CH1_BUFFER_FILLING and 
+               PUNCH_CH1_BUFFER_FILLING = '0') or
+            (LAST_PRINTER_CH1_PRINTER_PRINTING /= PRINTER_CH1_PRINTER_PRINTING and 
+               PRINTER_CH1_PRINTER_PRINTING = '0') then
+            IO_CLOCK_080_090_COUNTER <= 0;
+            io_clock_080_090_state <= io_clock_080_090_pulse;
+         else
+            io_clock_080_090_state <= io_clock_080_090_idle;
+         end if;
+
+
+      when io_clock_080_090_pulse =>
+         if IO_CLOCK_080_090_COUNTER = CHANNEL_CYCLE_LENGTH then
+            io_clock_080_090_state <= io_clock_080_090_idle;
+         else
+            IO_CLOCK_080_090_COUNTER <= IO_CLOCK_080_090_COUNTER + 1;
+            io_clock_080_090_state <= io_clock_080_090_pulse;
+         end if;
+
+      end case;
+
+
+   end if;
+   
+   end process;  -- unitCh1IOClock080090process
 
 
 UDP_RESET <= not MC_COMP_RESET_TO_BUFFER;
@@ -1831,24 +1906,15 @@ MC_BUFFER_ERROR <= '0' when
 MC_PRINTER_CHANNEL_9 <= not PRINTER_CH1_STATUS(PRINTER_CHANNEL_9_BIT);
 MC_PRINTER_CHANNEL_12 <= not PRINTER_CH1_STATUS(PRINTER_CHANNEL_12_BIT);
 MC_FORMS_BUSY_STATUS_TO_CPU  <= not PRINTER_CH1_CARRIAGE_MOVING;
+MC_I_O_PRINTER_READY <= not PRINTER_CH1_STATUS(UNIT_READY_BIT);
 
--- The following might only be for Interrupts
+-- The following are used for interrupt generation.
 
-MC_1403_PRINT_BUFFER_BUSY <= '0' 
-   when   (UNIT_SELECT_UNIT_2 = '1' and (PRINTER_CH1_BUFFER_SENDING = '1' or 
-         PRINTER_CH1_BUFFER_FILLING = '1'))      
+MC_PUNCH_BUSY <= NOT PUNCH_CH1_BUFFER_FILLING;
+MC_READER_BUSY <= NOT READER_CH1_FEEDING;
+MC_1403_PRINT_BUFFER_BUSY <= not PRINTER_CH1_PRINTER_PRINTING;
+MC_I_O_CLOCK_080_090_TIME <= '0' when
+   io_clock_080_090_state = io_clock_080_090_pulse
    else '1';
-
-
---  TODO: The following may need fixing?
--- (For Priority Feature) Reader is reloading the buffer
--- MC_READER_BUSY <= '0'
---   when (READER_CH1_FEEDING = '1' or READER_CH1_BUFFER_FILLING = '1')
---    else  '1';
-
-MC_PUNCH_BUSY <= '1';
-MC_READER_BUSY <= '1';
-MC_I_O_PRINTER_READY <= '1';
--- MC_FORMS_BUSY_STATUS_TO_CPU <= '1';  -- Only used in 1401 mode  BZZZZT.  WRONG?
 
 end Behavioral;
