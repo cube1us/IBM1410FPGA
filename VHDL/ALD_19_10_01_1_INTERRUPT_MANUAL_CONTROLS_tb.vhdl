@@ -258,6 +258,71 @@ uut_process: process
       
    end loop;
 
+   -- Do a specific test with the punch to see how the circuit behaves
+
+   -- Set the priority switch to the Punch position 
+   SWITCH_ROT_I_O_UNIT_DK1 <= "010000";
+
+   MS_PROGRAM_RESET_6 <= '0';
+   wait for 100 ns;
+   MS_PROGRAM_RESET_6 <= '1';
+   wait for 100 ns;
+
+   -- Now, push the Priority button.  We should see the priority switch on signal.
+
+   SWITCH_ALT_PRIORITY_PL2 <= '1';
+   wait for 100 ns;
+
+   assert PS_PRIORITY_SW_ON = '1' report "Priority Switch not asserted as expected." severity failure;
+
+   -- Now, pretend the punch just did its thing => .
+
+   MC_PUNCH_BUSY <= '0';  
+   wait for 1 ms;
+   MC_I_O_CLOCK_080_090_TIME <= '0';  -- Cycle the 1414 clock a few times.  
+   wait for 1 us;
+   MC_I_O_CLOCK_080_090_TIME <= '1';
+   wait for 1 us;   
+   MC_I_O_CLOCK_080_090_TIME <= '0';  -- Cycle the 1414 clock a few times.  
+   wait for 1 us;
+   MC_I_O_CLOCK_080_090_TIME <= '1';
+   wait for 1 us;   
+   MC_PUNCH_BUSY <= '1';
+   wait for 1 us;
+   MC_I_O_CLOCK_080_090_TIME <= '0';  -- Cycle the 1414 clock a few times.  
+   wait for 1 us;
+   MC_I_O_CLOCK_080_090_TIME <= '1';
+   wait for 1 us;   
+   MC_I_O_CLOCK_080_090_TIME <= '0';  -- Cycle the 1414 clock a few times.  
+   wait for 1 us;
+   MC_I_O_CLOCK_080_090_TIME <= '1';
+   wait for 1 us;   
+
+   -- Now, pretend that interrupt was handled, and lather, rince and repeat.
+
+   wait for 1 ms;
+
+   MC_PUNCH_BUSY <= '0';  
+   wait for 1 ms;
+   MC_I_O_CLOCK_080_090_TIME <= '0';  -- Cycle the 1414 clock a few times.  
+   wait for 1 us;
+   MC_I_O_CLOCK_080_090_TIME <= '1';
+   wait for 1 us;   
+   MC_I_O_CLOCK_080_090_TIME <= '0';  -- What happens if they are simutaneous?
+   MC_PUNCH_BUSY <= '1';
+   wait for 1 us;
+   MC_I_O_CLOCK_080_090_TIME <= '0';  -- Cycle the 1414 clock a few times.  
+   wait for 1 us;
+   MC_I_O_CLOCK_080_090_TIME <= '1';
+   wait for 1 us;   
+   MC_I_O_CLOCK_080_090_TIME <= '0';  -- Cycle the 1414 clock a few times.  
+   wait for 1 us;
+   MC_I_O_CLOCK_080_090_TIME <= '1';
+   wait for 1 us;   
+
+
+   wait for 1 ms;
+
    assert false report "Simulation Ended NORMALLY" severity failure;
 
    wait;
