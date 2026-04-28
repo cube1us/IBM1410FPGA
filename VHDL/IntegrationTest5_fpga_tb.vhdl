@@ -253,7 +253,8 @@ uut_process: process is
   
   -- Essentially a watchdog -- in case the real test doesn't complete.
   -- wait for 25 ms;
-  wait for 30 ms;
+  -- wait for 30 ms;
+  wait for 65 ms;
   
   -- Tell it unit E channel tape unit 0 is ready
   
@@ -772,11 +773,13 @@ end RECEIVE_TX;
    variable TAUWRITETEST: integer := 0;
    variable TAUREADTMCONDTEST: integer := 0;
    variable IBM1414PUNCHTEST:  integer := 0;
+   variable IBM1414PRINTTEST:  integer := 1;
+   variable IBM1414PRTIRQTST:  integer := 1;
    variable IBM1414READERTEST: integer := 0;
    variable IBM1414READEREOFTEST: integer := 0;
    variable IBM1414READERERRORTEST: integer := 0;
    variable IBM1414READERSSFTEST: integer := 0;
-   variable IBM1414CARRIAGETEST:  integer := 1;
+   variable IBM1414CARRIAGETEST:  integer := 0;
    
 
   begin
@@ -1281,19 +1284,154 @@ if IBM1414PUNCHTEST = 1 then
     wait for 100 us;
     
     -- tx_data(8*60-1 downto 0) <= tx_arp;
-    SEND_RX(minSize => 60, testName => "Send Punch/printer UDP ARP REPLY", verbosity => 2);
+    SEND_RX(minSize => 60, testName => "Send Punch UDP ARP REPLY", verbosity => 2);
     wait for 1 us;
     
-    -- Then we expect to see the write requests for print and punch data
+    -- Then we expect to see the write requests for punch data
 
     RECEIVE_TX(minSize => 60, testName => "Punch Data", verbosity => 2);    
-    RECEIVE_TX(minSize => 64, testName => "Print Data", verbosity => 2);
 
     wait for 5 ms;
 
-   report "Normal End of Punch/Printer Test" severity failure;    
+   report "Normal End of Punch Test" severity failure;    
 
-end if;  -- TAPEWRITETEST = 1
+end if;  -- IBM1414PUNCHTEST = 1
+
+
+if IBM1414PRINTTEST = 1 or IBM1414PRTIRQTST = 1 then
+
+    report "Begin 1414 Print Test";
+
+    -- Give Ethernet a chance to initialize...
+    btnU <= '0';
+    btnC <= '0';
+    PhyRxErr <= '0';
+    PhyIntn <= '1'; 
+
+    --   I temporarily added the following - easier than transmitting a switch vector
+    
+    SW(8) <= '1';  -- SWITCH ALT PRIORITY PL 2 - the one that matters
+    SW(9) <= '1';  -- ROT I O Unit DK1(3) - Printer Priority Select
+
+    wait for 100 ns;
+    wait until PhyRstn = '1';
+    wait for 1500 us;
+        
+   -- Send a packet to set up the status for the punch and printer before starting
+
+    -- VHDL Packet Assignment and transmission:
+    tx_data(399 downto 0) <=
+        X"01010285010104850F15100000040004FE2AA8C0672AA8C012A4114000000100" &
+        X"24000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(50,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 50, testName => "Send Punch/Printer Ready Packet to FPGA", verbosity => 1);
+
+    -- Start the CPU, but do not wait for the start to complete before waiting for the
+    -- ARP packet 
+
+    btnC <= '1';
+    report "Pressed Start";
+
+    wait for 10100 us; -- was 10100 
+    btnC <= '0';   
+    
+    -- Look for the ARP request
+
+    report "Print Test, waiting for ARP request.";
+
+    RECEIVE_TX(minSize => 60, testName => "PRINT UDP ARP REQUEST", verbosity => 2);    
+
+    report "Print Test, received ARP request.  Sending reply.";
+
+    -- Set up the ARP reply
+    
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+
+    j := 28*8;
+    i := 0;    
+    while i < 6 loop
+       receivedMac(i*8+7 downto i*8) := rx_data(j-1 downto j-8);
+       j := j - 8; 
+       i := i + 1;
+    end loop;
+
+    BUILD_ARP_FRAME(
+       testName => "Printer UDP ARP REPLY",
+       verbosity => 1,
+       srcMac => X"E0D55EAFF823",
+       destMac => receivedMac,
+       arpOperation => X"0002", -- Reply
+       srcIP => X"C0A82A67",    -- Hard coded to match what FPGA is expecting
+       tgtMac => receivedMac,
+       tgtIp => X"C0A82AFE");   -- Hard coded for now till I figure out the offset
+    
+    report "Built ARP Reply Frame";
+    
+    wait for 10 ns;
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+    i := 0;
+    while i < 8*to_integer(unsigned(tx_len)) loop
+       tx_data(8*60-i-1 downto 8*60-i-8) <= tx_arp(i+7 downto i);
+       i := i + 8;       
+    end loop;
+    
+    wait for 100 us;
+    
+    -- tx_data(8*60-1 downto 0) <= tx_arp;
+    SEND_RX(minSize => 60, testName => "Send Printer UDP ARP REPLY", verbosity => 2);
+    wait for 1 us;
+    
+    -- Then we expect to see the write requests for print data
+
+    RECEIVE_TX(minSize => 60, testName => "Print Data 1", verbosity => 2); 
+    
+    -- Next, we have to tell it that we received the print data.
+
+    wait for 1 ms;
+    
+    -- Now, tell the FPGA that the carriage has reached Channel 9, and is Ready
+
+    tx_data(367 downto 0) <=
+        X"21010285FC9A0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+        X"000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 46, testName => "Printer Ready (+ CC 9) Packet to FPGA", verbosity => 1);
+    wait for 1 ms;    
+
+    if IBM1414PRTIRQTST = 1 then
+      i := 1;
+      while i < 10 loop
+
+         -- Then we expect to see the write requests for more print data (interrupt test)
+
+         RECEIVE_TX(minSize => 60, testName => "Print Data 1", verbosity => 2); 
+    
+         -- Next, we have to tell it that we received the print data.
+
+         wait for 1 ms;
+    
+         -- Now, tell the FPGA that the carriage has reached Channel 9, and is Ready
+
+         tx_data(367 downto 0) <=
+            X"21010285FC9A0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+            X"000823F8AF5ED5E0000A04010002" ;
+         tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+         wait for 1 ns;
+         SEND_RX(minSize => 46, testName => "Printer Ready (+ CC 9) Packet to FPGA", verbosity => 1);
+         wait for 1 ms;    
+         i := i + 1;
+      end loop;
+   end if;  -- IBM1414PRTIRQTST = 1
+
+    wait for 5 ms;
+
+   report "Normal End of Printer Test" severity failure;    
+
+end if;  -- IBM1414PRINTTEST = 1 or IBM1414PRTIRQTST = 1
+
+
 
 if IBM1414READERTEST = 1 then
 
@@ -1530,7 +1668,7 @@ if IBM1414READEREOFTEST = 1 or IBM1414READERERRORTEST = 1 or IBM1414READERSSFTES
 end if;
 
 
-if IBM1414CARRIAGETEST = '1' then
+if IBM1414CARRIAGETEST = 1 then
 
     report "Begin 1414 1403 Printer Carriage Test.";
 
@@ -1627,7 +1765,7 @@ if IBM1414CARRIAGETEST = '1' then
     SEND_RX(minSize => 46, testName => "CC at 9 Packet to FPGA", verbosity => 1);
     wait for 1 ms;    
     
-    report "Normal End of Reader EOF Test" severity failure;    
+    report "Normal End of Carriage Control Test" severity failure;    
 
 end if;
 
