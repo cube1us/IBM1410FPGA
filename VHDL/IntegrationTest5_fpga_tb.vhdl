@@ -13,11 +13,12 @@ end IntegrationTest5_fpga_tb;
 architecture behavioral of IntegrationTest5_fpga_tb is
  
 component IntegrationTest5_fpga is
+   -- Need to take these out to do testing at synth functional level?
    GENERIC (
       CHANNEL_STROBE_LENGTH: integer;     -- Default 100 == 1 us
       CHANNEL_CYCLE_LENGTH:  integer;     -- Default 1120 == 11.2 us
       TAU_IRG_DELAY:         integer;     -- Default 10000 == 100 us
-      TAU_WRITE_RBC_DELAY:   integer;     -- Default 4000000 == 30ms
+      TAU_WRITE_RBC_DELAY:   integer;     -- Default 4000000 == 40 ms
       USE_UDP_OUTPUT_TEST:   integer := 0;
       USE_UDP_INPUT_TEST:    integer := 0
    );
@@ -177,13 +178,14 @@ begin
   -- Instantiate the top level module
 
    UUT: IntegrationTest5_fpga 
+   -- Need to take these out to test at at functional level ?
    generic map(
-      CHANNEL_STROBE_LENGTH =>   100,  -- 1 us strobe
-      CHANNEL_CYCLE_LENGTH  =>  1120,  -- 20 us (would be 1120 for 11.2 us per 800 bpi char)
-      TAU_IRG_DELAY         => 10000,  -- 1ms to allow for overlap to start up
-      TAU_WRITE_RBC_DELAY =>    1000,  -- For simulation, just 10us
-      USE_UDP_OUTPUT_TEST => 0,
-      USE_UDP_INPUT_TEST => 0
+     CHANNEL_STROBE_LENGTH =>   100,  -- 1 us strobe
+     CHANNEL_CYCLE_LENGTH  =>  1120,  -- 20 us (would be 1120 for 11.2 us per 800 bpi char)
+     TAU_IRG_DELAY         => 10000,  -- 1ms to allow for overlap to start up
+     TAU_WRITE_RBC_DELAY =>    1000,  -- For simulation, just 10us
+     USE_UDP_OUTPUT_TEST => 0,
+     USE_UDP_INPUT_TEST => 0
    )
    port map(     
       CLK => FPGA_CLK,
@@ -1308,11 +1310,11 @@ if IBM1414PRINTTEST = 1 or IBM1414PRTIRQTST = 1 then
     PhyRxErr <= '0';
     PhyIntn <= '1'; 
 
-    --   I temporarily added the following - easier than transmitting a switch vector
-    
+    -- Set the interrupt and select before starting.  
+
     SW(8) <= '1';  -- SWITCH ALT PRIORITY PL 2 - the one that matters
     SW(9) <= '1';  -- ROT I O Unit DK1(3) - Printer Priority Select
-
+    
     wait for 100 ns;
     wait until PhyRstn = '1';
     wait for 1500 us;
@@ -1326,13 +1328,13 @@ if IBM1414PRINTTEST = 1 or IBM1414PRTIRQTST = 1 then
     tx_len <= std_logic_vector(to_unsigned(50,tx_len'length));
     wait for 1 ns;
     SEND_RX(minSize => 50, testName => "Send Punch/Printer Ready Packet to FPGA", verbosity => 1);
+    wait for 1 ms;
 
-    -- Start the CPU, but do not wait for the start to complete before waiting for the
-    -- ARP packet 
-
+    
+    -- Start the CPU
+    
     btnC <= '1';
     report "Pressed Start";
-
     wait for 10100 us; -- was 10100 
     btnC <= '0';   
     
