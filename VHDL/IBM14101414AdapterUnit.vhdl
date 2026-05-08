@@ -33,10 +33,11 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity IBM14101414AdapterUnit is
     GENERIC(
-        CHANNEL_STROBE_LENGTH: integer := 100;        -- 1 us strobe
-        CHANNEL_CYCLE_LENGTH:  integer := 1120;       -- 11.2 us per character
+        CHANNEL_STROBE_LENGTH:  integer := 100;        -- 1 us strobe
+        CHANNEL_CYCLE_LENGTH:   integer := 1120;       -- 11.2 us per character
         IOSYNC_OUTPUT_FIFO_SIZE: integer := 140;      -- Enough for printer, too
-        PUNCH_DELAY_TIME:      integer := 24000000    -- 240 ms/card in 10ns units
+        PUNCH_DELAY_TIME:       integer := 24000000;   -- 240 ms/card in 10ns units
+        READER_1401_DELAY_TIME: integer :=   800000    -- 8 ms read delay for 1401 to issue SSF
     );
 
 PORT (
@@ -231,6 +232,7 @@ type unitReaderTransferState_type is (
    unit_reader_transfer_wait_channel,    -- To make sure we dont' strobe the channel too fast.
    unit_reader_transfer_strobe_channel,
    unit_reader_transfer_end_of_transfer,
+   unit_reader_transfer_1401_delay,
    unit_reader_transfer_stacker_wait,
    unit_reader_transfer_done
 );
@@ -335,6 +337,8 @@ signal READER_CH1_BUFFER_BUSY:            std_logic := '0'; -- True when receivi
 signal READER_CH1_BUFFER_EMPTY:           std_logic := '1'; -- Indicates we do not have a card image stored (process)
 signal READER_CH1_BUFFER_FILLING:         std_logic := '0'; -- True when reader process filling the buffer
 signal READER_CH1_BUFFER_TRANSFERRING:    std_logic := '0'; -- True when we are transffering data to CPU
+
+signal READER_1401_DELAY_COUNTER:         integer range 0 to READER_1401_DELAY_TIME := 0;
 
 signal READER_CH1_REQUEST_DATA:           std_logic_vector(8 downto 0) := "000000000";
 
@@ -834,7 +838,7 @@ unitCh1ReaderBufferStatusProcess: process (
       if FPGA_CLK'event and FPGA_CLK = '1' then
          if unitCh1ReaderState = unit_Reader_Done then
             READER_CH1_BUFFER_EMPTY <= '0';
-         elsif unitCh1ReaderTransferState /= unit_reader_transfer_done then
+         elsif unitCh1ReaderTransferState = unit_reader_transfer_done then
             READER_CH1_BUFFER_EMPTY <= '1';
          end if;
       end if;
@@ -970,6 +974,7 @@ unitReaderCh1TransferOrStackProcess: process(
    unitReaderDelayCounter,
    unitReaderStrobeCounter,
    READER_CH1_BUFFER_SCAN_POSITION,
+   READER_1401_DELAY_COUNTER,
    MC_CORRECT_TRANS_TO_BUFFER
    )
 
@@ -985,6 +990,8 @@ unitReaderCh1TransferOrStackProcess: process(
       when unit_reader_transfer_reset =>
          READER_CH1_BUFFER_TRANSFERRING <= '0';
          READER_CH1_BUFFER_SCAN_POSITION <= 0;
+         READER_1401_DELAY_COUNTER <= 0;
+         READER_CH1_FEED_START <= '0';
          -- READER_CH1_FED <= '0';
          unitReaderDelayCounter <= 0;
          unitReaderStrobeCounter <= 0;
@@ -994,7 +1001,8 @@ unitReaderCh1TransferOrStackProcess: process(
          -- Have we received either a read request or stack request, and we are ready?
          if UNIT_SELECT_UNIT_1 = '1' and READER_CH1_BUFFER_FILLING = '0' and
             READER_CH1_END_OF_FILE = '0' and
-            (MC_READY_TO_BUFFER = '0' or MC_STACK_SELECT_TO_BUFFER = '0') then
+            (MC_READY_TO_BUFFER = '0' or MC_STACK_SELECT_TO_BUFFER = '0') and
+            (MC_1401_MODE_TO_BUFFER = '1' or READER_CH1_BUFFER_EMPTY = '0') then
 
             -- If there was a validity check, stacker 0 is forced.
 
@@ -1027,10 +1035,11 @@ unitReaderCh1TransferOrStackProcess: process(
          READER_CH1_BUFFER_SCAN_POSITION <= 0;
          -- We will initiate the reader feed, if appropriate, as we LEAVE this state, because
          -- this state first RESETS multi-read feed!
+         -- However, if we are in 1401 mode we do NOT start the feed yet.            
          if UNIT_CH1_STACKER_SELECTED = 9 then
             READER_CH1_FEED_START <= '0';
             -- READER_CH1_FED <= '0';
-         else
+         elsif MC_1401_MODE_TO_BUFFER = '1' then
             READER_CH1_FEED_START <= '1';
             -- READER_CH1_FED <= '1';
          end if;               
@@ -1081,7 +1090,13 @@ unitReaderCh1TransferOrStackProcess: process(
       when unit_reader_transfer_end_of_transfer =>
          -- Transfer should be done, now.
          if MC_CORRECT_TRANS_TO_BUFFER = '0' or MC_RESET_SELECT_BUFFER_LATCHES = '0' then
-            unitCh1ReaderTransferState <= unit_reader_transfer_done;
+            -- If we are in 1401 mode, give the program time to issue a stacker select
+            if MC_1401_MODE_TO_BUFFER = '0' then
+               READER_1401_DELAY_COUNTER <= 0;
+               unitCh1ReaderTransferState <= unit_reader_transfer_1401_delay;
+            else
+               unitCh1ReaderTransferState <= unit_reader_transfer_done;
+            end if;
          elsif unitReaderDelayCounter = CHANNEL_CYCLE_LENGTH - 1 then            
             unitCh1ReaderTransferState <= unit_reader_transfer_done;
          else
@@ -1096,6 +1111,24 @@ unitReaderCh1TransferOrStackProcess: process(
          --    unitCh1ReaderTransferState <= unit_reader_transfer_end_of_transfer;
          -- end if;
 
+
+      -- In 1401 mode, we have to wait a while to give the CPU a chance to issue a
+      -- stacker select instruction.
+
+      when unit_reader_transfer_1401_delay =>
+         if MC_FORMS_STACKER_GO = '0' then
+            READER_CH1_STACKER_SELECTED <= UNIT_CH1_STACKER_SELECTED;
+            READER_CH1_FEED_START <= '1';
+            unitCh1ReaderTransferState <= unit_reader_transfer_stacker_wait;
+         elsif READER_1401_DELAY_COUNTER = READER_1401_DELAY_TIME then
+            READER_CH1_STACKER_SELECTED <= 0;
+            READER_CH1_FEED_START <= '1';
+            unitCH1ReaderTransferState <= unit_reader_transfer_done;
+         else
+            READER_1401_DELAY_COUNTER <= READER_1401_DELAY_COUNTER + 1;
+            unitCh1ReaderTransferState <= unit_reader_transfer_1401_delay;
+         end if;
+
       -- For a SSF instruction, we need to wait for FORMS_STACKER_GO to go away, or
       -- we will go nuts sending feed requests to the PC Support Program.
 
@@ -1109,13 +1142,16 @@ unitReaderCh1TransferOrStackProcess: process(
 
       when unit_reader_transfer_done =>
          READER_CH1_FEED_START <= '0';      -- Feed process should have already started
-         -- Wait for CPU to deselect us
-         if UNIT_SELECT_UNIT_1 = '1' and MC_READY_TO_BUFFER = '0' then   
+         -- Wait for CPU to deselect us.  For 1401 mode, that will have already happened, 
+         -- because of the extra delay, so we will have missed the deselect in 1401 mode.         
+         if MC_1401_MODE_TO_BUFFER = '1' and
+            UNIT_SELECT_UNIT_1 = '1' and MC_READY_TO_BUFFER = '0' then   
             unitCh1ReaderTransferState <= unit_reader_transfer_done;
          else
             -- Clean up / reset signals, and go idle
             READER_CH1_BUFFER_TRANSFERRING <= '0';
             READER_CH1_BUFFER_SCAN_POSITION <= 0;         
+            READER_1401_DELAY_COUNTER <= 0;
             unitReaderDelayCounter <= 0;
             unitReaderStrobeCounter <= 0;
             -- READER_CH1_FED <= '0';

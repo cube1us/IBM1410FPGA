@@ -460,11 +460,16 @@ architecture behavioral of IBM1410_10K_RAM_INIT is
 --  012345678901234568901223
 --  @R00115-J00200bJ00301bhh       (h == . for halt)
 
+--  1401 Branch to reader test at location 06000 (gets overwritten by first card  ;) )
+
+   00000 => X"8A", 00001 => X"F2", 00002 => X"2A", 00003 => X"8A",
+   00004 => X"1A", 00005 => X"80", 00006 => X"FB", 00007 => X"FB",
+
 -- For now, jump to printer test, location 800
 
-   00000 => X"31", 00001 => X"61", 00002 => X"8A", 00003 => X"8A",
-   00004 => X"08", 00005 => X"8A", 00006 => X"8A", 00007 => X"80",
-   00008 => X"FB",
+--   00000 => X"31", 00001 => X"61", 00002 => X"8A", 00003 => X"8A",
+--   00004 => X"08", 00005 => X"8A", 00006 => X"8A", 00007 => X"80",
+--   00008 => X"FB",
 
 -- Address set to 00000
 
@@ -813,6 +818,9 @@ architecture behavioral of IBM1410_10K_RAM_INIT is
    03132 => X"7F",  -- GMWM for print test data
 
    05080 => X"7F",  -- GMWM for reader test buffer
+
+   06000 => X"C1", 06001 => X"C1", 06002 => X"62", 06003 => X"02",
+   06004 => X"C1", 06005 => X"FB", 06006 => X"FB",
 
 
      -- For now, leave high memory uninitialized.

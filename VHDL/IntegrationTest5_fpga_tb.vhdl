@@ -250,13 +250,13 @@ uut_process: process is
   SW(15) <= '0'; -- Mode DISPLAY
   SW(14) <= '0'; -- Mode ALTER
   SW(2) <= '1';  -- Suppress lamp data transmission if '1'
-  SW(1) <= '0';  -- 1401 Mode (for testing)
+  SW(1) <= '1';  -- 1401 Mode (for testing)
   SW(0) <= '0';  -- FAST console
   
   -- Essentially a watchdog -- in case the real test doesn't complete.
   -- wait for 25 ms;
-  -- wait for 30 ms;
-  wait for 65 ms;
+  wait for 50 ms;
+  -- wait for 65 ms;
   
   -- Tell it unit E channel tape unit 0 is ready
   
@@ -775,13 +775,14 @@ end RECEIVE_TX;
    variable TAUWRITETEST: integer := 0;
    variable TAUREADTMCONDTEST: integer := 0;
    variable IBM1414PUNCHTEST:  integer := 0;
-   variable IBM1414PRINTTEST:  integer := 1;
-   variable IBM1414PRTIRQTST:  integer := 1;
+   variable IBM1414PRINTTEST:  integer := 0;
+   variable IBM1414PRTIRQTST:  integer := 0;
    variable IBM1414READERTEST: integer := 0;
    variable IBM1414READEREOFTEST: integer := 0;
    variable IBM1414READERERRORTEST: integer := 0;
    variable IBM1414READERSSFTEST: integer := 0;
    variable IBM1414CARRIAGETEST:  integer := 0;
+   variable IBM1401READERTEST:    integer := 1;
    
 
   begin
@@ -1771,6 +1772,166 @@ if IBM1414CARRIAGETEST = 1 then
 
 end if;
 
+--  1401 Reader test.  Three instructions.  Start out NOT ready, then go ready
+--  and send a card.  Then wait for a feed request and feed another card.
+--  Then when the second feed request (for third read instruction) happens, wait
+--  a while before sending the card (so, BUSY)
+
+if IBM1401READERTEST = 1 then
+
+    report "Begin 1401 1402 Reader Test.";
+
+    -- Give Ethernet a chance to initialize...
+    btnU <= '0';
+    btnC <= '0';
+    PhyRxErr <= '0';
+    PhyIntn <= '1';    
+    wait for 100 ns;
+    wait until PhyRstn = '1';
+    wait for 1500 us;
+
+    -- Tell it the card reader is not yet ready
+
+    report "1401 Reader Test: Starting out not ready";
+    tx_data(431 downto 0) <=
+        X"000101850001028500010485048F140000040004FE2AA8C0672AA8C00EA41140" &
+        X"0000010028000045000823F8AF5ED5E0000A04010002" ;   
+    tx_len <= std_logic_vector(to_unsigned(54,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 54, testName => "Reader NOT Ready Status Packet to FPGA", verbosity => 1);
+    wait for 100 us;
+
+   -- Start up the 1401 program.
+
+    btnC <= '1';
+    report "Pressed Start";
+    wait for 11 ms;
+    btnC <= '0';
+
+   -- Let the 1401 cool its jets for a while
+
+   wait for 2 ms;
+
+   -- Next, send a packet to indicate that the card reader is ready
+   -- (Actually, the 1401 doesn't care about this => .)
+
+   report "1401 Reader Test: Sending reader ready packet";
+   tx_data(367 downto 0) <=
+      X"010101850D9B0C0000040004FE2AA8C0672AA8C016A411400000010020000045" &
+      X"000823F8AF5ED5E0000A04010002" ;
+   tx_len <= std_logic_vector(to_unsigned(46,tx_len'length));
+   wait for 1 ns;
+   SEND_RX(minSize => 46, testName => "Ready Status Packet to FPGA", verbosity => 1);
+   wait for 100 us;
+
+   wait for 2 ms;
+
+   -- Send the first card.  THIS the 1401 should be waiting for.
+
+   report "1401 Reader Test: Sending Ones Reader Data packet to FPGA";
+   tx_data(1007 downto 0) <=
+      X"0001010101010101010101010101010101010101010101010101010101010101" &
+      X"0101010101010101010101010101010101010101010101010101010101010101" &
+      X"010101010101010101010101010101010102018556715C0000040004FE2AA8C0" &
+      X"672AA8C0C6A311400000010070000045000823F8AF5ED5E0000A04010002" ;
+   tx_len <= std_logic_vector(to_unsigned(126,tx_len'length));
+   wait for 1 ns;
+   SEND_RX(minSize => 126, testName => "Sending Ones Packet to FPGA", verbosity => 1);   
+   wait for 10 ns;
+
+   -- Expecting a feed request, so we need to wait for an ARP request, and send
+   -- a reply.
+   
+   report "1401 Reader Test, waiting for ARP request.";
+
+   -- The following may not ever trigger because of the EOF condition.
+
+   RECEIVE_TX(minSize => 60, testName => "1401 Reader UDP ARP REQUEST", verbosity => 1);    
+
+   report "1401 Reader Test: Received ARP request, Building ARP reply";
+
+   -- Set up the ARP reply
+    
+   tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+
+   j := 28*8;
+   i := 0;    
+   while i < 6 loop
+      receivedMac(i*8+7 downto i*8) := rx_data(j-1 downto j-8);
+      j := j - 8; 
+      i := i + 1;
+   end loop;
+
+   BUILD_ARP_FRAME(
+      testName => "1401 Reader Test: Build UDP ARP REPLY",
+      verbosity => 1,
+      srcMac => X"E0D55EAFF823",
+      destMac => receivedMac,
+      arpOperation => X"0002", -- Reply
+      srcIP => X"C0A82A67",    -- Hard coded to match what FPGA is expecting
+      tgtMac => receivedMac,
+      tgtIp => X"C0A82AFE");   -- Hard coded for now till I figure out the offset
+    
+   report "1401 Reader EOF Test: Built ARP Reply Frame";
+    
+   wait for 10 ns;
+   tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+   i := 0;
+   while i < 8*to_integer(unsigned(tx_len)) loop
+      tx_data(8*60-i-1 downto 8*60-i-8) <= tx_arp(i+7 downto i);
+      i := i + 8;       
+   end loop;
+   
+   wait for 100 us;
+    
+   -- tx_data(8*60-1 downto 0) <= tx_arp;
+   SEND_RX(minSize => 60, testName => "1401 Reader Test: Sending  UDP ARP REPLY", verbosity => 1);
+   wait for 1 us;   
+
+   -- Wait for the next Card Read request from the 1401/1414
+
+   RECEIVE_TX(minSize => 60, testName => "1401 Reader Test: Receive 2nd Card Read Request", 
+      verbosity => 2);    
+
+   wait for 5 ms;
+
+   report "1401 Reader: Sending Second card data packet.";
+   tx_data(1007 downto 0) <=
+      X"0040404040404040404040404040404040404040404040404040404040404040" &
+      X"4040404040404040404040404040404040404040404040404040404040404040" &
+      X"4040404040404040404040404040404040020185748F5C0000040004FE2AA8C0" &
+      X"672AA8C0C6A311400000010070000045000823F8AF5ED5E0000A04010002" ;
+   tx_len <= std_logic_vector(to_unsigned(126,tx_len'length));
+
+   wait for 1 ns;
+   SEND_RX(minSize => 126, testName => "1401 Reader Data Packet to FPGA", verbosity => 1);
+
+   -- Wait for the next Card Read request from the 1401/1414
+
+   RECEIVE_TX(minSize => 60, testName => "1401 Reader Test: Receive Read Request", verbosity => 2);    
+
+   wait for 5 ms;  -- Make the 1401 cool its jets.  :)
+
+   report "1401 Reader: Sending Third card data packet.";
+   tx_data(1007 downto 0) <=
+      X"0040404040404040404040404040404040404040404040404040404040404040" &
+      X"4040404040404040404040404040404040404040404040404040404040404040" &
+      X"4040404040404040404040404040404040020185748F5C0000040004FE2AA8C0" &
+      X"672AA8C0C6A311400000010070000045000823F8AF5ED5E0000A04010002" ;
+   tx_len <= std_logic_vector(to_unsigned(126,tx_len'length));
+
+   wait for 1 ns;
+   SEND_RX(minSize => 126, testName => "1401 Reader Data Packet to FPGA", verbosity => 1);
+   wait for 100 us;
+
+   -- Wait for the next Card Read request from the 1401/1414
+
+   RECEIVE_TX(minSize => 60, testName => "1401 Reader Test: Receive Read Request", verbosity => 2);    
+
+    
+   report "Normal End of 1401 Reader Test" severity failure;    
+
+end if;
 
 if LOOPBACKTEST = 1 then
    wait for 1 ms;
