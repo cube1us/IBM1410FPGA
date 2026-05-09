@@ -36,8 +36,8 @@ entity IBM14101414AdapterUnit is
         CHANNEL_STROBE_LENGTH:  integer := 100;        -- 1 us strobe
         CHANNEL_CYCLE_LENGTH:   integer := 1120;       -- 11.2 us per character
         IOSYNC_OUTPUT_FIFO_SIZE: integer := 140;      -- Enough for printer, too
-        -- PUNCH_DELAY_TIME:       integer := 24000000;   -- 240 ms/card in 10ns units
-        PUNCH_DELAY_TIME:       integer :=   100000;   -- 1ms during 1401 punch testing
+        PUNCH_DELAY_TIME:       integer := 24000000;   -- 240 ms/card in 10ns units
+        -- PUNCH_DELAY_TIME:       integer :=   100000;   -- 1ms during 1401 punch testing
         READER_1401_DELAY_TIME: integer :=   800000    -- 8 ms read delay for 1401 to issue SSF
     );
 
