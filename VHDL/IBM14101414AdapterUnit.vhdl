@@ -36,7 +36,8 @@ entity IBM14101414AdapterUnit is
         CHANNEL_STROBE_LENGTH:  integer := 100;        -- 1 us strobe
         CHANNEL_CYCLE_LENGTH:   integer := 1120;       -- 11.2 us per character
         IOSYNC_OUTPUT_FIFO_SIZE: integer := 140;      -- Enough for printer, too
-        PUNCH_DELAY_TIME:       integer := 24000000;   -- 240 ms/card in 10ns units
+        -- PUNCH_DELAY_TIME:       integer := 24000000;   -- 240 ms/card in 10ns units
+        PUNCH_DELAY_TIME:       integer :=   100000;   -- 1ms during 1401 punch testing
         READER_1401_DELAY_TIME: integer :=   800000    -- 8 ms read delay for 1401 to issue SSF
     );
 
@@ -256,6 +257,8 @@ type unitPunchTransferState_type is (
    unit_punch_transfer_wait_channel,
    unit_punch_transfer_getchar,
    unit_punch_transfer_end_of_transfer,
+   unit_punch_transfer_1401_delay,
+   unit_punch_transfer_stacker_wait,
    unit_punch_transfer_start_feed
 );
 
@@ -353,6 +356,7 @@ signal PUNCH_CH1_BUFFER_FILLING:          std_logic := '0';  -- Channel to Buffe
 signal PUNCH_CH1_BUFFER_SENDING:          std_logic := '0';  -- Buffer to Support Program
 signal PUNCH_CH1_STACKER_SELECTED:        integer range 0 to 9 := 0;  -- Selected punch stacker
 signal PUNCH_CH1_START_FEED:              std_logic := '0';  -- True to send card to PC support pgm
+signal PUNCH_1401_DELAY_COUNTER:          integer range 0 to READER_1401_DELAY_TIME := 0;
 
 signal PUNCH_CH1_REQUEST_DATA:            std_logic_vector(8 downto 0) := "000000000";
 
@@ -1268,6 +1272,7 @@ unitCh1PunchTransferProcess: process (
          when unit_punch_transfer_reset =>
             PUNCH_CH1_BUFFER_FILL_POSITION <= 0;
             PUNCH_CH1_START_FEED <= '0';
+            PUNCH_1401_DELAY_COUNTER <= 0;
             unitPunchDelayCounter <= 0;
             unitPunchStrobeCounter <= 0;
             unitCh1PunchTransferState <= unit_punch_transfer_idle;
@@ -1332,12 +1337,44 @@ unitCh1PunchTransferProcess: process (
 
          when unit_punch_transfer_end_of_transfer =>
             if MC_CORRECT_TRANS_TO_BUFFER = '0' then
-               unitCh1PunchTransferState <= unit_punch_transfer_start_feed;
+               if MC_1401_MODE_TO_BUFFER = '1' then
+                  unitCh1PunchTransferState <= unit_punch_transfer_start_feed;
+               else
+                  unitCh1PunchTransferState <= unit_punch_transfer_1401_delay;
+               end if;
             elsif MC_READY_TO_BUFFER = '1' then
                unitCh1PunchTransferState <= unit_punch_transfer_reset;
             else
                unitCh1PunchTransferState <= unit_punch_transfer_end_of_transfer;
-            end if;               
+            end if; 
+            
+         -- In 1401 mode, we have to wait to see if there is going to be a SSF
+         -- instruction
+
+         when unit_punch_transfer_1401_delay => 
+            if MC_FORMS_STACKER_GO = '0' then
+               PUNCH_CH1_STACKER_SELECTED <= UNIT_CH1_STACKER_SELECTED;
+               PUNCH_CH1_START_FEED <= '1';  -- With the stacker selected we can send punch to PC
+               unitCh1PunchTransferState <= unit_punch_transfer_stacker_wait;
+            elsif PUNCH_1401_DELAY_COUNTER = READER_1401_DELAY_TIME then
+               PUNCH_CH1_STACKER_SELECTED <= 0;
+               PUNCH_CH1_START_FEED <= '1';
+               unitCH1PunchTransferState <= unit_punch_transfer_reset;
+            else
+               PUNCH_1401_DELAY_COUNTER <= PUNCH_1401_DELAY_COUNTER + 1;
+               unitCh1PunchTransferState <= unit_punch_transfer_1401_delay;
+            end if;
+
+         -- For a 1401 SSF instruction, we need to wait for FORMS_STACKER_GO to go away, or
+         -- we will go nuts sending punch requests to the PC Support Program.
+
+         when unit_punch_transfer_stacker_wait =>
+            PUNCH_CH1_START_FEED <= '0';  -- Feed process already started.
+            if MC_FORMS_STACKER_GO = '1' then
+               unitCh1PunchTransferState <= unit_punch_transfer_reset;
+            else
+               unitCh1PunchTransferState <= unit_punch_transfer_stacker_wait;
+            end if;
 
          when unit_punch_transfer_start_feed =>
             PUNCH_CH1_START_FEED <= '1';
@@ -1359,6 +1396,7 @@ unitCh1PunchFeedProcess: process (
    UNIT_OUTPUT_FIFO_WRITE_ENABLE,
    UNIT_OUTPUT_FIFO_FULL,
    PUNCH_CH1_BUFFER,
+   PUNCH_CH1_DELAY_COUNTER,
    unitCh1PunchFeedRequestState
    )
 
