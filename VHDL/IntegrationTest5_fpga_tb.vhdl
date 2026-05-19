@@ -773,6 +773,7 @@ end RECEIVE_TX;
    variable TAUREADTEST:  integer := 0;
    variable TAUWRITETEST: integer := 0;
    variable TAUREADTMCONDTEST: integer := 0;
+   variable TAUWRENDOFCORETST: integer := 1;
    variable IBM1414PUNCHTEST:  integer := 0;
    variable IBM1414PRINTTEST:  integer := 0;
    variable IBM1414PRTIRQTST:  integer := 0;
@@ -783,7 +784,7 @@ end RECEIVE_TX;
    variable IBM1414CARRIAGETEST:  integer := 0;
    variable IBM1401READERTEST:    integer := 0;
    variable IBM1401PUNCHTEST:     integer := 0;
-   variable IBM1401PRINTTEST:     integer := 1;
+   variable IBM1401PRINTTEST:     integer := 0;
    
 
   begin
@@ -832,7 +833,7 @@ end RECEIVE_TX;
        srcMac => X"E0D55EAFF823",
        destMac => receivedMac,
        arpOperation => X"0002", -- Reply
-       srcIP => X"C0A82A3C", 
+       srcIP => X"C0A82A67", 
        tgtMac => receivedMac,
        tgtIp => X"C0A82AFE"); -- Hard coded for now till I figure out the offset
     
@@ -976,7 +977,7 @@ if SWITCHTEST = 1 then
        srcMac => X"E0D55EAFF823",
        destMac => receivedMac,
        arpOperation => X"0002", -- Reply
-       srcIP => X"C0A82A3C", 
+       srcIP => X"C0A82A67", 
        tgtMac => receivedMac,
        tgtIp => X"C0A82AFE"); -- Hard coded for now till I figure out the offset
     
@@ -1114,7 +1115,7 @@ if TAUWRITETEST = 1 then
        srcMac => X"E0D55EAFF823",
        destMac => receivedMac,
        arpOperation => X"0002", -- Reply
-       srcIP => X"C0A82A3C", 
+       srcIP => X"C0A82A67", 
        tgtMac => receivedMac,
        tgtIp => X"C0A82AFE"); -- Hard coded for now till I figure out the offset
     
@@ -1153,6 +1154,86 @@ if TAUWRITETEST = 1 then
    report "Normal End of UDP Tape Write Test" severity failure;    
 
 end if;  -- TAPEWRITETEST = 1
+
+if TAUWRENDOFCORETST = 1 then
+
+    report "Begin TAU End of Core Tape Write Test";
+
+    -- Give Ethernet a chance to initialize...
+    btnU <= '0';
+    btnC <= '0';
+    PhyRxErr <= '0';
+    PhyIntn <= '1';    
+    wait for 100 ns;
+    wait until PhyRstn = '1';
+    wait for 1500 us;
+        
+   -- Send a packet to set up the status on tape unit 1
+
+    tx_data(407 downto 0) <=
+        X"2701840401840001848AF0110000040004FE2AA8C0672AA8C011A41140000001" &
+        X"0025000045000823F8AF5ED5E0000A04010002" ;
+    tx_len <= std_logic_vector(to_unsigned(51,tx_len'length));
+    wait for 1 ns;
+    SEND_RX(minSize => 51, testName => "Tau End of Core Status Packet to FPGA", verbosity => 1);   
+
+    btnC <= '1';
+    report "Pressed Start";
+
+    -- Look for the ARP request before we release start.
+
+    RECEIVE_TX(minSize => 60, testName => "Tau End of Core Test TAPE UDP ARP REQUEST", verbosity => 2);    
+
+    -- wait for 10000 us; -- was 10100 
+    wait for 500 us;
+
+    btnC <= '0';   
+    
+    -- Set up the ARP reply
+    
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+
+    j := 28*8;
+    i := 0;    
+    while i < 6 loop
+       receivedMac(i*8+7 downto i*8) := rx_data(j-1 downto j-8);
+       j := j - 8; 
+       i := i + 1;
+    end loop;
+
+    BUILD_ARP_FRAME(
+       testName => "Tau End of Core Test UDP ARP REPLY",
+       verbosity => 1,
+       srcMac => X"E0D55EAFF823",
+       destMac => receivedMac,
+       arpOperation => X"0002", -- Reply
+       srcIP => X"C0A82A67", 
+       tgtMac => receivedMac,
+       tgtIp => X"C0A82AFE"); -- Hard coded for now till I figure out the offset
+    
+    report "Built ARP Reply Frame";
+    
+    wait for 10 ns;
+    tx_len <= std_logic_vector(to_unsigned(60,tx_len'length));
+    i := 0;
+    while i < 8*to_integer(unsigned(tx_len)) loop
+       tx_data(8*60-i-1 downto 8*60-i-8) <= tx_arp(i+7 downto i);
+       i := i + 8;       
+    end loop;
+    
+    wait for 100 us;
+    
+    -- tx_data(8*60-1 downto 0) <= tx_arp;
+    SEND_RX(minSize => 60, testName => "Tau End of Core Test Tape Write UDP ARP REPLY", verbosity => 2);
+    wait for 1 us;
+    
+    -- Then we expect to seee the write request, followed by the tape record data
+
+    RECEIVE_TX(minSize => 60, testName => "Tau end of core Test Tape Write 1 Request", verbosity => 2); 
+
+   report "Normal End of TAU end of core tape write Test" severity failure;      
+   
+end if;   -- TAUWRENDOFCORETST
 
 if TAUREADTMCONDTEST = 1 then
 
