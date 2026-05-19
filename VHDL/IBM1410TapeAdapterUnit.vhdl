@@ -101,7 +101,11 @@ entity IBM1410TapeAdapterUnit is
        -- PC Support System to TAU 
        
        IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE: in STD_LOGIC;
-       IBM1410_TAU_INPUT_FIFO_WRITE_DATA: in STD_LOGIC_VECTOR(7 downto 0)       
+       IBM1410_TAU_INPUT_FIFO_WRITE_DATA: in STD_LOGIC_VECTOR(7 downto 0);
+
+       -- Debugging
+
+       TAU_WRITE_STATE_VECTOR: out STD_LOGIC_VECTOR(4 downto 0)
    );
 
 end IBM1410TapeAdapterUnit;
@@ -171,6 +175,10 @@ constant TAU_SUPPORT_INPUT_DATA_FLAG: integer := 6;    -- This bit set means PC 
 
 constant TAPE_MARK_CHAR: STD_LOGIC_VECTOR(7 downto 0) := "00001111";
 
+-- The following is coded to avoid having to move bit 7 to bit 6.  What we see on the
+-- MC_CPU_TO_TAU_BUS is this bit configuration.
+constant WORD_SEPARATOR_CHAR:  STD_LOGIC_VECTOR(7 downto 0) := "11011101"; 
+
 constant TAPE_TWIDDLE_TIME: integer := 100;  -- 40 us of busy time in TAU minimum.  (TODO: Parameterize)
 
 
@@ -198,6 +206,14 @@ signal OUTPUT_FIFO_FULL: STD_LOGIC := '0';
 signal OUTPUT_FIFO_FULL_NEXT: STD_LOGIC := '0';
 signal OUTPUT_FIFO_WRITE_ENABLE: STD_LOGIC := '0';
 signal OUTPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(8 downto 0) := "000000000";
+
+-- The following is set when we encounter a Word Separator character, and then
+-- reset on the next character after that.
+
+signal NAKED_WS: STD_LOGIC := '0';       
+constant MIN_WS_DELAY: integer := 500;    -- Min time to wait after possible naked WS
+constant MAX_WS_DELAY: integer := 2000;   -- Max time to wait to confirm naked WS is "real"
+signal TAU_WRITE_WS_DELAY_COUNTER: integer range 0 to MAX_WS_DELAY := 0;
 
 signal UART_RESET: STD_LOGIC;
 
@@ -258,10 +274,14 @@ type tauWriteState_type is (
    tau_write_send_char_to_PC,
    tau_write_strobe_channel,
    tau_write_fifo_wait_4,
+   tau_write_wait_last_char,
+   tau_write_check_last_char,
+   tau_write_fifo_wait_5,
+   tau_write_send_last_char,
    tau_write_send_eor_to_PC,
    tau_write_rbc_wait,
    tau_write_done);
-   
+  
 -- States for Backup, Rewind and Rewind/Unload state machine   
    
 type tauBRUEState_type is (
@@ -302,7 +322,7 @@ signal tauWriteXMTChar: STD_LOGIC_VECTOR(8 downto 0) := "000000000";
 signal tauReadXMTChar: STD_LOGIC_VECTOR(8 downto 0) := "000000000";  -- Used to send unit # and operationt to PC
 
 signal tauBRUEStrobe: STD_LOGIC := '0';
-signal tauWriteDataStrobe: STD_LOGIC := '0';
+-- signal tauWriteDataStrobe: STD_LOGIC := '0';
 signal tauReadDataStrobe: STD_LOGIC := '0';  -- Used to send unit # and operation to PC
 
 signal tauTriggerState: tauTriggerState_type := tau_trigger_reset; 
@@ -1049,6 +1069,27 @@ taureadProcess: process(
 
 -- Process to handle a tape write or tape write tape mark request
 
+      -- There HACKs here.  Because of the changes to 13.71.05.1 to make write to
+      -- end of core work properly most of the time, if during a load mode write to end
+      -- of core, if the last two characters at the end of memory (and maybe even just 
+      -- the last one) have word marks, there can be a glitch in MC_DISCONNECT_CALL  that fools
+      -- us into terminating the write before the character after the word separator is written.
+      -- So the hack is to ignore the disconnect call here if we are in load mode (odd parity)
+      -- and the last character was a word separator (101011101 with the flush flag 0).
+
+      -- The problem is that E2 goes empty for a short bit of time, and E1 goes empty in 
+      -- this situation, until E2 gets the real last character.
+      
+      -- (This hack really should also be checking for load mode as well, but that signal is not
+      -- available on the real machine, so I won't add it here.)  And this whole first test
+      -- may not be necessary at all.  If there is a disconnect call it will persist well past
+      -- the strobe anyway.
+
+      -- I looked at trying to fix this on 13.71.05.1, but didn't find a suitable signal
+      -- that made sense to use at gate 4A.
+
+
+
 tauWriteProcess: process(
    FPGA_CLK,
    MC_COMP_RESET_TO_TAPE,
@@ -1092,6 +1133,8 @@ tauWriteProcess: process(
                tauWriteXMTChar'length -1));
             tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH;
             tauWTMLatch <= not MC_WRITE_TAPE_MK_CALL;
+            TAU_WRITE_WS_DELAY_COUNTER <= 0;
+            NAKED_WS <= '0';
             -- Turn off load point bit.
             tauWriteStatus <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE) and "11111011";            
          else
@@ -1149,17 +1192,22 @@ tauWriteProcess: process(
          tauWriteDelayCounter <= 0;
          tauWriteState <= tau_write_fifo_wait_3;         
          
-      -- Wait for FIFO to not be full, and also overlap count up channel wait time
+      -- Wait for FIFO to not be full, and also overlap count up channel wait time.
+      -- (HACK his here, too)
+
       when tau_write_fifo_wait_3 =>
-         if MC_DISCONNECT_CALL = '0' then
+         -- 5/19:  In this state, disconnect only affects WTM, not write.
+         if MC_DISCONNECT_CALL = '0' then -- and 
+            -- (MC_ODD_PARITY_TO_TAPE = '1' or tauWriteXMTChar /= "001011101") then         
             -- DISCONNECT: No more chars - send EOR unless WTM  
             -- NOTE:  Not sure if channel actually does a disconnect on WTM.
-            if tauWTMLatch = '0' then      
-               tauWriteState <= tau_write_fifo_wait_4;
-            else
+            if tauWTMLatch = '1' then      
                tauWriteState <= tau_write_done;
-            end if;           
-         elsif OUTPUT_FIFO_FULL = '1' then
+            -- else  5/19
+               -- tauWriteState <= tau_write_fifo_wait_4;
+            end if; 
+         end if;  -- 5/19          
+         if  OUTPUT_FIFO_FULL = '1' then -- 5/19 was elsif
             if tauWriteDelayCounter /= CHANNEL_CYCLE_LENGTH then
                tauWriteDelayCounter <= tauWriteDelayCounter + 1;
             end if;
@@ -1171,19 +1219,27 @@ tauWriteProcess: process(
       -- Give the channel time to give us a character if we have not already done so.
       -- At that point, if this is a WTM, we are all done.  If we get a disconnect call
       -- we can end the WTM earlier.  (Not sure if we get a disconnect on a WTM, anyway).
+      -- (HACK is here, too)
+
       when tau_write_wait_channel =>
-         if MC_DISCONNECT_CALL = '0' then
+         -- 5/19  At this point, disconnect only applies to WTM
+         if MC_DISCONNECT_CALL = '0' then -- and
+            -- (MC_ODD_PARITY_TO_TAPE = '1' or tauWriteXMTChar /= "001011101") then 
             if tauWTMLatch = '1' then
                tauWriteState <= tau_write_done;
-            else
-               tauWriteState <= tau_write_fifo_wait_4;  -- No more characters!
-            end if;            
-         elsif tauWriteDelayCounter /= CHANNEL_CYCLE_LENGTH then
+            -- else
+            --   tauWriteState <= tau_write_fifo_wait_4;  -- No more characters!
+            end if;        
+         end if;    -- 5/19
+         if tauWriteDelayCounter /= CHANNEL_CYCLE_LENGTH then -- 5/19 elsif
             tauWriteDelayCounter <= tauWriteDelayCounter + 1;
             tauWriteState <= tau_write_wait_channel;
          else
             if tauWTMLatch = '1' then
                tauWriteState <= tau_write_done;
+            -- 5/19
+            elsif MC_DISCONNECT_CALL = '0' then
+               tauWriteState <= tau_write_fifo_wait_4;
             else
                -- Latch character from CPU now, throwing away WM bit
                -- and repositioning check bit where WM bit is normally
@@ -1191,6 +1247,18 @@ tauWriteProcess: process(
                -- tauWriteXMTChar <= '0' & (not MC_CPU_TO_TAU_BUS) and "10111111";
                tauWriteXMTChar <= '0' & not("1" & MC_CPU_TO_TAU_BUS(7) &
                   MC_CPU_TO_TAU_BUS(5 downto 0)); 
+               -- If we are in odd parity (and thus probably Load mode), remember if this
+               -- was a word separator in case it is at the end of the record.
+               -- Two consecutive word separators are OK - it just means the char was
+               -- itself a word separator.
+               if MC_ODD_PARITY_TO_TAPE = '0' and MC_CPU_TO_TAU_BUS = not WORD_SEPARATOR_CHAR then
+                  NAKED_WS <= not NAKED_WS;
+               else
+                  -- Any ordinary character turns off the naked word separator flag,
+                  -- because that just means that character had a word mark, and we
+                  -- are not at the end of core.
+                  NAKED_WS <= '0';
+               end if;
                tauWriteState <= tau_write_char_fifo_wait; 
             end if;                       
          end if;
@@ -1205,7 +1273,8 @@ tauWriteProcess: process(
 
       -- send the character to the PC (strobe)
       when tau_write_send_char_to_PC =>
-         if MC_DISCONNECT_CALL = '0' then
+         if MC_DISCONNECT_CALL = '0' then -- and
+            -- (MC_ODD_PARITY_TO_TAPE = '1' or tauWriteXMTChar /= "001011101") then
             tauWriteState <= tau_write_fifo_wait_4; -- End of record tell the PC
          else          
             tauWriteStrobeCounter <= 0;
@@ -1215,14 +1284,16 @@ tauWriteProcess: process(
       
       -- Having sent the char off to the PC, we can now tell the channel we are
       -- ready for another character.  This is combinatorial logic.
+
       when tau_write_strobe_channel =>
-         if MC_DISCONNECT_CALL = '0' and tauWriteStrobeCounter = 0 then            
+         if MC_DISCONNECT_CALL = '0' and tauWriteStrobeCounter = 0 then -- and
+            -- (MC_ODD_PARITY_TO_TAPE = '1' or tauWriteXMTChar /= "001011101") then         
             tauWriteState <= tau_write_fifo_wait_4; -- End of Record tell the PC          
          elsif tauWriteStrobeCounter /= CHANNEL_STROBE_LENGTH then
             tauWriteStrobeCounter <= tauWriteStrobeCounter + 1;
             tauWriteState <= tau_write_strobe_channel;
          else
-            -- Done strobing channel - go back and wait for next char from PC
+            -- Done strobing channel - go back and wait for next char from the channel
             tauWriteState <= tau_write_fifo_wait_3;
          end if;
 
@@ -1231,10 +1302,59 @@ tauWriteProcess: process(
          tauWriteXMTChar <= "100000000";  -- End of record flag, WITH FLUSH
          if OUTPUT_FIFO_FULL = '1' then
             tauWriteState <= tau_write_fifo_wait_4;
-         else
+         elsif NAKED_WS = '0' then
             tauWriteState <= tau_write_send_eor_to_PC;
+         else
+            -- We have a WS as the last character in binary mode => .
+            tauWriteState <= tau_write_wait_last_char;
          end if;                     
       
+      -- Here is the hack.  We get here by being in odd parity with a "Naked" Word Separator
+      -- at the end of the record.  Since that should not happen we wait at least 5us and no
+      -- more than 20 us to see if the data from channel changes (usually to a group mark).  If
+      -- it does, we send that character.  The diagnostic does NOT do this, but the SGF process
+      -- does.
+
+      when tau_write_wait_last_char =>
+         if TAU_WRITE_WS_DELAY_COUNTER = MIN_WS_DELAY then
+            -- tauWriteState <= tau_write_check_last_char;
+            tauWriteState <= tau_write_wait_last_char;
+         else
+            TAU_WRITE_WS_DELAY_COUNTER <= TAU_WRITE_WS_DELAY_COUNTER + 1;
+            tauWriteState <= tau_write_wait_last_char;
+         end if;
+
+      when tau_write_check_last_char =>
+         -- If we see other than a WS character, send it off to the PC as the last char!
+         -- if MC_CPU_TO_TAU_BUS /= not WORD_SEPARATOR_CHAR then
+         -- tauWriteXMTChar <= "0" & not("1" & MC_CPU_TO_TAU_BUS(7) &
+         --         MC_CPU_TO_TAU_BUS(5 downto 0));
+         --    tauWriteState <= tau_write_fifo_wait_5;            
+         -- elsif TAU_WRITE_WS_DELAY_COUNTER = MAX_WS_DELAY then
+            -- Max time is up.  As near as I can tell, the 1410 never writes a naked
+            -- Word Separator, so this must be a word separator character too.
+         --    tauWriteState <= tau_write_fifo_wait_5;
+         --    NAKED_WS <= '0';
+         -- else
+         --    TAU_WRITE_WS_DELAY_COUNTER <= TAU_WRITE_WS_DELAY_COUNTER + 1;
+         -- end if;
+         tauWriteXMTChar <= "0" & not("1" & MC_CPU_TO_TAU_BUS(7) &
+            MC_CPU_TO_TAU_BUS(5 downto 0));
+         tauWriteState <= tau_write_fifo_wait_5;
+
+      when tau_write_fifo_wait_5 =>
+         if OUTPUT_FIFO_FULL = '1' then
+            tauWriteState <= tau_write_fifo_wait_5;
+         else
+            tauWriteState <= tau_write_send_last_char;
+         end if;
+
+      when tau_write_send_last_char =>
+         -- Strobe to transmit the last character, after the WS
+         -- Then turn off the Naked WS flag, then go back and set up the end of record
+         NAKED_WS <= '0';
+         tauWriteState <= tau_write_fifo_wait_4;
+         
       -- Strobe to transmit the EOR charcter to the PC...  (strobe)
       when tau_write_send_eor_to_PC =>
          tauWriteRBCDelayCounter <= 0;
@@ -1431,6 +1551,7 @@ OUTPUT_FIFO_WRITE_ENABLE <= '1' when
    tauWriteState = tau_write_send_unit_to_PC or
    tauWriteState = tau_write_send_action_to_PC or
    tauWritestate = tau_write_send_char_to_PC or
+   tauWriteState = tau_write_send_last_char or
    tauWritestate = tau_write_send_eor_to_PC
    else '0';
    
@@ -1468,9 +1589,32 @@ MC_TAPE_IN_PROCESS <= '0' when
 MC_TAPE_ERROR <= '1';
  
 MC_TAPE_WRITE_STROBE <= '0' when
-   tauWriteState = tau_write_strobe_channel
+   -- 5/19 Don't strobe if coutner is 0 in case we have a disconnect at that point
+   tauWriteState = tau_write_strobe_channel and tauWriteStrobeCounter > 0
    else '1';
    
 MC_WRITE_CONDITION <= not tauWriteBusy;
-       
+
+TAU_WRITE_STATE_VECTOR <= 
+        "00001" when tauWriteState = tau_write_idle
+   else "00010" when tauWriteState = tau_write_fifo_wait_1
+   else "00011" when tauWriteState = tau_write_send_unit_to_PC
+   else "00100" when tauWriteState = tau_write_fifo_wait_2
+   else "00101" when tauWriteState = tau_write_prepare_action
+   else "00110" when tauWriteState = tau_write_send_action_to_PC
+   else "00111" when tauWriteState = tau_write_fifo_wait_3
+   else "01000" when tauWriteState = tau_write_wait_channel
+   else "01001" when tauWriteState = tau_write_char_fifo_wait
+   else "01010" when tauWriteState = tau_write_send_char_to_PC
+   else "01011" when tauWriteState = tau_write_strobe_channel
+   else "01100" when tauWriteState = tau_write_fifo_wait_4
+   else "01101" when tauWriteState = tau_write_wait_last_char
+   else "01110" when tauWriteState = tau_write_check_last_char
+   else "01111" when tauWriteState = tau_write_fifo_wait_5
+   else "10000" when tauWriteState = tau_write_send_last_char
+   else "10001" when tauWriteState = tau_write_send_eor_to_PC
+   else "10010" when tauWriteState = tau_write_rbc_wait
+   else "10011" when tauWriteState = tau_write_done
+   else "11111";
+   
 end Behavioral;
