@@ -1096,7 +1096,12 @@ architecture behavioral of IntegrationTest5_fpga is
           -- PC Support System to TAU 
        
           IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE: in STD_LOGIC;
-          IBM1410_TAU_INPUT_FIFO_WRITE_DATA: in STD_LOGIC_VECTOR(7 downto 0)       
+          IBM1410_TAU_INPUT_FIFO_WRITE_DATA: in STD_LOGIC_VECTOR(7 downto 0);      
+
+		  -- Debugging
+
+		  TAU_WRITE_STATE_VECTOR: out STD_LOGIC_VECTOR(4 downto 0)
+
       );
     
     end component;	
@@ -2456,6 +2461,9 @@ end component udp_fpga;
    signal IBM1410_TAU_XMT_UART_GRANT_F_CH: STD_LOGIC := '0';              
    signal IBM1410_TAU_XMT_UDP_FLUSH_F_CH:  STD_LOGIC := '0';   
 
+   signal TAU_WRITE_STATE_VECTOR: STD_LOGIC_VECTOR(4 downto 0) := "11111";
+
+
    -- IBM 1414 I/O Synchronizer UART/UDP output signals
 
    signal IBM1410_1414_XMT_UART_DATA:     STD_LOGIC_VECTOR(7 downto 0) := "00000000";
@@ -3651,7 +3659,7 @@ memory: IBM1410Memory
        CHANNEL_CYCLE_LENGTH => CHANNEL_CYCLE_LENGTH,     -- Generic at top
        TAU_IRG_DELAY => TAU_IRG_DELAY,                   -- Generic at top
        TAU_WRITE_RBC_DELAY => TAU_WRITE_RBC_DELAY,       -- Generic at top
-       TAU_OUTPUT_FIFO_SIZE => 80)     -- Test with a really small internal FIFO
+       TAU_OUTPUT_FIFO_SIZE => 1024)                     -- Test with a really small internal FIFO
    port map (
        FPGA_CLK => FPGA_CLK,
        MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_E_CH,
@@ -3713,8 +3721,9 @@ memory: IBM1410Memory
 --       IBM1410_TAU_INPUT_FIFO_WRITE_DATA => UART_INPUT_FIFO_WRITE_DATA
 
        IBM1410_TAU_INPUT_FIFO_WRITE_ENABLE => UDP_INPUT_FIFO_WRITE_ENABLES(INPUT_SUBSYSTEM_TAU_CH_1_INDEX),
-       IBM1410_TAU_INPUT_FIFO_WRITE_DATA => UDP_INPUT_FIFO_WRITE_DATA
-
+       IBM1410_TAU_INPUT_FIFO_WRITE_DATA => UDP_INPUT_FIFO_WRITE_DATA,
+  
+	   TAU_WRITE_STATE_VECTOR => TAU_WRITE_STATE_VECTOR
    );
 
 -- Instantiate the Channel 2 TAU Adapter - try shorter time for cycle length....
@@ -3725,7 +3734,7 @@ memory: IBM1410Memory
        CHANNEL_CYCLE_LENGTH => CHANNEL_CYCLE_LENGTH,    -- Wait time between chars for channel
        TAU_IRG_DELAY => TAU_IRG_DELAY,                  -- Tape drive startup delay
        TAU_WRITE_RBC_DELAY => TAU_WRITE_RBC_DELAY,      -- Tape driver read back check delay
-       TAU_OUTPUT_FIFO_SIZE => 80)     -- Test with a really small internal FIFO       
+       TAU_OUTPUT_FIFO_SIZE => 1024)                    -- Test with a really small internal FIFO       
    port map (
        FPGA_CLK => FPGA_CLK,
        MC_COMP_RESET_TO_TAPE => MC_COMP_RESET_TO_TAPE_STAR_F_CH,
@@ -4693,6 +4702,8 @@ outputSubsystemOutput: if USE_UDP_OUTPUT_TEST = 1 generate
    LED(10) <= LAMP_15A1B15; -- Address Check   
 
    LED(9) <= SWITCH_ROT_I_O_UNIT_DK1(3);  -- Verify Printer I/O Priority selected
+
+   LED(4 downto 0) <= TAU_WRITE_STATE_VECTOR;
 
    -- Signal "copies"
 
