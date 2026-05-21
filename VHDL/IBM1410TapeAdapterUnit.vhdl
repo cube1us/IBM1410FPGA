@@ -37,7 +37,7 @@ entity IBM1410TapeAdapterUnit is
 
    GENERIC(
       CHANNEL_STROBE_LENGTH: integer := 100;    -- 1 us strobe
-      CHANNEL_CYCLE_LENGTH:  integer := 1120;   -- 11.2us per 800 bpi char
+      CHANNEL_CYCLE_LENGTH:  integer := 1120;   -- 11.2us per 800 bpi char at 112.5 ips 90,000/sec
       TAU_IRG_DELAY:         integer := 10000;   -- Delay for IRG startup to try to fix overlap issue (100 us)
       TAU_WRITE_RBC_DELAY:   integer := 3000000; -- Delay in 10ns units to use for EOR to avoid PC overrun
       TAU_OUTPUT_FIFO_SIZE:  integer := 80      -- Size of outbound FIFO
@@ -274,10 +274,10 @@ type tauWriteState_type is (
    tau_write_send_char_to_PC,
    tau_write_strobe_channel,
    tau_write_fifo_wait_4,
-   tau_write_wait_last_char,
-   tau_write_check_last_char,
-   tau_write_fifo_wait_5,
-   tau_write_send_last_char,
+   -- tau_write_wait_last_char,
+   -- tau_write_check_last_char,
+   -- tau_write_fifo_wait_5,
+   -- tau_write_send_last_char,
    tau_write_send_eor_to_PC,
    tau_write_rbc_wait,
    tau_write_done);
@@ -1134,7 +1134,7 @@ tauWriteProcess: process(
             tauWriteDelayCounter <= CHANNEL_CYCLE_LENGTH;
             tauWTMLatch <= not MC_WRITE_TAPE_MK_CALL;
             TAU_WRITE_WS_DELAY_COUNTER <= 0;
-            NAKED_WS <= '0';
+            -- NAKED_WS <= '0';
             -- Turn off load point bit.
             tauWriteStatus <= TAU_TAPE_UNIT_STATUSES(TAU_SELECTED_TAPE_DRIVE) and "11111011";            
          else
@@ -1252,7 +1252,7 @@ tauWriteProcess: process(
                -- Two consecutive word separators are OK - it just means the char was
                -- itself a word separator.
                if MC_ODD_PARITY_TO_TAPE = '0' and MC_CPU_TO_TAU_BUS = not WORD_SEPARATOR_CHAR then
-                  NAKED_WS <= not NAKED_WS;
+                  NAKED_WS <= '0'; -- NAKED_WS <= not NAKED_WS;
                else
                   -- Any ordinary character turns off the naked word separator flag,
                   -- because that just means that character had a word mark, and we
@@ -1306,7 +1306,8 @@ tauWriteProcess: process(
             tauWriteState <= tau_write_send_eor_to_PC;
          else
             -- We have a WS as the last character in binary mode => .
-            tauWriteState <= tau_write_wait_last_char;
+         tauWriteState <= tau_write_send_eor_to_PC; --tau_write_wait_last_char;     --  5/21
+
          end if;                     
       
       -- Here is the hack.  We get here by being in odd parity with a "Naked" Word Separator
@@ -1315,16 +1316,18 @@ tauWriteProcess: process(
       -- it does, we send that character.  The diagnostic does NOT do this, but the SGF process
       -- does.
 
-      when tau_write_wait_last_char =>
-         if TAU_WRITE_WS_DELAY_COUNTER = MIN_WS_DELAY then
-            -- tauWriteState <= tau_write_check_last_char;
-            tauWriteState <= tau_write_wait_last_char;
-         else
-            TAU_WRITE_WS_DELAY_COUNTER <= TAU_WRITE_WS_DELAY_COUNTER + 1;
-            tauWriteState <= tau_write_wait_last_char;
-         end if;
+      -- Removed 5/21
 
-      when tau_write_check_last_char =>
+      -- when tau_write_wait_last_char =>
+      --   if TAU_WRITE_WS_DELAY_COUNTER = MIN_WS_DELAY then
+      --      -- tauWriteState <= tau_write_check_last_char;
+      --      tauWriteState <= tau_write_wait_last_char;
+      --   else
+      --      TAU_WRITE_WS_DELAY_COUNTER <= TAU_WRITE_WS_DELAY_COUNTER + 1;
+      --      tauWriteState <= tau_write_wait_last_char;
+      --   end if;
+
+      -- when tau_write_check_last_char =>
          -- If we see other than a WS character, send it off to the PC as the last char!
          -- if MC_CPU_TO_TAU_BUS /= not WORD_SEPARATOR_CHAR then
          -- tauWriteXMTChar <= "0" & not("1" & MC_CPU_TO_TAU_BUS(7) &
@@ -1338,23 +1341,25 @@ tauWriteProcess: process(
          -- else
          --    TAU_WRITE_WS_DELAY_COUNTER <= TAU_WRITE_WS_DELAY_COUNTER + 1;
          -- end if;
-         tauWriteXMTChar <= "0" & not("1" & MC_CPU_TO_TAU_BUS(7) &
-            MC_CPU_TO_TAU_BUS(5 downto 0));
-         tauWriteState <= tau_write_fifo_wait_5;
+      --   tauWriteXMTChar <= "0" & not("1" & MC_CPU_TO_TAU_BUS(7) &
+      --      MC_CPU_TO_TAU_BUS(5 downto 0));
+      --   tauWriteState <= tau_write_fifo_wait_5;
 
-      when tau_write_fifo_wait_5 =>
-         if OUTPUT_FIFO_FULL = '1' then
-            tauWriteState <= tau_write_fifo_wait_5;
-         else
-            tauWriteState <= tau_write_send_last_char;
-         end if;
+      -- when tau_write_fifo_wait_5 =>
+      --   if OUTPUT_FIFO_FULL = '1' then
+      --      tauWriteState <= tau_write_fifo_wait_5;
+      --   else
+      --      tauWriteState <= tau_write_send_last_char;
+      --   end if;
 
-      when tau_write_send_last_char =>
+      -- when tau_write_send_last_char =>
          -- Strobe to transmit the last character, after the WS
          -- Then turn off the Naked WS flag, then go back and set up the end of record
-         NAKED_WS <= '0';
-         tauWriteState <= tau_write_fifo_wait_4;
-         
+      --   NAKED_WS <= '0';
+      --   tauWriteState <= tau_write_fifo_wait_4;
+        
+      -- End of section removed 5/21
+
       -- Strobe to transmit the EOR charcter to the PC...  (strobe)
       when tau_write_send_eor_to_PC =>
          tauWriteRBCDelayCounter <= 0;
@@ -1551,7 +1556,7 @@ OUTPUT_FIFO_WRITE_ENABLE <= '1' when
    tauWriteState = tau_write_send_unit_to_PC or
    tauWriteState = tau_write_send_action_to_PC or
    tauWritestate = tau_write_send_char_to_PC or
-   tauWriteState = tau_write_send_last_char or
+   -- tauWriteState = tau_write_send_last_char or  5/21
    tauWritestate = tau_write_send_eor_to_PC
    else '0';
    
@@ -1608,10 +1613,10 @@ TAU_WRITE_STATE_VECTOR <=
    else "01010" when tauWriteState = tau_write_send_char_to_PC
    else "01011" when tauWriteState = tau_write_strobe_channel
    else "01100" when tauWriteState = tau_write_fifo_wait_4
-   else "01101" when tauWriteState = tau_write_wait_last_char
-   else "01110" when tauWriteState = tau_write_check_last_char
-   else "01111" when tauWriteState = tau_write_fifo_wait_5
-   else "10000" when tauWriteState = tau_write_send_last_char
+   -- else "01101" when tauWriteState = tau_write_wait_last_char
+   -- else "01110" when tauWriteState = tau_write_check_last_char
+   -- else "01111" when tauWriteState = tau_write_fifo_wait_5
+   -- else "10000" when tauWriteState = tau_write_send_last_char
    else "10001" when tauWriteState = tau_write_send_eor_to_PC
    else "10010" when tauWriteState = tau_write_rbc_wait
    else "10011" when tauWriteState = tau_write_done
