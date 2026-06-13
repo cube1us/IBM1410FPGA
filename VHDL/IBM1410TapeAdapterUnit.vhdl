@@ -210,7 +210,7 @@ signal OUTPUT_FIFO_WRITE_DATA: STD_LOGIC_VECTOR(8 downto 0) := "000000000";
 -- The following is set when we encounter a Word Separator character, and then
 -- reset on the next character after that.
 
-signal NAKED_WS: STD_LOGIC := '0';       
+--  5/21  signal NAKED_WS: STD_LOGIC := '0';       
 
 signal UART_RESET: STD_LOGIC;
 
@@ -1218,14 +1218,15 @@ tauWriteProcess: process(
                -- was a word separator in case it is at the end of the record.
                -- Two consecutive word separators are OK - it just means the char was
                -- itself a word separator.
-               if MC_ODD_PARITY_TO_TAPE = '0' and MC_CPU_TO_TAU_BUS = not WORD_SEPARATOR_CHAR then
-                  NAKED_WS <= '0'; -- NAKED_WS <= not NAKED_WS;
-               else
+               -- Removed 5/21 after increasing time per character to 12 us (1200 x 10 ns)
+               -- if MC_ODD_PARITY_TO_TAPE = '0' and MC_CPU_TO_TAU_BUS = not WORD_SEPARATOR_CHAR then
+               --   NAKED_WS <= '0'; -- NAKED_WS <= not NAKED_WS;
+               -- else
                   -- Any ordinary character turns off the naked word separator flag,
                   -- because that just means that character had a word mark, and we
                   -- are not at the end of core.
-                  NAKED_WS <= '0';
-               end if;
+               --    NAKED_WS <= '0';
+               -- end if;
                tauWriteState <= tau_write_char_fifo_wait; 
             end if;                       
          end if;
@@ -1267,8 +1268,8 @@ tauWriteProcess: process(
          tauWriteXMTChar <= "100000000";  -- End of record flag, WITH FLUSH
          if OUTPUT_FIFO_FULL = '1' then
             tauWriteState <= tau_write_fifo_wait_4;
-         elsif NAKED_WS = '0' then
-            tauWriteState <= tau_write_send_eor_to_PC;
+         --    elsif NAKED_WS = '0' then  5/21
+         --    tauWriteState <= tau_write_send_eor_to_PC;
          else
             -- This used to go to a state where ee have a WS as the last character in binary mode
             -- Testing will reveal if I can remove it.
